@@ -5274,26 +5274,28 @@
   // "menu.section.icon.health": "Health check menu section",
   "menu.section.icon.health": "Health check menu section",
 
+  "menu.section.icon.health": "Állapotellenőrzés menüpont",
+
   // "menu.section.icon.import": "Import menu section",
-  "menu.section.icon.import": "Import menü felület",
+  "menu.section.icon.import": "Importálás menüpont", // Eredeti: "Import menü felület" -> Javított: "Importálás menüpont"
 
   // "menu.section.icon.new": "New menu section",
-  "menu.section.icon.new": "Új menü felület",
+  "menu.section.icon.new": "Új menüpont", // Eredeti: "Új menü felület" -> Javított: "Új menüpont"
 
   // "menu.section.icon.pin": "Pin sidebar",
   "menu.section.icon.pin": "Oldalsáv rögzítése",
 
   // "menu.section.icon.unpin": "Unpin sidebar",
-  "menu.section.icon.unpin": "Oldalbár rögzítés megszüntetése",
+  "menu.section.icon.unpin": "Oldalsáv rögzítésének feloldása", // Eredeti: "Oldalbár rögzítés megszüntetése" -> Javított: "Oldalsáv rögzítésének feloldása"
 
   // "menu.section.icon.notifications": "Notifications menu section",
-  "menu.section.icon.notifications": "Notifications menu section",
+  "menu.section.icon.notifications": "Értesítések menüpont", // Eredeti: "Notifications menu section" -> Javított: "Értesítések menüpont"
 
   // "menu.section.import": "Import",
-  "menu.section.import": "Import",
+  "menu.section.import": "Importálás", // Eredeti: "Import" -> Javított: "Importálás"
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
-  "menu.section.import_batch": "Tömeges import (ZIP)",
+  "menu.section.import_batch": "Csoportos import (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Metaadat",
@@ -5308,10 +5310,10 @@
   "menu.section.new_community": "Közösség",
 
   // "menu.section.new_item": "Item",
-  "menu.section.new_item": "Tárgy",
+  "menu.section.new_item": "Tétel", // Eredeti: "Tárgy" -> Javított: "Tétel"
 
   // "menu.section.new_item_version": "Item Version",
-  "menu.section.new_item_version": "Tárgy változat",
+  "menu.section.new_item_version": "Tételverzió", // Eredeti: "Tárgy változat" -> Javított: "Tételverzió"
 
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Folyamat",
@@ -5323,22 +5325,22 @@
   "menu.section.quality-assurance": "Minőségbiztosítás",
 
   // "menu.section.notifications_publication-claim": "Publication Claim",
-  "menu.section.notifications_publication-claim": "Publikáció igénylése",
+  "menu.section.notifications_publication-claim": "Publikációigénylés", // Eredeti: "Publikáció igénylése" -> Javított: "Publikációigénylés"
 
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Oldalsáv rögzítése",
 
   // "menu.section.unpin": "Unpin sidebar",
-  "menu.section.unpin": "Oldalsáv rögzítés megszüntetése",
+  "menu.section.unpin": "Oldalsáv rögzítésének feloldása",
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Folyamatok",
 
   // "menu.section.health": "Health",
-  "menu.section.health": "Monitoring",
+  "menu.section.health": "Állapot", // Eredeti: "Monitoring" -> Javított: "Állapot"
 
   // "menu.section.registries": "Registries",
-  "menu.section.registries": "Leíró adatbázisok",
+  "menu.section.registries": "Nyilvántartások", // Eredeti: "Leíró adatbázisok" -> Javított: "Nyilvántartások"
 
   // "menu.section.registries_format": "Format",
   "menu.section.registries_format": "Formátum",
@@ -5350,52 +5352,52 @@
   "menu.section.statistics": "Statisztikák",
 
   // "menu.section.statistics_task": "Statistics Task",
-  "menu.section.statistics_task": "Statisztikai feladatok",
+  "menu.section.statistics_task": "Statisztikai feladat", // Eredeti: "Statisztikai feladatok" -> Javított: "Statisztikai feladat"
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
-  "menu.section.toggle.access_control": "Váltás a Hozzáférés kontrol felületre",
+  "menu.section.toggle.access_control": "Hozzáférés-szabályozás szakasz váltása", // Eredeti: "Váltás a Hozzáférés kontrol felületre" -> Javított: "Hozzáférés-szabályozás szakasz váltása"
 
   // "menu.section.toggle.reports": "Toggle Reports section",
-  "menu.section.toggle.reports": "Toggle Reports section",
+  "menu.section.toggle.reports": "Jelentések szakasz váltása", // Eredeti: "Toggle Reports section" -> Javított: "Jelentések szakasz váltása"
 
   // "menu.section.toggle.control_panel": "Toggle Control Panel section",
-  "menu.section.toggle.control_panel": "Váltás a Vezérlőpult felületre",
+  "menu.section.toggle.control_panel": "Vezérlőpult szakasz váltása", // Eredeti: "Váltás a Vezérlőpult felületre" -> Javított: "Vezérlőpult szakasz váltása"
 
   // "menu.section.toggle.curation_task": "Toggle Curation Task section",
-  "menu.section.toggle.curation_task": "Gondozási feladat felületre váltás",
+  "menu.section.toggle.curation_task": "Gondozási feladat szakasz váltása",
 
   // "menu.section.toggle.edit": "Toggle Edit section",
-  "menu.section.toggle.edit": "Szerkesztés felületre váltás",
+  "menu.section.toggle.edit": "Szerkesztés szakasz váltása",
 
   // "menu.section.toggle.export": "Toggle Export section",
-  "menu.section.toggle.export": "Export felületre váltás",
+  "menu.section.toggle.export": "Exportálás szakasz váltása",
 
   // "menu.section.toggle.find": "Toggle Find section",
-  "menu.section.toggle.find": "Kereső felületre váltás",
+  "menu.section.toggle.find": "Keresés szakasz váltása",
 
   // "menu.section.toggle.import": "Toggle Import section",
-  "menu.section.toggle.import": "Import felületre váltás",
+  "menu.section.toggle.import": "Importálás szakasz váltása",
 
   // "menu.section.toggle.new": "Toggle New section",
-  "menu.section.toggle.new": "Új felületre váltás",
+  "menu.section.toggle.new": "Új szakasz váltása",
 
   // "menu.section.toggle.registries": "Toggle Registries section",
-  "menu.section.toggle.registries": "Leíró adatbázisok felületre váltás",
+  "menu.section.toggle.registries": "Nyilvántartások szakasz váltása",
 
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
-  "menu.section.toggle.statistics_task": "Statisztikai feladatok felületre váltás",
+  "menu.section.toggle.statistics_task": "Statisztikai feladat szakasz váltása",
 
   // "menu.section.workflow": "Administer Workflow",
-  "menu.section.workflow": "Workflow kezelés",
+  "menu.section.workflow": "Munkafolyamat adminisztráció",
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
-  "metadata-export-search.tooltip": "Keresés eredményének exportálása CSV formátumban",
+  "metadata-export-search.tooltip": "Keresési eredmények exportálása CSV-ként", // Eredeti: "Keresés eredményének exportálása CSV formátumban" -> Javított: "Keresési eredmények exportálása CSV-ként"
 
   // "metadata-export-search.submit.success": "The export was started successfully",
-  "metadata-export-search.submit.success": "Az export sikeresen elindult",
+  "metadata-export-search.submit.success": "Az exportálás sikeresen elindult.",
 
   // "metadata-export-search.submit.error": "Starting the export has failed",
-  "metadata-export-search.submit.error": "Az export elindítása sikertelen",
+  "metadata-export-search.submit.error": "Az exportálás indítása sikertelen.",
 
   // "mydspace.breadcrumbs": "MyDSpace",
   "mydspace.breadcrumbs": "MyDSpace",
@@ -5404,73 +5406,73 @@
   "mydspace.description": "",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  "mydspace.messages.controller-help": "Válassza ezt, hogy üzenjen a tárgy feltöltőjének.",
+  "mydspace.messages.controller-help": "Válassza ezt az opciót üzenet küldéséhez a tétel beküldőjének.", // Eredeti: "Válassza ezt, hogy üzenjen a tárgy feltöltőjének." -> Javított: "Válassza ezt az opciót üzenet küldéséhez a tétel beküldőjének."
 
   // "mydspace.messages.description-placeholder": "Insert your message here...",
-  "mydspace.messages.description-placeholder": "Írja ide az üzenetét...",
+  "mydspace.messages.description-placeholder": "Írja ide üzenetét...",
 
   // "mydspace.messages.hide-msg": "Hide message",
-  "mydspace.messages.hide-msg": "Rejtse el az üzenetet",
+  "mydspace.messages.hide-msg": "Üzenet elrejtése",
 
   // "mydspace.messages.mark-as-read": "Mark as read",
-  "mydspace.messages.mark-as-read": "Jelölje meg elolvasottként",
+  "mydspace.messages.mark-as-read": "Megjelölés olvasottként",
 
   // "mydspace.messages.mark-as-unread": "Mark as unread",
-  "mydspace.messages.mark-as-unread": "Jelölje meg el nem olvasottként",
+  "mydspace.messages.mark-as-unread": "Megjelölés olvasatlanként", // Eredeti: "Jelölje meg el nem olvasottként" -> Javított: "Megjelölés olvasatlanként"
 
   // "mydspace.messages.no-content": "No content.",
   "mydspace.messages.no-content": "Nincs tartalom.",
 
   // "mydspace.messages.no-messages": "No messages yet.",
-  "mydspace.messages.no-messages": "Még nincs üzenet.",
+  "mydspace.messages.no-messages": "Még nincsenek üzenetek.", // Eredeti: "Még nincs üzenet." -> Javított: "Még nincsenek üzenetek."
 
   // "mydspace.messages.send-btn": "Send",
-  "mydspace.messages.send-btn": "Elküld",
+  "mydspace.messages.send-btn": "Küldés", // Eredeti: "Elküld" -> Javított: "Küldés"
 
   // "mydspace.messages.show-msg": "Show message",
-  "mydspace.messages.show-msg": "Üzenetet megjelenít",
+  "mydspace.messages.show-msg": "Üzenet megjelenítése",
 
   // "mydspace.messages.subject-placeholder": "Subject...",
   "mydspace.messages.subject-placeholder": "Tárgy...",
 
   // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
-  "mydspace.messages.submitter-help": "Válassza ezt, hogy üzenjen a kontrollernek.",
+  "mydspace.messages.submitter-help": "Válassza ezt az opciót üzenet küldéséhez a vezérlőnek.", // Eredeti: "Válassza ezt, hogy üzenjen a kontrollernek." -> Javított: "Válassza ezt az opciót üzenet küldéséhez a vezérlőnek."
 
   // "mydspace.messages.title": "Messages",
   "mydspace.messages.title": "Üzenetek",
 
   // "mydspace.messages.to": "To",
-  "mydspace.messages.to": "Címzett",
+  "mydspace.messages.to": "Címzett:", // Eredeti: "Címzett" -> Javított: "Címzett:"
 
   // "mydspace.new-submission": "New submission",
-  "mydspace.new-submission": "Új feltöltés",
+  "mydspace.new-submission": "Új beküldés", // Eredeti: "Új feltöltés" -> Javított: "Új beküldés"
 
   // "mydspace.new-submission-external": "Import metadata from external source",
-  "mydspace.new-submission-external": "Metaadat importálása külső forrásból",
+  "mydspace.new-submission-external": "Metaadatok importálása külső forrásból",
 
   // "mydspace.new-submission-external-short": "Import metadata",
   "mydspace.new-submission-external-short": "Metaadat importálása",
 
   // "mydspace.results.head": "Your submissions",
-  "mydspace.results.head": "Az ön feltöltései",
+  "mydspace.results.head": "Beküldései", // Eredeti: "Az ön feltöltései" -> Javított: "Beküldései"
 
   // "mydspace.results.no-abstract": "No Abstract",
-  "mydspace.results.no-abstract": "Nincs kivonat",
+  "mydspace.results.no-abstract": "Nincs absztrakt", // Eredeti: "Nincs kivonat" -> Javított: "Nincs absztrakt"
 
   // "mydspace.results.no-authors": "No Authors",
   "mydspace.results.no-authors": "Nincsenek szerzők",
 
   // "mydspace.results.no-collections": "No Collections",
-  "mydspace.results.no-collections": "Nincs gyűjtemény",
+  "mydspace.results.no-collections": "Nincsenek gyűjtemények",
 
   // "mydspace.results.no-date": "No Date",
   "mydspace.results.no-date": "Nincs dátum",
 
   // "mydspace.results.no-files": "No Files",
-  "mydspace.results.no-files": "Nincs fájl",
+  "mydspace.results.no-files": "Nincsenek fájlok",
 
   // "mydspace.results.no-results": "There were no items to show",
-  "mydspace.results.no-results": "Nincs megjeleníthető tárgy",
+  "mydspace.results.no-results": "Nincsenek megjeleníthető tételek.", // Eredeti: "Nincs megjeleníthető tárgy" -> Javított: "Nincsenek megjeleníthető tételek."
 
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Nincs cím",
@@ -5479,86 +5481,86 @@
   "mydspace.results.no-uri": "Nincs URI",
 
   // "mydspace.search-form.placeholder": "Search in MyDSpace...",
-  "mydspace.search-form.placeholder": "Keresés a repozitóriumban...",
+  "mydspace.search-form.placeholder": "Keresés a MyDSpace-ben...", // Eredeti: "Keresés a repozitóriumban..." -> Javított: "Keresés a MyDSpace-ben..."
 
   // "mydspace.show.workflow": "Workflow tasks",
-  "mydspace.show.workflow": "Összes workflow feladat",
+  "mydspace.show.workflow": "Munkafolyamat-feladatok", // Eredeti: "Összes workflow feladat" -> Javított: "Munkafolyamat-feladatok"
 
   // "mydspace.show.workspace": "Your submissions",
-  "mydspace.show.workspace": "Az Ön feltöltései",
+  "mydspace.show.workspace": "Beküldései", // Eredeti: "Az Ön feltöltései" -> Javított: "Beküldései"
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
-  "mydspace.show.supervisedWorkspace": "Jóváhagyásra váró elemek",
+  "mydspace.show.supervisedWorkspace": "Felügyelt tételek", // Eredeti: "Jóváhagyásra váró elemek" -> Javított: "Felügyelt tételek"
 
   // "mydspace.status": "My DSpace status:",
   // TODO New key - Add a translation
-  "mydspace.status": "My DSpace status:",
+  "mydspace.status": "MyDSpace állapot:", // Lefordítva.
 
   // "mydspace.status.mydspaceArchived": "Archived",
-  "mydspace.status.mydspaceArchived": "Archivált",
+  "mydspace.status.mydspaceArchived": "Archiválva", // Eredeti: "Archivált" -> Javított: "Archiválva"
 
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Ellenőrzés alatt",
 
   // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
-  "mydspace.status.mydspaceWaitingController": "Jóváhagyóra vár",
+  "mydspace.status.mydspaceWaitingController": "Bírálóra vár", // Eredeti: "Jóváhagyóra vár" -> Javított: "Bírálóra vár"
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
-  "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Munkafolyamat",
 
   // "mydspace.status.mydspaceWorkspace": "Workspace",
-  "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Munkaterület",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
-  "mydspace.upload.upload-failed": "Új workspace létrehozásakor hiba történt. Kérjük ellenőrizze a tartalmat mielőtt újra próbálkozna.",
+  "mydspace.upload.upload-failed": "Hiba az új munkaterület létrehozásakor.\nKérjük, ellenőrizze a feltöltött tartalmat újbóli próbálkozás előtt.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-  "mydspace.upload.upload-failed-manyentries": "Feldolgozhatalan fájl. Több elem észlelve, de fájlonként csak egy engedélyezve.",
+  "mydspace.upload.upload-failed-manyentries": "Feldolgozhatatlan fájl.\nTúl sok bejegyzés észlelve, de fájlonként csak egy engedélyezett.",
 
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
-  "mydspace.upload.upload-failed-moreonefile": "Feldolgozhatalan kérés. Csak egy fájl van engedélyezve.",
+  "mydspace.upload.upload-failed-moreonefile": "Feldolgozhatatlan kérés. Csak egy fájl engedélyezett.",
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-  "mydspace.upload.upload-multiple-successful": "{{qty}} új workspace tárgy létrehozva.",
+  "mydspace.upload.upload-multiple-successful": "{{qty}} új munkaterületi tétel létrehozva.", // Eredeti: "{{qty}} új workspace tárgy létrehozva." -> Javított: "{{qty}} új munkaterületi tétel létrehozva."
 
   // "mydspace.view-btn": "View",
-  "mydspace.view-btn": "Megnyitás",
+  "mydspace.view-btn": "Megtekintés", // Eredeti: "Megnyitás" -> Javított: "Megtekintés"
 
   // "nav.expandable-navbar-section-suffix": "(submenu)",
-  "nav.expandable-navbar-section-suffix": "(submenu)",
+  "nav.expandable-navbar-section-suffix": "(almenü)", // Eredeti: "(submenu)" -> Javított: "(almenü)"
 
   // "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>",
-  "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>",
+  "notification.suggestion": "Találtunk <b>{{count}} publikációt</b> a(z) {{source}} forrásban, amely kapcsolódhat profiljához.<br>", // Eredeti: "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>" -> Javított: "Találtunk <b>{{count}} publikációt</b> a(z) {{source}} forrásban, amely kapcsolódhat profiljához.<br>"
 
   // "notification.suggestion.review": "review the suggestions",
-  "notification.suggestion.review": "review the suggestions",
+  "notification.suggestion.review": "tekintse át a javaslatokat", // Eredeti: "review the suggestions" -> Javított: "tekintse át a javaslatokat"
 
   // "notification.suggestion.please": "Please",
-  "notification.suggestion.please": "Please",
+  "notification.suggestion.please": "Kérjük,", // Eredeti: "Please" -> Javított: "Kérjük,"
 
   // "nav.browse.header": "All of DSpace",
-  "nav.browse.header": "Böngészés",
+  "nav.browse.header": "Teljes DSpace", // Eredeti: "Böngészés" -> Javított: "Teljes DSpace"
 
   // "nav.community-browse.header": "By Community",
   "nav.community-browse.header": "Közösség szerint",
 
   // "nav.context-help-toggle": "Toggle context help",
-  "nav.context-help-toggle": "Toggle context help",
+  "nav.context-help-toggle": "Kontextuális súgó váltása", // Eredeti: "Toggle context help" -> Javított: "Kontextuális súgó váltása"
 
   // "nav.language": "Language switch",
-  "nav.language": "Nyelvváltás",
+  "nav.language": "Nyelvválasztás", // Eredeti: "Nyelvváltás" -> Javított: "Nyelvválasztás"
 
   // "nav.login": "Log In",
   "nav.login": "Bejelentkezés",
 
   // "nav.user-profile-menu-and-logout": "User profile menu and log out",
-  "nav.user-profile-menu-and-logout": "Felhasználói profil menü és kilépés",
+  "nav.user-profile-menu-and-logout": "Felhasználói profil menü és kijelentkezés",
 
   // "nav.logout": "Log Out",
-  "nav.logout": "Kilépés",
+  "nav.logout": "Kijelentkezés",
 
   // "nav.main.description": "Main navigation bar",
   "nav.main.description": "Fő navigációs sáv",
@@ -5576,7 +5578,7 @@
   "nav.search.button": "Keresés indítása",
 
   // "nav.statistics.header": "Statistics",
-  "nav.statistics.header": "Statisztika",
+  "nav.statistics.header": "Statisztikák", // Eredeti: "Statisztika" -> Javított: "Statisztikák"
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "Felhasználó megszemélyesítésének leállítása",
@@ -5588,31 +5590,31 @@
   "nav.toggle": "Navigáció váltása",
 
   // "nav.user.description": "User profile bar",
-  "nav.user.description": "User profile bar",
+  "nav.user.description": "Felhasználói profilsáv", // Eredeti: "User profile bar" -> Javított: "Felhasználói profilsáv"
 
-  // "listelement.badge.dso-type": "Item type:",
+  // "listable-notification-object.default-message": "This object couldn't be retrieved",
   // TODO New key - Add a translation
-  "listelement.badge.dso-type": "Item type:",
+  "listable-notification-object.default-message": "Ezt az objektumot nem sikerült lekérni.", // Lefordítva.
 
   // "none.listelement.badge": "Item",
-  "none.listelement.badge": "Tárgy",
+  "none.listelement.badge": "Tétel", // Eredeti: "Tárgy" -> Javított: "Tétel"
 
   // "publication-claim.title": "Publication claim",
   // TODO New key - Add a translation
-  "publication-claim.title": "Publication claim",
+  "publication-claim.title": "Publikációigénylés", // Lefordítva.
 
   // "publication-claim.source.description": "Below you can see all the sources.",
   // TODO New key - Add a translation
-  "publication-claim.source.description": "Below you can see all the sources.",
+  "publication-claim.source.description": "Alább láthatja az összes forrást.", // Lefordítva.
 
   // "quality-assurance.title": "Quality Assurance",
   "quality-assurance.title": "Minőségbiztosítás",
 
   // "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
-  "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+  "quality-assurance.topics.description": "Alább láthatja az összes témakört, amelyet a(z) {{source}} feliratkozásai alapján kapott.", // Eredeti: "Below you can see all the topics received from the subscriptions to {{source}}." -> Javított
 
   // "quality-assurance.source.description": "Below you can see all the notification's sources.",
-  "quality-assurance.source.description": "Az alábbiakban megtekintheti az összes értesítés forrását.",
+  "quality-assurance.source.description": "Alább láthatja az összes értesítési forrást.", // Eredeti: "Az alábbiakban megtekintheti az összes értesítés forrását." -> Javított
 
   // "quality-assurance.topics": "Current Topics",
   "quality-assurance.topics": "Aktuális témák",
@@ -5633,187 +5635,187 @@
   "quality-assurance.table.actions": "Műveletek",
 
   // "quality-assurance.source-list.button.detail": "Show topics for {{param}}",
-  "quality-assurance.source-list.button.detail": "Témák megjelenítése: {{param}}",
+  "quality-assurance.source-list.button.detail": "Témák megjelenítése ehhez: {{param}}", // Eredeti: "Témák megjelenítése: {{param}}" -> Javított
 
   // "quality-assurance.topics-list.button.detail": "Show suggestions for {{param}}",
-  "quality-assurance.topics-list.button.detail": "Javaslatok megjelenítése: {{param}}",
+  "quality-assurance.topics-list.button.detail": "Javaslatok megjelenítése ehhez: {{param}}", // Eredeti: "Javaslatok megjelenítése: {{param}}" -> Javított
 
   // "quality-assurance.noTopics": "No topics found.",
-  "quality-assurance.noTopics": "Nem találhatók témák.",
+  "quality-assurance.noTopics": "Nem található témakör.", // Eredeti: "Nem találhatók témák." -> Javított
 
   // "quality-assurance.noSource": "No sources found.",
-  "quality-assurance.noSource": "Nem találhatók források.",
+  "quality-assurance.noSource": "Nem található forrás.", // Eredeti: "Nem találhatók források." -> Javított
 
   // "notifications.events.title": "Quality Assurance Suggestions",
-  "notifications.events.title": "Quality Assurance Suggestions",
+  "notifications.events.title": "Minőségbiztosítási javaslatok", // Eredeti: "Quality Assurance Suggestions" -> Javított
 
   // "quality-assurance.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
-  "quality-assurance.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
+  "quality-assurance.topic.error.service.retrieve": "Hiba történt a minőségbiztosítási témakörök betöltése közben.", // Eredeti: "An error occurred while loading the Quality Assurance topics" -> Javított
 
   // "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
-  "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
+  "quality-assurance.source.error.service.retrieve": "Hiba történt a minőségbiztosítási forrás betöltése közben.", // Eredeti: "An error occurred while loading the Quality Assurance source" -> Javított
 
   // "quality-assurance.loading": "Loading ...",
-  "quality-assurance.loading": "Loading ...",
+  "quality-assurance.loading": "Betöltés...", // Eredeti: "Loading ..." -> Javított
 
   // "quality-assurance.events.topic": "Topic:",
-  "quality-assurance.events.topic": "Topic:",
+  "quality-assurance.events.topic": "Témakör:", // Eredeti: "Topic:" -> Javított
 
   // "quality-assurance.noEvents": "No suggestions found.",
-  "quality-assurance.noEvents": "No suggestions found.",
+  "quality-assurance.noEvents": "Nem található javaslat.", // Eredeti: "No suggestions found." -> Javított
 
   // "quality-assurance.event.table.trust": "Trust",
-  "quality-assurance.event.table.trust": "Trust",
+  "quality-assurance.event.table.trust": "Megbízhatóság", // Eredeti: "Trust" -> Javított
 
   // "quality-assurance.event.table.publication": "Publication",
   "quality-assurance.event.table.publication": "Publikáció",
 
   // "quality-assurance.event.table.details": "Details",
-  "quality-assurance.event.table.details": "Details",
+  "quality-assurance.event.table.details": "Részletek", // Eredeti: "Details" -> Javított
 
   // "quality-assurance.event.table.project-details": "Project details",
-  "quality-assurance.event.table.project-details": "Project details",
+  "quality-assurance.event.table.project-details": "Projekt részletei", // Eredeti: "Project details" -> Javított
 
   // "quality-assurance.event.table.reasons": "Reasons",
-  "quality-assurance.event.table.reasons": "Reasons",
+  "quality-assurance.event.table.reasons": "Indokok", // Eredeti: "Reasons" -> Javított
 
   // "quality-assurance.event.table.actions": "Actions",
   "quality-assurance.event.table.actions": "Műveletek",
 
   // "quality-assurance.event.action.accept": "Accept suggestion",
-  "quality-assurance.event.action.accept": "Accept suggestion",
+  "quality-assurance.event.action.accept": "Javaslat elfogadása", // Eredeti: "Accept suggestion" -> Javított
 
   // "quality-assurance.event.action.ignore": "Ignore suggestion",
-  "quality-assurance.event.action.ignore": "Ignore suggestion",
+  "quality-assurance.event.action.ignore": "Javaslat figyelmen kívül hagyása", // Eredeti: "Ignore suggestion" -> Javított
 
   // "quality-assurance.event.action.undo": "Delete",
-  "quality-assurance.event.action.undo": "Delete",
+  "quality-assurance.event.action.undo": "Törlés", // Eredeti: "Delete" -> Javított
 
   // "quality-assurance.event.action.reject": "Reject suggestion",
-  "quality-assurance.event.action.reject": "Reject suggestion",
+  "quality-assurance.event.action.reject": "Javaslat elutasítása", // Eredeti: "Reject suggestion" -> Javított
 
   // "quality-assurance.event.action.import": "Import project and accept suggestion",
-  "quality-assurance.event.action.import": "Import project and accept suggestion",
+  "quality-assurance.event.action.import": "Projekt importálása és javaslat elfogadása", // Eredeti: "Import project and accept suggestion" -> Javított
 
   // "quality-assurance.event.table.pidtype": "PID Type:",
-  "quality-assurance.event.table.pidtype": "PID Type:",
+  "quality-assurance.event.table.pidtype": "PID típus:", // Eredeti: "PID Type:" -> Javított
 
   // "quality-assurance.event.table.pidvalue": "PID Value:",
-  "quality-assurance.event.table.pidvalue": "PID Value:",
+  "quality-assurance.event.table.pidvalue": "PID érték:", // Eredeti: "PID Value:" -> Javított
 
   // "quality-assurance.event.table.subjectValue": "Subject Value:",
-  "quality-assurance.event.table.subjectValue": "Subject Value:",
+  "quality-assurance.event.table.subjectValue": "Tárgyszó értéke:", // Eredeti: "Subject Value:" -> Javított
 
   // "quality-assurance.event.table.abstract": "Abstract:",
-  "quality-assurance.event.table.abstract": "Abstract:",
+  "quality-assurance.event.table.abstract": "Absztrakt:", // Eredeti: "Abstract:" -> Javított
 
   // "quality-assurance.event.table.suggestedProject": "OpenAIRE Suggested Project data",
-  "quality-assurance.event.table.suggestedProject": "OpenAIRE Suggested Project data",
+  "quality-assurance.event.table.suggestedProject": "OpenAIRE által javasolt projektadatok", // Eredeti: "OpenAIRE Suggested Project data" -> Javított
 
   // "quality-assurance.event.table.project": "Project title:",
-  "quality-assurance.event.table.project": "Project title:",
+  "quality-assurance.event.table.project": "Projekt címe:", // Eredeti: "Project title:" -> Javított
 
   // "quality-assurance.event.table.acronym": "Acronym:",
-  "quality-assurance.event.table.acronym": "Acronym:",
+  "quality-assurance.event.table.acronym": "Mozaikszó:", // Eredeti: "Acronym:" -> Javított
 
   // "quality-assurance.event.table.code": "Code:",
-  "quality-assurance.event.table.code": "Code:",
+  "quality-assurance.event.table.code": "Kód:", // Eredeti: "Code:" -> Javított
 
   // "quality-assurance.event.table.funder": "Funder:",
-  "quality-assurance.event.table.funder": "Funder:",
+  "quality-assurance.event.table.funder": "Támogató:", // Eredeti: "Funder:" -> Javított
 
   // "quality-assurance.event.table.fundingProgram": "Funding program:",
-  "quality-assurance.event.table.fundingProgram": "Funding program:",
+  "quality-assurance.event.table.fundingProgram": "Finanszírozási program:", // Eredeti: "Funding program:" -> Javított
 
   // "quality-assurance.event.table.jurisdiction": "Jurisdiction:",
-  "quality-assurance.event.table.jurisdiction": "Jurisdiction:",
+  "quality-assurance.event.table.jurisdiction": "Joghatóság:", // Eredeti: "Jurisdiction:" -> Javított
 
   // "quality-assurance.events.back": "Back to topics",
-  "quality-assurance.events.back": "Back to topics",
+  "quality-assurance.events.back": "Vissza a témakörökhöz", // Eredeti: "Back to topics" -> Javított
 
   // "quality-assurance.events.back-to-sources": "Back to sources",
-  "quality-assurance.events.back-to-sources": "Back to sources",
+  "quality-assurance.events.back-to-sources": "Vissza a forrásokhoz", // Eredeti: "Back to sources" -> Javított
 
   // "quality-assurance.event.table.less": "Show less",
-  "quality-assurance.event.table.less": "Show less",
+  "quality-assurance.event.table.less": "Kevesebb mutatása", // Eredeti: "Show less" -> Javított
 
   // "quality-assurance.event.table.more": "Show more",
-  "quality-assurance.event.table.more": "Továbbiak",
+  "quality-assurance.event.table.more": "Több mutatása", // Eredeti: "Továbbiak" -> Javított: "Több mutatása"
 
   // "quality-assurance.event.project.found": "Bound to the local record:",
-  "quality-assurance.event.project.found": "Bound to the local record:",
+  "quality-assurance.event.project.found": "Helyi rekordhoz kötve:", // Eredeti: "Bound to the local record:" -> Javított
 
   // "quality-assurance.event.project.notFound": "No local record found",
-  "quality-assurance.event.project.notFound": "No local record found",
+  "quality-assurance.event.project.notFound": "Nem található helyi rekord.", // Eredeti: "No local record found" -> Javított
 
   // "quality-assurance.event.sure": "Are you sure?",
-  "quality-assurance.event.sure": "Are you sure?",
+  "quality-assurance.event.sure": "Biztos benne?", // Eredeti: "Are you sure?" -> Javított
 
   // "quality-assurance.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
-  "quality-assurance.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+  "quality-assurance.event.ignore.description": "Ez a művelet nem vonható vissza. Figyelmen kívül hagyja ezt a javaslatot?", // Eredeti: "This operation can't be undone. Ignore this suggestion?" -> Javított
 
   // "quality-assurance.event.undo.description": "This operation can't be undone!",
-  "quality-assurance.event.undo.description": "This operation can't be undone!",
+  "quality-assurance.event.undo.description": "Ez a művelet nem vonható vissza!",
 
   // "quality-assurance.event.reject.description": "This operation can't be undone. Reject this suggestion?",
-  "quality-assurance.event.reject.description": "This operation can't be undone. Reject this suggestion?",
+  "quality-assurance.event.reject.description": "Ez a művelet nem vonható vissza. Elutasítja ezt a javaslatot?", // Eredeti: "This operation can't be undone. Reject this suggestion?" -> Javított
 
   // "quality-assurance.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
-  "quality-assurance.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
+  "quality-assurance.event.accept.description": "Nincs DSpace projekt kiválasztva. Új projekt jön létre a javaslat adatai alapján.", // Eredeti: "No DSpace project selected. A new project will be created based on the suggestion data." -> Javított
 
   // "quality-assurance.event.action.cancel": "Cancel",
   "quality-assurance.event.action.cancel": "Mégse",
 
   // "quality-assurance.event.action.saved": "Your decision has been saved successfully.",
-  "quality-assurance.event.action.saved": "Your decision has been saved successfully.",
+  "quality-assurance.event.action.saved": "Döntése sikeresen mentve.", // Eredeti: "Your decision has been saved successfully." -> Javított
 
   // "quality-assurance.event.action.error": "An error has occurred. Your decision has not been saved.",
-  "quality-assurance.event.action.error": "An error has occurred. Your decision has not been saved.",
+  "quality-assurance.event.action.error": "Hiba történt. Döntése nem lett mentve.", // Eredeti: "An error has occurred. Your decision has not been saved." -> Javított
 
   // "quality-assurance.event.modal.project.title": "Choose a project to bound",
-  "quality-assurance.event.modal.project.title": "Choose a project to bound",
+  "quality-assurance.event.modal.project.title": "Válasszon egy projektet a kötéshez", // Eredeti: "Choose a project to bound" -> Javított
 
   // "quality-assurance.event.modal.project.publication": "Publication:",
-  "quality-assurance.event.modal.project.publication": "Publication:",
+  "quality-assurance.event.modal.project.publication": "Publikáció:",
 
   // "quality-assurance.event.modal.project.bountToLocal": "Bound to the local record:",
-  "quality-assurance.event.modal.project.bountToLocal": "Bound to the local record:",
+  "quality-assurance.event.modal.project.bountToLocal": "Helyi rekordhoz kötve:",
 
   // "quality-assurance.event.modal.project.select": "Project search",
-  "quality-assurance.event.modal.project.select": "Project search",
+  "quality-assurance.event.modal.project.select": "Projekt keresése", // Eredeti: "Project search" -> Javított
 
   // "quality-assurance.event.modal.project.search": "Search",
-  "quality-assurance.event.modal.project.search": "Search",
+  "quality-assurance.event.modal.project.search": "Keresés", // Eredeti: "Search" -> Javított
 
   // "quality-assurance.event.modal.project.clear": "Clear",
-  "quality-assurance.event.modal.project.clear": "Clear",
+  "quality-assurance.event.modal.project.clear": "Törlés", // Eredeti: "Clear" -> Javított (a kontextus alapján, "Keresés törlése" vagy "Kiválasztás törlése")
 
   // "quality-assurance.event.modal.project.cancel": "Cancel",
   "quality-assurance.event.modal.project.cancel": "Mégse",
 
   // "quality-assurance.event.modal.project.bound": "Bound project",
-  "quality-assurance.event.modal.project.bound": "Bound project",
+  "quality-assurance.event.modal.project.bound": "Kötött projekt", // Eredeti: "Bound project" -> Javított
 
   // "quality-assurance.event.modal.project.remove": "Remove",
-  "quality-assurance.event.modal.project.remove": "Remove",
+  "quality-assurance.event.modal.project.remove": "Eltávolítás", // Eredeti: "Remove" -> Javított
 
   // "quality-assurance.event.modal.project.placeholder": "Enter a project name",
-  "quality-assurance.event.modal.project.placeholder": "Enter a project name",
+  "quality-assurance.event.modal.project.placeholder": "Adja meg a projekt nevét", // Eredeti: "Enter a project name" -> Javított
 
   // "quality-assurance.event.modal.project.notFound": "No project found.",
-  "quality-assurance.event.modal.project.notFound": "No project found.",
+  "quality-assurance.event.modal.project.notFound": "Nem található projekt.", // Eredeti: "No project found." -> Javított
 
   // "quality-assurance.event.project.bounded": "The project has been linked successfully.",
-  "quality-assurance.event.project.bounded": "The project has been linked successfully.",
+  "quality-assurance.event.project.bounded": "A projekt sikeresen összekapcsolva.", // Eredeti: "The project has been linked successfully." -> Javított
 
   // "quality-assurance.event.project.removed": "The project has been successfully unlinked.",
-  "quality-assurance.event.project.removed": "The project has been successfully unlinked.",
+  "quality-assurance.event.project.removed": "A projekt összekapcsolása sikeresen megszüntetve.", // Eredeti: "The project has been successfully unlinked." -> Javított
 
   // "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
-  "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
+  "quality-assurance.event.project.error": "Hiba történt. Nem történt művelet.", // Eredeti: "An error has occurred. No operation performed." -> Javított
 
   // "quality-assurance.event.reason": "Reason",
-  "quality-assurance.event.reason": "Reason",
+  "quality-assurance.event.reason": "Indok", // Eredeti: "Reason" -> Javított
 
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Szervezeti egység",
@@ -5828,38 +5830,37 @@
   "orgunit.page.country": "Ország",
 
   // "orgunit.page.dateestablished": "Date established",
-  "orgunit.page.dateestablished": "Alapítási dátum",
+  "orgunit.page.dateestablished": "Alapítás dátuma",
 
   // "orgunit.page.description": "Description",
   "orgunit.page.description": "Leírás",
 
   // "orgunit.page.edit": "Edit this item",
-  "orgunit.page.edit": "Elem szerkesztése",
+  "orgunit.page.edit": "Tétel szerkesztése", // Eredeti: "Elem szerkesztése" -> Javított: "Tétel szerkesztése"
 
   // "orgunit.page.id": "ID",
   "orgunit.page.id": "Azonosító",
 
   // "orgunit.page.options": "Options",
-
-  "orgunit.page.options": "Beállítások",
+  "orgunit.page.options": "Opciók", // Eredeti: "Beállítások" -> Javított: "Opciók"
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Szervezeti egység: ",
 
   // "orgunit.page.ror": "ROR Identifier",
-  "orgunit.page.ror": "ROR Identifier",
+  "orgunit.page.ror": "ROR azonosító", // Eredeti: "ROR Identifier" -> Javított
 
   // "orgunit.search.results.head": "Organizational Unit Search Results",
-  "orgunit.search.results.head": "Szervezeti egység találati lista",
+  "orgunit.search.results.head": "Szervezeti egység keresési eredményei", // Eredeti: "Szervezeti egység találati lista" -> Javított
 
   // "pagination.options.description": "Pagination options",
-  "pagination.options.description": "Lapozás beállításai",
+  "pagination.options.description": "Lapozási beállítások", // Eredeti: "Lapozás beállításai" -> Javított
 
   // "pagination.results-per-page": "Results Per Page",
   "pagination.results-per-page": "Találatok oldalanként",
 
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  "pagination.showing.detail": "{{ range }} / {{ total }}",
+  "pagination.showing.detail": "{{ range }}/{{ total }}", // Eredeti: "{{ range }} / {{ total }}" -> Javított (egységesítés)
 
   // "pagination.showing.label": "Now showing ",
   "pagination.showing.label": "Jelenleg látható: ",
@@ -5871,13 +5872,13 @@
   "person.listelement.badge": "Személy",
 
   // "person.listelement.no-title": "No name found",
-  "person.listelement.no-title": "A névre nincs találat",
+  "person.listelement.no-title": "Nem található név.", // Eredeti: "A névre nincs találat" -> Javított
 
   // "person.page.birthdate": "Birth Date",
-  "person.page.birthdate": "Születés dátuma",
+  "person.page.birthdate": "Születési dátum",
 
   // "person.page.edit": "Edit this item",
-  "person.page.edit": "Elem szerkesztése",
+  "person.page.edit": "Tétel szerkesztése",
 
   // "person.page.email": "Email Address",
   "person.page.email": "E-mail cím",
@@ -5889,17 +5890,16 @@
   "person.page.jobtitle": "Munkakör",
 
   // "person.page.lastname": "Last Name",
-  "person.page.lastname": "Családnév",
+  "person.page.lastname": "Vezetéknév", // Eredeti: "Családnév" -> Javított
 
   // "person.page.name": "Name",
   "person.page.name": "Név",
 
   // "person.page.link.full": "Show all metadata",
-  "person.page.link.full": "Minden metaadat megjelenítése",
+  "person.page.link.full": "Összes metaadat megjelenítése",
 
   // "person.page.options": "Options",
-
-  "person.page.options": "Beállítások",
+  "person.page.options": "Opciók",
 
   // "person.page.orcid": "ORCID",
   "person.page.orcid": "ORCID",
@@ -5911,56 +5911,56 @@
   "person.page.titleprefix": "Személy: ",
 
   // "person.search.results.head": "Person Search Results",
-  "person.search.results.head": "Személy keresési eredmények",
+  "person.search.results.head": "Személy keresési eredményei", // Eredeti: "Személy keresési eredmények" -> Javított
 
   // "person-relationships.search.results.head": "Person Search Results",
-  "person-relationships.search.results.head": "Személy keresési eredménye",
+  "person-relationships.search.results.head": "Személy keresési eredményei", // Eredeti: "Személy keresési eredménye" -> Javított
 
   // "person.search.title": "Person Search",
-  "person.search.title": "DSpace Repozitórium :: Személy keresése",
+  "person.search.title": "Személykeresés", // Eredeti: "DSpace Repozitórium :: Személy keresése" -> Javított: "Személykeresés"
 
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Paraméterek",
 
   // "process.new.select-parameter": "Select parameter",
-  "process.new.select-parameter": "Select parameter",
+  "process.new.select-parameter": "Paraméter kiválasztása", // Eredeti: "Select parameter" -> Javított
 
   // "process.new.add-parameter": "Add a parameter...",
-  "process.new.add-parameter": "Add a parameter...",
+  "process.new.add-parameter": "Paraméter hozzáadása...", // Eredeti: "Add a parameter..." -> Javított
 
   // "process.new.delete-parameter": "Delete parameter",
-  "process.new.delete-parameter": "Delete parameter",
+  "process.new.delete-parameter": "Paraméter törlése", // Eredeti: "Delete parameter" -> Javított
 
   // "process.new.parameter.label": "Parameter value",
-  "process.new.parameter.label": "Parameter value",
+  "process.new.parameter.label": "Paraméterérték", // Eredeti: "Parameter value" -> Javított
 
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Mégse",
 
   // "process.new.submit": "Save",
-  "process.new.submit": "Indítás",
+  "process.new.submit": "Indítás", // Eredeti: "Mentés" -> Javított (Submit itt Start-ként is szerepelt korábban)
 
   // "process.new.select-script": "Script",
   "process.new.select-script": "Szkript",
 
   // "process.new.select-script.placeholder": "Choose a script...",
-  "process.new.select-script.placeholder": "Szkript kiválasztása...",
+  "process.new.select-script.placeholder": "Válasszon szkriptet...",
 
   // "process.new.select-script.required": "Script is required",
-  "process.new.select-script.required": "Szkript szükséges",
+  "process.new.select-script.required": "Szkript megadása kötelező.", // Eredeti: "Szkript szükséges" -> Javított
 
   // "process.new.parameter.file.upload-button": "Select file...",
   "process.new.parameter.file.upload-button": "Fájl kiválasztása...",
 
   // "process.new.parameter.file.required": "Please select a file",
-  "process.new.parameter.file.required": "Kérem válasszon egy fájlt",
+  "process.new.parameter.file.required": "Kérjük, válasszon fájlt!", // Eredeti: "Kérem válasszon egy fájlt" -> Javított
 
   // "process.new.parameter.integer.required": "Parameter value is required",
   // TODO New key - Add a translation
-  "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Paraméterérték megadása kötelező.", // Lefordítva
 
   // "process.new.parameter.string.required": "Parameter value is required",
-  "process.new.parameter.string.required": "Szüséges egy paraméter érték",
+  "process.new.parameter.string.required": "Paraméterérték megadása kötelező.", // Eredeti: "Szüséges egy paraméter érték" -> Javított
 
   // "process.new.parameter.type.value": "value",
   "process.new.parameter.type.value": "érték",
@@ -5975,16 +5975,16 @@
   "process.new.notification.success.title": "Siker",
 
   // "process.new.notification.success.content": "The process was successfully created",
-  "process.new.notification.success.content": "A folyamat sikeresen létrehozva",
+  "process.new.notification.success.content": "A folyamat sikeresen létrehozva.",
 
   // "process.new.notification.error.title": "Error",
   "process.new.notification.error.title": "Hiba",
 
   // "process.new.notification.error.content": "An error occurred while creating this process",
-  "process.new.notification.error.content": "Hiba történt a folyamat létrehozásakor",
+  "process.new.notification.error.content": "Hiba történt a folyamat létrehozásakor.",
 
   // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
-  "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+  "process.new.notification.error.max-upload.content": "A fájl mérete meghaladja a maximális feltöltési méretet.", // Eredeti: "The file exceeds the maximum upload size" -> Javított
 
   // "process.new.header": "Create a new process",
   "process.new.header": "Új folyamat létrehozása",
@@ -5996,31 +5996,31 @@
   "process.new.breadcrumbs": "Új folyamat létrehozása",
 
   // "process.detail.arguments": "Arguments",
-  "process.detail.arguments": "Paraméterek (argumentumok)",
+  "process.detail.arguments": "Argumentumok", // Eredeti: "Paraméterek (argumentumok)" -> Javított
 
   // "process.detail.arguments.empty": "This process doesn't contain any arguments",
-  "process.detail.arguments.empty": "Ez a folyamat nem tartalmaz egyetlen paramétert sem",
+  "process.detail.arguments.empty": "Ez a folyamat nem tartalmaz argumentumokat.", // Eredeti: "Ez a folyamat nem tartalmaz egyetlen paramétert sem" -> Javított
 
   // "process.detail.back": "Back",
   "process.detail.back": "Vissza",
 
   // "process.detail.output": "Process Output",
-  "process.detail.output": "Folyamat eredménye",
+  "process.detail.output": "Folyamat kimenete", // Eredeti: "Folyamat eredménye" -> Javított
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Folyamatkimenet lekérése",
 
   // "process.detail.logs.loading": "Retrieving",
-  "process.detail.logs.loading": "Lekérés",
+  "process.detail.logs.loading": "Lekérés...", // Eredeti: "Lekérés" -> Javított
 
   // "process.detail.logs.none": "This process has no output",
-  "process.detail.logs.none": "Ennek a folyamatnak nincs kimenete",
+  "process.detail.logs.none": "Ennek a folyamatnak nincs kimenete.",
 
   // "process.detail.output-files": "Output Files",
   "process.detail.output-files": "Kimeneti fájlok",
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
-  "process.detail.output-files.empty": "Ennek a folyamatnak nincsenek kimeneti fájljai",
+  "process.detail.output-files.empty": "Ez a folyamat nem tartalmaz kimeneti fájlokat.", // Eredeti: "Ennek a folyamatnak nincsenek kimeneti fájljai" -> Javított
 
   // "process.detail.script": "Script",
   "process.detail.script": "Szkript",
@@ -6029,10 +6029,10 @@
   "process.detail.title": "Folyamat: {{ id }} - {{ name }}",
 
   // "process.detail.start-time": "Start time",
-  "process.detail.start-time": "Indítás dátuma",
+  "process.detail.start-time": "Kezdési idő", // Eredeti: "Indítás dátuma" -> Javított
 
   // "process.detail.end-time": "Finish time",
-  "process.detail.end-time": "Befejezés dátuma",
+  "process.detail.end-time": "Befejezési idő", // Eredeti: "Befejezés dátuma" -> Javított
 
   // "process.detail.status": "Status",
   "process.detail.status": "Állapot",
