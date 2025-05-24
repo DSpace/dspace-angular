@@ -51,7 +51,6 @@
   "error-page.orcid.generic-error": "Hiba történt az ORCID-on keresztüli bejelentkezés során.\nGyőződjön meg róla, hogy megosztotta ORCID fiókjának e-mail címét a DSpace rendszerrel.\nHa a hiba továbbra is fennáll, lépjen kapcsolatba az adminisztrátorral.",
 
   // "listelement.badge.access-status": "Access status:",
-  // TODO New key - Add a translation
   "listelement.badge.access-status": "Hozzáférési állapot:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
@@ -1582,15 +1581,12 @@
   "browse.metadata.title.breadcrumbs": "Böngészés cím szerint",
 
   // "browse.metadata.map": "Browse by Geolocation",
-  // TODO New key - Add a translation
   "browse.metadata.map": "Böngészés földrajzi hely szerint",
 
   // "browse.metadata.map.breadcrumbs": "Browse by Geolocation",
-  // TODO New key - Add a translation
   "browse.metadata.map.breadcrumbs": "Böngészés földrajzi hely szerint",
 
   // "browse.metadata.map.count.items": "items",
-  // TODO New key - Add a translation
   "browse.metadata.map.count.items": "tétel",
 
   // "pagination.next.button": "Next",
@@ -2020,11 +2016,9 @@
   "collection.page.news": "Hírek",
 
   // "collection.page.options": "Options",
-  // TODO New key - Add a translation
   "collection.page.options": "Opciók", // "Beállítások" is jó, de az "Options" gyakoribb fordítása az "Opciók"
 
   // "collection.search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
   "collection.search.breadcrumbs": "Keresés",
 
   // "collection.search.results.head": "Search Results",
@@ -2454,18 +2448,15 @@
   "cookies.consent.content-modal.privacy-policy.text": "További információkért olvassa el {privacyPolicy} oldalunkat.", // "Továbbiakért olvassa el: {privacyPolicy}." -> "További információkért olvassa el {privacyPolicy} oldalunkat."
 
   // "cookies.consent.content-modal.no-privacy-policy.text": "",
-  // TODO New key - Add a translation
   "cookies.consent.content-modal.no-privacy-policy.text": "", // Marad üres, ha nincs angol megfelelő
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Általunk gyűjtött információk", // "Gyűjtött adatok" -> "Általunk gyűjtött információk"
 
   // "cookies.consent.app.title.accessibility": "Accessibility Settings",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.accessibility": "Akadálymentességi beállítások",
 
   // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
-  // TODO New key - Add a translation
   "cookies.consent.app.description.accessibility": "Szükséges az akadálymentességi beállítások helyi mentéséhez",
 
   // "cookies.consent.app.title.authentication": "Authentication",
@@ -2475,11 +2466,9 @@
   "cookies.consent.app.description.authentication": "Szükséges a bejelentkezéshez.", // "Szükséges a beléptetéséhez" -> "Szükséges a bejelentkezéshez."
 
   // "cookies.consent.app.title.correlation-id": "Correlation ID",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.correlation-id": "Korrelációs azonosító",
 
   // "cookies.consent.app.description.correlation-id": "Allow us to track your session in backend logs for support/debugging purposes",
-  // TODO New key - Add a translation
   "cookies.consent.app.description.correlation-id": "Lehetővé teszi számunkra, hogy nyomon kövessük munkamenetét a háttérnaplókban támogatási/hibakeresési célokból",
 
   // "cookies.consent.app.title.preferences": "Preferences",
@@ -2507,11 +2496,9 @@
   "cookies.consent.app.description.google-recaptcha": "A regisztráció és jelszó-visszaállítás során Google reCAPTCHA szolgáltatást használunk.",
 
   // "cookies.consent.app.title.matomo": "Matomo",
-  // TODO New key - Add a translation
   "cookies.consent.app.title.matomo": "Matomo",
 
   // "cookies.consent.app.description.matomo": "Allows us to track statistical data",
-  // TODO New key - Add a translation
   "cookies.consent.app.description.matomo": "Lehetővé teszi számunkra statisztikai adatok követését.",
 
   // "cookies.consent.purpose.functional": "Functional",
@@ -2878,7 +2865,6 @@
   "error.validation.license.notgranted": "A beküldés befejezéséhez el kell fogadnia ezt a licencet.\nHa jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és később visszatérhet, vagy eltávolíthatja a beküldést.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
   "error.validation.cclicense.required": "A Creative Commons licenc elfogadása kötelező a beküldés befejezéséhez.\nHa jelenleg nem tudja elfogadni a CC licencet, elmentheti munkáját és később visszatérhet, vagy eltávolíthatja a beküldést.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
@@ -2927,7 +2913,6 @@
   "file-download-link.restricted": "Korlátozott bitstream",
 
   // "file-download-link.secure-access": "Restricted bitstream available via secure access token",
-  // TODO New key - Add a translation
   "file-download-link.secure-access": "Korlátozott bitstream elérhető biztonságos hozzáférési tokenen keresztül",
 
   // "file-section.error.header": "Error obtaining files for this item",
@@ -2937,7 +2922,6 @@
   "footer.copyright": "Szerzői jog © 2002-{{ year }}",
 
   // "footer.link.accessibility": "Accessibility settings",
-  // TODO New key - Add a translation
   "footer.link.accessibility": "Akadálymentességi beállítások",
 
   // "footer.link.dspace": "DSpace software",
@@ -3466,7 +3450,6 @@
   "item.edit.authorizations.title": "Tétel szabályzatainak szerkesztése", // "Az elem jogosultságainak szerkesztése" -> "Tétel szabályzatainak szerkesztése"
 
   // "item.badge.status": "Item status:",
-  // TODO New key - Add a translation
   "item.badge.status": "Tétel állapota:",
 
   // "item.badge.private": "Non-discoverable",
@@ -4460,7 +4443,6 @@
   "item.preview.dc.date.issued": "Kiadás dátuma:",
 
   // "item.preview.dc.description": "Description:",
-  // TODO New key - Add a translation
   "item.preview.dc.description": "Leírás:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
@@ -4482,7 +4464,6 @@
   "item.preview.dc.type": "Típus:",
 
   // "item.preview.oaire.version": "Version",
-  // TODO New key - Add a translation
   "item.preview.oaire.version": "Verzió",
 
   // "item.preview.oaire.citation.issue": "Issue",
@@ -4492,15 +4473,12 @@
   "item.preview.oaire.citation.volume": "Kötet", // "Volume" -> "Kötet"
 
   // "item.preview.oaire.citation.title": "Citation container",
-  // TODO New key - Add a translation
   "item.preview.oaire.citation.title": "Hivatkozási forrás",
 
   // "item.preview.oaire.citation.startPage": "Citation start page",
-  // TODO New key - Add a translation
   "item.preview.oaire.citation.startPage": "Hivatkozás kezdő oldala",
 
   // "item.preview.oaire.citation.endPage": "Citation end page",
-  // TODO New key - Add a translation
   "item.preview.oaire.citation.endPage": "Hivatkozás záró oldala",
 
   // "item.preview.dc.relation.hasversion": "Has version",
@@ -4543,7 +4521,6 @@
   "item.preview.person.identifier.orcid": "ORCID:",
 
   // "item.preview.person.affiliation.name": "Affiliations:",
-  // TODO New key - Add a translation
   "item.preview.person.affiliation.name": "Kapcsolt intézmények:",
 
   // "item.preview.project.funder.name": "Funder:",
@@ -4553,7 +4530,6 @@
   "item.preview.project.funder.identifier": "Támogató azonosítója:", // "Funder Identifier:" -> "Támogató azonosítója:"
 
   // "item.preview.project.investigator": "Project Investigator",
-  // TODO New key - Add a translation
   "item.preview.project.investigator": "Projektvezető",
 
   // "item.preview.oaire.awardNumber": "Funding ID:",
@@ -4593,7 +4569,6 @@
   "item.preview.dspace.entity.type": "Entitástípus:", // "Entity Type:" -> "Entitástípus:"
 
   // "item.preview.creativework.publisher": "Publisher",
-  // TODO New key - Add a translation
   "item.preview.creativework.publisher": "Kiadó",
 
   // "item.preview.creativeworkseries.issn": "ISSN",
@@ -4603,11 +4578,9 @@
   "item.preview.dc.identifier.issn": "ISSN",
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
-  // TODO New key - Add a translation
   "item.preview.dc.identifier.openalex": "OpenAlex azonosító",
 
   // "item.preview.dc.description": "Description",
-  // TODO New key - Add a translation
   "item.preview.dc.description": "Leírás",
 
   // "item.select.confirm": "Confirm selected",
@@ -5208,7 +5181,6 @@
   "menu.section.browse_global_communities_and_collections": "Közösségek & Gyűjtemények",
 
   // "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
-  // TODO New key - Add a translation
   "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
 
   // "menu.section.control_panel": "Control Panel",
@@ -5493,7 +5465,6 @@
   "mydspace.show.supervisedWorkspace": "Felügyelt tételek", // Eredeti: "Jóváhagyásra váró elemek" -> Javított: "Felügyelt tételek"
 
   // "mydspace.status": "My DSpace status:",
-  // TODO New key - Add a translation
   "mydspace.status": "MyDSpace állapot:", // Lefordítva.
 
   // "mydspace.status.mydspaceArchived": "Archived",
@@ -5593,18 +5564,15 @@
   "nav.user.description": "Felhasználói profilsáv", // Eredeti: "User profile bar" -> Javított: "Felhasználói profilsáv"
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
-  // TODO New key - Add a translation
   "listable-notification-object.default-message": "Ezt az objektumot nem sikerült lekérni.", // Lefordítva.
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Tétel", // Eredeti: "Tárgy" -> Javított: "Tétel"
 
   // "publication-claim.title": "Publication claim",
-  // TODO New key - Add a translation
   "publication-claim.title": "Publikációigénylés", // Lefordítva.
 
   // "publication-claim.source.description": "Below you can see all the sources.",
-  // TODO New key - Add a translation
   "publication-claim.source.description": "Alább láthatja az összes forrást.", // Lefordítva.
 
   // "quality-assurance.title": "Quality Assurance",
@@ -5956,7 +5924,6 @@
   "process.new.parameter.file.required": "Kérjük, válasszon fájlt!", // Eredeti: "Kérem válasszon egy fájlt" -> Javított
 
   // "process.new.parameter.integer.required": "Parameter value is required",
-  // TODO New key - Add a translation
   "process.new.parameter.integer.required": "Paraméterérték megadása kötelező.", // Lefordítva
 
   // "process.new.parameter.string.required": "Parameter value is required",
@@ -6158,15 +6125,12 @@
   "profile.breadcrumbs": "Profil frissítése",
 
   // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
-  // TODO New key - Add a translation
   "profile.card.accessibility.content": "Az akadálymentességi beállítások az akadálymentességi beállítások oldalon konfigurálhatók.", // Lefordítva
 
   // "profile.card.accessibility.header": "Accessibility",
-  // TODO New key - Add a translation
   "profile.card.accessibility.header": "Akadálymentesség", // Lefordítva
 
   // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
-  // TODO New key - Add a translation
   "profile.card.accessibility.link": "Ugrás az Akadálymentességi Beállítások oldalra", // Lefordítva
 
   // "profile.card.identify": "Identify",
@@ -6572,107 +6536,81 @@
   "relationships.add.error.server.content": "A szerver hibát adott vissza.", // Lefordítva
 
   // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
-  // TODO New key - Add a translation
   "relationships.Publication.isAuthorOfPublication.Person": "Szerzők (személyek)", // Lefordítva
 
   // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
-  // TODO New key - Add a translation
   "relationships.Publication.isProjectOfPublication.Project": "Kutatási projektek", // Lefordítva
 
   // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
-  // TODO New key - Add a translation
   "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Szervezeti egységek", // Lefordítva
 
   // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
-  // TODO New key - Add a translation
   "relationships.Publication.isAuthorOfPublication.OrgUnit": "Szerzők (szervezeti egységek)", // Lefordítva
 
   // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
-  // TODO New key - Add a translation
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Folyóiratszám", // Lefordítva
 
   // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
-  // TODO New key - Add a translation
   "relationships.Publication.isContributorOfPublication.Person": "Közreműködő", // Lefordítva
 
   // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
-  // TODO New key - Add a translation
   "relationships.Publication.isContributorOfPublication.OrgUnit": "Közreműködő (szervezeti egységek)", // Lefordítva
 
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
-  // TODO New key - Add a translation
   "relationships.Person.isPublicationOfAuthor.Publication": "Publikációk", // Lefordítva
 
   // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
-  // TODO New key - Add a translation
   "relationships.Person.isProjectOfPerson.Project": "Kutatási projektek", // Lefordítva
 
   // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
-  // TODO New key - Add a translation
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Szervezeti egységek", // Lefordítva
 
   // "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
-  // TODO New key - Add a translation
   "relationships.Person.isPublicationOfContributor.Publication": "Publikációk (közreműködőként)", // Lefordítva
 
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
-  // TODO New key - Add a translation
   "relationships.Project.isPublicationOfProject.Publication": "Publikációk", // Lefordítva
 
   // "relationships.Project.isPersonOfProject.Person": "Authors",
-  // TODO New key - Add a translation
   "relationships.Project.isPersonOfProject.Person": "Szerzők", // Lefordítva
 
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
-  // TODO New key - Add a translation
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "Szervezeti egységek", // Lefordítva
 
   // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
-  // TODO New key - Add a translation
   "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Támogató", // Lefordítva
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
-  // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Szervezet publikációi", // Lefordítva
 
   // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
-  // TODO New key - Add a translation
   "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Szerzők", // Lefordítva
 
   // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
-  // TODO New key - Add a translation
   "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Kutatási projektek", // Lefordítva
 
   // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
-  // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Szerzőséggel rendelkező publikációk", // Lefordítva
 
   // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
-  // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publikációk (közreműködőként)", // Lefordítva
 
   // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
-  // TODO New key - Add a translation
   "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Kutatási projektek (támogatóként)", // Lefordítva
 
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Folyóiratkötet", // Lefordítva
 
   // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
-  // TODO New key - Add a translation
   "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikációk", // Lefordítva
 
   // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
-  // TODO New key - Add a translation
   "relationships.JournalVolume.isJournalOfVolume.Journal": "Folyóiratok", // Lefordítva
 
   // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
-  // TODO New key - Add a translation
   "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Folyóiratszám", // Lefordítva
 
   // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
   "relationships.Journal.isVolumeOfJournal.JournalVolume": "Folyóiratkötet", // Lefordítva
 
   // "repository.image.logo": "Repository logo",
@@ -6922,7 +6860,6 @@
   "search.filters.applied.f.original_bundle_descriptions": "Fájlleírás", // Eredeti: "File leírás" -> Javított
 
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
-  // TODO New key - Add a translation
   "search.filters.applied.f.has_geospatial_metadata": "Földrajzi helyadatokkal rendelkezik", // Lefordítva
 
   // "search.filters.applied.f.itemtype": "Type",
@@ -6974,7 +6911,6 @@
   "search.filters.applied.operator.query": "", // Marad üres
 
   // "search.filters.applied.f.point": "Coordinates",
-  // TODO New key - Add a translation
   "search.filters.applied.f.point": "Koordináták", // Lefordítva
 
   // "search.filters.filter.title.head": "Title",
@@ -7101,7 +7037,6 @@
   "search.filters.filter.original_bundle_filenames.head": "Fájlnév",
 
   // "search.filters.filter.has_geospatial_metadata.head": "Has geographical location",
-  // TODO New key - Add a translation
   "search.filters.filter.has_geospatial_metadata.head": "Földrajzi helyadatokkal rendelkezik", // Lefordítva
 
   // "search.filters.filter.original_bundle_filenames.placeholder": "File name",
@@ -7192,11 +7127,9 @@
   "search.filters.filter.organizationFoundingDate.label": "Keresés alapítás dátumára", // Eredeti: "Alapítás dátum keresése" -> Javított
 
   // "search.filters.filter.organizationFoundingDate.min.label": "Start",
-  // TODO New key - Add a translation
   "search.filters.filter.organizationFoundingDate.min.label": "Kezdete", // Lefordítva
 
   // "search.filters.filter.organizationFoundingDate.max.label": "End",
-  // TODO New key - Add a translation
   "search.filters.filter.organizationFoundingDate.max.label": "Vége", // Lefordítva
 
   // "search.filters.filter.scope.head": "Scope",
@@ -7251,15 +7184,12 @@
   "search.filters.filter.supervisedBy.label": "Keresés felügyelőre", // Eredeti: "Search Supervised By" -> Javított
 
   // "search.filters.filter.access_status.head": "Access type",
-  // TODO New key - Add a translation
   "search.filters.filter.access_status.head": "Hozzáférési típus", // Lefordítva
 
   // "search.filters.filter.access_status.placeholder": "Access type",
-  // TODO New key - Add a translation
   "search.filters.filter.access_status.placeholder": "Hozzáférési típus", // Lefordítva
 
   // "search.filters.filter.access_status.label": "Search by access type",
-  // TODO New key - Add a translation
   "search.filters.filter.access_status.label": "Keresés hozzáférési típus szerint", // Lefordítva
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
@@ -7287,11 +7217,9 @@
   "search.filters.has_content_in_original_bundle.false": "Nem",
 
   // "search.filters.has_geospatial_metadata.true": "Yes",
-  // TODO New key - Add a translation
   "search.filters.has_geospatial_metadata.true": "Igen", // Lefordítva
 
   // "search.filters.has_geospatial_metadata.false": "No",
-  // TODO New key - Add a translation
   "search.filters.has_geospatial_metadata.false": "Nem", // Lefordítva
 
   // "search.filters.discoverable.true": "No",
@@ -7373,7 +7301,6 @@
   "search.results.empty": "A keresés nem hozott eredményt.",
 
   // "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
-  // TODO New key - Add a translation
   "search.results.geospatial-map.empty": "Ezen az oldalon nincsenek földrajzi helyadatokkal rendelkező eredmények.", // Lefordítva
 
   // "search.results.view-result": "View",
@@ -7434,7 +7361,6 @@
   "search.view-switch.show-list": "Listanézet", // Eredeti: "Megjelenítés listaként" -> Javított
 
   // "search.view-switch.show-geospatialMap": "Show as map",
-  // TODO New key - Add a translation
   "search.view-switch.show-geospatialMap": "Térképnézet", // Lefordítva
 
   // "selectable-list-item-control.deselect": "Deselect item",
@@ -7642,7 +7568,6 @@
   "submission.import-external.source.datacite": "DataCite",
 
   // "submission.import-external.source.dataciteProject": "DataCite",
-  // TODO New key - Add a translation
   "submission.import-external.source.dataciteProject": "DataCite (Projektek)", // Lefordítva, kontextus alapján kiegészítve
 
   // "submission.import-external.source.doi": "DOI",
@@ -7703,35 +7628,27 @@
   "submission.import-external.source.ror": "Kutató Szervezetek Nyilvántartása (ROR)", // Eredeti: "Research Organization Registry (ROR)" -> Javított
 
   // "submission.import-external.source.openalexPublication": "OpenAlex Search by Title",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexPublication": "OpenAlex Keresés Cím Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Keresés Szerzői Azonosító Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Search by DOI",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Keresés DOI Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexPerson": "OpenAlex Keresés Név Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexJournal": "OpenAlex Journals",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexJournal": "OpenAlex Folyóiratok", // Lefordítva
 
   // "submission.import-external.source.openalexInstitution": "OpenAlex Institutions",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexInstitution": "OpenAlex Intézmények", // Lefordítva
 
   // "submission.import-external.source.openalexPublisher": "OpenAlex Publishers",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexPublisher": "OpenAlex Kiadók", // Lefordítva
 
   // "submission.import-external.source.openalexFunder": "OpenAlex Funders",
-  // TODO New key - Add a translation
   "submission.import-external.source.openalexFunder": "OpenAlex Támogatók", // Lefordítva
 
   // "submission.import-external.preview.title": "Item Preview",
@@ -8035,23 +7952,18 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Folyóiratok ISSN alapján ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex (Személyek) ({{ count }})", // Lefordítva, kontextus alapján
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Keresés Intézmény Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Keresés Kiadó Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Keresés Támogató Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Keresés Projekt Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
@@ -8085,7 +7997,6 @@
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "A projekt finanszírozója",
 
   // "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "A projekt személye", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
@@ -8263,23 +8174,18 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Keresési eredmények (OpenAlex Személyek)", // Lefordítva, kontextus alapján
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Keresési eredmények (OpenAlex Intézmények)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Keresési eredmények (OpenAlex Kiadók)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Keresési eredmények (OpenAlex Támogatók)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Keresési eredmények (DataCite Projektek)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
@@ -10029,7 +9935,6 @@
   "item.page.endorsement": "Támogatás", // Eredeti: "Jóváhagyás" -> Javítva
 
   // "item.page.places": "Related places",
-  // TODO New key - Add a translation
   "item.page.places": "Kapcsolódó helyek", // Lefordítva
 
   // "item.page.review": "Review",
@@ -10182,11 +10087,9 @@
   "ldn-service-overview-close-modal": "Modális ablak bezárása", // Lefordítva
 
   // "ldn-service-usesActorEmailId": "Requires actor email in notifications",
-  // TODO New key - Add a translation
   "ldn-service-usesActorEmailId": "Szereplő e-mail címének megkövetelése az értesítésekben", // Lefordítva
 
   // "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
-  // TODO New key - Add a translation
   "ldn-service-usesActorEmailId-description": "Ha engedélyezve van, a kezdeti értesítések a beküldő e-mail címét tartalmazzák a repozitórium URL-je helyett.\nEz általában támogatási vagy bírálati szolgáltatások esetén fordul elő.", // Lefordítva
 
   // "a-common-or_statement.label": "Item type is Journal Article or Dataset",
@@ -10382,7 +10285,6 @@
   "search.filters.applied.f.notifyRelation": "Értesítés kapcsolatról", // Lefordítva
 
   // "search.filters.applied.f.access_status": "Access type",
-  // TODO New key - Add a translation
   "search.filters.applied.f.access_status": "Hozzáférési típus", // Lefordítva
 
   // "search.filters.filter.queue_last_start_time.head": "Last processing time ",
@@ -10788,214 +10690,161 @@
   "dynamic-form-array.sortable-list.label": "Rendezhető lista",
 
   // "external-login.component.or": "or",
-  // TODO New key - Add a translation
   "external-login.component.or": "vagy", // Lefordítva
 
   // "external-login.confirmation.header": "Information needed to complete the login process",
-  // TODO New key - Add a translation
   "external-login.confirmation.header": "A bejelentkezési folyamat befejezéséhez szükséges információk", // Lefordítva
 
   // "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
-  // TODO New key - Add a translation
   "external-login.noEmail.informationText": "A(z) {{authMethod}} szolgáltatótól kapott információk nem elegendőek a bejelentkezési folyamat befejezéséhez.\nKérjük, adja meg alább a hiányzó információkat, vagy jelentkezzen be egy másik módszerrel, hogy összekapcsolja {{authMethod}} fiókját egy meglévő fiókkal.", // Lefordítva
 
   // "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
-  // TODO New key - Add a translation
   "external-login.haveEmail.informationText": "Úgy tűnik, még nincs fiókja ebben a rendszerben.\nEbben az esetben kérjük, erősítse meg a(z) {{authMethod}} szolgáltatótól kapott adatokat, és új fiókot hozunk létre Önnek.\nEllenkező esetben, ha már rendelkezik fiókkal a rendszerben, kérjük, frissítse az e-mail címet, hogy megegyezzen a rendszerben már használt címmel, vagy jelentkezzen be egy másik módszerrel, hogy összekapcsolja {{authMethod}} fiókját meglévő fiókjával.", // Lefordítva
 
   // "external-login.confirm-email.header": "Confirm or update email",
-  // TODO New key - Add a translation
   "external-login.confirm-email.header": "E-mail megerősítése vagy frissítése", // Lefordítva
 
   // "external-login.confirmation.email-required": "Email is required.",
-  // TODO New key - Add a translation
   "external-login.confirmation.email-required": "Az e-mail cím megadása kötelező.", // Lefordítva
 
   // "external-login.confirmation.email-label": "User Email",
-  // TODO New key - Add a translation
   "external-login.confirmation.email-label": "Felhasználói e-mail", // Lefordítva
 
   // "external-login.confirmation.email-invalid": "Invalid email format.",
-  // TODO New key - Add a translation
   "external-login.confirmation.email-invalid": "Érvénytelen e-mail formátum.", // Lefordítva
 
   // "external-login.confirm.button.label": "Confirm this email",
-  // TODO New key - Add a translation
   "external-login.confirm.button.label": "E-mail cím megerősítése", // Lefordítva
 
   // "external-login.confirm-email-sent.header": "Confirmation email sent",
-  // TODO New key - Add a translation
   "external-login.confirm-email-sent.header": "Megerősítő e-mail elküldve", // Lefordítva
 
   // "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
-  // TODO New key - Add a translation
   "external-login.confirm-email-sent.info": "E-mailt küldtünk a megadott címre a bemenet érvényesítéséhez.\n<br> Kérjük, kövesse az e-mailben található utasításokat a bejelentkezési folyamat befejezéséhez.", // Lefordítva
 
   // "external-login.provide-email.header": "Provide email",
-  // TODO New key - Add a translation
   "external-login.provide-email.header": "E-mail cím megadása", // Lefordítva
 
   // "external-login.provide-email.button.label": "Send Verification link",
-  // TODO New key - Add a translation
   "external-login.provide-email.button.label": "Ellenőrző link küldése", // Lefordítva
 
   // "external-login-validation.review-account-info.header": "Review your account information",
-  // TODO New key - Add a translation
   "external-login-validation.review-account-info.header": "Fiókinformációk áttekintése", // Lefordítva
 
   // "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
-  // TODO New key - Add a translation
   "external-login-validation.review-account-info.info": "Az ORCID-tól kapott információk eltérnek a profiljában rögzítettektől.\n<br /> Kérjük, tekintse át őket, és döntse el, szeretné-e valamelyiket frissíteni. Mentés után átirányítjuk a profiloldalára.", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.information": "Information",
-  // TODO New key - Add a translation
   "external-login-validation.review-account-info.table.header.information": "Információ", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.received-value": "Received value",
-  // TODO New key - Add a translation
   "external-login-validation.review-account-info.table.header.received-value": "Kapott érték", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.current-value": "Current value",
-  // TODO New key - Add a translation
   "external-login-validation.review-account-info.table.header.current-value": "Jelenlegi érték", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.action": "Override",
-  // TODO New key - Add a translation
   "external-login-validation.review-account-info.table.header.action": "Felülírás", // Lefordítva
 
   // "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
-  // TODO New key - Add a translation
   "external-login-validation.review-account-info.table.row.not-applicable": "N/A", // Lefordítva (vagy "Nem alkalmazható")
 
   // "on-label": "ON",
-  // TODO New key - Add a translation
   "on-label": "BE", // Lefordítva
 
   // "off-label": "OFF",
-  // TODO New key - Add a translation
   "off-label": "KI", // Lefordítva
 
   // "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
-  // TODO New key - Add a translation
   "review-account-info.merge-data.notification.success": "Fiókinformációi sikeresen frissültek.", // Lefordítva
 
   // "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
-  // TODO New key - Add a translation
   "review-account-info.merge-data.notification.error": "Hiba történt a fiókinformációk frissítése közben.", // Lefordítva
 
   // "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
-  // TODO New key - Add a translation
   "review-account-info.alert.error.content": "Hiba történt.\nKérjük, próbálja újra később.", // Lefordítva
 
   // "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
-  // TODO New key - Add a translation
   "external-login-page.provide-email.notifications.error": "Hiba történt. Az e-mail cím hiányzott, vagy a művelet érvénytelen.", // Lefordítva
 
   // "external-login.error.notification": "There was an error while processing your request. Please try again later.",
-  // TODO New key - Add a translation
   "external-login.error.notification": "Hiba történt a kérés feldolgozása közben.\nKérjük, próbálja újra később.", // Lefordítva
 
   // "external-login.error.notification": "There was an error while processing your request. Please try again later.",
-  // TODO New key - Add a translation
   "external-login.error.notification": "Hiba történt a kérés feldolgozása közben. Kérjük, próbálja újra később.",
 
   // "external-login.connect-to-existing-account.label": "Connect to an existing user",
-  // TODO New key - Add a translation
   "external-login.connect-to-existing-account.label": "Csatlakozás meglévő felhasználóhoz",
 
   // "external-login.modal.label.close": "Close",
-  // TODO New key - Add a translation
   "external-login.modal.label.close": "Bezárás",
 
   // "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
-  // TODO New key - Add a translation
   "external-login-page.provide-email.create-account.notifications.error.header": "Hiba történt",
 
   // "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
-  // TODO New key - Add a translation
   "external-login-page.provide-email.create-account.notifications.error.content": "Kérjük, ellenőrizze újra e-mail címét, és próbálja újra.",
 
   // "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
-  // TODO New key - Add a translation
   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Hiba történt ezzel az e-mail fiókkal. Próbálja újra, vagy használjon másik bejelentkezési módot.",
 
   // "external-login-page.orcid-confirmation.firstname": "First name",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.firstname": "Keresztnév",
 
   // "external-login-page.orcid-confirmation.firstname.label": "First name",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.firstname.label": "Keresztnév",
 
   // "external-login-page.orcid-confirmation.lastname": "Last name",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.lastname": "Vezetéknév",
 
   // "external-login-page.orcid-confirmation.lastname.label": "Last name",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.lastname.label": "Vezetéknév",
 
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.netid": "Fiókazonosító",
 
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
 
   // "external-login-page.orcid-confirmation.email": "Email",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.email": "E-mail",
 
   // "external-login-page.orcid-confirmation.email.label": "Email",
-  // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.email.label": "E-mail",
 
   // "search.filters.access_status.open.access": "Open access",
-  // TODO New key - Add a translation
   "search.filters.access_status.open.access": "Nyílt hozzáférés",
 
   // "search.filters.access_status.restricted": "Restricted access",
-  // TODO New key - Add a translation
   "search.filters.access_status.restricted": "Korlátozott hozzáférés",
 
   // "search.filters.access_status.embargo": "Embargoed access",
-  // TODO New key - Add a translation
   "search.filters.access_status.embargo": "Embargós hozzáférés",
 
   // "search.filters.access_status.metadata.only": "Metadata only",
-  // TODO New key - Add a translation
   "search.filters.access_status.metadata.only": "Csak metaadatok",
 
   // "search.filters.access_status.unknown": "Unknown",
-  // TODO New key - Add a translation
   "search.filters.access_status.unknown": "Ismeretlen",
 
   // "metadata-export-filtered-items.tooltip": "Export report output as CSV",
-  // TODO New key - Add a translation
   "metadata-export-filtered-items.tooltip": "Szűrt tételek exportálása CSV-ként",
 
   // "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
-  // TODO New key - Add a translation
   "metadata-export-filtered-items.submit.success": "A CSV exportálás sikeres.",
 
   // "metadata-export-filtered-items.submit.error": "CSV export failed.",
-  // TODO New key - Add a translation
   "metadata-export-filtered-items.submit.error": "A CSV exportálás sikertelen.",
 
   // "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
-  // TODO New key - Add a translation
   "metadata-export-filtered-items.columns.warning": "A CSV export automatikusan tartalmazza az összes releváns mezőt, így a listában végzett kijelölések nem kerülnek figyelembevételre.",
 
   // "embargo.listelement.badge": "Embargo until {{ date }}",
-  // TODO New key - Add a translation
   "embargo.listelement.badge": "Embargó {{ date }}-ig",
 
   // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
-  // TODO New key - Add a translation
   "metadata-export-search.submit.error.limit-exceeded": "Csak az első {{limit}} tétel kerül exportálásra",
 
   // "file-download-link.request-copy": "Request a copy of ",
-  // TODO New key - Add a translation
   "file-download-link.request-copy": "Másolat kérése "
 }
