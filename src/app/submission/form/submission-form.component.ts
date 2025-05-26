@@ -173,6 +173,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           distinctUntilChanged())
           .subscribe((endpointURL) => {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+            this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
             this.submissionService.dispatchInit(

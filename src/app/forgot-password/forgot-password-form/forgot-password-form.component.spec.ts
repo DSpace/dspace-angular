@@ -21,6 +21,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -54,7 +55,10 @@ describe('ForgotPasswordFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotPasswordFormComponent],
+      declarations: [
+        BrowserOnlyPipe,
+        ForgotPasswordFormComponent,
+      ],
       providers: [
         {provide: Router, useValue: router},
         {provide: ActivatedRoute, useValue: route},
@@ -75,7 +79,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   describe('init', () => {
     it('should initialise mail address', () => {
-      const elem = fixture.debugElement.queryAll(By.css('span#email'))[0].nativeElement;
+      const elem = fixture.debugElement.queryAll(By.css('span[data-test="email"]'))[0].nativeElement;
       expect(elem.innerHTML).toContain('test@email.org');
     });
   });

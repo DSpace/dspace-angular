@@ -198,6 +198,11 @@ describe('DeleteDataImpl', () => {
             method: RestRequestMethod.DELETE,
             href: 'some-href?copyVirtualMetadata=a&copyVirtualMetadata=b&copyVirtualMetadata=c',
           }));
+
+          const callback = (rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[1];
+          callback();
+          expect(service.invalidateByHref).toHaveBeenCalledWith('some-href');
+
           done();
         });
       });

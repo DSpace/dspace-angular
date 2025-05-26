@@ -116,11 +116,23 @@ export class AuthInterceptor implements HttpInterceptor {
    */
   private sortAuthMethods(authMethodModels: AuthMethod[]): AuthMethod[] {
     const sortedAuthMethodModels: AuthMethod[] = [];
+    let passwordAuthFound = false;
+    let ldapAuthFound = false;
+
     authMethodModels.forEach((method) => {
       if (method.authMethodType === AuthMethodType.Password) {
         sortedAuthMethodModels.push(method);
+        passwordAuthFound = true;
+      }
+      if (method.authMethodType === AuthMethodType.Ldap) {
+        ldapAuthFound = true;
       }
     });
+
+    // Using password authentication method to provide UI for LDAP authentication even if password auth is not present in server
+    if (ldapAuthFound && !(passwordAuthFound)) {
+      sortedAuthMethodModels.push(new AuthMethod(AuthMethodType.Password,0));
+    }
 
     authMethodModels.forEach((method) => {
       if (method.authMethodType !== AuthMethodType.Password) {
@@ -152,12 +164,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
         let authMethodModel: AuthMethod;
         if (splittedRealm.length === 1) {
-          authMethodModel = new AuthMethod(methodName);
+          authMethodModel = new AuthMethod(methodName, Number(j));
           authMethodModels.push(authMethodModel);
         } else if (splittedRealm.length > 1) {
           let location = splittedRealm[1];
           location = this.parseLocation(location);
-          authMethodModel = new AuthMethod(methodName, location);
+          authMethodModel = new AuthMethod(methodName, Number(j), location);
           authMethodModels.push(authMethodModel);
         }
       }
@@ -165,7 +177,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // make sure the email + password login component gets rendered first
       authMethodModels = this.sortAuthMethods(authMethodModels);
     } else {
-      authMethodModels.push(new AuthMethod(AuthMethodType.Password));
+      authMethodModels.push(new AuthMethod(AuthMethodType.Password, 0));
     }
 
     return authMethodModels;

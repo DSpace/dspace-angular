@@ -1,18 +1,32 @@
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 import { ListableObject } from '../listable-object.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import {
-  ItemListElementComponent
-} from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ListableObjectDirective } from './listable-object.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { provideMockStore } from '@ngrx/store/testing';
 import { ThemeService } from '../../../theme-support/theme.service';
+import { ItemSearchResultListElementComponent } from '../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
+import { FileServiceStub } from '../../../testing/file-service.stub';
+import { TruncatableServiceStub } from '../../../testing/truncatable-service.stub';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { FileService } from '../../../../core/shared/file.service';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
+import { XSRFService } from 'src/app/core/xsrf/xsrf.service';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -28,24 +42,42 @@ describe('ListableObjectComponentLoaderComponent', () => {
   let comp: ListableObjectComponentLoaderComponent;
   let fixture: ComponentFixture<ListableObjectComponentLoaderComponent>;
 
+  let activatedRoute: ActivatedRouteStub;
+  let authService: AuthServiceStub;
+  let authorizationService: AuthorizationDataServiceStub;
+  let fileService: FileServiceStub;
   let themeService: ThemeService;
+  let truncatableService: TruncatableServiceStub;
 
   beforeEach(waitForAsync(() => {
-    themeService = jasmine.createSpyObj('themeService', {
-      getThemeName: 'dspace',
-    });
-    TestBed.configureTestingModule({
+    activatedRoute = new ActivatedRouteStub();
+    authService = new AuthServiceStub();
+    authorizationService = new AuthorizationDataServiceStub();
+    fileService = new FileServiceStub();
+    themeService = getMockThemeService();
+    truncatableService = new TruncatableServiceStub();
+
+    void TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
-      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [
+        ItemSearchResultListElementComponent,
+        ListableObjectComponentLoaderComponent,
+        ListableObjectDirective,
+      ],
       providers: [
-        provideMockStore({}),
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
+        { provide: TruncatableService, useValue: truncatableService },
+        { provide: XSRFService, useValue: {} },
       ]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [ItemListElementComponent]
       }
     }).compileComponents();
   }));
@@ -57,7 +89,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
     comp.object = new TestType();
     comp.viewMode = testViewMode;
     comp.context = testContext;
-    spyOn(comp, 'getComponent').and.returnValue(ItemListElementComponent as any);
+    spyOn(comp, 'getComponent').and.returnValue(SearchResultListElementComponent as any);
     spyOn(comp as any, 'connectInputsAndOutputs').and.callThrough();
     fixture.detectChanges();
 
@@ -81,7 +113,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       spyOn((comp as any), 'instantiateComponent').and.returnValue(null);
       spyOn((comp as any).contentChange, 'emit').and.returnValue(null);
 
-      listableComponent = fixture.debugElement.query(By.css('ds-item-list-element')).componentInstance;
+      listableComponent = fixture.debugElement.query(By.css('ds-search-result-list-element')).componentInstance;
       reloadedObject = 'object';
     });
 

@@ -75,6 +75,12 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    * The context to displaying lists for
    */
   @Input() context: Context;
+
+  /**
+   * The search query
+   */
+  @Input() query: string;
+
   @Input() repeatable: boolean;
   /**
    * Emit an event when an object has been imported (or selected from similar local entries)
@@ -149,8 +155,12 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
 
     this.resetRoute();
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
-      switchMap((searchOptions: PaginatedSearchOptions) =>
-        this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined)))
+      switchMap((searchOptions: PaginatedSearchOptions) => {
+        if (searchOptions.query === '') {
+          searchOptions.query = this.query;
+        }
+        return this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined));
+      })
     );
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
     this.importConfig = {

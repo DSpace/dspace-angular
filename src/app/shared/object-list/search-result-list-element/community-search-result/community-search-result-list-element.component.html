@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngIf="showThumbnails" class="offset-md-2"></div>
+  <div *ngIf="showThumbnails" class="offset-3 offset-md-2"></div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"  [routerLink]="['/communities/' + dso.id]" class="lead" [innerHTML]="dsoTitle"></a>

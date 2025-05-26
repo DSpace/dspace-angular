@@ -41,6 +41,7 @@ describe('MenuService', () => {
   let routeDataMenuSection: MenuSection;
   let routeDataMenuSectionResolved: MenuSection;
   let routeDataMenuChildSection: MenuSection;
+  let routeDataMenuOverwrittenChildSection: MenuSection;
   let toBeRemovedMenuSection: MenuSection;
   let alreadyPresentMenuSection: MenuSection;
   let route;
@@ -127,6 +128,17 @@ describe('MenuService', () => {
         link: ''
       } as LinkMenuItemModel
     };
+    routeDataMenuOverwrittenChildSection = {
+      id: 'mockChildSection',
+      parentID: 'mockSection',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.mockChildOverwrittenSection',
+        link: ''
+      } as LinkMenuItemModel
+    };
     toBeRemovedMenuSection = {
       id: 'toBeRemovedSection',
       active: false,
@@ -167,7 +179,17 @@ describe('MenuService', () => {
                 [MenuID.PUBLIC]: routeDataMenuChildSection
               }
             }
+          },
+          firstChild: {
+            snapshot: {
+              data: {
+                menu: {
+                  [MenuID.PUBLIC]: routeDataMenuOverwrittenChildSection
+                }
+              }
+            }
           }
+
         }
       }
     };
@@ -541,7 +563,7 @@ describe('MenuService', () => {
   });
 
   describe('buildRouteMenuSections', () => {
-    it('should add and remove menu sections depending on the current route', () => {
+    it('should add and remove menu sections depending on the current route and overwrite menu sections when they have the same ID with the child route version', () => {
       spyOn(service, 'addSection');
       spyOn(service, 'removeSection');
 
@@ -550,7 +572,8 @@ describe('MenuService', () => {
       service.buildRouteMenuSections(MenuID.PUBLIC);
 
       expect(service.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuSectionResolved);
-      expect(service.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuChildSection);
+      expect(service.addSection).not.toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuChildSection);
+      expect(service.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuOverwrittenChildSection);
       expect(service.addSection).not.toHaveBeenCalledWith(MenuID.PUBLIC, alreadyPresentMenuSection);
       expect(service.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, toBeRemovedMenuSection.id);
     });

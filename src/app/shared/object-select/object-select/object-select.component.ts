@@ -9,6 +9,7 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * An abstract component used to select DSpaceObjects from a specific list and returning the UUIDs of the selected DSpaceObjects
@@ -17,7 +18,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
   selector: 'ds-object-select-abstract',
   template: ''
 })
-export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestroy {
+export abstract class ObjectSelectComponent<TDomain extends DSpaceObject> implements OnInit, OnDestroy {
 
   /**
    * A unique key used for the object select service
@@ -88,8 +89,11 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
    */
   selectedIds$: Observable<string[]>;
 
-  constructor(protected objectSelectService: ObjectSelectService,
-              protected authorizationService: AuthorizationDataService) {
+  constructor(
+    protected objectSelectService: ObjectSelectService,
+    protected authorizationService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   ngOnInit(): void {

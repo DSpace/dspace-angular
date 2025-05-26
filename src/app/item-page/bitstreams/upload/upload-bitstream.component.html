@@ -2,7 +2,7 @@
   <ng-container *ngIf="bundles">
     <div class="row">
       <div class="col-12 mb-2">
-        <h2>{{'item.bitstreams.upload.title' | translate}}</h2>
+        <h1>{{'item.bitstreams.upload.title' | translate}}</h1>
         <ng-container *ngVar="(itemRD$ | async)?.payload as item">
           <div *ngIf="item">
             <span class="font-weight-bold">{{'item.bitstreams.upload.item' | translate}}</span>

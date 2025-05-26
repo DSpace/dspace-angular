@@ -1,18 +1,18 @@
 <div class="container">
     <div class="row">
-        <h2 class="col-12">
+        <h1 class="col-12">
             {{headerKey | translate}}
-        </h2>
-        <div class="col-12 col-md-6">
+        </h1>
+        <div class="col-12 col-md-6 mb-2">
             <form #form="ngForm" (ngSubmit)="submitForm(form)">
                 <ds-scripts-select [script]="selectedScript" (select)="selectedScript = $event; parameters = undefined"></ds-scripts-select>
                 <ds-process-parameters [initialParams]="parameters" [script]="selectedScript" (updateParameters)="parameters = $event"></ds-process-parameters>
-                <button [routerLink]="['/processes']" class="btn btn-light float-left">{{ 'process.new.cancel' | translate }}</button>
-                <button type="submit" class="btn btn-light float-right">{{ 'process.new.submit' | translate }}</button>
+                <a [routerLink]="['/processes']" class="btn btn-danger float-left">{{ 'process.new.cancel' | translate }}</a>
+                <button type="submit" class="btn btn-primary float-right">{{ 'process.new.submit' | translate }}</button>
             </form>
         </div>
         <div class="col-12 col-md-6">
-            <ds-script-help [script]="selectedScript"></ds-script-help>
+            <ds-script-help *ngIf="selectedScript" [script]="selectedScript"></ds-script-help>
         </div>
     </div>
 

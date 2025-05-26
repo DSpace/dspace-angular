@@ -2,6 +2,7 @@ import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
@@ -9,6 +10,7 @@ import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/se
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
   FILTER_CONFIG,
+  SCOPE,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
   SearchFilterService
@@ -54,14 +56,35 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   min = 1950;
 
   /**
+   * i18n Label to use for minimum field
+   */
+  minLabel: string;
+
+  /**
    * Fallback maximum for the range
    */
   max = new Date().getUTCFullYear();
 
   /**
+   * i18n Label to use for maximum field
+   */
+  maxLabel: string;
+
+  /**
+   * Base configuration for nouislider
+   * https://refreshless.com/nouislider/slider-options/
+   */
+  config = {};
+
+  /**
    * The current range of the filter
    */
   range;
+
+  /**
+   * The range currently selected by the slider
+   */
+  sliderRange: [number | undefined, number | undefined];
 
   /**
    * Subscription to unsubscribe from
@@ -78,13 +101,15 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               protected filterService: SearchFilterService,
               protected router: Router,
               protected rdbs: RemoteDataBuildService,
+              private translateService: TranslateService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
 
   }
 
@@ -96,6 +121,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     super.ngOnInit();
     this.min = yearFromString(this.filterConfig.minValue) || this.min;
     this.max = yearFromString(this.filterConfig.maxValue) || this.max;
+    this.minLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.min.placeholder');
+    this.maxLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.max.placeholder');
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
     this.sub = observableCombineLatest(iniMin, iniMax).pipe(
@@ -105,6 +132,24 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
         return [minimum, maximum];
       })
     ).subscribe((minmax) => this.range = minmax);
+
+    // Default/base config for nouislider
+    this.config = {
+      // Ensure draggable handles have labels
+      handleAttributes: [
+        { 'aria-label': this.minLabel },
+        { 'aria-label': this.maxLabel },
+      ],
+    };
+  }
+
+  /**
+   * Updates the sliderRange property with the current slider range.
+   * This method is called whenever the slider value changes, but it does not immediately apply the changes.
+   * @param range - The current range selected by the slider
+   */
+  onSliderChange(range: [number | undefined, number | undefined]): void {
+    this.sliderRange = range;
   }
 
   /**

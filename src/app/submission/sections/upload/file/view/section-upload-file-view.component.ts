@@ -38,6 +38,13 @@ export class SubmissionSectionUploadFileViewComponent implements OnInit {
    */
   public fileDescrKey = 'Description';
 
+  public fileFormat!: string;
+
+  public fileCheckSum!: {
+    checkSumAlgorithm: string;
+    value: string;
+  };
+
   /**
    * Initialize instance variables
    */
@@ -46,6 +53,8 @@ export class SubmissionSectionUploadFileViewComponent implements OnInit {
       this.metadata[this.fileTitleKey] = Metadata.all(this.fileData.metadata, 'dc.title');
       this.metadata[this.fileDescrKey] = Metadata.all(this.fileData.metadata, 'dc.description');
     }
+    this.fileCheckSum = this.fileData.checkSum;
+    this.fileFormat = this.fileData.format.shortDescription;
   }
 
   /**

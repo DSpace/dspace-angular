@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
 import { catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { Store, MemoizedSelector, createSelector, select } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
@@ -46,6 +46,20 @@ import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SubmissionError } from './objects/submission-error.model';
+
+function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
+  return createSelector(
+    submissionSelector,
+    (state: SubmissionState) => state.objects[submissionId],
+  );
+}
+
+function getSubmissionCollectionIdSelector(submissionId: string): MemoizedSelector<SubmissionState, string> {
+  return createSelector(
+    getSubmissionSelector(submissionId),
+    (submission: SubmissionObjectEntry) => submission?.collection,
+  );
+}
 
 /**
  * A service that provides methods used in submission process.
@@ -96,8 +110,17 @@ export class SubmissionService {
    * @param collectionId
    *    The collection id
    */
-  changeSubmissionCollection(submissionId, collectionId) {
+  changeSubmissionCollection(submissionId: string, collectionId: string): void {
     this.store.dispatch(new ChangeSubmissionCollectionAction(submissionId, collectionId));
+  }
+
+  /**
+   * Listen to collection changes for a certain {@link SubmissionObject}
+   *
+   * @param submissionId The submission id
+   */
+  getSubmissionCollectionId(submissionId: string): Observable<string> {
+    return this.store.pipe(select(getSubmissionCollectionIdSelector(submissionId)));
   }
 
   /**

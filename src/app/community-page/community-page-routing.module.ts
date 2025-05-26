@@ -15,21 +15,40 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ViewTrackerResolverService } from '../statistics/angulartics/dspace/view-tracker-resolver.service';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: COMMUNITY_CREATE_PATH,
-        component: CreateCommunityPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
+        children: [
+          {
+            path: '',
+            component: CreateCommunityPageComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'community.create',
+            },
+          }
+        ],
+        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard],
+        data: {
+          breadcrumbQueryParam: 'parent',
+        },
+        resolve: {
+          breadcrumb: CommunityBreadcrumbResolver,
+        },
+        runGuardsAndResolvers: 'always',
       },
       {
         path: ':id',
         resolve: {
           dso: CommunityPageResolver,
           breadcrumb: CommunityBreadcrumbResolver,
-          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -49,6 +68,10 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedCommunityPageComponent,
             pathMatch: 'full',
+            resolve: {
+              menu: DSOEditMenuResolver,
+              tracking: ViewTrackerResolverService,
+            },
           }
         ],
         data: {
@@ -76,6 +99,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     CreateCommunityPageGuard,
     CommunityPageAdministratorGuard,
+    ViewTrackerResolverService,
   ]
 })
 export class CommunityPageRoutingModule {

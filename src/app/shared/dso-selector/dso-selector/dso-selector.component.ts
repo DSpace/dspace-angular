@@ -75,6 +75,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   @Input() sort: SortOptions;
 
+  /**
+   * The id that should be given to the input box, this is required for accessibility reasons
+   */
+  @Input() searchBoxId: string | null = null;
+
   // list of allowed selectable dsoTypes
   typesString: string;
 
@@ -135,6 +140,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * @type {Array}
    */
   public subs: Subscription[] = [];
+
+  /**
+   * Random seed of 4 characters to avoid duplicate ids
+   */
+  randomSeed: string = Math.random().toString(36).substring(2, 6);
 
   constructor(
     protected searchService: SearchService,
