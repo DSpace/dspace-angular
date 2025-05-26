@@ -27,7 +27,7 @@ ssr:
   # If the path match any of the regexes it will be served directly in CSR.
   # By default, excludes community and collection browse, global browse, global search, community list, statistics and various administrative tools.
   excludePathPatterns:
-    - pattern: "^/communities/[a-f0-9-]{36}/browse(/.*)?$",
+    - pattern: "^/communities/[a-f0-9-]{36}/browse(/.*)?$"
       flag: "i"
     - pattern: "^/collections/[a-f0-9-]{36}/browse(/.*)?$"
       flag: "i"
