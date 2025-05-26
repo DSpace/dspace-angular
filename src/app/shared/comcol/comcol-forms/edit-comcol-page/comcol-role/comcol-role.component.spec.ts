@@ -184,6 +184,13 @@ describe('ComcolRoleComponent', () => {
       fixture.detectChanges();
     });
 
+    afterEach(() => {
+      const modal = document.querySelector('ds-confirmation-modal');
+      if (modal) {
+        modal.remove();
+      }
+    });
+
     it('should have a delete button but no create or restrict button', (done) => {
       expect(de.query(By.css('.btn.create'))).toBeNull();
       expect(de.query(By.css('.btn.restrict'))).toBeNull();
