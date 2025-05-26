@@ -439,7 +439,7 @@
 
   "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
 
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
 
   "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
 
