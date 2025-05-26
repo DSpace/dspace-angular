@@ -2504,7 +2504,7 @@
   "cookies.consent.app.title.matomo": "Matomo",
 
   // "cookies.consent.app.description.matomo": "Allows us to track statistical data",
-  "cookies.consent.app.description.matomo": Nos permite realizar un seguimiento de datos estadísticos",
+  "cookies.consent.app.description.matomo": "Nos permite realizar un seguimiento de datos estadísticos",
 
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funcional",
@@ -3198,7 +3198,7 @@
   "grant-request-copy.intro.attachment": "Se enviará un mensaje al solicitante. Se adjuntará el documento o documentos solicitados.",
 
   // "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
-  "grant-request-copy.intro.link": "Se enviará un mensaje al solicitante. Se adjuntará un enlace seguro que proporcionará acceso al documento o documentos solicitados. El enlace proporcionará acceso durante el tiempo seleccionado en el menú \"Período de acceso"\ a continuación.",
+  "grant-request-copy.intro.link": "Se enviará un mensaje al solicitante. Se adjuntará un enlace seguro que proporcionará acceso al documento o documentos solicitados. El enlace proporcionará acceso durante el tiempo seleccionado en el menú \"Período de acceso\" a continuación.",
 
   // "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
   "grant-request-copy.intro.link.preview": "A continuación se muestra una vista previa del enlace que se enviará al solicitante:",
@@ -10890,7 +10890,7 @@
   "external-login-page.orcid-confirmation.lastname": "Apellidos",
 
   // "external-login-page.orcid-confirmation.lastname.label": "Last name",
-  "external-login-page.orcid-confirmation.lastname.label": Apellidos",
+  "external-login-page.orcid-confirmation.lastname.label": "Apellidos",
 
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
   "external-login-page.orcid-confirmation.netid": "Identificador de cuenta",
