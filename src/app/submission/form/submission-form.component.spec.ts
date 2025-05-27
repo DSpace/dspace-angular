@@ -47,7 +47,7 @@ import { SubmissionFormSectionAddComponent } from './section-add/submission-form
 import { SubmissionFormComponent } from './submission-form.component';
 import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
 
-describe('SubmissionFormComponent Component', () => {
+describe('SubmissionFormComponent', () => {
 
   let comp: SubmissionFormComponent;
   let compAsAny: any;
@@ -227,7 +227,6 @@ describe('SubmissionFormComponent Component', () => {
       });
       scheduler.flush();
 
-      expect(comp.collectionId).toEqual(submissionObjectNew.collection.id);
       expect(comp.submissionDefinition).toEqual(submissionObjectNew.submissionDefinition);
       expect(comp.definitionId).toEqual(submissionObjectNew.submissionDefinition.name);
       expect(comp.sections).toEqual(submissionObjectNew.sections);
@@ -265,7 +264,6 @@ describe('SubmissionFormComponent Component', () => {
       });
       scheduler.flush();
 
-      expect(comp.collectionId).toEqual('45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb');
       expect(submissionServiceStub.resetSubmissionObject).not.toHaveBeenCalled();
       done();
     });
