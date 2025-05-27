@@ -129,27 +129,27 @@
 
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.failure.amount": "حذف نشد {{ amount }} قالب(ها)",
 
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.head": "Failure",
+  "admin.registries.bitstream-formats.delete.failure.head": "نارسایی",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.success.amount": "با موفقیت حذف شد {{ amount }} قالب(ها)",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.head": "Success",
+  "admin.registries.bitstream-formats.delete.success.head": "موفق",
 
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
+  "admin.registries.bitstream-formats.description": "این لیست از قالبهای فایل، اطلاعاتی در مورد قالبهای شناخته شده و سطح پشتیبانی آنها ارائه میدهد",
 
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "قالب فایل",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   // TODO New key - Add a translation
@@ -157,103 +157,103 @@
 
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.description.label": "Description",
+  "admin.registries.bitstream-formats.edit.description.label": "توصیف",
 
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
+  "admin.registries.bitstream-formats.edit.extensions.hint": "اکستنشنها، پسوند فایل‌ها هستند که برای شناسایی خودکار قالب فایل‌های آپلود شده استفاده می‌شوند. می‌توانید برای هر قالب، چندین اکستنشن وارد کنید.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
+  "admin.registries.bitstream-formats.edit.extensions.label": "پسوندهای فایل",
 
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "یک پسوند فایل بدون نقطه وارد کنید",
 
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
+  "admin.registries.bitstream-formats.edit.failure.content": "هنگام ویرایش قالب فایل خطایی روی داد.",
 
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.head": "Failure",
+  "admin.registries.bitstream-formats.edit.failure.head": "نارسایی",
 
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "قالب فایل: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "قالبهایی که با عنوان داخلی علامت‌گذاری شده‌اند، از دید کاربر پنهان هستند و برای اهداف مدیریتی استفاده می‌شوند.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
+  "admin.registries.bitstream-formats.edit.internal.label": "داخلی",
 
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "نوع MIME مرتبط با این قالب، لازم نیست منحصر به فرد باشد.",
 
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
+  "admin.registries.bitstream-formats.edit.mimetype.label": "نوع MIME",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "یک نام منحصر به فرد برای این قالب، (مثلاً Microsoft Word XP یا Microsoft Word 2000)",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
+  "admin.registries.bitstream-formats.edit.shortDescription.label": "نام",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
+  "admin.registries.bitstream-formats.edit.success.content": "قالب فایل با موفقیت ویرایش شد.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.head": "Success",
+  "admin.registries.bitstream-formats.edit.success.head": "موفق",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "سطح پشتیبانی که موسسه شما از این قالب قبول می‌کند.",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "سطح پشتیبانی",
 
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.head": "ثبت قالب فایل",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
+  "admin.registries.bitstream-formats.no-items": "هیچ قالبهای فایل برای نمایش وجود ندارد.",
 
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.delete": "Delete selected",
+  "admin.registries.bitstream-formats.table.delete": "حذف انتخاب شده",
 
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
+  "admin.registries.bitstream-formats.table.deselect-all": "لغو انتخاب همه",
 
   // "admin.registries.bitstream-formats.table.internal": "internal",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.internal": "internal",
+  "admin.registries.bitstream-formats.table.internal": "داخلی",
 
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
+  "admin.registries.bitstream-formats.table.mimetype": "MIME نوع",
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.name": "Name",
+  "admin.registries.bitstream-formats.table.name": "نام",
 
   // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  "admin.registries.bitstream-formats.table.selected": "قالبهای فایل انتخاب شد",
 
   // "admin.registries.bitstream-formats.table.id": "ID",
   // TODO New key - Add a translation
@@ -261,83 +261,83 @@
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.return": "Back",
+  "admin.registries.bitstream-formats.table.return": "برگشت",
 
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
+  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "شناخته شده",
 
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "پشتیبانی شد",
 
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
+  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "ناشناخته",
 
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
+  "admin.registries.bitstream-formats.table.supportLevel.head": "سطح پشتیبانی",
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "ثیت قالب فایل",
 
   // "admin.registries.bitstream-formats.select": "Select",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.select": "Select",
+  "admin.registries.bitstream-formats.select": "انتخاب",
 
   // "admin.registries.bitstream-formats.deselect": "Deselect",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.deselect": "Deselect",
+  "admin.registries.bitstream-formats.deselect": "لغو انتخاب",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   // TODO New key - Add a translation
-  "admin.registries.metadata.breadcrumbs": "Metadata registry",
+  "admin.registries.metadata.breadcrumbs": "ثبت ابرداده",
 
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   // TODO New key - Add a translation
-  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
+  "admin.registries.metadata.description": "ثبت ابرداده فهرستی از تمام فیلدهای ابرداده موجود در مخزن را نگهداری می‌کند. این فیلدها ممکن است بین چندین طرحواره تقسیم شوند. با این حال، دی اسپیس به طرحواره واجد شرایط دوبلین کور نیاز دارد.",
 
   // "admin.registries.metadata.form.create": "Create metadata schema",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.create": "Create metadata schema",
+  "admin.registries.metadata.form.create": "ایجاد طرحواره ابرداده",
 
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.edit": "Edit metadata schema",
+  "admin.registries.metadata.form.edit": "ویرایش طرحواره ابرداده",
 
   // "admin.registries.metadata.form.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.name": "Name",
+  "admin.registries.metadata.form.name": "نام",
 
   // "admin.registries.metadata.form.namespace": "Namespace",
   // TODO New key - Add a translation
-  "admin.registries.metadata.form.namespace": "Namespace",
+  "admin.registries.metadata.form.namespace": "فضای نام",
 
   // "admin.registries.metadata.head": "Metadata Registry",
   // TODO New key - Add a translation
-  "admin.registries.metadata.head": "Metadata Registry",
+  "admin.registries.metadata.head": "ثبت ابرداده",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
+  "admin.registries.metadata.schemas.no-items": "طرحواره ابرداده برای نماش وجود ندارد",
 
   // "admin.registries.metadata.schemas.select": "Select",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.select": "Select",
+  "admin.registries.metadata.schemas.select": "انتخاب",
 
   // "admin.registries.metadata.schemas.deselect": "Deselect",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.deselect": "Deselect",
+  "admin.registries.metadata.schemas.deselect": "لغو انتخاب",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.delete": "Delete selected",
+  "admin.registries.metadata.schemas.table.delete": "حذف انتخاب شد",
 
   // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  "admin.registries.metadata.schemas.table.selected": "طرحواره انتخاب شده",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   // TODO New key - Add a translation
@@ -345,11 +345,11 @@
 
   // "admin.registries.metadata.schemas.table.name": "Name",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.name": "Name",
+  "admin.registries.metadata.schemas.table.name": "نام",
 
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
   // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.namespace": "Namespace",
+  "admin.registries.metadata.schemas.table.namespace": "فضای نام",
 
   // "admin.registries.metadata.title": "Metadata Registry",
   // TODO New key - Add a translation
@@ -357,19 +357,19 @@
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   // TODO New key - Add a translation
-  "admin.registries.schema.breadcrumbs": "Metadata schema",
+  "admin.registries.schema.breadcrumbs": "طرحواره ابرداده",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   // TODO New key - Add a translation
-  "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
+  "admin.registries.schema.description": "این طرحواره ابرداده برای \"{{namespace}}\".",
 
   // "admin.registries.schema.fields.select": "Select",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.select": "Select",
+  "admin.registries.schema.fields.select": "انتخاب",
 
   // "admin.registries.schema.fields.deselect": "Deselect",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.deselect": "Deselect",
+  "admin.registries.schema.fields.deselect": "لغو انتخاب",
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   // TODO New key - Add a translation
