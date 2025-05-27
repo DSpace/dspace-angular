@@ -13,6 +13,8 @@ import { of as observableOf } from 'rxjs';
 import { MiradorViewerService } from './mirador-viewer.service';
 import { HostWindowService } from '../../shared/host-window.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { SafeUrlPipe } from '../../shared/utils/safe-url-pipe';
 
 
 function getItem(metadata: MetadataMap) {
@@ -44,7 +46,7 @@ describe('MiradorViewerComponent with search', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [MiradorViewerComponent],
+      declarations: [MiradorViewerComponent, VarDirective, SafeUrlPipe],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
@@ -65,6 +67,7 @@ describe('MiradorViewerComponent with search', () => {
       comp = fixture.componentInstance;
       comp.object = getItem(noMetadata);
       comp.searchable = true;
+      comp.iframeViewerUrl = observableOf('testUrl');
       fixture.detectChanges();
     }));
 
@@ -107,7 +110,7 @@ describe('MiradorViewerComponent with multiple images', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [MiradorViewerComponent],
+      declarations: [MiradorViewerComponent, VarDirective, SafeUrlPipe],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
@@ -129,6 +132,7 @@ describe('MiradorViewerComponent with multiple images', () => {
       comp = fixture.componentInstance;
       comp.object = getItem(noMetadata);
       comp.searchable = false;
+      comp.iframeViewerUrl = observableOf('testUrl');
       fixture.detectChanges();
     }));
 
@@ -167,7 +171,7 @@ describe('MiradorViewerComponent with a single image', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [MiradorViewerComponent],
+      declarations: [MiradorViewerComponent, VarDirective, SafeUrlPipe],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
@@ -188,6 +192,7 @@ describe('MiradorViewerComponent with a single image', () => {
       fixture = TestBed.createComponent(MiradorViewerComponent);
       comp = fixture.componentInstance;
       comp.object = getItem(noMetadata);
+      comp.iframeViewerUrl = observableOf('testUrl');
       fixture.detectChanges();
     }));
 
@@ -220,7 +225,7 @@ describe('MiradorViewerComponent in development mode', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [MiradorViewerComponent],
+      declarations: [MiradorViewerComponent, VarDirective, SafeUrlPipe],
       providers: [
         { provide: BitstreamDataService, useValue: {} }
       ],
@@ -241,6 +246,7 @@ describe('MiradorViewerComponent in development mode', () => {
       fixture = TestBed.createComponent(MiradorViewerComponent);
       comp = fixture.componentInstance;
       comp.object = getItem(noMetadata);
+      comp.iframeViewerUrl = observableOf('testUrl');
       fixture.detectChanges();
     }));
 

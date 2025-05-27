@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Item } from '../../core/shared/item.model';
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -37,6 +37,11 @@ export class MiradorViewerComponent implements OnInit {
   @Input() canvasId: string;
 
   /**
+   * Is used as canvas index of the element to show.
+   */
+  @Input() canvasIndex: string;
+
+  /**
    * Hides embedded viewer in dev mode.
    */
   isViewerAvailable = true;
@@ -44,7 +49,7 @@ export class MiradorViewerComponent implements OnInit {
   /**
    * The url for the iframe.
    */
-  iframeViewerUrl: Observable<SafeResourceUrl>;
+  iframeViewerUrl: Observable<string>;
 
   /**
    * Sets the viewer to show or hide thumbnail side navigation menu.
@@ -70,7 +75,7 @@ export class MiradorViewerComponent implements OnInit {
    * Creates the url for the Mirador iframe. Adds parameters for the displaying the search panel, query results,
    * or  multi-page thumbnail navigation.
    */
-  setURL() {
+  getURL() {
     // The path to the REST manifest endpoint.
     const manifestApiEndpoint = encodeURIComponent(environment.rest.baseUrl + '/iiif/'
       + this.object.id + '/manifest');
@@ -98,9 +103,11 @@ export class MiradorViewerComponent implements OnInit {
     if (this.canvasId) {
       viewerPath += `&canvasId=${this.canvasId}`;
     }
+    if (this.canvasIndex) {
+      viewerPath += `&canvasIndex=${parseInt(this.canvasIndex, 10) - 1}`;
+    }
 
-    // TODO: Should the query term be trusted here?
-    return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);
+    return viewerPath;
   }
 
   ngOnInit(): void {
@@ -130,7 +137,7 @@ export class MiradorViewerComponent implements OnInit {
         const observable = of('');
         this.iframeViewerUrl = observable.pipe(
           map((val) => {
-            return this.setURL();
+            return this.getURL();
           })
         );
       } else {
@@ -144,7 +151,7 @@ export class MiradorViewerComponent implements OnInit {
             if (c > 1) {
               this.multi = true;
             }
-            return this.setURL();
+            return this.getURL();
           })
         );
       }
