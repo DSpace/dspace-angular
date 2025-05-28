@@ -18,6 +18,7 @@ export const MenuActionTypes = {
   EXPAND_MENU: type('dspace/menu/EXPAND_MENU'),
   SHOW_MENU: type('dspace/menu/SHOW_MENU'),
   HIDE_MENU: type('dspace/menu/HIDE_MENU'),
+  REINIT_MENUS: type('dspace/menu/REINIT_MENUS'),
   COLLAPSE_MENU_PREVIEW: type('dspace/menu/COLLAPSE_MENU_PREVIEW'),
   EXPAND_MENU_PREVIEW: type('dspace/menu/EXPAND_MENU_PREVIEW'),
   ADD_SECTION: type('dspace/menu-section/ADD_SECTION'),
@@ -113,6 +114,13 @@ export class ExpandMenuPreviewAction implements Action {
   constructor(menuID: MenuID) {
     this.menuID = menuID;
   }
+}
+
+/**
+ * Action used to re-initialise the menus
+ */
+export class ReinitMenuAction implements Action {
+  type = MenuActionTypes.REINIT_MENUS;
 }
 
 // MENU SECTION ACTIONS
@@ -224,4 +232,5 @@ export type MenuAction =
   | DeactivateMenuSectionAction
   | ToggleActiveMenuSectionAction
   | CollapseMenuPreviewAction
-  | ExpandMenuPreviewAction;
+  | ExpandMenuPreviewAction
+  | ReinitMenuAction;

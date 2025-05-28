@@ -9,7 +9,12 @@ import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload
+} from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
@@ -19,6 +24,8 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-profile-page',
@@ -79,6 +86,15 @@ export class ProfilePageComponent implements OnInit {
   private currentUser: EPerson;
   canChangePassword$: Observable<boolean>;
 
+  /**
+   * Default configuration for group pagination
+   **/
+  optionsGroupsPagination = Object.assign(new PaginationComponentOptions(),{
+    id: 'page_groups',
+    currentPage: 1,
+    pageSize: 20,
+  });
+
   isResearcherProfileEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private authService: AuthService,
@@ -88,6 +104,7 @@ export class ProfilePageComponent implements OnInit {
               private authorizationService: AuthorizationDataService,
               private configurationService: ConfigurationDataService,
               public dsoNameService: DSONameService,
+              private paginationService: PaginationService,
   ) {
   }
 
@@ -99,7 +116,18 @@ export class ProfilePageComponent implements OnInit {
       getRemoteDataPayload(),
       tap((user: EPerson) => this.currentUser = user)
     );
-    this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
+    this.groupsRD$ = this.paginationService.getCurrentPagination(this.optionsGroupsPagination.id, this.optionsGroupsPagination).pipe(
+      switchMap((pageOptions: PaginationComponentOptions) => {
+        return this.epersonService.findById(this.currentUser.id, true, true, followLink('groups',{
+          findListOptions: {
+            elementsPerPage: pageOptions.pageSize,
+            currentPage: pageOptions.currentPage,
+          } }));
+      }),
+      getAllCompletedRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((user: EPerson) => user?.groups),
+    );
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
     this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
 
@@ -145,7 +173,8 @@ export class ProfilePageComponent implements OnInit {
    */
   updateSecurity() {
     const passEntered = isNotEmpty(this.password);
-    if (this.invalidSecurity) {
+    const validCurrentPassword = isNotEmpty(this.currentPassword);
+    if (validCurrentPassword && !passEntered) {
       this.notificationsService.error(this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.general'));
     }
     if (!this.invalidSecurity && passEntered) {
@@ -161,7 +190,7 @@ export class ProfilePageComponent implements OnInit {
         } else {
           this.notificationsService.error(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'),
-            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed')
+            this.getPasswordErrorMessage(response)
           );
         }
       });
@@ -193,10 +222,17 @@ export class ProfilePageComponent implements OnInit {
   }
 
   /**
-   * Returns true if the researcher profile feature is enabled, false otherwise.
+   * Returns an error message from a password validation request with a specific reason or
+   * a default message without specific reason.
+   * @param response from the validation password patch request.
    */
-  isResearcherProfileEnabled(): Observable<boolean> {
-    return this.isResearcherProfileEnabled$.asObservable();
+  getPasswordErrorMessage(response) {
+    if (response.hasFailed && isNotEmpty(response.errorMessage)) {
+      // Response has a specific error message. Show this message in the error notification.
+      return this.translate.instant(response.errorMessage);
+    }
+    // Show default error message notification.
+    return this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed');
   }
 
 }

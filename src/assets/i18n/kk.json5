@@ -3321,7 +3321,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Жаңа нұсқасын жасау",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған жіберу бар",
 
   // "item.page.claim.button": "Claim",
@@ -3481,7 +3481,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Нұсқаны өшіру",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған бағынымдар бар",
 
 
@@ -3528,7 +3528,7 @@
   // "item.version.create.notification.failure" : "New version has not been created",
   "item.version.create.notification.failure": "Жаңа нұсқа жасалмады",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған жіберу бар",
 
 
@@ -4139,20 +4139,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Сіздің өтініштеріңіз",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Мұрағатталған",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Мұрағатталған",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Валидация",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Валидация",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Контроллерді күтуде",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
+  "mydspace.status.mydspaceWaitingController": "Контроллерді күтуде",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Жұмыс барысы",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Жұмыс барысы",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Жұмыс кеңістігі",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Жұмыс кеңістігі",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",
@@ -4966,6 +4966,14 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Аты",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Саясат түрін таңдаңыз",
 
@@ -5575,8 +5583,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.scielo": "SciELO",
   "submission.import-external.source.scielo": "SciELO",

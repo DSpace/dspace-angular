@@ -47,6 +47,7 @@ import {
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -80,6 +81,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const fileData: any = mockUploadFiles[0];
   const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
 
+  let noAccessConditionsMock = Object.assign({}, mockFileFormData);
+  delete noAccessConditionsMock.accessConditions;
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -100,6 +104,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: XSRFService, useValue: {} },
         FormBuilderService,
         ChangeDetectorRef,
         SubmissionSectionUploadFileEditComponent,
@@ -297,6 +302,28 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       expect(uploadService.updateFileData).toHaveBeenCalledWith(submissionId, sectionId, mockUploadFiles[0].uuid, mockUploadFiles[0]);
 
+    }));
+
+    it('should update Bitstream data properly when access options are omitted', fakeAsync(() => {
+      compAsAny.formRef = {formGroup: null};
+      compAsAny.fileData = fileData;
+      compAsAny.pathCombiner = pathCombiner;
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(noAccessConditionsMock));
+      const response = [
+        Object.assign(mockSubmissionObject, {
+          sections: {
+            upload: {
+              files: mockUploadFiles
+            }
+          }
+        })
+      ];
+      operationsService.jsonPatchByResourceID.and.returnValue(of(response));
+      comp.saveBitstreamData();
+      tick();
+      expect(uploadService.updateFileData).toHaveBeenCalled();
     }));
 
     it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {

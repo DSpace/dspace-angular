@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="(!ssrRenderingDisabled)">
     <ng-container *ngVar="(parent$ | async) as parent">
     <ng-container *ngIf="parent?.payload as parentContext">
         <div class="d-flex flex-row border-bottom mb-4 pb-4">
@@ -32,7 +32,7 @@
 
     <section class="comcol-page-browse-section">
     <div class="browse-by-metadata w-100">
-    <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
+    <ds-themed-browse-by *ngIf="!(loading$ | async)" class="col-xs-12 w-100"
       title="{{'browse.title' | translate:
       {
         collection: dsoNameService.getName((parent$ | async)?.payload),
@@ -48,8 +48,8 @@
       [startsWithOptions]="startsWithOptions"
       (prev)="goPrev()"
       (next)="goNext()">
-    </ds-browse-by>
-    <ds-themed-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
+    </ds-themed-browse-by>
+    <ds-themed-loading *ngIf="loading$ | async" message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
   </div>
   </section>
   <ng-container *ngVar="(parent$ | async) as parent">

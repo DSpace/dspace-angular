@@ -3383,20 +3383,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Ваші надіслані документи ",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Заархівовані",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Заархівовані",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Перевірка",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Перевірка",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Чекаємо контролера",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
+  "mydspace.status.mydspaceWaitingController": "Чекаємо контролера",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Робочий процес",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Робочий процес",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Робоче середовище",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Робоче середовище",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Моє середовище",
@@ -4147,6 +4147,10 @@
   // "resource-policies.form.name.label": "Name",
 
   "resource-policies.form.name.label": "Назва",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
 

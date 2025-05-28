@@ -16,6 +16,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 let mockIdentifierDataService: IdentifierDataService;
 let mockConfigurationDataService: ConfigurationDataService;
@@ -57,10 +58,16 @@ describe('ItemStatusComponent', () => {
   };
 
   let authorizationService: AuthorizationDataService;
+  let orcidAuthService: any;
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
+    });
+
+    orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
+      onlyAdminCanDisconnectProfileFromOrcid: observableOf ( true ),
+      isLinkedToOrcid: true
     });
 
     TestBed.configureTestingModule({
@@ -71,7 +78,8 @@ describe('ItemStatusComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: IdentifierDataService, useValue: mockIdentifierDataService },
-        { provide: ConfigurationDataService, useValue: mockConfigurationDataService }
+        { provide: ConfigurationDataService, useValue: mockConfigurationDataService },
+        { provide: OrcidAuthService, useValue: orcidAuthService },
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));

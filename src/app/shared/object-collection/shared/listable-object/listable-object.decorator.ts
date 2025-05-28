@@ -4,7 +4,7 @@ import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObject } from '../listable-object.model';
 import { environment } from '../../../../../environments/environment';
-import { ThemeConfig } from '../../../../../config/theme.model';
+import { ThemeConfig } from '../../../../../config/theme.config';
 import { InjectionToken } from '@angular/core';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;

@@ -16,6 +16,7 @@ import { SubmissionFormFooterComponent } from './submission-form-footer.componen
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
 
@@ -39,6 +40,7 @@ describe('SubmissionFormFooterComponent', () => {
         SubmissionFormFooterComponent,
         TestComponent,
         BrowserOnlyMockPipe,
+        BtnDisabledDirective
       ],
       providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },
@@ -215,7 +217,8 @@ describe('SubmissionFormFooterComponent', () => {
       fixture.detectChanges();
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-success'));
 
-      expect(depositBtn.nativeElement.disabled).toBeFalsy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('should not have deposit button disabled when submission is valid', () => {
@@ -224,7 +227,8 @@ describe('SubmissionFormFooterComponent', () => {
       fixture.detectChanges();
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-success'));
 
-      expect(depositBtn.nativeElement.disabled).toBeFalsy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('should disable save button when all modifications had been saved', () => {
@@ -232,7 +236,8 @@ describe('SubmissionFormFooterComponent', () => {
       fixture.detectChanges();
 
       const saveBtn: any = fixture.debugElement.query(By.css('#save'));
-      expect(saveBtn.nativeElement.disabled).toBeTruthy();
+      expect(saveBtn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(saveBtn.nativeElement.classList.contains('disabled')).toBeTrue();
     });
 
     it('should enable save button when there are not saved modifications', () => {
@@ -240,7 +245,8 @@ describe('SubmissionFormFooterComponent', () => {
       fixture.detectChanges();
 
       const saveBtn: any = fixture.debugElement.query(By.css('#save'));
-      expect(saveBtn.nativeElement.disabled).toBeFalsy();
+      expect(saveBtn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(saveBtn.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
   });
