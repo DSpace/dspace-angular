@@ -153,6 +153,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
   protected formMetadata: string[] = [];
 
   /**
+   * Whether to display the replace file button
+   * @protected
+   */
+  protected shouldShowReplaceButton: boolean;
+
+  /**
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
@@ -202,6 +208,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.formId = this.formService.getUniqueId(this.fileId);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
     this.loadFormMetadata();
+    this.subscriptions.push(this.submissionService.retrieveSubmission(this.submissionId)
+      .subscribe((submissionObjectRD) => {
+        this.shouldShowReplaceButton = hasValue(submissionObjectRD.payload?.item?.version);
+      })
+    );
   }
 
   /**
