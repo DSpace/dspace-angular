@@ -14,7 +14,9 @@ import { TextMenuItemModel } from './models/text.model';
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './text-menu-item.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class TextMenuItemComponent {
   item: TextMenuItemModel;

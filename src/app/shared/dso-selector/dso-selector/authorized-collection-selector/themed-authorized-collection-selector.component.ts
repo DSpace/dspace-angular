@@ -18,7 +18,9 @@ import { AuthorizedCollectionSelectorComponent } from './authorized-collection-s
   selector: 'ds-authorized-collection-selector',
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [AuthorizedCollectionSelectorComponent],
+  imports: [
+    AuthorizedCollectionSelectorComponent,
+  ],
 })
 export class ThemedAuthorizedCollectionSelectorComponent extends ThemedComponent<AuthorizedCollectionSelectorComponent> {
 

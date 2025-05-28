@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { hasValueOperator } from '../../shared/empty.util';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
@@ -64,7 +64,7 @@ describe('RelationshipTypeDataService', () => {
     });
 
     buildList = createSuccessfulRemoteDataObject(createPaginatedList([relationshipType1, relationshipType2]));
-    rdbService = getMockRemoteDataBuildService(undefined, observableOf(buildList));
+    rdbService = getMockRemoteDataBuildService(undefined, of(buildList));
     objectCache = new ObjectCacheServiceStub();
   }
 

@@ -22,8 +22,8 @@ import { ExternalLoginService } from '../../services/external-login.service';
   styleUrls: ['./provide-email.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    TranslateModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   standalone: true,
 })

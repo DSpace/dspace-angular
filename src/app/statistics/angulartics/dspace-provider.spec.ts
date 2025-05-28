@@ -1,5 +1,5 @@
 import { Angulartics2 } from 'angulartics2';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { StatisticsService } from '../statistics.service';
@@ -12,7 +12,7 @@ describe('Angulartics2DSpace', () => {
 
   beforeEach(() => {
     angulartics2 = {
-      eventTrack: observableOf({ action: 'page_view', properties: {
+      eventTrack: of({ action: 'page_view', properties: {
         object: 'mock-object',
         referrer: 'https://www.referrer.com',
       } }),

@@ -8,7 +8,9 @@ import { ThemedConfigurationSearchPageComponent } from '../../../../../../../app
   // templateUrl: './related-entities-search.component.html',
   templateUrl: '../../../../../../../app/item-page/simple/related-entities/related-entities-search/related-entities-search.component.html',
   // styleUrls: ['./related-entities-search.component.scss'],
-  imports: [ThemedConfigurationSearchPageComponent],
+  imports: [
+    ThemedConfigurationSearchPageComponent,
+  ],
   standalone: true,
 })
 export class RelatedEntitiesSearchComponent extends BaseComponent {

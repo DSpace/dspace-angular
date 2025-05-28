@@ -11,7 +11,9 @@ import { CommunityStatisticsPageComponent } from './community-statistics-page.co
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [CommunityStatisticsPageComponent],
+  imports: [
+    CommunityStatisticsPageComponent,
+  ],
 })
 export class ThemedCommunityStatisticsPageComponent extends ThemedComponent<CommunityStatisticsPageComponent> {
   protected getComponentName(): string {

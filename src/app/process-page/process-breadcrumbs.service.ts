@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
@@ -22,9 +22,9 @@ export class ProcessBreadcrumbsService implements BreadcrumbsProviderService<Pro
    */
   getBreadcrumbs(key: Process, url: string): Observable<Breadcrumb[]> {
     if (hasValue(key)) {
-      return observableOf([new Breadcrumb(key.processId + ' - ' + key.scriptName, url)]);
+      return of([new Breadcrumb(key.processId + ' - ' + key.scriptName, url)]);
     } else {
-      return observableOf([]);
+      return of([]);
     }
   }
 }

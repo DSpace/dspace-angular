@@ -31,7 +31,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { EPersonMock2 } from 'src/app/shared/testing/eperson.mock';
 
@@ -108,7 +108,7 @@ describe('SubgroupsListComponent', () => {
       subgroups: subgroups,
       groupNonMembers: groupNonMembers,
       getActiveGroup(): Observable<Group> {
-        return observableOf(this.activeGroup);
+        return of(this.activeGroup);
       },
       getSubgroups(): Group {
         return this.subgroups;
@@ -138,7 +138,7 @@ describe('SubgroupsListComponent', () => {
             this.groupNonMembers.splice(index, 1);
           }
         });
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
         // empty
@@ -155,7 +155,7 @@ describe('SubgroupsListComponent', () => {
         });
         // Add group to list of non-members
         this.groupNonMembers = [...this.groupNonMembers, subgroupToDelete];
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
     };
     routerStub = new RouterMock();

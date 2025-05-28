@@ -1,7 +1,7 @@
 import {
   EMPTY,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { BrowseService } from '../../core/browse/browse.service';
@@ -46,14 +46,14 @@ export const BrowseDefinitionDataServiceStub: any = {
    * Get all BrowseDefinitions
    */
   findAll(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
-    return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
+    return of(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
   },
 
   /**
    * Get all BrowseDefinitions with any link configuration
    */
   findAllLinked(): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
-    return observableOf(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
+    return of(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), mockData)));
   },
 
   /**
@@ -67,7 +67,7 @@ export const BrowseDefinitionDataServiceStub: any = {
       searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(metadataKey));
     });
     // Return just the first, as a pretend match
-    return observableOf(createSuccessfulRemoteDataObject(mockData[0]));
+    return of(createSuccessfulRemoteDataObject(mockData[0]));
   },
 
 };

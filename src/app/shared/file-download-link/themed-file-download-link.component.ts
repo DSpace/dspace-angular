@@ -13,7 +13,9 @@ import { FileDownloadLinkComponent } from './file-download-link.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [FileDownloadLinkComponent],
+  imports: [
+    FileDownloadLinkComponent,
+  ],
 })
 export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloadLinkComponent> {
 
@@ -29,6 +31,8 @@ export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloa
 
   @Input() showAccessStatusBadge: boolean;
 
+  @Input() showIcon: boolean;
+
   protected inAndOutputNames: (keyof FileDownloadLinkComponent & keyof this)[] = [
     'bitstream',
     'item',
@@ -36,6 +40,7 @@ export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloa
     'isBlank',
     'enableRequestACopy',
     'showAccessStatusBadge',
+    'showIcon',
   ];
 
   protected getComponentName(): string {

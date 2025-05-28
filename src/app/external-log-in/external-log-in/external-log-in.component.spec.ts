@@ -14,7 +14,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { authReducer } from '../../core/auth/auth.reducer';
@@ -72,7 +72,7 @@ describe('ExternalLogInComponent', () => {
     },
   };
   const translateServiceStub = {
-    get: () => observableOf('Info Text'),
+    get: () => of('Info Text'),
     instant: (key: any) => 'Info Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),

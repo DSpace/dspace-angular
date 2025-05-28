@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   find,
@@ -51,7 +51,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHA
           const parent = parentRD.payload;
           return this.getBreadcrumbs(parent, getDSORoute(parent));
         }
-        return observableOf([]);
+        return of([]);
 
       }),
       map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb]),

@@ -29,7 +29,10 @@ import {
   selector: 'ds-base-edit-item-selector',
   templateUrl: 'edit-item-selector.component.html',
   standalone: true,
-  imports: [TranslateModule, ThemedDSOSelectorComponent],
+  imports: [
+    ThemedDSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

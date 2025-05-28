@@ -12,7 +12,7 @@ import {
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
@@ -106,21 +106,21 @@ describe('RelationshipEffects', () => {
 
     mockRelationshipService = {
       getRelationshipByItemsAndLabel:
-        () => observableOf(relationship),
-      deleteRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
-      addRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
+        () => of(relationship),
+      deleteRelationship: () => of(new RestResponse(true, 200, 'OK')),
+      addRelationship: () => of(new RestResponse(true, 200, 'OK')),
 
     };
     mockRelationshipTypeService = {
       getRelationshipTypeByLabelAndTypes:
-        () => observableOf(relationshipType),
+        () => of(relationshipType),
     };
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     translateService = jasmine.createSpyObj('translateService', {
       instant: 'translated-message',
     });
     selectableListService = jasmine.createSpyObj('selectableListService', {
-      findSelectedByCondition: observableOf({}),
+      findSelectedByCondition: of({}),
       deselectSingle: {},
     });
   }
@@ -137,7 +137,7 @@ describe('RelationshipEffects', () => {
           provide: SubmissionObjectDataService, useValue: {
             findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()),
           },
-          getHrefByID: () => observableOf(''),
+          getHrefByID: () => of(''),
         },
         { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) },
         { provide: ObjectCacheService, useValue: {} },

@@ -20,7 +20,9 @@ import {
   selector: 'ds-resource-policy-form',
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
-  imports: [ResourcePolicyFormComponent],
+  imports: [
+    ResourcePolicyFormComponent,
+  ],
 })
 export class ThemedResourcePolicyFormComponent extends ThemedComponent<ResourcePolicyFormComponent> {
 

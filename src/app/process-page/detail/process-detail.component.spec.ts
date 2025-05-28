@@ -20,7 +20,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -131,7 +131,7 @@ describe('ProcessDetailComponent', () => {
       getName: fileName,
     });
     httpClient = jasmine.createSpyObj('httpClient', {
-      get: observableOf(processOutput),
+      get: of(processOutput),
     });
 
     modalService = jasmine.createSpyObj('modalService', {
@@ -241,7 +241,7 @@ describe('ProcessDetailComponent', () => {
   describe('if press show output logs and process has no output logs', () => {
     beforeEach(fakeAsync(() => {
       jasmine.getEnv().allowRespy(true);
-      spyOn(httpClient, 'get').and.returnValue(observableOf(null));
+      spyOn(httpClient, 'get').and.returnValue(of(null));
       fixture = TestBed.createComponent(ProcessDetailComponent);
       component = fixture.componentInstance;
       spyOn(component, 'showProcessOutputLogs').and.callThrough();

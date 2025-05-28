@@ -22,7 +22,17 @@ import { ListableObjectComponentLoaderComponent } from '../../../../../../../app
   // templateUrl: './authorized-collection-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    HoverClassDirective,
+    InfiniteScrollModule,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class AuthorizedCollectionSelectorComponent extends BaseComponent {
 }

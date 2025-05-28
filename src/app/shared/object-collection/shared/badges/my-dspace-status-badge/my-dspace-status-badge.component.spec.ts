@@ -12,7 +12,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Context } from '../../../../../core/shared/context.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
@@ -28,9 +28,9 @@ let fixture: ComponentFixture<MyDSpaceStatusBadgeComponent>;
 let mockResultObject: PoolTask;
 
 const rdSumbitter = createSuccessfulRemoteDataObject(EPersonMock);
-const workflowitem = Object.assign(new WorkflowItem(), { submitter: observableOf(rdSumbitter) });
+const workflowitem = Object.assign(new WorkflowItem(), { submitter: of(rdSumbitter) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem) });
 
 describe('MyDSpaceItemStatusComponent', () => {
   beforeEach(waitForAsync(() => {

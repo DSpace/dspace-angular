@@ -35,7 +35,10 @@ import {
   // templateUrl: '../dso-selector-modal-wrapper.component.html',
   templateUrl: './create-item-parent-selector.component.html',
   standalone: true,
-  imports: [ThemedAuthorizedCollectionSelectorComponent, TranslateModule],
+  imports: [
+    ThemedAuthorizedCollectionSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

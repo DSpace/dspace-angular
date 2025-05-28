@@ -20,7 +20,9 @@ import { DynamicLookupRelationModalComponent } from './dynamic-lookup-relation-m
   selector: 'ds-dynamic-lookup-relation-modal',
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [DynamicLookupRelationModalComponent],
+  imports: [
+    DynamicLookupRelationModalComponent,
+  ],
 })
 export class ThemedDynamicLookupRelationModalComponent extends ThemedComponent<DynamicLookupRelationModalComponent> {
 

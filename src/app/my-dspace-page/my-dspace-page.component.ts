@@ -42,12 +42,12 @@ export const MYDSPACE_ROUTE = '/mydspace';
     },
   ],
   imports: [
-    ThemedSearchComponent,
-    MyDSpaceNewSubmissionComponent,
     AsyncPipe,
+    MyDSpaceNewSubmissionComponent,
+    MyDspaceQaEventsNotificationsComponent,
     RoleDirective,
     SuggestionsNotificationComponent,
-    MyDspaceQaEventsNotificationsComponent,
+    ThemedSearchComponent,
   ],
   standalone: true,
 })

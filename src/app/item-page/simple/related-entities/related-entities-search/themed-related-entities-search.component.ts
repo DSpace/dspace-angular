@@ -14,7 +14,9 @@ import { RelatedEntitiesSearchComponent } from './related-entities-search.compon
   selector: 'ds-related-entities-search',
   templateUrl: '../../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [RelatedEntitiesSearchComponent],
+  imports: [
+    RelatedEntitiesSearchComponent,
+  ],
 })
 export class ThemedRelatedEntitiesSearchComponent extends ThemedComponent<RelatedEntitiesSearchComponent> {
 

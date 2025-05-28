@@ -63,8 +63,8 @@ import {
   templateUrl: './section-license.component.html',
   providers: [],
   imports: [
-    FormComponent,
     AsyncPipe,
+    FormComponent,
   ],
   standalone: true,
 })

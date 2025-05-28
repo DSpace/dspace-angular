@@ -19,7 +19,7 @@ import {
   combineLatest as observableCombineLatest,
   EMPTY,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -68,14 +68,14 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
   selector: 'ds-groups-registry',
   templateUrl: './groups-registry.component.html',
   imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
     ThemedLoadingComponent,
     TranslateModule,
-    RouterLink,
-    ReactiveFormsModule,
-    AsyncPipe,
-    PaginationComponent,
-    NgbTooltipModule,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -179,7 +179,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       switchMap((groups: PaginatedList<Group>) => {
         if (groups.page.length === 0) {
-          return observableOf(buildPaginatedList(groups.pageInfo, []));
+          return of(buildPaginatedList(groups.pageInfo, []));
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
@@ -224,7 +224,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
   canManageGroup$(isSiteAdmin: boolean, group: Group): Observable<boolean> {
     if (isSiteAdmin) {
-      return observableOf(true);
+      return of(true);
     } else {
       return this.authorizationService.isAuthorized(FeatureID.CanManageGroup, group.self);
     }
@@ -283,7 +283,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     return this.dSpaceObjectDataService.findByHref(group._links.object.href).pipe(
       getFirstSucceededRemoteData(),
       map((rd: RemoteData<DSpaceObject>) => hasValue(rd) && hasValue(rd.payload)),
-      catchError(() => observableOf(false)),
+      catchError(() => of(false)),
     );
   }
 

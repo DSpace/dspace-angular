@@ -15,11 +15,10 @@ import { ObjectNotFoundComponent as BaseComponent } from '../../../../../app/loo
   templateUrl: '../../../../../app/lookup-by-id/objectnotfound/objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
-
-/**
- * This component representing the `PageNotFound` DSpace page.
- */
-export class ObjectNotFoundComponent extends BaseComponent {}
-
+export class ObjectNotFoundComponent extends BaseComponent {
+}

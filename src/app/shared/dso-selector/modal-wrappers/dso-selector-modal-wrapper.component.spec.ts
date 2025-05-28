@@ -164,8 +164,8 @@ describe('DSOSelectorModalWrapperComponent', () => {
   templateUrl: './dso-selector-modal-wrapper.component.html',
   imports: [
     DSOSelectorComponent,
-    TranslateModule,
     ThemedDSOSelectorComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

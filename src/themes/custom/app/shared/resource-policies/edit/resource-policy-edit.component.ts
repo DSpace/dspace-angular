@@ -9,7 +9,10 @@ import { ThemedResourcePolicyFormComponent } from '../../../../../../app/shared/
   // templateUrl: './resource-policy-edit.component.html'
   templateUrl: '../../../../../../app/shared/resource-policies/edit/resource-policy-edit.component.html',
   standalone: true,
-  imports: [ThemedResourcePolicyFormComponent, TranslateModule],
+  imports: [
+    ThemedResourcePolicyFormComponent,
+    TranslateModule,
+  ],
 })
 export class ResourcePolicyEditComponent extends BaseComponent {
 }

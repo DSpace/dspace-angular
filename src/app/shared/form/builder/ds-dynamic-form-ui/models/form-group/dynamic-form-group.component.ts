@@ -32,9 +32,9 @@ import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-co
   templateUrl: './dynamic-form-group.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
-    ReactiveFormsModule,
-    NgClass,
     forwardRef(() => DsDynamicFormControlContainerComponent),
+    NgClass,
+    ReactiveFormsModule,
   ],
   standalone: true,
 })

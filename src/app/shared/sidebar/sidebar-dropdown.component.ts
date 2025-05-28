@@ -11,7 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./sidebar-dropdown.component.scss'],
   templateUrl: './sidebar-dropdown.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * This components renders a sidebar dropdown including the label.

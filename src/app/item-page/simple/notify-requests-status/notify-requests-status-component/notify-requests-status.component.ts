@@ -34,9 +34,9 @@ import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/requ
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    RequestStatusAlertBoxComponent,
     AsyncPipe,
     KeyValuePipe,
+    RequestStatusAlertBoxComponent,
   ],
 })
 

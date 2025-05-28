@@ -3,7 +3,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -192,7 +192,7 @@ describe('Core Module - RxJS Operators', () => {
       });
       router = jasmine.createSpyObj('router', ['navigateByUrl']);
       authService = jasmine.createSpyObj('authService', {
-        isAuthenticated: observableOf(true),
+        isAuthenticated: of(true),
         setRedirectUrl: {},
       });
     });
@@ -264,7 +264,7 @@ describe('Core Module - RxJS Operators', () => {
 
     describe('when the user is not authenticated', () => {
       beforeEach(() => {
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(false));
       });
 
       it('should set the redirect url and navigate to login when the remote data contains a 401 error, and not emit anything', () => {

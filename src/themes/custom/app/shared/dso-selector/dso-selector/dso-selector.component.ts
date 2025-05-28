@@ -21,7 +21,17 @@ import { ListableObjectComponentLoaderComponent } from '../../../../../../app/sh
   styleUrls: ['../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component.scss'],
   // templateUrl: './dso-selector.component.html',
   templateUrl: '../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component.html',
-  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    HoverClassDirective,
+    InfiniteScrollModule,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
   standalone: true,
 })
 export class DSOSelectorComponent extends BaseComponent {

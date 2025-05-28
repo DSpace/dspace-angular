@@ -29,7 +29,14 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
   selector: 'ds-base-metadata-representation-list',
   templateUrl: './metadata-representation-list.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, VarDirective, MetadataRepresentationLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    MetadataFieldWrapperComponent,
+    MetadataRepresentationLoaderComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * This component is used for displaying metadata

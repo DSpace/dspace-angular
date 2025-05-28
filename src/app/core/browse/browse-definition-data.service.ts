@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -42,7 +42,7 @@ export const createAndSendBrowseDefinitionGetRequest = (requestService: RequestS
   useCachedVersionIfAvailable: boolean = true): void => {
   if (isNotEmpty(href$)) {
     if (typeof href$ === 'string') {
-      href$ = observableOf(href$);
+      href$ = of(href$);
     }
 
     href$.pipe(

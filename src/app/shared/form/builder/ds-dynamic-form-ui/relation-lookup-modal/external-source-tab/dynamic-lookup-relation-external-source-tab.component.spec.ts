@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
@@ -120,7 +120,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions),
+            paginatedSearchOptions: of(pSearchOptions),
           },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },

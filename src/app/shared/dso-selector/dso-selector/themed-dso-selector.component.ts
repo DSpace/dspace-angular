@@ -18,7 +18,9 @@ import { DSOSelectorComponent } from './dso-selector.component';
 @Component({
   selector: 'ds-dso-selector',
   templateUrl: '../../theme-support/themed.component.html',
-  imports: [DSOSelectorComponent],
+  imports: [
+    DSOSelectorComponent,
+  ],
   standalone: true,
 })
 export class ThemedDSOSelectorComponent extends ThemedComponent<DSOSelectorComponent> {

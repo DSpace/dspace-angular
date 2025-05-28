@@ -13,7 +13,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
@@ -107,25 +107,25 @@ describe('ItemBitstreamsComponent', () => {
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
-        getFieldUpdates: observableOf({
+        getFieldUpdates: of({
           [bitstream1.uuid]: fieldUpdate1,
           [bitstream2.uuid]: fieldUpdate2,
         }),
-        getFieldUpdatesExclusive: observableOf({
+        getFieldUpdatesExclusive: of({
           [bitstream1.uuid]: fieldUpdate1,
           [bitstream2.uuid]: fieldUpdate2,
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
         discardAllFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        getUpdatedFields: observableOf([bitstream1, bitstream2]),
-        getLastModified: observableOf(date),
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false),
-        isValidPage: observableOf(true),
-        getMoveOperations: observableOf(moveOperations),
+        getUpdatedFields: of([bitstream1, bitstream2]),
+        getLastModified: of(date),
+        hasUpdates: of(true),
+        isReinstatable: of(false),
+        isValidPage: of(true),
+        getMoveOperations: of(moveOperations),
       },
     );
     router = Object.assign(new RouterStub(), {
@@ -144,7 +144,7 @@ describe('ItemBitstreamsComponent', () => {
     });
     requestService = getMockRequestService();
     searchConfig = Object.assign({
-      paginatedSearchOptions: observableOf({}),
+      paginatedSearchOptions: of({}),
     });
 
     item = Object.assign(new Item(), {
@@ -164,9 +164,9 @@ describe('ItemBitstreamsComponent', () => {
     });
     route = Object.assign({
       parent: {
-        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
+        data: of({ dso: createSuccessfulRemoteDataObject(item) }),
       },
-      data: observableOf({}),
+      data: of({}),
       url: url,
     });
     bundleService = jasmine.createSpyObj('bundleService', {

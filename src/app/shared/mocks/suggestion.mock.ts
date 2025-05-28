@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
@@ -1352,10 +1352,10 @@ export function getMockSuggestionsService(): any {
     deleteReviewedSuggestion: jasmine.createSpy('deleteReviewedSuggestion'),
     retrieveCurrentUserSuggestions: jasmine.createSpy('retrieveCurrentUserSuggestions'),
     getTargetUuid: jasmine.createSpy('getTargetUuid'),
-    ignoreSuggestion: observableOf(null),
-    ignoreSuggestionMultiple: observableOf({ success: 1, fails: 0 }),
-    approveAndImportMultiple: observableOf({ success: 1, fails: 0 }),
-    approveAndImport: observableOf({ id: '1234' }),
+    ignoreSuggestion: of(null),
+    ignoreSuggestionMultiple: of({ success: 1, fails: 0 }),
+    approveAndImportMultiple: of({ success: 1, fails: 0 }),
+    approveAndImport: of({ id: '1234' }),
     isCollectionFixed: false,
     translateSuggestionSource: 'testSource',
     translateSuggestionType: 'testType',

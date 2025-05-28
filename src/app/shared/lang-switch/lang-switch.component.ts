@@ -19,7 +19,10 @@ import { LocaleService } from '../../core/locale/locale.service';
   styleUrls: ['lang-switch.component.scss'],
   templateUrl: 'lang-switch.component.html',
   standalone: true,
-  imports: [NgbDropdownModule, TranslateModule],
+  imports: [
+    NgbDropdownModule,
+    TranslateModule,
+  ],
 })
 
 /**

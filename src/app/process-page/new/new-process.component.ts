@@ -28,7 +28,12 @@ import { Script } from '../scripts/script.model';
   templateUrl: './new-process.component.html',
   styleUrls: ['./new-process.component.scss'],
   standalone: true,
-  imports: [VarDirective, ProcessFormComponent, AsyncPipe, HasValuePipe],
+  imports: [
+    AsyncPipe,
+    HasValuePipe,
+    ProcessFormComponent,
+    VarDirective,
+  ],
 })
 export class NewProcessComponent implements OnInit {
   /**

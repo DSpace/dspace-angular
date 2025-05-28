@@ -11,7 +11,9 @@ import { CreateCollectionParentSelectorComponent } from './create-collection-par
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [CreateCollectionParentSelectorComponent],
+  imports: [
+    CreateCollectionParentSelectorComponent,
+  ],
 })
 export class ThemedCreateCollectionParentSelectorComponent
   extends ThemedComponent<CreateCollectionParentSelectorComponent> {

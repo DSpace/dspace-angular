@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
@@ -39,14 +39,14 @@ describe('DsoPageSingleFeatureGuard', () => {
     } as DSpaceObject;
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
     });
     resolver = () => createSuccessfulRemoteDataObject$(object);
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
     parentRoute = {
       params: {
@@ -94,7 +94,7 @@ describe('DsoPageSingleFeatureGuard', () => {
     it('should call authorizationService.isAuthenticated with the appropriate arguments', (done) => {
       const result$ = TestBed.runInInjectionContext(() => {
         return dsoPageSingleFeatureGuard(
-          () => resolver, () => observableOf(featureId),
+          () => resolver, () => of(featureId),
         )(route, { url: 'current-url' } as any);
       }) as Observable<boolean | UrlTree>;
 

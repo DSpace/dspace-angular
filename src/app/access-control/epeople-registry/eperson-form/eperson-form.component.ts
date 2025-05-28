@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -30,7 +27,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -81,15 +78,14 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
   selector: 'ds-eperson-form',
   templateUrl: './eperson-form.component.html',
   imports: [
-    FormComponent,
     AsyncPipe,
-    TranslateModule,
-    NgClass,
-    ThemedLoadingComponent,
+    BtnDisabledDirective,
+    FormComponent,
+    HasNoValuePipe,
     PaginationComponent,
     RouterLink,
-    HasNoValuePipe,
-    BtnDisabledDirective,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -361,7 +357,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
 
     this.groups$ = this.activeEPerson$.pipe(
       switchMap((eperson) => {
-        return observableCombineLatest([observableOf(eperson), this.paginationService.getFindListOptions(this.config.id, {
+        return observableCombineLatest([of(eperson), this.paginationService.getFindListOptions(this.config.id, {
           currentPage: 1,
           elementsPerPage: this.config.pageSize,
         })]);
@@ -370,7 +366,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         if (eperson != null) {
           return this.groupsDataService.findListByHref(eperson._links.groups.href, findListOptions, true, true, followLink('object'));
         }
-        return observableOf(undefined);
+        return of(undefined);
       }),
     );
 
@@ -383,14 +379,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         if (hasValue(eperson)) {
           return this.authorizationService.isAuthorized(FeatureID.LoginOnBehalfOf, eperson.self);
         } else {
-          return observableOf(false);
+          return of(false);
         }
       }),
     );
     this.canDelete$ = this.activeEPerson$.pipe(
       switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined)),
     );
-    this.canReset$ = observableOf(true);
+    this.canReset$ = of(true);
   }
 
   /**
@@ -544,16 +540,16 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           take(1),
           switchMap((confirm: boolean) => {
             if (confirm && hasValue(eperson.id)) {
-              this.canDelete$ = observableOf(false);
+              this.canDelete$ = of(false);
               return this.epersonService.deleteEPerson(eperson).pipe(
                 getFirstCompletedRemoteData(),
                 map((restResponse: RemoteData<NoContent>) => ({ restResponse, eperson })),
               );
             } else {
-              return observableOf(null);
+              return of(null);
             }
           }),
-          finalize(() => this.canDelete$ = observableOf(true)),
+          finalize(() => this.canDelete$ = of(true)),
         );
       }),
     ).subscribe(({ restResponse, eperson }: { restResponse: RemoteData<NoContent> | null, eperson: EPerson }) => {

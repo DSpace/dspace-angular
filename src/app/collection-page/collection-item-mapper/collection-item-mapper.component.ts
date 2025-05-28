@@ -78,12 +78,12 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     },
   ],
   imports: [
-    ThemedSearchFormComponent,
-    NgbNavModule,
-    TranslateModule,
     AsyncPipe,
-    ItemSelectComponent,
     BrowserOnlyPipe,
+    ItemSelectComponent,
+    NgbNavModule,
+    ThemedSearchFormComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

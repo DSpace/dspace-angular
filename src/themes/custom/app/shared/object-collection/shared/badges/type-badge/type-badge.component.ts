@@ -8,7 +8,9 @@ import { TypeBadgeComponent as BaseComponent } from 'src/app/shared/object-colle
   // templateUrl: './type-badge.component.html',
   templateUrl: '../../../../../../../../app/shared/object-collection/shared/badges/type-badge/type-badge.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class TypeBadgeComponent extends BaseComponent {
 }

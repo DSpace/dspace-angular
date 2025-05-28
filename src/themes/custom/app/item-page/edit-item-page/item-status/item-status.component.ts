@@ -27,11 +27,11 @@ import {
   ],
   standalone: true,
   imports: [
-    TranslateModule,
     AsyncPipe,
-    RouterLink,
     ItemOperationComponent,
     NgClass,
+    RouterLink,
+    TranslateModule,
   ],
 })
 export class ItemStatusComponent extends BaseComponent {

@@ -10,7 +10,9 @@ import { ResourcePolicyEditComponent } from './resource-policy-edit.component';
   selector: 'ds-resource-policy-edit',
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
-  imports: [ResourcePolicyEditComponent],
+  imports: [
+    ResourcePolicyEditComponent,
+  ],
 })
 export class ThemedResourcePolicyEditComponent extends ThemedComponent<ResourcePolicyEditComponent> {
   protected getComponentName(): string {

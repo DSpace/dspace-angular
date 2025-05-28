@@ -30,7 +30,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subject,
   Subscription,
 } from 'rxjs';
@@ -80,14 +80,14 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   styleUrls: ['./dynamic-onebox.component.scss'],
   templateUrl: './dynamic-onebox.component.html',
   imports: [
-    NgbTypeaheadModule,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
-    NgTemplateOutlet,
-    TranslateModule,
-    ObjNgFor,
-    FormsModule,
     BtnDisabledDirective,
+    FormsModule,
+    NgbTypeaheadModule,
+    NgTemplateOutlet,
+    ObjNgFor,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -144,7 +144,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({ list: [] });
+          return of({ list: [] });
         } else {
           return this.vocabularyService.getVocabularyEntriesByValue(
             term,
@@ -155,7 +155,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(buildPaginatedList(
+              return of(buildPaginatedList(
                 new PageInfo(),
                 [],
               ));

@@ -14,7 +14,9 @@ import { Context } from 'src/app/core/shared/context.model';
   styleUrls: ['./my-dspace-status-badge.component.scss'],
   templateUrl: './my-dspace-status-badge.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class MyDSpaceStatusBadgeComponent implements OnInit {
 

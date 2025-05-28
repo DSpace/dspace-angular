@@ -10,7 +10,10 @@ import { CreateCollectionParentSelectorComponent as BaseComponent } from '../../
   // templateUrl: './create-collection-parent-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [ThemedDSOSelectorComponent, TranslateModule],
+  imports: [
+    ThemedDSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class CreateCollectionParentSelectorComponent extends BaseComponent {
 }

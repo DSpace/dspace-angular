@@ -50,8 +50,8 @@ import { ExternalLoginService } from '../../services/external-login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    TranslateModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
 })
 /**

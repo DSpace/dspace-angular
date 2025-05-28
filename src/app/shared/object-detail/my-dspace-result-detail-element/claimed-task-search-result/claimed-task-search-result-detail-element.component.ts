@@ -43,7 +43,11 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './claimed-task-search-result-detail-element.component.html',
   standalone: true,
-  imports: [ItemDetailPreviewComponent, ClaimedTaskActionsComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ClaimedTaskActionsComponent,
+    ItemDetailPreviewComponent,
+  ],
 })
 
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.DetailedListElement)

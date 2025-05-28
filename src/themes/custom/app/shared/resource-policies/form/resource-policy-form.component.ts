@@ -13,12 +13,12 @@ import { ResourcePolicyFormComponent as BaseComponent } from '../../../../../../
   // templateUrl: './resource-policy-form.component.html'
   templateUrl: '../../../../../../app/shared/resource-policies/form/resource-policy-form.component.html',
   imports: [
-    FormComponent,
-    NgbNavModule,
-    EpersonGroupListComponent,
-    TranslateModule,
     AsyncPipe,
     BtnDisabledDirective,
+    EpersonGroupListComponent,
+    FormComponent,
+    NgbNavModule,
+    TranslateModule,
   ],
   standalone: true,
 })

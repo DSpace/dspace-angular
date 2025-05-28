@@ -60,8 +60,8 @@ import { ThemeService } from './shared/theme-support/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    ThemedRootComponent,
     AsyncPipe,
+    ThemedRootComponent,
   ],
 })
 export class AppComponent implements OnInit, AfterViewInit {
