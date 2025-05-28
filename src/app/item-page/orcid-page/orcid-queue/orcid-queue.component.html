@@ -5,16 +5,16 @@
   <div class="container">
     <h2>{{ 'person.orcid.registry.queue' | translate }}</h2>
 
-    @if ((processing$ | async) !== true && (getList() | async)?.payload?.totalElements === 0) {
+    @if ((processing$ | async) !== true && (list$ | async)?.payload?.totalElements === 0) {
       <ds-alert
         [type]="AlertTypeEnum.Info">
         {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
       </ds-alert>
     }
-    @if ((processing$ | async) !== true && (getList() | async)?.payload?.totalElements > 0) {
+    @if ((processing$ | async) !== true && (list$ | async)?.payload?.totalElements > 0) {
       <ds-pagination
         [paginationOptions]="paginationOptions"
-        [collectionSize]="(getList() | async)?.payload?.totalElements"
+        [collectionSize]="(list$ | async)?.payload?.totalElements"
         [retainScrollPosition]="false" [hideGear]="true" (paginationChange)="updateList()">
         <div class="table-responsive">
           <table id="groups" class="table table-sm table-striped table-hover table-bordered">
@@ -26,7 +26,7 @@
               </tr>
             </thead>
             <tbody>
-              @for (entry of (getList() | async)?.payload?.page; track entry) {
+              @for (entry of (list$ | async)?.payload?.page; track entry) {
                 <tr data-test="orcidQueueElementRow">
                   <td style="width: 15%" class="text-center align-middle">
                     <i [ngClass]="getIconClass(entry)" [ngbTooltip]="getIconTooltip(entry) | translate"

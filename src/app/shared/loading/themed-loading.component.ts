@@ -16,7 +16,9 @@ import { LoadingComponent } from './loading.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [LoadingComponent],
+  imports: [
+    LoadingComponent,
+  ],
 })
 export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
 

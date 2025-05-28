@@ -6,6 +6,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -16,7 +17,7 @@ import {
 } from 'jasmine-marbles';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
@@ -94,12 +95,12 @@ describe('ProfilePageComponent', () => {
     };
     authorizationService = jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword });
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user),
+      getAuthenticatedUserFromStore: of(user),
       getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$,
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
-      patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success'))),
+      patch: of(Object.assign(new RestResponse(true, 200, 'Success'))),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
@@ -120,6 +121,7 @@ describe('ProfilePageComponent', () => {
         RouterModule.forRoot([]),
         ProfilePageComponent,
         VarDirective,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
@@ -295,7 +297,7 @@ describe('ProfilePageComponent', () => {
         let operations;
 
         it('should return call epersonService.patch', (done) => {
-          epersonService.patch.and.returnValue(observableOf(Object.assign(new RestResponse(false, 403, 'Error'))));
+          epersonService.patch.and.returnValue(of(Object.assign(new RestResponse(false, 403, 'Error'))));
           component.setPasswordValue('testest');
           component.setInvalid(false);
           component.setCurrentPasswordValue('current-password');

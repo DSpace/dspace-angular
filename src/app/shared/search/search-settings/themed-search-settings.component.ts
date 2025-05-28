@@ -15,7 +15,9 @@ import { SearchSettingsComponent } from './search-settings.component';
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
-  imports: [SearchSettingsComponent],
+  imports: [
+    SearchSettingsComponent,
+  ],
 })
 export class ThemedSearchSettingsComponent extends ThemedComponent<SearchSettingsComponent> {
   @Input() currentSortOption: SortOptions;

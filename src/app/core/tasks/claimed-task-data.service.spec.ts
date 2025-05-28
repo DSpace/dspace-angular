@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -74,7 +74,7 @@ describe('ClaimedTaskDataService', () => {
 
     it('should call postToEndpoint method', () => {
 
-      spyOn(service, 'postToEndpoint').and.returnValue(observableOf(null));
+      spyOn(service, 'postToEndpoint').and.returnValue(of(null));
 
       scheduler.schedule(() => service.claimTask('scopeId', 'poolTaskHref').subscribe());
       scheduler.flush();
@@ -103,7 +103,7 @@ describe('ClaimedTaskDataService', () => {
   describe('findByItem', () => {
 
     it('should call searchTask method', () => {
-      spyOn((service as any), 'searchTask').and.returnValue(observableOf(createSuccessfulRemoteDataObject$({})));
+      spyOn((service as any), 'searchTask').and.returnValue(of(createSuccessfulRemoteDataObject$({})));
 
       scheduler.schedule(() => service.findByItem('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
       scheduler.flush();

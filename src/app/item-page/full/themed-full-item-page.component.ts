@@ -11,7 +11,9 @@ import { FullItemPageComponent } from './full-item-page.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [FullItemPageComponent],
+  imports: [
+    FullItemPageComponent,
+  ],
 })
 export class ThemedFullItemPageComponent extends ThemedComponent<FullItemPageComponent> {
   protected getComponentName(): string {

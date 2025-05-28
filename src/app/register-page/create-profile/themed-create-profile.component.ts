@@ -11,7 +11,9 @@ import { CreateProfileComponent } from './create-profile.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [CreateProfileComponent],
+  imports: [
+    CreateProfileComponent,
+  ],
 })
 export class ThemedCreateProfileComponent extends ThemedComponent<CreateProfileComponent> {
   protected getComponentName(): string {

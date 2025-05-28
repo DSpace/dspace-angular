@@ -12,7 +12,7 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { MenuServiceStub } from '../../testing/menu-service.stub';
 import { MenuService } from '../menu.service';
@@ -65,7 +65,7 @@ describe('MenuSectionComponent', () => {
     comp = fixture.componentInstance;
     menuService = (comp as any).menuService;
     spyOn(comp as any, 'getMenuItemComponent').and.returnValue(LinkMenuItemComponent);
-    spyOn(comp as any, 'getItemModelInjector').and.returnValue(observableOf({}));
+    spyOn(comp as any, 'getItemModelInjector').and.returnValue(of({}));
     fixture.detectChanges();
   });
 

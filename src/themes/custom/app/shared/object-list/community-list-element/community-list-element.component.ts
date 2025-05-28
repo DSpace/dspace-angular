@@ -7,8 +7,6 @@ import { ViewMode } from '../../../../../../app/core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { CommunityListElementComponent as BaseComponent } from '../../../../../../app/shared/object-list/community-list-element/community-list-element.component';
 
-@listableObjectComponent(Community, ViewMode.ListElement, Context.Any, 'custom')
-
 @Component({
   selector: 'ds-community-list-element',
   // styleUrls: ['./community-list-element.component.scss'],
@@ -16,9 +14,10 @@ import { CommunityListElementComponent as BaseComponent } from '../../../../../.
   // templateUrl: './community-list-element.component.html'
   templateUrl: '../../../../../../app/shared/object-list/community-list-element/community-list-element.component.html',
   standalone: true,
-  imports: [ RouterLink],
+  imports: [
+    RouterLink,
+  ],
 })
-/**
- * Component representing a list element for a community
- */
-export class CommunityListElementComponent extends BaseComponent {}
+@listableObjectComponent(Community, ViewMode.ListElement, Context.Any, 'custom')
+export class CommunityListElementComponent extends BaseComponent {
+}

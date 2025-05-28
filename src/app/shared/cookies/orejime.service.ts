@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 /**
  * Abstract class representing a service for handling Orejime consent preferences and UI
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export abstract class OrejimeService {
   /**
    * Initializes the service

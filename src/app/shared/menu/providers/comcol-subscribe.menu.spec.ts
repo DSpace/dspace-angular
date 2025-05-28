@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Collection } from '../../../core/shared/collection.model';
@@ -33,7 +33,7 @@ describe('SubscribeMenuProvider', () => {
   beforeEach(() => {
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      'isAuthorized': observableOf(true),
+      'isAuthorized': of(true),
     });
 
     modalService = jasmine.createSpyObj('modalService', ['open']);

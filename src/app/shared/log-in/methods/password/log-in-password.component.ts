@@ -60,7 +60,15 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class LogInPasswordComponent implements OnInit {
 

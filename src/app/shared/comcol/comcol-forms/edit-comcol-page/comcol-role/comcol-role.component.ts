@@ -51,13 +51,13 @@ import { VarDirective } from '../../../../utils/var.directive';
   styleUrls: ['./comcol-role.component.scss'],
   templateUrl: './comcol-role.component.html',
   imports: [
-    ThemedLoadingComponent,
     AlertComponent,
     AsyncPipe,
-    TranslateModule,
-    RouterLink,
-    VarDirective,
     HasNoValuePipe,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })

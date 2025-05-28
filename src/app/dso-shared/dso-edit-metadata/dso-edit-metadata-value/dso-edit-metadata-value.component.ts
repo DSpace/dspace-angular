@@ -56,7 +56,21 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
   standalone: true,
-  imports: [CdkDrag, NgClass, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, AuthorityConfidenceStateDirective, BtnDisabledDirective, DsoEditMetadataValueFieldLoaderComponent],
+  imports: [
+    AsyncPipe,
+    AuthorityConfidenceStateDirective,
+    BtnDisabledDirective,
+    CdkDrag,
+    CdkDragHandle,
+    DebounceDirective,
+    DsoEditMetadataValueFieldLoaderComponent,
+    FormsModule,
+    NgbTooltipModule,
+    NgClass,
+    RouterLink,
+    ThemedTypeBadgeComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying a single editable row for a metadata value

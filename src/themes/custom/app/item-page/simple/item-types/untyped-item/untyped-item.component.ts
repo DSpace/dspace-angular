@@ -28,9 +28,6 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
 import { ThemedResultsBackButtonComponent } from '../../../../../../../app/shared/results-back-button/themed-results-back-button.component';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
 
-/**
- * Component that represents an untyped Item page
- */
 @listableObjectComponent(Item, ViewMode.StandalonePage, Context.Any, 'custom')
 @Component({
   selector: 'ds-untyped-item',
@@ -44,25 +41,26 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    ThemedResultsBackButtonComponent,
-    MiradorViewerComponent,
-    ThemedItemPageTitleFieldComponent,
-    DsoEditMenuComponent,
-    MetadataFieldWrapperComponent,
-    ThemedThumbnailComponent,
-    ThemedMediaViewerComponent,
-    ThemedFileSectionComponent,
-    ItemPageDateFieldComponent,
-    ThemedMetadataRepresentationListComponent,
-    GenericItemPageFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageUriFieldComponent,
-    CollectionsComponent,
-    RouterLink,
     AsyncPipe,
-    TranslateModule,
-    ItemPageCcLicenseFieldComponent,
+    CollectionsComponent,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
     GeospatialItemPageFieldComponent,
+    ItemPageAbstractFieldComponent,
+    ItemPageCcLicenseFieldComponent,
+    ItemPageDateFieldComponent,
+    ItemPageUriFieldComponent,
+    MetadataFieldWrapperComponent,
+    MiradorViewerComponent,
+    RouterLink,
+    ThemedFileSectionComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedMediaViewerComponent,
+    ThemedMetadataRepresentationListComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
   ],
 })
-export class UntypedItemComponent extends BaseComponent {}
+export class UntypedItemComponent extends BaseComponent {
+}

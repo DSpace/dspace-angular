@@ -11,7 +11,9 @@ import { PageErrorComponent } from './page-error.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [PageErrorComponent],
+  imports: [
+    PageErrorComponent,
+  ],
 })
 export class ThemedPageErrorComponent extends ThemedComponent<PageErrorComponent> {
 

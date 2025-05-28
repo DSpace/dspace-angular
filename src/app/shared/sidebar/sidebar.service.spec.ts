@@ -3,7 +3,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
@@ -19,13 +19,13 @@ describe('SidebarService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    pipe: observableOf(true),
+    pipe: of(true),
   });
   const windowService = jasmine.createSpyObj('hostWindowService',
     {
-      isXs: observableOf(true),
-      isSm: observableOf(false),
-      isXsOrSm: observableOf(true),
+      isXs: of(true),
+      isSm: of(false),
+      isXsOrSm: of(true),
     });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

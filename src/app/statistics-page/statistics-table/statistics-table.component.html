@@ -11,7 +11,7 @@
           @for (header of headers; track header) {
             <th scope="col"
               class="{{header}}-header">
-              {{ header }}
+              {{ 'statistics.table.header.' + header | translate  }}
             </th>
           }
         </tr>
@@ -19,7 +19,7 @@
           <tr
             class="{{point.id}}-data">
             <th scope="row" data-test="statistics-label">
-              {{ getLabel(point) | async }}
+              {{ point.label }}
             </th>
             @for (header of headers; track header) {
               <td

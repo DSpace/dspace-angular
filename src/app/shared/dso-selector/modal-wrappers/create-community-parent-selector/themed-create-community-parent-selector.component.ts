@@ -11,7 +11,9 @@ import { CreateCommunityParentSelectorComponent } from './create-community-paren
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [CreateCommunityParentSelectorComponent],
+  imports: [
+    CreateCommunityParentSelectorComponent,
+  ],
 })
 export class ThemedCreateCommunityParentSelectorComponent
   extends ThemedComponent<CreateCommunityParentSelectorComponent> {

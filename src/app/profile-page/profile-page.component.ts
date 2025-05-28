@@ -7,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
@@ -41,6 +42,7 @@ import {
   getRemoteDataPayload,
 } from '../core/shared/operators';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 import {
   hasValue,
   isNotEmpty,
@@ -61,17 +63,19 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
   styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html',
   imports: [
-    ThemedProfilePageMetadataFormComponent,
-    ProfilePageSecurityFormComponent,
+    AlertComponent,
     AsyncPipe,
-    TranslateModule,
-    ProfilePageResearcherFormComponent,
-    VarDirective,
-    SuggestionsNotificationComponent,
+    ErrorComponent,
     NgTemplateOutlet,
     PaginationComponent,
+    ProfilePageResearcherFormComponent,
+    ProfilePageSecurityFormComponent,
+    RouterModule,
+    SuggestionsNotificationComponent,
     ThemedLoadingComponent,
-    ErrorComponent,
+    ThemedProfilePageMetadataFormComponent,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })

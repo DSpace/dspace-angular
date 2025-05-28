@@ -13,9 +13,9 @@ import { BtnDisabledDirective } from '../../../../../../app/shared/btn-disabled.
   styleUrls: ['../../../../../../app/item-page/media-viewer/media-viewer-video/media-viewer-video.component.scss'],
   standalone: true,
   imports: [
+    BtnDisabledDirective,
     NgbDropdownModule,
     TranslateModule,
-    BtnDisabledDirective,
   ],
 })
 export class MediaViewerVideoComponent extends BaseComponent {

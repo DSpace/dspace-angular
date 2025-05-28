@@ -21,7 +21,13 @@ import { ThemedRelatedEntitiesSearchComponent } from '../related-entities-search
   selector: 'ds-tabbed-related-entities-search',
   templateUrl: './tabbed-related-entities-search.component.html',
   standalone: true,
-  imports: [NgbNavModule, ThemedRelatedEntitiesSearchComponent, VarDirective, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbNavModule,
+    ThemedRelatedEntitiesSearchComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * A component to show related items as search results, split into tabs by relationship-type

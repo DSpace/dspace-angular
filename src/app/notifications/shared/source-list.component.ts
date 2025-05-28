@@ -30,7 +30,15 @@ export interface SourceObject {
   templateUrl: './source-list.component.html',
   styleUrls: ['./source-list.component.scss'],
   standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    DatePipe,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class SourceListComponent {
 

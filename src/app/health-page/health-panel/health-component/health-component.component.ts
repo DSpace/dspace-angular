@@ -23,7 +23,12 @@ import { HealthComponent } from '../../models/health-component.model';
   templateUrl: './health-component.component.html',
   styleUrls: ['./health-component.component.scss'],
   standalone: true,
-  imports: [NgbCollapseModule, AlertComponent, TitleCasePipe, ObjNgFor],
+  imports: [
+    AlertComponent,
+    NgbCollapseModule,
+    ObjNgFor,
+    TitleCasePipe,
+  ],
 })
 export class HealthComponentComponent {
 

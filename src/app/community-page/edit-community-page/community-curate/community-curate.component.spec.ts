@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Community } from '../../../core/shared/community.model';
@@ -32,7 +32,7 @@ describe('CommunityCurateComponent', () => {
   beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
-        data: observableOf({
+        data: of({
           dso: createSuccessfulRemoteDataObject(community),
         }),
       },

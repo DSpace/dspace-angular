@@ -34,7 +34,12 @@ import { currentPath } from '../utils/route.utils';
   styleUrls: ['./view-mode-switch.component.scss'],
   templateUrl: './view-mode-switch.component.html',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+  ],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 

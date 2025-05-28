@@ -9,7 +9,11 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
   selector: 'ds-org-unit-item-metadata-list-element',
   templateUrl: './org-unit-item-metadata-list-element.component.html',
   standalone: true,
-  imports: [TruncatableComponent, RouterLink, NgbTooltipModule],
+  imports: [
+    NgbTooltipModule,
+    RouterLink,
+    TruncatableComponent,
+  ],
 })
 /**
  * The component for displaying an item of the type OrgUnit as a metadata field

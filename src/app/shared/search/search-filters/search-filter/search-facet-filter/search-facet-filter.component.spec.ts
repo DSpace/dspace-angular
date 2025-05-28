@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -102,7 +102,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: filterService },
         { provide: Router, useValue: router },
-        { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
+        { provide: RemoteDataBuildService, useValue: { aggregate: () => of({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -181,7 +181,7 @@ describe('SearchFacetFilterComponent', () => {
     const testValue = 'test';
 
     beforeEach(() => {
-      comp.selectedAppliedFilters$ = observableOf(selectedValues.map((value) =>
+      comp.selectedAppliedFilters$ = of(selectedValues.map((value) =>
         Object.assign(new AppliedFilter(), {
           filter: filterName1,
           operator: 'equals',
@@ -190,7 +190,7 @@ describe('SearchFacetFilterComponent', () => {
         })));
       fixture.detectChanges();
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
-      spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(observableOf({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }));
+      spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(of({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }));
     });
 
     it('should call navigate on the router with the right searchlink and parameters when the filter is provided with a valid operator', () => {

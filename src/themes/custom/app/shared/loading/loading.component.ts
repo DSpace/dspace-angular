@@ -11,5 +11,4 @@ import { LoadingComponent as BaseComponent } from '../../../../../app/shared/loa
   standalone: true,
 })
 export class LoadingComponent extends BaseComponent {
-
 }

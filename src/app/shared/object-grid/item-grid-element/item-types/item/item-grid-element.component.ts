@@ -15,7 +15,9 @@ import { ItemSearchResultGridElementComponent } from '../../../search-result-gri
   templateUrl: './item-grid-element.component.html',
   animations: [focusShadow],
   standalone: true,
-  imports: [ItemSearchResultGridElementComponent],
+  imports: [
+    ItemSearchResultGridElementComponent,
+  ],
 })
 /**
  * The component for displaying a grid element for an item of the type Publication

@@ -18,7 +18,9 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
   selector: 'ds-configuration-search-page',
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ConfigurationSearchPageComponent],
+  imports: [
+    ConfigurationSearchPageComponent,
+  ],
 })
 export class ThemedConfigurationSearchPageComponent extends ThemedComponent<ConfigurationSearchPageComponent> {
   /**

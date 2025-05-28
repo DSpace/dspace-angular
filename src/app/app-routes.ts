@@ -109,14 +109,12 @@ export const APP_ROUTES: Route[] = [
         path: COMMUNITY_MODULE_PATH,
         loadChildren: () => import('./community-page/community-page-routes')
           .then((m) => m.ROUTES),
-        data: { enableRSS: true },
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
         path: COLLECTION_MODULE_PATH,
         loadChildren: () => import('./collection-page/collection-page-routes')
           .then((m) => m.ROUTES),
-        data: { enableRSS: true },
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {

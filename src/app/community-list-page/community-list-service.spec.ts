@@ -3,7 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
@@ -285,7 +285,7 @@ describe('CommunityListService', () => {
         beforeEach((done) => {
           const expandedNodes = [];
           mockListOfTopCommunitiesPage1.map((community: Community) => {
-            const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
+            const communityFlatNode = toFlatNode(community, of(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 1;
             communityFlatNode.currentCommunityPage = 1;
             expandedNodes.push(communityFlatNode);
@@ -314,7 +314,7 @@ describe('CommunityListService', () => {
       });
       describe('Just first top comm expanded, all page 1: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
         beforeEach((done) => {
-          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[0], observableOf(true), 0, true, null);
+          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[0], of(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 1;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
@@ -339,7 +339,7 @@ describe('CommunityListService', () => {
       });
       describe('Just second top comm expanded, collections at page 2: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
         beforeEach((done) => {
-          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[1], observableOf(true), 0, true, null);
+          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[1], of(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 2;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
@@ -403,7 +403,7 @@ describe('CommunityListService', () => {
           beforeEach((done) => {
             const expandedNodes = [];
             listOfCommunities.map((community: Community) => {
-              const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
+              const communityFlatNode = toFlatNode(community, of(true), 0, true, null);
               communityFlatNode.currentCollectionPage = 1;
               communityFlatNode.currentCommunityPage = 1;
               expandedNodes.push(communityFlatNode);
@@ -513,7 +513,7 @@ describe('CommunityListService', () => {
           });
           let flatNodeList;
           beforeEach((done) => {
-            const communityFlatNode = toFlatNode(communityWithSubcoms, observableOf(true), 0, true, null);
+            const communityFlatNode = toFlatNode(communityWithSubcoms, of(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 1;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];
@@ -556,7 +556,7 @@ describe('CommunityListService', () => {
                 'dc.title': [{ language: 'en_US', value: 'Community 1' }],
               },
             });
-            const communityFlatNode = toFlatNode(communityWithCollections, observableOf(true), 0, true, null);
+            const communityFlatNode = toFlatNode(communityWithCollections, of(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 2;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];

@@ -10,6 +10,9 @@ import { ResultsBackButtonComponent as BaseComponent } from '../../../../../app/
   //templateUrl: './results-back-button.component.html',
   templateUrl: '../../../../../app/shared/results-back-button/results-back-button.component.html',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [
+    AsyncPipe,
+  ],
 })
-export class ResultsBackButtonComponent extends BaseComponent {}
+export class ResultsBackButtonComponent extends BaseComponent {
+}

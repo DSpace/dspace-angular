@@ -18,11 +18,6 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
 import { ListableObjectComponentLoaderComponent } from '../../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
 @Component({
   selector: 'ds-themed-item-page',
   // styleUrls: ['./item-page.component.scss'],
@@ -33,20 +28,19 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   animations: [fadeInOut],
   standalone: true,
   imports: [
-    VarDirective,
-    ThemedItemAlertsComponent,
+    AccessByTokenNotificationComponent,
+    AsyncPipe,
+    ErrorComponent,
+    ItemVersionsComponent,
     ItemVersionsNoticeComponent,
     ListableObjectComponentLoaderComponent,
-    ItemVersionsComponent,
-    ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
-    AsyncPipe,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
-    AccessByTokenNotificationComponent,
+    ThemedItemAlertsComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class ItemPageComponent extends BaseComponent {
-
 }

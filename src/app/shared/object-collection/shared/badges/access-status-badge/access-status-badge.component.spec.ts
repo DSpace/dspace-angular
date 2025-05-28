@@ -19,7 +19,7 @@ import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { AccessStatusObject } from './access-status.model';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
 
-describe('ItemAccessStatusBadgeComponent', () => {
+describe('AccessStatusBadgeComponent', () => {
   let component: AccessStatusBadgeComponent;
   let fixture: ComponentFixture<AccessStatusBadgeComponent>;
 
@@ -100,17 +100,17 @@ describe('ItemAccessStatusBadgeComponent', () => {
 
   function lookForAccessStatusBadgeForItem(status: string) {
     const badge = fixture.debugElement.query(By.css('span.badge'));
-    expect(badge.nativeElement.textContent).toEqual(`access-status.${status.toLowerCase()}.listelement.badge`);
+    expect(badge.nativeElement.textContent).toContain(`access-status.${status.toLowerCase()}.listelement.badge`);
   }
 
   function lookForAccessStatusBadgeForBitstream() {
     const badge = fixture.debugElement.query(By.css('span.badge'));
-    expect(badge.nativeElement.textContent).toEqual(`embargo.listelement.badge`);
+    expect(badge.nativeElement.textContent).toContain('embargo.listelement.badge');
   }
 
   function lookForNoAccessStatusBadgeForBitstream() {
     const badge = fixture.debugElement.query(By.css('span.badge'));
-    expect(badge.nativeElement.textContent).toEqual(``);
+    expect(badge).toBeNull();
   }
 
   describe('init with item', () => {

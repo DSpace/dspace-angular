@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -55,7 +55,7 @@ describe('OrcidMenuProvider', () => {
 
   beforeEach(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      'isAuthorized': observableOf(true),
+      'isAuthorized': of(true),
     });
 
     TestBed.configureTestingModule({

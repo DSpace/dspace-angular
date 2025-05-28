@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -95,7 +95,7 @@ export class LocaleService {
       take(1),
       mergeMap(([isAuthenticated, isLoaded]) => {
         // TODO to enabled again when https://github.com/DSpace/dspace-angular/issues/739 will be resolved
-        const epersonLang$: Observable<string[]> = observableOf([]);
+        const epersonLang$: Observable<string[]> = of([]);
         /*        if (isAuthenticated && isLoaded) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),

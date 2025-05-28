@@ -15,7 +15,7 @@ import {
 } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
   throwError as observableThrowError,
 } from 'rxjs';
 
@@ -98,10 +98,10 @@ describe('SubmissionObjectEffects test suite', () => {
     submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
     submissionObjectDataServiceStub = mockSubmissionObjectDataService;
 
-    submissionServiceStub.hasUnsavedModification.and.returnValue(observableOf(true));
+    submissionServiceStub.hasUnsavedModification.and.returnValue(of(true));
 
     workspaceItemDataService = jasmine.createSpyObj('WorkspaceItemDataService', {
-      invalidateById: observableOf(true),
+      invalidateById: of(true),
     });
 
     TestBed.configureTestingModule({
@@ -234,7 +234,7 @@ describe('SubmissionObjectEffects test suite', () => {
         },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
@@ -256,7 +256,7 @@ describe('SubmissionObjectEffects test suite', () => {
         },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
@@ -280,7 +280,7 @@ describe('SubmissionObjectEffects test suite', () => {
         },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
@@ -327,7 +327,7 @@ describe('SubmissionObjectEffects test suite', () => {
         },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveForLaterSubmissionFormSuccessAction(
           submissionId,
@@ -852,7 +852,7 @@ describe('SubmissionObjectEffects test suite', () => {
         },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionSectionFormSuccessAction(
           submissionId,
@@ -902,7 +902,7 @@ describe('SubmissionObjectEffects test suite', () => {
         sections: mockSectionsDataTwo,
       })];
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(response));
       const expected = cold('--b-', {
         b: new DepositSubmissionAction(
           submissionId,
@@ -934,7 +934,7 @@ describe('SubmissionObjectEffects test suite', () => {
         errors: mockSectionsErrors,
       })];
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(response));
 
       const expected = cold('--b-', {
         b: new SaveSubmissionFormSuccessAction(submissionId, response as any[], false, true),
@@ -984,7 +984,7 @@ describe('SubmissionObjectEffects test suite', () => {
         },
       });
 
-      submissionServiceStub.depositSubmission.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionServiceStub.depositSubmission.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new DepositSubmissionSuccessAction(
           submissionId,
@@ -1126,7 +1126,7 @@ describe('SubmissionObjectEffects test suite', () => {
         },
       });
 
-      submissionServiceStub.discardSubmission.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionServiceStub.discardSubmission.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new DiscardSubmissionSuccessAction(
           submissionId,

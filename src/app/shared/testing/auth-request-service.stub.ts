@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
@@ -98,6 +98,6 @@ export class AuthRequestServiceStub {
   }
 
   public getShortlivedToken() {
-    return observableOf(this.mockShortLivedToken);
+    return of(this.mockShortLivedToken);
   }
 }

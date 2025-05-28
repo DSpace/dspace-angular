@@ -39,7 +39,14 @@ import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actio
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
   standalone: true,
-  imports: [VarDirective, ClaimedTaskActionsLoaderComponent, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClaimedTaskActionsLoaderComponent,
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit {
 

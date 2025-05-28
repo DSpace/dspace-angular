@@ -11,7 +11,9 @@ import { LangSwitchComponent } from './lang-switch.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [LangSwitchComponent],
+  imports: [
+    LangSwitchComponent,
+  ],
 })
 export class ThemedLangSwitchComponent extends ThemedComponent<LangSwitchComponent> {
 

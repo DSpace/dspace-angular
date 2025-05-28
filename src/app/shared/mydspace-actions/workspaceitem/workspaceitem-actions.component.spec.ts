@@ -21,7 +21,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -62,7 +62,7 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -91,7 +91,7 @@ const item = Object.assign(new Item(), {
   },
 });
 const rd = createSuccessfulRemoteDataObject(item);
-mockObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
+mockObject = Object.assign(new WorkspaceItem(), { item: of(rd), id: '1234', uuid: '1234' });
 
 const ePersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,
@@ -111,7 +111,7 @@ const ePersonMock: EPerson = Object.assign(new EPerson(), {
         uuid: '0a53a0f2-e168-4ed9-b4af-cba9a2d267ca',
         language: null,
         value:
-          '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true}',
+          '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true,"correlation-id":true}',
         place: 0,
         authority: null,
         confidence: -1,
@@ -175,7 +175,7 @@ authService = jasmine.createSpyObj('authService', {
 describe('WorkspaceitemActionsComponent', () => {
   beforeEach(waitForAsync(async () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     await TestBed.configureTestingModule({
       imports: [
@@ -211,7 +211,7 @@ describe('WorkspaceitemActionsComponent', () => {
     component = fixture.componentInstance;
     component.object = mockObject;
     notificationsServiceStub = TestBed.inject(NotificationsService as any);
-    (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf(ePersonMock));
+    (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(of(ePersonMock));
     fixture.detectChanges();
   });
 
@@ -247,7 +247,7 @@ describe('WorkspaceitemActionsComponent', () => {
 
   describe('on discard confirmation', () => {
     beforeEach((done) => {
-      mockDataService.delete.and.returnValue(observableOf(true));
+      mockDataService.delete.and.returnValue(of(true));
       spyOn(component, 'reload');
       const btn = fixture.debugElement.query(By.css('.btn-danger'));
       btn.nativeElement.click();

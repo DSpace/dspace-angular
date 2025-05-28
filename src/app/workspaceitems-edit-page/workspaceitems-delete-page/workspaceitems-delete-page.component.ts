@@ -42,9 +42,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   templateUrl: './workspaceitems-delete-page.component.html',
   styleUrls: ['./workspaceitems-delete-page.component.scss'],
   imports: [
+    CommonModule,
     ModifyItemOverviewComponent,
     TranslateModule,
-    CommonModule,
   ],
   standalone: true,
 })

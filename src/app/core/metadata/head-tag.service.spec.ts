@@ -14,7 +14,6 @@ import { createMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
   of,
 } from 'rxjs';
 
@@ -99,7 +98,7 @@ describe('HeadTagService', () => {
       getCurrentOrigin: 'https://request.org',
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     store = createMockStore({ initialState });
@@ -351,7 +350,7 @@ describe('HeadTagService', () => {
     describe('bitstream not download allowed', () => {
       it('should not have citation_pdf_url', fakeAsync(() => {
         (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$([MockBitstream3]));
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
 
         (headTagService as any).processRouteChange({
           data: {

@@ -35,7 +35,10 @@ import { ParameterSelectComponent } from './parameter-select/parameter-select.co
     deps: [[new Optional(), NgForm]],
   }],
   standalone: true,
-  imports: [ParameterSelectComponent, TranslateModule],
+  imports: [
+    ParameterSelectComponent,
+    TranslateModule,
+  ],
 })
 export class ProcessParametersComponent implements OnChanges, OnInit {
   /**

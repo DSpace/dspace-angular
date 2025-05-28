@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RouterStub } from '../../shared/testing/router.stub';
@@ -36,7 +36,7 @@ describe('PaginationService', () => {
         if (param.endsWith('.sf')) {
           value = 'score';
         }
-        return observableOf(value);
+        return of(value);
       },
     };
 
@@ -70,7 +70,7 @@ describe('PaginationService', () => {
           if (param.endsWith('.rpp')) {
             value = 10;
           }
-          return observableOf(value);
+          return of(value);
         },
       };
       service = new PaginationService(routeService, router);

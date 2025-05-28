@@ -12,8 +12,8 @@ import { MediaViewerImageComponent as BaseComponent } from '../../../../../../ap
   styleUrls: ['../../../../../../app/item-page/media-viewer/media-viewer-image/media-viewer-image.component.scss'],
   standalone: true,
   imports: [
-    NgxGalleryModule,
     AsyncPipe,
+    NgxGalleryModule,
   ],
 })
 export class MediaViewerImageComponent extends BaseComponent {

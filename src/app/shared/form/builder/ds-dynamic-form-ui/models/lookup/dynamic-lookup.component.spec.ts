@@ -28,7 +28,7 @@ import {
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -330,7 +330,7 @@ describe('Dynamic Lookup component', () => {
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupModel(LOOKUP_TEST_MODEL_CONFIG);
-          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+          const entry = of(Object.assign(new VocabularyEntry(), {
             authority: null,
             value: 'test',
             display: 'testDisplay',
@@ -373,7 +373,7 @@ describe('Dynamic Lookup component', () => {
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupModel(LOOKUP_TEST_MODEL_CONFIG);
-          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+          const entry = of(Object.assign(new VocabularyEntry(), {
             authority: 'test001',
             value: 'test',
             display: 'testDisplay',
@@ -506,7 +506,7 @@ describe('Dynamic Lookup component', () => {
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupNameModel(LOOKUP_NAME_TEST_MODEL_CONFIG);
           lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, 'test001');
-          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+          const entry = of(Object.assign(new VocabularyEntry(), {
             authority: null,
             value: 'Name, Lastname',
             display: 'Name, Lastname',
@@ -551,7 +551,7 @@ describe('Dynamic Lookup component', () => {
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupNameModel(LOOKUP_NAME_TEST_MODEL_CONFIG);
           lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, 'test001');
-          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+          const entry = of(Object.assign(new VocabularyEntry(), {
             authority: 'test001',
             value: 'Name, Lastname',
             display: 'Name, Lastname',
@@ -596,12 +596,14 @@ describe('Dynamic Lookup component', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [DynamicFormsCoreModule,
+  imports: [
+    DynamicFormsCoreModule,
     DynamicFormsNGBootstrapUIModule,
     FormsModule,
     InfiniteScrollModule,
+    NgbModule,
     ReactiveFormsModule,
-    NgbModule],
+  ],
 })
 class TestComponent {
 

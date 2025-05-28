@@ -44,7 +44,15 @@ import {
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
   standalone: true,
-  imports: [AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AccessControlArrayFormComponent,
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    TranslateModule,
+    UiSwitchModule,
+  ],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 

@@ -25,10 +25,10 @@ import { VarDirective } from '../../shared/utils/var.directive';
   styleUrls: ['./delete-community-page.component.scss'],
   templateUrl: './delete-community-page.component.html',
   imports: [
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
     BtnDisabledDirective,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })

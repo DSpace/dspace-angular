@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
@@ -34,7 +34,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -56,7 +56,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {

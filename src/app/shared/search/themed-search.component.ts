@@ -23,7 +23,9 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   selector: 'ds-search',
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [SearchComponent],
+  imports: [
+    SearchComponent,
+  ],
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 

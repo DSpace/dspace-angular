@@ -8,7 +8,9 @@ import { SearchNavbarComponent } from './search-navbar.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SearchNavbarComponent],
+  imports: [
+    SearchNavbarComponent,
+  ],
 })
 export class ThemedSearchNavbarComponent extends ThemedComponent<SearchNavbarComponent> {
 

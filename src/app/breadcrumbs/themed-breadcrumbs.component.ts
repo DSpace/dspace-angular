@@ -11,7 +11,9 @@ import { BreadcrumbsComponent } from './breadcrumbs.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [BreadcrumbsComponent],
+  imports: [
+    BreadcrumbsComponent,
+  ],
 })
 export class ThemedBreadcrumbsComponent extends ThemedComponent<BreadcrumbsComponent> {
   protected getComponentName(): string {

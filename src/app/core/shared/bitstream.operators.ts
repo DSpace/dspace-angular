@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -25,7 +25,7 @@ export const getDownloadableBitstream = (authService: AuthorizationDataService) 
               return canDownload ? bit : null;
             }));
         } else {
-          return observableOf(null);
+          return of(null);
         }
       }),
     );

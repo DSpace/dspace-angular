@@ -16,7 +16,9 @@ import { UserMenuComponent } from './user-menu.component';
   templateUrl: './../../theme-support/themed.component.html',
   styleUrls: [],
   standalone: true,
-  imports: [UserMenuComponent],
+  imports: [
+    UserMenuComponent,
+  ],
 })
 export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
 

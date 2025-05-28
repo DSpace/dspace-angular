@@ -11,7 +11,12 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
   selector: 'ds-person-item-metadata-list-element',
   templateUrl: './person-item-metadata-list-element.component.html',
   standalone: true,
-  imports: [TruncatableComponent, RouterLink, NgbTooltipModule, OrcidBadgeAndTooltipComponent],
+  imports: [
+    NgbTooltipModule,
+    OrcidBadgeAndTooltipComponent,
+    RouterLink,
+    TruncatableComponent,
+  ],
 })
 /**
  * The component for displaying an item of the type Person as a metadata field

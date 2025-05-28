@@ -7,9 +7,6 @@ import { ProfilePageSecurityFormComponent } from '../../../../../app/profile-pag
 import { CreateProfileComponent as BaseComponent } from '../../../../../app/register-page/create-profile/create-profile.component';
 import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.directive';
 
-/**
- * Component that renders the create profile page to be used by a user registering through a token
- */
 @Component({
   selector: 'ds-themed-create-profile',
   // styleUrls: ['./create-profile.component.scss'],
@@ -18,11 +15,11 @@ import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.dir
   templateUrl: '../../../../../app/register-page/create-profile/create-profile.component.html',
   standalone: true,
   imports: [
-    ProfilePageSecurityFormComponent,
-    TranslateModule,
     AsyncPipe,
-    ReactiveFormsModule,
     BtnDisabledDirective,
+    ProfilePageSecurityFormComponent,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
 })
 export class CreateProfileComponent extends BaseComponent {

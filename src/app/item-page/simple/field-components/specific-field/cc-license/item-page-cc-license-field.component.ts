@@ -30,7 +30,13 @@ import { parseCcCode } from 'src/app/shared/utils/license.utils';
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
   standalone: true,
-  imports: [AsyncPipe, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
+  imports: [
+    AsyncPipe,
+    MetadataFieldWrapperComponent,
+    NgClass,
+    NgStyle,
+    TranslateModule,
+  ],
 })
 /**
  * Displays the item's Creative Commons license image in it's simple item page

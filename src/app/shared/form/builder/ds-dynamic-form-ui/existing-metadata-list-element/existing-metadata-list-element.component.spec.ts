@@ -10,7 +10,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
@@ -71,14 +71,14 @@ describe('ExistingMetadataListElementComponent', () => {
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace: () => observableOf({}),
+      updatePlace: () => of({}),
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
     submissionId = '1234';
     reoRel = new ReorderableRelationship(relationship, true, {} as any, {} as any, submissionId);
     submissionServiceStub = new SubmissionServiceStub();
-    submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
+    submissionServiceStub.getSubmissionObject.and.returnValue(of({}));
   }
 
   beforeEach(waitForAsync(() => {

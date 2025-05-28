@@ -26,7 +26,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -105,7 +105,7 @@ describe('MenuComponent', () => {
 
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: createSuccessfulRemoteDataObject(mockItem),
     }),
     children: [],
@@ -141,7 +141,7 @@ describe('MenuComponent', () => {
   beforeEach(waitForAsync(() => {
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
 
     TestBed.configureTestingModule({

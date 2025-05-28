@@ -52,7 +52,15 @@ import { ListableObject } from './shared/listable-object.model';
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
   standalone: true,
-  imports: [ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent, ObjectGeospatialMapComponent],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    ObjectDetailComponent,
+    ObjectGeospatialMapComponent,
+    ObjectGridComponent,
+    ObjectTableComponent,
+    ThemedObjectListComponent,
+  ],
 })
 export class ObjectCollectionComponent implements OnInit {
   /**
@@ -71,16 +79,21 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() sortConfig: SortOptions;
 
   /**
-   * Whether or not the list elements have a border or not
+   * Whether the list elements have a border or not
    */
   @Input() hasBorder = false;
 
   /**
-   * Whether or not to hide the gear to change the sort and pagination configuration
+   * Whether to hide the gear to change the sort and pagination configuration
    */
   @Input() hideGear = false;
   @Input() selectable = false;
   @Input() selectionConfig: {repeatable: boolean, listId: string};
+
+  /**
+   * Whether to show an RSS syndication button for the current search options
+   */
+  @Input() showRSS: SortOptions | boolean = false;
 
   /**
    * Emit custom event for listable object custom actions.

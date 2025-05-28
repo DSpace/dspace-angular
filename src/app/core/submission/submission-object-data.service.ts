@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -63,7 +63,7 @@ export class SubmissionObjectDataService {
         return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       default: {
         const now = new Date().getTime();
-        return observableOf(new RemoteData(
+        return of(new RemoteData(
           now,
           environment.cache.msToLive.default,
           now,

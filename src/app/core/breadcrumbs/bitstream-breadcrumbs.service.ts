@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -61,7 +61,7 @@ export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
           const parent = parentRD.payload;
           return super.getBreadcrumbs(parent, getDSORoute(parent));
         }
-        return observableOf([]);
+        return of([]);
 
       }),
       map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb]),
@@ -83,12 +83,12 @@ export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
                   getFirstCompletedRemoteData(),
                 );
               } else {
-                return observableOf(undefined);
+                return of(undefined);
               }
             }),
           );
         } else {
-          return observableOf(undefined);
+          return of(undefined);
         }
       }),
     );

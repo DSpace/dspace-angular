@@ -12,7 +12,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -95,12 +95,12 @@ describe('UploadBitstreamComponent', () => {
   const routerStub = new RouterStub();
   const restEndpoint = 'fake-rest-endpoint';
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint),
+    getBitstreamsEndpoint: of(restEndpoint),
     createBundle: createSuccessfulRemoteDataObject$(createdBundle),
     getBundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])),
   });
   const bundleService = jasmine.createSpyObj('bundleService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint),
+    getBitstreamsEndpoint: of(restEndpoint),
     findById: createSuccessfulRemoteDataObject$(bundle),
   });
   const authToken = 'fake-auth-token';
@@ -287,10 +287,10 @@ describe('UploadBitstreamComponent', () => {
    */
   function createUploadBitstreamTestingModule(queryParams) {
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(mockItem),
       }),
-      queryParams: observableOf(queryParams),
+      queryParams: of(queryParams),
       snapshot: {
         queryParams: queryParams,
         params: {

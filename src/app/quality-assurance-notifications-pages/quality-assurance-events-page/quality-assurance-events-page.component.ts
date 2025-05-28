@@ -9,7 +9,9 @@ import { QualityAssuranceEventsComponent } from '../../notifications/qa/events/q
   selector: 'ds-quality-assurance-events-page',
   templateUrl: './quality-assurance-events-page.component.html',
   standalone: true,
-  imports: [QualityAssuranceEventsComponent],
+  imports: [
+    QualityAssuranceEventsComponent,
+  ],
 })
 export class QualityAssuranceEventsPageComponent {
 

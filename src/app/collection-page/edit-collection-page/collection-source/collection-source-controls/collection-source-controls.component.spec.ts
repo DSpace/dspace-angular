@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -100,7 +100,7 @@ describe('CollectionSourceControlsComponent', () => {
       findByHref: createSuccessfulRemoteDataObject$(bitstream),
     });
     httpClient = jasmine.createSpyObj('httpClient', {
-      get: observableOf('Script text'),
+      get: of('Script text'),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 

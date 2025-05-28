@@ -1,15 +1,15 @@
 <div class="mt-3" @fadeInOut>
   @if (isListOfEPerson) {
     <ds-eperson-search-box (search)="onSearch($event)"></ds-eperson-search-box>
-  }
-  @if (!isListOfEPerson) {
+  } @else {
     <ds-group-search-box (search)="onSearch($event)"></ds-group-search-box>
   }
 
-  @if ((getList() | async)?.payload?.totalElements > 0) {
+  @let list = (list$ | async);
+  @if (list && list.totalElements > 0) {
     <ds-pagination
       [paginationOptions]="paginationOptions"
-      [collectionSize]="(getList() | async)?.payload?.totalElements"
+      [collectionSize]="list.totalElements"
       [retainScrollPosition]="true"
       [hideGear]="true">
       <div class="table-responsive">
@@ -22,11 +22,10 @@
             </tr>
           </thead>
           <tbody>
-            @for (entry of (getList() | async)?.payload?.page; track entry) {
-              <tr
-                [class.table-primary]="isSelected(entry) | async">
-                <td>{{entry.id}}</td>
-                <td>{{dsoNameService.getName(entry)}}</td>
+            @for (entry of list.page; track entry) {
+              <tr [class.table-primary]="(entrySelectedId$ | async) === entry.id">
+                <td>{{ entry.id }}</td>
+                <td>{{ dsoNameService.getName(entry) }}</td>
                 <td class="text-center">
                   <button class="btn btn-sm btn-outline-primary" (click)="emitSelect(entry)">
                     {{'resource-policies.form.eperson-group-list.select.btn' | translate}}

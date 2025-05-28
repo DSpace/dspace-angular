@@ -14,7 +14,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RestResponse } from '../../../core/cache/response.models';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -60,7 +60,7 @@ describe('ItemPrivateComponent', () => {
     });
 
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(mockItem),
       }),
     };

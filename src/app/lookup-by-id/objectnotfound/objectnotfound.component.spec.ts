@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -20,14 +20,14 @@ describe('ObjectNotFoundComponent', () => {
   const handlePrefix = '123456789';
   const handleId = '22';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({ id: testUUID, idType: uuidType }),
+    params: of({ id: testUUID, idType: uuidType }),
   });
   const serverResponseServiceStub = jasmine.createSpyObj('ServerResponseService', {
     setNotFound: jasmine.createSpy('setNotFound'),
   });
 
   const activatedRouteStubHandle = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({ id: handleId, idType: handlePrefix }),
+    params: of({ id: handleId, idType: handlePrefix }),
   });
   describe('uuid request', () => {
     beforeEach(waitForAsync(() => {

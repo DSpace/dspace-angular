@@ -13,7 +13,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
@@ -68,7 +68,7 @@ describe('CurationFormComponent', () => {
     });
 
     handleService = {
-      normalizeHandle: (a: string) => observableOf(a),
+      normalizeHandle: (a: string) => of(a),
     } as any;
 
     notificationsService = new NotificationsServiceStub();
@@ -166,7 +166,7 @@ describe('CurationFormComponent', () => {
 
   it(`should show an error notification and return when an invalid dsoHandle is provided`, fakeAsync(() => {
     comp.dsoHandle = 'test-handle';
-    spyOn(handleService, 'normalizeHandle').and.returnValue(observableOf(null));
+    spyOn(handleService, 'normalizeHandle').and.returnValue(of(null));
     comp.submit();
     flush();
 

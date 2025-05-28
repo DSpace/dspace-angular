@@ -11,7 +11,9 @@ import { MyDSpacePageComponent } from './my-dspace-page.component';
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [MyDSpacePageComponent],
+  imports: [
+    MyDSpacePageComponent,
+  ],
 })
 export class ThemedMyDSpacePageComponent extends ThemedComponent<MyDSpacePageComponent> {
 

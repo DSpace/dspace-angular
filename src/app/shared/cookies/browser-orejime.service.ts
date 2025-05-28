@@ -10,7 +10,7 @@ import debounce from 'lodash/debounce';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -191,7 +191,12 @@ export class BrowserOrejimeService extends OrejimeService {
          */
         this.translateConfiguration();
 
-        this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
+        if (!environment.info?.enableCookieConsentPopup) {
+          this.orejimeConfig.apps = [];
+        } else {
+          this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
+        }
+        this.applyUpdateSettingsCallbackToApps(user);
         this.lazyOrejime.then(({ init }) => {
           this.orejimeInstance = init(this.orejimeConfig);
         });
@@ -199,16 +204,40 @@ export class BrowserOrejimeService extends OrejimeService {
   }
 
   /**
+   * Applies a debounced callback to update user settings for all apps in the Orejime configuration.
+   *
+   * This method modifies the `callback` property of each app in the `orejimeConfig.apps` array.
+   * It ensures that the `updateSettingsForUsers` method is called in a debounced manner whenever
+   * a consent change occurs for any app. Additionally, it preserves and invokes the original
+   * callback for each app if one is defined.
+   *
+   * @param {EPerson} user - The authenticated user whose settings are being updated.
+   */
+  applyUpdateSettingsCallbackToApps(user: EPerson) {
+    const updateSettingsCallback = debounce(() => this.updateSettingsForUsers(user), updateDebounce);
+
+    this.orejimeConfig.apps.forEach((app) => {
+      const originalCallback = app.callback;
+      app.callback = (consent: boolean) => {
+        updateSettingsCallback();
+        if (originalCallback) {
+          originalCallback(consent);
+        }
+      };
+    });
+  }
+
+  /**
    * Return saved preferences stored in the orejime cookie
    */
   getSavedPreferences(): Observable<any> {
-    return this.getUser$().pipe(
-      map((user: EPerson) => {
+    return this.getUserId$().pipe(
+      map((userId: string) => {
         let storageName;
-        if (isEmpty(user)) {
+        if (isEmpty(userId)) {
           storageName = ANONYMOUS_STORAGE_NAME_OREJIME;
         } else {
-          storageName = this.getStorageName(user.uuid);
+          storageName = this.getStorageName(userId);
         }
         return this.cookieService.get(storageName);
       }),
@@ -220,7 +249,6 @@ export class BrowserOrejimeService extends OrejimeService {
    * @param user The authenticated user
    */
   private initializeUser(user: EPerson) {
-    this.orejimeConfig.callback = debounce((consent, app) => this.updateSettingsForUsers(user), updateDebounce);
     this.orejimeConfig.cookieName = this.getStorageName(user.uuid);
 
     const anonCookie = this.cookieService.get(ANONYMOUS_STORAGE_NAME_OREJIME);
@@ -230,6 +258,24 @@ export class BrowserOrejimeService extends OrejimeService {
       this.cookieService.set(this.getStorageName(user.uuid), anonCookie);
       this.updateSettingsForUsers(user);
     }
+  }
+
+  /**
+   * Retrieves the currently logged in user id
+   * Returns undefined when no one is logged in
+   */
+  private getUserId$() {
+    return this.authService.isAuthenticated()
+      .pipe(
+        take(1),
+        switchMap((loggedIn: boolean) => {
+          if (loggedIn) {
+            return this.authService.getAuthenticatedUserIdFromStore();
+          }
+          return of(undefined);
+        }),
+        take(1),
+      );
   }
 
   /**
@@ -244,7 +290,7 @@ export class BrowserOrejimeService extends OrejimeService {
           if (loggedIn) {
             return this.authService.getAuthenticatedUserFromStore();
           }
-          return observableOf(undefined);
+          return of(undefined);
         }),
         take(1),
       );
@@ -368,7 +414,7 @@ export class BrowserOrejimeService extends OrejimeService {
           if (isNotEmpty(operations)) {
             return this.ePersonService.patch(user, operations);
           }
-          return observableOf(undefined);
+          return of(undefined);
         },
         ),
       ).subscribe();
@@ -387,7 +433,9 @@ export class BrowserOrejimeService extends OrejimeService {
    * @param user
    */
   updateSettingsForUsers(user: EPerson) {
-    this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
+    if (user) {
+      this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
+    }
   }
 
   /**

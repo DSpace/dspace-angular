@@ -36,7 +36,10 @@ import {
   selector: 'ds-base-create-collection-parent-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [ThemedDSOSelectorComponent, TranslateModule],
+  imports: [
+    ThemedDSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

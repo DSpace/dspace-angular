@@ -28,12 +28,12 @@
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isProjectOfPerson'"
-      [label]="'relationships.isProjectOf' | translate">
+      [label]="'item.page.projects' | translate">
     </ds-related-items>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isOrgUnitOfPerson'"
-      [label]="'relationships.isOrgUnitOf' | translate">
+      [label]="'item.page.org-units' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="object"
       [fields]="['person.jobTitle']"
@@ -52,7 +52,7 @@
       [label]="'person.page.name'">
     </ds-generic-item-page-field>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']">
+      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button" tabindex="0">
         {{"item.page.link.full" | translate}}
       </a>
     </div>

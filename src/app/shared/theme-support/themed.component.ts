@@ -16,7 +16,7 @@ import {
   combineLatest,
   from as fromPromise,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -37,6 +37,7 @@ import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'ds-themed',
+  standalone: true,
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
 })
@@ -99,6 +100,9 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
   }
 
   initComponentInstance(changes?: SimpleChanges) {
+    if (hasValue(this.themeSub)) {
+      this.themeSub.unsubscribe();
+    }
     this.themeSub = this.themeService?.getThemeName$().subscribe(() => {
       this.renderComponentInstance(changes);
     });
@@ -111,7 +115,7 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
 
     if (hasNoValue(this.lazyLoadObs)) {
       this.lazyLoadObs = combineLatest([
-        observableOf(changes),
+        of(changes),
         this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
           switchMap((themedFile: any) => {
             if (hasValue(themedFile) && hasValue(themedFile[this.getComponentName()])) {
@@ -190,7 +194,7 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
       );
     } else {
       // If we got here, we've failed to import this component from any ancestor theme → fall back to unthemed
-      return observableOf(null);
+      return of(null);
     }
   }
 }

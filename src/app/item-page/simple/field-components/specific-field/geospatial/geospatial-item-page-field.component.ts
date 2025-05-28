@@ -19,10 +19,10 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   selector: 'ds-geospatial-item-page-field',
   templateUrl: './geospatial-item-page-field.component.html',
   imports: [
-    MetadataFieldWrapperComponent,
     GeospatialMapComponent,
-    TranslateModule,
+    MetadataFieldWrapperComponent,
     NgIf,
+    TranslateModule,
   ],
   standalone: true,
 })

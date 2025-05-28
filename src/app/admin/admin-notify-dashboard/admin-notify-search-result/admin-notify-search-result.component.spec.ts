@@ -7,10 +7,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
@@ -120,7 +117,7 @@ describe('AdminNotifySearchResultComponent', () => {
     fixture = TestBed.createComponent(AdminNotifySearchResultComponent);
     component = fixture.componentInstance;
     modalService = TestBed.inject(NgbModal);
-    spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+    spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: of(true) }) }));
     fixture.detectChanges();
   });
 

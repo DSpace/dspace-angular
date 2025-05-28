@@ -31,31 +31,35 @@
               </ds-metadata-field-wrapper>
             }
             <ds-item-detail-preview-field [item]="item"
-              [object]="object"
-              [label]="('item.page.date' | translate)"
-              [metadata]="'dc.date.issued'"
-              [separator]="separator"
-            [placeholder]="('mydspace.results.no-date' | translate)"></ds-item-detail-preview-field>
+                                          [object]="object"
+                                          [label]="('item.page.date' | translate)"
+                                          [metadata]="'dc.date.issued'"
+                                          [separator]="separator"
+                                          [placeholder]="('mydspace.results.no-date' | translate)">
+            </ds-item-detail-preview-field>
             <ds-item-detail-preview-field [item]="item"
-              [object]="object"
-              [label]="('item.page.author' | translate)"
-              [metadata]="['dc.contributor', 'dc.creator', 'dc.contributor.*']"
-              [separator]="separator"
-            [placeholder]="('mydspace.results.no-authors' | translate)"></ds-item-detail-preview-field>
+                                          [object]="object"
+                                          [label]="('item.page.authors' | translate)"
+                                          [metadata]="['dc.contributor', 'dc.creator', 'dc.contributor.*']"
+                                          [separator]="separator"
+                                          [placeholder]="('mydspace.results.no-authors' | translate)">
+            </ds-item-detail-preview-field>
           </div>
           <div class="col-xs-12 col-md-6">
             <ds-item-detail-preview-field [item]="item"
-              [object]="object"
-              [label]="('item.page.abstract' | translate)"
-              [metadata]="'dc.description.abstract'"
-              [separator]="separator"
-            [placeholder]="('mydspace.results.no-abstract' | translate)"></ds-item-detail-preview-field>
+                                          [object]="object"
+                                          [label]="('item.page.abstract' | translate)"
+                                          [metadata]="'dc.description.abstract'"
+                                          [separator]="separator"
+                                          [placeholder]="('mydspace.results.no-abstract' | translate)">
+            </ds-item-detail-preview-field>
             <ds-item-detail-preview-field [item]="item"
-              [object]="object"
-              [label]="('item.page.uri' | translate)"
-              [metadata]="'dc.identifier.uri'"
-              [separator]="separator"
-            [placeholder]="('mydspace.results.no-uri' | translate)"></ds-item-detail-preview-field>
+                                          [object]="object"
+                                          [label]="('item.page.uri' | translate)"
+                                          [metadata]="'dc.identifier.uri'"
+                                          [separator]="separator"
+                                          [placeholder]="('mydspace.results.no-uri' | translate)">
+            </ds-item-detail-preview-field>
             <div>
               <ng-content></ng-content>
             </div>

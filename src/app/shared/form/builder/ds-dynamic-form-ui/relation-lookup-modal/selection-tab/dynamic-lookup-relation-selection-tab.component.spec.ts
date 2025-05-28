@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -51,7 +51,7 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
     searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
     searchResult2 = Object.assign(new ItemSearchResult(), { indexableObject: item2 });
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
-    selection$ = observableOf([searchResult1, searchResult2]);
+    selection$ = of([searchResult1, searchResult2]);
     selectionRD$ = createSelection([searchResult1, searchResult2]);
     router = jasmine.createSpyObj('router', ['navigate']);
   }
@@ -63,7 +63,7 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions),
+            paginatedSearchOptions: of(pSearchOptions),
           },
         },
         {

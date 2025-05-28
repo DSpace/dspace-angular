@@ -1,3 +1,4 @@
+import { ACCESSIBILITY_COOKIE } from '../../accessibility/accessibility-settings.service';
 import {
   IMPERSONATING_COOKIE,
   REDIRECT_COOKIE,
@@ -22,6 +23,10 @@ export const GOOGLE_ANALYTICS_OREJIME_KEY = 'google-analytics';
 export const MATOMO_OREJIME_KEY = 'matomo';
 
 export const MATOMO_COOKIE = 'dsMatomo';
+
+export const CORRELATION_ID_OREJIME_KEY = 'correlation-id';
+
+export const CORRELATION_ID_COOKIE = 'CORRELATION-ID';
 
 /**
  * Orejime configuration
@@ -142,6 +147,17 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
         ],
       },
       {
+        name: CORRELATION_ID_OREJIME_KEY,
+        purposes: ['statistical'],
+        required: false,
+        cookies: [
+          CORRELATION_ID_COOKIE,
+        ],
+        callback: () => {
+          _window?.nativeWindow.initCorrelationId();
+        },
+      },
+      {
         name: MATOMO_OREJIME_KEY,
         purposes: ['statistical'],
         required: false,
@@ -206,6 +222,13 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
           _window?.nativeWindow.refreshCaptchaScript?.call();
         },
         onlyOnce: true,
+      },
+      {
+        name: 'accessibility',
+        purposes: ['functional'],
+        required: false,
+        cookies: [ACCESSIBILITY_COOKIE],
+        onlyOnce: false,
       },
     ],
   };

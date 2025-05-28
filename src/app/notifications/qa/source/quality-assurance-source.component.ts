@@ -47,7 +47,16 @@ import {
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
   standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, AsyncPipe, TranslateModule, DatePipe, SourceListComponent],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    DatePipe,
+    PaginationComponent,
+    RouterLink,
+    SourceListComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, AfterViewInit {
 

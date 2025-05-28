@@ -27,7 +27,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -85,7 +85,7 @@ describe('EPeopleRegistryComponent', () => {
         }), this.allEpeople));
       },
       getActiveEPerson(): Observable<EPerson> {
-        return observableOf(this.activeEPerson);
+        return of(this.activeEPerson);
       },
       searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (scope === 'email') {
@@ -129,7 +129,7 @@ describe('EPeopleRegistryComponent', () => {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
           return (ePerson2.uuid !== ePerson.uuid);
         });
-        return observableOf(true);
+        return of(true);
       },
       editEPerson(ePerson: EPerson) {
         this.activeEPerson = ePerson;
@@ -145,7 +145,7 @@ describe('EPeopleRegistryComponent', () => {
       },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     builderService = getMockFormBuilderService();
 
@@ -180,7 +180,7 @@ describe('EPeopleRegistryComponent', () => {
     fixture = TestBed.createComponent(EPeopleRegistryComponent);
     component = fixture.componentInstance;
     modalService = TestBed.inject(NgbModal);
-    spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+    spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: of(true) }) }));
     fixture.detectChanges();
   });
 
@@ -261,7 +261,7 @@ describe('EPeopleRegistryComponent', () => {
 
 
   it('should hide delete EPerson button when the isAuthorized returns false', () => {
-    spyOn(authorizationService, 'isAuthorized').and.returnValue(observableOf(false));
+    spyOn(authorizationService, 'isAuthorized').and.returnValue(of(false));
     component.initialisePage();
     fixture.detectChanges();
 

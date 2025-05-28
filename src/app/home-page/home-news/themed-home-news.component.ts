@@ -8,7 +8,9 @@ import { HomeNewsComponent } from './home-news.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [HomeNewsComponent],
+  imports: [
+    HomeNewsComponent,
+  ],
 })
 
 /**

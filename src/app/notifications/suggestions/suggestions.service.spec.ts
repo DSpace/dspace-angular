@@ -1,5 +1,5 @@
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import {
@@ -56,21 +56,21 @@ describe('SuggestionsService test', () => {
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
       findById: createSuccessfulRemoteDataObject$(mockResercherProfile as ResearcherProfile),
-      findRelatedItemId: observableOf('1234'),
+      findRelatedItemId: of('1234'),
     });
 
     suggestionTargetDataService = jasmine.createSpyObj('suggestionTargetsDataService', {
-      getTargetsBySource: observableOf(null),
-      findById: observableOf(null),
+      getTargetsBySource: of(null),
+      findById: of(null),
     });
 
     suggestionsDataService = jasmine.createSpyObj('suggestionsDataService', {
-      searchBy: observableOf(null),
-      delete: observableOf(null),
+      searchBy: of(null),
+      delete: of(null),
       deleteSuggestion: createSuccessfulRemoteDataObject$({}),
-      getSuggestionsByTargetAndSource : observableOf(null),
+      getSuggestionsByTargetAndSource : of(null),
       clearSuggestionRequests : null,
-      getTargetsByUser: observableOf(null),
+      getTargetsByUser: of(null),
     });
 
     service = initTestService();
@@ -121,14 +121,14 @@ describe('SuggestionsService test', () => {
 
     it('should approve and import suggestion', () => {
       spyOn(service, 'resolveCollectionId');
-      const workspaceitemService = { importExternalSourceEntry: (x,y) => observableOf(null) };
+      const workspaceitemService = { importExternalSourceEntry: (x,y) => of(null) };
       service.approveAndImport(workspaceitemService as unknown as WorkspaceitemDataService, mockSuggestionPublicationOne, '1234');
       expect(service.resolveCollectionId).toHaveBeenCalled();
     });
 
     it('should approve and import suggestions', () => {
       spyOn(service, 'approveAndImport');
-      const workspaceitemService = { importExternalSourceEntry: (x,y) => observableOf(null) };
+      const workspaceitemService = { importExternalSourceEntry: (x,y) => of(null) };
       service.approveAndImportMultiple(workspaceitemService as unknown as WorkspaceitemDataService, [mockSuggestionPublicationOne], '1234');
       expect(service.approveAndImport).toHaveBeenCalledWith(workspaceitemService as unknown as WorkspaceitemDataService, mockSuggestionPublicationOne, '1234');
     });

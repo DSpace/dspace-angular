@@ -26,10 +26,10 @@ import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.com
   templateUrl: './bulk-access.component.html',
   styleUrls: ['./bulk-access.component.scss'],
   imports: [
-    TranslateModule,
-    BulkAccessSettingsComponent,
-    BulkAccessBrowseComponent,
     BtnDisabledDirective,
+    BulkAccessBrowseComponent,
+    BulkAccessSettingsComponent,
+    TranslateModule,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

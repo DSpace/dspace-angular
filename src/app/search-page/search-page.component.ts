@@ -14,7 +14,9 @@ import { ThemedSearchComponent } from '../shared/search/themed-search.component'
     },
   ],
   standalone: true,
-  imports: [ThemedSearchComponent],
+  imports: [
+    ThemedSearchComponent,
+  ],
 })
 /**
  * This component represents the whole search page

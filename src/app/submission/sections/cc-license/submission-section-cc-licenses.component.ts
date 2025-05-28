@@ -3,6 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -14,7 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -42,9 +45,12 @@ import {
 import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
-import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
-import { isNotEmpty } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
@@ -60,19 +66,18 @@ import { SectionsType } from '../sections-type';
   templateUrl: './submission-section-cc-licenses.component.html',
   styleUrls: ['./submission-section-cc-licenses.component.scss'],
   imports: [
-    TranslateModule,
-    ThemedLoadingComponent,
     AsyncPipe,
-    VarDirective,
     DsSelectComponent,
-    NgbDropdownModule,
     FormsModule,
     InfiniteScrollModule,
-    BtnDisabledDirective,
+    NgbDropdownModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })
-export class SubmissionSectionCcLicensesComponent extends SectionModelComponent {
+export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
 
   /**
    * The form id
@@ -148,6 +153,8 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     return this.data.accepted;
   }
 
+  ccLicenseLink$: Observable<string>;
+
   constructor(
     protected modalService: NgbModal,
     protected sectionService: SectionsService,
@@ -165,6 +172,19 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       injectedSectionData,
       injectedSubmissionId,
     );
+  }
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    if (hasNoValue(this.ccLicenseLink$)) {
+      this.ccLicenseLink$ = this.getCcLicenseLink$();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (hasValue(changes.sectionData) || hasValue(changes.submissionCcLicenses)) {
+      this.ccLicenseLink$ = this.getCcLicenseLink$();
+    }
   }
 
   /**
@@ -191,6 +211,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       },
       uri: undefined,
     });
+    this.ccLicenseLink$ = this.getCcLicenseLink$();
   }
 
   /**
@@ -222,6 +243,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       },
       accepted: false,
     });
+    this.ccLicenseLink$ = this.getCcLicenseLink$();
   }
 
   /**
@@ -252,7 +274,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   getCcLicenseLink$(): Observable<string> {
 
     if (this.storedCcLicenseLink) {
-      return observableOf(this.storedCcLicenseLink);
+      return of(this.storedCcLicenseLink);
     }
     if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
       (field) => !this.getSelectedOption(this.getSelectedCcLicense(), field))) {
@@ -289,7 +311,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    *     the section status
    */
   getSectionStatus(): Observable<boolean> {
-    return observableOf(this.accepted);
+    return of(this.accepted);
   }
 
   /**

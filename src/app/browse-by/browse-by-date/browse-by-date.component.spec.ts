@@ -20,7 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
@@ -96,9 +96,9 @@ describe('BrowseByDateComponent', () => {
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
-    queryParams: observableOf({}),
-    data: observableOf({ metadata: 'dateissued', metadataField: 'dc.date.issued' }),
+    params: of({}),
+    queryParams: of({}),
+    data: of({ metadata: 'dateissued', metadataField: 'dc.date.issued' }),
   });
 
   const mockCdRef = Object.assign({

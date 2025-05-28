@@ -7,7 +7,7 @@ import {
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   ReplaySubject,
 } from 'rxjs';
 import {
@@ -86,7 +86,7 @@ export class BreadcrumbsService {
         return provider.getBreadcrumbs(key, url);
       }
     }
-    return !last ? this.resolveBreadcrumbs(route.firstChild) : observableOf([]);
+    return !last ? this.resolveBreadcrumbs(route.firstChild) : of([]);
   }
 
   /**

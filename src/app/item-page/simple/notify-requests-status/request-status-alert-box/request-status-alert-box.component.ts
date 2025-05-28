@@ -19,10 +19,10 @@ import { RequestStatusEnum } from '../notify-status.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    TruncatablePartComponent,
-    TruncatableComponent,
-    TranslateModule,
     NgClass,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
   ],
 })
 /**

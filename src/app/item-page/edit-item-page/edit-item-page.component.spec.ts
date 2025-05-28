@@ -22,7 +22,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { Item } from '../../core/shared/item.model';
@@ -38,14 +38,14 @@ describe('EditItemPageComponent', () => {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> => {
-    return observableOf(true);
+    return of(true);
   };
 
   const AcceptNoneGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> => {
-    return observableOf(false);
+    return of(false);
   };
 
   const accessiblePages = ['accessible'];
@@ -75,7 +75,7 @@ describe('EditItemPageComponent', () => {
         },
       ],
     },
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(new Item()) }),
+    data: of({ dso: createSuccessfulRemoteDataObject(new Item()) }),
   };
 
   beforeEach(waitForAsync(() => {

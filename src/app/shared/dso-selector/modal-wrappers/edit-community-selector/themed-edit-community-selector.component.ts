@@ -11,7 +11,9 @@ import { EditCommunitySelectorComponent } from './edit-community-selector.compon
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [EditCommunitySelectorComponent],
+  imports: [
+    EditCommunitySelectorComponent,
+  ],
 })
 export class ThemedEditCommunitySelectorComponent
   extends ThemedComponent<EditCommunitySelectorComponent> {

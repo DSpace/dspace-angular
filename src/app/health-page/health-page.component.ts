@@ -23,7 +23,14 @@ import {
   templateUrl: './health-page.component.html',
   styleUrls: ['./health-page.component.scss'],
   standalone: true,
-  imports: [NgbNavModule, HealthPanelComponent, HealthInfoComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    HealthInfoComponent,
+    HealthPanelComponent,
+    NgbNavModule,
+    TranslateModule,
+  ],
 })
 export class HealthPageComponent implements OnInit {
 

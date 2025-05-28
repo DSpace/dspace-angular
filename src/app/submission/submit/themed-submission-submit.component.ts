@@ -11,7 +11,9 @@ import { SubmissionSubmitComponent } from './submission-submit.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SubmissionSubmitComponent],
+  imports: [
+    SubmissionSubmitComponent,
+  ],
 })
 export class ThemedSubmissionSubmitComponent extends ThemedComponent<SubmissionSubmitComponent> {
   protected getComponentName(): string {

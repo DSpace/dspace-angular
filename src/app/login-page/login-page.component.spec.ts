@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
 import { AuthService } from '../core/auth/auth.service';
@@ -21,14 +21,14 @@ describe('LoginPageComponent', () => {
   let comp: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
+    params: of({}),
   });
 
   const store: Store<LoginPageComponent> = jasmine.createSpyObj('store', {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true),
+    select: of(true),
   });
 
   beforeEach(waitForAsync(() => {

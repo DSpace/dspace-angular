@@ -24,7 +24,19 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
   // templateUrl: './person.component.html',
   templateUrl: '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component.html',
   standalone: true,
-  imports: [ ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, TabbedRelatedEntitiesSearchComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
+    MetadataFieldWrapperComponent,
+    RelatedItemsComponent,
+    RouterLink,
+    TabbedRelatedEntitiesSearchComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
 export class PersonComponent extends BaseComponent {
 }

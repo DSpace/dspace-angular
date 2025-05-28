@@ -15,13 +15,15 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
@@ -84,6 +86,7 @@ describe('SearchFacetOptionComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetOptionComponent, {
@@ -101,7 +104,7 @@ describe('SearchFacetOptionComponent', () => {
 
   describe('when isVisible emits true', () => {
     it('the facet option should be visible', () => {
-      comp.isVisible = observableOf(true);
+      comp.isVisible = of(true);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).not.toBeNull();
@@ -110,7 +113,7 @@ describe('SearchFacetOptionComponent', () => {
 
   describe('when isVisible emits false', () => {
     it('the facet option should not be visible', () => {
-      comp.isVisible = observableOf(false);
+      comp.isVisible = of(false);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).toBeNull();

@@ -11,7 +11,9 @@ import { AuthNavMenuComponent } from './auth-nav-menu.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [AuthNavMenuComponent],
+  imports: [
+    AuthNavMenuComponent,
+  ],
 })
 export class ThemedAuthNavMenuComponent extends ThemedComponent<AuthNavMenuComponent> {
   protected getComponentName(): string {

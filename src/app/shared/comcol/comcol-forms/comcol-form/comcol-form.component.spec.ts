@@ -18,7 +18,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -75,7 +75,7 @@ describe('ComColFormComponent', () => {
   };
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
-    getLogoEndpoint: () => observableOf(logoEndpoint),
+    getLogoEndpoint: () => of(logoEndpoint),
     deleteLogo: () => createSuccessfulRemoteDataObject$({}),
     findById: () => createSuccessfulRemoteDataObject$({}),
   });

@@ -32,7 +32,11 @@ import { followLink } from '../../../utils/follow-link-config.model';
   styleUrls: ['./item-collection.component.scss'],
   templateUrl: './item-collection.component.html',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ItemCollectionComponent implements OnInit {
 

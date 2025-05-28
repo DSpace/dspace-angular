@@ -37,7 +37,13 @@ import { PersonInputSuggestionsComponent } from './person-suggestions/person-inp
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],
   templateUrl: './person-search-result-list-submission-element.component.html',
   standalone: true,
-  imports: [ThemedThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    NgClass,
+    PersonInputSuggestionsComponent,
+    ThemedThumbnailComponent,
+  ],
 })
 
 /**

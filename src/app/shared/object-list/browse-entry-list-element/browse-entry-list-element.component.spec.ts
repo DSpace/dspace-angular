@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -38,7 +38,7 @@ function init() {
   });
 
   routeService = jasmine.createSpyObj('routeService', {
-    getQueryParameterValue: observableOf('1'),
+    getQueryParameterValue: of('1'),
   });
 }
 describe('BrowseEntryListElementComponent', () => {

@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  NgClass,
   NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -14,7 +13,6 @@ import { ThemedTopLevelCommunityListComponent } from '../../../../app/home-page/
 import { SuggestionsPopupComponent } from '../../../../app/notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
-import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-with-sidebar.component';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -23,8 +21,18 @@ import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-wi
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
   standalone: true,
-  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [
+    AsyncPipe,
+    HomeCoarComponent,
+    NgTemplateOutlet,
+    RecentItemListComponent,
+    SuggestionsPopupComponent,
+    ThemedConfigurationSearchPageComponent,
+    ThemedHomeNewsComponent,
+    ThemedSearchFormComponent,
+    ThemedTopLevelCommunityListComponent,
+    TranslateModule,
+  ],
 })
 export class HomePageComponent extends BaseComponent {
-
 }

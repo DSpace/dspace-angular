@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -43,7 +43,7 @@ export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   getTopSection(): Observable<PartialMenuSection> {
-    return observableOf(
+    return of(
       {
         model: {
           type: MenuItemType.TEXT,

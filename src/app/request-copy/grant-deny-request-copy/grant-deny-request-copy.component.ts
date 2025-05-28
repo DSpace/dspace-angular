@@ -39,7 +39,13 @@ import {
   styleUrls: ['./grant-deny-request-copy.component.scss'],
   templateUrl: './grant-deny-request-copy.component.html',
   standalone: true,
-  imports: [VarDirective, RouterLink, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component for an author to decide to grant or deny an item request

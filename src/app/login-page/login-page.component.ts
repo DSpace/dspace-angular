@@ -38,7 +38,10 @@ import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
   styleUrls: ['./login-page.component.scss'],
   templateUrl: './login-page.component.html',
   standalone: true,
-  imports: [ThemedLogInComponent, TranslateModule],
+  imports: [
+    ThemedLogInComponent,
+    TranslateModule,
+  ],
 })
 export class LoginPageComponent implements OnDestroy, OnInit {
 

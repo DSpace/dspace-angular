@@ -9,10 +9,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { LocaleService } from '../core/locale/locale.service';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
@@ -66,7 +63,7 @@ describe('HeaderComponent', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([]));
+    spyOn(menuService, 'getMenuTopSections').and.returnValue(of([]));
 
     fixture = TestBed.createComponent(HeaderComponent);
 

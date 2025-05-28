@@ -28,7 +28,13 @@ import { SearchResultGridElementComponent } from '../search-result-grid-element.
   styleUrls: ['../search-result-grid-element.component.scss', 'collection-search-result-grid-element.component.scss'],
   templateUrl: 'collection-search-result-grid-element.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component representing a grid element for a collection search result

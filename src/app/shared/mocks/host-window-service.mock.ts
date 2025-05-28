@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 // declare a stub service
@@ -17,10 +17,10 @@ export class HostWindowServiceMock {
   }
 
   isXs(): Observable<boolean> {
-    return observableOf(this.width < 576);
+    return of(this.width < 576);
   }
 
   isSm(): Observable<boolean> {
-    return observableOf(this.width < 768);
+    return of(this.width < 768);
   }
 }

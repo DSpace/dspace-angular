@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -54,11 +54,11 @@ import { SubmissionService } from '../../submission.service';
   templateUrl: './submission-form-collection.component.html',
   standalone: true,
   imports: [
+    BtnDisabledDirective,
     CommonModule,
-    TranslateModule,
     NgbDropdownModule,
     ThemedCollectionDropdownComponent,
-    BtnDisabledDirective,
+    TranslateModule,
   ],
 })
 export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, OnInit {
@@ -201,7 +201,7 @@ export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, 
       }),
     ).subscribe((submissionObject: SubmissionObject) => {
       this.selectedCollectionId = event.collection.id;
-      this.selectedCollectionName$ = observableOf(event.collection.name);
+      this.selectedCollectionName$ = of(event.collection.name);
       this.collectionChange.emit(submissionObject);
       this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
       this.processingChange$.next(false);

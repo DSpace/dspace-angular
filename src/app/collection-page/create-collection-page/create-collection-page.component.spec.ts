@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -35,9 +35,9 @@ describe('CreateCollectionPageComponent', () => {
         { provide: CollectionDataService, useValue: {} },
         {
           provide: CommunityDataService,
-          useValue: { findById: () => observableOf({ payload: { name: 'test' } }) },
+          useValue: { findById: () => of({ payload: { name: 'test' } }) },
         },
-        { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
+        { provide: RouteService, useValue: { getQueryParameterValue: () => of('1234') } },
         { provide: Router, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RequestService, useValue: {} },

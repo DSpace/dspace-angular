@@ -20,7 +20,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
@@ -47,7 +47,7 @@ describe('SubscriptionViewComponent', () => {
   let modalService;
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
-    getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoResEmpty),
+    getSubscriptionByPersonDSO: of(findByEPersonAndDsoResEmpty),
     deleteSubscription: createSuccessfulRemoteDataObject$({}),
     updateSubscription: createSuccessfulRemoteDataObject$({}),
   });

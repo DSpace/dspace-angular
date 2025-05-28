@@ -23,7 +23,12 @@ import { SubmissionService } from '../../submission.service';
   styleUrls: ['./submission-form-section-add.component.scss'],
   templateUrl: './submission-form-section-add.component.html',
   standalone: true,
-  imports: [CommonModule, TranslateModule, NgbDropdownModule, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    CommonModule,
+    NgbDropdownModule,
+    TranslateModule,
+  ],
 })
 export class SubmissionFormSectionAddComponent implements OnInit {
 
@@ -52,6 +57,11 @@ export class SubmissionFormSectionAddComponent implements OnInit {
   public hasSections$: Observable<boolean>;
 
   /**
+   * A boolean representing whether it's a small screen
+   */
+  isXs$: Observable<boolean>;
+
+  /**
    * Initialize instance variables
    *
    * @param {SectionsService} sectionService
@@ -71,6 +81,7 @@ export class SubmissionFormSectionAddComponent implements OnInit {
     this.hasSections$ = this.sectionList$.pipe(
       map((list: SectionDataObject[]) => list.length > 0),
     );
+    this.isXs$ = this.windowService.isXs();
   }
 
   /**

@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -35,7 +35,7 @@ describe('RegistrationTokenGuard',
       searchByTokenAndHandleError: createSuccessfulRemoteDataObject$(registrationWithGroups),
     });
     const authService = {
-      getAuthenticatedUserFromStore: () => observableOf(ePerson),
+      getAuthenticatedUserFromStore: () => of(ePerson),
       setRedirectUrl: () => {
         return true;
       },
@@ -100,7 +100,7 @@ describe('RegistrationTokenGuard',
       });
 
       const epersonDifferentUserFromLoggedIn = jasmine.createSpyObj('epersonRegistrationService', {
-        searchByTokenAndHandleError: observableOf(registrationWithDifferentUserFromLoggedIn),
+        searchByTokenAndHandleError: of(registrationWithDifferentUserFromLoggedIn),
       });
 
       beforeEach(() => {
