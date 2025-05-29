@@ -25,6 +25,7 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { hasValue } from '../../empty.util';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -49,7 +50,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), TestComponent, MockComponent(DSOSelectorComponent)],
+      imports: [TranslateModule.forRoot(), TestComponent, MockComponent(ThemedDSOSelectorComponent)],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -164,6 +165,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   imports: [
     DSOSelectorComponent,
     TranslateModule,
+    ThemedDSOSelectorComponent,
   ],
   standalone: true,
 })
