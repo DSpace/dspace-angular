@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   TranslateLoader,
@@ -21,10 +22,14 @@ import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.
 import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
+import { RouterMock } from '../../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -111,7 +116,7 @@ describe('OrcidQueueComponent test suite', () => {
 
   const orcidQueueElements = [orcidQueueElement(1), orcidQueueElement(2)];
 
-  const orcidQueueServiceSpy = jasmine.createSpyObj('orcidQueueService', ['searchByProfileItemId', 'clearFindByProfileItemRequests']);
+  const orcidQueueServiceSpy = jasmine.createSpyObj('orcidQueueService', ['searchByProfileItemId', 'clearFindByProfileItemRequests', 'deleteById']);
   orcidQueueServiceSpy.searchByProfileItemId.and.returnValue(createSuccessfulRemoteDataObject$<PaginatedList<OrcidQueue>>(createPaginatedList<OrcidQueue>(orcidQueueElements)));
 
   beforeEach(waitForAsync(() => {
@@ -136,6 +141,7 @@ describe('OrcidQueueComponent test suite', () => {
         { provide: OrcidHistoryDataService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: Router, useValue: new RouterMock() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -166,4 +172,18 @@ describe('OrcidQueueComponent test suite', () => {
     expect(table.length).toBe(2);
   });
 
+  it('should handle pagination change', () => {
+    spyOn(component, 'updateList');
+    component.onPaginationChange();
+    expect(component.updateList).toHaveBeenCalled();
+  });
+
+  it('should discard an entry', waitForAsync(() => {
+    spyOn(component, 'removeEntryFromList');
+    orcidQueueServiceSpy.deleteById.and.returnValue(createNoContentRemoteDataObject$());
+    component.discardEntry(orcidQueueElements[0]);
+    fixture.whenStable().then(() => {
+      expect(component.removeEntryFromList).toHaveBeenCalledWith(orcidQueueElements[0].id);
+    });
+  }));
 });
