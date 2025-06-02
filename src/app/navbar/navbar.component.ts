@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgComponentOutlet,
 } from '@angular/common';
 import {
   Component,
@@ -29,6 +28,7 @@ import {
 } from '../shared/host-window.service';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
+import { MenuComponentLoaderComponent } from '../shared/menu/menu-component-loader/menu-component-loader.component';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { ThemeService } from '../shared/theme-support/theme.service';
 
@@ -43,9 +43,9 @@ import { ThemeService } from '../shared/theme-support/theme.service';
   standalone: true,
   imports: [
     AsyncPipe,
+    MenuComponentLoaderComponent,
     NgbDropdownModule,
     NgClass,
-    NgComponentOutlet,
     ThemedUserMenuComponent,
     TranslateModule,
   ],

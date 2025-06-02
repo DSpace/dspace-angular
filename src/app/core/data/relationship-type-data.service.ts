@@ -15,12 +15,14 @@ import {
   followLink,
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
@@ -46,6 +48,7 @@ const checkSide = (typeRd: RemoteData<ItemType>, label: string): boolean =>
  * The service handling all relationship type requests
  */
 @Injectable({ providedIn: 'root' })
+@dataService(RELATIONSHIP_TYPE)
 export class RelationshipTypeDataService extends BaseDataService<RelationshipType> {
   private searchData: SearchDataImpl<RelationshipType>;
   private findAllData: FindAllDataImpl<RelationshipType>;

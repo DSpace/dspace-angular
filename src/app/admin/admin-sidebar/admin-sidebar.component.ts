@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgComponentOutlet,
 } from '@angular/common';
 import {
   Component,
@@ -31,6 +30,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
+import { MenuComponentLoaderComponent } from '../../shared/menu/menu-component-loader/menu-component-loader.component';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
@@ -48,9 +48,9 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,
+    MenuComponentLoaderComponent,
     NgbDropdownModule,
     NgClass,
-    NgComponentOutlet,
     TranslatePipe,
   ],
 })

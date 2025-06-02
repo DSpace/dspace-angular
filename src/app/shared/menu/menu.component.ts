@@ -7,28 +7,29 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  BehaviorSubject,
+  combineLatest,
+  from,
   Observable,
   Subscription,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   map,
   switchMap,
 } from 'rxjs/operators';
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '../empty.util';
+import { hasValue } from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
 import { getComponentForMenu } from './menu-section.decorator';
 import { MenuSection } from './menu-section.model';
-import { AbstractMenuSectionComponent } from './menu-section/abstract-menu-section.component';
+
+export interface MenuSectionDTO {
+  menuSection: MenuSection;
+  hasSubSections: boolean;
+}
 
 /**
  * A basic implementation of a MenuComponent
@@ -62,15 +63,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   /**
    * List of top level sections in this Menu
    */
-  sections: Observable<MenuSection[]>;
-
-  /**
-   * Map of components and injectors for each dynamically rendered menu section
-   */
-  sectionMap$: BehaviorSubject<Map<string, {
-    injector: Injector,
-    component: GenericConstructor<AbstractMenuSectionComponent>
-  }>> = new BehaviorSubject(new Map());
+  sectionDTOs$: Observable<MenuSectionDTO[]>;
 
   /**
    * Prevent unnecessary rerendering
@@ -88,8 +81,6 @@ export class MenuComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
-  private activatedRouteLastChild: ActivatedRoute;
-
   constructor(
     protected menuService: MenuService,
     protected injector: Injector,
@@ -103,42 +94,17 @@ export class MenuComponent implements OnInit, OnDestroy {
    * Sets all instance variables to their initial values
    */
   ngOnInit(): void {
-    this.activatedRouteLastChild = this.getActivatedRoute(this.route);
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
-    this.sections = this.menuService.getMenuTopSections(this.menuID);
-
-    this.subs.push(
-      this.sections.pipe(
-        // if you return an array from a switchMap it will emit each element as a separate event.
-        // So this switchMap is equivalent to a subscribe with a forEach inside
-        switchMap((sections: MenuSection[]) => sections),
-        isNotEmptyOperator(),
-        switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
-          map((component: GenericConstructor<AbstractMenuSectionComponent>) => ({ section, component })),
-        )),
-        distinctUntilChanged((x, y) => x.section.id === y.section.id && x.component.prototype === y.component.prototype),
-      ).subscribe(({ section, component }) => {
-        const nextMap = this.sectionMap$.getValue();
-        nextMap.set(section.id, {
-          injector: this.getSectionDataInjector(section),
-          component,
-        });
-        this.sectionMap$.next(nextMap);
-      }),
+    this.sectionDTOs$ = this.menuService.getMenuTopSections(this.menuID).pipe(
+      switchMap((sections: MenuSection[]) => combineLatest(sections.map((section: MenuSection) => this.menuService.hasSubSections(this.menuID, section.id).pipe(
+        map((hasSubsections: boolean) => ({
+          menuSection: section,
+          hasSubSections: hasSubsections,
+        })),
+      )))),
     );
-  }
-
-  /**
-   *  Get activated route of the deepest activated route
-   */
-  getActivatedRoute(route) {
-    if (route.children.length > 0) {
-      return this.getActivatedRoute(route.firstChild);
-    } else {
-      return route;
-    }
   }
 
   /**
@@ -204,25 +170,10 @@ export class MenuComponent implements OnInit, OnDestroy {
    * @param {MenuSection} section The given MenuSection
    * @returns {Observable<GenericConstructor<AbstractMenuSectionComponent>>} Emits the constructor of the Component that should be used to render this object
    */
-  private getSectionComponent(section: MenuSection): Observable<GenericConstructor<AbstractMenuSectionComponent>> {
+  getSectionComponent(section: MenuSection): Observable<GenericConstructor<Component>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
-      map((expandable: boolean) => {
-        return getComponentForMenu(this.menuID, expandable || section.alwaysRenderExpandable, this.themeService.getThemeName());
-      },
-      ),
+      switchMap((expandable: boolean) => from(getComponentForMenu(this.menuID, expandable || section.alwaysRenderExpandable, this.themeService.getThemeName()))),
     );
-  }
-
-  /**
-   * Retrieve the Injector for a given MenuSection object
-   * @param {MenuSection} section The given MenuSection
-   * @returns {Injector} The Injector that injects the data for this menu section into the section's component
-   */
-  private getSectionDataInjector(section: MenuSection) {
-    return Injector.create({
-      providers: [{ provide: 'sectionDataProvider', useFactory: () => (section), deps: [] }],
-      parent: this.injector,
-    });
   }
 
   /**

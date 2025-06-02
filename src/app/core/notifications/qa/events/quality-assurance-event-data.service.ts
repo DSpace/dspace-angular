@@ -15,6 +15,7 @@ import { QualityAssuranceEventData } from '../../../../notifications/qa/project-
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { dataService } from '../../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
@@ -48,11 +49,13 @@ import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NoContent } from '../../../shared/NoContent.model';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
+import { QUALITY_ASSURANCE_EVENT_OBJECT } from '../models/quality-assurance-event-object.resource-type';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(QUALITY_ASSURANCE_EVENT_OBJECT)
 export class QualityAssuranceEventDataService extends IdentifiableDataService<QualityAssuranceEventObject> {
 
   private createData: CreateData<QualityAssuranceEventObject>;

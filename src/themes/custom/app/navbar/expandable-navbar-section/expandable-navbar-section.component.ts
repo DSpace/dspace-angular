@@ -7,6 +7,8 @@ import { RouterLinkActive } from '@angular/router';
 
 import { ExpandableNavbarSectionComponent as BaseComponent } from '../../../../../app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { slide } from '../../../../../app/shared/animations/slide';
+import { MenuID } from '../../../../../app/shared/menu/menu-id.model';
+import { rendersSectionForMenu } from '../../../../../app/shared/menu/menu-section.decorator';
 import { HoverOutsideDirective } from '../../../../../app/shared/utils/hover-outside.directive';
 
 @Component({
@@ -24,5 +26,6 @@ import { HoverOutsideDirective } from '../../../../../app/shared/utils/hover-out
     RouterLinkActive,
   ],
 })
+@rendersSectionForMenu(MenuID.PUBLIC, true, 'custom')
 export class ExpandableNavbarSectionComponent extends BaseComponent {
 }

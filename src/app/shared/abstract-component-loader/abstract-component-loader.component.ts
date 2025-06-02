@@ -80,7 +80,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Set up the dynamic child component
    */
   ngOnInit(): void {
-    this.instantiateComponent();
+    void this.instantiateComponent();
   }
 
   /**
@@ -91,7 +91,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
       if (this.inputNamesDependentForComponent.some((name: keyof this & string) => hasValue(changes[name]) && changes[name].previousValue !== changes[name].currentValue)) {
         // Recreate the component when the @Input()s used by getComponent() aren't up-to-date anymore
         this.destroyComponentInstance();
-        this.instantiateComponent();
+        void this.instantiateComponent();
       } else {
         this.connectInputsAndOutputs();
       }
@@ -108,8 +108,8 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   /**
    * Creates the component and connects the @Input() & @Output() from the ThemedComponent to its child Component.
    */
-  public instantiateComponent(): void {
-    const component: GenericConstructor<T> = this.getComponent();
+  public async instantiateComponent(): Promise<void> {
+    const component: GenericConstructor<T> = await this.getComponent();
 
     const viewContainerRef: ViewContainerRef = this.componentViewContainerRef;
     viewContainerRef.clear();
@@ -137,7 +137,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   /**
    * Fetch the component depending on the item's entity type, metadata representation type and context
    */
-  public abstract getComponent(): GenericConstructor<T>;
+  public abstract getComponent(): Promise<GenericConstructor<T>>;
 
   /**
    * Connect the inputs and outputs of this component to the dynamic component,

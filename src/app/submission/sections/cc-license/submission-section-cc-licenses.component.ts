@@ -56,6 +56,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 
 /**
@@ -77,6 +78,7 @@ import { SectionsType } from '../sections-type';
   ],
   standalone: true,
 })
+@renderSectionFor(SectionsType.CcLicense)
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
 
   /**

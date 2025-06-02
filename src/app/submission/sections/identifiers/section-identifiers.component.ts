@@ -15,11 +15,12 @@ import {
 } from 'rxjs';
 
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
 
 /**
  * This simple component displays DOI, handle and other identifiers that are already minted for the item in
@@ -35,11 +36,10 @@ import { SectionsService } from '../sections.service';
   imports: [
     AsyncPipe,
     TranslateModule,
-    VarDirective,
   ],
   standalone: true,
 })
-
+@renderSectionFor(SectionsType.Identifiers)
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent implements OnInit {
 
   /**

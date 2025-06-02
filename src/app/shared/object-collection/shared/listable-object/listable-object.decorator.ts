@@ -1,6 +1,10 @@
-import { InjectionToken } from '@angular/core';
+import {
+  Component,
+  InjectionToken,
+} from '@angular/core';
 
 import { ThemeConfig } from '../../../../../config/theme.config';
+import { LISTABLE_OBJECT_COMPONENT_MAP } from '../../../../../decorator-registries/listable-object-component-registry';
 import { environment } from '../../../../../environments/environment';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
@@ -40,7 +44,7 @@ export const DEFAULT_THEME = '*';
  * - { level: 1, relevancy: 1 } is more relevant than null
  */
 export class MatchRelevancy {
-  constructor(public match: any,
+  constructor(public match: () => Promise<GenericConstructor<Component>>,
               public level: number,
               public relevancy: number) {
   }
@@ -71,8 +75,6 @@ export const GET_THEME_CONFIG_FOR_FACTORY = new InjectionToken<(str) => ThemeCon
   factory: () => getThemeConfigFor,
 });
 
-const map = new Map();
-
 /**
  * Decorator used for rendering a listable object
  * @param objectType The object type or entity type the component represents
@@ -82,19 +84,6 @@ const map = new Map();
  */
 export function listableObjectComponent(objectType: string | GenericConstructor<ListableObject>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT, theme = DEFAULT_THEME) {
   return function decorator(component: any) {
-    if (hasNoValue(objectType)) {
-      return;
-    }
-    if (hasNoValue(map.get(objectType))) {
-      map.set(objectType, new Map());
-    }
-    if (hasNoValue(map.get(objectType).get(viewMode))) {
-      map.get(objectType).set(viewMode, new Map());
-    }
-    if (hasNoValue(map.get(objectType).get(viewMode).get(context))) {
-      map.get(objectType).get(viewMode).set(context, new Map());
-    }
-    map.get(objectType).get(viewMode).get(context).set(theme, component);
   };
 }
 
@@ -109,18 +98,18 @@ export function listableObjectComponent(objectType: string | GenericConstructor<
  * @param context The context that should match the components
  * @param theme The theme that should match the components
  */
-export function getListableObjectComponent(types: (string | GenericConstructor<ListableObject>)[], viewMode: ViewMode, context: Context = DEFAULT_CONTEXT, theme: string = DEFAULT_THEME) {
+export function getListableObjectComponent(types: (string | GenericConstructor<ListableObject>)[], viewMode: ViewMode, context: Context = DEFAULT_CONTEXT, theme: string = DEFAULT_THEME, registry: Map<any, any> = LISTABLE_OBJECT_COMPONENT_MAP): Promise<GenericConstructor<Component>> {
   let currentBestMatch: MatchRelevancy = null;
   for (const type of types) {
-    const typeMap = map.get(type);
+    const typeMap = registry.get(type);
     if (hasValue(typeMap)) {
       const match = getMatch(typeMap, [viewMode, context, theme], [DEFAULT_VIEW_MODE, DEFAULT_CONTEXT, DEFAULT_THEME]);
-      if (hasNoValue(currentBestMatch) || currentBestMatch.isLessRelevantThan(match)) {
+      if (hasNoValue(currentBestMatch) || (hasValue(match) && currentBestMatch.isLessRelevantThan(match))) {
         currentBestMatch = match;
       }
     }
   }
-  return hasValue(currentBestMatch) ? currentBestMatch.match : null;
+  return hasValue(currentBestMatch) ? currentBestMatch.match() : undefined;
 }
 
 /**
@@ -139,30 +128,69 @@ export function getListableObjectComponent(types: (string | GenericConstructor<L
  * @returns matchAndLevel a {@link MatchRelevancy} object containing the match and its level of relevancy
  */
 export function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRelevancy {
-  let currentMap = typeMap;
-  let level = -1;
-  let relevancy = 0;
-  for (let i = 0; i < keys.length; i++) {
-    // If we're currently checking the theme, resolve it first to take extended themes into account
-    let currentMatch = defaults[i] === DEFAULT_THEME ? resolveTheme(currentMap, keys[i]) : currentMap.get(keys[i]);
-    if (hasNoValue(currentMatch)) {
-      currentMatch = currentMap.get(defaults[i]);
-      if (level === -1) {
-        level = i;
-      }
-    } else {
-      relevancy++;
+  return findMatch(typeMap, keys, defaults, 0, 0, -1);
+}
+
+/**
+ * Recursively try to find matches in the given map with the given keys. If no exact match was found for the specified
+ * keys, the fallback values will be used.
+ *
+ * @param currentMap The current map being searched
+ * @param keys The original keys array
+ * @param defaults The default values array
+ * @param i The current index in the keys/defaults arrays
+ * @param relevancy Current relevancy score
+ * @param level Current fallback level. If no fallback values were used it will be -1, otherwise it will be the earliest
+ *              position where a fallback was used, so for example if a fallback was used at top level, it would be 0
+ * @returns A {@link MatchRelevancy} object or null if no match found
+ */
+function findMatch(currentMap: Map<any, any>, keys: any[], defaults: any[], i: number, relevancy: number, level: number): MatchRelevancy {
+  if (i >= keys.length || !currentMap) {
+    return null;
+  }
+
+  // If we're currently checking the theme, resolve it first to take extended themes into account
+  let currentMatch = defaults[i] === DEFAULT_THEME ? resolveTheme(currentMap, keys[i]) : currentMap.get(keys[i]);
+  let newRelevancy = relevancy;
+
+  let usedDefault = false;
+  if (hasNoValue(currentMatch)) {
+    currentMatch = currentMap.get(defaults[i]);
+    usedDefault = true;
+    if (level === -1) {
+      level = i;
     }
-    if (hasValue(currentMatch)) {
-      if (currentMatch instanceof Map) {
-        currentMap = currentMatch as Map<any, any>;
-      } else {
-        return new MatchRelevancy(currentMatch, level > -1 ? level : i + 1, relevancy);
+  } else {
+    newRelevancy++;
+  }
+  if (hasValue(currentMatch)) {
+    if (currentMatch instanceof Map) {
+      const result = findMatch(currentMatch, keys, defaults, i + 1, newRelevancy, level);
+      if (result) {
+        return result;
+      }
+
+      if (!usedDefault) {
+        const defaultMatch = currentMap.get(defaults[i]);
+        if (hasValue(defaultMatch) && defaultMatch instanceof Map) {
+          if (level === -1) {
+            level = i;
+          }
+          return findMatch(defaultMatch, keys, defaults, i + 1, relevancy, level);
+        }
       }
     } else {
-      return null;
+      return new MatchRelevancy(currentMatch, level > -1 ? level : i + 1, newRelevancy);
     }
   }
+
+  if (i === 0 && keys[0] !== defaults[0]) {
+    const defaultToplevelFallback = currentMap.get(defaults[0]);
+    if (hasValue(defaultToplevelFallback) && defaultToplevelFallback instanceof Map) {
+      return findMatch(defaultToplevelFallback, keys, defaults, 1, 0, 0);
+    }
+  }
+
   return null;
 }
 
@@ -186,13 +214,17 @@ export const resolveTheme = (contextMap: Map<any, any>, themeName: string, check
     return match;
   } else {
     const cfg = getThemeConfigFor(themeName);
-    if (hasValue(cfg) && isNotEmpty(cfg.extends)) {
-      const nextTheme = cfg.extends;
-      const nextCheckedThemeNames = [...checkedThemeNames, themeName];
-      if (checkedThemeNames.includes(nextTheme)) {
-        throw new Error('Theme extension cycle detected: ' + [...nextCheckedThemeNames, nextTheme].join(' -> '));
+    if (hasValue(cfg)) {
+      if (isNotEmpty(cfg.extends)) {
+        const nextTheme = cfg.extends;
+        const nextCheckedThemeNames = [...checkedThemeNames, themeName];
+        if (checkedThemeNames.includes(nextTheme)) {
+          throw new Error('Theme extension cycle detected: ' + [...nextCheckedThemeNames, nextTheme].join(' -> '));
+        } else {
+          return resolveTheme(contextMap, nextTheme, nextCheckedThemeNames);
+        }
       } else {
-        return resolveTheme(contextMap, nextTheme, nextCheckedThemeNames);
+        return resolveTheme(contextMap, DEFAULT_THEME, [...checkedThemeNames, DEFAULT_THEME]);
       }
     }
   }

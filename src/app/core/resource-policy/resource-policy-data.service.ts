@@ -9,6 +9,7 @@ import {
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -35,11 +36,13 @@ import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ActionType } from './models/action-type.model';
 import { ResourcePolicy } from './models/resource-policy.model';
+import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the resourcepolicies endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(RESOURCE_POLICY)
 export class ResourcePolicyDataService extends IdentifiableDataService<ResourcePolicy> {
   protected searchByEPersonMethod = 'eperson';
   protected searchByGroupMethod = 'group';

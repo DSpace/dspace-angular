@@ -25,6 +25,8 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
 
 /**
  * Detect duplicates step
@@ -42,7 +44,7 @@ import { SectionsService } from '../sections.service';
   ],
   standalone: true,
 })
-
+@renderSectionFor(SectionsType.Duplicates)
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent implements OnInit {
   protected readonly Metadata = Metadata;
   /**

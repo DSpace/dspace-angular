@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { dataService } from '../../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
@@ -25,8 +26,10 @@ import { RemoteData } from '../../../data/remote-data';
 import { RequestService } from '../../../data/request.service';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
+import { SUGGESTION_TARGET } from '../models/suggestion-target-object.resource-type';
 
 @Injectable({ providedIn: 'root' })
+@dataService(SUGGESTION_TARGET)
 export class SuggestionTargetDataService extends IdentifiableDataService<SuggestionTarget> {
 
   protected linkPath = 'suggestiontargets';

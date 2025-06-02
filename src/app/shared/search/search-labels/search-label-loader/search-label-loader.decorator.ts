@@ -1,32 +1,21 @@
+import { Component } from '@angular/core';
+
+import { RENDER_SEARCH_LABEL_FOR_MAP } from '../../../../../decorator-registries/render-search-label-for-registry';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { hasValue } from '../../../empty.util';
 import {
-  Component,
-  Type,
-} from '@angular/core';
+  DEFAULT_THEME,
+  getMatch,
+} from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
-import { hasNoValue } from '../../../empty.util';
-import { DEFAULT_THEME } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { SearchLabelComponent } from '../search-label/search-label.component';
-import { SearchLabelRangeComponent } from '../search-label-range/search-label-range.component';
+export const DEFAULT_LABEL_OPERATOR = '*';
 
-export const DEFAULT_LABEL_OPERATOR = undefined;
+export function renderSearchLabelFor(operator: string = DEFAULT_LABEL_OPERATOR, theme = DEFAULT_THEME) {
+  return function decorator(objectElement: any) {
+  };
+}
 
-export const LABEL_DECORATOR_MAP: Map<string, Map<string, Type<Component>>> = new Map([
-  [DEFAULT_LABEL_OPERATOR, new Map([
-    [DEFAULT_THEME, SearchLabelComponent as Type<Component>],
-  ])],
-  ['range', new Map([
-    [DEFAULT_THEME, SearchLabelRangeComponent as Type<Component>],
-  ])],
-]);
-
-export function getSearchLabelByOperator(operator: string, theme: string): Type<Component> {
-  let themeMap: Map<string, Type<Component>> = LABEL_DECORATOR_MAP.get(operator);
-  if (hasNoValue(themeMap)) {
-    themeMap = LABEL_DECORATOR_MAP.get(DEFAULT_LABEL_OPERATOR);
-  }
-  const comp: Type<Component> = themeMap.get(theme);
-  if (hasNoValue(comp)) {
-    return themeMap.get(DEFAULT_THEME);
-  }
-  return comp;
+export function getSearchLabelByOperator(operator: string, theme: string, registry: Map<string, () => Promise<any>> = RENDER_SEARCH_LABEL_FOR_MAP): Promise<GenericConstructor<Component>> {
+  const match = getMatch(registry, [operator, theme], [DEFAULT_LABEL_OPERATOR, DEFAULT_THEME]);
+  return hasValue(match) ? match.match() : undefined;
 }

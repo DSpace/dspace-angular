@@ -12,9 +12,15 @@ import {
 } from '@angular/core';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  from,
+  Observable,
+} from 'rxjs';
 
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { rendersSectionType } from '../sections-decorator';
@@ -74,12 +80,12 @@ export class SubmissionSectionContainerComponent implements OnInit {
    */
   @ViewChild('sectionRef') sectionRef: SectionsDirective;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {Injector} injector
-   */
-  constructor(private injector: Injector) {
+  sectionContent$: Observable<GenericConstructor<Component>>;
+
+  constructor(
+    protected injector: Injector,
+    protected themeService: ThemeService,
+  ) {
   }
 
   /**
@@ -94,6 +100,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
       ],
       parent: this.injector,
     });
+    this.sectionContent$ = this.getSectionContent();
   }
 
   /**
@@ -111,7 +118,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
   /**
    * Find the correct component based on the section's type
    */
-  getSectionContent() {
-    return rendersSectionType(this.sectionData.sectionType);
+  getSectionContent(): Observable<GenericConstructor<Component>> {
+    return from(rendersSectionType(this.sectionData.sectionType, this.themeService.getThemeName()));
   }
 }

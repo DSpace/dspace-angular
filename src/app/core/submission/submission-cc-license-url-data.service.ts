@@ -6,6 +6,7 @@ import {
 } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -23,6 +24,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { SUBMISSION_CC_LICENSE_URL } from './models/submission-cc-licence-link.resource-type';
 import {
   Field,
   Option,
@@ -31,6 +33,7 @@ import {
 import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
 
 @Injectable({ providedIn: 'root' })
+@dataService(SUBMISSION_CC_LICENSE_URL)
 export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {
   private searchData: SearchDataImpl<SubmissionCcLicenceUrl>;
 
