@@ -1,7 +1,16 @@
-import { Component, Input } from '@angular/core';
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component as a link.
@@ -13,7 +22,14 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 @Component({
   selector: 'ds-metadata-uri-values',
   styleUrls: ['./metadata-uri-values.component.scss'],
-  templateUrl: './metadata-uri-values.component.html'
+  templateUrl: './metadata-uri-values.component.html',
+  imports: [
+    MetadataFieldWrapperComponent,
+    TranslateModule,
+    NgForOf,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {
 

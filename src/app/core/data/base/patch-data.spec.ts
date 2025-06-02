@@ -6,28 +6,38 @@
  * http://www.dspace.org/license/
  */
 /* eslint-disable max-classes-per-file */
-import { RequestService } from '../request.service';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { TestScheduler } from 'rxjs/testing';
-import { RemoteData } from '../remote-data';
-import { RequestEntryState } from '../request-entry-state.model';
-import { PatchData, PatchDataImpl } from './patch-data';
-import { ChangeAnalyzer } from '../change-analyzer';
-import { Item } from '../../shared/item.model';
-import { compare, Operation } from 'fast-json-patch';
-import { PatchRequest } from '../request.models';
 import { DSpaceObject } from '../../shared/dspace-object.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { constructIdEndpointDefault } from './identifiable-data.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { Item } from '../../shared/item.model';
+import { ChangeAnalyzer } from '../change-analyzer';
+import { FindListOptions } from '../find-list-options.model';
+import { RemoteData } from '../remote-data';
+import { PatchRequest } from '../request.models';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
 import { RestRequestMethod } from '../rest-request-method';
+import { constructIdEndpointDefault } from './identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './patch-data';
 
 /**
  * Tests whether calls to `PatchData` methods are correctly patched through in a concrete data service that implements it
@@ -182,15 +192,15 @@ describe('PatchDataImpl', () => {
       _links: {
         self: {
           href: 'dso-href',
-        }
-      }
+        },
+      },
     };
     const operations = [
       Object.assign({
         op: 'move',
         from: '/1',
-        path: '/5'
-      }) as Operation
+        path: '/5',
+      }) as Operation,
     ];
 
     it('should send a PatchRequest', () => {
@@ -224,12 +234,12 @@ describe('PatchDataImpl', () => {
 
       dso = Object.assign(new DSpaceObject(), {
         _links: { self: { href: selfLink } },
-        metadata: [{ key: 'dc.title', value: name1 }]
+        metadata: [{ key: 'dc.title', value: name1 }],
       });
 
       dso2 = Object.assign(new DSpaceObject(), {
         _links: { self: { href: selfLink } },
-        metadata: [{ key: 'dc.title', value: name2 }]
+        metadata: [{ key: 'dc.title', value: name2 }],
       });
 
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));

@@ -1,44 +1,45 @@
-import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { RequestService } from '../data/request.service';
-import { Collection } from '../shared/collection.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ResourcePolicy } from './models/resource-policy.model';
-import { RemoteData } from '../data/remote-data';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { PaginatedList } from '../data/paginated-list.model';
-import { ActionType } from './models/action-type.model';
-import { RequestParam } from '../cache/models/request-param.model';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
 import { isNotEmpty } from '../../shared/empty.util';
-import { first, map } from 'rxjs/operators';
-import { NoContent } from '../shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CreateDataImpl } from '../data/base/create-data';
+import { DeleteDataImpl } from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { PatchDataImpl } from '../data/base/patch-data';
+import { SearchDataImpl } from '../data/base/search-data';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { PutRequest } from '../data/request.models';
-import { GenericConstructor } from '../shared/generic-constructor';
+import { PaginatedList } from '../data/paginated-list.model';
 import { ResponseParsingService } from '../data/parsing.service';
+import { RemoteData } from '../data/remote-data';
+import { PutRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-response-parsing.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { CreateDataImpl } from '../data/base/create-data';
-import { SearchDataImpl } from '../data/base/search-data';
-import { PatchDataImpl } from '../data/base/patch-data';
-import { DeleteDataImpl } from '../data/base/delete-data';
-import { dataService } from '../data/base/data-service.decorator';
+import { Collection } from '../shared/collection.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { ActionType } from './models/action-type.model';
+import { ResourcePolicy } from './models/resource-policy.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the resourcepolicies endpoint
  */
-@Injectable()
-@dataService(RESOURCE_POLICY)
+@Injectable({ providedIn: 'root' })
 export class ResourcePolicyDataService extends IdentifiableDataService<ResourcePolicy> {
   protected searchByEPersonMethod = 'eperson';
   protected searchByGroupMethod = 'group';
@@ -212,7 +213,7 @@ export class ResourcePolicyDataService extends IdentifiableDataService<ResourceP
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return StatusCodeOnlyResponseParsingService;
-        }
+        },
       });
       this.requestService.send(request);
     });

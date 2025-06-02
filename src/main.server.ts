@@ -1,20 +1,17 @@
 import 'core-js/es/reflect';
 import 'zone.js';
 import 'reflect-metadata';
-
-import { enableProdMode } from '@angular/core';
 /******************************************************************
  * Load `$localize` - not used for i18n in this project, we use ngx-translate.
  * It's used for localization of dates, numbers, currencies, etc.
  */
 import '@angular/localize/init';
 
-import { environment } from './environments/environment';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-if (environment.production) {
-  enableProdMode();
-}
+import { AppComponent } from './app/app.component';
+import { serverAppConfig } from './modules/app/server-app.config';
 
-export { ServerAppModule } from './modules/app/server-app.module';
-export { ngExpressEngine } from '@nguniversal/express-engine';
-export { renderModuleFactory } from '@angular/platform-server';
+const bootstrap = () => bootstrapApplication(AppComponent, serverAppConfig);
+
+export default bootstrap;

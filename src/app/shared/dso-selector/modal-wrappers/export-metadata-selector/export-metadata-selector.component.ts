@@ -1,26 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../../core/data/processes/script-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
+import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { Process } from '../../../../process-page/processes/process.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from '../dso-selector-modal-wrapper.component';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -29,6 +57,8 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 @Component({
   selector: 'ds-export-metadata-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;
@@ -39,6 +69,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
               protected notificationsService: NotificationsService, protected translationService: TranslateService,
               protected scriptDataService: ScriptDataService,
               protected authorizationDataService: AuthorizationDataService,
+              protected dsoNameService: DSONameService,
               private modalService: NgbModal) {
     super(activeModal, route);
   }
@@ -50,7 +81,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
   navigate(dso: DSpaceObject): Observable<boolean> {
     if (dso instanceof Collection || dso instanceof Community) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = dso;
+      modalRef.componentInstance.name = this.dsoNameService.getName(dso);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.export-metadata.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata.cancel';
@@ -62,7 +93,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
           return startScriptSucceeded$.pipe(
             switchMap((r: boolean) => {
               return observableOf(r);
-            })
+            }),
           );
         } else {
           const modalRefExport = this.modalService.open(ExportMetadataSelectorComponent);
@@ -88,7 +119,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
     return this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf).pipe(
       switchMap((isAdmin) => {
         if (isAdmin) {
-          parameterValues.push(Object.assign(new ProcessParameter(), {name: '-a'}));
+          parameterValues.push(Object.assign(new ProcessParameter(), { name: '-a' }));
         }
         return this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
       }),

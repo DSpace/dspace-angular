@@ -1,15 +1,18 @@
-<p class="h4">{{'health-page.status' | translate}} : <ds-health-status [status]="healthResponse.status"></ds-health-status></p>
+<p class="h4">
+  {{'health-page.status' | translate}}:
+  <ds-health-status [status]="healthResponse.status" class="d-inline-flex"></ds-health-status>
+</p>
 <ngb-accordion #acc="ngbAccordion" [activeIds]="activeId">
   <ngb-panel [id]="entry.key" *ngFor="let entry of healthResponse.components | dsObjNgFor">
     <ng-template ngbPanelHeader>
-      <div class="w-100 d-flex justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle(entry.key)" data-test="component">
-        <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="!acc.isExpanded(entry.key)"
-                aria-controls="collapsePanels">
+      <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle(entry.key)" data-test="component">
+        <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="acc.isExpanded(entry.key)"
+                [attr.aria-controls]="'health-panel-' + entry.key + '-content'">
           {{ getPanelLabel(entry.key) | titlecase }}
         </button>
-        <div class="text-right d-flex">
+        <div class="text-right d-flex gap-2">
           <ds-health-status [status]="entry.value?.status"></ds-health-status>
-          <div class="ml-3 d-inline-block">
+          <div class="d-flex my-auto">
             <span *ngIf="acc.isExpanded(entry.key)" class="fas fa-chevron-up fa-fw"></span>
             <span *ngIf="!acc.isExpanded(entry.key)" class="fas fa-chevron-down fa-fw"></span>
           </div>
@@ -17,9 +20,9 @@
       </div>
     </ng-template>
     <ng-template ngbPanelContent>
-      <ds-health-component [healthComponent]="entry.value" [healthComponentName]="entry.key"></ds-health-component>
+      <ds-health-component [healthComponent]="entry.value" [healthComponentName]="entry.key"
+                           [id]="'health-panel-' + entry.key + '-content'" role="presentation">
+      </ds-health-component>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
-
-

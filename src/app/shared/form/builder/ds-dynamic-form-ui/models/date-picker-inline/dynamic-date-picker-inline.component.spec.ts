@@ -1,10 +1,24 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicDatePickerModel, DynamicFormsCoreModule, DynamicFormService } from '@ng-dynamic-forms/core';
+import {
+  DynamicDatePickerModel,
+  DynamicFormsCoreModule,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
+
 import { DsDatePickerInlineComponent } from './dynamic-date-picker-inline.component';
 
 describe('DsDatePickerInlineComponent test suite', () => {
@@ -20,15 +34,13 @@ describe('DsDatePickerInlineComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-
       imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
         NgbDatepickerModule,
-        DynamicFormsCoreModule.forRoot()
+        DynamicFormsCoreModule.forRoot(),
+        DsDatePickerInlineComponent,
       ],
-      declarations: [DsDatePickerInlineComponent]
-
     }).compileComponents().then(() => {
 
       fixture = TestBed.createComponent(DsDatePickerInlineComponent);

@@ -1,5 +1,23 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  forwardRef,
+  Input,
+} from '@angular/core';
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ClickOutsideDirective } from '../../utils/click-outside.directive';
+import { DebounceDirective } from '../../utils/debounce.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { InputSuggestion } from '../input-suggestions.model';
 
@@ -13,9 +31,11 @@ import { InputSuggestion } from '../input-suggestions.model';
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
       // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => FilterInputSuggestionsComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
+  standalone: true,
+  imports: [FormsModule, ClickOutsideDirective, NgIf, NgTemplateOutlet, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule],
 })
 
 /**

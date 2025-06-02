@@ -1,59 +1,74 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { NgxPaginationModule } from 'ngx-pagination';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { Item } from '../../../core/shared/item.model';
+import { License } from '../../../core/shared/license.model';
+import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { FormService } from '../../../shared/form/form.service';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsType } from '../sections-type';
-import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SubmissionSectionIdentifiersComponent } from './section-identifiers.component';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { License } from '../../../core/shared/license.model';
-import { Collection } from '../../../core/shared/collection.model';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
-import { Item } from '../../../core/shared/item.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { SubmissionService } from '../../submission.service';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
+import { SubmissionSectionIdentifiersComponent } from './section-identifiers.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
     getConfigByName: jasmine.createSpy('getConfigByName'),
-    getConfigBySearch: jasmine.createSpy('getConfigBySearch')
+    getConfigBySearch: jasmine.createSpy('getConfigBySearch'),
   });
 }
 
 function getMockCollectionDataService(): CollectionDataService {
   return jasmine.createSpyObj('CollectionDataService', {
     findById: jasmine.createSpy('findById'),
-    findByHref: jasmine.createSpy('findByHref')
+    findByHref: jasmine.createSpy('findByHref'),
   });
 }
 
@@ -64,9 +79,9 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'mockmatch'
-      }
-    ]
+        value: 'mockmatch',
+      },
+    ],
   },
 });
 
@@ -76,16 +91,16 @@ const identifierData: WorkspaceitemSectionIdentifiersObject = {
     value: 'https://doi.org/10.33515/dspace-61',
     identifierType: 'doi',
     identifierStatus: 'TO_BE_REGISTERED',
-    type: 'identifier'
+    type: 'identifier',
   },
   {
     value: '123456789/418',
     identifierType: 'handle',
     identifierStatus: null,
-    type: 'identifier'
-  }
+    type: 'identifier',
+  },
   ],
-  displayTypes: ['doi', 'handle']
+  displayTypes: ['doi', 'handle'],
 };
 
 // Mock section object to use with tests
@@ -99,7 +114,7 @@ const sectionObject: SectionDataObject = {
   header: 'submission.sections.submit.progressbar.identifiers',
   id: 'identifiers',
   sectionType: SectionsType.Identifiers,
-  sectionVisibility: null
+  sectionVisibility: null,
 };
 
 describe('SubmissionSectionIdentifiersComponent test suite', () => {
@@ -121,6 +136,15 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     remove: jasmine.createSpy('remove'),
   });
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
+  });
+
   const licenseText = 'License text';
   const mockCollection = Object.assign(new Collection(), {
     name: 'Community 1-Collection 1',
@@ -129,24 +153,21 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 1'
+        value: 'Community 1-Collection 1',
       }],
-    license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
+    license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText })),
   });
   const paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         NgxPaginationModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionIdentifiersComponent,
         TestComponent,
         ObjNgFor,
@@ -165,11 +186,12 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         ChangeDetectorRef,
         FormBuilderService,
-        SubmissionSectionIdentifiersComponent
+        SubmissionSectionIdentifiersComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -235,13 +257,13 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     it('Should return TRUE if the isLoading is FALSE', () => {
       compAsAny.isLoading = false;
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
-        a: true
+        a: true,
       }));
     });
     it('Should return FALSE if the identifier data is missing handle', () => {
       compAsAny.isLoadin = true;
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
-        a: false
+        a: false,
       }));
     });
   });
@@ -251,7 +273,13 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule],
 })
 class TestComponent {
 

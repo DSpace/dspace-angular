@@ -1,0 +1,5 @@
+[DSpace ESLint plugins](../../../lint/README.md) > <%= plugin.language %> rules
+_______
+<% rules.forEach(rule => { %>
+- [`<%= plugin.name %>/<%= rule.name %>`](./rules/<%= rule.name %>.md)<% if (rule.meta?.docs?.description) {%>: <%= rule.meta.docs.description.split('\n')[0].trim() -%><% }-%>
+<% }) %>
