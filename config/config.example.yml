@@ -316,6 +316,9 @@ languages:
   - code: sv
     label: Svenska
     active: true
+  - code: ta
+    label: தமிழ்
+    active: true
   - code: tr
     label: Türkçe
     active: true
