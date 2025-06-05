@@ -128,7 +128,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
-      this.vocabularyOptions = { name: this.vocabularyName, closed: true };
+      this.vocabularyOptions = { name: this.vocabularyName, closed: true, type: 'xml' };
       this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.description`);
     }));
     this.subs.push(this.scope$.subscribe(() => {
