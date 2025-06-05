@@ -143,7 +143,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
     } else if (this.contentType === 'community') {
       comColRoute = getCommunityPageRoute(this.id);
     }
-    
+
     this.subs.push(combineLatest([
       this.allOptions$,
       this.router.events.pipe(
@@ -157,7 +157,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
         if (url?.split('?')[0] === comColRoute && option.id === this.appConfig[this.contentType].defaultBrowseTab) {
           void this.router.navigate([option.routerLink], { queryParams: option.params });
           break;
-        } else if (option.routerLink === url?.split('?')[0]) {  
+        } else if (option.routerLink === url?.split('?')[0]) {
           this.currentOption$.next(option);
           break;
         }
