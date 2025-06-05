@@ -38,11 +38,9 @@ import { GroupMock } from '../../testing/group-mock';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { createTestComponent } from '../../testing/utils.test';
-import {
-  ResourcePolicyEvent,
-  ResourcePolicyFormComponent,
-} from '../form/resource-policy-form.component';
+import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
+import { ThemedResourcePolicyFormComponent } from '../form/themed-resource-policy-form.component';
 import { ResourcePolicyEditComponent } from './resource-policy-edit.component';
 
 describe('ResourcePolicyEditComponent test suite', () => {
@@ -112,7 +110,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
       ],
     })
       .overrideComponent(ResourcePolicyEditComponent, {
-        remove: { imports: [ResourcePolicyFormComponent] },
+        remove: { imports: [ThemedResourcePolicyFormComponent] },
       })
       .compileComponents();
   }));

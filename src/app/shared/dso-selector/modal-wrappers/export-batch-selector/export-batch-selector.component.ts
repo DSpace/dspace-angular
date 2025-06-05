@@ -42,7 +42,7 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -57,7 +57,7 @@ import {
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    ThemedDSOSelectorComponent,
     TranslateModule,
   ],
 })
