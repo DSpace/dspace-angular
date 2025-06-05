@@ -1,7 +1,10 @@
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
+import {
+  createSidebarSearchListElementTests,
+  getExpectedHierarchicalTitle,
+} from '../sidebar-search-list-element.component.spec';
 import { CollectionSidebarSearchListElementComponent } from './collection-sidebar-search-list-element.component';
 
 const object = Object.assign(new CollectionSearchResult(), {
@@ -32,6 +35,11 @@ const parent = Object.assign(new Community(), {
   },
 });
 
-describe('CollectionSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description'),
-);
+const expectedHierarchicalTitle = getExpectedHierarchicalTitle(parent, object);
+if (expectedHierarchicalTitle) {
+  expectedHierarchicalTitle.subscribe((hierarchicalTitle: string) => {
+    describe('CollectionSidebarSearchListElementComponent', () => {
+      createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, hierarchicalTitle, 'title', 'description');
+    });
+  });
+}
