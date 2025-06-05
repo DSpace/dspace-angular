@@ -28,6 +28,11 @@ export interface SelectableMetadata {
    * A boolean representing if value is closely related to the controlled vocabulary entry or not
    */
   closed: boolean;
+
+  /**
+   * The type (source) of the vocabulary: xml, authority, suggest
+   */
+  vocabularyType: string;
 }
 
 /**
