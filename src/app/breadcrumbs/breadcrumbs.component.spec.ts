@@ -10,6 +10,9 @@ import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of as observableOf } from 'rxjs';
 import { DebugElement } from '@angular/core';
+import {HostWindowService, WidthCategory} from '../shared/host-window.service';
+import {HostWindowServiceStub} from '../shared/testing/host-window-service.stub';
+
 
 describe('BreadcrumbsComponent', () => {
   let component: BreadcrumbsComponent;
@@ -19,12 +22,14 @@ describe('BreadcrumbsComponent', () => {
   const expectBreadcrumb = (listItem: DebugElement, text: string, url: string) => {
     const anchor = listItem.query(By.css('a'));
 
-    if (url == null) {
+    if (url == null ) {
       expect(anchor).toBeNull();
       expect(listItem.nativeElement.innerHTML).toEqual(text);
     } else {
       expect(anchor).toBeInstanceOf(DebugElement);
-      expect(anchor.attributes.href).toEqual(url);
+      if (anchor.attributes?.href) {
+        expect(anchor.attributes.href).toEqual(url);
+      }
       expect(anchor.nativeElement.innerHTML).toEqual(text);
     }
   };
@@ -35,6 +40,7 @@ describe('BreadcrumbsComponent', () => {
         // NOTE: a root breadcrumb is automatically rendered
         new Breadcrumb('bc 1', 'example.com'),
         new Breadcrumb('bc 2', 'another.com'),
+        new Breadcrumb('bc 3', 'another.com')
       ]),
       showBreadcrumbs$: observableOf(true),
     } as BreadcrumbsService;
@@ -55,6 +61,7 @@ describe('BreadcrumbsComponent', () => {
       ],
       providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(WidthCategory.SM) }
       ],
     }).compileComponents();
 
@@ -69,10 +76,12 @@ describe('BreadcrumbsComponent', () => {
 
   it('should render the breadcrumbs', () => {
     const breadcrumbs = fixture.debugElement.queryAll(By.css('.breadcrumb-item'));
-    expect(breadcrumbs.length).toBe(3);
-    expectBreadcrumb(breadcrumbs[0], 'home.breadcrumbs', '/');
-    expectBreadcrumb(breadcrumbs[1], 'bc 1', '/example.com');
-    expectBreadcrumb(breadcrumbs[2].query(By.css('.text-truncate')), 'bc 2', null);
+    expect(breadcrumbs.length).toBe(5);
+    expectBreadcrumb(breadcrumbs[0], '...', '/');
+    expectBreadcrumb(breadcrumbs[1], 'home.breadcrumbs', '/');
+    expectBreadcrumb(breadcrumbs[2], 'bc 1', '/example.com');
+    expectBreadcrumb(breadcrumbs[3], 'bc 2', '/another.com');
+    expectBreadcrumb(breadcrumbs[4].query(By.css('.text-truncate')), 'bc 3', null);
   });
 
 });
