@@ -381,6 +381,8 @@ describe('GroupsRegistryComponent', () => {
       deleteButton.click();
       fixture.detectChanges();
 
+      (document as any).querySelector('.modal-footer .confirm').click();
+
       expect(groupsDataServiceStub.delete).toHaveBeenCalledWith(mockGroups[0].id);
     });
   });
