@@ -32,6 +32,7 @@ import {
   WidthCategory,
 } from '../../shared/host-window.service';
 import { MiradorViewerService } from './mirador-viewer.service';
+import { VarDirective } from 'src/app/shared/utils/var.directive';
 
 @Component({
   selector: 'ds-mirador-viewer',
@@ -43,6 +44,7 @@ import { MiradorViewerService } from './mirador-viewer.service';
     AsyncPipe,
     NgIf,
     SafeUrlPipe,
+    VarDirective,
   ],
   standalone: true,
 })
