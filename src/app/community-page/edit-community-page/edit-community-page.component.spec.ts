@@ -1,13 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { EditCommunityPageComponent } from './edit-community-page.component';
+
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { EditCommunityPageComponent } from './edit-community-page.component';
 
 describe('EditCommunityPageComponent', () => {
   let comp: EditCommunityPageComponent;
@@ -15,36 +19,35 @@ describe('EditCommunityPageComponent', () => {
 
   const routeStub = {
     data: observableOf({
-      dso: { payload: {} }
+      dso: { payload: {} },
     }),
     routeConfig: {
       children: [
         {
           path: 'mockUrl',
           data: {
-            hideReturnButton: false
-          }
-        }
-      ]
+            hideReturnButton: false,
+          },
+        },
+      ],
     },
     snapshot: {
       firstChild: {
         routeConfig: {
-          path: 'mockUrl'
-        }
-      }
-    }
+          path: 'mockUrl',
+        },
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [EditCommunityPageComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCommunityPageComponent],
       providers: [
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

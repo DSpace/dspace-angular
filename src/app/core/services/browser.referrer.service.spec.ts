@@ -1,6 +1,7 @@
 import { of as observableOf } from 'rxjs';
-import { RouteService } from './route.service';
+
 import { BrowserReferrerService } from './browser.referrer.service';
+import { RouteService } from './route.service';
 
 describe(`BrowserReferrerService`, () => {
   let service: BrowserReferrerService;
@@ -10,12 +11,12 @@ describe(`BrowserReferrerService`, () => {
 
   beforeEach(() => {
     routeService = {
-      getHistory: () => observableOf([])
+      getHistory: () => observableOf([]),
     } as any;
     service = new BrowserReferrerService(
       { referrer: documentReferrer },
       routeService,
-      { getCurrentOrigin: () => origin } as any
+      { getCurrentOrigin: () => origin } as any,
     );
   });
 
@@ -53,7 +54,7 @@ describe(`BrowserReferrerService`, () => {
           '/first/route',
           '/second/route',
           prevUrl,
-          '/current/route'
+          '/current/route',
         ]));
       });
 

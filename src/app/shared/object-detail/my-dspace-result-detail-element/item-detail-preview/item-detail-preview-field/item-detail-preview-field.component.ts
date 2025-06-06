@@ -1,15 +1,31 @@
-import { Component, Input } from '@angular/core';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { Item } from '../../../../../core/shared/item.model';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
 import { SearchResult } from '../../../../search/models/search-result.model';
 
 /**
  * This component show values for the given item metadata
  */
 @Component({
-  selector: 'ds-item-detail-preview-field',
-  templateUrl: './item-detail-preview-field.component.html'
+  selector: 'ds-base-item-detail-preview-field',
+  templateUrl: './item-detail-preview-field.component.html',
+  standalone: true,
+  imports: [
+    MetadataFieldWrapperComponent,
+    NgFor,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class ItemDetailPreviewFieldComponent {
 

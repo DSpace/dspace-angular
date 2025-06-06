@@ -1,3 +1,5 @@
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import {
   MetadataRegistryAction,
   MetadataRegistryActionTypes,
@@ -6,10 +8,8 @@ import {
   MetadataRegistryEditFieldAction,
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
-  MetadataRegistrySelectSchemaAction
+  MetadataRegistrySelectSchemaAction,
 } from './metadata-registry.actions';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 
 /**
  * The metadata registry state.
@@ -29,7 +29,7 @@ const initialState: MetadataRegistryState = {
   editSchema: null,
   selectedSchemas: [],
   editField: null,
-  selectedFields: []
+  selectedFields: [],
 };
 
 /**
@@ -43,65 +43,65 @@ export function metadataRegistryReducer(state = initialState, action: MetadataRe
 
     case MetadataRegistryActionTypes.EDIT_SCHEMA: {
       return Object.assign({}, state, {
-        editSchema: (action as MetadataRegistryEditSchemaAction).schema
+        editSchema: (action as MetadataRegistryEditSchemaAction).schema,
       });
     }
 
     case MetadataRegistryActionTypes.CANCEL_EDIT_SCHEMA: {
       return Object.assign({}, state, {
-        editSchema: null
+        editSchema: null,
       });
     }
 
     case MetadataRegistryActionTypes.SELECT_SCHEMA: {
       return Object.assign({}, state, {
-        selectedSchemas: [...state.selectedSchemas, (action as MetadataRegistrySelectSchemaAction).schema]
+        selectedSchemas: [...state.selectedSchemas, (action as MetadataRegistrySelectSchemaAction).schema],
       });
     }
 
     case MetadataRegistryActionTypes.DESELECT_SCHEMA: {
       return Object.assign({}, state, {
         selectedSchemas: state.selectedSchemas.filter(
-          (selectedSchema) => selectedSchema !== (action as MetadataRegistryDeselectSchemaAction).schema
-        )
+          (selectedSchema) => selectedSchema !== (action as MetadataRegistryDeselectSchemaAction).schema,
+        ),
       });
     }
 
     case MetadataRegistryActionTypes.DESELECT_ALL_SCHEMA: {
       return Object.assign({}, state, {
-        selectedSchemas: []
+        selectedSchemas: [],
       });
     }
 
     case MetadataRegistryActionTypes.EDIT_FIELD: {
       return Object.assign({}, state, {
-        editField: (action as MetadataRegistryEditFieldAction).field
+        editField: (action as MetadataRegistryEditFieldAction).field,
       });
     }
 
     case MetadataRegistryActionTypes.CANCEL_EDIT_FIELD: {
       return Object.assign({}, state, {
-        editField: null
+        editField: null,
       });
     }
 
     case MetadataRegistryActionTypes.SELECT_FIELD: {
       return Object.assign({}, state, {
-        selectedFields: [...state.selectedFields, (action as MetadataRegistrySelectFieldAction).field]
+        selectedFields: [...state.selectedFields, (action as MetadataRegistrySelectFieldAction).field],
       });
     }
 
     case MetadataRegistryActionTypes.DESELECT_FIELD: {
       return Object.assign({}, state, {
         selectedFields: state.selectedFields.filter(
-          (selectedField) => selectedField !== (action as MetadataRegistryDeselectFieldAction).field
-        )
+          (selectedField) => selectedField !== (action as MetadataRegistryDeselectFieldAction).field,
+        ),
       });
     }
 
     case MetadataRegistryActionTypes.DESELECT_ALL_FIELD: {
       return Object.assign({}, state, {
-        selectedFields: []
+        selectedFields: [],
       });
     }
 

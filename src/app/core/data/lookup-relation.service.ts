@@ -1,25 +1,40 @@
-import { ExternalSourceDataService } from './external-source-data.service';
-import { SearchService } from '../shared/search/search.service';
-import { concat, distinctUntilChanged, map, multicast, startWith, take, takeWhile } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import {
+  Observable,
+  ReplaySubject,
+} from 'rxjs';
+import {
+  concat,
+  distinctUntilChanged,
+  map,
+  multicast,
+  startWith,
+  take,
+  takeWhile,
+} from 'rxjs/operators';
+
+import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { Observable, ReplaySubject } from 'rxjs';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { Item } from '../shared/item.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { Injectable } from '@angular/core';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { Item } from '../shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { SearchService } from '../shared/search/search.service';
+import { ExternalSourceDataService } from './external-source-data.service';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
 /**
  * A service for retrieving local and external entries information during a relation lookup
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LookupRelationService {
   /**
    * The search config last used for retrieving local results
@@ -31,7 +46,7 @@ export class LookupRelationService {
    */
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'single-result-options',
-    pageSize: 1
+    pageSize: 1,
   });
 
   constructor(protected externalSourceService: ExternalSourceDataService,
@@ -47,7 +62,7 @@ export class LookupRelationService {
    */
   getLocalResults(relationship: RelationshipOptions, searchOptions: PaginatedSearchOptions, setSearchConfig = true): Observable<RemoteData<PaginatedList<SearchResult<Item>>>> {
     const newConfig = Object.assign(new PaginatedSearchOptions({}), searchOptions,
-      { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration }
+      { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration },
     );
     if (setSearchConfig) {
       this.searchConfig = newConfig;
@@ -59,8 +74,8 @@ export class LookupRelationService {
         () => new ReplaySubject(1),
         (subject) => subject.pipe(
           takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
-          concat(subject.pipe(take(1)))
-        )
+          concat(subject.pipe(take(1))),
+        ),
       ) as any
       ,
     ) as Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
@@ -76,7 +91,7 @@ export class LookupRelationService {
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       map((results: PaginatedList<SearchResult<Item>>) => results.totalElements),
-      startWith(0)
+      startWith(0),
     );
   }
 
@@ -91,7 +106,7 @@ export class LookupRelationService {
       getRemoteDataPayload(),
       map((results: PaginatedList<ExternalSourceEntry>) => results.totalElements),
       startWith(0),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

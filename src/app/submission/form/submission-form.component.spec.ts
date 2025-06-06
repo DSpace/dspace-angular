@@ -1,10 +1,26 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { AuthService } from '../../core/auth/auth.service';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   mockSectionsData,
   mockSectionsList,
@@ -13,21 +29,25 @@ import {
   mockSubmissionId,
   mockSubmissionObjectNew,
   mockSubmissionSelfUrl,
-  mockSubmissionState
+  mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
-import { SubmissionService } from '../submission.service';
-import { SubmissionFormComponent } from './submission-form.component';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
-import { Item } from '../../core/shared/item.model';
-import { TestScheduler } from 'rxjs/testing';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
+import { SubmissionService } from '../submission.service';
+import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
+import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
+import { SubmissionFormComponent } from './submission-form.component';
+import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
 
-describe('SubmissionFormComponent Component', () => {
+describe('SubmissionFormComponent', () => {
 
   let comp: SubmissionFormComponent;
   let compAsAny: any;
@@ -47,21 +67,31 @@ describe('SubmissionFormComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [
-        SubmissionFormComponent,
-        TestComponent
+      imports: [SubmissionFormComponent, TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
+        { provide: ThemeService, useValue: getMockThemeService() },
         ChangeDetectorRef,
-        SubmissionFormComponent
+        SubmissionFormComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(SubmissionFormComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            SubmissionSectionContainerComponent,
+            SubmissionFormFooterComponent,
+            ThemedSubmissionUploadFilesComponent,
+            SubmissionFormCollectionComponent,
+            SubmissionFormSectionAddComponent,
+          ] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -137,7 +167,7 @@ describe('SubmissionFormComponent Component', () => {
       scheduler.schedule(() => {
         comp.ngOnChanges({
           collectionId: new SimpleChange(null, collectionId, true),
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
         fixture.detectChanges();
       });
@@ -197,7 +227,6 @@ describe('SubmissionFormComponent Component', () => {
       });
       scheduler.flush();
 
-      expect(comp.collectionId).toEqual(submissionObjectNew.collection.id);
       expect(comp.submissionDefinition).toEqual(submissionObjectNew.submissionDefinition);
       expect(comp.definitionId).toEqual(submissionObjectNew.submissionDefinition.name);
       expect(comp.sections).toEqual(submissionObjectNew.sections);
@@ -225,17 +254,16 @@ describe('SubmissionFormComponent Component', () => {
       scheduler.schedule(() => {
         comp.onCollectionChange({
           collection: {
-            id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+            id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
           },
           submissionDefinition: {
-            name: 'traditional'
-          }
+            name: 'traditional',
+          },
         } as any);
         fixture.detectChanges();
       });
       scheduler.flush();
 
-      expect(comp.collectionId).toEqual('45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb');
       expect(submissionServiceStub.resetSubmissionObject).not.toHaveBeenCalled();
       done();
     });
@@ -246,7 +274,8 @@ describe('SubmissionFormComponent Component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

@@ -1,20 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CommunityStatisticsPageComponent } from './community-statistics-page.component';
-import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { of as observableOf } from 'rxjs';
-import { Community } from '../../core/shared/community.model';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { Community } from '../../core/shared/community.model';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
+import { CommunityStatisticsPageComponent } from './community-statistics-page.component';
 
 describe('CommunityStatisticsPageComponent', () => {
 
@@ -29,9 +36,9 @@ describe('CommunityStatisticsPageComponent', () => {
         scope: createSuccessfulRemoteDataObject(
           Object.assign(new Community(), {
             id: 'community_id',
-          })
-        )
-      })
+          }),
+        ),
+      }),
     };
 
     const router = {
@@ -47,9 +54,9 @@ describe('CommunityStatisticsPageComponent', () => {
           new UsageReport(), {
             id: `${scope}-${type}-report`,
             points: [],
-          }
-        )
-      )
+          },
+        ),
+      ),
     );
 
     const nameService = {
@@ -58,16 +65,13 @@ describe('CommunityStatisticsPageComponent', () => {
 
     const authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         CommonModule,
-        SharedModule,
-      ],
-      declarations: [
         CommunityStatisticsPageComponent,
         StatisticsTableComponent,
       ],

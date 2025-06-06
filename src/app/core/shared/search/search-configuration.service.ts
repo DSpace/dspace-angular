@@ -1,38 +1,77 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  merge as observableMerge,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
-import { filter, map, startWith, take } from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { FilterType } from '../../../shared/search/models/filter-type.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
-import { RemoteData } from '../../data/remote-data';
-import { DSpaceObjectType } from '../dspace-object-type.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { RouteService } from '../../services/route.service';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../operators';
-import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchConfig, SortConfig } from './search-filters/search-config.model';
-import { PaginationService } from '../../pagination/pagination.service';
-import { LinkService } from '../../cache/builders/link.service';
-import { HALEndpointService } from '../hal-endpoint.service';
-import { RequestService } from '../../data/request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { GetRequest } from '../../data/request.models';
-import { URLCombiner } from '../../url-combiner/url-combiner';
-import { GenericConstructor } from '../generic-constructor';
-import { ResponseParsingService } from '../../data/parsing.service';
-import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
-import { ViewMode } from '../view-mode.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
+import { LinkService } from '../../cache/builders/link.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
+import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
+import { ResponseParsingService } from '../../data/parsing.service';
+import { RemoteData } from '../../data/remote-data';
+import { GetRequest } from '../../data/request.models';
+import { RequestService } from '../../data/request.service';
+import { PaginationService } from '../../pagination/pagination.service';
+import { RouteService } from '../../services/route.service';
+import { URLCombiner } from '../../url-combiner/url-combiner';
+import { DSpaceObjectType } from '../dspace-object-type.model';
+import { GenericConstructor } from '../generic-constructor';
+import { HALEndpointService } from '../hal-endpoint.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteData,
+} from '../operators';
+import { ViewMode } from '../view-mode.model';
+import {
+  FilterConfig,
+  SearchConfig,
+  SortConfig,
+} from './search-filters/search-config.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchConfigurationService implements OnDestroy {
 
   /**
@@ -66,7 +105,7 @@ export class SearchConfigurationService implements OnDestroy {
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
     id: this.paginationID,
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -89,24 +128,15 @@ export class SearchConfigurationService implements OnDestroy {
    */
   protected subs: Map<string, Subscription[]> = new Map<string, Subscription[]>(null);
 
-  /**
-   * Initialize the search options
-   * @param {RouteService} routeService
-   * @param {PaginationService} paginationService
-   * @param {ActivatedRoute} route
-   * @param linkService
-   * @param halService
-   * @param requestService
-   * @param rdb
-   */
   constructor(protected routeService: RouteService,
               protected paginationService: PaginationService,
               protected route: ActivatedRoute,
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService,) {
-
+              protected rdb: RemoteDataBuildService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
     this.initDefaults();
   }
 
@@ -118,7 +148,7 @@ export class SearchConfigurationService implements OnDestroy {
       const options = new PaginatedSearchOptions({
         pagination: this.defaultPagination,
         scope: this.defaultScope,
-        query: this.defaultQuery
+        query: this.defaultQuery,
       });
       this._defaults = createSuccessfulRemoteDataObject$(options, new Date().getTime());
     }
@@ -131,11 +161,11 @@ export class SearchConfigurationService implements OnDestroy {
   getCurrentConfiguration(defaultConfiguration: string) {
     return observableCombineLatest([
       this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
-      this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
+      this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined)),
     ]).pipe(
       map(([queryConfig, routeConfig]) => {
         return queryConfig || routeConfig || defaultConfiguration;
-      })
+      }),
     );
   }
 
@@ -163,7 +193,7 @@ export class SearchConfigurationService implements OnDestroy {
   getCurrentDSOType(): Observable<DSpaceObjectType> {
     return this.routeService.getQueryParameterValue('dsoType').pipe(
       filter((type) => isNotEmpty(type) && hasValue(DSpaceObjectType[type.toUpperCase()])),
-      map((type) => DSpaceObjectType[type.toUpperCase()]),);
+      map((type) => DSpaceObjectType[type.toUpperCase()]));
   }
 
   /**
@@ -235,7 +265,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   getConfigurationSearchConfig(configuration: string, scope?: string): Observable<SearchConfig> {
     return this.getSearchConfigurationFor(scope, configuration).pipe(
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -246,8 +276,24 @@ export class SearchConfigurationService implements OnDestroy {
   getConfigurationSortOptions(searchConfig: SearchConfig): SortOptions[] {
     return searchConfig.sortOptions.map((entry: SortConfig) => ({
       field: entry.name,
-      direction: entry.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC
+      direction: entry.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC,
     }));
+  }
+
+  /**
+   * Return the {@link FilterConfig}s of the filters that should be displayed for the current configuration/scope
+   *
+   * @param configuration The search configuration
+   * @param scope The scope if exists
+   */
+  public getConfigurationAdvancedSearchFilters(configuration: string, scope?: string): Observable<FilterConfig[]> {
+    return this.getConfigurationSearchConfig(configuration, scope).pipe(
+      map((searchConfiguration: SearchConfig) => {
+        return searchConfiguration.filters
+          .filter((filterConfig: FilterConfig) => this.appConfig.search.advancedFilters.filter.includes(filterConfig.filter))
+          .filter((filterConfig: FilterConfig) => filterConfig.type !== FilterType.range);
+      }),
+    );
   }
 
   setPaginationId(paginationId): void {
@@ -255,8 +301,8 @@ export class SearchConfigurationService implements OnDestroy {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, {
         pagination: Object.assign({}, currentValue.pagination, {
-          id: paginationId
-        })
+          id: paginationId,
+        }),
       });
       // unsubscribe from subscription related to old pagination id
       this.unsubscribeFromSearchOptions(this.paginationID);
@@ -275,7 +321,7 @@ export class SearchConfigurationService implements OnDestroy {
     this.subs
       .forEach((subs: Subscription[]) => subs
         .filter((sub) => hasValue(sub))
-        .forEach((sub) => sub.unsubscribe())
+        .forEach((sub) => sub.unsubscribe()),
       );
 
     this.subs = new Map<string, Subscription[]>(null);
@@ -299,7 +345,7 @@ export class SearchConfigurationService implements OnDestroy {
     this.unsubscribeFromSearchOptions(paginationID);
     const subs = [
       this.subscribeToSearchOptions(defaults),
-      this.subscribeToPaginatedSearchOptions(paginationID || defaults.pagination.id, defaults)
+      this.subscribeToPaginatedSearchOptions(paginationID || defaults.pagination.id, defaults),
     ];
     this.subs.set(this.paginationID, subs);
   }
@@ -317,7 +363,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
-      this.getViewModePart(defaults.view)
+      this.getViewModePart(defaults.view),
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -341,7 +387,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
-      this.getViewModePart(defaults.view)
+      this.getViewModePart(defaults.view),
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -493,7 +539,7 @@ export class SearchConfigurationService implements OnDestroy {
       request = Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return FacetConfigResponseParsingService;
-        }
+        },
       });
       this.requestService.send(request, true);
     });
@@ -521,10 +567,39 @@ export class SearchConfigurationService implements OnDestroy {
         } else {
           return rd as any as RemoteData<SearchFilterConfig[]>;
         }
-      })
+      }),
     );
   }
 
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value and resets the page number.
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  unselectAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+      map((params: Params) => Object.assign(params, {
+        [this.paginationService.getPageParam(this.paginationID)]: 1,
+      })),
+    );
+  }
+
+  /**
+   * Calculates the {@link Params} of the search after adding a filter with a certain value and resets the page number.
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  selectNewAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+      map((params: Params) => Object.assign(params, {
+        [this.paginationService.getPageParam(this.paginationID)]: 1,
+      })),
+    );
+  }
 
   /**
    * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object

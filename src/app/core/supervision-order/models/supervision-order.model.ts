@@ -1,17 +1,25 @@
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { link, typedObject } from '../../cache/builders/build-decorators';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { HALLink } from '../../shared/hal-link.model';
-import { SUPERVISION_ORDER } from './supervision-order.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
-import { GROUP } from '../../eperson/models/group.resource-type';
-import { Group } from '../../eperson/models/group.model';
+
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/cacheable-object.model';
-import { ITEM } from '../../shared/item.resource-type';
+import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
+import { RemoteData } from '../../data/remote-data';
+import { Group } from '../../eperson/models/group.model';
+import { GROUP } from '../../eperson/models/group.resource-type';
+import { HALLink } from '../../shared/hal-link.model';
 import { Item } from '../../shared/item.model';
+import { ITEM } from '../../shared/item.resource-type';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { SUPERVISION_ORDER } from './supervision-order.resource-type';
 
 /**
  * Model class for a Supervision Order
@@ -46,7 +54,7 @@ export class SupervisionOrder implements CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer('supervision-order'), 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * The {@link HALLink}s for this SupervisionOrder

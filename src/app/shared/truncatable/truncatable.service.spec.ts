@@ -1,9 +1,16 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { TruncatableService } from './truncatable.service';
-import { TruncatableCollapseAction, TruncatableExpandAction } from './truncatable.actions';
-import { TruncatablesState } from './truncatable.reducer';
 import { of as observableOf } from 'rxjs';
+
+import {
+  TruncatableCollapseAction,
+  TruncatableExpandAction,
+} from './truncatable.actions';
+import { TruncatablesState } from './truncatable.reducer';
+import { TruncatableService } from './truncatable.service';
 
 describe('TruncatableService', () => {
   const id1 = '123';
@@ -13,16 +20,16 @@ describe('TruncatableService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: observableOf(true),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [
         {
-          provide: Store, useValue: store
-        }
-      ]
+          provide: Store, useValue: store,
+        },
+      ],
     }).compileComponents();
   }));
 

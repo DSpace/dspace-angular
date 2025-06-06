@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
-import { AdminSearchPageComponent } from './admin-search-page.component';
-import { ItemAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/item-search-result/item-admin-search-result-list-element.component';
-import { CommunityAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
-import { CollectionAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/collection-search-result/collection-admin-search-result-list-element.component';
-import { ItemAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/item-search-result/item-admin-search-result-grid-element.component';
-import { CommunityAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
-import { CollectionAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
-import { ItemAdminSearchResultActionsComponent } from './admin-search-results/item-admin-search-result-actions.component';
+
 import { JournalEntitiesModule } from '../../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../../entity-groups/research-entities/research-entities.module';
 import { SearchModule } from '../../shared/search/search.module';
+import { SharedModule } from '../../shared/shared.module';
+import { AdminSearchPageComponent } from './admin-search-page.component';
+import { CollectionAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
+import { CommunityAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
+import { ItemAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/item-search-result/item-admin-search-result-grid-element.component';
+import { CollectionAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/collection-search-result/collection-admin-search-result-list-element.component';
+import { CommunityAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
+import { ItemAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/item-search-result/item-admin-search-result-list-element.component';
+import { ItemAdminSearchResultActionsComponent } from './admin-search-results/item-admin-search-result-actions.component';
+import { ThemedAdminSearchPageComponent } from './themed-admin-search-page.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -20,7 +22,7 @@ const ENTRY_COMPONENTS = [
   ItemAdminSearchResultGridElementComponent,
   CommunityAdminSearchResultGridElementComponent,
   CollectionAdminSearchResultGridElementComponent,
-  ItemAdminSearchResultActionsComponent
+  ItemAdminSearchResultActionsComponent,
 ];
 
 @NgModule({
@@ -28,12 +30,13 @@ const ENTRY_COMPONENTS = [
     SearchModule,
     SharedModule.withEntryComponents(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
   ],
   declarations: [
+    ThemedAdminSearchPageComponent,
     AdminSearchPageComponent,
-    ...ENTRY_COMPONENTS
-  ]
+    ...ENTRY_COMPONENTS,
+  ],
 })
 export class AdminSearchModule {
   /**
@@ -43,7 +46,7 @@ export class AdminSearchModule {
   static withEntryComponents() {
     return {
       ngModule: SharedModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

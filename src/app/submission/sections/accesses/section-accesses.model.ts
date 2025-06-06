@@ -12,7 +12,7 @@ import { DynamicCheckboxModelConfig } from '@ng-dynamic-forms/core/lib/model/che
 
 export const ACCESS_FORM_CHECKBOX_CONFIG: DynamicCheckboxModelConfig = {
   id: 'discoverable',
-  name: 'discoverable'
+  name: 'discoverable',
 };
 
 export const ACCESS_FORM_CHECKBOX_LAYOUT = {
@@ -20,21 +20,21 @@ export const ACCESS_FORM_CHECKBOX_LAYOUT = {
   element: {
     container: 'custom-control custom-checkbox pl-1',
     control: 'custom-control-input',
-    label: 'custom-control-label pt-1'
-  }
+    label: 'custom-control-label pt-1',
+  },
 };
 
 export const ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfig = {
   id: 'accessConditionGroup',
-  group: []
+  group: [],
 };
 
 export const ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
     host: 'form-group access-condition-group col',
     container: 'pl-1 pr-1',
-    control: 'form-row '
-  }
+    control: 'form-row ',
+  },
 };
 
 export const ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayModelConfig = {
@@ -44,20 +44,20 @@ export const ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayModelConfig = 
 export const ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLayout = {
   grid: {
     group: 'form-row pt-4',
-  }
+  },
 };
 
 export const FORM_ACCESS_CONDITION_TYPE_CONFIG: DynamicSelectModelConfig<any> = {
   id: 'name',
   label: 'submission.sections.accesses.form.access-condition-label',
   hint: 'submission.sections.accesses.form.access-condition-hint',
-  options: []
+  options: [],
 };
 export const FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayout = {
   element: {
     host: 'col-12',
-    label: 'col-form-label name-label'
-  }
+    label: 'col-form-label name-label',
+  },
 };
 
 export const FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePickerModelConfig = {
@@ -71,24 +71,24 @@ export const FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePickerModelConf
     {
       match: MATCH_ENABLED,
       operator: OR_OPERATOR,
-      when: []
-    }
+      when: [],
+    },
   ],
   required: true,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'submission.sections.accesses.form.date-required-from'
-  }
+    required: 'submission.sections.accesses.form.date-required-from',
+  },
 };
 export const FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
-    label: 'col-form-label'
+    label: 'col-form-label',
   },
   grid: {
-    host: 'col-6'
-  }
+    host: 'col-6',
+  },
 };
 
 export const FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerModelConfig = {
@@ -102,22 +102,22 @@ export const FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerModelConfig
     {
       match: MATCH_ENABLED,
       operator: OR_OPERATOR,
-      when: []
-    }
+      when: [],
+    },
   ],
   required: true,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'submission.sections.accesses.form.date-required-until'
-  }
+    required: 'submission.sections.accesses.form.date-required-until',
+  },
 };
 export const FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
-    label: 'col-form-label'
+    label: 'col-form-label',
   },
   grid: {
-    host: 'col-6'
-  }
+    host: 'col-6',
+  },
 };

@@ -1,4 +1,11 @@
-import { Observable, of as observableOf } from 'rxjs';
+import { trigger } from '@angular/animations';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+  NgStyle,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -8,22 +15,64 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { trigger } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NotificationsService } from '../notifications.service';
-import { scaleEnter, scaleInState, scaleLeave, scaleOutState } from '../../animations/scale';
-import { rotateEnter, rotateInState, rotateLeave, rotateOutState } from '../../animations/rotate';
-import { fromBottomEnter, fromBottomInState, fromBottomLeave, fromBottomOutState } from '../../animations/fromBottom';
-import { fromRightEnter, fromRightInState, fromRightLeave, fromRightOutState } from '../../animations/fromRight';
-import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from '../../animations/fromLeft';
-import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
-import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
-import { NotificationAnimationsStatus } from '../models/notification-animations-type';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  first,
+} from 'rxjs/operators';
+
+import {
+  fadeInEnter,
+  fadeInState,
+  fadeOutLeave,
+  fadeOutState,
+} from '../../animations/fade';
+import {
+  fromBottomEnter,
+  fromBottomInState,
+  fromBottomLeave,
+  fromBottomOutState,
+} from '../../animations/fromBottom';
+import {
+  fromLeftEnter,
+  fromLeftInState,
+  fromLeftLeave,
+  fromLeftOutState,
+} from '../../animations/fromLeft';
+import {
+  fromRightEnter,
+  fromRightInState,
+  fromRightLeave,
+  fromRightOutState,
+} from '../../animations/fromRight';
+import {
+  fromTopEnter,
+  fromTopInState,
+  fromTopLeave,
+  fromTopOutState,
+} from '../../animations/fromTop';
+import {
+  rotateEnter,
+  rotateInState,
+  rotateLeave,
+  rotateOutState,
+} from '../../animations/rotate';
+import {
+  scaleEnter,
+  scaleInState,
+  scaleLeave,
+  scaleOutState,
+} from '../../animations/scale';
 import { isNotEmpty } from '../../empty.util';
 import { INotification } from '../models/notification.model';
-import { filter, first } from 'rxjs/operators';
+import { NotificationAnimationsStatus } from '../models/notification-animations-type';
+import { NotificationsService } from '../notifications.service';
 
 @Component({
   selector: 'ds-notification',
@@ -36,12 +85,14 @@ import { filter, first } from 'rxjs/operators';
       fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState,
       fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState,
       rotateInState, rotateEnter, rotateOutState, rotateLeave,
-      scaleInState, scaleEnter, scaleOutState, scaleLeave
-    ])
+      scaleInState, scaleEnter, scaleOutState, scaleLeave,
+    ]),
   ],
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, NgStyle, NgClass, NgTemplateOutlet, AsyncPipe],
 })
 
 export class NotificationComponent implements OnInit, OnDestroy {

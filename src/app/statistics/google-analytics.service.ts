@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import {
   Angulartics2GoogleAnalytics,
   Angulartics2GoogleGlobalSiteTag,
@@ -9,9 +11,9 @@ import { combineLatest } from 'rxjs';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { isEmpty } from '../shared/empty.util';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { GOOGLE_ANALYTICS_KLARO_KEY } from '../shared/cookies/klaro-configuration';
+import { isEmpty } from '../shared/empty.util';
 
 /**
  * Set up Google Analytics on the client side.

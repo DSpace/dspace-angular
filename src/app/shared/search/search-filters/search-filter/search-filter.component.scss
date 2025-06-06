@@ -17,7 +17,6 @@
     line-height: var(--bs-line-height-base);
     text-align: right;
     position: relative;
-    top: -0.125rem;           // Fix weird outline shape in Chrome
   }
 
   > button {

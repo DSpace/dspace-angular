@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h2>{{'item.edit.move.head' | translate: {id: (itemRD$ | async)?.payload?.handle} }}</h2>
+            <h1>{{'item.edit.move.head' | translate: {id: (itemRD$ | async)?.payload?.handle} }}</h1>
             <p>{{'item.edit.move.description' | translate}}</p>
             <div class="row">
                 <div class="col-12">
                   <div class="card mb-3">
-                    <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'collection' } }}</div>
+                    <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'dso-selector.placeholder.type.collection' | translate } }}</div>
                     <div class="card-body">
                       <ds-authorized-collection-selector [types]="COLLECTIONS"
                                                          [currentDSOId]="selectedCollection ? selectedCollection.id : originalCollection.id"
@@ -21,7 +21,11 @@
                 <div class="col-12">
                     <p>
                       <label for="inheritPoliciesCheckbox">
-                        <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox">
+                        <ng-template #tooltipContent>
+                          {{ 'item.edit.move.inheritpolicies.tooltip' | translate }}
+                        </ng-template>
+                        <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox" [ngbTooltip]="tooltipContent"
+                        >
                         {{'item.edit.move.inheritpolicies.checkbox' |translate}}
                       </label>
                     </p>
@@ -36,7 +40,7 @@
               <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
               </button>
-              <button class="btn btn-primary" [disabled]="!canMove" (click)="moveToCollection()">
+              <button class="btn btn-primary" [dsBtnDisabled]="!canMove" (click)="moveToCollection()">
               <span *ngIf="!processing">
                 <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
               </span>
@@ -44,7 +48,7 @@
                 <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.move.processing' | translate}}
               </span>
               </button>
-              <button class="btn btn-danger" [disabled]="!canSubmit" (click)="discard()">
+              <button class="btn btn-danger" [dsBtnDisabled]="!canSubmit" (click)="discard()">
                 <i class="fas fa-times"></i> {{"item.edit.move.discard-button" | translate}}
               </button>
             </div>

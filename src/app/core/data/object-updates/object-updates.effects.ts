@@ -1,24 +1,43 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import {
+  of as observableOf,
+  race as observableRace,
+  Subject,
+} from 'rxjs';
+import {
+  delay,
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
+import { NoOpAction } from '../../../shared/ngrx/no-op.action';
+import { INotification } from '../../../shared/notifications/models/notification.model';
+import {
+  NotificationsActions,
+  NotificationsActionTypes,
+  RemoveNotificationAction,
+} from '../../../shared/notifications/notifications.actions';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
   ObjectUpdatesActionTypes,
   RemoveAllObjectUpdatesAction,
-  RemoveObjectUpdatesAction
+  RemoveObjectUpdatesAction,
 } from './object-updates.actions';
-import { delay, filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { of as observableOf, race as observableRace, Subject } from 'rxjs';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { INotification } from '../../../shared/notifications/models/notification.model';
-import {
-  NotificationsActions,
-  NotificationsActionTypes,
-  RemoveNotificationAction
-} from '../../../shared/notifications/notifications.actions';
-import { Action } from '@ngrx/store';
-import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 
 /**
  * NGRX effects for ObjectUpdatesActions
@@ -52,7 +71,7 @@ export class ObjectUpdatesEffects {
   /**
    * Effect that makes sure all last fired ObjectUpdatesActions are stored in the map of this service, with the url as their key
    */
-   mapLastActions$ = createEffect(() => this.actions$
+  mapLastActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(...Object.values(ObjectUpdatesActionTypes)),
       map((action: ObjectUpdatesAction) => {
@@ -63,23 +82,23 @@ export class ObjectUpdatesEffects {
           }
           this.actionMap$[url].next(action);
         }
-      })
+      }),
     ), { dispatch: false });
 
   /**
    * Effect that makes sure all last fired NotificationActions are stored in the notification map of this service, with the id as their key
    */
-   mapLastNotificationActions$ = createEffect(() => this.actions$
+  mapLastNotificationActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(...Object.values(NotificationsActionTypes)),
       map((action: RemoveNotificationAction) => {
-          const id: string = action.payload.id || action.payload || this.allIdentifier;
-          if (hasNoValue(this.notificationActionMap$[id])) {
-            this.notificationActionMap$[id] = new Subject<NotificationsActions>();
-          }
-          this.notificationActionMap$[id].next(action);
+        const id: string = action.payload.id || action.payload || this.allIdentifier;
+        if (hasNoValue(this.notificationActionMap$[id])) {
+          this.notificationActionMap$[id] = new Subject<NotificationsActions>();
         }
-      )
+        this.notificationActionMap$[id].next(action);
+      },
+      ),
     ), { dispatch: false });
 
   /**
@@ -88,52 +107,52 @@ export class ObjectUpdatesEffects {
    * When a REINSTATE action is fired during the timeout, a NO_ACTION action will be returned
    * When any other ObjectUpdatesAction is fired during the timeout, a RemoteObjectUpdatesAction will be returned
    */
-   removeAfterDiscardOrReinstateOnUndo$ = createEffect(() => this.actions$
+  removeAfterDiscardOrReinstateOnUndo$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectUpdatesActionTypes.DISCARD),
       switchMap((action: DiscardObjectUpdatesAction) => {
-          const url: string = action.payload.url;
-          const notification: INotification = action.payload.notification;
-          const timeOut = notification.options.timeOut;
+        const url: string = action.payload.url;
+        const notification: INotification = action.payload.notification;
+        const timeOut = notification.options.timeOut;
 
-          let removeAction: Action = new RemoveObjectUpdatesAction(action.payload.url);
-          if (action.payload.discardAll) {
-            removeAction = new RemoveAllObjectUpdatesAction();
-          }
-
-          return observableRace(
-            // Either wait for the delay and perform a remove action
-            observableOf(removeAction).pipe(delay(timeOut)),
-            // Or wait for a a user action
-            this.actionMap$[url].pipe(
-              take(1),
-              tap(() => {
-                this.notificationsService.remove(notification);
-              }),
-              map((updateAction: ObjectUpdatesAction) => {
-                if (updateAction.type === ObjectUpdatesActionTypes.REINSTATE) {
-                  // If someone reinstated, do nothing, just let the reinstating happen
-                  return new NoOpAction();
-                }
-                // If someone performed another action, assume the user does not want to reinstate and remove all changes
-                return removeAction;
-              })
-            ),
-            this.notificationActionMap$[notification.id].pipe(
-              filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_NOTIFICATION),
-              map(() => {
-                return removeAction;
-              })
-            ),
-            this.notificationActionMap$[this.allIdentifier].pipe(
-              filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_ALL_NOTIFICATIONS),
-              map(() => {
-                return removeAction;
-              })
-            )
-          );
+        let removeAction: Action = new RemoveObjectUpdatesAction(action.payload.url);
+        if (action.payload.discardAll) {
+          removeAction = new RemoveAllObjectUpdatesAction();
         }
-      )
+
+        return observableRace(
+          // Either wait for the delay and perform a remove action
+          observableOf(removeAction).pipe(delay(timeOut)),
+          // Or wait for a a user action
+          this.actionMap$[url].pipe(
+            take(1),
+            tap(() => {
+              this.notificationsService.remove(notification);
+            }),
+            map((updateAction: ObjectUpdatesAction) => {
+              if (updateAction.type === ObjectUpdatesActionTypes.REINSTATE) {
+                // If someone reinstated, do nothing, just let the reinstating happen
+                return new NoOpAction();
+              }
+              // If someone performed another action, assume the user does not want to reinstate and remove all changes
+              return removeAction;
+            }),
+          ),
+          this.notificationActionMap$[notification.id].pipe(
+            filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_NOTIFICATION),
+            map(() => {
+              return removeAction;
+            }),
+          ),
+          this.notificationActionMap$[this.allIdentifier].pipe(
+            filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_ALL_NOTIFICATIONS),
+            map(() => {
+              return removeAction;
+            }),
+          ),
+        );
+      },
+      ),
     ));
 
   constructor(private actions$: Actions,

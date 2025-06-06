@@ -1,27 +1,53 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+} from '@angular/core';
+import isEqual from 'lodash/isEqual';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
 import { Collection } from '../../core/shared/collection.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
-import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
-import { SectionDataObject } from '../sections/models/section-data.model';
-import { SubmissionService } from '../submission.service';
-import { Item } from '../../core/shared/item.model';
-import { SectionsType } from '../sections/sections-type';
-import { SectionsService } from '../sections/sections.service';
+import { SectionVisibility } from '../objects/section-visibility.model';
 import { SubmissionError } from '../objects/submission-error.model';
-import { SubmissionSectionVisibility } from './../../core/config/models/config-submission-section.model';
-import { SubmissionSectionModel } from './../../core/config/models/config-submission-section.model';
+import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
+import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
+import { SectionDataObject } from '../sections/models/section-data.model';
+import { SectionsService } from '../sections/sections.service';
+import { SectionsType } from '../sections/sections-type';
 import { VisibilityType } from '../sections/visibility-type';
-import isEqual from 'lodash/isEqual';
+import { SubmissionService } from '../submission.service';
+import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
+import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
+import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
 
 /**
  * This component represents the submission form.
@@ -30,6 +56,16 @@ import isEqual from 'lodash/isEqual';
   selector: 'ds-submission-form',
   styleUrls: ['./submission-form.component.scss'],
   templateUrl: './submission-form.component.html',
+  imports: [
+    CommonModule,
+    ThemedLoadingComponent,
+    SubmissionSectionContainerComponent,
+    SubmissionFormFooterComponent,
+    ThemedSubmissionUploadFilesComponent,
+    SubmissionFormCollectionComponent,
+    SubmissionFormSectionAddComponent,
+  ],
+  standalone: true,
 })
 export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
@@ -43,7 +79,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
   /**
    * Checks if the collection can be modifiable by the user
-   * @type {booelan}
+   * @type {boolean}
    */
   @Input() collectionModifiable: boolean | null = null;
 
@@ -173,6 +209,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           distinctUntilChanged())
           .subscribe((endpointURL) => {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+            this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
             this.submissionService.dispatchInit(
@@ -184,7 +221,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
               this.item,
               this.submissionErrors);
             this.changeDetectorRef.detectChanges();
-          })
+          }),
       );
 
       // start auto save
@@ -195,13 +232,13 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   /**
    *  Returns the visibility object of the collection section
    */
-  private getCollectionVisibility(): SubmissionSectionVisibility {
+  private getCollectionVisibility(): SectionVisibility {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
-        (section) => isEqual(section.sectionType, SectionsType.Collection)
+        (section) => isEqual(section.sectionType, SectionsType.Collection),
       );
 
-   return isNotUndefined(submissionSectionModel.visibility) ? submissionSectionModel.visibility : null;
+    return isNotUndefined(submissionSectionModel.visibility) ? submissionSectionModel.visibility : null;
   }
 
   /**
@@ -249,13 +286,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    *    new submission object
    */
   onCollectionChange(submissionObject: SubmissionObject) {
-    this.collectionId = (submissionObject.collection as Collection).id;
     if (this.definitionId !== (submissionObject.submissionDefinition as SubmissionDefinitionsModel).name) {
       this.sections = submissionObject.sections;
       this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
       this.definitionId = this.submissionDefinition.name;
       this.submissionService.resetSubmissionObject(
-        this.collectionId,
+        (submissionObject.collection as Collection).id,
         this.submissionId,
         submissionObject._links.self.href,
         this.submissionDefinition,

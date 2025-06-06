@@ -1,23 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { first, map } from 'rxjs/operators';
-import { NotificationsService } from '../../../notifications/notifications.service';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { Community } from '../../../../core/shared/community.model';
-import { Collection } from '../../../../core/shared/collection.model';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Collection } from '../../../../core/shared/collection.model';
+import { Community } from '../../../../core/shared/community.model';
+import { NoContent } from '../../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { NotificationsService } from '../../../notifications/notifications.service';
 
 /**
  * Component representing the delete page for communities and collections
  */
 @Component({
   selector: 'ds-delete-comcol',
-  template: ''
+  template: '',
+  standalone: true,
 })
 export class DeleteComColPageComponent<TDomain extends Community | Collection> implements OnInit {
   /**
