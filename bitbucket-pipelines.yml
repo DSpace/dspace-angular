@@ -20,7 +20,7 @@ definitions:
 
 pipelines:
   branches:
-    'dspace-cris-2024_02_x':
+    'main-cris':
       - step: *unittest-code-checks
     'prod/**':
       - step: *unittest-code-checks
