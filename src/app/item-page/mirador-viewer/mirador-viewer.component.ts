@@ -22,6 +22,7 @@ import {
   take,
 } from 'rxjs/operators';
 import { SafeUrlPipe } from 'src/app/shared/utils/safe-url-pipe';
+import { VarDirective } from 'src/app/shared/utils/var.directive';
 
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -32,7 +33,6 @@ import {
   WidthCategory,
 } from '../../shared/host-window.service';
 import { MiradorViewerService } from './mirador-viewer.service';
-import { VarDirective } from 'src/app/shared/utils/var.directive';
 
 @Component({
   selector: 'ds-mirador-viewer',
