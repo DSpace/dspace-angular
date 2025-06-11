@@ -16,8 +16,8 @@ import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switc
   templateUrl: './browse-by-page.component.html',
   styleUrls: ['./browse-by-page.component.scss'],
   imports: [
-    BrowseBySwitcherComponent,
     AsyncPipe,
+    BrowseBySwitcherComponent,
   ],
   standalone: true,
 })

@@ -27,7 +27,7 @@ ssr:
   # If the path match any of the regexes it will be served directly in CSR.
   # By default, excludes community and collection browse, global browse, global search, community list, statistics and various administrative tools.
   excludePathPatterns:
-    - pattern: "^/communities/[a-f0-9-]{36}/browse(/.*)?$",
+    - pattern: "^/communities/[a-f0-9-]{36}/browse(/.*)?$"
       flag: "i"
     - pattern: "^/collections/[a-f0-9-]{36}/browse(/.*)?$"
       flag: "i"
@@ -274,6 +274,9 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
+  - code: gu
+    label: ગુજરાતી
+    active: true
   - code: hi
     label: हिंदी
     active: true
@@ -288,6 +291,9 @@ languages:
     active: true
   - code: lv
     label: Latviešu
+    active: true
+  - code: mr
+    label: मराठी
     active: true
   - code: nl
     label: Nederlands
@@ -467,6 +473,8 @@ info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
   enableCOARNotifySupport: true
+  # Whether to show the cookie consent popup and the cookie settings footer link or not.
+  enableCookieConsentPopup: true
 
 # Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
 # display in supported metadata fields. By default, only dc.description.abstract is supported.
@@ -607,3 +615,8 @@ geospatialMapViewer:
   defaultCentrePoint:
     lat: 41.015137
     lng: 28.979530
+
+# Configuration for storing accessibility settings, used by the AccessibilitySettingsService
+accessibility:
+  # The duration in days after which the accessibility settings cookie expires
+  cookieExpirationDuration: 7

@@ -61,12 +61,12 @@ import { FormService } from './form.service';
   styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
   imports: [
-    DsDynamicFormComponent,
-    ReactiveFormsModule,
-    TranslateModule,
-    DynamicFormsCoreModule,
     AsyncPipe,
     BtnDisabledDirective,
+    DsDynamicFormComponent,
+    DynamicFormsCoreModule,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
   standalone: true,
 })

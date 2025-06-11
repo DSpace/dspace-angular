@@ -27,7 +27,12 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
   standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 
 })
 export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent implements OnInit {

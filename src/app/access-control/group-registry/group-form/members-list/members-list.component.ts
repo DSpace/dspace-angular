@@ -25,7 +25,6 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   ObservedValueOf,
-  of as observableOf,
   of,
   Subscription,
 } from 'rxjs';
@@ -104,14 +103,14 @@ export interface EPersonListActionConfig {
   selector: 'ds-members-list',
   templateUrl: './members-list.component.html',
   imports: [
-    TranslateModule,
-    ContextHelpDirective,
-    ReactiveFormsModule,
-    PaginationComponent,
     AsyncPipe,
-    RouterLink,
-    NgClass,
     BtnDisabledDirective,
+    ContextHelpDirective,
+    NgClass,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -276,7 +275,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param possibleMember  EPerson that is a possible member (being tested) of the group currently being edited
    */
   isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   /**

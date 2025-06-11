@@ -10,7 +10,7 @@ import debounce from 'lodash/debounce';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -191,11 +191,13 @@ export class BrowserOrejimeService extends OrejimeService {
          */
         this.translateConfiguration();
 
-        this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
-
+        if (!environment.info?.enableCookieConsentPopup) {
+          this.orejimeConfig.apps = [];
+        } else {
+          this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
+        }
         this.applyUpdateSettingsCallbackToApps(user);
-
-        void this.lazyOrejime.then(({ init }) => {
+        this.lazyOrejime.then(({ init }) => {
           this.orejimeInstance = init(this.orejimeConfig);
         });
       });
@@ -229,13 +231,13 @@ export class BrowserOrejimeService extends OrejimeService {
    * Return saved preferences stored in the orejime cookie
    */
   getSavedPreferences(): Observable<any> {
-    return this.getUser$().pipe(
-      map((user: EPerson) => {
+    return this.getUserId$().pipe(
+      map((userId: string) => {
         let storageName;
-        if (isEmpty(user)) {
+        if (isEmpty(userId)) {
           storageName = ANONYMOUS_STORAGE_NAME_OREJIME;
         } else {
-          storageName = this.getStorageName(user.uuid);
+          storageName = this.getStorageName(userId);
         }
         return this.cookieService.get(storageName);
       }),
@@ -259,6 +261,24 @@ export class BrowserOrejimeService extends OrejimeService {
   }
 
   /**
+   * Retrieves the currently logged in user id
+   * Returns undefined when no one is logged in
+   */
+  private getUserId$() {
+    return this.authService.isAuthenticated()
+      .pipe(
+        take(1),
+        switchMap((loggedIn: boolean) => {
+          if (loggedIn) {
+            return this.authService.getAuthenticatedUserIdFromStore();
+          }
+          return of(undefined);
+        }),
+        take(1),
+      );
+  }
+
+  /**
    * Retrieves the currently logged in user
    * Returns undefined when no one is logged in
    */
@@ -270,7 +290,7 @@ export class BrowserOrejimeService extends OrejimeService {
           if (loggedIn) {
             return this.authService.getAuthenticatedUserFromStore();
           }
-          return observableOf(undefined);
+          return of(undefined);
         }),
         take(1),
       );
@@ -394,7 +414,7 @@ export class BrowserOrejimeService extends OrejimeService {
           if (isNotEmpty(operations)) {
             return this.ePersonService.patch(user, operations);
           }
-          return observableOf(undefined);
+          return of(undefined);
         },
         ),
       ).subscribe();

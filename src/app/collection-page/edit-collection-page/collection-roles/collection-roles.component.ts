@@ -27,8 +27,8 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-collection-roles',
   templateUrl: './collection-roles.component.html',
   imports: [
-    ComcolRoleComponent,
     AsyncPipe,
+    ComcolRoleComponent,
   ],
   standalone: true,
 })

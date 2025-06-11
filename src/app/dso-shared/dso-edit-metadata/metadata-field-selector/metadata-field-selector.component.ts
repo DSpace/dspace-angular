@@ -43,6 +43,7 @@ import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RegistryService } from '../../../core/registry/registry.service';
 import {
   getAllSucceededRemoteData,
@@ -60,7 +61,16 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, AsyncPipe, TranslateModule, ThemedLoadingComponent, InfiniteScrollModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    FormsModule,
+    InfiniteScrollModule,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying a searchable input for metadata-fields
@@ -153,7 +163,10 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
   /**
    * Default page option for this feature
    */
-  pageOptions = { elementsPerPage: 20, sort: new SortOptions('fieldName', SortDirection.ASC) };
+  pageOptions: FindListOptions = {
+    elementsPerPage: 20,
+    sort: new SortOptions('fieldName', SortDirection.ASC),
+  };
 
 
   constructor(protected registryService: RegistryService,
@@ -209,7 +222,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * Upon subscribing to the returned observable, the showInvalid flag is updated accordingly to show the feedback under the input
    */
   validate(): Observable<boolean> {
-    return this.registryService.queryMetadataFields(this.mdField, null, true, false, followLink('schema')).pipe(
+    return this.registryService.queryMetadataFields(this.mdField, Object.assign({}, this.pageOptions, { currentPage: 1 }), true, false, followLink('schema')).pipe(
       getFirstCompletedRemoteData(),
       switchMap((rd) => {
         if (rd.hasSucceeded) {
@@ -263,9 +276,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * @param useCache Whether or not to use the cache
    */
   search(query: string, page: number, useCache: boolean = true)  {
-    return this.registryService.queryMetadataFields(query,{
-      elementsPerPage: this.pageOptions.elementsPerPage, sort: this.pageOptions.sort,
-      currentPage: page }, useCache, false, followLink('schema'))
+    return this.registryService.queryMetadataFields(query, Object.assign({}, this.pageOptions, { currentPage: page }), useCache, false, followLink('schema'))
       .pipe(
         getAllSucceededRemoteData(),
         metadataFieldsToString(),

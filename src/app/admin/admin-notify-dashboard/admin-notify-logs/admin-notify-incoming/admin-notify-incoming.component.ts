@@ -20,8 +20,8 @@ import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admi
   ],
   standalone: true,
   imports: [
-    RouterLink,
     AdminNotifyLogsResultComponent,
+    RouterLink,
     TranslateModule,
   ],
 })

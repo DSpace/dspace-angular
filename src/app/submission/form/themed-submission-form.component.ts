@@ -15,7 +15,9 @@ import { SubmissionFormComponent } from './submission-form.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SubmissionFormComponent],
+  imports: [
+    SubmissionFormComponent,
+  ],
 })
 export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFormComponent> {
   @Input() collectionId: string;

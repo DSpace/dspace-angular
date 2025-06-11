@@ -11,7 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -59,12 +59,12 @@ import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/
   templateUrl: './submission-form.component.html',
   imports: [
     CommonModule,
-    ThemedLoadingComponent,
-    ThemedSubmissionSectionContainerComponent,
-    ThemedSubmissionFormFooterComponent,
-    ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormSectionAddComponent,
+    ThemedLoadingComponent,
+    ThemedSubmissionFormFooterComponent,
+    ThemedSubmissionSectionContainerComponent,
+    ThemedSubmissionUploadFilesComponent,
     TranslatePipe,
   ],
   standalone: true,
@@ -126,7 +126,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * A boolean representing if a submission form is pending
    * @type {Observable<boolean>}
    */
-  public isLoading$: Observable<boolean> = observableOf(true);
+  public isLoading$: Observable<boolean> = of(true);
 
   /**
    * Emits true when the submission config has bitstream uploading enabled in submission
@@ -192,7 +192,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           if (!isLoading) {
             return this.getSectionsList();
           } else {
-            return observableOf([]);
+            return of([]);
           }
         }));
       this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
@@ -288,13 +288,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    *    new submission object
    */
   onCollectionChange(submissionObject: SubmissionObject) {
-    this.collectionId = (submissionObject.collection as Collection).id;
     if (this.definitionId !== (submissionObject.submissionDefinition as SubmissionDefinitionsModel).name) {
       this.sections = submissionObject.sections;
       this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
       this.definitionId = this.submissionDefinition.name;
       this.submissionService.resetSubmissionObject(
-        this.collectionId,
+        (submissionObject.collection as Collection).id,
         this.submissionId,
         submissionObject._links.self.href,
         this.submissionDefinition,

@@ -9,7 +9,7 @@ import {
 } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import {
@@ -179,7 +179,7 @@ describe('MenuService', () => {
     };
 
     router = {
-      events: observableOf(new NavigationEnd(1, 'test-url', 'test-url')),
+      events: of(new NavigationEnd(1, 'test-url', 'test-url')),
     };
   }
 
@@ -311,7 +311,7 @@ describe('MenuService', () => {
 
   describe('isMenuCollapsed', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
+      spyOn(service, 'getMenu').and.returnValue(of(fakeMenu));
     });
     it('should return true when the menu is collapsed', () => {
 
@@ -326,7 +326,7 @@ describe('MenuService', () => {
 
   describe('isMenuPreviewCollapsed', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
+      spyOn(service, 'getMenu').and.returnValue(of(fakeMenu));
     });
     it('should return true when the menu\'s preview is collapsed', () => {
 
@@ -349,7 +349,7 @@ describe('MenuService', () => {
         previewCollapsed: false,
         sectionToSubsectionIndex: {},
       } as any;
-      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+      spyOn(service, 'getMenu').and.returnValue(of(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
@@ -377,7 +377,7 @@ describe('MenuService', () => {
           'section_2': ['section_5'],
         },
       } as any;
-      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+      spyOn(service, 'getMenu').and.returnValue(of(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
@@ -406,7 +406,7 @@ describe('MenuService', () => {
           'section_2': ['section_5'],
         },
       } as any;
-      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+      spyOn(service, 'getMenu').and.returnValue(of(testMenu));
 
       const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
       const expected = cold('(b|)', {
@@ -419,7 +419,7 @@ describe('MenuService', () => {
 
   describe('isMenuVisible', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
+      spyOn(service, 'getMenu').and.returnValue(of(fakeMenu));
 
     });
     it('should return false when the menu is hidden', () => {
@@ -435,7 +435,7 @@ describe('MenuService', () => {
 
   describe('isSectionActive', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1 as MenuSection));
+      spyOn(service, 'getMenuSection').and.returnValue(of(visibleSection1 as MenuSection));
     });
 
     it('should return false when the section is not active', () => {
@@ -450,7 +450,7 @@ describe('MenuService', () => {
 
   describe('isSectionVisible', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenuSection').and.returnValue(observableOf(hiddenSection3 as MenuSection));
+      spyOn(service, 'getMenuSection').and.returnValue(of(hiddenSection3 as MenuSection));
     });
 
     it('should return false when the section is hidden', () => {

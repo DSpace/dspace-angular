@@ -53,7 +53,13 @@ import { GroupSearchBoxComponent } from './group-search-box/group-search-box.com
     fadeInOut,
   ],
   standalone: true,
-  imports: [EpersonSearchBoxComponent, GroupSearchBoxComponent, PaginationComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    EpersonSearchBoxComponent,
+    GroupSearchBoxComponent,
+    PaginationComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component that shows a list of eperson or group

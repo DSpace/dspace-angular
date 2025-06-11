@@ -11,7 +11,9 @@ import { SubmissionFormFooterComponent } from './submission-form-footer.componen
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SubmissionFormFooterComponent],
+  imports: [
+    SubmissionFormFooterComponent,
+  ],
 })
 export class ThemedSubmissionFormFooterComponent extends ThemedComponent<SubmissionFormFooterComponent> {
   @Input() submissionId: string;

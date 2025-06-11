@@ -16,7 +16,10 @@ import { OnClickMenuItemModel } from './models/onclick.model';
   styleUrls: ['./menu-item.component.scss', './onclick-menu-item.component.scss'],
   templateUrl: './onclick-menu-item.component.html',
   standalone: true,
-  imports: [TranslateModule, RouterLinkActive],
+  imports: [
+    RouterLinkActive,
+    TranslateModule,
+  ],
 })
 export class OnClickMenuItemComponent {
   item: OnClickMenuItemModel;

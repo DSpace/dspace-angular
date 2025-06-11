@@ -16,7 +16,9 @@ import { MediaViewerVideoComponent } from './media-viewer-video.component';
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [MediaViewerVideoComponent],
+  imports: [
+    MediaViewerVideoComponent,
+  ],
 })
 export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewerVideoComponent> {
 

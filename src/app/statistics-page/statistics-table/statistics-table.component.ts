@@ -18,7 +18,10 @@ import { UsageReport } from '../../core/statistics/models/usage-report.model';
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class StatisticsTableComponent implements OnInit {
 

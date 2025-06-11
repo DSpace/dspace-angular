@@ -15,7 +15,9 @@ import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [MyDSpaceStatusBadgeComponent],
+  imports: [
+    MyDSpaceStatusBadgeComponent,
+  ],
 })
 export class ThemedMyDSpaceStatusBadgeComponent extends ThemedComponent<MyDSpaceStatusBadgeComponent> {
   @Input() context: Context;

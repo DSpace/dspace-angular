@@ -28,12 +28,12 @@ import { rendersSectionType } from '../sections-decorator';
   styleUrls: ['./section-container.component.scss'],
   imports: [
     AlertComponent,
-    NgbAccordionModule,
-    NgComponentOutlet,
-    TranslateModule,
-    NgClass,
     AsyncPipe,
+    NgbAccordionModule,
+    NgClass,
+    NgComponentOutlet,
     SectionsDirective,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -28,8 +28,8 @@ describe('CreateCommunityPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, CreateCommunityPageComponent],
       providers: [
-        { provide: CommunityDataService, useValue: { findById: () => observableOf({}) } },
-        { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
+        { provide: CommunityDataService, useValue: { findById: () => of({}) } },
+        { provide: RouteService, useValue: { getQueryParameterValue: () => of('1234') } },
         { provide: Router, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RequestService, useValue: {} },

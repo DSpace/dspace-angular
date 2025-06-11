@@ -11,7 +11,9 @@ import { PageNotFoundComponent } from './pagenotfound.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [PageNotFoundComponent],
+  imports: [
+    PageNotFoundComponent,
+  ],
 })
 export class ThemedPageNotFoundComponent extends ThemedComponent<PageNotFoundComponent> {
 

@@ -23,15 +23,15 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    FormComponent,
-    VarDirective,
-    ThemedThumbnailComponent,
     AsyncPipe,
-    RouterLink,
     ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
     FileSizePipe,
+    FormComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class EditBitstreamPageComponent extends BaseComponent {

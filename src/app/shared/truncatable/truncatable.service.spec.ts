@@ -3,7 +3,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   TruncatableCollapseAction,
@@ -20,7 +20,7 @@ describe('TruncatableService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true),
+    select: of(true),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

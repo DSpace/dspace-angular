@@ -25,8 +25,8 @@ import { hasValue } from '../../../shared/empty.util';
   templateUrl: './media-viewer-image.component.html',
   styleUrls: ['./media-viewer-image.component.scss'],
   imports: [
-    NgxGalleryModule,
     AsyncPipe,
+    NgxGalleryModule,
   ],
   standalone: true,
 })

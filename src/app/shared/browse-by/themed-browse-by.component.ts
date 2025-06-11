@@ -26,7 +26,9 @@ import { BrowseByComponent } from './browse-by.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [BrowseByComponent],
+  imports: [
+    BrowseByComponent,
+  ],
 })
 export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> {
 

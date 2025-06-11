@@ -13,7 +13,9 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   styleUrls: ['./community-list-element.component.scss'],
   templateUrl: './community-list-element.component.html',
   standalone: true,
-  imports: [RouterLink],
+  imports: [
+    RouterLink,
+  ],
 })
 /**
  * Component representing a list element for a community

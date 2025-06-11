@@ -13,8 +13,14 @@ import { VarDirective } from '../../../../../../app/shared/utils/var.directive';
   // templateUrl: './metadata-representation-list.component.html'
   templateUrl: '../../../../../../app/item-page/simple/metadata-representation-list/metadata-representation-list.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, VarDirective, MetadataRepresentationLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    MetadataFieldWrapperComponent,
+    MetadataRepresentationLoaderComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class MetadataRepresentationListComponent extends BaseComponent {
-
 }

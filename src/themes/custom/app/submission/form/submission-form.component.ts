@@ -19,12 +19,12 @@ import { ThemedSubmissionSectionContainerComponent } from '../../../../../app/su
   standalone: true,
   imports: [
     CommonModule,
-    ThemedLoadingComponent,
-    ThemedSubmissionSectionContainerComponent,
-    ThemedSubmissionFormFooterComponent,
-    ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormSectionAddComponent,
+    ThemedLoadingComponent,
+    ThemedSubmissionFormFooterComponent,
+    ThemedSubmissionSectionContainerComponent,
+    ThemedSubmissionUploadFilesComponent,
     TranslatePipe,
   ],
 })

@@ -42,7 +42,11 @@ import { SearchFilter } from '../models/search-filter.model';
   styleUrls: ['./search-export-csv.component.scss'],
   templateUrl: './search-export-csv.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Display a button to export the current search results as csv

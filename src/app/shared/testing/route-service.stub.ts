@@ -1,6 +1,6 @@
 import {
   EMPTY,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 export const routeServiceStub: any = {
@@ -18,28 +18,28 @@ export const routeServiceStub: any = {
     return EMPTY;
   },
   getQueryParameterValues: (param: string) => {
-    return observableOf({});
+    return of({});
   },
   getQueryParamsWithPrefix: (param: string) => {
-    return observableOf({});
+    return of({});
   },
   getQueryParamMap: () => {
-    return observableOf(new Map());
+    return of(new Map());
   },
   getQueryParameterValue: () => {
-    return observableOf({});
+    return of({});
   },
   getRouteParameterValue: (param) => {
-    return observableOf('');
+    return of('');
   },
   getRouteDataValue: (param) => {
-    return observableOf({});
+    return of({});
   },
   getHistory: () => {
-    return observableOf(['/home', '/collection/123', '/home']);
+    return of(['/home', '/collection/123', '/home']);
   },
   getPreviousUrl: () => {
-    return observableOf('/home');
+    return of('/home');
   },
   setParameter: (key: any, value: any) => {
     return;

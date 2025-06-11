@@ -37,7 +37,15 @@ import { InputSuggestionsComponent } from '../input-suggestions.component';
     },
   ],
   standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, ListableObjectComponentLoaderComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    TranslateModule,
+  ],
 })
 
 /**

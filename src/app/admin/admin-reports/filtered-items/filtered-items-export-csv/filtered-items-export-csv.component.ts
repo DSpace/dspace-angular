@@ -35,7 +35,11 @@ import { QueryPredicate } from '../query-predicate.model';
   styleUrls: ['./filtered-items-export-csv.component.scss'],
   templateUrl: './filtered-items-export-csv.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Display a button to export the MetadataQuery (aka Filtered Items) Report results as csv

@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { AuthService } from '../../../auth/auth.service';
@@ -34,7 +34,7 @@ describe('SomeFeatureAuthorizationGuard', () => {
 
     authorizationService = Object.assign({
       isAuthorized(featureId?: FeatureID): Observable<boolean> {
-        return observableOf(authorizedFeatureIds.indexOf(featureId) > -1);
+        return of(authorizedFeatureIds.indexOf(featureId) > -1);
       },
     });
 
@@ -43,7 +43,7 @@ describe('SomeFeatureAuthorizationGuard', () => {
     });
 
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
 
     TestBed.configureTestingModule({
@@ -69,9 +69,9 @@ describe('SomeFeatureAuthorizationGuard', () => {
 
         const result$ = TestBed.runInInjectionContext(() => {
           return someFeatureAuthorizationGuard(
-            () => observableOf(featureIds),
-            () => observableOf(objectUrl),
-            () => observableOf(ePersonUuid),
+            () => of(featureIds),
+            () => of(objectUrl),
+            () => of(ePersonUuid),
           )(undefined, { url: 'current-url' } as any);
         }) as Observable<boolean | UrlTree>;
 
@@ -91,9 +91,9 @@ describe('SomeFeatureAuthorizationGuard', () => {
 
         const result$ = TestBed.runInInjectionContext(() => {
           return someFeatureAuthorizationGuard(
-            () => observableOf(featureIds),
-            () => observableOf(objectUrl),
-            () => observableOf(ePersonUuid),
+            () => of(featureIds),
+            () => of(objectUrl),
+            () => of(ePersonUuid),
           )(undefined, { url: 'current-url' } as any);
         }) as Observable<boolean | UrlTree>;
 
@@ -113,9 +113,9 @@ describe('SomeFeatureAuthorizationGuard', () => {
 
         const result$ = TestBed.runInInjectionContext(() => {
           return someFeatureAuthorizationGuard(
-            () => observableOf(featureIds),
-            () => observableOf(objectUrl),
-            () => observableOf(ePersonUuid),
+            () => of(featureIds),
+            () => of(objectUrl),
+            () => of(ePersonUuid),
           )(undefined, { url: 'current-url' } as any);
         }) as Observable<boolean | UrlTree>;
 

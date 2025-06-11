@@ -63,10 +63,10 @@ export enum ImportType {
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
   templateUrl: './external-source-entry-import-modal.component.html',
   imports: [
-    TranslateModule,
-    ThemedSearchResultsComponent,
     AsyncPipe,
     BtnDisabledDirective,
+    ThemedSearchResultsComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

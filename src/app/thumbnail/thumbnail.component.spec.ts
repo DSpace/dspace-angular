@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
@@ -54,15 +54,15 @@ describe('ThumbnailComponent', () => {
   describe('when platform is browser', () => {
     beforeEach(waitForAsync(() => {
       authService = jasmine.createSpyObj('AuthService', {
-        isAuthenticated: observableOf(true),
+        isAuthenticated: of(true),
       });
       authorizationService = jasmine.createSpyObj('AuthorizationService', {
-        isAuthorized: observableOf(true),
+        isAuthorized: of(true),
       });
       fileService = jasmine.createSpyObj('FileService', {
         retrieveFileDownloadLink: null,
       });
-      fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
+      fileService.retrieveFileDownloadLink.and.callFake((url) => of(`${url}?authentication-token=fake`));
 
       TestBed.configureTestingModule({
         imports: [
@@ -180,7 +180,7 @@ describe('ThumbnailComponent', () => {
 
         describe('if not logged in', () => {
           beforeEach(() => {
-            authService.isAuthenticated.and.returnValue(observableOf(false));
+            authService.isAuthenticated.and.returnValue(of(false));
           });
 
           it('should fall back to default', () => {
@@ -191,12 +191,12 @@ describe('ThumbnailComponent', () => {
 
         describe('if logged in', () => {
           beforeEach(() => {
-            authService.isAuthenticated.and.returnValue(observableOf(true));
+            authService.isAuthenticated.and.returnValue(of(true));
           });
 
           describe('and authorized to download the thumbnail', () => {
             beforeEach(() => {
-              authorizationService.isAuthorized.and.returnValue(observableOf(true));
+              authorizationService.isAuthorized.and.returnValue(of(true));
             });
 
             it('should add an authentication token to the thumbnail URL', () => {
@@ -213,7 +213,7 @@ describe('ThumbnailComponent', () => {
 
           describe('but not authorized to download the thumbnail', () => {
             beforeEach(() => {
-              authorizationService.isAuthorized.and.returnValue(observableOf(false));
+              authorizationService.isAuthorized.and.returnValue(of(false));
             });
 
             it('should fall back to default', () => {
@@ -373,15 +373,15 @@ describe('ThumbnailComponent', () => {
     beforeEach(waitForAsync(() => {
 
       authService = jasmine.createSpyObj('AuthService', {
-        isAuthenticated: observableOf(true),
+        isAuthenticated: of(true),
       });
       authorizationService = jasmine.createSpyObj('AuthorizationService', {
-        isAuthorized: observableOf(true),
+        isAuthorized: of(true),
       });
       fileService = jasmine.createSpyObj('FileService', {
         retrieveFileDownloadLink: null,
       });
-      fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
+      fileService.retrieveFileDownloadLink.and.callFake((url) => of(`${url}?authentication-token=fake`));
 
       TestBed.configureTestingModule({
         imports: [

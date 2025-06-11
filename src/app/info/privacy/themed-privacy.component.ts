@@ -11,7 +11,9 @@ import { PrivacyComponent } from './privacy.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [PrivacyComponent],
+  imports: [
+    PrivacyComponent,
+  ],
 })
 export class ThemedPrivacyComponent extends ThemedComponent<PrivacyComponent> {
   protected getComponentName(): string {

@@ -39,8 +39,8 @@ import { SuggestionTargetsStateService } from '../targets/suggestion-targets.sta
   ],
   imports: [
     AsyncPipe,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })
