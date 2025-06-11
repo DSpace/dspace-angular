@@ -542,7 +542,7 @@ describe('EPersonFormComponent', () => {
       const group = { id: 'group1' } as any;
       const activeEPerson = EPersonMock;
 
-      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(activeEPerson));
+      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(of(activeEPerson));
       (groupsDataService.deleteMemberFromGroup as jasmine.Spy)
         .and.returnValue(createSuccessfulRemoteDataObject$(null));
 

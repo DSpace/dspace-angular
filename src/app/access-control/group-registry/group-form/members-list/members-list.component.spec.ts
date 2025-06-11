@@ -108,7 +108,7 @@ describe('MembersListComponent', () => {
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       },
       searchMembers(query: string, groupId: string, pagination, exact: boolean, currentMembers: boolean) {
-        return observableOf(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
+        return of(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
       },
       clearEPersonRequests() {
         // empty
@@ -303,7 +303,7 @@ describe('MembersListComponent', () => {
       comp.groupBeingEdited = fakeGroup;
       comp.ePersonDataService.searchMembers.and.returnValue(fakeResponse);
 
-      spyOn(comp, 'isMemberOfGroup').and.returnValue(observableOf(true));
+      spyOn(comp, 'isMemberOfGroup').and.returnValue(of(true));
       const groupSpy = spyOn(comp.ePeopleMembersOfGroup, 'next');
 
       comp.searchMembers({ queryCurrentMembers: 'John' });
