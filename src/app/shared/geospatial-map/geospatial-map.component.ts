@@ -134,6 +134,9 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
   private initMap(): void {
     // 'Import' leaflet packages in a browser-mode-only way to avoid issues with SSR
     const L = require('leaflet'); require('leaflet.markercluster'); require('leaflet-providers');
+
+    console.log(`GeospatialMapComponent.initMap()`, L); // todo: remove this
+
     // Set better default icons
     L.Icon.Default.mergeOptions({
       iconRetinaUrl: 'assets/images/marker-icon-2x.png',
