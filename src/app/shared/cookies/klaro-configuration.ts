@@ -2,6 +2,7 @@ import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
 import { CAPTCHA_COOKIE, CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import { ACCESSIBILITY_COOKIE } from '../../accessibility/accessibility-settings.service';
 
 /**
  * Cookie for has_agreed_end_user
@@ -197,6 +198,13 @@ export const klaroConfiguration: any = {
       onAccept: `window.refreshCaptchaScript?.call()`,
       onDecline: `window.refreshCaptchaScript?.call()`,
       onlyOnce: true,
-    }
+    },
+    {
+      name: 'accessibility',
+      purposes: ['functional'],
+      required: false,
+      cookies: [ACCESSIBILITY_COOKIE],
+      onlyOnce: false,
+    },
   ],
 };

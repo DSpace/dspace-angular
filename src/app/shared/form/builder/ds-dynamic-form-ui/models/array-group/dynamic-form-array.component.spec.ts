@@ -32,6 +32,8 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { DsDynamicFormArrayComponent } from './dynamic-form-array.component';
 import { UUIDService } from '../../../../../../core/shared/uuid.service';
 import { TranslateLoaderMock } from '../../../../../mocks/translate-loader.mock';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 
 describe('DsDynamicFormArrayComponent', () => {
   const translateServiceStub = {
@@ -73,6 +75,7 @@ describe('DsDynamicFormArrayComponent', () => {
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: UUIDService, useValue: uuidServiceStub },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
     }).overrideComponent(DsDynamicFormArrayComponent, {
       remove: {
