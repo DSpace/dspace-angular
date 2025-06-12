@@ -14,7 +14,10 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { hasValue } from '../../shared/empty.util';
@@ -47,6 +50,8 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
 
   isProcessingSub: Subscription;
 
+  isProcessing$: Observable<boolean>;
+
   constructor(protected processOverviewService: ProcessOverviewService,
               protected modalService: NgbModal,
               public processBulkDeleteService: ProcessBulkDeleteService,
@@ -55,6 +60,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.processBulkDeleteService.clearAllProcesses();
+    this.isProcessing$ = this.processBulkDeleteService.isProcessing$();
   }
 
   ngOnDestroy(): void {
