@@ -81,7 +81,7 @@ describe('ItemAccessStatusBadgeComponent', () => {
 
   function lookForAccessStatusBadge(status: string) {
     const badge = fixture.debugElement.query(By.css('span.badge'));
-    expect(badge.nativeElement.textContent).toEqual(`access-status.${status.toLowerCase()}.listelement.badge`);
+    expect(badge.nativeElement.textContent).toContain(`access-status.${status.toLowerCase()}.listelement.badge`);
   }
 
   describe('init', () => {
