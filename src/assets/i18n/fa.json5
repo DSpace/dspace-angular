@@ -283,268 +283,202 @@
   "admin.registries.schema.fields.deselect": "لغو انتخاب",
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.head": "Schema metadata fields",
+  "admin.registries.schema.fields.head": "فیلدهای طرحواره ابرداده",
 
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.no-items": "No metadata fields to show.",
+  "admin.registries.schema.fields.no-items": "فیلد ابرداده برای نمایش وجود ندارد.",
 
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.delete": "Delete selected",
+  "admin.registries.schema.fields.table.delete": "حذف انتخاب شده",
 
   // "admin.registries.schema.fields.table.field": "Field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.field": "Field",
+  "admin.registries.schema.fields.table.field": "فیلد",
 
   // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  "admin.registries.schema.fields.table.selected": "فیلدهای ابرداده انتخاب شده",
 
   // "admin.registries.schema.fields.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.scopenote": "Scope Note",
+  "admin.registries.schema.fields.table.scopenote": "یادداشت دامنه",
 
   // "admin.registries.schema.form.create": "Create metadata field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.create": "Create metadata field",
+  "admin.registries.schema.form.create": "ایجاد فیلد ابرداده",
 
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.edit": "Edit metadata field",
+  "admin.registries.schema.form.edit": "ویرایش فیلد ابرداد",
 
   // "admin.registries.schema.form.element": "Element",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.element": "Element",
+  "admin.registries.schema.form.element": "عنصر",
 
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  // TODO New key - Add a translation
   "admin.registries.schema.form.qualifier": "Qualifier",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.scopenote": "Scope Note",
+  "admin.registries.schema.form.scopenote": "یادداشت دامنه",
 
   // "admin.registries.schema.head": "Metadata Schema",
-  // TODO New key - Add a translation
-  "admin.registries.schema.head": "Metadata Schema",
+  "admin.registries.schema.head": "طرحواره ابرداده",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.created": "طرحواره ابرداده با موفقیت ایجاد شد \"{{prefix}}\"",
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.failure": "حذف {{amount}} طرحواره ابرداده ناموفق بود",
 
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.success": "حذف {{amount}} طرحواره ابرداده با موفقیت انجام شد",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.edited": "ویرایش طرحواره ابرداده با موفقیت انجام شد \"{{prefix}}\"",
 
   // "admin.registries.schema.notification.failure": "Error",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.failure": "Error",
+  "admin.registries.schema.notification.failure": "خطا",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.created": "فیلد ابرداده با موفقیت ایجاد شد \"{{field}}\"",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.failure": "حذف {{amount}} فیلد ابرداده ناموفق بود",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.success": " حذف{{amount}} فیلد ابرداده با موفقیت انجام شد",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.edited": "فیلد ابرداده با موفقیت ویرایش شد \"{{field}}\"",
 
   // "admin.registries.schema.notification.success": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.success": "Success",
+  "admin.registries.schema.notification.success": "موفق",
 
   // "admin.registries.schema.return": "Back",
-  // TODO New key - Add a translation
-  "admin.registries.schema.return": "Back",
+  "admin.registries.schema.return": "برگشت",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
-  // TODO New key - Add a translation
-  "admin.registries.schema.title": "Metadata Schema Registry",
+  "admin.registries.schema.title": "ثبت طرحواره ابرداده",
 
   // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+  "admin.access-control.bulk-access.breadcrumbs": "مدیریت دسترسی انبوه",
 
   // "administrativeBulkAccess.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "administrativeBulkAccess.search.results.head": "Search Results",
+  "administrativeBulkAccess.search.results.head": "نتایج جستجو",
 
   // "admin.access-control.bulk-access": "Bulk Access Management",
-  // TODO New key - Add a translation
   "admin.access-control.bulk-access": "Bulk Access Management",
 
   // "admin.access-control.bulk-access.title": "Bulk Access Management",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access.title": "Bulk Access Management",
+  "admin.access-control.bulk-access.title": "مدیریت دسترسی انبوه",
 
   // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+  "admin.access-control.bulk-access-browse.header": "گام 1: انتخاب موارد",
 
   // "admin.access-control.bulk-access-browse.search.header": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-browse.search.header": "Search",
+  "admin.access-control.bulk-access-browse.search.header": "جستجو",
 
   // "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+  "admin.access-control.bulk-access-browse.selected.header": "انتخاب جاری({{number}})",
 
   // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+  "admin.access-control.bulk-access-settings.header": "گام 2: عملیات اجرا",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+  "admin.access-control.epeople.actions.delete": "حذف شخص(EPerson)",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+  "admin.access-control.epeople.actions.impersonate": "تغییر هویت شخص (EPerson)",
 
   // "admin.access-control.epeople.actions.reset": "Reset password",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
+  "admin.access-control.epeople.actions.reset": "بازگردانی رمز",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+  "admin.access-control.epeople.actions.stop-impersonating": "توقف تغییر هویت شخص (EPerson)",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.breadcrumbs": "EPeople",
+  "admin.access-control.epeople.breadcrumbs": "افراد (EPeople)",
 
   // "admin.access-control.epeople.title": "EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.title": "EPeople",
+  "admin.access-control.epeople.title": "افراد (EPeople)",
 
   // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "شخص جدید (EPerson)",
 
   // "admin.access-control.epeople.edit.title": "New EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.edit.title": "New EPerson",
+  "admin.access-control.epeople.edit.title": "شخص جدید (EPerson)",
 
   // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+  "admin.access-control.epeople.add.breadcrumbs": "افزودن شخص (EPerson)",
 
   // "admin.access-control.epeople.add.title": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.add.title": "Add EPerson",
+  "admin.access-control.epeople.add.title": "افزودن شخص (EPerson)",
 
   // "admin.access-control.epeople.head": "EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.head": "EPeople",
+  "admin.access-control.epeople.head": "افراد (EPeople)",
 
   // "admin.access-control.epeople.search.head": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.head": "Search",
+  "admin.access-control.epeople.search.head": "جستجو",
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.see-all": "Browse All",
+  "admin.access-control.epeople.button.see-all": "مرور همه",
 
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+  "admin.access-control.epeople.search.scope.metadata": "ابرداده",
 
   // "admin.access-control.epeople.search.scope.email": "Email (exact)",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.scope.email": "Email (exact)",
+  "admin.access-control.epeople.search.scope.email": "ایمیل (دقیق)",
 
   // "admin.access-control.epeople.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.button": "Search",
+  "admin.access-control.epeople.search.button": "جستجو",
 
   // "admin.access-control.epeople.search.placeholder": "Search people...",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.search.placeholder": "Search people...",
+  "admin.access-control.epeople.search.placeholder": "جستجوی افراد...",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.button.add": "Add EPerson",
+  "admin.access-control.epeople.button.add": "افزودن شخص (EPerson)",
 
   // "admin.access-control.epeople.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.table.id": "ID",
 
   // "admin.access-control.epeople.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.name": "Name",
+  "admin.access-control.epeople.table.name": "نام",
 
   // "admin.access-control.epeople.table.email": "Email (exact)",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.email": "Email (exact)",
+  "admin.access-control.epeople.table.email": "Eایمیل (دقیق)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit": "Edit",
+  "admin.access-control.epeople.table.edit": "ویرایش",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.edit": "ویرایش \"{{name}}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
+  "admin.access-control.epeople.table.edit.buttons.edit-disabled": "شما مجاز به ویرایش این گروه نیستسد",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove": "حذف \"{{name}}\"",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.no-items": "No EPeople to show.",
+  "admin.access-control.epeople.no-items": "افرادی برای نماش وجود (EPeople) ندارد.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.create": "Create EPerson",
+  "admin.access-control.epeople.form.create": "ایجاد شخص (EPerson)",
 
   // "admin.access-control.epeople.form.edit": "Edit EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.edit": "Edit EPerson",
+  "admin.access-control.epeople.form.edit": "ویرایش شخص (EPerson)",
 
   // "admin.access-control.epeople.form.firstName": "First name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "نام",
 
   // "admin.access-control.epeople.form.lastName": "Last name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "نام خانوادگی",
 
   // "admin.access-control.epeople.form.email": "Email",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.email": "Email",
+  "admin.access-control.epeople.form.email": "ایمیل",
 
   // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
+  "admin.access-control.epeople.form.emailHint": "باید یک ایمیل معتبر باشد",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.canLogIn": "Can log in",
+  "admin.access-control.epeople.form.canLogIn": "میتوانید وارد شوید",
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
   // TODO New key - Add a translation
@@ -659,8 +593,7 @@
   "admin.access-control.groups.button.see-all": "Browse all",
 
   // "admin.access-control.groups.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.button": "Search",
+  "admin.access-control.groups.search.button": "جستجو",
 
   // "admin.access-control.groups.search.placeholder": "Search groups...",
   // TODO New key - Add a translation
@@ -811,8 +744,7 @@
   "admin.access-control.groups.form.members-list.headMembers": "Current Members",
 
   // "admin.access-control.groups.form.members-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.button": "Search",
+  "admin.access-control.groups.form.members-list.search.button": "جستجو",
 
   // "admin.access-control.groups.form.members-list.table.id": "ID",
   // TODO New key - Add a translation
@@ -895,8 +827,7 @@
   "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
 
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.button": "Search",
+  "admin.access-control.groups.form.subgroups-list.search.button": "جستجو",
 
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
   // TODO New key - Add a translation
@@ -4261,24 +4192,19 @@
   "home.description": "",
 
   // "home.breadcrumbs": "Home",
-  // TODO New key - Add a translation
-  "home.breadcrumbs": "Home",
+  "home.breadcrumbs": "صفحه اول",
 
   // "home.search-form.placeholder": "Search the repository ...",
-  // TODO New key - Add a translation
-  "home.search-form.placeholder": "Search the repository ...",
+  "home.search-form.placeholder": "جستجوی مخزن ...",
 
   // "home.title": "Home",
-  // TODO New key - Add a translation
-  "home.title": "Home",
+  "home.title": "صفحه اول",
 
   // "home.top-level-communities.head": "Communities in DSpace",
-  // TODO New key - Add a translation
-  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.head": "جامعه ها در دی اسپیس",
 
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  // TODO New key - Add a translation
-  "home.top-level-communities.help": "Select a community to browse its collections.",
+  "home.top-level-communities.help": "یک جامعه را برای مرور مجموعه های آن انتخاب کنید.",
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   // TODO New key - Add a translation
@@ -6554,15 +6480,15 @@
 
   // "login.form.submit": "Log in",
   // TODO New key - Add a translation
-  "login.form.submit": "Log in",
+  "login.form.submit": "ورود",
 
   // "login.title": "Login",
   // TODO New key - Add a translation
-  "login.title": "Login",
+  "login.title": "ورود",
 
   // "login.breadcrumbs": "Login",
   // TODO New key - Add a translation
-  "login.breadcrumbs": "Login",
+  "login.breadcrumbs": "ورود",
 
   // "logout.form.header": "Log out from DSpace",
   // TODO New key - Add a translation
@@ -6645,12 +6571,10 @@
   "menu.section.browse_community_by_title": "By Title",
 
   // "menu.section.browse_global": "All of DSpace",
-  // TODO New key - Add a translation
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.browse_global": "همه دی اسپیس",
 
   // "menu.section.browse_global_by_author": "By Author",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_author": "By Author",
+  "menu.section.browse_global_by_author": "بانویسنده",
 
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
   // TODO New key - Add a translation
@@ -6674,7 +6598,7 @@
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+  "menu.section.browse_global_communities_and_collections": "جامعه ها و مجموعه ها",
 
   // "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
   // TODO New key - Add a translation
@@ -6861,12 +6785,10 @@
   "menu.section.registries_metadata": "Metadata",
 
   // "menu.section.statistics": "Statistics",
-  // TODO New key - Add a translation
-  "menu.section.statistics": "Statistics",
+  "menu.section.statistics": "آمارها",
 
   // "menu.section.statistics_task": "Statistics Task",
-  // TODO New key - Add a translation
-  "menu.section.statistics_task": "Statistics Task",
+  "menu.section.statistics_task": "کارهای آماری",
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
   // TODO New key - Add a translation
@@ -7130,7 +7052,7 @@
 
   // "nav.login": "Log In",
   // TODO New key - Add a translation
-  "nav.login": "Log In",
+  "nav.login": "ورود",
 
   // "nav.user-profile-menu-and-logout": "User profile menu and log out",
   // TODO New key - Add a translation
@@ -7161,8 +7083,7 @@
   "nav.search.button": "Submit search",
 
   // "nav.statistics.header": "Statistics",
-  // TODO New key - Add a translation
-  "nav.statistics.header": "Statistics",
+  "nav.statistics.header": "آمارها",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   // TODO New key - Add a translation
@@ -8841,16 +8762,13 @@
   "search.switch-configuration.title": "Show",
 
   // "search.title": "Search",
-  // TODO New key - Add a translation
-  "search.title": "Search",
+  "search.title": "جستجو",
 
   // "search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
-  "search.breadcrumbs": "Search",
+  "search.breadcrumbs": "جستجو",
 
   // "search.search-form.placeholder": "Search the repository ...",
-  // TODO New key - Add a translation
-  "search.search-form.placeholder": "Search the repository ...",
+  "search.search-form.placeholder": "جستجوی مخزن...",
 
   // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
   // TODO New key - Add a translation
@@ -9628,16 +9546,13 @@
   "sorting.person.birthDate.DESC": "Birth Date Descending",
 
   // "statistics.title": "Statistics",
-  // TODO New key - Add a translation
-  "statistics.title": "Statistics",
+  "statistics.title": "آمارها",
 
   // "statistics.header": "Statistics for {{ scope }}",
-  // TODO New key - Add a translation
-  "statistics.header": "Statistics for {{ scope }}",
+  "statistics.header": "آمار برای {{ scope }}",
 
   // "statistics.breadcrumbs": "Statistics",
-  // TODO New key - Add a translation
-  "statistics.breadcrumbs": "Statistics",
+  "statistics.breadcrumbs": "آمارها",
 
   // "statistics.page.no-data": "No data available",
   // TODO New key - Add a translation
@@ -9784,16 +9699,13 @@
   "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
 
   // "submission.import-external.search.placeholder": "Search the external source",
-  // TODO New key - Add a translation
-  "submission.import-external.search.placeholder": "Search the external source",
+  "submission.import-external.search.placeholder": "جستجوی منبع خارجی",
 
   // "submission.import-external.search.button": "Search",
-  // TODO New key - Add a translation
-  "submission.import-external.search.button": "Search",
+  "submission.import-external.search.button": "جستجو",
 
   // "submission.import-external.search.button.hint": "Write some words to search",
-  // TODO New key - Add a translation
-  "submission.import-external.search.button.hint": "Write some words to search",
+  "submission.import-external.search.button.hint": "کلماتی برای جستجو بنویسید",
 
   // "submission.import-external.search.source.hint": "Pick an external source",
   // TODO New key - Add a translation
@@ -10196,28 +10108,22 @@
   "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
+  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "پرسش جستجو",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
+  "submission.sections.describe.relationship-lookup.search-tab.search": "برو",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "جستجوی...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
+  "submission.sections.describe.relationship-lookup.search-tab.select-all": "انتخاب همه",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
+  "submission.sections.describe.relationship-lookup.search-tab.select-page": "انتخاب صفحه",
 
   // "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
+  "submission.sections.describe.relationship-lookup.selected": "مورد {{ size }} انتخاب شده",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
   // TODO New key - Add a translation
