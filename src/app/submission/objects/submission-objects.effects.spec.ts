@@ -151,6 +151,7 @@ describe('SubmissionObjectEffects test suite', () => {
             sectionDefinition.header,
             config,
             sectionDefinition.mandatory,
+            sectionDefinition.scope,
             sectionDefinition.sectionType,
             sectionDefinition.visibility,
             enabled,
