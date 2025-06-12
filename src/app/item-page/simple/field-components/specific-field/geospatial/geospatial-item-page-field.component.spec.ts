@@ -63,13 +63,15 @@ describe('GeospatialItemPageFieldComponent', () => {
     fixture = TestBed.createComponent(GeospatialItemPageFieldComponent);
     comp = fixture.componentInstance;
     comp.item = mockItemWithMetadataFieldsAndValue([mockField], mockValue);
-    comp.fields = mockFields;
+    comp.pointFields = mockFields;
+    comp.bboxFields = mockFields;
     comp.label = mockLabel;
 
     fixture.detectChanges();
   }));
 
   it('should initialize a map from passed points', () => {
-    expect(fixture.nativeElement.querySelector('ds-geospatial-map[ng-reflect-coordinates="Point ( +174.000000 -042.00000"]')).toBeTruthy();
+    expect(comp.bboxes).toContain(mockValue);
+    expect(comp.points).toContain(mockValue);
   });
 });
