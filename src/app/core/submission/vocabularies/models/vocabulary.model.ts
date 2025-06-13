@@ -65,6 +65,14 @@ export class Vocabulary implements CacheableObject {
   @autoserialize
   externalSource: VocabularyExternalSourceMap;
 
+
+  /**
+   * A boolean variable that indicates whether the functionality of
+   * multiple value generation is enabled within a generator context.
+   */
+  @autoserialize
+  multiValueOnGenerator: boolean;
+
   /**
    * A string representing the kind of Vocabulary model
    */

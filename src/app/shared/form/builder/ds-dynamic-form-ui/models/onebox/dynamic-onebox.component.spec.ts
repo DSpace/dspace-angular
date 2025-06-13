@@ -81,7 +81,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
   let scheduler: TestScheduler;
   let testComp: TestComponent;
-  let oneboxComponent: DsDynamicOneboxComponent;
+  let oneboxComponent: DsDynamicOneboxComponent|any;
   let testFixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
   let oneboxCompFixture: ComponentFixture<DsDynamicOneboxComponent>;
@@ -548,6 +548,66 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       expect(oneboxComponent.currentValue.authority).toBeUndefined();
     });
+  });
+
+  describe('test metadata enrichment', () => {
+    beforeEach(() => {
+      oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
+      debugElement = oneboxCompFixture.debugElement;
+      oneboxComponent = oneboxCompFixture.componentInstance;
+      oneboxComponent.currentValue = new FormFieldMetadataValueObject('test', null, null, null, 'testDisplay');
+      oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
+
+      spyOn(oneboxComponent, 'onSelectItem').and.returnValue(undefined);
+      spyOn(oneboxComponent, 'toggleOtherInfoSelection').and.returnValue(undefined);
+    });
+
+
+    it('should return null if value is empty', () => {
+      expect(oneboxComponent.getOtherInformationValue('', 'some-key')).toBeNull();
+    });
+
+    it('should return null if key is "alternative-names"', () => {
+      expect(oneboxComponent.getOtherInformationValue('some-value', 'alternative-names')).toBeNull();
+    });
+
+    it('should return single FormFieldMetadataValueObject if no "|||" in value', () => {
+      const result = oneboxComponent.getOtherInformationValue('value::authority', 'some-key');
+      expect(result.length).toBe(1);
+      expect(result[0]).toEqual(jasmine.any(FormFieldMetadataValueObject));
+      expect(result[0].value).toBe('value');
+      expect(result[0].authority).toBe('authority');
+    });
+
+    it('should handle multiple values with multiValueOnGenerator true', () => {
+      oneboxComponent.multiValueOnGenerator = true;
+      oneboxComponent.otherInfoValue = 'someValue';
+      const result = oneboxComponent.getOtherInformationValue('val1::auth1|||val2::auth2', 'some-key');
+      expect(result.length).toBe(2);
+      expect(result[0].value).toBe('val1');
+      expect(result[0].authority).toBe('auth1');
+      expect(result[1].value).toBe('val2');
+      expect(result[1].authority).toBe('auth2');
+    });
+
+    it('should handle multiple values with multiValueOnGenerator false', () => {
+      oneboxComponent.multiValueOnGenerator = false;
+      oneboxComponent.otherInfoValue = 'val1';
+      oneboxComponent.otherInfoValuesUnformatted = ['val1::auth1'];
+      const result = oneboxComponent.getOtherInformationValue('val1::auth1|||val2::auth2', 'data-key');
+      expect(result.length).toBe(1);
+      expect(result[0].value).toBe('val1');
+      expect(result[0].authority).toBe('auth1');
+      expect(result[0].otherInformation['data-key']).toBe('val1::auth1|||val2::auth2');
+    });
+
+    it('should handle value without "::"', () => {
+      const result = oneboxComponent.getOtherInformationValue('simpleValue', 'some-key');
+      expect(result.length).toBe(1);
+      expect(result[0].value).toBe('simpleValue');
+      expect(result[0].authority).toBeNull();
+    });
+
   });
   });
 });
