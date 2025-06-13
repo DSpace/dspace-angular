@@ -6,6 +6,15 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  catchError,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { Collection } from 'src/app/core/shared/collection.model';
+import { Community } from 'src/app/core/shared/community.model';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -22,7 +31,7 @@ export function createSidebarSearchListElementTests(
   componentClass: any,
   object: SearchResult<DSpaceObject & ChildHALResource>,
   parent: DSpaceObject,
-  expectedParentTitle: string,
+  expectedHierarchicalTitle: string,
   expectedTitle: string,
   expectedDescription: string,
   extraProviders: any[] = [],
@@ -59,9 +68,9 @@ export function createSidebarSearchListElementTests(
       fixture.detectChanges();
     });
 
-    it('should contain the correct parent title', (done) => {
-      component.parentTitle$.subscribe((title) => {
-        expect(title).toEqual(expectedParentTitle);
+    it('should contain the correct hierarchical title', (done) => {
+      component.hierarchicalTitle$.subscribe((title) => {
+        expect(title).toEqual(expectedHierarchicalTitle);
         done();
       });
     });
@@ -74,4 +83,38 @@ export function createSidebarSearchListElementTests(
       expect(component.description).toEqual(expectedDescription);
     });
   };
+}
+
+export function getExpectedHierarchicalTitle(parentObj: Collection | Community, obj: SearchResult<DSpaceObject>): Observable<string> {
+  let titles: string[] = [];
+  if (obj.indexableObject.metadata['dc.title']) {
+    titles = [obj.indexableObject.metadata['dc.title'][0].value];
+  }
+  let currentParent = parentObj;
+
+  const fetchParentTitles = (currParent: Collection | Community): Observable<string[]> => {
+    if (!currParent) {
+      return of([]);
+    }
+
+    if (currParent.parentCommunity) {
+      return currParent.parentCommunity.pipe(
+        switchMap((remoteData: RemoteData<Community>) => {
+          if (remoteData.hasSucceeded && remoteData.payload) {
+            const parentTitle = remoteData.payload.name;
+            titles.unshift(parentTitle);
+            return fetchParentTitles(remoteData.payload);
+          }
+          return of([]);
+        }),
+        catchError(() => of([])),
+      );
+    } else {
+      return of([]);
+    }
+  };
+
+  return fetchParentTitles(currentParent).pipe(
+    switchMap(() => titles.join(' > ')),
+  );
 }
