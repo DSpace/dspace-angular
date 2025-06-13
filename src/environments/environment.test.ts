@@ -247,6 +247,8 @@ export const environment: BuildConfig = {
     active: false,
   }],
 
+  languageHashes: [],
+
   // Browse-By Pages
   browseBy: {
     // Amount of years to display using jumps of one year (current year - oneYearLimit)
