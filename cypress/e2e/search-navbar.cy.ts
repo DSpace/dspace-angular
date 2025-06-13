@@ -17,7 +17,7 @@ describe('Search from Navigation Bar', () => {
   // NOTE: these tests currently assume this query will return results!
   const query = Cypress.env('DSPACE_TEST_SEARCH_TERM');
 
-  it('should go to search page with correct query if submitted (from home)', () => {
+  it.only('should go to search page with correct query if submitted (from home)', () => {
     cy.visit('/');
     // This is the GET command that will actually run the search
     cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
@@ -26,6 +26,8 @@ describe('Search from Navigation Bar', () => {
     page.submitQueryByPressingEnter();
     // New URL should include query param
     cy.url().should('include', 'query='.concat(query));
+    // New URL should NOT include the extended param
+    cy.url().should('not.include', 'extended=true');
     // Wait for search results to come back from the above GET command
     cy.wait('@search-results');
     // At least one search result should be displayed
