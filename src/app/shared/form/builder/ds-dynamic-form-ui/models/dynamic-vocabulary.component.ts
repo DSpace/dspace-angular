@@ -21,7 +21,8 @@ import {
   distinctUntilChanged,
   filter,
   map,
-  take, tap,
+  take,
+  tap,
 } from 'rxjs/operators';
 
 import { Metadata } from '../../../../../core/shared/metadata.utils';
@@ -307,7 +308,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       return null;
     }
 
-    let returnValue = [];
+    const returnValue = [];
     if (value.indexOf('|||') === -1) {
       returnValue.push(this.generateFormField(value));
     } else if (value.indexOf('|||') !== -1 && this.otherInfoValue) {
@@ -317,7 +318,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       } else {
         const unformattedValue = this.otherInfoValuesUnformatted.find(otherInfoValue => otherInfoValue.includes(this.otherInfoValue || this.otherName));
         const authorityValue = hasValue(unformattedValue) ? unformattedValue.substring(unformattedValue.lastIndexOf('::') + 2) : null;
-        let otherInfo = {};
+        const otherInfo = {};
         let alternativeValue: string;
         otherInfo[key] = value;
         if (hasValue(this.otherName)) {
@@ -331,7 +332,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           null,
           null,
           null,
-          otherInfo
+          otherInfo,
         ));
       }
     }
@@ -346,7 +347,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         value.substring(0, value.lastIndexOf('::')),
         null,
         null,
-        value.substring(value.lastIndexOf('::') + 2)
+        value.substring(value.lastIndexOf('::') + 2),
       );
     }
   }
