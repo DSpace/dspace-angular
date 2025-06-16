@@ -180,7 +180,7 @@ describe('ComcolRoleComponent', () => {
         name: 'test role name' + Math.random(),
         href: 'test role link',
       };
-      comp.roleName$ = of(comcolRole.name);
+      comp.roleName$ = observableOf(comcolRole.name);
       fixture.detectChanges();
     });
 
