@@ -292,11 +292,16 @@ languages:
   - code: lv
     label: Latviešu
     active: true
+  - code: ml
+    label: മലയാളം
+    active: true
   - code: mr
     label: मराठी
     active: true
   - code: nl
     label: Nederlands
+  - code: od
+    label: ଓଡିଆ
     active: true
   - code: pl
     label: Polski
@@ -315,6 +320,9 @@ languages:
     active: true
   - code: sv
     label: Svenska
+    active: true
+  - code: te
+    label: తెలుగు
     active: true
   - code: tr
     label: Türkçe
