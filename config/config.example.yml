@@ -300,6 +300,7 @@ languages:
     active: true
   - code: nl
     label: Nederlands
+    active: true
   - code: od
     label: ଓଡିଆ
     active: true
