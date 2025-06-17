@@ -18,10 +18,10 @@ import { Item } from '../../core/shared/item.model';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionError } from '../objects/submission-error.model';
-import { SubmissionSectionVisibility } from './../../core/config/models/config-submission-section.model';
 import { SubmissionSectionModel } from './../../core/config/models/config-submission-section.model';
 import { VisibilityType } from '../sections/visibility-type';
 import isEqual from 'lodash/isEqual';
+import { SectionVisibility } from '../objects/section-visibility.model';
 
 /**
  * This component represents the submission form.
@@ -196,7 +196,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   /**
    *  Returns the visibility object of the collection section
    */
-  private getCollectionVisibility(): SubmissionSectionVisibility {
+  private getCollectionVisibility(): SectionVisibility {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
         (section) => isEqual(section.sectionType, SectionsType.Collection)
