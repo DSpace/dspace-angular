@@ -55,9 +55,12 @@ before(() => {
 
 // Runs once before the first test in each "block"
 beforeEach(() => {
-    // Pre-agree to all Klaro cookies by setting the klaro-anonymous cookie
+    // Pre-agree to all Klaro cookies by setting the klaro-* cookies
     // This just ensures it doesn't get in the way of matching other objects in the page.
-    cy.setCookie('klaro-anonymous', '{%22authentication%22:true%2C%22preferences%22:true%2C%22acknowledgement%22:true%2C%22google-analytics%22:true%2C%22google-recaptcha%22:true}');
+    const cookieContent = '{%22authentication%22:true%2C%22preferences%22:true%2C%22acknowledgement%22:true%2C%22google-analytics%22:true%2C%22google-recaptcha%22:true%2C%22accessibility%22:true}';
+    cy.setCookie('klaro-anonymous', cookieContent);
+    cy.setCookie(`klaro-${Cypress.env('DSPACE_TEST_ADMIN_USER_UUID')}`, cookieContent);
+    cy.setCookie(`klaro-${Cypress.env('DSPACE_TEST_SUBMIT_USER_UUID')}`, cookieContent);
 
     // Remove any CSRF cookies saved from prior tests
     cy.clearCookie(DSPACE_XSRF_COOKIE);
