@@ -143,6 +143,17 @@ export class SearchService {
     }
   }
 
+  getSuggestEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
+    return this.halService.getEndpoint('discover/suggest').pipe(
+      map((url: string) => {
+        if (hasValue(searchOptions)) {
+          return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
+        } else {
+          return url;
+        }
+      }),
+    );
+  }
   getEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
     return this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
@@ -332,6 +343,18 @@ export class SearchService {
             }));
           this.appliedFilters$.next(appliedFilters);
         }
+      }),
+    );
+  }
+
+  getSuggestionsFor(query: string, dictionary: string): Observable<RemoteData<string[]>> {
+    const requestId = this.requestService.generateRequestId();
+    const href = 'http://localhost:8080/server/api/discover/suggest/' + dictionary + '/' + query;
+
+    const request = new this.request(requestId, href);
+    this.requestService.send(request, true);
+    return this.rdb.buildFromHref(href).pipe(
+      tap((data: any) => {
       }),
     );
   }
