@@ -329,7 +329,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           true,
           true,
           ... itemLinksToFollow(this.fetchThumbnail)).pipe(
-            getAllSucceededRemoteData(),
+            getFirstSucceededRemoteData(),
             getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
           switchMap(([item, relationship]: [Item, Relationship]) =>

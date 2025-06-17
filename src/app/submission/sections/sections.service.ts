@@ -503,6 +503,7 @@ export class SectionsService {
       rawData.rows.forEach((currentRow) => {
         if (currentRow.fields && !isEmpty(currentRow.fields)) {
           currentRow.fields.forEach((field) => {
+
             if (field.selectableMetadata && !isEmpty(field.selectableMetadata)) {
               field.selectableMetadata.forEach((selectableMetadata) => {
                 if (!metadata.includes(selectableMetadata.metadata)) {
