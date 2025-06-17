@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchConfigurationService } from '../../../../../../../../../app/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { BtnDisabledDirective } from '../../../../../../../../../app/shared/btn-disabled.directive';
 import { DsDynamicLookupRelationSearchTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { ThemedSearchComponent } from '../../../../../../../../../app/shared/search/themed-search.component';
 import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
@@ -24,6 +25,7 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
   standalone: true,
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
     NgbDropdownModule,
     ThemedSearchComponent,
     TranslateModule,
