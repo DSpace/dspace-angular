@@ -559,3 +559,5 @@ ngb-tooltip-window {
   // We use underline to discern link from text as we can't make color lighter on a white bg
   text-decoration: underline;
 }
+
+ds-search-filter .facet-filter:has([type="checkbox"]:checked) { background: var(--bs-highlight-color); }
