@@ -30,6 +30,10 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import {
   SubmissionSectionUploadFileReplaceComponent
 } from './replace/submission-section-upload-file-replace/submission-section-upload-file-replace.component';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { Item } from '../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -156,7 +160,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * Whether to display the replace file button
    * @protected
    */
-  protected shouldShowReplaceButton: boolean;
+  protected shouldShowReplaceButton$ = new BehaviorSubject(false);
 
   /**
    * Initialize instance variables
@@ -169,6 +173,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
    * @param {SectionUploadService} uploadService
+   * @param {LinkService} linkService
    */
   constructor(
     private cdr: ChangeDetectorRef,
@@ -179,6 +184,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private operationsService: SubmissionJsonPatchOperationsService,
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
+    private linkService: LinkService,
   ) {
     this.readMode = true;
   }
@@ -210,7 +216,9 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.loadFormMetadata();
     this.subscriptions.push(this.submissionService.retrieveSubmission(this.submissionId)
       .subscribe((submissionObjectRD) => {
-        this.shouldShowReplaceButton = hasValue(submissionObjectRD.payload?.item?.version);
+        const item: Item = Object.assign(new Item(), submissionObjectRD.payload?.item);
+        this.linkService.resolveLink(item, followLink('version'));
+        this.shouldShowReplaceButton$.next(hasValue(item.version.pipe(getFirstCompletedRemoteData())));
       })
     );
   }
