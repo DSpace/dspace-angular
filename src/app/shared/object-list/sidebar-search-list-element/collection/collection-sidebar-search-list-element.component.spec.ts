@@ -3,6 +3,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
 import { CollectionSidebarSearchListElementComponent } from './collection-sidebar-search-list-element.component';
+import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
 
 const object = Object.assign(new CollectionSearchResult(), {
   indexableObject: Object.assign(new Collection(), {
@@ -21,6 +22,8 @@ const object = Object.assign(new CollectionSearchResult(), {
     },
   }),
 });
+object.indexableObject.getParentLinkKey = () => 'parentCommunity';
+
 const parent = Object.assign(new Community(), {
   id: 'test-community',
   metadata: {
@@ -33,5 +36,5 @@ const parent = Object.assign(new Community(), {
 });
 
 describe('CollectionSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description'),
+  createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description')
 );

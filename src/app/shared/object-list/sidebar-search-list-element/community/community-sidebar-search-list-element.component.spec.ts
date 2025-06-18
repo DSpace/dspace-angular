@@ -20,6 +20,8 @@ const object = Object.assign(new CommunitySearchResult(), {
     },
   }),
 });
+object.indexableObject.getParentLinkKey = () => 'parentCommunity';
+
 const parent = Object.assign(new Community(), {
   id: 'test-parent-community',
   metadata: {
@@ -32,5 +34,6 @@ const parent = Object.assign(new Community(), {
 });
 
 describe('CommunitySidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(CommunitySidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description'),
+  createSidebarSearchListElementTests(CommunitySidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description')
 );
+
