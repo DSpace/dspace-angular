@@ -21,7 +21,7 @@
 </td>
 <td class="subscription-actions">
   <div class="btn-group edit-field">
-    <button (click)="$event.preventDefault();openSubscriptionModal();" [disabled]="!dso"
+    <button (click)="$event.preventDefault();openSubscriptionModal();" [dsBtnDisabled]="!dso"
             [title]="'subscriptions.table.edit' | translate"
             class="btn btn-outline-primary btn-sm access-control-editEPersonButton">
       <i class="fas fa-edit fa-fw"></i>

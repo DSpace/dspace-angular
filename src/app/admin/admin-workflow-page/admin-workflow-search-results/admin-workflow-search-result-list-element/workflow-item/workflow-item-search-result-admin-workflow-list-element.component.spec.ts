@@ -9,6 +9,7 @@ import { CollectionElementLinkType } from '../../../../../shared/object-collecti
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import {
   WorkflowItemSearchResultAdminWorkflowListElementComponent
 } from './workflow-item-search-result-admin-workflow-list-element.component';
@@ -58,7 +59,8 @@ describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
           { provide: DSONameService, useClass: DSONameServiceMock },
-          { provide: APP_CONFIG, useValue: environment }
+          { provide: APP_CONFIG, useValue: environment },
+          { provide: XSRFService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })

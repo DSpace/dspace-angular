@@ -28,7 +28,7 @@ import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
 import LRU from 'lru-cache';
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
@@ -55,6 +55,7 @@ import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
+import { SsrExcludePatterns } from './src/config/universal-config.interface';
 
 
 /*
@@ -78,6 +79,9 @@ let anonymousCache: LRU<string, any>;
 
 // extend environment with app config for server
 extendEnvironmentWithAppConfig(environment, appConfig);
+
+// The REST server base URL
+const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
@@ -176,7 +180,7 @@ export function app() {
    * Proxy the sitemaps
    */
   router.use('/sitemap**', createProxyMiddleware({
-    target: `${environment.rest.baseUrl}/sitemaps`,
+    target: `${REST_BASE_URL}/sitemaps`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
     changeOrigin: true
   }));
@@ -185,7 +189,7 @@ export function app() {
    * Proxy the linksets
    */
   router.use('/signposting**', createProxyMiddleware({
-    target: `${environment.rest.baseUrl}`,
+    target: `${REST_BASE_URL}`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
     changeOrigin: true
   }));
@@ -238,7 +242,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res) {
-  if (environment.universal.preboot) {
+  if (environment.universal.preboot && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.universal.excludePathPatterns))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res);
   } else {
@@ -269,6 +273,11 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
     requestUrl: req.originalUrl,
   }, (err, data) => {
     if (hasNoValue(err) && hasValue(data)) {
+      // Replace REST URL with UI URL
+        if (environment.universal.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
+          data = data.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
+      }
+
       // save server side rendered page to cache (if any are enabled)
       saveToCache(req, data);
       if (sendToUser) {
@@ -617,11 +626,26 @@ function start() {
   }
 }
 
+/**
+ * Check if SSR should be skipped for path
+ *
+ * @param path
+ * @param excludePathPattern
+ */
+function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
+  const patterns = excludePathPattern.map(p =>
+    new RegExp(p.pattern, p.flag || '')
+  );
+  return patterns.some((regex) => {
+    return regex.test(path)
+  });
+}
+
 /*
  * The callback function to serve health check requests
  */
 function healthCheck(req, res) {
-  const baseUrl = `${environment.rest.baseUrl}${environment.actuators.endpointPath}`;
+  const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
   axios.get(baseUrl)
     .then((response) => {
       res.status(response.status).send(response.data);

@@ -2,10 +2,12 @@ import { combineLatest as observableCombineLatest, Observable, Subscription } fr
 import { map } from 'rxjs/operators';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
@@ -67,7 +69,9 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
+              protected liveRegionService: LiveRegionService,
+              private translateService: TranslateService,
   ) {
   }
 
@@ -128,5 +132,13 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
+  }
+
+  /**
+   * Announces to the screen reader that the page will be reloaded, which filter has been selected
+   */
+  announceFilter() {
+    const message = this.translateService.instant('search-facet-option.update.announcement', { filter: this.filterValue.value });
+    this.liveRegionService.addMessage(message);
   }
 }

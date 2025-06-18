@@ -8,11 +8,11 @@
         </ng-container>
         <div class="clearfix toggle-more-filters">
             <a class="float-left" *ngIf="!(isLastPage$ | async)"
-               (click)="showMore()" href="javascript:void(0);">
+               (click)="showMore()" href="javascript:void(0);" role="button" tabindex="0">
               {{"search.filters.filter.show-more" | translate}}
             </a>
             <a class="float-right" *ngIf="(currentPage | async) > 1"
-               (click)="showFirstPageOnly()" href="javascript:void(0);">
+               (click)="showFirstPageOnly()" href="javascript:void(0);" role="button" tabindex="0">
               {{"search.filters.filter.show-less" | translate}}
             </a>
         </div>
@@ -26,5 +26,6 @@
                           (submitSuggestion)="onSubmit($event)"
                           (clickSuggestion)="onClick($event)"
                           (findSuggestions)="findSuggestions($event)"
+                          *ngIf="!(isAvailableForShowSearchText | async)"
                           ngDefaultControl></ds-filter-input-suggestions>
 </div>

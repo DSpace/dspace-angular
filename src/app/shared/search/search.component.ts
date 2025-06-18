@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy,
+  PLATFORM_ID
+} from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
@@ -31,13 +41,15 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { isPlatformServer } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ds-search',
@@ -74,6 +86,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If empty, the query will be determined by the route parameter called 'filter'
    */
   @Input() fixedFilterQuery: string;
+
+  /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
 
   /**
    * If this is true, the request will only be sent if there's
@@ -170,6 +187,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * The fallback scope when no scope is defined in the url, if this is also undefined no scope will be set
    */
   @Input() scope: string;
+
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide = false;
 
   /**
    * The current configuration used during the search
@@ -278,7 +300,10 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
-              protected router: Router) {
+              protected router: Router,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
+  ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -290,6 +315,14 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.universal.enableSearchComponent && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
@@ -445,13 +478,25 @@ export class SearchComponent implements OnDestroy, OnInit {
     let followLinks = [
       followLink<Item>('thumbnail', { isOptional: true }),
       followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
-      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
     ];
+    if (this.appConfig.item.showAccessStatuses) {
+      followLinks.push(followLink<Item>('accessStatus', { isOptional: true }));
+    }
     if (this.configuration === 'supervision') {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
+
+    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    if (isNotEmpty(this.hiddenQuery)) {
+      if (isNotEmpty(searchOptionsWithHidden.query)) {
+        searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;
+      } else {
+        searchOptionsWithHidden.query = this.hiddenQuery;
+      }
+    }
+
     this.service.search(
-      searchOptions,
+      searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
@@ -460,7 +505,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
-            this.service.trackSearch(searchOptions, results.payload);
+            this.service.trackSearch(searchOptionsWithHidden, results.payload);
           }
           if (results.payload?.page?.length > 0) {
             this.resultFound.emit(results.payload);

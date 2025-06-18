@@ -9,8 +9,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "unautorisiert",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -20,8 +18,6 @@
   // "403.forbidden": "forbidden",
   "403.forbidden": "verboten",
 
-
-
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Die Seite konnte nicht gefunden werden. Eventuell wurde sie verschoben oder gelöscht. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -30,6 +26,16 @@
 
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Seite nicht gefunden",
+
+  // "500.page-internal-server-error": "Service unavailable",
+  "500.page-internal-server-error": "Dienst nicht verfügbar",
+
+  // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "Der Dienst steht momentan nicht zur Verfügung. Bitte versuchen Sie es später noch einmal.",
+
+  // "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "Zur Startseite",
+
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Personen suchen",
@@ -841,7 +847,7 @@
   "bitstream.edit.bitstream": "Bitstream: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  "bitstream.edit.form.description.hint": "Hier können Sie eine kurze Beschreibung der Datei angeben, zum Beispiel \"<i>Artikel</i>\" oder \"<i>Tabellenhanhang</i>\".",
+  "bitstream.edit.form.description.hint": "Hier können Sie eine kurze Beschreibung der Datei angeben, zum Beispiel \"<i>Artikel</i>\" oder \"<i>Tabellenanhang</i>\".",
 
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Beschreibung",
@@ -1633,6 +1639,12 @@
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Ablehnen",
 
+  // "cookies.consent.ok": "That's ok",
+  "cookies.consent.ok": "Zustimmen",
+
+  // "cookies.consent.save": "Save",
+  "cookies.consent.save": "Speichern",
+
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Wir sammeln und verarbeiten Ihre personenbezogenen Daten für die folgenden Zwecke: <strong>Authentifikation, Einstellungen, Zustimmungen und Statistiken</strong>. <br/> Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
 
@@ -1649,9 +1661,13 @@
   "cookies.consent.content-modal.privacy-policy.text": "Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
 
   // "cookies.consent.content-modal.title": "Information that we collect",
-  "cookies.consent.content-modal.title": "Information, die wir sammeln",
+  "cookies.consent.content-modal.title": "Informationen, die wir sammeln",
 
+  // "cookies.consent.content-modal.services": "services",
+  "cookies.consent.content-modal.services": "Dienste",
 
+  // "cookies.consent.content-modal.service": "service",
+  "cookies.consent.content-modal.service": "Dienst",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Authentifizierung",
@@ -3049,7 +3065,7 @@
   "journalissue.listelement.badge": "Zeitschriftenheft",
 
   // "journalissue.page.description": "Description",
-  "journalissue.page.description": "Beschreibeung",
+  "journalissue.page.description": "Beschreibung",
 
   // "journalissue.page.edit": "Edit this item",
   "journalissue.page.edit": "Dieses Item bearbeiten",
@@ -4809,6 +4825,12 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Zeitschriftenband importieren",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Item importieren",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Metadaten der Publikation importieren",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importiere Autor:innen-Metadaten",
 
@@ -5143,10 +5165,10 @@
   "submission.sections.general.deposit_error_notice": "Beim Einreichen des Items ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
+  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal",
+  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   "submission.sections.general.discard_success_notice": "Einreichung erfolgreich verworfen.",
@@ -5464,7 +5486,7 @@
   "workflow-item.delete.notification.success.title": "Gelöscht",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde gelöscht.",
+  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde erfolgreich gelöscht.",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   "workflow-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
@@ -5509,4 +5531,46 @@
   // "workflow-item.send-back.button.confirm": "Send back"
   "workflow-item.send-back.button.confirm": "Zurücksenden",
 
+  // "workflow-item.view.breadcrumbs": "Workflow View",
+  "workflow-item.view.breadcrumbs": "Workflow-Ansicht",
+
+  // "workspace-item.view.breadcrumbs": "Workspace View",
+  "workspace-item.view.breadcrumbs": "Workspace-Ansicht",
+
+  // "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Workspace-Ansicht",
+
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  "workspace-item.delete.breadcrumbs": "Workspace-Item löschen",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  "workspace-item.delete.header": "Workspace-Item löschen",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  "workspace-item.delete.button.confirm": "Löschen",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  "workspace-item.delete.button.cancel": "Abbrechen",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  "workspace-item.delete.notification.success.title": "Gelöscht",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  "workspace-item.delete.title": "Dieses Workspace-Item wurde erfolgreich gelöscht.",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  "workspace-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
+
+
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Jahr",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Monat",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Tag",
 }

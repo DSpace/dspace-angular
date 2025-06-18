@@ -16,6 +16,7 @@ import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorato
 import { Operation } from 'fast-json-patch';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
@@ -71,7 +72,7 @@ describe('DsoEditMetadataComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataComponent, VarDirective],
+      declarations: [DsoEditMetadataComponent, VarDirective, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         TestDataService,
@@ -180,7 +181,13 @@ describe('DsoEditMetadataComponent', () => {
         });
 
         it(`should${disabled ? ' ' : ' not '}be disabled`, () => {
-          expect(btn.nativeElement.disabled).toBe(disabled);
+          if (disabled) {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
+          } else {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).not.toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
+          }
         });
       } else {
         it('should not exist', () => {

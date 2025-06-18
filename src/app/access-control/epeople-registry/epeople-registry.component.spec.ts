@@ -27,6 +27,7 @@ import { RequestService } from '../../core/data/request.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -131,7 +132,7 @@ describe('EPeopleRegistryComponent', () => {
           }
         }),
       ],
-      declarations: [EPeopleRegistryComponent],
+      declarations: [EPeopleRegistryComponent, BtnDisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -239,7 +240,8 @@ describe('EPeopleRegistryComponent', () => {
     it('should be disabled', () => {
       ePeopleDeleteButton = fixture.debugElement.queryAll(By.css('#epeople tr td div button.delete-button'));
       ePeopleDeleteButton.forEach((deleteButton: DebugElement) => {
-        expect(deleteButton.nativeElement.disabled).toBe(true);
+        expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBe('true');
+        expect(deleteButton.nativeElement.classList.contains('disabled')).toBeTrue();
       });
     });
   });

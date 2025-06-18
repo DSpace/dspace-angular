@@ -68,15 +68,16 @@ export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataS
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
 
+    let deleteHref: string = href;
     if (copyVirtualMetadata) {
       copyVirtualMetadata.forEach((id) =>
-        href += (href.includes('?') ? '&' : '?')
+        deleteHref += (deleteHref.includes('?') ? '&' : '?')
           + 'copyVirtualMetadata='
           + id,
       );
     }
 
-    const request = new DeleteRequest(requestId, href);
+    const request = new DeleteRequest(requestId, deleteHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
     }

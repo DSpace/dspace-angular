@@ -23,6 +23,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'context',
     'configuration',
     'fixedFilterQuery',
+    'hiddenQuery',
     'useCachedVersionIfAvailable',
     'inPlaceSearch',
     'linkType',
@@ -54,6 +55,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() configuration: string;
 
   @Input() fixedFilterQuery: string;
+
+  @Input() hiddenQuery: string;
 
   @Input() useCachedVersionIfAvailable: boolean;
 

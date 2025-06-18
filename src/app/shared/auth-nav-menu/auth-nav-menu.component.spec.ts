@@ -14,6 +14,7 @@ import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { of } from 'rxjs';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -86,6 +87,7 @@ describe('AuthNavMenuComponent', () => {
         providers: [
           { provide: HostWindowService, useValue: window },
           { provide: AuthService, useValue: authService },
+          { provide: XSRFService, useValue: {} },
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA

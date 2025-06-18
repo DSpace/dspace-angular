@@ -21,6 +21,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import objectContaining = jasmine.objectContaining;
 import { RemoteData } from './remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../cache/models/request-param.model';
+import { RestResponse } from '../cache/response.models';
+import { RequestEntry } from './request-entry.model';
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;
@@ -30,6 +33,7 @@ describe('BitstreamDataService', () => {
   let bitstreamFormatService: BitstreamFormatDataService;
   let rdbService: RemoteDataBuildService;
   const bitstreamFormatHref = 'rest-api/bitstreamformats';
+  let responseCacheEntry: RequestEntry;
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'fake-bitstream1',
@@ -54,8 +58,13 @@ describe('BitstreamDataService', () => {
   const url = 'fake-bitstream-url';
 
   beforeEach(() => {
+    responseCacheEntry = new RequestEntry();
+    responseCacheEntry.request = { href: 'https://rest.api/' } as any;
+    responseCacheEntry.response = new RestResponse(true, 200, 'Success');
+
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
+      getByHref: observableOf(responseCacheEntry),
     });
     requestService = getMockRequestService();
     halService = Object.assign(new HALEndpointServiceStub(url));
@@ -130,6 +139,32 @@ describe('BitstreamDataService', () => {
       } as PatchRequest));
       expect(service.invalidateByHref).toHaveBeenCalledWith('fake-bitstream1-self');
       expect(service.invalidateByHref).toHaveBeenCalledWith('fake-bitstream2-self');
+    });
+  });
+
+  describe('findByItemHandle', () => {
+    it('should encode the filename correctly in the search parameters', () => {
+      const handle = '123456789/1234';
+      const sequenceId = '5';
+      const filename = 'file with spaces.pdf';
+      const searchParams = [
+        new RequestParam('handle', handle),
+        new RequestParam('sequenceId', sequenceId),
+        new RequestParam('filename', filename)
+      ];
+      const linksToFollow: FollowLinkConfig<Bitstream>[] = [];
+
+      spyOn(service as any, 'getSearchByHref').and.callThrough();
+
+      service.getSearchByHref('byItemHandle', { searchParams }, ...linksToFollow).subscribe((href) => {
+        expect(service.getSearchByHref).toHaveBeenCalledWith(
+          'byItemHandle',
+          { searchParams },
+          ...linksToFollow
+        );
+
+        expect(href).toBe(`${url}/bitstreams/search/byItemHandle?handle=123456789%2F1234&sequenceId=5&filename=file%20with%20spaces.pdf`);
+      });
     });
   });
 });

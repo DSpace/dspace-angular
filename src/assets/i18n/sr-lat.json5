@@ -1997,7 +1997,7 @@
   "submission.import-external.source.arxiv": "arXiv",
   "submission.import-external.source.ads": "NASA/ADS",
   "submission.import-external.source.cinii": "CiNii",
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
   "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.scielo": "SciELO",
   "submission.import-external.source.scopus": "Scopus",

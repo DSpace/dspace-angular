@@ -132,7 +132,8 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
     if (isNotEmpty(options.searchParams)) {
       params = [...options.searchParams];
     }
-    params.push(new RequestParam('uri', objectUrl));
+    // TODO fix encode the uri parameter in the self link in the backend and set encodeValue to true afterwards
+    params.push(new RequestParam('uri', objectUrl, false));
     if (hasValue(featureId)) {
       params.push(new RequestParam('feature', featureId));
     }

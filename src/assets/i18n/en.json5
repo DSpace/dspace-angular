@@ -1,5 +1,4 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -832,6 +831,8 @@
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
 
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+
   "browse.startsWith": ", starting with {{ startsWith }}",
 
   "browse.startsWith.choose_start": "(Choose start)",
@@ -1240,7 +1241,7 @@
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
-  "community.edit.notifications.error": "An error occured while editing the community",
+  "community.edit.notifications.error": "An error occurred while editing the community",
 
   "community.edit.return": "Back",
 
@@ -1448,7 +1449,7 @@
 
   "curation.form.submit.error.head": "Running the curation task failed",
 
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
 
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
@@ -1467,6 +1468,8 @@
   "deny-request-copy.intro": "This message will be sent to the applicant of the request",
 
   "deny-request-copy.success": "Successfully denied item request",
+
+  "dynamic-list.load-more": "Load more",
 
   "dropdown.clear": "Clear selection",
 
@@ -1620,6 +1623,8 @@
 
   "error.recent-submissions": "Error fetching recent submissions",
 
+  "error.profile-groups": "Error retrieving profile groups",
+
   "error.search-results": "Error fetching search results",
 
   "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
@@ -1700,7 +1705,7 @@
 
   "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   "forgot-password.title": "Forgot Password",
 
@@ -1801,6 +1806,12 @@
   "form.number-picker.decrement": "Decrement {{field}}",
 
   "form.number-picker.increment": "Increment {{field}}",
+
+  "form.date-picker.placeholder.year": "Year",
+
+  "form.date-picker.placeholder.month": "Month",
+
+  "form.date-picker.placeholder.day": "Day",
 
   "grant-deny-request-copy.deny": "Don't send copy",
 
@@ -1988,6 +1999,10 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   "item.edit.bitstreams.discard-button": "Discard",
 
   "item.edit.bitstreams.edit.buttons.download": "Download",
@@ -2000,7 +2015,19 @@
 
   "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
 
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   "item.edit.bitstreams.headers.actions": "Actions",
 
@@ -2037,6 +2064,8 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   "item.edit.delete.cancel": "Cancel",
 
@@ -2502,7 +2531,7 @@
 
   "item.page.version.create": "Create new version",
 
-  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.page.claim.button": "Claim",
 
@@ -2529,6 +2558,14 @@
   "item.preview.oaire.citation.issue": "Issue",
 
   "item.preview.oaire.citation.volume": "Volume",
+
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  "item.preview.dc.rights": "Rights",
+
+  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -2614,7 +2651,7 @@
 
   "item.version.history.table.action.deleteVersion": "Delete version",
 
-  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
@@ -2644,7 +2681,7 @@
 
   "item.version.create.notification.failure": "New version has not been created",
 
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.delete.modal.header": "Delete version",
 
@@ -3166,6 +3203,8 @@
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
+  "orgunit.search.results.head": "Organizational Unit Search Results",
+
   "pagination.options.description": "Pagination options",
 
   "pagination.results-per-page": "Results Per Page",
@@ -3516,7 +3555,7 @@
 
   "register-page.registration.error.head": "Error when trying to register email",
 
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
@@ -3771,6 +3810,10 @@
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
 
   "search.filters.filter.creativeDatePublished.label": "Search date published",
+
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  "search.filters.filter.creativeDatePublished.max.label": "End",
 
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
@@ -4104,7 +4147,7 @@
 
   "submission.import-external.source.cinii": "CiNii",
 
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
 
   "submission.import-external.source.datacite": "DataCite",
 
@@ -4292,6 +4335,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
@@ -4338,6 +4383,8 @@
 
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
@@ -4377,6 +4424,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
@@ -4787,6 +4836,8 @@
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   "subscriptions.modal.title": "Subscriptions",
 
@@ -5246,6 +5297,10 @@
 
   "person.orcid.registry.auth": "ORCID Authorizations",
 
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   "home.recent-submissions.head": "Recent Submissions",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
@@ -5364,4 +5419,23 @@
 
   "process.overview.unknown.user": "Unknown",
 
+  "browse.search-form.placeholder": "Search the repository",
+
+  "file-download-link.download": "Download ",
+
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  "dynamic-form-array.sortable-list.label": "Sortable list",
 }
