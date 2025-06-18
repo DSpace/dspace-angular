@@ -11,7 +11,7 @@ import { StartsWithTextComponent } from './starts-with-text.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
-fdescribe('StartsWithTextComponent', () => {
+describe('StartsWithTextComponent', () => {
   let comp: StartsWithTextComponent;
   let fixture: ComponentFixture<StartsWithTextComponent>;
   let route: ActivatedRoute;
