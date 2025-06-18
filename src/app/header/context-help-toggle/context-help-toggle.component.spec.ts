@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ContextHelpService } from '../../shared/context-help.service';
 import { ContextHelpToggleComponent } from './context-help-toggle.component';
@@ -20,7 +20,7 @@ describe('ContextHelpToggleComponent', () => {
     contextHelpService = jasmine.createSpyObj('contextHelpService', [
       'tooltipCount$', 'toggleIcons',
     ]);
-    contextHelpService.tooltipCount$.and.returnValue(observableOf(0));
+    contextHelpService.tooltipCount$.and.returnValue(of(0));
     await TestBed.configureTestingModule({
       providers: [
         { provide: ContextHelpService, useValue: contextHelpService },
@@ -51,16 +51,14 @@ describe('ContextHelpToggleComponent', () => {
 
   describe('if there are elements on the page with a tooltip', () => {
     beforeEach(() => {
-      contextHelpService.tooltipCount$.and.returnValue(observableOf(1));
+      contextHelpService.tooltipCount$.and.returnValue(of(1));
       fixture.detectChanges();
     });
 
     it('clicking the button should toggle context help icon visibility', fakeAsync(() => {
-      fixture.whenStable().then(() => {
-        fixture.debugElement.query(By.css('a')).nativeElement.click();
-        tick();
-        expect(contextHelpService.toggleIcons).toHaveBeenCalled();
-      });
+      fixture.debugElement.query(By.css('a')).nativeElement.click();
+      tick();
+      expect(contextHelpService.toggleIcons).toHaveBeenCalled();
     }));
   });
 

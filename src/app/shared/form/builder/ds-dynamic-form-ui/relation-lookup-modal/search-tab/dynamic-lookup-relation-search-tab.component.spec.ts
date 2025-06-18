@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
@@ -50,7 +50,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let selectableListService;
   let lookupRelationService;
   const relationshipService = jasmine.createSpyObj('searchByItemsAndType',{
-    searchByItemsAndType: observableOf(relatedRelationships),
+    searchByItemsAndType: of(relatedRelationships),
   });
 
   const relationshipType = {
@@ -82,7 +82,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     searchResult3 = Object.assign(new ItemSearchResult(), { indexableObject: item3 });
     searchResult4 = Object.assign(new ItemSearchResult(), { indexableObject: item4 });
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
-    selection$ = observableOf([searchResult1, searchResult2]);
+    selection$ = of([searchResult1, searchResult2]);
 
     results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
     searchResult = Object.assign(new SearchObjects(), {
@@ -106,7 +106,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
         },
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions),
+            paginatedSearchOptions: of(pSearchOptions),
           },
         },
         { provide: LookupRelationService, useValue: lookupRelationService },
@@ -161,18 +161,6 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     it('should emit the page filtered from not yet selected objects and call select on the service for all objects', () => {
       expect((component.deselectObject as any).emit).toHaveBeenCalledWith(searchResult1, searchResult2);
       expect(selectableListService.deselect).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult3]);
-    });
-  });
-
-  describe('selectAll', () => {
-    beforeEach(() => {
-      spyOn(component.selectObject, 'emit');
-      component.selectAll();
-    });
-
-    it('should emit the page filtered from already selected objects and call select on the service for all objects', () => {
-      expect(component.selectObject.emit).toHaveBeenCalledWith(searchResult3);
-      expect(selectableListService.select).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult3]);
     });
   });
 

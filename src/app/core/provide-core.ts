@@ -16,6 +16,7 @@ import { AccessStatusObject } from '../shared/object-collection/shared/badges/ac
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
@@ -30,11 +31,11 @@ import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
-import { SuggestionSource } from './notifications/models/suggestion-source.model';
-import { SuggestionTarget } from './notifications/models/suggestion-target.model';
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
+import { SuggestionSource } from './notifications/suggestions/models/suggestion-source.model';
+import { SuggestionTarget } from './notifications/suggestions/models/suggestion-target.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
@@ -175,7 +176,6 @@ export const models =
     ResearcherProfile,
     OrcidQueue,
     OrcidHistory,
-    AccessStatusObject,
     IdentifierData,
     Subscription,
     ItemRequest,
@@ -186,4 +186,5 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
+    SystemWideAlert,
   ];

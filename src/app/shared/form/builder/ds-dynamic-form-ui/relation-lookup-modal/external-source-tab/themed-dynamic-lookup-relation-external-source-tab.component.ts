@@ -19,7 +19,9 @@ import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-loo
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [DsDynamicLookupRelationExternalSourceTabComponent],
+  imports: [
+    DsDynamicLookupRelationExternalSourceTabComponent,
+  ],
 })
 export class ThemedDynamicLookupRelationExternalSourceTabComponent extends ThemedComponent<DsDynamicLookupRelationExternalSourceTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationExternalSourceTabComponent & keyof this)[] = ['label', 'listId',

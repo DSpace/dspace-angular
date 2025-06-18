@@ -1,10 +1,8 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -37,10 +35,15 @@ import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-i
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-approved-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule, VarDirective],
+  imports: [
+    AsyncPipe,
+    ThemedItemListPreviewComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 @listableObjectComponent(ClaimedApprovedTaskSearchResult, ViewMode.ListElement)
-export class ClaimedApprovedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
+export class ClaimedApprovedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit {
 
   /**
    * A boolean representing if to show submitter information
@@ -69,7 +72,7 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
   /**
    * Initialize all instance variables
    */
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso,
       followLink('workflowitem',

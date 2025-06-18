@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -43,6 +39,7 @@ import {
 } from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
@@ -54,12 +51,11 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   styleUrls: ['./create-profile.component.scss'],
   templateUrl: './create-profile.component.html',
   imports: [
-    ProfilePageSecurityFormComponent,
-    TranslateModule,
-    NgIf,
     AsyncPipe,
+    BtnDisabledDirective,
+    ProfilePageSecurityFormComponent,
     ReactiveFormsModule,
-    NgForOf,
+    TranslateModule,
   ],
   standalone: true,
 })

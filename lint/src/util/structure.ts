@@ -5,18 +5,28 @@
  *
  * http://www.dspace.org/license/
  */
-import { TSESLint } from '@typescript-eslint/utils';
-import { RuleTester } from 'eslint';
+import {
+  InvalidTestCase,
+  RuleMetaData,
+  RuleModule,
+  ValidTestCase,
+} from '@typescript-eslint/utils/ts-eslint';
 import { EnumType } from 'typescript';
 
-export type Meta = TSESLint.RuleMetaData<string>;
-export type Valid = TSESLint.ValidTestCase<unknown[]> | RuleTester.ValidTestCase;
-export type Invalid = TSESLint.InvalidTestCase<string, unknown[]> | RuleTester.InvalidTestCase;
+export type Meta = RuleMetaData<string, unknown[]>;
+export type Valid = ValidTestCase<unknown[]>;
+export type Invalid = InvalidTestCase<string, unknown[]>;
 
-export interface DSpaceESLintRuleInfo {
+export interface DSpaceESLintRuleInfo<T = unknown[], D = unknown[]> {
   name: string;
   meta: Meta,
-  defaultOptions: unknown[],
+  optionDocs: D,
+  defaultOptions: T,
+}
+
+export interface OptionDoc {
+  title: string;
+  description: string;
 }
 
 export interface NamedTests {
@@ -28,7 +38,7 @@ export interface NamedTests {
 export interface RuleExports {
   Message: EnumType,
   info: DSpaceESLintRuleInfo,
-  rule: TSESLint.RuleModule<string>,
+  rule: RuleModule<string>,
   tests: NamedTests,
   default: unknown,
 }

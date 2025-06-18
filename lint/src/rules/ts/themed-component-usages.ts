@@ -7,9 +7,9 @@
  */
 import {
   ESLintUtils,
-  TSESLint,
   TSESTree,
 } from '@typescript-eslint/utils';
+import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 
 import { fixture } from '../../../test/fixture';
 import {
@@ -63,12 +63,13 @@ There are a few exceptions where the base class can still be used:
       [Message.BASE_IN_MODULE]: 'Base themeable components shouldn\'t be declared in modules',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
-  create(context: TSESLint.RuleContext<Message, unknown[]>) {
+  create(context: RuleContext<Message, unknown[]>) {
     const filename = getFilename(context);
 
     function handleUnthemedUsagesInTypescript(node: TSESTree.Identifier) {

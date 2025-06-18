@@ -7,9 +7,10 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 
 import { AdminNotificationsPublicationClaimPageComponent } from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
-import { PublicationClaimComponent } from '../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { SuggestionSourcesComponent } from '../../notifications/suggestions/sources/suggestion-sources.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page.component';
 
@@ -23,19 +24,14 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
         CommonModule,
         TranslateModule.forRoot(),
         NotificationsSuggestionTargetsPageComponent,
+        MockComponent(SuggestionSourcesComponent),
       ],
       providers: [
         AdminNotificationsPublicationClaimPageComponent,
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    })
-      .overrideComponent(NotificationsSuggestionTargetsPageComponent, {
-        remove: {
-          imports: [PublicationClaimComponent],
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

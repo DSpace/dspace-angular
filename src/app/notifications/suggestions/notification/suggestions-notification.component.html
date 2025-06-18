@@ -1,0 +1,13 @@
+@if ((suggestionsRD$ | async); as suggestions) {
+  @for (suggestion of suggestions; track suggestion) {
+    <ng-container class="alert alert-info">
+      @if (suggestion.total > 0) {
+        <div class="alert alert-success d-block">
+          <div [innerHTML]="'notification.suggestion' | translate: getNotificationSuggestionInterpolation(suggestion)"></div>
+          {{ 'notification.suggestion.please' | translate }}
+          <a [routerLink]="getNotificationSuggestionInterpolation(suggestion).url"> {{ 'notification.suggestion.review' | translate}} </a>
+        </div>
+      }
+    </ng-container>
+  }
+}

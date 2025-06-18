@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -29,7 +25,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -47,6 +43,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
@@ -88,13 +85,12 @@ export interface ResourcePolicyEvent {
   selector: 'ds-resource-policy-form',
   templateUrl: './resource-policy-form.component.html',
   imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    EpersonGroupListComponent,
     FormComponent,
     NgbNavModule,
-    EpersonGroupListComponent,
     TranslateModule,
-    AsyncPipe,
-    NgIf,
-    NgFor,
   ],
   standalone: true,
 })
@@ -113,7 +109,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * A boolean representing if form submit operation is processing
    * @type {boolean}
    */
-  @Input() isProcessing: Observable<boolean> = observableOf(false);
+  @Input() isProcessing: Observable<boolean> = of(false);
 
   /**
    * An event fired when form is canceled.

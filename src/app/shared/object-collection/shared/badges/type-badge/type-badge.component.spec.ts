@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
@@ -21,7 +21,7 @@ let fixture: ComponentFixture<TypeBadgeComponent>;
 const type = 'authorOfPublication';
 
 const mockItemWithEntityType = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dspace.entity.type': [
       {
@@ -33,7 +33,7 @@ const mockItemWithEntityType = Object.assign(new Item(), {
 });
 
 const mockItemWithoutEntityType = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {

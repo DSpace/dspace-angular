@@ -9,6 +9,7 @@ import {
 import {
   distinctUntilChanged,
   map,
+  skipWhile,
   switchMap,
   take,
   tap,
@@ -57,7 +58,7 @@ import { SearchConfigurationService } from './search-configuration.service';
  * - Overrides {@link BaseDataService.addEmbedParams} in order to make it public
  *
  * Doesn't use any of the service's dependencies, they are initialized as undefined
- * Therefore, equest/response handling methods won't work even though they're defined
+ * Therefore, request/response handling methods won't work even though they're defined
  */
 class SearchDataService extends BaseDataService<any> {
   constructor() {
@@ -168,6 +169,7 @@ export class SearchService {
   search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
     const href$ = this.getEndpoint(searchOptions);
 
+    let startTime: number;
     href$.pipe(
       take(1),
       map((href: string) => {
@@ -191,6 +193,7 @@ export class SearchService {
         searchOptions: searchOptions,
       });
 
+      startTime = new Date().getTime();
       this.requestService.send(request, useCachedVersionIfAvailable);
     });
 
@@ -198,7 +201,13 @@ export class SearchService {
       switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href)),
     );
 
-    return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<SearchObjects<T>>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
+    );
   }
 
   /**
@@ -304,9 +313,15 @@ export class SearchService {
         return FacetValueResponseParsingService;
       },
     });
+    const startTime = new Date().getTime();
     this.requestService.send(request, useCachedVersionIfAvailable);
 
     return this.rdb.buildFromHref(href).pipe(
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<FacetValues>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
       tap((facetValuesRD: RemoteData<FacetValues>) => {
         if (facetValuesRD.hasSucceeded) {
           const appliedFilters: AppliedFilter[] = (facetValuesRD.payload.appliedFilters ?? [])
@@ -355,7 +370,7 @@ export class SearchService {
   }
 
   /**
-   * Send search event to rest api using angularitics
+   * Send search event to rest api using angulartics2
    * @param config              Paginated search options used
    * @param searchQueryResponse The response objects of the performed search
    * @param clickedObject       Optional UUID of an object a search was performed and clicked for
@@ -367,7 +382,7 @@ export class SearchService {
       const appliedFilter = appliedFilters[i];
       filters.push(appliedFilter);
     }
-    this.angulartics2.eventTrack.next({
+    const searchTrackObject = {
       action: 'search',
       properties: {
         searchOptions: config,
@@ -384,7 +399,9 @@ export class SearchService {
         filters: filters,
         clickedObject,
       },
-    });
+    };
+
+    this.angulartics2.eventTrack.next(searchTrackObject);
   }
 
   /**

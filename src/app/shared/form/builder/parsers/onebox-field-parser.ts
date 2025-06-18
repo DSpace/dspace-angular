@@ -3,6 +3,7 @@ import {
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
+import { environment } from '../../../../../environments/environment';
 import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicInputModel,
@@ -29,7 +30,7 @@ export class OneboxFieldParser extends FieldParser {
       // Case Qualdrop Model
       const clsGroup = {
         element: {
-          control: 'form-row',
+          control: 'row',
           hint: 'ds-form-qualdrop-hint',
         },
       };
@@ -39,7 +40,7 @@ export class OneboxFieldParser extends FieldParser {
           control: 'ds-form-input-addon custom-select',
         },
         grid: {
-          host: 'col-sm-4 pr-0',
+          host: 'col-sm-4 pe-0',
         },
       };
 
@@ -48,7 +49,7 @@ export class OneboxFieldParser extends FieldParser {
           control: 'ds-form-input-value',
         },
         grid: {
-          host: 'col-sm-8 pl-0',
+          host: 'col-sm-8 ps-0',
         },
       };
 
@@ -90,6 +91,7 @@ export class OneboxFieldParser extends FieldParser {
       return new DynamicOneboxModel(oneboxModelConfig);
     } else {
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
+      inputModelConfig.spellCheck = environment.form.spellCheck;
       this.setValues(inputModelConfig, fieldValue);
 
       return new DsDynamicInputModel(inputModelConfig);

@@ -20,7 +20,10 @@ import { ServerResponseService } from 'src/app/core/services/server-response.ser
   templateUrl: './objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ObjectNotFoundComponent implements OnInit {
 

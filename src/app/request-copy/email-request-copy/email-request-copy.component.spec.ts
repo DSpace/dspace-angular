@@ -7,6 +7,7 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EmailRequestCopyComponent } from './email-request-copy.component';
@@ -33,6 +34,8 @@ describe('EmailRequestCopyComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EmailRequestCopyComponent);
     component = fixture.componentInstance;
+    // Set validAccessPeriods$ before detectChanges calls ngOnInit
+    component.validAccessPeriods$ = of(['FOREVER']);
     fixture.detectChanges();
   });
 

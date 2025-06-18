@@ -1,6 +1,8 @@
-<ds-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-results-back-button>
+@if (showBackButton$ | async) {
+  <ds-results-back-button [back]="back"></ds-results-back-button>
+}
 <div class="d-flex flex-row">
-  <ds-item-page-title-field [item]="object" class="mr-auto">
+  <ds-item-page-title-field [item]="object" class="me-auto">
   </ds-item-page-title-field>
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
@@ -34,13 +36,13 @@
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isJournalVolumeOfIssue'"
-      [label]="'relationships.isSingleVolumeOf' | translate">
+      [label]="'item.page.journal-volume' | translate">
     </ds-related-items>
     <ds-related-items
       class="mb-1 mt-1"
       [parentItem]="object"
       [relationType]="'isPublicationOfJournalIssue'"
-      [label]="'relationships.isPublicationOfJournalIssue' | translate">
+      [label]="'item.page.articles' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"
@@ -51,7 +53,7 @@
       [label]="'journalissue.page.keyword'">
     </ds-generic-item-page-field>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']">
+      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button" tabindex="0">
         {{"item.page.link.full" | translate}}
       </a>
     </div>

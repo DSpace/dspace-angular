@@ -1,7 +1,7 @@
 import { waitForAsync } from '@angular/core/testing';
 import {
   EMPTY,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
@@ -46,7 +46,7 @@ describe('DsoVersioningModalService', () => {
     });
     versionHistoryService = jasmine.createSpyObj('versionHistoryService', {
       createVersion: createSuccessfulRemoteDataObject$<Version>(new Version()),
-      hasDraftVersion$: observableOf(false),
+      hasDraftVersion$: of(false),
     });
     itemVersionShared = jasmine.createSpyObj('itemVersionShared', ['notifyCreateNewVersion']);
     router = jasmine.createSpyObj('router', ['navigateByUrl']);
@@ -79,14 +79,14 @@ describe('DsoVersioningModalService', () => {
 
   describe('getVersioningTooltipMessage', () => {
     it('should return the create message when isNewVersionButtonDisabled returns false', (done) => {
-      spyOn(service, 'isNewVersionButtonDisabled').and.returnValue(observableOf(false));
+      spyOn(service, 'isNewVersionButtonDisabled').and.returnValue(of(false));
       service.getVersioningTooltipMessage(mockItem, 'draft-message', 'create-message').subscribe((message) => {
         expect(message).toEqual('create-message');
         done();
       });
     });
     it('should return the draft message when isNewVersionButtonDisabled returns true', (done) => {
-      spyOn(service, 'isNewVersionButtonDisabled').and.returnValue(observableOf(true));
+      spyOn(service, 'isNewVersionButtonDisabled').and.returnValue(of(true));
       service.getVersioningTooltipMessage(mockItem, 'draft-message', 'create-message').subscribe((message) => {
         expect(message).toEqual('draft-message');
         done();

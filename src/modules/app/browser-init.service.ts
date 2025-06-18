@@ -32,17 +32,21 @@ import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { coreSelector } from '../../app/core/core.selectors';
+import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { HeadTagService } from '../../app/core/metadata/head-tag.service';
+import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
-import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { MatomoService } from '../../app/statistics/matomo.service';
 import {
   StoreAction,
   StoreActionTypes,
@@ -52,6 +56,7 @@ import {
   APP_CONFIG_STATE,
   AppConfig,
 } from '../../config/app-config.interface';
+import { BuildConfig } from '../../config/build-config.interface';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { DefaultAppConfig } from '../../config/default-app-config';
 import { environment } from '../../environments/environment';
@@ -68,19 +73,23 @@ export class BrowserInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
     protected googleAnalyticsService: GoogleAnalyticsService,
     protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
-    protected klaroService: KlaroService,
+    protected orejimeService: OrejimeService,
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
     private rootDataService: RootDataService,
     protected router: Router,
+    private requestService: RequestService,
+    private halService: HALEndpointService,
+    private matomoService: MatomoService,
+    protected menuProviderService: MenuProviderService,
   ) {
     super(
       store,
@@ -93,6 +102,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      menuProviderService,
     );
   }
 
@@ -119,13 +129,15 @@ export class BrowserInitService extends InitService {
       this.initI18n();
       this.initAngulartics();
       this.initGoogleAnalytics();
+      this.initMatomo();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
 
-      this.initKlaro();
+      this.initOrejime();
 
       await lastValueFrom(this.authenticationReady$());
+      this.menuProviderService.initPersistentMenus(false);
 
       return true;
     };
@@ -139,15 +151,20 @@ export class BrowserInitService extends InitService {
    * @private
    */
   private async loadAppState(): Promise<boolean> {
-    const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
-    this.transferState.remove(InitService.NGRX_STATE);
-    this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
-    return lastValueFrom(
-      this.store.select(coreSelector).pipe(
-        find((core: any) => isNotEmpty(core)),
-        map(() => true),
-      ),
-    );
+    // The app state can be transferred only when SSR and CSR are using the same base url for the REST API
+    if (this.appConfig.ssr.transferState) {
+      const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
+      this.transferState.remove(InitService.NGRX_STATE);
+      this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
+      return lastValueFrom(
+        this.store.select(coreSelector).pipe(
+          find((core: any) => isNotEmpty(core)),
+          map(() => true),
+        ),
+      );
+    } else {
+      return Promise.resolve(true);
+    }
   }
 
   private trackAuthTokenExpiration(): void {
@@ -155,12 +172,12 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * Initialize Klaro (once authentication is resolved)
+   * Initialize Orejime (once authentication is resolved)
    * @protected
    */
-  protected initKlaro() {
+  protected initOrejime() {
     this.authenticationReady$().subscribe(() => {
-      this.klaroService.initialize();
+      this.orejimeService.initialize();
     });
   }
 
@@ -168,18 +185,20 @@ export class BrowserInitService extends InitService {
     this.googleAnalyticsService.addTrackingIdToPage();
   }
 
+  protected initMatomo(): void {
+    this.matomoService.init();
+  }
+
   /**
-   * During an external authentication flow invalidate the SSR transferState
+   * During an external authentication flow invalidate the
    * data in the cache. This allows the app to fetch fresh content.
    * @private
    */
   private externalAuthCheck() {
-
     this.sub = this.authService.isExternalAuthentication().pipe(
       filter((externalAuth: boolean) => externalAuth),
     ).subscribe(() => {
-      // Clear the transferState data.
-      this.rootDataService.invalidateRootCache();
+      this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
       this.authService.setExternalAuthStatus(false);
     },
     );
@@ -205,6 +224,7 @@ export class BrowserInitService extends InitService {
   protected initRouteListeners(): void {
     super.initRouteListeners();
     this.listenForRouteChanges();
+    this.menuProviderService.listenForRouteChanges(false);
   }
 
   /**

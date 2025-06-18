@@ -7,9 +7,9 @@
  */
 import {
   ESLintUtils,
-  TSESLint,
   TSESTree,
 } from '@typescript-eslint/utils';
+import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 
 import { fixture } from '../../../test/fixture';
 import {
@@ -52,12 +52,13 @@ export const info = {
       [Message.WRAPPER_IMPORTS_BASE]: 'Themed component wrapper classes must only import the base class',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
-  create(context: TSESLint.RuleContext<Message, unknown[]>) {
+  create(context: RuleContext<Message, unknown[]>) {
     const filename = getFilename(context);
 
     if (filename.endsWith('.spec.ts')) {
@@ -180,7 +181,7 @@ class Something {
   selector: 'ds-base-test-themable',
   standalone: true,
 })
-class TestThemeableTomponent {
+class TestThemeableComponent {
 }
       `,
     },
@@ -195,7 +196,7 @@ class TestThemeableTomponent {
     TestThemeableComponent,
   ],
 })
-class ThemedTestThemeableTomponent extends ThemedComponent<TestThemeableComponent> {
+class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
       `,
     },

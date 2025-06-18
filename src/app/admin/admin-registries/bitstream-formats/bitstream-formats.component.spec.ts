@@ -8,11 +8,8 @@ import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  cold,
-  hot,
-} from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { hot } from 'jasmine-marbles';
+import { of } from 'rxjs';
 
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -91,14 +88,14 @@ describe('BitstreamFormatsComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-      findAll: observableOf(mockFormatsRD),
+      findAll: of(mockFormatsRD),
       find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
       getSelectedBitstreamFormats: hot('a', { a: mockFormatsList }),
       selectBitstreamFormat: {},
       deselectBitstreamFormat: {},
       deselectAllBitstreamFormats: {},
       delete: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf('cleared'),
+      clearBitStreamFormatRequests: of('cleared'),
     });
 
     paginationService = new PaginationServiceStub();
@@ -190,18 +187,18 @@ describe('BitstreamFormatsComponent', () => {
   describe('isSelected', () => {
     beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
-    it('should return an observable of true if the provided bistream is in the list returned by the service', () => {
-      const result = comp.isSelected(bitstreamFormat1);
-
-      expect(result).toBeObservable(cold('b', { b: true }));
+    it('should return an observable of true if the provided bitstream is in the list returned by the service', () => {
+      comp.selectedBitstreamFormatIDs().subscribe((selectedBitstreamFormatIDs: string[]) => {
+        expect(selectedBitstreamFormatIDs).toContain(bitstreamFormat1.id);
+      });
     });
-    it('should return an observable of false if the provided bistream is not in the list returned by the service', () => {
+    it('should return an observable of false if the provided bitstream is not in the list returned by the service', () => {
       const format = new BitstreamFormat();
       format.uuid = 'new';
 
-      const result = comp.isSelected(format);
-
-      expect(result).toBeObservable(cold('b', { b: false }));
+      comp.selectedBitstreamFormatIDs().subscribe((selectedBitstreamFormatIDs: string[]) => {
+        expect(selectedBitstreamFormatIDs).not.toContain(format.id);
+      });
     });
   });
 
@@ -228,14 +225,14 @@ describe('BitstreamFormatsComponent', () => {
       notificationsServiceStub = new NotificationsServiceStub();
 
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: observableOf(mockFormatsRD),
+        findAll: of(mockFormatsRD),
         find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
-        getSelectedBitstreamFormats: observableOf(mockFormatsList),
+        getSelectedBitstreamFormats: of(mockFormatsList),
         selectBitstreamFormat: {},
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
         delete: createNoContentRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared'),
+        clearBitStreamFormatRequests: of('cleared'),
       });
 
       paginationService = new PaginationServiceStub();
@@ -285,14 +282,14 @@ describe('BitstreamFormatsComponent', () => {
       notificationsServiceStub = new NotificationsServiceStub();
 
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: observableOf(mockFormatsRD),
+        findAll: of(mockFormatsRD),
         find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
-        getSelectedBitstreamFormats: observableOf(mockFormatsList),
+        getSelectedBitstreamFormats: of(mockFormatsList),
         selectBitstreamFormat: {},
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
         delete: createFailedRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared'),
+        clearBitStreamFormatRequests: of('cleared'),
       });
 
       paginationService = new PaginationServiceStub();

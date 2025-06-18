@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
@@ -126,7 +126,7 @@ describe('RelatedItemsComponent', () => {
   describe('when decrease is called', () => {
     beforeEach(() => {
       // Add a second page
-      comp.objects.push(observableOf(undefined));
+      comp.objects.push(of(undefined));
       comp.decrease();
     });
 

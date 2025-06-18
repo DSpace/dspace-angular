@@ -1,8 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { RouteService } from 'src/app/core/services/route.service';
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -119,7 +124,7 @@ describe('BrowseByMetadataComponent', () => {
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
+    params: of({}),
   });
 
   paginationService = new PaginationServiceStub();
@@ -147,6 +152,7 @@ describe('BrowseByMetadataComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: {} },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -164,7 +170,7 @@ describe('BrowseByMetadataComponent', () => {
     fixture.detectChanges();
     browseService = (comp as any).browseService;
     route = (comp as any).route;
-    route.params = observableOf({});
+    route.params = of({});
     comp.ngOnInit();
     fixture.detectChanges();
   });
@@ -184,7 +190,7 @@ describe('BrowseByMetadataComponent', () => {
         value: 'John Doe',
       };
 
-      route.params = observableOf(paramsWithValue);
+      route.params = of(paramsWithValue);
       comp.ngOnInit();
       fixture.detectChanges();
     });
@@ -258,6 +264,35 @@ describe('BrowseByMetadataComponent', () => {
       expect(result.sort.field).toEqual('fake-field');
       expect(result.fetchThumbnail).toBeTrue();
     });
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.ssrRenderingDisabled = true;
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(null));
+    });
+
+    it('should not call getBrowseEntriesFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).browseService.getBrowseEntriesFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.ssrRenderingDisabled = false;
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseEntriesFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).browseService.getBrowseEntriesFor).toHaveBeenCalled();
+    }));
   });
 });
 

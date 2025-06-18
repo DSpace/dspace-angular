@@ -1,8 +1,9 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -33,9 +34,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-profile-page-security-form',
   templateUrl: './profile-page-security-form.component.html',
   imports: [
-    NgIf,
-    FormComponent,
     AlertComponent,
+    FormComponent,
     TranslateModule,
   ],
   standalone: true,
@@ -44,7 +44,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
  * Component for a user to edit their security information
  * Displays a form containing a password field and a confirmation of the password
  */
-export class ProfilePageSecurityFormComponent implements OnInit {
+export class ProfilePageSecurityFormComponent implements OnDestroy, OnInit {
 
   /**
    * Emits the validity of the password

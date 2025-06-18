@@ -1,8 +1,10 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
+import { createPaginatedList } from '../testing/utils.test';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1345,15 +1347,15 @@ export function getMockSuggestionNotificationsStateService(): any {
 export function getMockSuggestionsService(): any {
   return jasmine.createSpyObj('SuggestionsService', {
     getTargets: jasmine.createSpy('getTargets'),
-    getSuggestions: observableOf([]),
+    getSuggestions: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     clearSuggestionRequests: jasmine.createSpy('clearSuggestionRequests'),
     deleteReviewedSuggestion: jasmine.createSpy('deleteReviewedSuggestion'),
     retrieveCurrentUserSuggestions: jasmine.createSpy('retrieveCurrentUserSuggestions'),
     getTargetUuid: jasmine.createSpy('getTargetUuid'),
-    ignoreSuggestion: observableOf(null),
-    ignoreSuggestionMultiple: observableOf({ success: 1, fails: 0 }),
-    approveAndImportMultiple: observableOf({ success: 1, fails: 0 }),
-    approveAndImport: observableOf({ id: '1234' }),
+    ignoreSuggestion: of(null),
+    ignoreSuggestionMultiple: of({ success: 1, fails: 0 }),
+    approveAndImportMultiple: of({ success: 1, fails: 0 }),
+    approveAndImport: of({ id: '1234' }),
     isCollectionFixed: false,
     translateSuggestionSource: 'testSource',
     translateSuggestionType: 'testType',

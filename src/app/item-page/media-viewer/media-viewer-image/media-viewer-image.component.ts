@@ -15,17 +15,18 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
- * This componenet render an image gallery for the image viewer
+ * This component render an image gallery for the image viewer
  */
 @Component({
   selector: 'ds-base-media-viewer-image',
   templateUrl: './media-viewer-image.component.html',
   styleUrls: ['./media-viewer-image.component.scss'],
   imports: [
-    NgxGalleryModule,
     AsyncPipe,
+    NgxGalleryModule,
   ],
   standalone: true,
 })
@@ -99,7 +100,7 @@ export class MediaViewerImageComponent implements OnChanges, OnInit {
           medium: image.thumbnail
             ? image.thumbnail
             : this.thumbnailPlaceholder,
-          big: image.bitstream._links.content.href,
+          big: image.bitstream._links.content.href + (hasValue(image.accessToken) ? ('?accessToken=' + image.accessToken) : ''),
         });
       }
     }

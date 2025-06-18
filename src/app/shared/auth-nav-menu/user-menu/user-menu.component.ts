@@ -1,12 +1,13 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import {
   RouterLink,
@@ -40,7 +41,15 @@ import { LogOutComponent } from '../../log-out/log-out.component';
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, RouterLinkActive, NgClass, RouterLink, LogOutComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    LogOutComponent,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class UserMenuComponent implements OnInit {
 
@@ -48,6 +57,11 @@ export class UserMenuComponent implements OnInit {
    * The input flag to show user details in navbar expandable menu
    */
   @Input() inExpandableNavbar = false;
+
+  /**
+   * Emits an event when the route changes
+   */
+  @Output() changedRoute: EventEmitter<any> = new EventEmitter<any>();
 
   /**
    * True if the authentication is loading.
@@ -95,5 +109,12 @@ export class UserMenuComponent implements OnInit {
     // set user
     this.user$ = this.authService.getAuthenticatedUserFromStore();
 
+  }
+
+  /**
+   * Emits an event when the menu item is clicked
+   */
+  onMenuItemClick() {
+    this.changedRoute.emit();
   }
 }

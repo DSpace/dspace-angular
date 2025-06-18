@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { ItemMock } from 'src/app/shared/mocks/item.mock';
 import {
@@ -16,6 +16,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -36,6 +37,8 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import objectContaining = jasmine.objectContaining;
+import { RestResponse } from '../cache/response.models';
+import { RequestEntry } from './request-entry.model';
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;
@@ -46,6 +49,7 @@ describe('BitstreamDataService', () => {
   let rdbService: RemoteDataBuildService;
   let bundleDataService: BundleDataService;
   const bitstreamFormatHref = 'rest-api/bitstreamformats';
+  let responseCacheEntry: RequestEntry;
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'fake-bitstream1',
@@ -70,13 +74,18 @@ describe('BitstreamDataService', () => {
   const url = 'fake-bitstream-url';
 
   beforeEach(() => {
+    responseCacheEntry = new RequestEntry();
+    responseCacheEntry.request = { href: 'https://rest.api/' } as any;
+    responseCacheEntry.response = new RestResponse(true, 200, 'Success');
+
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove'),
+      getByHref: of(responseCacheEntry),
     });
     requestService = getMockRequestService();
     halService = Object.assign(new HALEndpointServiceStub(url));
     bitstreamFormatService = jasmine.createSpyObj('bistreamFormatService', {
-      getBrowseEndpoint: observableOf(bitstreamFormatHref),
+      getBrowseEndpoint: of(bitstreamFormatHref),
     });
 
     rdbService = getMockRemoteDataBuildService();
@@ -138,27 +147,27 @@ describe('BitstreamDataService', () => {
 
     describe('findPrimaryBitstreamByItemAndName', () => {
       it('should return primary bitstream', () => {
-        const exprected$ = cold('(a|)', { a: bitstream1 } );
+        const expected$ = cold('(a|)', { a: bitstream1 } );
         const bundle = Object.assign(new Bundle(), {
-          primaryBitstream: observableOf(createSuccessfulRemoteDataObject(bitstream1)),
+          primaryBitstream: of(createSuccessfulRemoteDataObject(bitstream1)),
         });
-        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createSuccessfulRemoteDataObject(bundle)));
-        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(of(createSuccessfulRemoteDataObject(bundle)));
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(expected$);
       });
 
       it('should return null if primary bitstream has not be succeeded ', () => {
-        const exprected$ = cold('(a|)', { a: null } );
+        const expected$ = cold('(a|)', { a: null } );
         const bundle = Object.assign(new Bundle(), {
-          primaryBitstream: observableOf(createFailedRemoteDataObject()),
+          primaryBitstream: of(createFailedRemoteDataObject()),
         });
-        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createSuccessfulRemoteDataObject(bundle)));
-        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(of(createSuccessfulRemoteDataObject(bundle)));
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(expected$);
       });
 
       it('should return EMPTY if nothing where found', () => {
-        const exprected$ = cold('(|)', {} );
-        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createFailedRemoteDataObject<Bundle>()));
-        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+        const expected$ = cold('(|)', {} );
+        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(of(createFailedRemoteDataObject<Bundle>()));
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(expected$);
       });
     });
 
@@ -174,6 +183,32 @@ describe('BitstreamDataService', () => {
       } as PatchRequest));
       expect(service.invalidateByHref).toHaveBeenCalledWith('fake-bitstream1-self');
       expect(service.invalidateByHref).toHaveBeenCalledWith('fake-bitstream2-self');
+    });
+  });
+
+  describe('findByItemHandle', () => {
+    it('should encode the filename correctly in the search parameters', () => {
+      const handle = '123456789/1234';
+      const sequenceId = '5';
+      const filename = 'file with spaces.pdf';
+      const searchParams = [
+        new RequestParam('handle', handle),
+        new RequestParam('sequenceId', sequenceId),
+        new RequestParam('filename', filename),
+      ];
+      const linksToFollow: FollowLinkConfig<Bitstream>[] = [];
+
+      spyOn(service as any, 'getSearchByHref').and.callThrough();
+
+      service.getSearchByHref('byItemHandle', { searchParams }, ...linksToFollow).subscribe((href) => {
+        expect(service.getSearchByHref).toHaveBeenCalledWith(
+          'byItemHandle',
+          { searchParams },
+          ...linksToFollow,
+        );
+
+        expect(href).toBe(`${url}/bitstreams/search/byItemHandle?handle=123456789%2F1234&sequenceId=5&filename=file%20with%20spaces.pdf`);
+      });
     });
   });
 });

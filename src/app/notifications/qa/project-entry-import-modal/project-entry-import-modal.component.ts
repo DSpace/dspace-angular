@@ -1,11 +1,9 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +12,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 
@@ -29,6 +27,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -104,13 +103,22 @@ export interface QualityAssuranceEventData {
   styleUrls: ['./project-entry-import-modal.component.scss'],
   templateUrl: './project-entry-import-modal.component.html',
   standalone: true,
-  imports: [RouterLink, NgIf, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    ThemedSearchResultsComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component to display a modal window for linking a project to an Quality Assurance event
  * Shows information about the selected project and a selectable list.
  */
-export class ProjectEntryImportModalComponent implements OnInit {
+export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
   /**
    * The external source entry
    */
@@ -142,7 +150,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
   /**
    * Information about the data loading status
    */
-  isLoading$ = observableOf(true);
+  isLoading$ = of(true);
   /**
    * Search options to use for fetching projects
    */
@@ -200,7 +208,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
               private selectService: SelectableListService) { }
 
   /**
-   * Component intitialization.
+   * Component initialization.
    */
   public ngOnInit(): void {
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'notifications-project-bound', pageSize: this.pageSize });
@@ -216,7 +224,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
     this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
     this.subs.push(
       this.localEntitiesRD$.subscribe(
-        () => this.isLoading$ = observableOf(false),
+        () => this.isLoading$ = of(false),
       ),
     );
   }
@@ -235,7 +243,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
   public search(searchTitle): void {
     if (isNotEmpty(searchTitle)) {
       const filterRegEx = /[:]/g;
-      this.isLoading$ = observableOf(true);
+      this.isLoading$ = of(true);
       this.searchOptions = Object.assign(new PaginatedSearchOptions(
         {
           configuration: this.configuration,
@@ -246,7 +254,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
       this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
       this.subs.push(
         this.localEntitiesRD$.subscribe(
-          () => this.isLoading$ = observableOf(false),
+          () => this.isLoading$ = of(false),
         ),
       );
     }

@@ -14,11 +14,13 @@ import { StatisticsTableComponent } from '../../../../../app/statistics-page/sta
   // templateUrl: './community-statistics-page.component.html',
   templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html',
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-
-/**
- * Component representing the statistics page for a community.
- */
-export class CommunityStatisticsPageComponent extends BaseComponent {}
-
+export class CommunityStatisticsPageComponent extends BaseComponent {
+}

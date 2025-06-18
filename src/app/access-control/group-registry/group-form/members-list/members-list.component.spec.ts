@@ -32,7 +32,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -113,7 +113,7 @@ describe('MembersListComponent', () => {
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
       getActiveGroup(): Observable<Group> {
-        return observableOf(activeGroup);
+        return of(activeGroup);
       },
       getEPersonMembers() {
         return this.epersonMembers;
@@ -127,7 +127,7 @@ describe('MembersListComponent', () => {
             this.epersonNonMembers.splice(index, 1);
           }
         });
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
         // empty
@@ -147,7 +147,7 @@ describe('MembersListComponent', () => {
         });
         // Add eperson to list of non-members
         this.epersonNonMembers = [...this.epersonNonMembers, epersonToDelete];
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
     };
     builderService = getMockFormBuilderService();
@@ -222,13 +222,13 @@ describe('MembersListComponent', () => {
 
     describe('if first delete button is pressed', () => {
       beforeEach(() => {
+        spyOn(component, 'search').and.callThrough();
         const deleteButton: DebugElement = fixture.debugElement.query(By.css('#ePeopleMembersOfGroup tbody .fa-trash-alt'));
         deleteButton.nativeElement.click();
         fixture.detectChanges();
       });
-      it('then no ePerson remains as a member of the active group.', () => {
-        const epersonsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tbody tr'));
-        expect(epersonsFound.length).toEqual(0);
+      it('should trigger the search to add the user back to the search table', () => {
+        expect(component.search).toHaveBeenCalled();
       });
     });
   });
@@ -264,13 +264,13 @@ describe('MembersListComponent', () => {
 
       describe('if first add button is pressed', () => {
         beforeEach(() => {
+          spyOn(component, 'search').and.callThrough();
           const addButton: DebugElement = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-plus'));
           addButton.nativeElement.click();
           fixture.detectChanges();
         });
-        it('then all (two) ePersons are member of the active group. No non-members left', () => {
-          epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
-          expect(epersonsFound.length).toEqual(0);
+        it('should trigger the search to remove the user from the search table', () => {
+          expect(component.search).toHaveBeenCalled();
         });
       });
     });

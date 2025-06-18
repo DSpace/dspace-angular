@@ -14,7 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './page-error.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class PageErrorComponent {
   status: number;

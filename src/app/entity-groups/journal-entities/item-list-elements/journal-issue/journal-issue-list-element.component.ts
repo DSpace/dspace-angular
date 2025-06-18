@@ -12,7 +12,9 @@ import { JournalIssueSearchResultListElementComponent } from '../search-result-l
   styleUrls: ['./journal-issue-list-element.component.scss'],
   templateUrl: './journal-issue-list-element.component.html',
   standalone: true,
-  imports: [JournalIssueSearchResultListElementComponent],
+  imports: [
+    JournalIssueSearchResultListElementComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item of the type Journal Issue

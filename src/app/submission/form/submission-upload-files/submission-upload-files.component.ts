@@ -1,13 +1,14 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -39,11 +40,10 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   templateUrl: './submission-upload-files.component.html',
   imports: [
     UploaderComponent,
-    NgIf,
   ],
   standalone: true,
 })
-export class SubmissionUploadFilesComponent implements OnChanges {
+export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {
 
   /**
    * The collection id this submission belonging to
@@ -91,7 +91,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
    * A boolean representing if upload functionality is enabled
    * @type {boolean}
    */
-  private uploadEnabled: Observable<boolean> = observableOf(false);
+  private uploadEnabled: Observable<boolean> = of(false);
 
   /**
    * Save submission before to upload a file

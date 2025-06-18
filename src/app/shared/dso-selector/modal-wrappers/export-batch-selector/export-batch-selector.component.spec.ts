@@ -22,7 +22,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
@@ -105,7 +105,7 @@ describe('ExportBatchSelectorComponent', () => {
       },
     );
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportBatchSelectorComponent],
@@ -142,7 +142,7 @@ describe('ExportBatchSelectorComponent', () => {
     debugElement = fixture.debugElement;
     const modalService = TestBed.inject(NgbModal);
     modalRef = modalService.open(ConfirmationModalComponent);
-    modalRef.componentInstance.response = observableOf(true);
+    modalRef.componentInstance.response = of(true);
     fixture.detectChanges();
   });
 
@@ -190,7 +190,7 @@ describe('ExportBatchSelectorComponent', () => {
   describe('if collection is selected and is not admin', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
-      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCollection).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;

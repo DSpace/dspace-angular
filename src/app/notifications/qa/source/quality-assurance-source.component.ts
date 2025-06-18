@@ -1,14 +1,18 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,6 +20,7 @@ import {
 } from 'rxjs';
 import {
   distinctUntilChanged,
+  map,
   take,
 } from 'rxjs/operators';
 
@@ -29,6 +34,10 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
+import {
+  SourceListComponent,
+  SourceObject,
+} from '../../shared/source-list.component';
 
 /**
  * Component to display the Quality Assurance source list.
@@ -38,9 +47,18 @@ import { NotificationsStateService } from '../../notifications-state.service';
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
   standalone: true,
-  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    DatePipe,
+    PaginationComponent,
+    RouterLink,
+    SourceListComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
-export class QualityAssuranceSourceComponent implements OnInit {
+export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, AfterViewInit {
 
   /**
    * The pagination system configuration for HTML listing.
@@ -59,7 +77,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
   /**
    * The Quality Assurance source list.
    */
-  public sources$: Observable<QualityAssuranceSourceObject[]>;
+  public sources$: Observable<SourceObject[]>;
   /**
    * The total number of Quality Assurance sources.
    */
@@ -74,10 +92,14 @@ export class QualityAssuranceSourceComponent implements OnInit {
    * Initialize the component variables.
    * @param {PaginationService} paginationService
    * @param {NotificationsStateService} notificationsStateService
+   * @param {Router} router
+   * @param {ActivatedRoute} route
    */
   constructor(
     private paginationService: PaginationService,
     private notificationsStateService: NotificationsStateService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -85,7 +107,15 @@ export class QualityAssuranceSourceComponent implements OnInit {
    * Component initialization.
    */
   ngOnInit(): void {
-    this.sources$ = this.notificationsStateService.getQualityAssuranceSource();
+    this.sources$ = this.notificationsStateService.getQualityAssuranceSource().pipe(
+      map((sources: QualityAssuranceSourceObject[])=> {
+        return sources.map((source: QualityAssuranceSourceObject) => ({
+          id: source.id,
+          lastEvent: source.lastEvent,
+          total: source.totalEvents,
+        }));
+      }),
+    );
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceSourceTotals();
   }
 
@@ -100,6 +130,14 @@ export class QualityAssuranceSourceComponent implements OnInit {
         this.getQualityAssuranceSource();
       }),
     );
+  }
+
+  /**
+   * Navigate to the specified source
+   * @param sourceId
+   */
+  onSelect(sourceId: string) {
+    this.router.navigate([sourceId], { relativeTo: this.route });
   }
 
   /**
@@ -123,7 +161,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
   }
 
   /**
-   * Dispatch the Quality Assurance source retrival.
+   * Dispatch the Quality Assurance source retrieval.
    */
   public getQualityAssuranceSource(): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(

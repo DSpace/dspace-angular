@@ -12,7 +12,6 @@
     "eslint-plugin-rxjs",
     "eslint-plugin-simple-import-sort",
     "eslint-plugin-import-newlines",
-    "eslint-plugin-jsonc",
     "dspace-angular-ts",
     "dspace-angular-html"
   ],
@@ -161,10 +160,14 @@
             ]
           }
         ],
+        "@angular-eslint/prefer-standalone": [
+          "error"
+        ],
         "@angular-eslint/no-attribute-decorator": "error",
         "@angular-eslint/no-output-native": "warn",
         "@angular-eslint/no-output-on-prefix": "warn",
         "@angular-eslint/no-conflicting-lifecycle": "warn",
+        "@angular-eslint/use-lifecycle-interface": "error",
 
         "@typescript-eslint/no-inferrable-types":[
           "error",
@@ -260,9 +263,48 @@
         "rxjs/no-nested-subscribe": "off",     // todo: go over _all_ cases
 
         // Custom DSpace Angular rules
+        "dspace-angular-ts/alias-imports": [
+          "error",
+          {
+            "aliases": [
+              {
+                "package": "rxjs",
+                "imported": "of",
+                "local": "of"
+              }
+            ]
+          }
+        ],
         "dspace-angular-ts/themed-component-classes": "error",
         "dspace-angular-ts/themed-component-selectors": "error",
-        "dspace-angular-ts/themed-component-usages": "error"
+        "dspace-angular-ts/themed-component-usages": "error",
+        "dspace-angular-ts/themed-decorators": [
+          "off",
+          {
+            "decorators": {
+              "listableObjectComponent": 3,
+              "rendersSectionForMenu": 2
+            }
+          }
+        ],
+        "dspace-angular-ts/themed-wrapper-no-input-defaults": "error",
+        "dspace-angular-ts/unique-decorators": [
+          "off",
+          {
+            "decorators": [
+              "listableObjectComponent"
+            ]
+          }
+        ],
+        "dspace-angular-ts/sort-standalone-imports": [
+          "error",
+          {
+            "locale": "en-US",
+            "maxItems": 0,
+            "indent": 2,
+            "trailingComma": true
+          }
+        ]
       }
     },
     {
@@ -292,7 +334,9 @@
       ],
       "rules": {
         // Custom DSpace Angular rules
-        "dspace-angular-html/themed-component-usages": "error"
+        "dspace-angular-html/themed-component-usages": "error",
+        "dspace-angular-html/no-disabled-attribute-on-button": "error",
+        "@angular-eslint/template/prefer-control-flow": "error"
       }
     },
     {
@@ -300,10 +344,13 @@
         "*.json5"
       ],
       "extends": [
-        "plugin:jsonc/recommended-with-jsonc"
+        "plugin:jsonc/recommended-with-json5"
       ],
       "rules": {
-        "no-irregular-whitespace": "error",
+        // The ESLint core no-irregular-whitespace rule doesn't work well in JSON
+        // See: https://ota-meshi.github.io/eslint-plugin-jsonc/rules/no-irregular-whitespace.html
+        "no-irregular-whitespace": "off",
+        "jsonc/no-irregular-whitespace": "error",
         "no-trailing-spaces": "error",
         "jsonc/comma-dangle": [
           "error",

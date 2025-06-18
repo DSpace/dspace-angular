@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   ChangeDetectorRef,
   Component,
@@ -24,7 +24,7 @@ import {
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -62,10 +62,9 @@ import { DynamicTagModel } from './dynamic-tag.model';
   styleUrls: ['./dynamic-tag.component.scss'],
   templateUrl: './dynamic-tag.component.html',
   imports: [
-    NgbTypeaheadModule,
-    FormsModule,
-    NgIf,
     ChipsComponent,
+    FormsModule,
+    NgbTypeaheadModule,
   ],
   standalone: true,
 })
@@ -114,14 +113,14 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({ list: [] });
+          return of({ list: [] });
         } else {
           return this.vocabularyService.getVocabularyEntriesByValue(term, false, this.model.vocabularyOptions, new PageInfo()).pipe(
             getFirstSucceededRemoteDataPayload(),
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(buildPaginatedList(
+              return of(buildPaginatedList(
                 new PageInfo(),
                 [],
               ));

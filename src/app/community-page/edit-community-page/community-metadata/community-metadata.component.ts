@@ -19,8 +19,8 @@ import { CommunityFormComponent } from '../../community-form/community-form.comp
   selector: 'ds-community-metadata',
   templateUrl: './community-metadata.component.html',
   imports: [
-    CommunityFormComponent,
     AsyncPipe,
+    CommunityFormComponent,
   ],
   standalone: true,
 })

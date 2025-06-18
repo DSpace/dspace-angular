@@ -1,7 +1,4 @@
-import {
-  NgSwitch,
-  NgSwitchCase,
-} from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -20,6 +17,7 @@ import { controlContainerFactory } from '../../process-form-factory';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
 import { DateValueInputComponent } from './date-value-input/date-value-input.component';
 import { FileValueInputComponent } from './file-value-input/file-value-input.component';
+import { IntegerValueInputComponent } from './number-value-input/integer-value-input.component';
 import { StringValueInputComponent } from './string-value-input/string-value-input.component';
 
 /**
@@ -33,7 +31,13 @@ import { StringValueInputComponent } from './string-value-input/string-value-inp
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [NgSwitch, NgSwitchCase, StringValueInputComponent, DateValueInputComponent, FileValueInputComponent, BooleanValueInputComponent],
+  imports: [
+    BooleanValueInputComponent,
+    DateValueInputComponent,
+    FileValueInputComponent,
+    IntegerValueInputComponent,
+    StringValueInputComponent,
+  ],
 })
 export class ParameterValueInputComponent {
   @Input() index: number;

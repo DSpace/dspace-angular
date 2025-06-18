@@ -15,7 +15,7 @@ import {
   RouterLink,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -67,7 +67,7 @@ describe('SearchFacetRangeOptionComponent', () => {
   let filterService;
   let searchService;
   let router;
-  const page = observableOf(0);
+  const page = of(0);
 
   const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
   const paginationService = new PaginationServiceStub(pagination);
@@ -81,13 +81,13 @@ describe('SearchFacetRangeOptionComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         {
           provide: SearchConfigurationService, useValue: {
-            searchOptions: observableOf({}),
+            searchOptions: of({}),
             paginationId: 'page-id',
           },
         },
         {
           provide: SearchFilterService, useValue: {
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => of(true),
             getPage: (paramName: string) => page,
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
@@ -118,7 +118,7 @@ describe('SearchFacetRangeOptionComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the updateChangeParams method is called wih a value', () => {
+  describe('when the updateChangeParams method is called with a value', () => {
     it('should update the changeQueryParams with the new parameter values', () => {
       comp.changeQueryParams = {};
       comp.filterValue = {
@@ -145,7 +145,7 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   describe('when isVisible emits true', () => {
     it('the facet option should be visible', () => {
-      comp.isVisible = observableOf(true);
+      comp.isVisible = of(true);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).not.toBeNull();
@@ -154,7 +154,7 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   describe('when isVisible emits false', () => {
     it('the facet option should not be visible', () => {
-      comp.isVisible = observableOf(false);
+      comp.isVisible = of(false);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).toBeNull();

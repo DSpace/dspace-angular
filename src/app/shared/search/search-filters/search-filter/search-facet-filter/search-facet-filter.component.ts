@@ -20,7 +20,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -105,6 +105,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   isLastPage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
+   * Emits true if show the search text
+   */
+  isAvailableForShowSearchText: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /**
    * The value of the input field that is used to query for possible values for this filter
    */
   filter: string;
@@ -117,7 +121,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the result values for this filter found by the current filter query
    */
-  filterSearchResults$: Observable<InputSuggestion[]> = observableOf([]);
+  filterSearchResults$: Observable<InputSuggestion[]> = of([]);
 
   /**
    * Emits the active values for this filter
@@ -156,7 +160,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.currentUrl = this.router.url;
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
     this.searchOptions$ = this.searchConfigService.searchOptions.pipe(
-      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign({}, options, {
+      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign(new SearchOptions(options), {
         scope: this.scope,
       })),
     );
@@ -274,7 +278,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           queryParams: params,
         });
         this.filter = '';
-        this.filterSearchResults$ = observableOf([]);
+        this.filterSearchResults$ = of([]);
       }));
     }
   }
@@ -289,6 +293,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         getFirstSucceededRemoteDataPayload(),
         tap((facetValues: FacetValues) => {
           this.isLastPage$.next(hasNoValue(facetValues?.next));
+          const hasLimitFacets =  facetValues?.page?.length < facetValues?.facetLimit;
+          this.isAvailableForShowSearchText.next(hasLimitFacets && hasNoValue(facetValues?.next));
         }),
       )),
       map((newFacetValues: FacetValues) => {

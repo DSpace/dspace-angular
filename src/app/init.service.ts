@@ -42,15 +42,15 @@ import { HeadTagService } from './core/metadata/head-tag.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
+import { MenuProviderService } from './shared/menu/menu-provider.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-
 
 /**
  * Performs the initialization of the app.
  *
  * Should be extended to implement server- & browser-specific functionality.
- * Initialization steps shared between the server and brower implementations
+ * Initialization steps shared between the server and browser implementations
  * can be included in this class.
  *
  * Note that the service cannot (indirectly) depend on injection tokens that are only available _after_ APP_INITIALIZER.
@@ -74,6 +74,7 @@ export abstract class InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
+    protected menuProviderService: MenuProviderService,
 
   ) {
   }
@@ -134,7 +135,7 @@ export abstract class InitService {
   protected static resolveAppConfig(
     transferState: TransferState,
   ): void {
-    // overriden in subclasses if applicable
+    // overridden in subclasses if applicable
   }
 
   /**
@@ -216,7 +217,6 @@ export abstract class InitService {
     this.headTagService.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
-    this.menuService.listenForRouteChanges();
   }
 
   /**

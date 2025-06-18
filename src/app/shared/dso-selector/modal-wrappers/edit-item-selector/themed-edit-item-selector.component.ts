@@ -11,7 +11,9 @@ import { EditItemSelectorComponent } from './edit-item-selector.component';
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [EditItemSelectorComponent],
+  imports: [
+    EditItemSelectorComponent,
+  ],
 })
 export class ThemedEditItemSelectorComponent
   extends ThemedComponent<EditItemSelectorComponent> {

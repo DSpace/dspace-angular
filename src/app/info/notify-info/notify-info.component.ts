@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
@@ -18,9 +17,9 @@ import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-inf
   templateUrl: './notify-info.component.html',
   styleUrls: ['./notify-info.component.scss'],
   imports: [
+    AsyncPipe,
     RouterLink,
     TranslateModule,
-    AsyncPipe,
   ],
   standalone: true,
 })
@@ -31,26 +30,17 @@ export class NotifyInfoComponent implements OnInit {
   /**
    * Observable containing the COAR REST INBOX API URLs.
    */
-  coarRestApiUrl: Observable<string[]> = of([]);
+  coarRestApiUrls$: Observable<string>;
 
-  constructor(private notifyInfoService: NotifyInfoService) {}
+  constructor(
+    protected notifyInfoService: NotifyInfoService,
+  ) {
+  }
 
   ngOnInit() {
-    this.coarRestApiUrl = this.notifyInfoService.getCoarLdnLocalInboxUrls();
-  }
-
-  /**
-   * Generates HTML code for COAR REST API links.
-   * @returns An Observable that emits the generated HTML code.
-   */
-  generateCoarRestApiLinksHTML() {
-    return this.coarRestApiUrl.pipe(
-      // transform the data into HTML
-      map((urls) => {
-        return urls.map(url => `
-          <code><a href="${url}" target="_blank"><span class="api-url">${url}</span></a></code>
-        `).join(',');
-      }),
+    this.coarRestApiUrls$ = this.notifyInfoService.getCoarLdnLocalInboxUrls().pipe(
+      map((urls: string[]) => urls.map((url: string) => `<a href="${url}" target="_blank">${url}</a>`).join(', ')),
     );
   }
+
 }

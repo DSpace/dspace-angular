@@ -23,7 +23,9 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   selector: 'ds-search',
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [SearchComponent],
+  imports: [
+    SearchComponent,
+  ],
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
@@ -32,6 +34,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'context',
     'configuration',
     'fixedFilterQuery',
+    'hiddenQuery',
     'useCachedVersionIfAvailable',
     'inPlaceSearch',
     'linkType',
@@ -64,6 +67,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() configuration: string;
 
   @Input() fixedFilterQuery: string;
+
+  @Input() hiddenQuery: string;
 
   @Input() useCachedVersionIfAvailable: boolean;
 

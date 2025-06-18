@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -14,7 +12,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -36,6 +34,7 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 /**
  * Component representing the admin sidebar
@@ -46,7 +45,14 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
   styleUrls: ['./admin-sidebar.component.scss'],
   animations: [slideSidebar],
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgbDropdownModule,
+    NgClass,
+    NgComponentOutlet,
+    TranslatePipe,
+  ],
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**

@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   LowerCasePipe,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -61,7 +59,15 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
   templateUrl: './search-hierarchy-filter.component.html',
   animations: [facetLoad],
   standalone: true,
-  imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, LowerCasePipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FilterInputSuggestionsComponent,
+    FormsModule,
+    LowerCasePipe,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -126,6 +132,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true,
     };
+    modalRef.componentInstance.showAdd = false;
     this.subs.push(from(modalRef.result).pipe(
       switchMap((detail: VocabularyEntryDetail) => this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, detail.value, 'equals')),
       take(1),

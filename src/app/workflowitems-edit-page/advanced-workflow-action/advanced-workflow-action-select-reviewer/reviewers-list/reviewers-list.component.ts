@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -26,6 +24,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 import {
   EPersonListActionConfig,
@@ -36,10 +38,13 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
@@ -61,15 +66,14 @@ enum SubKey {
   templateUrl: '../../../../access-control/group-registry/group-form/members-list/members-list.component.html',
   standalone: true,
   imports: [
-    TranslateModule,
-    ContextHelpDirective,
-    ReactiveFormsModule,
-    PaginationComponent,
-    NgIf,
     AsyncPipe,
-    RouterLink,
+    BtnDisabledDirective,
+    ContextHelpDirective,
     NgClass,
-    NgForOf,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
 })
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {
@@ -101,7 +105,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
     super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router, dsoNameService);
   }
 
-  ngOnInit() {
+  override ngOnInit(): void {
     this.searchForm = this.formBuilder.group(({
       scope: 'metadata',
       query: '',
@@ -114,6 +118,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
       if (this.groupId === null) {
         this.retrieveMembers(this.config.currentPage);
       } else {
+        this.unsubFrom(SubKey.ActiveGroup);
         this.subs.set(SubKey.ActiveGroup, this.groupService.findById(this.groupId).pipe(
           getFirstSucceededRemoteDataPayload(),
         ).subscribe((activeGroup: Group) => {
@@ -136,13 +141,24 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
   retrieveMembers(page: number): void {
     this.config.currentPage = page;
     if (this.groupId === null) {
-      this.unsubFrom(SubKey.Members);
-      const paginatedListOfEPersons: PaginatedList<EPerson> = new PaginatedList();
-      paginatedListOfEPersons.page = this.selectedReviewers;
+      const paginatedListOfEPersons: PaginatedList<EpersonDtoModel> = new PaginatedList();
+      paginatedListOfEPersons.page = this.selectedReviewers.map((ePerson: EPerson) => Object.assign(new EpersonDtoModel(), {
+        eperson: ePerson,
+        ableToDelete: this.isMemberOfGroup(ePerson),
+      }));
       this.ePeopleMembersOfGroup.next(paginatedListOfEPersons);
     } else {
       super.retrieveMembers(page);
     }
+  }
+
+  /**
+   * Checks whether the given {@link possibleMember} is part of the {@link selectedReviewers}.
+   *
+   * @param possibleMember The {@link EPerson} that needs to be checked
+   */
+  isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
+    return of(hasValue(this.selectedReviewers.find((reviewer: EPerson) => reviewer.id === possibleMember.id)));
   }
 
   /**
@@ -151,10 +167,11 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
    * @param eperson The {@link EPerson} to remove
    */
   deleteMemberFromGroup(eperson: EPerson) {
-    const index = this.selectedReviewers.indexOf(eperson);
+    const index = this.selectedReviewers.findIndex((reviewer: EPerson) => reviewer.id === eperson.id);
     if (index !== -1) {
       this.selectedReviewers.splice(index, 1);
     }
+    this.retrieveMembers(this.config.currentPage);
     this.selectedReviewersUpdated.emit(this.selectedReviewers);
   }
 
@@ -169,6 +186,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
       this.selectedReviewers = [];
     }
     this.selectedReviewers.push(eperson);
+    this.retrieveMembers(this.config.currentPage);
     this.selectedReviewersUpdated.emit(this.selectedReviewers);
   }
 

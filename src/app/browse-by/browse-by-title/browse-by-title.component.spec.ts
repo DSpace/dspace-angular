@@ -5,7 +5,9 @@ import {
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -15,7 +17,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
@@ -23,6 +25,7 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
@@ -80,8 +83,9 @@ describe('BrowseByTitleComponent', () => {
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
-    data: observableOf({ metadata: 'title' }),
+    params: of({}),
+    queryParams: of({}),
+    data: of({ metadata: 'title' }),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -126,5 +130,36 @@ describe('BrowseByTitleComponent', () => {
     comp.items$.subscribe((result) => {
       expect(result.payload.page).toEqual(mockItems);
     });
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'server';
+      spyOn((comp as any).browseService, 'getBrowseItemsFor');
+      fixture.detectChanges();
+    });
+
+    it('should not call getBrowseItemsFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).browseService.getBrowseItemsFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'browser';
+      fixture.detectChanges();
+      spyOn((comp as any).browseService, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseItemsFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).browseService.getBrowseItemsFor).toHaveBeenCalled();
+    }));
   });
 });

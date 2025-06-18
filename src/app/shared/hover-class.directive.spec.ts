@@ -13,7 +13,9 @@ import { HoverClassDirective } from './hover-class.directive';
 @Component({
   template: `<div dsHoverClass="ds-hover"></div>`,
   standalone: true,
-  imports: [HoverClassDirective],
+  imports: [
+    HoverClassDirective,
+  ],
 })
 class TestComponent {
 }

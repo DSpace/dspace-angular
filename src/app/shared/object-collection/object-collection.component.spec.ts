@@ -10,7 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { getMockThemeService } from '../mocks/theme-service.mock';
@@ -28,7 +28,7 @@ describe('ObjectCollectionComponent', () => {
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
   const activatedRouteStub = {
-    queryParams: observableOf({
+    queryParams: of({
       query: queryParam,
       scope: scopeParam,
     }),
@@ -60,7 +60,7 @@ describe('ObjectCollectionComponent', () => {
   });
 
   it('should only show the grid component when the viewmode is set to grid', () => {
-    objectCollectionComponent.currentMode$ = observableOf(ViewMode.GridElement);
+    objectCollectionComponent.currentMode$ = of(ViewMode.GridElement);
     fixture.detectChanges();
 
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).not.toBeNull();
@@ -68,7 +68,7 @@ describe('ObjectCollectionComponent', () => {
   });
 
   it('should only show the list component when the viewmode is set to list', () => {
-    objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
+    objectCollectionComponent.currentMode$ = of(ViewMode.ListElement);
     fixture.detectChanges();
 
     expect(fixture.debugElement.query(By.css('ds-object-list'))).not.toBeNull();
@@ -76,7 +76,7 @@ describe('ObjectCollectionComponent', () => {
   });
 
   it('should set fallback placeholder font size during test', async () => {
-    objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
+    objectCollectionComponent.currentMode$ = of(ViewMode.ListElement);
     fixture.detectChanges();
 
     const comp = fixture.debugElement.query(By.css('ds-object-list'));

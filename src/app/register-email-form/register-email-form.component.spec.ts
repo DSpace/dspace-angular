@@ -16,10 +16,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -171,7 +168,7 @@ describe('RegisterEmailFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
     it('should send a registration to the service and on error display a message', () => {
-      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
+      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(of(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({ email: 'valid@email.org' });
 
@@ -199,7 +196,7 @@ describe('RegisterEmailFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     }));
     it('should send a registration to the service and on error display a message', fakeAsync(() => {
-      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
+      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(of(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({ email: 'valid@email.org' });
 

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -41,12 +38,11 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   templateUrl: './community-page-sub-collection-list.component.html',
   animations: [fadeIn],
   imports: [
-    ObjectCollectionComponent,
-    ErrorComponent,
-    ThemedLoadingComponent,
-    NgIf,
-    TranslateModule,
     AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
   standalone: true,

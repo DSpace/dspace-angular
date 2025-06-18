@@ -1,8 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -128,10 +130,11 @@ describe('RelationshipDataService', () => {
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0]),
+    getIDHrefObs: (uuid: string) => of(`https://demo.dspace.org/server/api/core/items/${uuid}`),
   });
 
   const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
+    return of({
       response: { isSuccessful: successful, payload: relationships } as any,
     } as RequestEntry);
   };
@@ -149,6 +152,7 @@ describe('RelationshipDataService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: PAGINATED_RELATIONS_TO_ITEMS_OPERATOR, useValue: jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v) },
         { provide: Store, useValue: provideMockStore() },
+        { provide: APP_CONFIG, useValue: environment },
         RelationshipDataService,
       ],
     });
@@ -156,7 +160,7 @@ describe('RelationshipDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null, environment);
 
     testSearchDataImplementation(initService);
   });
@@ -241,6 +245,16 @@ describe('RelationshipDataService', () => {
         expect((service as any).paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
         done();
       });
+    });
+  });
+
+  describe('searchByItemsAndType', () => {
+    it('should call addDependency for each item to invalidate the request when one of the items is update', () => {
+      spyOn(service as any, 'addDependency');
+
+      service.searchByItemsAndType(relationshipType.id, item.id, relationshipType.leftwardType, ['item-id-1', 'item-id-2']);
+
+      expect((service as any).addDependency).toHaveBeenCalledTimes(2);
     });
   });
 

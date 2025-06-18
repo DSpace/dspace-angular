@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -53,7 +53,7 @@ export class HandleService {
    */
   normalizeHandle(handle: string): Observable<string | null> {
     if (hasNoValue(handle)) {
-      return observableOf(null);
+      return of(null);
     }
     return this.configurationService.findByPropertyName(CANONICAL_PREFIX_KEY).pipe(
       getFirstCompletedRemoteData(),

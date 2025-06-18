@@ -160,10 +160,12 @@ describe('NumberPickerComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [FormsModule,
-    ReactiveFormsModule,
+  imports: [
+    FormsModule,
     NgbModule,
-    NumberPickerComponent],
+    NumberPickerComponent,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

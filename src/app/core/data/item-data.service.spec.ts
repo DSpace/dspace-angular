@@ -4,7 +4,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
@@ -39,7 +39,7 @@ describe('ItemDataService', () => {
     getByHref(requestHref: string) {
       const responseCacheEntry = new RequestEntry();
       responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-      return observableOf(responseCacheEntry);
+      return of(responseCacheEntry);
     },
     removeByHrefSubstring(href: string) {
       // Do nothing

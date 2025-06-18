@@ -14,7 +14,7 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -219,7 +219,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     let fixture;
 
     const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
+      isCollapsed: (id: number) => of(true),
     };
 
     const mockBitstreamDataService = {

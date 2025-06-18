@@ -14,7 +14,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   NativeWindowRef,
@@ -40,9 +40,9 @@ describe('TruncatablePartComponent', () => {
     truncatableService = {
       isCollapsed: (id: string) => {
         if (id === id1) {
-          return observableOf(true);
+          return of(true);
         } else {
-          return observableOf(false);
+          return of(false);
         }
       },
     };
@@ -87,6 +87,11 @@ describe('TruncatablePartComponent', () => {
       const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).toBeNull();
     });
+
+    it('expandButton aria-expanded should be false', () => {
+      const btn = fixture.debugElement.query(By.css('.expandButton'));
+      expect(btn.nativeElement.getAttribute('aria-expanded')).toEqual('false');
+    });
   });
 
   describe('When the item is expanded', () => {
@@ -114,6 +119,14 @@ describe('TruncatablePartComponent', () => {
       fixture.detectChanges();
       const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).not.toBeNull();
+    });
+
+    it('collapseButton aria-expanded should be true', () => {
+      (comp as any).setLines();
+      (comp as any).expandable = true;
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('.collapseButton'));
+      expect(btn.nativeElement.getAttribute('aria-expanded')).toEqual('true');
     });
   });
 });

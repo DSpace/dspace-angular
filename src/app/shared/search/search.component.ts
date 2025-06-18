@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  NgIf,
+  isPlatformServer,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -12,6 +12,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   NavigationStart,
@@ -37,6 +38,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -90,14 +92,13 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     NgTemplateOutlet,
     PageWithSidebarComponent,
+    SearchLabelsComponent,
     ThemedSearchFormComponent,
     ThemedSearchResultsComponent,
     ThemedSearchSidebarComponent,
     TranslateModule,
-    SearchLabelsComponent,
     ViewModeSwitchComponent,
   ],
 })
@@ -129,6 +130,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If empty, the query will be determined by the route parameter called 'filter'
    */
   @Input() fixedFilterQuery: string;
+
+  /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
 
   /**
    * If this is true, the request will only be sent if there's
@@ -232,6 +238,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() hideScopeInUrl: boolean;
 
   /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide: boolean;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -245,6 +256,7 @@ export class SearchComponent implements OnDestroy, OnInit {
    * The current sort options used
    */
   currentScope$: Observable<string>;
+
 
   /**
    * The current sort options used
@@ -340,6 +352,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -352,6 +365,14 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableSearchComponent && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
@@ -513,8 +534,18 @@ export class SearchComponent implements OnDestroy, OnInit {
     if (this.configuration === 'supervision') {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
+
+    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    if (isNotEmpty(this.hiddenQuery)) {
+      if (isNotEmpty(searchOptionsWithHidden.query)) {
+        searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;
+      } else {
+        searchOptionsWithHidden.query = this.hiddenQuery;
+      }
+    }
+
     this.service.search(
-      searchOptions,
+      searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
@@ -523,7 +554,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
-            this.service.trackSearch(searchOptions, results.payload);
+            this.service.trackSearch(searchOptionsWithHidden, results.payload);
           }
           if (results.payload?.page?.length > 0) {
             this.resultFound.emit(results.payload);

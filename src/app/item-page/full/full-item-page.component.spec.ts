@@ -19,10 +19,9 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -46,7 +45,6 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { CollectionsComponent } from '../field-components/collections/collections.component';
 import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
@@ -79,7 +77,6 @@ describe('FullItemPageComponent', () => {
   let comp: FullItemPageComponent;
   let fixture: ComponentFixture<FullItemPageComponent>;
 
-  let authService: AuthService;
   let routeStub: ActivatedRouteStub;
   let routeData;
   let authorizationDataService: AuthorizationDataService;
@@ -102,21 +99,16 @@ describe('FullItemPageComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {},
-    });
-
     routeData = {
       dso: createSuccessfulRemoteDataObject(mockItem),
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
-      data: observableOf(routeData),
+      data: of(routeData),
     });
 
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
 
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
@@ -124,7 +116,7 @@ describe('FullItemPageComponent', () => {
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
+      getLinks: of([mocklink, mocklink2]),
     });
 
     linkHeadService = jasmine.createSpyObj('LinkHeadService', {
@@ -133,9 +125,9 @@ describe('FullItemPageComponent', () => {
     });
 
     notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
-      isCoarConfigEnabled: observableOf(true),
-      getCoarLdnLocalInboxUrls: observableOf(['http://test.org']),
-      getInboxRelationLink: observableOf('http://test.org'),
+      isCoarConfigEnabled: of(true),
+      getCoarLdnLocalInboxUrls: of(['http://test.org']),
+      getInboxRelationLink: of('http://test.org'),
     });
 
     headTagService = new HeadTagServiceMock();
@@ -151,7 +143,6 @@ describe('FullItemPageComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
         { provide: HeadTagService, useValue: headTagService },
-        { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
@@ -170,7 +161,6 @@ describe('FullItemPageComponent', () => {
             ThemedLoadingComponent,
             ThemedItemPageTitleFieldComponent,
             DsoEditMenuComponent,
-            ViewTrackerComponent,
             ThemedItemAlertsComponent,
             CollectionsComponent,
             ThemedFullFileSectionComponent,
@@ -216,7 +206,7 @@ describe('FullItemPageComponent', () => {
 
   describe('when the item is withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = new BehaviorSubject<RemoteData<Item>>(createSuccessfulRemoteDataObject(mockWithdrawnItem));
       fixture.detectChanges();
     });
@@ -245,7 +235,7 @@ describe('FullItemPageComponent', () => {
 
   describe('when the item is not withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = new BehaviorSubject<RemoteData<Item>>(createSuccessfulRemoteDataObject(mockItem));
       fixture.detectChanges();
     });

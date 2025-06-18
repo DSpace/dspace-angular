@@ -1,4 +1,4 @@
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { ResourceType } from '../../core/shared/resource-type';
 
 // REST Mock ---------------------------------------------------------------------

@@ -1,7 +1,4 @@
-import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -26,14 +23,16 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
+
 @Component({
   selector: 'ds-dynamic-date-picker-inline',
   templateUrl: './dynamic-date-picker-inline.component.html',
   imports: [
-    NgClass,
+    BtnDisabledDirective,
     NgbDatepickerModule,
+    NgClass,
     ReactiveFormsModule,
-    NgIf,
   ],
   standalone: true,
 })
