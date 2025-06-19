@@ -325,6 +325,9 @@ languages:
   - code: vi
     label: Tiếng Việt
     active: true
+  - code: ru
+    label: Русский
+    active: true
 
 
 # Browse-By Pages
