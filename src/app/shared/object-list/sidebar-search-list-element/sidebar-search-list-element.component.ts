@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -11,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   from,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -39,7 +38,12 @@ import { SearchResultListElementComponent } from '../search-result-list-element/
   selector: 'ds-sidebar-search-list-element',
   templateUrl: './sidebar-search-list-element.component.html',
   standalone: true,
-  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    TranslateModule,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal
@@ -91,7 +95,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     return this.getParent().pipe(
       switchMap((initialRD: RemoteData<DSpaceObject>) => {
         if (!hasValue(initialRD) || !initialRD.hasSucceeded || !hasValue(initialRD.payload)) {
-          return observableOf('');
+          return of('');
         }
 
         return from((async () => {
@@ -120,10 +124,10 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
           return names.join(' > ');
         })());
       }),
-      catchError(() => observableOf(''))
+      catchError(() => of('')),
     );
   }
-  
+
   /**
    * Utility method to create an instance of the current class from a DSpaceObject
    */
@@ -139,13 +143,13 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   getParent(): Observable<RemoteData<DSpaceObject>> {
     if (typeof (this.dso as any).getParentLinkKey === 'function') {
       const propertyName = (this.dso as any).getParentLinkKey();
-      if(this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName]) {
+      if (this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName]) {
         return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
           find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
         );
       }
     }
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   /**

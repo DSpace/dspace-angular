@@ -45,5 +45,5 @@ describe('JournalIssueSidebarSearchListElementComponent',
     'community title > collection title',
     'title',
     '5 - 7',
-  )
+  ),
 );

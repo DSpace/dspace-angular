@@ -43,6 +43,6 @@ const parent = Object.assign(new Collection(), {
 });
 
 describe('PersonSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(PersonSidebarSearchListElementComponent, object, parent, 'community title > collection title', 'family name, given name', 'job title', [])
+  createSidebarSearchListElementTests(PersonSidebarSearchListElementComponent, object, parent, 'community title > collection title', 'family name, given name', 'job title', []),
 );
 

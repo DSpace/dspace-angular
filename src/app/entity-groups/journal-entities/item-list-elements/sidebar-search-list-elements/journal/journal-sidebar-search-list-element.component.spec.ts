@@ -42,7 +42,6 @@ describe('JournalSidebarSearchListElementComponent',
     parent,
     'parent community-title > parent collection-title',
     'title',
-    '1234, 5678'
-  )
+    '1234, 5678',
+  ),
 );
-

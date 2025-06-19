@@ -38,5 +38,5 @@ const parent = Object.assign(new Collection(), {
 });
 
 describe('OrgUnitSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(OrgUnitSidebarSearchListElementComponent, object, parent, 'community title > collection title', 'title', 'description')
+  createSidebarSearchListElementTests(OrgUnitSidebarSearchListElementComponent, object, parent, 'community title > collection title', 'title', 'description'),
 );

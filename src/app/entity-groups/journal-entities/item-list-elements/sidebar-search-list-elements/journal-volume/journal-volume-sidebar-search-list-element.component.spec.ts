@@ -46,6 +46,6 @@ describe('JournalVolumeSidebarSearchListElementComponent',
     object, parent,
     'community title > collection title',
     'title',
-    'journal title (1) (2)')
+    'journal title (1) (2)'),
 );
 

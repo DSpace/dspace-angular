@@ -28,6 +28,6 @@ const parent = Object.assign(new Collection(), {
 });
 
 describe('ProjectSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(ProjectSidebarSearchListElementComponent, object, parent, 'community title > collection title', 'title', undefined)
+  createSidebarSearchListElementTests(ProjectSidebarSearchListElementComponent, object, parent, 'community title > collection title', 'title', undefined),
 );
 
