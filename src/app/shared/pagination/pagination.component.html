@@ -37,7 +37,7 @@
   </div>
   <ng-content></ng-content>
 
-  <div *ngIf="shouldShowBottomPager | async">
+  <div *ngIf="showBottomPager$ | async">
     <div *ngIf="showPaginator" class="pagination justify-content-center clearfix bottom">
       <ngb-pagination [attr.aria-label]="('pagination-control.page-number-bar' | translate) + paginationOptions.id"
                       [boundaryLinks]="paginationOptions.boundaryLinks"
