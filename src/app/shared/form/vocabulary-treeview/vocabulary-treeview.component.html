@@ -74,7 +74,8 @@
           container="body"
           (click)="onSelect(node.item)"
           role="button"
-          tabindex="0">
+          tabindex="0"
+          type="button">
           <span>{{node.item.display}}</span>
         </button>
       }
@@ -118,7 +119,8 @@
           container="body"
           (click)="onSelect(node.item)"
           role="button"
-          tabindex="0">
+          tabindex="0"
+          type="button">
           <span>{{node.item.display}}</span>
         </button>
       }
@@ -126,14 +128,16 @@
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
       <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)"
-        [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
+              [attr.aria-label]="'vocabulary-treeview.load-more' | translate"
+              role="button" tabindex="0" type="button">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
       <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)"
-        [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
+              [attr.aria-label]="'vocabulary-treeview.load-more' | translate"
+              role="button" tabindex="0" type="button">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
