@@ -32,6 +32,7 @@ import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/buil
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { createFailedRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
 const configMetadataFormMock = {
   rows: [{
@@ -49,7 +50,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
+  let submissionServiceStub = new SubmissionServiceStub();
+  submissionServiceStub.retrieveSubmission.and.returnValue(createFailedRemoteDataObject$());
   let uploadService: any;
   let formService: any;
   let halService: any;
@@ -92,7 +94,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         ChangeDetectorRef,
         NgbModal,
@@ -124,7 +126,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
-
     });
 
     afterEach(() => {

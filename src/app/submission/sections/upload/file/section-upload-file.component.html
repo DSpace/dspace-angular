@@ -19,7 +19,7 @@
                   (click)="$event.preventDefault();editBitstreamData();">
             <i class="fa fa-edit fa-2x text-normal"></i>
           </button>
-          <button *ngIf="shouldShowReplaceButton"
+          <button *ngIf="shouldShowReplaceButton$ | async"
                   class="btn btn-link-focus"
                   [attr.aria-label]="'bitstream.edit.replace.link' | translate"
                   title="{{ 'bitstream.edit.replace.link' | translate }}"

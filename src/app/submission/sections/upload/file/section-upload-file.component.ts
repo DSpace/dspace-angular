@@ -1,16 +1,16 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    ViewChild
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,17 +19,25 @@ import { hasValue, isNotUndefined } from '../../../../shared/empty.util';
 import { FormService } from '../../../../shared/form/form.service';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import {
+  WorkspaceitemSectionUploadFileObject
+} from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
 import { SubmissionService } from '../../../submission.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import {
   SubmissionSectionUploadFileReplaceComponent
 } from './replace/submission-section-upload-file-replace/submission-section-upload-file-replace.component';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { Item } from '../../../../core/shared/item.model';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -156,7 +164,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * Whether to display the replace file button
    * @protected
    */
-  protected shouldShowReplaceButton: boolean;
+  protected shouldShowReplaceButton$ = new BehaviorSubject(false);
 
   /**
    * Initialize instance variables
@@ -169,6 +177,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
    * @param {SectionUploadService} uploadService
+   * @param {LinkService} linkService
    */
   constructor(
     private cdr: ChangeDetectorRef,
@@ -179,6 +188,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private operationsService: SubmissionJsonPatchOperationsService,
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
+    private linkService: LinkService,
   ) {
     this.readMode = true;
   }
@@ -209,9 +219,15 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
     this.loadFormMetadata();
     this.subscriptions.push(this.submissionService.retrieveSubmission(this.submissionId)
-      .subscribe((submissionObjectRD) => {
-        this.shouldShowReplaceButton = hasValue(submissionObjectRD.payload?.item?.version);
-      })
+      .pipe(
+        getAllSucceededRemoteData(),
+        map((submissionObjectRD) => Object.assign(new Item(), submissionObjectRD.payload?.item)),
+        map((item: Item) => this.linkService.resolveLink(item, followLink('version'))),
+        switchMap((item: Item) => item.version),
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        map((version) => hasValue(version)))
+      .subscribe((isVersioned: boolean) => this.shouldShowReplaceButton$.next(isVersioned)),
     );
   }
 
@@ -274,12 +290,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
 
   protected loadFormMetadata() {
     this.configMetadataForm.rows.forEach((row) => {
-      row.fields.forEach((field) => {
-        field.selectableMetadata.forEach((metadatum) => {
-          this.formMetadata.push(metadatum.metadata);
+        row.fields.forEach((field) => {
+          field.selectableMetadata.forEach((metadatum) => {
+            this.formMetadata.push(metadatum.metadata);
+          });
         });
-      });
-    }
+      }
     );
   }
 
