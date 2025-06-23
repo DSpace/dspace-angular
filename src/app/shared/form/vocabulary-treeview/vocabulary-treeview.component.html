@@ -45,6 +45,7 @@
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"
+                  type="button"
                   (click)="onSelect(node.item)">
           <span>{{node.item.display}}</span>
         </button>
@@ -78,19 +79,20 @@
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"
+                  type="button"
                   (click)="onSelect(node.item)">
             <span>{{node.item.display}}</span>
           </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)">
+      <button class="btn btn-outline-secondary btn-sm" type="button" (click)="loadMore(node.loadMoreParentItem)">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)">
+      <button class="btn btn-outline-secondary btn-sm" type="button" (click)="loadMoreRoot(node)">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>

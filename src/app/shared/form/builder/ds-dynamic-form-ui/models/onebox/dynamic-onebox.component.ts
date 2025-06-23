@@ -62,6 +62,12 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   inputValue: any;
   preloadLevel: number;
 
+  /**
+   * Whether the controlled vocabulary tree popup modal is open. We use this to know whether the loss of focus was
+   * caused by opening the modal or if it was caused by the user.
+   */
+  vocabularyTreeOpen = false;
+
   private vocabulary$: Observable<Vocabulary>;
   private isHierarchicalVocabulary$: Observable<boolean>;
   private subs: Subscription[] = [];
@@ -171,22 +177,29 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   /**
    * Emits a blur event containing a given value.
    * @param event The value to emit.
+   * @param hierarchical Whether this event was emitted from a hierarchical vocabulary field
    */
-  onBlur(event: Event) {
-    if (!this.instance.isPopupOpen()) {
-      if (!this.model.vocabularyOptions.closed && isNotEmpty(this.inputValue)) {
-        if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
-          this.dispatchUpdate(this.inputValue);
-        }
-        this.inputValue = null;
+  onBlur(event: Event, hierarchical: boolean = false) {
+    if (hierarchical) {
+      if (!this.vocabularyTreeOpen) {
+        super.onBlur(event);
       }
-      this.blur.emit(event);
     } else {
-      // prevent on blur propagation if typeahed suggestions are showed
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      // set focus on input again, this is to avoid to lose changes when no suggestion is selected
-      (event.target as HTMLInputElement).focus();
+      if (!this.instance.isPopupOpen()) {
+        if (!this.model.vocabularyOptions.closed && isNotEmpty(this.inputValue)) {
+          if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
+            this.dispatchUpdate(this.inputValue);
+          }
+          this.inputValue = null;
+        }
+        super.onBlur(event);
+      } else {
+        // prevent on blur propagation if typeahed suggestions are showed
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        // set focus on input again, this is to avoid to lose changes when no suggestion is selected
+        (event.target as HTMLInputElement).focus();
+      }
     }
   }
 
@@ -226,6 +239,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       take(1)
     ).subscribe((preloadLevel) => {
       const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, { size: 'lg', windowClass: 'treeview' });
+      this.vocabularyTreeOpen = true;
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
       modalRef.componentInstance.preloadLevel = preloadLevel;
       modalRef.componentInstance.selectedItems = this.currentValue ? [this.currentValue.value] : [];
@@ -234,8 +248,9 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
           this.currentValue = result;
           this.dispatchUpdate(result);
         }
+        this.vocabularyTreeOpen = false;
       }, () => {
-        return;
+        this.vocabularyTreeOpen = false;
       });
     }));
   }

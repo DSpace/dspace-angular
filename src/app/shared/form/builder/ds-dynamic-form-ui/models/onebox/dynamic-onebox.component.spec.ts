@@ -69,7 +69,7 @@ function init() {
   };
 }
 
-describe('DsDynamicOneboxComponent test suite', () => {
+describe('DsDynamicOneboxComponent', () => {
 
   let scheduler: TestScheduler;
   let testComp: TestComponent;
@@ -243,7 +243,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
       it('should emit blur Event onBlur when popup is closed', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur'));
+
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
 
@@ -262,7 +264,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
         expect(oneboxComponent.change.emit).toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -275,7 +279,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -288,7 +294,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -410,6 +418,29 @@ describe('DsDynamicOneboxComponent test suite', () => {
         expect((oneboxComponent as any).modalService.open).toHaveBeenCalled();
         done();
       });
+
+      it('should emit the blur event when the popup is closed', () => {
+        spyOn(oneboxComponent.blur, 'emit');
+
+        oneboxComponent.vocabularyTreeOpen = false;
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
+        expect(oneboxComponent.blur.emit).toHaveBeenCalled();
+      });
+
+      it('should not emit the blur event when the popup is open', fakeAsync(() => {
+        spyOn(oneboxComponent.blur, 'emit');
+        spyOn(oneboxComponent, 'onBlur').and.callThrough();
+
+        scheduler.schedule(() => oneboxComponent.openTree(new Event('click')));
+        scheduler.flush();
+        expect(oneboxComponent.vocabularyTreeOpen).toBeTrue();
+
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
+        expect(oneboxComponent.onBlur).toHaveBeenCalled();
+        expect(oneboxComponent.blur.emit).not.toHaveBeenCalled();
+      }));
     });
 
     describe('when init model value is not empty', () => {
@@ -445,6 +476,28 @@ describe('DsDynamicOneboxComponent test suite', () => {
         expect((oneboxComponent as any).modalService.open).toHaveBeenCalled();
         done();
       });
+
+      it('should emit the blur event when the popup is closed', () => {
+        spyOn(oneboxComponent.blur, 'emit');
+
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
+        expect(oneboxComponent.blur.emit).toHaveBeenCalled();
+      });
+
+      it('should not emit the blur event when the popup is open', fakeAsync(() => {
+        spyOn(oneboxComponent.blur, 'emit');
+        spyOn(oneboxComponent, 'onBlur').and.callThrough();
+
+        scheduler.schedule(() => oneboxComponent.openTree(new Event('click')));
+        scheduler.flush();
+        expect(oneboxComponent.vocabularyTreeOpen).toBeTrue();
+
+        oneboxCompFixture.debugElement.query(By.css('input')).triggerEventHandler('blur', new Event('blur'));
+
+        expect(oneboxComponent.onBlur).toHaveBeenCalled();
+        expect(oneboxComponent.blur.emit).not.toHaveBeenCalled();
+      }));
     });
 
   });
