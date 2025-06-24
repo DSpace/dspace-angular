@@ -862,6 +862,10 @@
 
   "browse.taxonomy.button": "Browse",
 
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",

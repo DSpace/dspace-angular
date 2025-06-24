@@ -2,7 +2,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { map } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -111,6 +111,14 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   private subs: Subscription[] = [];
+
+  public showNextPage$ = this.vocabularyTreeviewService.showNextPageSubject
+    ? this.vocabularyTreeviewService.showNextPageSubject.asObservable()
+    : of(false);
+
+  public showPreviousPage$ = this.vocabularyTreeviewService.showPreviousPageSubject
+    ? this.vocabularyTreeviewService.showPreviousPageSubject.asObservable()
+    : of(false);
 
   /**
    * Initialize instance variables
@@ -274,6 +282,28 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       }
       this.nodeMap = new Map<string, TreeviewFlatNode>();
       this.vocabularyTreeviewService.searchByQuery(this.searchText, this.selectedItems);
+    }
+  }
+
+  /**
+   * Loads the next page of vocabulary search results.
+   * Increments the current page in the service and re-triggers the query with the same search term and selection.
+   */
+  loadNextPage(selectedItems: string[]) {
+    const svc = this.vocabularyTreeviewService;
+    if (svc.currentPage < svc.totalPages) {
+      svc.searchByQueryAndPage(svc.queryInProgress, selectedItems, svc.currentPage + 1);
+    }
+  }
+
+  /**
+   * Loads the previous page of vocabulary search results.
+   * Decrements the current page in the service and re-triggers the query with the same search term and selection.
+   */
+  loadPreviousPage(selectedItems: string[]) {
+    const svc = this.vocabularyTreeviewService;
+    if (svc.currentPage > 1) {
+      svc.searchByQueryAndPage(svc.queryInProgress, selectedItems, svc.currentPage - 1);
     }
   }
 
