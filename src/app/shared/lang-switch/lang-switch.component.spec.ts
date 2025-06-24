@@ -122,7 +122,7 @@ describe('LangSwitchComponent', () => {
     }));
 
     it('should define the main A HREF in the UI', (() => {
-      expect(langSwitchElement.querySelector('a')).not.toBeNull();
+      expect(langSwitchElement.querySelector('button.dropdown-toggle')).not.toBeNull();
     }));
 
     describe('when selecting a language', () => {
