@@ -30,6 +30,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   hasNoValue,
   hasValue,
+  hasValueOperator,
   isNotEmpty,
 } from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
@@ -71,6 +72,7 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
   protected abstract getComponentName(): string;
 
   protected abstract importThemedComponent(themeName: string): Promise<any>;
+
   protected abstract importUnthemedComponent(): Promise<any>;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -99,16 +101,17 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
   }
 
   initComponentInstance(changes?: SimpleChanges) {
-    this.themeSub = this.themeService?.getThemeName$().subscribe(() => {
-      this.renderComponentInstance(changes);
-    });
+    this.themeSub = this.themeService?.getThemeName$()
+      .pipe(hasValueOperator())
+      .subscribe(() => {
+        this.renderComponentInstance(changes);
+      });
   }
 
   protected renderComponentInstance(changes?: SimpleChanges): void {
     if (hasValue(this.lazyLoadSub)) {
       this.lazyLoadSub.unsubscribe();
     }
-
     if (hasNoValue(this.lazyLoadObs)) {
       this.lazyLoadObs = combineLatest([
         observableOf(changes),
