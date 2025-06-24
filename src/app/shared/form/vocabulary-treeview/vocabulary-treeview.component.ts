@@ -23,6 +23,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -171,6 +172,14 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   private subs: Subscription[] = [];
 
   readonly AlertType = AlertType;
+
+  public showNextPage$ = this.vocabularyTreeviewService.showNextPageSubject
+    ? this.vocabularyTreeviewService.showNextPageSubject.asObservable()
+    : of(false);
+
+  public showPreviousPage$ = this.vocabularyTreeviewService.showPreviousPageSubject
+    ? this.vocabularyTreeviewService.showPreviousPageSubject.asObservable()
+    : of(false);
 
   /**
    * Initialize instance variables
@@ -350,6 +359,30 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       }
       this.nodeMap = new Map<string, TreeviewFlatNode>();
       this.vocabularyTreeviewService.searchByQuery(this.searchText, this.getSelectedEntryIds());
+    }
+  }
+
+  /**
+   * Loads the next page of vocabulary search results.
+   * Increments the current page in the service and re-triggers the query with the same search term and selection.
+   */
+  loadNextPage(): void {
+    const svc = this.vocabularyTreeviewService;
+
+    if (svc.currentPage < svc.totalPages) {
+      svc.searchByQueryAndPage(svc.queryInProgress, [], svc.currentPage + 1);
+    }
+  }
+
+  /**
+   * Loads the previous page of vocabulary search results.
+   * Decrements the current page in the service and re-triggers the query with the same search term and selection.
+   */
+  loadPreviousPage(): void {
+    const svc = this.vocabularyTreeviewService;
+
+    if (svc.currentPage > 1) {
+      svc.searchByQueryAndPage(svc.queryInProgress, [], svc.currentPage - 1);
     }
   }
 
