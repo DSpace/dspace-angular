@@ -3,7 +3,7 @@ options:
 
 definitions:
   caches:
-    node-2024_02_x: ./node_modules
+    node-main: ./node_modules
 
   steps:
     - step: &unittest-code-checks
@@ -13,7 +13,7 @@ definitions:
           run-as-user: 1000
         size: 4x
         caches:
-          - node-2024_02_x
+          - node-main
         script:
           - yarn install --frozen-lockfile
           - yarn run lint --quiet
