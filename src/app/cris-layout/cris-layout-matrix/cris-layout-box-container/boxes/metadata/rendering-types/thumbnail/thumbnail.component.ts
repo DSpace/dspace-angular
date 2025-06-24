@@ -10,6 +10,8 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
+  Observable,
   of as observableOf,
 } from 'rxjs';
 import {
@@ -21,10 +23,10 @@ import { BitstreamDataService } from '../../../../../../../core/data/bitstream-d
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { getDefaultImageUrlByEntityType } from '../../../../../../../core/shared/image.utils';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import {
-  hasValue,
   isEmpty,
   isNotEmpty,
 } from '../../../../../../../shared/empty.util';
@@ -56,7 +58,7 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
   /**
    * Default image to be shown in the thumbnail
    */
-  default: string;
+  default$: Observable<string>;
 
   /**
    * Item rendering initialization state
@@ -83,9 +85,14 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
    * Get the thumbnail information from api for this item
    */
   ngOnInit(): void {
-    this.setDefaultImage();
-    this.getBitstreamsByItem().pipe(
-      map((bitstreamList: PaginatedList<Bitstream>) => bitstreamList.page),
+    const eType = this.item.firstMetadataValue('dspace.entity.type');
+    this.default$ = getDefaultImageUrlByEntityType(eType);
+
+    combineLatest([
+      this.default$,
+      this.getBitstreamsByItem(),
+    ]).pipe(
+      map(([_, bitstreamList]: [string, PaginatedList<Bitstream>]) => bitstreamList.page),
       switchMap((filteredBitstreams: Bitstream[]) => {
         if (filteredBitstreams.length > 0) {
           if (isEmpty(filteredBitstreams[0].thumbnail)) {
@@ -112,20 +119,5 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
       }
       this.initialized.next(true);
     });
-  }
-
-  /**
-   * Set the default image src depending on item entity type
-   */
-  setDefaultImage(): void {
-    const eType = this.item.firstMetadataValue('dspace.entity.type');
-    this.default = 'assets/images/file-placeholder.svg';
-    if (hasValue(eType) && eType.toUpperCase() === 'PROJECT') {
-      this.default = 'assets/images/project-placeholder.svg';
-    } else if (hasValue(eType) && eType.toUpperCase() === 'ORGUNIT') {
-      this.default = 'assets/images/orgunit-placeholder.svg';
-    } else if (hasValue(eType) && eType.toUpperCase() === 'PERSON') {
-      this.default = 'assets/images/person-placeholder.svg';
-    }
   }
 }
