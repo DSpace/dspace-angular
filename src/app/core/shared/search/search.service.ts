@@ -347,14 +347,23 @@ export class SearchService {
     );
   }
 
+  /**
+   * Get Solr suggestions as serialised JSON, for the given search query and dictionary name
+   * @param {string} query the search query
+   * @param {string} dictionary the configured dictionary in solrconfig.xml
+   * @returns serialised JSON of Solr term suggestions
+   */
   getSuggestionsFor(query: string, dictionary: string): Observable<RemoteData<string[]>> {
     const requestId = this.requestService.generateRequestId();
-    const href = 'http://localhost:8080/server/api/discover/suggest/' + dictionary + '/' + query;
-
-    const request = new this.request(requestId, href);
-    this.requestService.send(request, true);
-    return this.rdb.buildFromHref(href).pipe(
-      tap((data: any) => {
+    return this.getSuggestEndpoint().pipe(
+      take(1),
+      switchMap((baseUrl: string) => {
+        const href = new URLCombiner(baseUrl, dictionary, query).toString();
+        const request = new this.request(requestId, href);
+        this.requestService.send(request, true);
+        return this.rdb.buildFromHref(href).pipe(
+          map((data: RemoteData<string[]>) => data),
+        );
       }),
     );
   }
