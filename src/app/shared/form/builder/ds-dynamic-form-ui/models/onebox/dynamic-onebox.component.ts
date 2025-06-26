@@ -5,7 +5,6 @@ import {
   NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectorRef,
   Component,
@@ -95,6 +94,8 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
     FormsModule,
     BtnDisabledDirective,
     NgClass,
+    NgIf,
+    NgbTypeaheadModule,
   ],
   standalone: true,
 })
@@ -129,7 +130,6 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
               protected layoutService: DynamicFormLayoutService,
               protected modalService: NgbModal,
               protected validationService: DynamicFormValidationService,
-              protected http: HttpClient,
               protected searchService: SearchService,
   ) {
     super(vocabularyService, layoutService, validationService);
@@ -163,7 +163,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars || this.model.vocabularyOptions.type !== 'suggest') {
-          return observableOf({ list: [] });
+          return of({ list: [] });
         } else {
           return this.searchService.getSuggestionsFor(term, this.model.vocabularyOptions.name).pipe(
             getFirstSucceededRemoteDataPayload(),
@@ -171,7 +171,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(buildPaginatedList(new PageInfo(), []));
+              return of(buildPaginatedList(new PageInfo(), []));
             }),
             map((data: any) => {
               return data.suggest[this.model.vocabularyOptions.name][term].suggestions;
