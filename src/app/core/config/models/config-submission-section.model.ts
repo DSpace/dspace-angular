@@ -4,14 +4,7 @@ import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
 import { ConfigObject } from './config.model';
 import { SUBMISSION_SECTION_TYPE } from './config-type';
-
-/**
- * An interface that define section visibility and its properties.
- */
-export interface SubmissionSectionVisibility {
-  main: any;
-  other: any;
-}
+import { SectionScope, SectionVisibility } from '../../../submission/objects/section-visibility.model';
 
 @typedObject
 @inheritSerialization(ConfigObject)
@@ -31,16 +24,22 @@ export class SubmissionSectionModel extends ConfigObject {
   mandatory: boolean;
 
   /**
+   * The submission scope for this section
+   */
+  @autoserialize
+  scope: SectionScope;
+
+  /**
    * A string representing the kind of section object
    */
   @autoserialize
   sectionType: SectionsType;
 
   /**
-   * The [SubmissionSectionVisibility] object for this section
+   * The [SectionVisibility] object for this section
    */
   @autoserialize
-  visibility: SubmissionSectionVisibility;
+  visibility: SectionVisibility;
 
   /**
    * The {@link HALLink}s for this SubmissionSectionModel
