@@ -462,6 +462,22 @@
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "\"{{name}}\" हटाएं",
 
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "दिखाने के लिए कोई ईपिपल नहीं हैं।",
 
@@ -659,7 +675,8 @@
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
   "admin.access-control.groups.form.delete-group.modal.header": "समूह हटाएं \"{{ dsoName }}\"",
 
-  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.delete-group.modal.info": "क्या आप वाकई समूह \"{{ dsoName }}\" को हटाना चाहते हैं",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
@@ -2321,6 +2338,22 @@
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
   "comcol-role.edit.delete.error.title": "'{{ role }}' भूमिका के समूह को हटाने में विफल",
+
+  // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "comcol-role.edit.delete.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.cancel": "Cancel",
+
+  // "comcol-role.edit.delete.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.confirm": "Delete",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "प्रशासक",
@@ -4558,8 +4591,8 @@
   "item.preview.dc.date.issued": "Published date:",
 
   // "item.preview.dc.description": "Description:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description:",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "विवरण:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   // TODO New key - Add a translation
@@ -4715,6 +4748,7 @@
   "item.preview.dc.identifier.openalex": "OpenAlex पहचानकर्ता",
 
   // "item.preview.dc.description": "Description",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.description": "विवरण:",
 
   // "item.select.confirm": "Confirm selected",

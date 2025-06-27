@@ -6,9 +6,7 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
-  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -67,7 +65,6 @@ export class BrowseByGeospatialDataComponent implements OnInit {
   public facetValues$: Observable<FacetValues> = of(null);
 
   constructor(
-    @Inject(PLATFORM_ID) public platformId: string,
     private searchConfigurationService: SearchConfigurationService,
     private searchService: SearchService,
     protected route: ActivatedRoute,

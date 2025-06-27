@@ -459,6 +459,18 @@
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "\"{{name}}\" löschen",
 
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Gruppe \"{{ dsoName }}\" löschen",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Sind Sie sicher, dass Sie die Gruppe \"{{ dsoName }}\" und alle damit verbundenen Richtlinien löschen möchten",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Abbrechen",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Löschen",
+
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Keine Personen dazu.",
 
@@ -651,8 +663,9 @@
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
   "admin.access-control.groups.form.delete-group.modal.header": "Gruppe \"{{ dsoName }}\" löschen",
 
-  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.info": "Sind Sie sicher, dass Sie die Gruppe \"{{ dsoName }}\" löschen möchten",
+  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO Source message changed - Revise the translation
+  "admin.access-control.groups.form.delete-group.modal.info": "Sind Sie sicher, dass Sie die Gruppe \"{{ dsoName }}\" und alle damit verbundenen Richtlinien löschen möchten",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Abbrechen",
@@ -1366,7 +1379,7 @@
   "bitstream.edit.bitstream": "Bitstream: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  "bitstream.edit.form.description.hint": "Hier können Sie eine kurze Beschreibung der Datei angeben, zum Beispiel \"<i>Artikel</i>\" oder \"<i>Tabellenhanhang</i>\".",
+  "bitstream.edit.form.description.hint": "Hier können Sie eine kurze Beschreibung der Datei angeben, zum Beispiel \"<i>Artikel</i>\" oder \"<i>Tabellenanhang</i>\".",
 
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Beschreibung",
@@ -2297,6 +2310,18 @@
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
   "comcol-role.edit.delete.error.title": "Die Gruppe der Rolle '{{ role }}' konnte nicht gelöscht werden",
+
+  // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "comcol-role.edit.delete.modal.header": "Gruppe \"{{ dsoName }}\" löschen",
+
+  // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  "comcol-role.edit.delete.modal.info": "Sind Sie sicher, dass Sie die Gruppe \"{{ dsoName }}\" und alle damit verbundenen Richtlinien löschen möchten",
+
+  // "comcol-role.edit.delete.modal.cancel": "Cancel",
+  "comcol-role.edit.delete.modal.cancel": "Abbrechen",
+
+  // "comcol-role.edit.delete.modal.confirm": "Delete",
+  "comcol-role.edit.delete.modal.confirm": "Löschen",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Administrator:innen",
