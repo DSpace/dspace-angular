@@ -178,6 +178,7 @@ export const APP_ROUTES: Route[] = [
         data: {
           isBackDoor: true,
         },
+        canMatch: [() => environment.auth.disableStandardLogin],
       },
       {
         path: 'login',
