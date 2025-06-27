@@ -4,6 +4,7 @@ import {
   RouterConfigOptions,
 } from '@angular/router';
 
+import { environment } from '../environments/environment';
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ACCESS_CONTROL_MODULE_PATH,
@@ -172,9 +173,19 @@ export const APP_ROUTES: Route[] = [
         canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
+        path: 'standard-login',
+        loadChildren: () => import('./login-page/login-page-routes').then((m) => m.ROUTES),
+        data: {
+          isBackDoor: true,
+        },
+      },
+      {
         path: 'login',
-        loadChildren: () => import('./login-page/login-page-routes')
-          .then((m) => m.ROUTES),
+        loadChildren: () => import('./login-page/login-page-routes').then((m) => m.ROUTES),
+        data: {
+          isBackDoor: false,
+        },
+        canMatch: [() => !environment.auth.disableStandardLogin],
       },
       {
         path: 'logout',
