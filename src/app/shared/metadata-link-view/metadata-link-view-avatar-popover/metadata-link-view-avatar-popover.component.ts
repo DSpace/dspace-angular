@@ -3,13 +3,18 @@ import {
   NgClass,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
 
+import { getDefaultImageUrlByEntityType } from '../../../core/shared/image.utils';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { SafeUrlPipe } from '../../utils/safe-url-pipe';
-import { VarDirective } from '../../utils/var.directive';
 
 @Component({
   selector: 'ds-metadata-link-view-avatar-popover',
@@ -22,14 +27,23 @@ import { VarDirective } from '../../utils/var.directive';
     TranslateModule,
     NgClass,
     AsyncPipe,
-    VarDirective,
   ],
   standalone: true,
 })
-export class MetadataLinkViewAvatarPopoverComponent extends ThumbnailComponent {
+export class MetadataLinkViewAvatarPopoverComponent extends ThumbnailComponent implements OnInit {
+
 
   /**
-   * The fallback image to use when the thumbnail is not available
+   * Placeholder image url that changes based on entity type
    */
-  fallbackImage = 'assets/images/person-placeholder.svg';
+  placeholderImageUrl$: Observable<string>;
+
+  /**
+   * The entity type of the item which the avatar belong
+   */
+  @Input() entityType: string;
+
+  ngOnInit() {
+    this.placeholderImageUrl$ = getDefaultImageUrlByEntityType(this.entityType);
+  }
 }

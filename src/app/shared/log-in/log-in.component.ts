@@ -10,7 +10,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
 import {
   select,
   Store,
@@ -18,7 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import uniqBy from 'lodash/uniqBy';
 import {
-  combineLatest,
+  combineLatestWith,
   map,
   Observable,
   Subscription,
@@ -28,6 +31,7 @@ import {
   shareReplay,
 } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import {
   getForgotPasswordRoute,
   getRegisterRoute,
@@ -116,6 +120,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
+              private route: ActivatedRoute,
               protected authorizationService: AuthorizationDataService,
   ) {
   }
@@ -123,12 +128,12 @@ export class LogInComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
-      map((methods: AuthMethod[]) => methods
-        // ignore the given auth method if it should be excluded
-        .filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod)
-        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
-        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
-      ),
+      combineLatestWith(
+        this.route.data.pipe(
+          filter(routeData => !!routeData),
+          map(data => data.isBackDoor),
+        )),
+      map(([methods, isBackdoor]) => this.filterAndSortAuthMethods(methods, isBackdoor, environment.auth.disableStandardLogin)),
       // ignore the ip authentication method when it's returned by the backend
       map((authMethods: AuthMethod[]) => uniqBy(authMethods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType')),
     );
@@ -149,11 +154,30 @@ export class LogInComponent implements OnInit, OnDestroy {
     this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
 
     this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay({ refCount: false, bufferSize: 1 }));
-    this.canShowDivider$ = combineLatest([this.canRegister$, this.canForgot$])
-      .pipe(
-        map(([canRegister, canForgot]) => canRegister || canForgot),
-        filter(Boolean),
-      );
+    this.canShowDivider$ = this.canRegister$.pipe(
+      combineLatestWith(this.canForgot$),
+      map(([canRegister, canForgot]) => canRegister || canForgot),
+      filter(Boolean),
+    );
+  }
+
+  filterAndSortAuthMethods(authMethods: AuthMethod[], isBackdoor: boolean, isStandardLoginDisabled = false): AuthMethod[] {
+    return authMethods.filter((authMethod: AuthMethod) => {
+      const methodComparison = (authM) => {
+        if (isBackdoor) {
+          return authM.authMethodType === AuthMethodType.Password;
+        }
+        if (isStandardLoginDisabled) {
+          return authM.authMethodType !== AuthMethodType.Password;
+        }
+        return true;
+
+      };
+      return methodComparison(authMethod) &&
+          authMethod.authMethodType !== this.excludedAuthMethod &&
+          rendersAuthMethodType(authMethod.authMethodType) !== undefined;
+    },
+    ).sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position);
   }
 
   getRegisterRoute() {
