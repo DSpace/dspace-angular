@@ -45,6 +45,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { RedirectService } from './redirect/redirect.service';
+import { environment } from '../environments/environment';
 import {
   GenericAdministratorGuard
 } from './core/data/feature-authorization/feature-authorization-guard/generic-administrator-guard';
@@ -178,9 +179,19 @@ import {
             canActivate: [GenericAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {
+            path: 'standard-login',
+            loadChildren: () => import('./login-page/login-page.module').then((m) => m.LoginPageModule),
+            data: {
+              isBackDoor: true,
+            },
+          },
+          {
             path: 'login',
-            loadChildren: () => import('./login-page/login-page.module')
-              .then((m) => m.LoginPageModule)
+            loadChildren: () => import('./login-page/login-page.module').then((m) => m.LoginPageModule),
+            data: {
+              isBackDoor: false,
+            },
+            canMatch: [() => !environment.auth.disableStandardLogin],
           },
           {
             path: 'external-login/:token',

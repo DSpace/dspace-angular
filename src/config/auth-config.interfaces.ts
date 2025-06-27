@@ -20,4 +20,7 @@ export interface AuthConfig extends Config {
     // This is independent from the idle warning.
     timeLeftBeforeTokenRefresh: number;
   };
+
+  // Whether the standard login form should be enabled.
+  disableStandardLogin?: boolean;
 }

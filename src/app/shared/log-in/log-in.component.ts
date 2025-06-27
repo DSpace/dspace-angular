@@ -1,9 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, combineLatest } from 'rxjs';
 import { filter, map, shareReplay } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import uniqBy from 'lodash/uniqBy';
-
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import {
   getAuthenticationError,
@@ -19,6 +16,10 @@ import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ActivatedRoute } from '@angular/router';
+import uniqBy from 'lodash/uniqBy';
+import { environment } from '../../../environments/environment';
+import { combineLatestWith, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ds-log-in',
@@ -84,6 +85,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
+              private route: ActivatedRoute,
               protected authorizationService: AuthorizationDataService
   ) {
   }
@@ -91,12 +93,12 @@ export class LogInComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
-      map((methods: AuthMethod[]) => methods
-        // ignore the given auth method if it should be excluded
-        .filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod)
-        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
-        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
-      ),
+      combineLatestWith(
+        this.route.data.pipe(
+          filter(routeData => !!routeData),
+          map(data => data.isBackDoor),
+        )),
+      map(([methods, isBackdoor]) => this.filterAndSortAuthMethods(methods, isBackdoor, environment.auth.disableStandardLogin)),
       // ignore the ip authentication method when it's returned by the backend
       map((authMethods: AuthMethod[]) => uniqBy(authMethods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType'))
     );
@@ -117,12 +119,30 @@ export class LogInComponent implements OnInit, OnDestroy {
     this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
 
     this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
-    this.canShowDivider$ =
-        combineLatest([this.canRegister$, this.canForgot$])
-            .pipe(
-                map(([canRegister, canForgot]) => canRegister || canForgot),
-                filter(Boolean)
-            );
+    this.canShowDivider$ = this.canRegister$.pipe(
+      combineLatestWith(this.canForgot$),
+      map(([canRegister, canForgot]) => canRegister || canForgot),
+      filter(Boolean)
+    );
+  }
+
+  filterAndSortAuthMethods(authMethods: AuthMethod[], isBackdoor: boolean, isStandardLoginDisabled = false): AuthMethod[] {
+    return authMethods.filter((authMethod: AuthMethod) => {
+        const methodComparison = (authM) => {
+          if (isBackdoor) {
+            return authM.authMethodType === AuthMethodType.Password;
+          }
+          if (isStandardLoginDisabled) {
+            return authM.authMethodType !== AuthMethodType.Password;
+          }
+          return true;
+
+        };
+        return methodComparison(authMethod) &&
+          authMethod.authMethodType !== this.excludedAuthMethod &&
+          rendersAuthMethodType(authMethod.authMethodType) !== undefined;
+      },
+    ).sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position);
   }
 
   getRegisterRoute() {

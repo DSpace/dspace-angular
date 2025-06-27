@@ -135,7 +135,8 @@ export class DefaultAppConfig implements AppConfig {
       // If the rest token expires in less than this amount of time, it will be refreshed automatically.
       // This is independent from the idle warning.
       timeLeftBeforeTokenRefresh: 2 * 60 * 1000 // 2 minutes
-    }
+    },
+    disableStandardLogin: false, // Enable the standard login form
   };
 
   // Form settings
