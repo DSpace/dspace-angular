@@ -31,10 +31,22 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
    * The current synchronization mode
    */
   currentSyncMode: string;
+
+  /**
+   * The current synchronization mode for patents
+   */
+  currentSyncPatent: string;
+
   /**
    * The current synchronization mode for publications
    */
   currentSyncPublications: string;
+
+  /**
+   * The current synchronization mode for product
+   */
+  currentSyncProduct: string;
+
   /**
    * The current synchronization mode for funding
    */
@@ -43,10 +55,22 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
    * The synchronization options
    */
   syncModes: { value: string, label: string }[];
+
+  /**
+   * The synchronization options for patents
+   */
+  syncPatentOptions: { value: string, label: string }[];
+
   /**
    * The synchronization options for publications
    */
   syncPublicationOptions: { value: string, label: string }[];
+
+  /**
+   * The synchronization options for products
+   */
+  syncProductOptions: { value: string, label: string }[];
+
   /**
    * The synchronization options for funding
    */
@@ -115,6 +139,22 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
         };
       });
 
+    this.syncProductOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-products.' + value.toLowerCase(),
+          value: value,
+        };
+      });
+
+    this.syncPatentOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-patents.' + value.toLowerCase(),
+          value: value,
+        };
+      });
+
     this.syncFundingOptions = ['DISABLED', 'ALL']
       .map((value) => {
         return {
@@ -148,7 +188,9 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
   onSubmit(form: UntypedFormGroup): void {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
+    this.fillOperationsFor(operations, '/orcid/patents', form.value.syncPatents);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
+    this.fillOperationsFor(operations, '/orcid/products', form.value.syncProducts);
     this.fillOperationsFor(operations, '/orcid/fundings', form.value.syncFundings);
 
     const syncProfileValue = this.syncProfileOptions
@@ -170,11 +212,11 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
         take(1)
       )
       .subscribe((remoteData: RemoteData<ResearcherProfile>) => {
-        if (remoteData.hasFailed) {
-          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.error'));
-        } else {
+        if (remoteData.hasSucceeded) {
           this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
           this.settingsUpdated.emit();
+        } else {
+          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.error'));
         }
       });
   }
@@ -190,18 +232,28 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
     item.pipe(
       filter(hasValue),
       map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-mode', ['BATCH', 'MANUAL'], 'MANUAL')),
-      takeUntil(this.#destroy$)
+      takeUntil(this.#destroy$),
     ).subscribe(val => this.currentSyncMode = val);
     item.pipe(
       filter(hasValue),
       map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED')),
-      takeUntil(this.#destroy$)
+      takeUntil(this.#destroy$),
     ).subscribe(val => this.currentSyncPublications = val);
     item.pipe(
       filter(hasValue),
       map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED')),
-      takeUntil(this.#destroy$)
+      takeUntil(this.#destroy$),
     ).subscribe(val => this.currentSyncFunding = val);
+    item.pipe(
+      filter(hasValue),
+      map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-patents', ['DISABLED', 'ALL'], 'DISABLED')),
+      takeUntil(this.#destroy$),
+    ).subscribe(val => this.currentSyncPatent = val);
+    item.pipe(
+      filter(hasValue),
+      map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-products', ['DISABLED', 'ALL'], 'DISABLED')),
+      takeUntil(this.#destroy$),
+    ).subscribe(val => this.currentSyncProduct = val);
   }
 
   /**
