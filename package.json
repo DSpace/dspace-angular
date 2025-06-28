@@ -146,7 +146,7 @@
     "@types/grecaptcha": "^3.0.9",
     "@types/jasmine": "~3.6.0",
     "@types/js-cookie": "2.2.6",
-    "@types/lodash": "^4.17.17",
+    "@types/lodash": "^4.17.18",
     "@types/node": "^14.18.63",
     "@types/sanitize-html": "^2.16.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
