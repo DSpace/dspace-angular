@@ -3,7 +3,7 @@ import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ThemedResourcePolicyEditComponent } from '../../shared/resource-policies/edit/themed-resource-policy-edit.component';
 import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { resourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { EditItemPageComponent } from './edit-item-page.component';
@@ -187,7 +187,7 @@ export const ROUTES: Route[] = [
             resolve: {
               resourcePolicy: resourcePolicyResolver,
             },
-            component: ResourcePolicyEditComponent,
+            component: ThemedResourcePolicyEditComponent,
             data: { title: 'resource-policies.edit.page.title' },
           },
           {
