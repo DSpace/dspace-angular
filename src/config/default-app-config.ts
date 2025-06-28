@@ -20,6 +20,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LanguageHashesConfig } from './languageHashes-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
@@ -288,6 +289,8 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'uk', label: 'Yкраї́нська', active: true },
     { code: 'vi', label: 'Tiếng Việt', active: true },
   ];
+
+  languageHashes: LanguageHashesConfig[] = [];
 
   // Browse-By Pages
   browseBy: BrowseByConfig = {
