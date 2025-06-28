@@ -143,6 +143,17 @@ export class SearchService {
     }
   }
 
+  getSuggestEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
+    return this.halService.getEndpoint('discover/suggest').pipe(
+      map((url: string) => {
+        if (hasValue(searchOptions)) {
+          return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
+        } else {
+          return url;
+        }
+      }),
+    );
+  }
   getEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
     return this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
@@ -332,6 +343,27 @@ export class SearchService {
             }));
           this.appliedFilters$.next(appliedFilters);
         }
+      }),
+    );
+  }
+
+  /**
+   * Get Solr suggestions as serialised JSON, for the given search query and dictionary name
+   * @param {string} query the search query
+   * @param {string} dictionary the configured dictionary in solrconfig.xml
+   * @returns serialised JSON of Solr term suggestions
+   */
+  getSuggestionsFor(query: string, dictionary: string): Observable<RemoteData<string[]>> {
+    const requestId = this.requestService.generateRequestId();
+    return this.getSuggestEndpoint().pipe(
+      take(1),
+      switchMap((baseUrl: string) => {
+        const href = new URLCombiner(baseUrl, dictionary, query).toString();
+        const request = new this.request(requestId, href);
+        this.requestService.send(request, true);
+        return this.rdb.buildFromHref(href).pipe(
+          map((data: RemoteData<string[]>) => data),
+        );
       }),
     );
   }
