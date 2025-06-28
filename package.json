@@ -168,7 +168,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "~18.0.0",
-    "@angular-devkit/build-angular": "^18.2.19",
+    "@angular-devkit/build-angular": "^18.2.20",
     "@angular-eslint/builder": "^18.4.1",
     "@angular-eslint/bundled-angular-compiler": "^18.4.1",
     "@angular-eslint/eslint-plugin": "^18.4.1",
@@ -239,6 +239,6 @@
     "typescript": "~5.4.5",
     "webpack": "5.99.9",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^5.2.2"
   }
 }
