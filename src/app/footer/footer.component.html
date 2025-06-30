@@ -63,8 +63,8 @@
            href="https://www.lyrasis.org/" role="link" tabindex="0">{{ 'footer.link.lyrasis' | translate}}</a>
       </p>
       <ul class="footer-info list-unstyled d-flex justify-content-center mb-0">
-        <li>
-          <button class="btn btn-link text-white" type="button" (click)="showCookieSettings()" role="button" tabindex="0">
+        <li *ngIf="showCookieSettings">
+          <button class="btn btn-link text-white" type="button" (click)="openCookieSettings()" role="button" tabindex="0">
             {{ 'footer.link.cookies' | translate}}
           </button>
         </li>
