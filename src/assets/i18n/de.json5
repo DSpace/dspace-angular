@@ -2475,7 +2475,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Wir sammeln und verarbeiten Ihre personenbezogenen Daten für die folgenden Zwecke: <strong>Authentifikation, Einstellungen, Zustimmungen und Statistiken</strong>. <br/> Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Wir sammeln und verarbeiten Ihre personenbezogenen Daten für die folgenden Zwecke: Authentifikation, Einstellungen, Zustimmungen und Statistiken. Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Anpassen",
