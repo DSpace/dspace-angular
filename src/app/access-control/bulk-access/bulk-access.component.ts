@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   ViewChild,
@@ -31,6 +32,7 @@ import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.com
     BtnDisabledDirective,
   ],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BulkAccessComponent implements OnInit {
 
@@ -70,7 +72,7 @@ export class BulkAccessComponent implements OnInit {
   }
 
   canExport(): boolean {
-    return this.objectsSelected$.value?.length > 0;
+    return this.objectsSelected$.value?.length > 0  && this.settings?.isFormValid();
   }
 
   /**

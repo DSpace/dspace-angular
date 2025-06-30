@@ -48,7 +48,6 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
@@ -72,7 +71,6 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     VarDirective,
     ThemedItemAlertsComponent,
     ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
     ListableObjectComponentLoaderComponent,
     ItemVersionsComponent,
     ErrorComponent,
@@ -168,7 +166,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
           this.signpostingLinks = signpostingLinks;
 
           signpostingLinks.forEach((link: SignpostingLink) => {
-            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
+            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ')
+              + (isNotEmpty(link.profile) ? ` ; profile="${link.profile}" ` : '');
             let tag: LinkDefinition = {
               href: link.href,
               rel: link.rel,
@@ -176,6 +175,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
             if (isNotEmpty(link.type)) {
               tag = Object.assign(tag, {
                 type: link.type,
+              });
+            }
+            if (isNotEmpty(link.profile)) {
+              tag = Object.assign(tag, {
+                profile: link.profile,
               });
             }
             this.linkHeadService.addTag(tag);

@@ -19,7 +19,6 @@ import { ErrorComponent } from '../../../../../app/shared/error/error.component'
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
 /**
  * This component renders a simple item page.
@@ -39,7 +38,6 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     VarDirective,
     ThemedItemAlertsComponent,
     ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
     ListableObjectComponentLoaderComponent,
     ItemVersionsComponent,
     ErrorComponent,

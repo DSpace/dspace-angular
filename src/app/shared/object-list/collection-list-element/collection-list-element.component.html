@@ -1,5 +1,5 @@
 <div class="d-flex flex-row">
-  <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/' + object.id]" class="lead">
+  <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/' + object.id]" class="lead" role="link" tabindex="0">
     {{ dsoNameService.getName(object) }}
   </a>
   <span *ngIf="linkType === linkTypes.None" class="lead">

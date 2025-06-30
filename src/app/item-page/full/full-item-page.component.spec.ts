@@ -45,7 +45,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ViewTrackerResolverService } from '../../statistics/angulartics/dspace/view-tracker-resolver.service';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { CollectionsComponent } from '../field-components/collections/collections.component';
 import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
@@ -162,7 +162,7 @@ describe('FullItemPageComponent', () => {
             ThemedLoadingComponent,
             ThemedItemPageTitleFieldComponent,
             DsoEditMenuComponent,
-            ViewTrackerComponent,
+            ViewTrackerResolverService,
             ThemedItemAlertsComponent,
             CollectionsComponent,
             ThemedFullFileSectionComponent,

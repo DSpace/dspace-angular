@@ -10,6 +10,7 @@ import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-s
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
@@ -71,6 +72,7 @@ export const ROUTES: Route[] = [
         component: ThemedCommunityPageComponent,
         resolve: {
           menu: dsoEditMenuResolver,
+          tracking: viewTrackerResolver,
         },
         children: [
           {
