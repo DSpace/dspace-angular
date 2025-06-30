@@ -1,5 +1,4 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -2604,6 +2603,14 @@
 
   "item.preview.oaire.citation.volume": "Volume",
 
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  "item.preview.dc.rights": "Rights",
+
+  "item.preview.dc.identifier.other": "Other Identifier",
+
   "item.preview.dc.relation.issn": "ISSN",
 
   "item.preview.dc.identifier.isbn": "ISBN",
@@ -3854,6 +3861,10 @@
 
   "search.filters.filter.creativeDatePublished.label": "Search date published",
 
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  "search.filters.filter.creativeDatePublished.max.label": "End",
+
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
   "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
@@ -4374,6 +4385,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
@@ -4420,6 +4433,8 @@
 
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
@@ -4459,6 +4474,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
@@ -4869,6 +4886,8 @@
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   "subscriptions.modal.title": "Subscriptions",
 

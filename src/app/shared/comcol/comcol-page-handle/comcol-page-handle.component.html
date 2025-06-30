@@ -1,4 +1,4 @@
 <p *ngIf="content" class="d-flex flex-wrap gapx-2 text-break">
   <span class="mb-0" *ngIf="title">{{ title | translate }}</span>
-  <a [href]="getHandle()">{{getHandle()}}</a>
+  <a [href]="getHandle()" role="link" tabindex="0">{{getHandle()}}</a>
 </p>

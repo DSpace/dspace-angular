@@ -1,13 +1,12 @@
 import {ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { SectionsType } from '../sections-type';
 import { SectionModelComponent } from '../models/section.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionDataObject } from '../models/section-data.model';
 import { SubmissionService } from '../../submission.service';
-import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionsService } from '../sections.service';
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
 
@@ -26,11 +25,6 @@ import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/
 
 @renderSectionFor(SectionsType.Identifiers)
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent {
-  /**
-   * The Alert categories.
-   * @type {AlertType}
-   */
-  public AlertTypeEnum = AlertType;
 
   /**
    * Variable to track if the section is loading.
@@ -42,14 +36,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
    * Observable identifierData subject
    * @type {Observable<WorkspaceitemSectionIdentifiersObject>}
    */
-  public identifierData$: Observable<WorkspaceitemSectionIdentifiersObject> = new Observable<WorkspaceitemSectionIdentifiersObject>();
-
-  /**
-   * Array to track all subscriptions and unsubscribe them onDestroy
-   * @type {Array}
-   */
-  protected subs: Subscription[] = [];
-  public subbedIdentifierData: WorkspaceitemSectionIdentifiersObject;
+  public identifierData$: Observable<WorkspaceitemSectionIdentifiersObject>;
 
   /**
    * Initialize instance variables.
@@ -71,23 +58,12 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
-  ngOnInit() {
-      super.ngOnInit();
-  }
-
   /**
    * Initialize all instance variables and retrieve configuration.
    */
   onSectionInit() {
     this.isLoading = false;
     this.identifierData$ = this.getIdentifierData();
-  }
-
-  /**
-   * Check if identifier section has read-only visibility
-   */
-  isReadOnly(): boolean {
-    return true;
   }
 
   /**

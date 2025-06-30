@@ -161,6 +161,7 @@ export class MetadataService {
     this.setCitationKeywordsTag();
 
     this.setCitationAbstractUrlTag();
+    this.setCitationDoiTag();
     this.setCitationPdfUrlTag();
     this.setCitationPublisherTag();
 
@@ -173,7 +174,6 @@ export class MetadataService {
     // this.setCitationIssueTag();
     // this.setCitationFirstPageTag();
     // this.setCitationLastPageTag();
-    // this.setCitationDOITag();
     // this.setCitationPMIDTag();
 
     // this.setCitationFullTextTag();
@@ -291,6 +291,18 @@ export class MetadataService {
         url = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
       }
       this.addMetaTag('citation_abstract_html_url', url);
+    }
+  }
+
+  /**
+   * Add <meta name="citation_doi" ... >  to the <head>
+   */
+  private setCitationDoiTag(): void {
+    if (this.currentObject.value instanceof Item) {
+      let doi = this.getMetaTagValue('dc.identifier.doi');
+      if (hasValue(doi)) {
+        this.addMetaTag('citation_doi', doi);
+      }
     }
   }
 

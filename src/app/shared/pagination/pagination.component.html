@@ -7,13 +7,13 @@
       </div>
       <div class="col">
         <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
-          <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" aria-hidden="true"></i></button>
+          <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0"><i class="fas fa-cog" aria-hidden="true"></i></button>
           <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
             <li role="menuitem">
               <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
               <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
                 <li *ngFor="let item of pageSizeOptions" role="option" [attr.aria-selected]="item === (pageSize$ | async)">
-                  <button (click)="doPageSizeChange(item)" class="dropdown-item">
+                  <button (click)="doPageSizeChange(item)" class="dropdown-item" role="button" tabindex="0">
                     <i [ngClass]="{'invisible': item !== (pageSize$ | async) }" class="fas fa-check" aria-hidden="true"></i> {{item}}
                   </button>
                 </li>
@@ -23,7 +23,7 @@
               <span class="dropdown-header" id="pagination-control_sort-direction" role="heading">{{ 'pagination.sort-direction' | translate}}</span>
               <ul aria-labelledby="pagination-control_sort-direction" class="list-unstyled" role="listbox">
                 <li *ngFor="let direction of (sortDirections | dsKeys)" [attr.aria-selected]="direction.value === (sortDirection$ | async)" role="option">
-                  <button class="dropdown-item" (click)="doSortDirectionChange(direction.value)">
+                  <button class="dropdown-item" (click)="doSortDirectionChange(direction.value)" role="button" tabindex="0">
                     <i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}}
                   </button>
                 </li>
@@ -37,7 +37,7 @@
   </div>
   <ng-content></ng-content>
 
-  <div *ngIf="shouldShowBottomPager | async">
+  <div *ngIf="showBottomPager$ | async">
     <div *ngIf="showPaginator" class="pagination justify-content-center clearfix bottom">
       <ngb-pagination [attr.aria-label]="('pagination-control.page-number-bar' | translate) + paginationOptions.id"
                       [boundaryLinks]="paginationOptions.boundaryLinks"
@@ -56,12 +56,12 @@
     <div *ngIf="!showPaginator" class="d-flex justify-content-between">
         <button id="nav-prev" type="button" class="btn btn-outline-primary float-left"
                 (click)="goPrev()"
-                [dsBtnDisabled]="(objects?.payload?.currentPage <= 1) && (paginationOptions?.currentPage <= 1)">
+                [dsBtnDisabled]="(objects?.payload?.currentPage <= 1) && (paginationOptions?.currentPage <= 1)" role="button" tabindex="0">
           <i class="fas fa-angle-left"></i> {{'pagination.previous.button' |translate}}
         </button>
       <button id="nav-next" type="button" class="btn btn-outline-primary float-right"
               (click)="goNext()"
-              [dsBtnDisabled]="(objects?.payload?.currentPage >= objects?.payload?.totalPages) || (paginationOptions?.currentPage >= objects?.payload?.totalPages)">
+              [dsBtnDisabled]="(objects?.payload?.currentPage >= objects?.payload?.totalPages) || (paginationOptions?.currentPage >= objects?.payload?.totalPages)" role="button" tabindex="0">
           <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? ('pagination.next.button.disabled.tooltip' |translate) : null">
             <i class="fas fa-angle-right"></i> {{'pagination.next.button' |translate}}
           </span>
