@@ -321,6 +321,7 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    enableCookieConsentPopup: true,
   },
   markdown: {
     enabled: false,
@@ -346,5 +347,9 @@ export const environment: BuildConfig = {
 
   search: {
     filterPlaceholdersCount: 5
-  }
+  },
+
+  accessibility: {
+    cookieExpirationDuration: 7,
+  },
 };

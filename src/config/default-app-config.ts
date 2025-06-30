@@ -24,6 +24,7 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
 import { SearchConfig } from './search-page-config.interface';
+import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -411,7 +412,8 @@ export class DefaultAppConfig implements AppConfig {
   // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
   info: InfoConfig = {
     enableEndUserAgreement: true,
-    enablePrivacyStatement: true
+    enablePrivacyStatement: true,
+    enableCookieConsentPopup: true,
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
@@ -446,5 +448,10 @@ export class DefaultAppConfig implements AppConfig {
 
   search: SearchConfig = {
     filterPlaceholdersCount: 5
+  };
+
+  // Accessibility settings configuration, used by the AccessibilitySettingsService
+  accessibility: AccessibilitySettingsConfig = {
+    cookieExpirationDuration: 7,
   };
 }

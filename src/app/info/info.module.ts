@@ -13,6 +13,8 @@ import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.co
 import { ThemedFeedbackFormComponent } from './feedback/feedback-form/themed-feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { AccessibilitySettingsComponent } from './accessibility-settings/accessibility-settings.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 
 const DECLARATIONS = [
@@ -25,7 +27,8 @@ const DECLARATIONS = [
   FeedbackComponent,
   FeedbackFormComponent,
   ThemedFeedbackFormComponent,
-  ThemedFeedbackComponent
+  ThemedFeedbackComponent,
+  AccessibilitySettingsComponent,
 ];
 
 @NgModule({
@@ -33,6 +36,7 @@ const DECLARATIONS = [
     CommonModule,
     SharedModule,
     InfoRoutingModule,
+    UiSwitchModule,
   ],
   declarations: [
     ...DECLARATIONS

@@ -20,6 +20,8 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { UUIDService } from '../../../../../../core/shared/uuid.service';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -116,6 +118,7 @@ describe('SearchFacetOptionComponent', () => {
           }
         },
         { provide: UUIDService, useClass: UUIDService },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFacetOptionComponent, {
