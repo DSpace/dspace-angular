@@ -1,18 +1,45 @@
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionDataObject } from '../models/section-data.model';
-import { rendersSectionType } from '../sections-decorator';
 import { SectionsDirective } from '../sections.directive';
+import { rendersSectionType } from '../sections-decorator';
+
+// TAMU Customization - import theme service
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+// END TAMU Customization - import theme service
 
 /**
  * This component represents a section that contains the submission license form.
  */
 @Component({
-  selector: 'ds-submission-section-container',
+  selector: 'ds-base-submission-section-container',
   templateUrl: './section-container.component.html',
-  styleUrls: ['./section-container.component.scss']
+  styleUrls: ['./section-container.component.scss'],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    NgbAccordionModule,
+    NgClass,
+    NgComponentOutlet,
+    SectionsDirective,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 
@@ -53,6 +80,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
 
   // TAMU Customization - theme service to get active theme
   private themeService: ThemeService;
+  // END TAMU Customization - theme service to get active theme
 
   /**
    * Initialize instance variables
@@ -62,6 +90,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
   constructor(private injector: Injector) {
     // TAMU Customization - inject theme service
     this.themeService = injector.get(ThemeService);
+    // END TAMU Customization - inject theme service
   }
 
   /**
@@ -74,7 +103,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: [] },
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 
@@ -93,8 +122,9 @@ export class SubmissionSectionContainerComponent implements OnInit {
   /**
    * Find the correct component based on the section's type
    */
-  getSectionContent(): string {
+  getSectionContent() {
     // TAMU Customization - provide injected active theme to get themed section to render
+    // return rendersSectionType(this.sectionData.sectionType);
     let theme = this.themeService.getThemeName();
     let themeConfig = this.themeService.getThemeConfigFor(theme);
     // get theme "root class"
@@ -103,6 +133,6 @@ export class SubmissionSectionContainerComponent implements OnInit {
     }
 
     return rendersSectionType(this.sectionData.sectionType, themeConfig.name);
-    // return rendersSectionType(this.sectionData.sectionType);
+    // END TAMU Customization - provide injected active theme to get themed section to render
   }
 }

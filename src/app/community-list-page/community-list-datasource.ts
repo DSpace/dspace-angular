@@ -1,10 +1,18 @@
+import {
+  CollectionViewer,
+  DataSource,
+} from '@angular/cdk/collections';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { finalize } from 'rxjs/operators';
+
+import { FindListOptions } from '../core/data/find-list-options.model';
 import { hasValue } from '../shared/empty.util';
 import { CommunityListService } from './community-list-service';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import { FlatNode } from './flat-node.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
 
 /**
  * DataSource object needed by a CDK Tree to render its nodes.
@@ -20,6 +28,7 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
   // TAMU Customization - prevent multiple consecutive calls to load communities
   private lastLoadCommunities = 0;
   private lastLoadCommunitiesTimer;
+  // END TAMU Customization - prevent multiple consecutive calls to load communities
 
   constructor(private communityListService: CommunityListService) {
   }
@@ -38,6 +47,7 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
       return;
     }
     this.lastLoadCommunities = Date.now();
+    // END TAMU Customization - prevent multiple consecutive calls to load communities
 
     this.loading$.next(true);
     if (hasValue(this.subLoadCommunities)) {

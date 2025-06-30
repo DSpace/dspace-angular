@@ -1,16 +1,17 @@
-import { RequestService } from './request.service';
-import { EpersonRegistrationService } from './eperson-registration.service';
-import { RestResponse } from '../cache/response.models';
-import { cold } from 'jasmine-marbles';
-import { PostRequest } from './request.models';
-import { Registration } from '../shared/registration.model';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
-import { RequestEntry } from './request-entry.model';
 import { HttpHeaders } from '@angular/common/http';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { RestResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { Registration } from '../shared/registration.model';
+import { EpersonRegistrationService } from './eperson-registration.service';
+import { PostRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
 
 describe('EpersonRegistrationService', () => {
   let testScheduler;
@@ -44,16 +45,16 @@ describe('EpersonRegistrationService', () => {
       generateRequestId: 'request-id',
       send: {},
       getByUUID: cold('a',
-        { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) })
+        { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) }),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildSingle: observableOf(rd),
-      buildFromRequestUUID: observableOf(rd),
+      buildSingle: of(rd),
+      buildFromRequestUUID: of(rd),
     });
     service = new EpersonRegistrationService(
       requestService,
       rdbService,
-      halService
+      halService,
     );
   });
 
@@ -94,7 +95,7 @@ describe('EpersonRegistrationService', () => {
       const expected = service.registerEmail('test@mail.org', 'afreshcaptchatoken');
       let headers = new HttpHeaders();
       const options: HttpOptions = Object.create({});
-      headers = headers.append('x-recaptcha-token', 'afreshcaptchatoken');
+      headers = headers.append('x-captcha-payload', 'afreshcaptchatoken');
       options.headers = headers;
 
       expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
@@ -104,16 +105,16 @@ describe('EpersonRegistrationService', () => {
 
   describe('searchByToken', () => {
     it('should return a registration corresponding to the provided token', () => {
-      const expected = service.searchByToken('test-token');
+      const expected = service.searchByTokenAndUpdateData('test-token');
 
       expect(expected).toBeObservable(cold('(a|)', {
         a: jasmine.objectContaining({
           payload: Object.assign(new Registration(), {
             email: registrationWithUser.email,
             token: 'test-token',
-            user: registrationWithUser.user
-          })
-        })
+            user: registrationWithUser.user,
+          }),
+        }),
       }));
     });
 
@@ -122,16 +123,16 @@ describe('EpersonRegistrationService', () => {
       testScheduler.run(({ cold, expectObservable }) => {
         rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));
 
-        service.searchByToken('test-token');
+        service.searchByTokenAndUpdateData('test-token');
 
         expect(requestService.send).toHaveBeenCalledWith(
           jasmine.objectContaining({
             uuid: 'request-id', method: 'GET',
             href: 'rest-url/registrations/search/findByToken?token=test-token',
-          }), true
+          }), true,
         );
         expectObservable(rdbService.buildSingle.calls.argsFor(0)[0]).toBe('(a|)', {
-          a: 'rest-url/registrations/search/findByToken?token=test-token'
+          a: 'rest-url/registrations/search/findByToken?token=test-token',
         });
       });
     });

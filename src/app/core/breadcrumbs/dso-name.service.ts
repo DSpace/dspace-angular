@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { hasValue, isEmpty } from '../../shared/empty.util';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { TranslateService } from '@ngx-translate/core';
+
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { Metadata } from '../shared/metadata.utils';
 
 /**
@@ -9,7 +13,7 @@ import { Metadata } from '../shared/metadata.utils';
  * on its render types.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DSONameService {
 
@@ -50,7 +54,7 @@ export class DSONameService {
       }
     },
     OrgUnit: (dso: DSpaceObject): string => {
-      return dso.firstMetadataValue('organization.legalName');
+      return dso.firstMetadataValue('organization.legalName') || this.translateService.instant('dso.name.untitled');
     },
     Default: (dso: DSpaceObject): string => {
       // TAMU Customization - return dc.description for groups with COLLECTION_{UUID}_{***} name format
@@ -67,7 +71,7 @@ export class DSONameService {
 
       // If object doesn't have dc.title metadata use name property
       return dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
-    }
+    },
   };
 
   /**
@@ -118,7 +122,7 @@ export class DSONameService {
       }
       return `${familyName}, ${givenName}`;
     } else if (entityType === 'OrgUnit') {
-      return this.firstMetadataValue(object, dso, 'organization.legalName');
+      return this.firstMetadataValue(object, dso, 'organization.legalName') || this.translateService.instant('dso.name.untitled');
     }
     return this.firstMetadataValue(object, dso, 'dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
   }

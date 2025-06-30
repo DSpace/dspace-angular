@@ -23,14 +23,21 @@ export class UploaderOptions {
   maxFileNumber: number;
 
   /**
-   * TAMU Customization - Additional parameters to inform which step made upload request
+   * Impersonating user uuid
    */
-  additionalParameter?: {
-    [key: string]: any;
-  };
+  impersonatingID: string;
 
   /**
    * The request method to use for the file upload request
    */
   method: RestRequestMethod = RestRequestMethod.POST;
+
+  // TAMU Customization
+  /**
+   * Additional parameters to inform which step made upload request
+   */
+  additionalParameter?: {
+    [key: string]: any;
+  };
+  // END TAMU Customization
 }

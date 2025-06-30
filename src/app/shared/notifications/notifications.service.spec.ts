@@ -1,21 +1,36 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NotificationsService } from './notifications.service';
-import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
-import { NotificationComponent } from './notification/notification.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { notificationsReducer } from './notifications.reducers';
-import { of as observableOf } from 'rxjs';
-import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { storeModuleConfig } from '../../app.reducer';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { storeModuleConfig } from '../../app.reducer';
+import { NotificationComponent } from './notification/notification.component';
+import {
+  NewNotificationAction,
+  RemoveAllNotificationsAction,
+  RemoveNotificationAction,
+} from './notifications.actions';
+import { notificationsReducer } from './notifications.reducers';
+import { NotificationsService } from './notifications.service';
+import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {
     dispatch: {},
-    select: observableOf(true)
+    select: of(true),
   });
   let service: NotificationsService;
 
@@ -26,41 +41,41 @@ describe('NotificationsService test', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        NotificationComponent, NotificationsBoardComponent,
       ],
-      declarations: [NotificationComponent, NotificationsBoardComponent],
       providers: [
         { provide: Store, useValue: store },
         NotificationsService,
-        TranslateService
-      ]
+        TranslateService,
+      ],
     });
 
     service = TestBed.inject(NotificationsService);
   }));
 
   it('Success method should dispatch NewNotificationAction with proper parameter', () => {
-    const notification = service.success('Title', observableOf('Content'));
+    const notification = service.success('Title', of('Content'));
     expect(notification.type).toBe(NotificationType.Success);
     expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
   });
 
   it('Warning method should dispatch NewNotificationAction with proper parameter', () => {
-    const notification = service.warning('Title', observableOf('Content'));
+    const notification = service.warning('Title', of('Content'));
     expect(notification.type).toBe(NotificationType.Warning);
     expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
   });
 
   it('Info method should dispatch NewNotificationAction with proper parameter', () => {
-    const notification = service.info('Title', observableOf('Content'));
+    const notification = service.info('Title', of('Content'));
     expect(notification.type).toBe(NotificationType.Info);
     expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
   });
 
   it('Error method should dispatch NewNotificationAction with proper parameter', () => {
-    const notification = service.error('Title', observableOf('Content'));
+    const notification = service.error('Title', of('Content'));
     expect(notification.type).toBe(NotificationType.Error);
     expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
   });

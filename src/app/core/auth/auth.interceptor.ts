@@ -1,7 +1,3 @@
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-
-import { catchError, map } from 'rxjs/operators';
-import { Injectable, Injector } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -10,19 +6,36 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
-  HttpResponseBase
+  HttpResponseBase,
 } from '@angular/common/http';
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  Observable,
+  of,
+  throwError as observableThrowError,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import { AuthService } from './auth.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
-import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
-import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -116,11 +129,23 @@ export class AuthInterceptor implements HttpInterceptor {
    */
   private sortAuthMethods(authMethodModels: AuthMethod[]): AuthMethod[] {
     const sortedAuthMethodModels: AuthMethod[] = [];
+    let passwordAuthFound = false;
+    let ldapAuthFound = false;
+
     authMethodModels.forEach((method) => {
       if (method.authMethodType === AuthMethodType.Password) {
         sortedAuthMethodModels.push(method);
+        passwordAuthFound = true;
+      }
+      if (method.authMethodType === AuthMethodType.Ldap) {
+        ldapAuthFound = true;
       }
     });
+
+    // Using password authentication method to provide UI for LDAP authentication even if password auth is not present in server
+    if (ldapAuthFound && !(passwordAuthFound)) {
+      sortedAuthMethodModels.push(new AuthMethod(AuthMethodType.Password,0));
+    }
 
     authMethodModels.forEach((method) => {
       if (method.authMethodType !== AuthMethodType.Password) {
@@ -207,8 +232,8 @@ export class AuthInterceptor implements HttpInterceptor {
               message: 'Unknown auth error',
               status: 500,
               timestamp: Date.now(),
-              path: ''
-              };
+              path: '',
+            };
           }
         } else {
           authStatus.error = error;
@@ -232,7 +257,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let authorization: string;
 
     if (authService.isTokenExpired()) {
-      return observableOf(null);
+      return of(null);
     } else if ((!this.isAuthRequest(req) || this.isLogoutResponse(req)) && isNotEmpty(token)) {
       // Get the auth header from the service.
       authorization = authService.buildAuthHeader(token);
@@ -261,7 +286,7 @@ export class AuthInterceptor implements HttpInterceptor {
             // login successfully
             const newToken = response.headers.get('authorization');
             authRes = response.clone({
-              body: this.makeAuthStatusObject(true, newToken)
+              body: this.makeAuthStatusObject(true, newToken),
             });
 
             // clean eventually refresh Requests list
@@ -269,13 +294,13 @@ export class AuthInterceptor implements HttpInterceptor {
           } else if (this.isStatusResponse(response)) {
             authRes = response.clone({
               body: Object.assign(response.body, {
-                authMethods: this.parseAuthMethodsFromHeaders(response.headers)
-              })
+                authMethods: this.parseAuthMethodsFromHeaders(response.headers),
+              }),
             });
           } else {
             // logout successfully
             authRes = response.clone({
-              body: this.makeAuthStatusObject(false)
+              body: this.makeAuthStatusObject(false),
             });
           }
           return authRes;
@@ -283,7 +308,7 @@ export class AuthInterceptor implements HttpInterceptor {
           return response;
         }
       }),
-      catchError((error, caught) => {
+      catchError((error: unknown, caught) => {
         // Intercept an error response
         if (error instanceof HttpErrorResponse) {
 
@@ -298,9 +323,9 @@ export class AuthInterceptor implements HttpInterceptor {
               headers: error.headers,
               status: error.status,
               statusText: error.statusText,
-              url: error.url
+              url: error.url,
             });
-            return observableOf(authResponse);
+            return of(authResponse);
           } else if (this.isUnauthorized(error) && isNotNull(token) && authService.isTokenExpired()) {
             // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route

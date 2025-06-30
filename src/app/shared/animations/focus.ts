@@ -1,4 +1,10 @@
-import { animate, state, transition, trigger, style } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export const focusShadow = trigger('focusShadow', [
 
@@ -6,7 +12,7 @@ export const focusShadow = trigger('focusShadow', [
 
   state('blur', style({ boxShadow: 'none' })),
 
-  transition('focus <=> blur', [animate('250ms')])
+  transition('focus <=> blur', [animate('250ms')]),
 ]);
 
 export const focusBackground = trigger('focusBackground', [
@@ -15,5 +21,5 @@ export const focusBackground = trigger('focusBackground', [
 
   state('blur', style({ backgroundColor: 'transparent' })),
 
-  transition('focus <=> blur', [animate('250ms')])
+  transition('focus <=> blur', [animate('250ms')]),
 ]);

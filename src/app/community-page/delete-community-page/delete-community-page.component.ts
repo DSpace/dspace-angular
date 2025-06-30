@@ -1,11 +1,21 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { Community } from '../../core/shared/community.model';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Community } from '../../core/shared/community.model';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * Component that represents the page where a user can delete an existing Community
@@ -13,7 +23,14 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-delete-community',
   styleUrls: ['./delete-community-page.component.scss'],
-  templateUrl: './delete-community-page.component.html'
+  templateUrl: './delete-community-page.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class DeleteCommunityPageComponent extends DeleteComColPageComponent<Community> {
   protected frontendURL = '/communities/';

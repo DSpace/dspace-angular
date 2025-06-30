@@ -1,21 +1,29 @@
-import { of as observableOf } from 'rxjs';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from './request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { HrefOnlyDataService } from './href-only-data.service';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RestResponse } from '../cache/response.models';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { VersionDataService } from './version-data.service';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { RequestEntry } from './request-entry.model';
 import { testPatchDataImplementation } from './base/patch-data.spec';
+import { HrefOnlyDataService } from './href-only-data.service';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { VersionDataService } from './version-data.service';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;
@@ -30,33 +38,33 @@ describe('VersionDataService test', () => {
   const item = Object.assign(new Item(), {
     id: '1234-1234',
     uuid: '1234-1234',
-    bundles: observableOf({}),
+    bundles: of({}),
     metadata: {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
   const itemRD = createSuccessfulRemoteDataObject(item);
 
@@ -84,7 +92,7 @@ describe('VersionDataService test', () => {
       rdbService,
       objectCache,
       halService,
-      comparatorEntry
+      comparatorEntry,
     );
   }
 
@@ -99,7 +107,7 @@ describe('VersionDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: cold('a', { a: endpointURL }),
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -109,13 +117,13 @@ describe('VersionDataService test', () => {
         generateRequestId: requestUUID,
         send: true,
         removeByHrefSubstring: {},
-        getByHref: observableOf(responseCacheEntry),
-        getByUUID: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
+        getByUUID: of(responseCacheEntry),
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('(a|)', {
-          a: mockVersionRD
-        })
+          a: mockVersionRD,
+        }),
       });
 
       service = initTestService();
@@ -128,7 +136,7 @@ describe('VersionDataService test', () => {
     });
 
     describe('getHistoryFromVersion', () => {
-      it('should proxy the call to DataService.findByHref', () => {
+      it('should proxy the call to UpdateDataServiceImpl.findByHref', () => {
         scheduler.schedule(() => service.getHistoryFromVersion(mockVersion, true, true));
         scheduler.flush();
 
@@ -138,7 +146,7 @@ describe('VersionDataService test', () => {
       it('should return a VersionHistory', () => {
         const result = service.getHistoryFromVersion(mockVersion, true, true);
         const expected = cold('(a|)', {
-          a: versionHistory
+          a: versionHistory,
         });
         expect(result).toBeObservable(expected);
       });
@@ -152,11 +160,11 @@ describe('VersionDataService test', () => {
 
     describe('getHistoryIdFromVersion', () => {
       it('should return the version history id', () => {
-        spyOn((service as any), 'getHistoryFromVersion').and.returnValue(observableOf(versionHistory));
+        spyOn((service as any), 'getHistoryFromVersion').and.returnValue(of(versionHistory));
 
         const result = service.getHistoryIdFromVersion(mockVersion);
         const expected = cold('(a|)', {
-          a: versionHistory.id
+          a: versionHistory.id,
         });
         expect(result).toBeObservable(expected);
       });

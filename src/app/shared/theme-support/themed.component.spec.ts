@@ -1,16 +1,25 @@
 /* eslint-disable max-classes-per-file */
-import { ThemedComponent } from './themed.component';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../utils/var.directive';
-import { ThemeService } from './theme.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { TestComponent } from './test/test.component.spec';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+
 import { ThemeConfig } from '../../../config/theme.config';
+import { getMockThemeService } from '../mocks/theme-service.mock';
+import { VarDirective } from '../utils/var.directive';
+import { TestComponent } from './test/test.component.spec';
+import { ThemeService } from './theme.service';
+import { ThemedComponent } from './themed.component';
 
 @Component({
   selector: 'ds-test-themed-component',
-  templateUrl: './themed.component.html'
+  templateUrl: './themed.component.html',
+  standalone: true,
 })
 class TestThemedComponent extends ThemedComponent<TestComponent> {
   protected inAndOutputNames: (keyof TestComponent & keyof this)[] = ['testInput'];
@@ -36,12 +45,11 @@ describe('ThemedComponent', () => {
   function setupTestingModuleForTheme(theme: string, themes?: ThemeConfig[]) {
     themeService = getMockThemeService(theme, themes);
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [TestThemedComponent, VarDirective],
+      imports: [TestThemedComponent, VarDirective],
       providers: [
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }
 

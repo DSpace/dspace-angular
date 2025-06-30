@@ -1,26 +1,44 @@
-import { Component } from '@angular/core';
 import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { BATCH_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { Process } from '../../process-page/processes/process.model';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import {
-  ImportBatchSelectorComponent
-} from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  BATCH_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../core/data/processes/script-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
+import { Process } from '../../process-page/processes/process.model';
+import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
+import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
   selector: 'ds-batch-import-page',
-  templateUrl: './batch-import-page.component.html'
+  templateUrl: './batch-import-page.component.html',
+  imports: [
+    FileDropzoneNoUploaderComponent,
+    FormsModule,
+    TranslateModule,
+    UiSwitchModule,
+  ],
+  standalone: true,
 })
 export class BatchImportPageComponent {
   /**
@@ -91,7 +109,7 @@ export class BatchImportPageComponent {
       }
     } else {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '--add' })
+        Object.assign(new ProcessParameter(), { name: '--add' }),
       ];
       if (this.isUpload) {
         parameterValues.push(Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }));

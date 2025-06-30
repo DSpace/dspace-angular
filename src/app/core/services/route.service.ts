@@ -1,24 +1,48 @@
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
-
-import { combineLatest, Observable } from 'rxjs';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Params,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import isEqual from 'lodash/isEqual';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { AddParameterAction, SetParameterAction, SetParametersAction, SetQueryParameterAction, SetQueryParametersAction } from './route.actions';
-import { coreSelector } from '../core.selectors';
 import { hasValue } from '../../shared/empty.util';
-import { historySelector } from '../history/selectors';
-import { AddUrlToHistoryAction } from '../history/history.actions';
+import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
+import { AddUrlToHistoryAction } from '../history/history.actions';
+import { historySelector } from '../history/selectors';
+import {
+  AddParameterAction,
+  SetParameterAction,
+  SetParametersAction,
+  SetQueryParameterAction,
+  SetQueryParametersAction,
+} from './route.actions';
 
 /**
  * Selector to select all route parameters from the store
  */
 export const routeParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.params : undefined
+  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.params : undefined,
 );
 
 /**
@@ -26,7 +50,7 @@ export const routeParametersSelector = createSelector(
  */
 export const queryParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.queryParams : undefined
+  (state: CoreState) => hasValue(state) && hasValue(state.route) ? state.route.queryParams : undefined,
 );
 
 /**
@@ -60,7 +84,7 @@ export function parameterSelector(key: string, paramsSelector: (state: CoreState
  * Service to keep track of the current query parameters
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RouteService {
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>) {
@@ -74,7 +98,7 @@ export class RouteService {
   getQueryParameterValues(paramName: string): Observable<string[]> {
     return this.getQueryParamMap().pipe(
       map((params) => [...params.getAll(paramName)]),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     );
   }
 
@@ -85,7 +109,7 @@ export class RouteService {
   getQueryParameterValue(paramName: string): Observable<string> {
     return this.getQueryParamMap().pipe(
       map((params) => params.get(paramName)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -96,7 +120,7 @@ export class RouteService {
   hasQueryParam(paramName: string): Observable<boolean> {
     return this.getQueryParamMap().pipe(
       map((params) => params.has(paramName)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -108,7 +132,7 @@ export class RouteService {
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
     return this.getQueryParamMap().pipe(
       map((params) => params.getAll(paramName).indexOf(paramValue) > -1),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -177,7 +201,7 @@ export class RouteService {
    */
   public getCurrentUrl(): Observable<string> {
     return this.getHistory().pipe(
-      map((history: string[]) => history[history.length - 1] || '')
+      map((history: string[]) => history[history.length - 1] || ''),
     );
   }
 
@@ -186,7 +210,7 @@ export class RouteService {
    */
   public getPreviousUrl(): Observable<string> {
     return this.getHistory().pipe(
-      map((history: string[]) => history[history.length - 2] || '')
+      map((history: string[]) => history[history.length - 2] || ''),
     );
   }
 
@@ -222,7 +246,59 @@ export class RouteService {
         ([params, queryParams]: [Params, Params]) => {
           this.store.dispatch(new SetParametersAction(params));
           this.store.dispatch(new SetQueryParametersAction(queryParams));
-        }
+        },
       );
   }
+
+  /**
+   * Returns all the query parameters except for the one with the given name & value.
+   *
+   * @param name The name of the query param to exclude
+   * @param value The optional value that the query param needs to have to be excluded
+   */
+  getParamsExceptValue(name: string, value?: string): Observable<Params> {
+    return this.route.queryParams.pipe(
+      map((params: Params) => {
+        const newParams: Params = Object.assign({}, params);
+        const queryParamValues: string | string[] = newParams[name];
+
+        if (queryParamValues === value || value === undefined) {
+          delete newParams[name];
+        } else if (Array.isArray(queryParamValues) && queryParamValues.includes(value)) {
+          newParams[name] = (queryParamValues as string[]).filter((paramValue: string) => paramValue !== value);
+          if (newParams[name].length === 0) {
+            delete newParams[name];
+          }
+        }
+        return newParams;
+      }),
+    );
+  }
+
+  /**
+   * Returns all the existing query parameters and the new value pair with the given name & value.
+   *
+   * @param name The name of the query param for which you need to add the value
+   * @param value The optional value that the query param needs to have in addition to the current ones
+   */
+  getParamsWithAdditionalValue(name: string, value: string): Observable<Params> {
+    return this.route.queryParams.pipe(
+      map((params: Params) => {
+        const newParams: Params = Object.assign({}, params);
+        const queryParamValues: string | string[] = newParams[name];
+
+        if (queryParamValues === undefined) {
+          newParams[name] = value;
+        } else {
+          if (Array.isArray(queryParamValues)) {
+            newParams[name] = [...queryParamValues, value];
+          } else {
+            newParams[name] = [queryParamValues, value];
+          }
+        }
+        return newParams;
+      }),
+    );
+  }
+
 }

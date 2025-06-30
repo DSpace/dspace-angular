@@ -1,31 +1,39 @@
-import { of as observableOf } from 'rxjs';
+import {
+  CommonModule,
+  DOCUMENT,
+} from '@angular/common';
 import { TestBed } from '@angular/core/testing';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { hot } from 'jasmine-marbles';
-import { SetThemeAction } from './theme.actions';
-import { Theme } from './theme.model';
+import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { Community } from '../../core/shared/community.model';
-import { COMMUNITY } from '../../core/shared/community.resource-type';
-import { NoOpAction } from '../ngrx/no-op.action';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
+import { hot } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
+import { LinkService } from '../../core/cache/builders/link.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { COLLECTION } from '../../core/shared/collection.resource-type';
-import {
-  createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../remote-data.utils';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { ThemeService } from './theme.service';
-import { ROUTER_NAVIGATED } from '@ngrx/router-store';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { Community } from '../../core/shared/community.model';
+import { COMMUNITY } from '../../core/shared/community.resource-type';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { ITEM } from '../../core/shared/item.resource-type';
 import { RouterMock } from '../mocks/router.mock';
+import { NoOpAction } from '../ngrx/no-op.action';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { ConfigurationDataServiceStub } from '../testing/configuration-data.service.stub';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { SetThemeAction } from './theme.actions';
+import { Theme } from './theme.model';
+import { ThemeService } from './theme.service';
 
 /**
  * LinkService able to mock recursively resolving DSO parent links
@@ -66,12 +74,12 @@ describe('ThemeService', () => {
       Object.assign(new Collection(), {
         type: COLLECTION.value,
         uuid: 'collection-uuid',
-        _links: { owningCommunity: { href: 'owning-community-link' } }
+        _links: { owningCommunity: { href: 'owning-community-link' } },
       }),
       Object.assign(new Community(), {
         type: COMMUNITY.value,
         uuid: 'sub-community-uuid',
-        _links: { parentCommunity: { href: 'parent-community-link' } }
+        _links: { parentCommunity: { href: 'parent-community-link' } },
       }),
       mockCommunity,
     ];
@@ -87,7 +95,7 @@ describe('ThemeService', () => {
   function setupServiceWithActions(mockActions) {
     init();
     const mockDsoService = {
-      findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+      findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
     };
     TestBed.configureTestingModule({
       imports: [
@@ -101,7 +109,7 @@ describe('ThemeService', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
         { provide: ConfigurationDataService, useValue: configurationService },
-      ]
+      ],
     });
 
     themeService = TestBed.inject(ThemeService);
@@ -116,8 +124,8 @@ describe('ThemeService', () => {
     });
 
     function spyOnPrivateMethods() {
-      spyOn((themeService as any), 'getAncestorDSOs').and.returnValue(() => observableOf([dso]));
-      spyOn((themeService as any), 'matchThemeToDSOs').and.returnValue(observableOf(new Theme({ name: 'custom' })));
+      spyOn((themeService as any), 'getAncestorDSOs').and.returnValue(() => of([dso]));
+      spyOn((themeService as any), 'matchThemeToDSOs').and.returnValue(of(new Theme({ name: 'custom' })));
       spyOn((themeService as any), 'getActionForMatch').and.returnValue(new SetThemeAction('custom'));
     }
 
@@ -129,7 +137,7 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         spyOnPrivateMethods();
       });
@@ -157,7 +165,7 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         (themeService as any).themes = [];
       });
@@ -187,13 +195,13 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         spyOnPrivateMethods();
         snapshot = Object.assign({
           data: {
-            dso: createSuccessfulRemoteDataObject(dso)
-          }
+            dso: createSuccessfulRemoteDataObject(dso),
+          },
         });
       });
 
@@ -229,13 +237,13 @@ describe('ThemeService', () => {
               type: ROUTER_NAVIGATED,
               payload: { routerState: { url } },
             },
-          })
+          }),
         );
         spyOnPrivateMethods();
         snapshot = Object.assign({
           queryParams: {
-            scope: mockCommunity.uuid
-          }
+            scope: mockCommunity.uuid,
+          },
         });
       });
 
@@ -288,13 +296,13 @@ describe('ThemeService', () => {
 
       beforeEach(() => {
         nonMatchingTheme = Object.assign(new Theme({ name: 'non-matching-theme' }), {
-          matches: () => observableOf(false),
+          matches: () => of(false),
         });
         itemMatchingTheme = Object.assign(new Theme({ name: 'item-matching-theme' }), {
-          matches: (url, dso) => observableOf((dso as any).type === ITEM.value),
+          matches: (url, dso) => of((dso as any).type === ITEM.value),
         });
         communityMatchingTheme = Object.assign(new Theme({ name: 'community-matching-theme' }), {
-          matches: (url, dso) => observableOf((dso as any).type === COMMUNITY.value),
+          matches: (url, dso) => of((dso as any).type === COMMUNITY.value),
         });
         dsos = [
           Object.assign(new Item(), {
@@ -369,8 +377,8 @@ describe('ThemeService', () => {
           _links: { owningCollection: { href: 'owning-collection-link' } },
         });
 
-        observableOf(dso).pipe(
-          (themeService as any).getAncestorDSOs()
+        of(dso).pipe(
+          (themeService as any).getAncestorDSOs(),
         ).subscribe((result) => {
           expect(result).toEqual([dso, ...ancestorDSOs]);
           done();
@@ -383,8 +391,8 @@ describe('ThemeService', () => {
           uuid: 'item-uuid',
         };
 
-        observableOf(dso).pipe(
-          (themeService as any).getAncestorDSOs()
+        of(dso).pipe(
+          (themeService as any).getAncestorDSOs(),
         ).subscribe((result) => {
           expect(result).toEqual([dso]);
           done();
@@ -399,7 +407,7 @@ describe('ThemeService', () => {
 
     beforeEach(() => {
       const mockDsoService = {
-        findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+        findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
       };
       configurationService = new ConfigurationDataServiceStub();
 
@@ -414,7 +422,7 @@ describe('ThemeService', () => {
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
           { provide: ConfigurationDataService, useValue: configurationService },
-        ]
+        ],
       });
 
       document = TestBed.inject(DOCUMENT);
@@ -424,7 +432,7 @@ describe('ThemeService', () => {
 
       themeService = TestBed.inject(ThemeService);
       spyOn(themeService, 'getThemeName').and.returnValue('custom');
-      spyOn(themeService, 'getThemeName$').and.returnValue(observableOf('custom'));
+      spyOn(themeService, 'getThemeName$').and.returnValue(of('custom'));
     });
 
     it('should append a link element with the correct attributes to the head element', () => {

@@ -1,7 +1,8 @@
-import { isNotEmpty } from './empty.util';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import transform from 'lodash/transform';
+
+import { isNotEmpty } from './empty.util';
 
 /**
  * Returns passed object without specified property

@@ -1,19 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ComcolRoleComponent } from './comcol-role.component';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RequestService } from '../../../../../core/data/request.service';
-import { of as observableOf } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComcolModule } from '../../../comcol.module';
-import { NotificationsService } from '../../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { RequestService } from '../../../../../core/data/request.service';
+import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../remote-data.utils';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {
 
@@ -26,30 +36,29 @@ describe('ComcolRoleComponent', () => {
   let comcolRole;
   let notificationsService;
 
-  const requestService = { hasByHref$: () => observableOf(true) };
+  const requestService = { hasByHref$: () => of(true) };
 
   const groupService = {
     findByHref: jasmine.createSpy('findByHref'),
-    createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(observableOf({})),
-    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({}))
+    createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(of({})),
+    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(of({})),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        ComcolModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupService },
         { provide: RequestService, useValue: requestService },
-        { provide: NotificationsService, useClass: NotificationsServiceStub }
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents().then(() => {
       groupService.findByHref.and.callFake((link) => {
         if (link === 'test role link') {
@@ -73,7 +82,7 @@ describe('ComcolRoleComponent', () => {
         href: 'test role link',
       };
       comp.comcolRole = comcolRole;
-      comp.roleName$ = observableOf(comcolRole.name);
+      comp.roleName$ = of(comcolRole.name);
 
       fixture.detectChanges();
     });
@@ -128,7 +137,7 @@ describe('ComcolRoleComponent', () => {
 
     beforeEach(() => {
       group = {
-        name: 'Anonymous'
+        name: 'Anonymous',
       };
       statusCode = 200;
       comp.comcolRole = comcolRole;
@@ -162,7 +171,7 @@ describe('ComcolRoleComponent', () => {
 
     beforeEach(() => {
       group = {
-        name: 'custom group name'
+        name: 'custom group name',
       };
       statusCode = 200;
       comp.comcolRole = comcolRole;

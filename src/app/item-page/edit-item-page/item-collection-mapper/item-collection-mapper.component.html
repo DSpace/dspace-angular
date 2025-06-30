@@ -6,7 +6,7 @@
       <p>{{'item.edit.item-mapper.description' | translate}}</p>
 
       <ul ngbNav (navChange)="tabChange($event)" [destroyOnHide]="true" #tabs="ngbNav" class="nav-tabs">
-        <li [ngbNavItem]="'browseTab'">
+        <li [ngbNavItem]="'browseTab'" role="presentation" data-test="browseTab">
           <a ngbNavLink>{{'item.edit.item-mapper.tabs.browse' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="mt-2">
@@ -18,39 +18,43 @@
                 [cancelButton]="'item.edit.item-mapper.cancel'"
                 [dangerConfirm]="true"
                 (confirm)="removeMappings($event)"
-                (cancel)="onCancel()"></ds-collection-select>
+              (cancel)="onCancel()"></ds-collection-select>
             </div>
           </ng-template>
         </li>
-        <li [ngbNavItem]="'mapTab'">
+        <li [ngbNavItem]="'mapTab' | dsBrowserOnly" role="presentation" data-test="mapTab">
           <a ngbNavLink>{{'item.edit.item-mapper.tabs.map' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="row mt-2">
               <div class="col-12 col-lg-6">
-                <ds-themed-search-form id="search-form"
-                                [query]="(searchOptions$ | async)?.query"
-                                [currentUrl]="'./'"
-                                [inPlaceSearch]="true"
-                                [searchPlaceholder]="'item.edit.item-mapper.search-form.placeholder' | translate"
-                                (submitSearch)="performedSearch = true">
-                </ds-themed-search-form>
+                <ds-search-form id="search-form"
+                  [query]="(searchOptions$ | async)?.query"
+                  [currentUrl]="'./'"
+                  [inPlaceSearch]="true"
+                  [searchPlaceholder]="'item.edit.item-mapper.search-form.placeholder' | translate"
+                  (submitSearch)="performedSearch = true">
+                </ds-search-form>
               </div>
             </div>
 
-            <div *ngIf="performedSearch">
-              <ds-collection-select class="mt-2"
-                [key]="'map'"
-                [dsoRD$]="mappedCollectionsRD$"
-                [paginationOptions]="(searchOptions$ | async)?.pagination"
-                [sortOptions]="(searchOptions$ | async)?.sort"
-                [confirmButton]="'item.edit.item-mapper.buttons.add'"
-                [cancelButton]="'item.edit.item-mapper.cancel'"
-                (confirm)="mapCollections($event)"
+            @if (performedSearch) {
+              <div>
+                <ds-collection-select class="mt-2"
+                  [key]="'map'"
+                  [dsoRD$]="mappedCollectionsRD$"
+                  [paginationOptions]="(searchOptions$ | async)?.pagination"
+                  [sortOptions]="(searchOptions$ | async)?.sort"
+                  [confirmButton]="'item.edit.item-mapper.buttons.add'"
+                  [cancelButton]="'item.edit.item-mapper.cancel'"
+                  (confirm)="mapCollections($event)"
                 (cancel)="onCancel()"></ds-collection-select>
-            </div>
-            <div *ngIf="!performedSearch" class="alert alert-info w-100" role="alert">
-              {{'item.edit.item-mapper.no-search' | translate}}
-            </div>
+              </div>
+            }
+            @if (!performedSearch) {
+              <div class="alert alert-info w-100" role="alert">
+                {{'item.edit.item-mapper.no-search' | translate}}
+              </div>
+            }
           </ng-template>
         </li>
       </ul>

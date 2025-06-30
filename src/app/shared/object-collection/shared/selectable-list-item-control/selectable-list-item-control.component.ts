@@ -1,13 +1,35 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { map, skip, take } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import {
+  map,
+  skip,
+  take,
+} from 'rxjs/operators';
+
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { VarDirective } from '../../../utils/var.directive';
+import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-selectable-list-item-control',
   // styleUrls: ['./selectable-list-item-control.component.scss'],
-  templateUrl: './selectable-list-item-control.component.html'
+  templateUrl: './selectable-list-item-control.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component for rendering list item that has a control (checkbox or radio button) because it's selectable
@@ -41,12 +63,12 @@ export class SelectableListItemControlComponent implements OnInit {
     this.selected$ = this.selectionService.isObjectSelected(this.selectionConfig.listId, this.object);
     this.selected$
       .pipe(skip(1)).subscribe((selected: boolean) => {
-      if (selected) {
-        this.selectObject.emit(this.object);
-      } else {
-        this.deselectObject.emit(this.object);
-      }
-    });
+        if (selected) {
+          this.selectObject.emit(this.object);
+        } else {
+          this.deselectObject.emit(this.object);
+        }
+      });
   }
 
   selectCheckbox(value: boolean) {
@@ -62,16 +84,16 @@ export class SelectableListItemControlComponent implements OnInit {
       const selected$ = this.selectionService.getSelectableList(this.selectionConfig.listId);
       selected$.pipe(
         take(1),
-        map((selected) => selected ? selected.selection : [])
+        map((selected) => selected ? selected.selection : []),
       ).subscribe((selection) => {
-          // First deselect any existing selections, this is a radio button
-          selection.forEach((selectedObject) => {
-            this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
-            this.deselectObject.emit(selectedObject);
-          });
-          this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
-          this.selectObject.emit(this.object);
-        }
+        // First deselect any existing selections, this is a radio button
+        selection.forEach((selectedObject) => {
+          this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
+          this.deselectObject.emit(selectedObject);
+        });
+        this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
+        this.selectObject.emit(this.object);
+      },
       );
     }
   }
