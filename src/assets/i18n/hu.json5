@@ -2804,7 +2804,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Mi gyűjtjük és feldolgozzuk a személyes adatait a következő célból: <strong>Hitelesítés, Beállítások, Elismerés és Statisztikák</strong>. <br/> Részletekért olvassa el: {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Mi gyűjtjük és feldolgozzuk a személyes adatait a következő célból: Hitelesítés, Beállítások, Elismerés és Statisztikák. Részletekért olvassa el: {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Személyreszab",
