@@ -3,6 +3,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  Optional,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -30,7 +31,10 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { KlaroService } from '../../shared/cookies/klaro.service';
-import { isEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
@@ -65,7 +69,7 @@ export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
     protected settingsService: AccessibilitySettingsService,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
-    protected klaroService: KlaroService,
+    @Optional() protected klaroService: KlaroService,
   ) {
   }
 
@@ -75,11 +79,19 @@ export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authService.isAuthenticated().pipe(distinctUntilChanged())
         .subscribe(val => this.isAuthenticated.next(val)),
-      this.klaroService.getSavedPreferences().pipe(
-        map(preferences => preferences?.accessibility === true),
-        distinctUntilChanged(),
-      ).subscribe(val => this.cookieIsAccepted.next(val)),
     );
+
+    if (hasValue(this.klaroService)) {
+      this.subscriptions.push(
+        this.klaroService.getSavedPreferences().pipe(
+          map(preferences => preferences?.accessibility === true),
+          distinctUntilChanged(),
+        ).subscribe(val => this.cookieIsAccepted.next(val)),
+      );
+    } else {
+      this.cookieIsAccepted.next(false);
+    }
+
   }
 
   ngOnDestroy() {
