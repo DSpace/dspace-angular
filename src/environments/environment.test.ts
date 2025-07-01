@@ -338,6 +338,7 @@ export const environment: BuildConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
     enableCOARNotifySupport: true,
+    enableCookieConsentPopup: true,
   },
   markdown: {
     enabled: false,
@@ -449,5 +450,9 @@ export const environment: BuildConfig = {
   liveRegion: {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
+  },
+
+  accessibility: {
+    cookieExpirationDuration: 7,
   },
 };

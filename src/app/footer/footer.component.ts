@@ -40,6 +40,7 @@ export class FooterComponent implements OnInit {
    * A boolean representing if to show or not the top footer container
    */
   showTopFooter = false;
+  showCookieSettings = false;
   showPrivacyPolicy: boolean;
   showEndUserAgreement: boolean;
   showSendFeedback$: Observable<boolean>;
@@ -54,13 +55,14 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showCookieSettings = this.appConfig.info.enableCookieConsentPopup;
     this.showPrivacyPolicy = this.appConfig.info.enablePrivacyStatement;
     this.showEndUserAgreement = this.appConfig.info.enableEndUserAgreement;
     this.coarLdnEnabled$ = this.appConfig.info.enableCOARNotifySupport ? this.notifyInfoService.isCoarConfigEnabled() : observableOf(false);
     this.showSendFeedback$ = this.authorizationService.isAuthorized(FeatureID.CanSendFeedback);
   }
 
-  showCookieSettings() {
+  openCookieSettings() {
     if (hasValue(this.cookies)) {
       this.cookies.showSettings();
     }
