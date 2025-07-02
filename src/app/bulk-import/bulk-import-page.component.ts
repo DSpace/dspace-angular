@@ -76,6 +76,8 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
    */
   processingImport$: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
 
+  private selectedFile: File;
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -119,19 +121,16 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
 
     const values: any = this.form.value;
 
-    const files: FileList = values.file;
-    const file: File = files.item(0);
-
     const stringParameters: ProcessParameter[] = [
       { name: '-c', value: this.collectionId },
-      { name: '-f', value: file.name },
+      { name: '-f', value: this.selectedFile.name },
     ];
 
     if (values.abortOnError) {
       stringParameters.push( { name: '-er', value: values.abortOnError } );
     }
 
-    this.scriptService.invoke('bulk-import', stringParameters, [file])
+    this.scriptService.invoke('bulk-import', stringParameters, [this.selectedFile])
       .pipe(getFirstCompletedRemoteData())
       .subscribe((rd: RemoteData<Process>) => {
         if (rd.isSuccess) {
@@ -163,6 +162,17 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach((sub) => sub.unsubscribe());
+  }
+
+  public handleFileInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.setFile(input.files);
+    }
+  }
+
+  public setFile(files: FileList) {
+    this.selectedFile = files.length > 0 ? files.item(0) : undefined;
   }
 
 }
