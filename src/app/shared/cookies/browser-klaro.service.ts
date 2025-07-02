@@ -145,7 +145,12 @@ export class BrowserKlaroService extends KlaroService {
          */
         this.translateConfiguration();
 
-        this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        if (!environment.info?.enableCookieConsentPopup) {
+          this.klaroConfig.services = [];
+        } else {
+          this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        }
+
         this.lazyKlaro.then(({ setup }) => setup(this.klaroConfig));
       });
   }

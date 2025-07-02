@@ -18,10 +18,10 @@ import { Item } from '../../core/shared/item.model';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionError } from '../objects/submission-error.model';
-import { SubmissionSectionVisibility } from './../../core/config/models/config-submission-section.model';
 import { SubmissionSectionModel } from './../../core/config/models/config-submission-section.model';
 import { VisibilityType } from '../sections/visibility-type';
 import isEqual from 'lodash/isEqual';
+import { SectionVisibility } from '../objects/section-visibility.model';
 
 /**
  * This component represents the submission form.
@@ -88,7 +88,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * A boolean representing if a submission form is pending
    * @type {Observable<boolean>}
    */
-  public loading: Observable<boolean> = observableOf(true);
+  public isLoading$: Observable<boolean> = observableOf(true);
 
   /**
    * Emits true when the submission config has bitstream uploading enabled in submission
@@ -160,7 +160,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
 
       // check if is submission loading
-      this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      this.isLoading$ = this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter(() => this.isActive),
         map((submission: SubmissionObjectEntry) => submission.isLoading),
         map((isLoading: boolean) => isLoading),
@@ -196,7 +196,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   /**
    *  Returns the visibility object of the collection section
    */
-  private getCollectionVisibility(): SubmissionSectionVisibility {
+  private getCollectionVisibility(): SectionVisibility {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
         (section) => isEqual(section.sectionType, SectionsType.Collection)
@@ -264,13 +264,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     } else {
       this.changeDetectorRef.detectChanges();
     }
-  }
-
-  /**
-   * Check if submission form is loading
-   */
-  isLoading(): Observable<boolean> {
-    return this.loading;
   }
 
   /**

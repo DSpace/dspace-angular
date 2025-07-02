@@ -2,6 +2,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 
 import { Observable, Subscription, of } from 'rxjs';
+import { map, tap, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,8 +17,10 @@ import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { CoreState } from '../../../core/core-state.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertType } from '../../alert/alert-type';
+import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
+import { RemoteData } from '../../../core/data/remote-data';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -174,12 +177,20 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
     );
     this.nodeMap.set(node.item.id, newNode);
 
-    if ((((level + 1) < this.preloadLevel) && newNode.childrenLoaded)
+    if ((((level + 1) < this.preloadLevel))
       || (newNode.isSearchNode && newNode.childrenLoaded)
       || newNode.isInInitValueHierarchy) {
-      if (!newNode.isSearchNode) {
+
+      if (newNode.item.id === LOAD_MORE || newNode.item.id === LOAD_MORE_ROOT) {
+        // When a 'LOAD_MORE' node is encountered, the parent already has a lot of expanded children
+        // so this is a good point to stop expanding.
+        return newNode;
+      }
+
+      if (!newNode.childrenLoaded) {
         this.loadChildren(newNode);
       }
+
       this.treeControl.expand(newNode);
     }
     return newNode;
@@ -220,14 +231,29 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    */
   ngOnInit(): void {
     this.subs.push(
-      this.vocabularyTreeviewService.getData().subscribe((data) => {
+      this.vocabularyService.findVocabularyById(this.vocabularyOptions.name).pipe(
+        // Retrieve the configured preloadLevel from REST
+        getFirstCompletedRemoteData(),
+        map((vocabularyRD: RemoteData<Vocabulary>) => {
+          if (vocabularyRD.hasSucceeded &&
+            hasValue(vocabularyRD.payload.preloadLevel) &&
+            vocabularyRD.payload.preloadLevel > 1) {
+            return vocabularyRD.payload.preloadLevel;
+          } else {
+            // Set preload level to 1 in case request fails
+            return 1;
+          }
+        }),
+        tap(preloadLevel => this.preloadLevel = preloadLevel),
+        tap(() => this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null)),
+        switchMap(() => this.vocabularyTreeviewService.getData()),
+      ).subscribe((data) => {
         this.dataSource.data = data;
       })
     );
 
-    this.loading = this.vocabularyTreeviewService.isLoading();
 
-    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null);
+    this.loading = this.vocabularyTreeviewService.isLoading();
   }
 
   /**
