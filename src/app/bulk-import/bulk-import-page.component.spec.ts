@@ -122,6 +122,7 @@ describe('BulkImportPageComponent', () => {
     beforeEach(() => {
       component.form.value.abortOnError = true;
       component.form.value.file = fileList;
+      component.setFile(fileList);
       component.submit();
     });
 
