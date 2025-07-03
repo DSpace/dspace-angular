@@ -139,6 +139,8 @@ export class BrowserInitService extends InitService {
       await lastValueFrom(this.authenticationReady$());
       this.menuProviderService.initPersistentMenus(false);
 
+      this.configureMenuCollapsedState();
+
       return true;
     };
   }

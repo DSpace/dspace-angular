@@ -35,7 +35,9 @@ import {
 } from '../../app.reducer';
 import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { CookieService } from '../../core/services/cookie.service';
 import { Item } from '../../core/shared/item.model';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemeService } from '../theme-support/theme.service';
@@ -150,6 +152,7 @@ describe('MenuComponent', () => {
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         MenuService,
+        { provide: CookieService, useValue: CookieServiceMock },
         provideMockStore({ initialState }),
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: routeStub },
