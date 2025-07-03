@@ -79,7 +79,7 @@ describe('BrowseBySwitcherComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(BrowseBySwitcherComponent);
     comp = fixture.componentInstance;
-    spyOn(comp, 'getComponent').and.returnValue(BrowseByTestComponent);
+    spyOn(comp, 'getComponent').and.returnValue(Promise.resolve(BrowseByTestComponent));
     spyOn(comp, 'connectInputsAndOutputs').and.callThrough();
   }));
 

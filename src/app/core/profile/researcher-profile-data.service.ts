@@ -25,6 +25,7 @@ import {
   followLink,
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -59,11 +60,13 @@ import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
+import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 
 /**
  * A service that provides methods to make REST requests with researcher profile endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(RESEARCHER_PROFILE)
 export class ResearcherProfileDataService extends IdentifiableDataService<ResearcherProfile> implements CreateData<ResearcherProfile>, SearchData<ResearcherProfile>, PatchData<ResearcherProfile>, DeleteData<ResearcherProfile> {
   private createData: CreateDataImpl<ResearcherProfile>;
   private searchData: SearchDataImpl<ResearcherProfile>;

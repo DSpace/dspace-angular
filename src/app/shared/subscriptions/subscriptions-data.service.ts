@@ -12,6 +12,7 @@ import {
 import { sendRequest } from 'src/app/core/shared/request.operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { dataService } from '../../core/cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
@@ -39,6 +40,7 @@ import {
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { Subscription } from './models/subscription.model';
+import { SUBSCRIPTION } from './models/subscription.resource-type';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.
@@ -46,6 +48,7 @@ import { Subscription } from './models/subscription.model';
 @Injectable({
   providedIn: 'root',
 })
+@dataService(SUBSCRIPTION)
 export class SubscriptionsDataService extends IdentifiableDataService<Subscription> {
   protected findByEpersonLinkPath = 'findByEPerson';
 

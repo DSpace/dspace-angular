@@ -49,6 +49,8 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
 import {
   SECTION_LICENSE_FORM_LAYOUT,
   SECTION_LICENSE_FORM_MODEL,
@@ -68,7 +70,8 @@ import {
   ],
   standalone: true,
 })
-export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
+@renderSectionFor(SectionsType.License)
+export class SubmissionSectionLicenseComponent extends SectionModelComponent implements AfterViewChecked {
 
   /**
    * The form id

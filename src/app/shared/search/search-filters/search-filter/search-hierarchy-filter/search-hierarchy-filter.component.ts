@@ -45,6 +45,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-c
 import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { FilterType } from '../../../models/filter-type.model';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import {
   facetLoad,
@@ -52,6 +53,7 @@ import {
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
 import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -73,6 +75,7 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
 /**
  * Component that represents a hierarchy facet for a specific filter configuration
  */
+@renderFacetFor(FilterType.hierarchy)
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
 
   constructor(protected searchService: SearchService,

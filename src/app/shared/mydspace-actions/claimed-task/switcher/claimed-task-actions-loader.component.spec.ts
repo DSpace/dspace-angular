@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  Component,
   Injector,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -16,20 +17,22 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
+import { ClaimedTaskType } from '../claimed-task-type';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
 
@@ -109,9 +112,9 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
     comp = fixture.componentInstance;
     comp.item = item;
     comp.object = object;
-    comp.option = option;
+    comp.option = option as ClaimedTaskType;
     comp.workflowitem = workflowitem;
-    spyOn(comp, 'getComponent').and.returnValue(ClaimedTaskActionsEditMetadataComponent);
+    spyOn(comp, 'getComponent').and.returnValue(Promise.resolve(ClaimedTaskActionsEditMetadataComponent as GenericConstructor<Component>));
 
     fixture.detectChanges();
   }));

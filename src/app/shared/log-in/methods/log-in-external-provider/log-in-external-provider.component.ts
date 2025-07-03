@@ -13,6 +13,7 @@ import { take } from 'rxjs/operators';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import {
   isAuthenticated,
   isAuthenticationLoading,
@@ -24,6 +25,7 @@ import {
   NativeWindowService,
 } from '../../../../core/services/window.service';
 import { isEmpty } from '../../../empty.util';
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
 @Component({
   selector: 'ds-log-in-external-provider',
@@ -34,6 +36,10 @@ import { isEmpty } from '../../../empty.util';
     TranslateModule,
   ],
 })
+@renderAuthMethodFor(AuthMethodType.Shibboleth)
+@renderAuthMethodFor(AuthMethodType.Oidc)
+@renderAuthMethodFor(AuthMethodType.Orcid)
+@renderAuthMethodFor(AuthMethodType.Saml)
 export class LogInExternalProviderComponent implements OnInit {
 
   /**

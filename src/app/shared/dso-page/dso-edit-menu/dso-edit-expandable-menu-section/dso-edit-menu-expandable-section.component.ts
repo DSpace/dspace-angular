@@ -4,7 +4,6 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Inject,
   Injector,
   OnInit,
 } from '@angular/core';
@@ -26,6 +25,8 @@ import {
   isNotEmpty,
 } from '../../../empty.util';
 import { MenuService } from '../../../menu/menu.service';
+import { rendersSectionForMenu } from '../../../menu/menu-section.decorator';
+import { ThemeService } from '../../../theme-support/theme.service';
 
 /**
  * Represents an expandable section in the dso edit menus
@@ -44,18 +45,13 @@ import { MenuService } from '../../../menu/menu.service';
     TranslateModule,
   ],
 })
+@rendersSectionForMenu(MenuID.DSO_EDIT, true)
 export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 
   /**
    * This section resides in the DSO edit menu
    */
   menuID: MenuID = MenuID.DSO_EDIT;
-
-
-  /**
-   * The MenuItemModel of the top section
-   */
-  itemModel;
 
   /**
    * Emits whether one of the subsections contains an icon
@@ -68,13 +64,16 @@ export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionCo
   hasSubSections$: Observable<boolean>;
 
   constructor(
-    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
+    protected themeService: ThemeService,
     protected router: Router,
   ) {
-    super(menuService, injector);
-    this.itemModel = section.model;
+    super(
+      menuService,
+      injector,
+      themeService,
+    );
   }
 
   ngOnInit(): void {

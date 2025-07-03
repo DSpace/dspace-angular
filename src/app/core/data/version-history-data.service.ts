@@ -23,6 +23,7 @@ import {
   followLink,
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -36,6 +37,7 @@ import {
 } from '../shared/operators';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
+import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
@@ -48,6 +50,7 @@ import { VersionDataService } from './version-data.service';
  * Service responsible for handling requests related to the VersionHistory object
  */
 @Injectable({ providedIn: 'root' })
+@dataService(VERSION_HISTORY)
 export class VersionHistoryDataService extends IdentifiableDataService<VersionHistory> {
   protected versionsEndpoint = 'versions';
 

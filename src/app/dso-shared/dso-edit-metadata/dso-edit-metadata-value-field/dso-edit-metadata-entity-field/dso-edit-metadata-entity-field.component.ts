@@ -11,6 +11,8 @@ import { EntityTypeDataService } from '../../../../core/data/entity-type-data.se
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
+import { editMetadataValueFieldComponent } from '../dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field.decorator';
 
 /**
  * The component used to gather input for entity-type metadata fields
@@ -26,6 +28,7 @@ import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit
     TranslateModule,
   ],
 })
+@editMetadataValueFieldComponent(EditMetadataValueFieldType.ENTITY_TYPE)
 export class DsoEditMetadataEntityFieldComponent extends AbstractDsoEditMetadataValueFieldComponent implements OnInit {
 
   /**

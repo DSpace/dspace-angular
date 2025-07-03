@@ -10,10 +10,12 @@ import {
 import { hasValue } from '../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
+import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
@@ -34,6 +36,7 @@ import { RestRequestMethod } from './rest-request-method';
  * A service to retrieve {@link Bundle}s from the REST API
  */
 @Injectable({ providedIn: 'root' })
+@dataService(BUNDLE)
 export class BundleDataService extends IdentifiableDataService<Bundle> implements PatchData<Bundle> {
   private bitstreamsEndpoint = 'bitstreams';
 

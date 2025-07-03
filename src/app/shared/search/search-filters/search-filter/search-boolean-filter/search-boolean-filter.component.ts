@@ -5,12 +5,14 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { FilterType } from '../../../models/filter-type.model';
 import {
   facetLoad,
   SearchFacetFilterComponent,
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
 import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-boolean-filter',
@@ -29,5 +31,6 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
 /**
  * Component that represents a boolean facet for a specific filter configuration
  */
+@renderFacetFor(FilterType.boolean)
 export class SearchBooleanFilterComponent extends SearchFacetFilterComponent implements OnInit {
 }

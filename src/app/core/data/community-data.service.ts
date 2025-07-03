@@ -10,9 +10,11 @@ import {
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
+import { COMMUNITY } from '../shared/community.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
@@ -23,6 +25,7 @@ import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
 @Injectable({ providedIn: 'root' })
+@dataService(COMMUNITY)
 export class CommunityDataService extends ComColDataService<Community> {
   protected topLinkPath = 'search/top';
 

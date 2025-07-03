@@ -9,8 +9,11 @@ import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
+import { MenuSection } from '../../shared/menu/menu-section.model';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { NavbarSectionComponent } from './navbar-section.component';
 
 describe('NavbarSectionComponent', () => {
@@ -22,9 +25,9 @@ describe('NavbarSectionComponent', () => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, NavbarSectionComponent, TestComponent],
       providers: [
-        { provide: 'sectionDataProvider', useValue: {} },
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
     }).compileComponents();
   }));
@@ -34,7 +37,8 @@ describe('NavbarSectionComponent', () => {
 
     fixture = TestBed.createComponent(NavbarSectionComponent);
     component = fixture.componentInstance;
-    spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+    component.section = {} as MenuSection;
+    spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
     fixture.detectChanges();
   });
 
