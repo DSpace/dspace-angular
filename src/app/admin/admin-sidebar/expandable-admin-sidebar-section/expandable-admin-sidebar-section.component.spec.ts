@@ -11,11 +11,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { MenuService } from '../../../shared/menu/menu.service';
-import { MenuItemModels } from '../../../shared/menu/menu-section.model';
+import {
+  MenuItemModels,
+  MenuSection,
+} from '../../../shared/menu/menu-section.model';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
 import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { ExpandableAdminSidebarSectionComponent } from './expandable-admin-sidebar-section.component';
 
 describe('ExpandableAdminSidebarSectionComponent', () => {
@@ -30,10 +35,10 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule, TranslateModule.forRoot(), ExpandableAdminSidebarSectionComponent, TestComponent],
         providers: [
-          { provide: 'sectionDataProvider', useValue: { icon: iconString, model: {} } },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
           { provide: Router, useValue: new RouterStub() },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -46,7 +51,8 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
       }]));
       fixture = TestBed.createComponent(ExpandableAdminSidebarSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = { icon: iconString, model: {} } as MenuSection;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
@@ -81,10 +87,10 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule, TranslateModule.forRoot(), ExpandableAdminSidebarSectionComponent, TestComponent],
         providers: [
-          { provide: 'sectionDataProvider', useValue: { icon: iconString, model: {} } },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
           { provide: Router, useValue: new RouterStub() },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -93,7 +99,8 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
       spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(ExpandableAdminSidebarSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = { icon: iconString, model: {} } as MenuSection;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 

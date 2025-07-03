@@ -5,6 +5,7 @@ import {
 } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -20,11 +21,13 @@ import {
   getPaginatedListPayload,
 } from '../shared/operators';
 import { CorrectionType } from './models/correctiontype.model';
+import { CORRECTION_TYPE } from './models/correctiontype.resource-type';
 
 /**
  * A service that provides methods to make REST requests with correctiontypes endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(CORRECTION_TYPE)
 export class CorrectionTypeDataService extends IdentifiableDataService<CorrectionType> {
   protected linkPath = 'correctiontypes';
   protected searchByTopic = 'findByTopic';

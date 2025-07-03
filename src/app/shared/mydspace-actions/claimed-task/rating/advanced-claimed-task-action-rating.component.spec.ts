@@ -17,7 +17,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
@@ -93,7 +93,7 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
 
     expect(router.navigate).toHaveBeenCalledWith([`/workflowitems/${workflowId}/advanced`], {
       queryParams: {
-        workflow: ADVANCED_WORKFLOW_ACTION_RATING,
+        workflow: AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_RATING,
         claimedTask: taskId,
       },
     });

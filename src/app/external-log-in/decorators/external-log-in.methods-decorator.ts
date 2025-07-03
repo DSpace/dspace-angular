@@ -1,34 +1,31 @@
-import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
+import { Component } from '@angular/core';
 
-import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
-
-export type ExternalLoginTypeComponent =
-  typeof OrcidConfirmationComponent;
-
-export const LOGIN_METHOD_FOR_DECORATOR_MAP = new Map<AuthRegistrationType, ExternalLoginTypeComponent>([
-  [AuthRegistrationType.Orcid, OrcidConfirmationComponent],
-]);
+import { RENDER_EXTERNAL_LOGIN_CONFIRMATION_FOR_MAP } from '../../../decorator-registries/render-external-login-confirmation-for-registry';
+import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { hasValue } from '../../shared/empty.util';
+import {
+  DEFAULT_THEME,
+  getMatch,
+} from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * Decorator to register the external login confirmation component for the given auth method type
- * @param authMethodType the type of the external login method
+ * @param authRegistrationType the type of the external login method
+ * @param theme The theme of the
  */
-export function renderExternalLoginConfirmationFor(
-  authMethodType: AuthRegistrationType,
-) {
+export function renderExternalLoginConfirmationFor(authRegistrationType: AuthRegistrationType, theme: string = DEFAULT_THEME) {
   return function decorator(objectElement: any) {
-    if (!objectElement) {
-      return;
-    }
-    LOGIN_METHOD_FOR_DECORATOR_MAP.set(authMethodType, objectElement);
   };
 }
+
 /**
- *  Get the external login confirmation component for the given auth method type
- * @param authMethodType the type of the external login method
+ * Get the external login confirmation component for the given auth method type
+ *
+ * @param authRegistrationType the type of the external login method
+ * @param theme The theme to match
  */
-export function getExternalLoginConfirmationType(
-  authMethodType: AuthRegistrationType,
-) {
-  return LOGIN_METHOD_FOR_DECORATOR_MAP.get(authMethodType);
+export function getExternalLoginConfirmationType(authRegistrationType: AuthRegistrationType, theme: string, registry = RENDER_EXTERNAL_LOGIN_CONFIRMATION_FOR_MAP): Promise<GenericConstructor<Component>> {
+  const match = getMatch(registry, [authRegistrationType, theme], [undefined, DEFAULT_THEME]);
+  return hasValue(match) ? match.match() : undefined;
 }

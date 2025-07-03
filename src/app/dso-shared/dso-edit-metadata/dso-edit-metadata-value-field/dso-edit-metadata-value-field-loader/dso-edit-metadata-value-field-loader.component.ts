@@ -82,7 +82,7 @@ export class DsoEditMetadataValueFieldLoaderComponent extends AbstractComponentL
     'confirm',
   ];
 
-  public getComponent(): GenericConstructor<Component> {
+  public getComponent(): Promise<GenericConstructor<Component>> {
     return getDsoEditMetadataValueFieldComponent(this.type, this.context, this.themeService.getThemeName());
   }
 

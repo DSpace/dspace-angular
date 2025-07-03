@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -21,11 +22,13 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { UsageReport } from './models/usage-report.model';
+import { USAGE_REPORT } from './models/usage-report.resource-type';
 
 /**
  * A service to retrieve {@link UsageReport}s from the REST API
  */
 @Injectable({ providedIn: 'root' })
+@dataService(USAGE_REPORT)
 export class UsageReportDataService extends IdentifiableDataService<UsageReport> implements SearchData<UsageReport> {
   private searchData: SearchDataImpl<UsageReport>;
 

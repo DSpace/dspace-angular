@@ -5,7 +5,6 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Inject,
   Injector,
   OnInit,
 } from '@angular/core';
@@ -23,8 +22,9 @@ import { slide } from '../../../shared/animations/slide';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
-import { MenuSection } from '../../../shared/menu/menu-section.model';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 
@@ -45,7 +45,7 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
     TranslateModule,
   ],
 })
-
+@rendersSectionForMenu(MenuID.ADMIN, true)
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
   /**
    * This section resides in the Admin Sidebar
@@ -80,13 +80,18 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
 
 
   constructor(
-    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     private variableService: CSSVariableService,
     protected injector: Injector,
+    protected themeService: ThemeService,
     protected router: Router,
   ) {
-    super(section, menuService, injector, router);
+    super(
+      menuService,
+      injector,
+      themeService,
+      router,
+    );
   }
 
   /**

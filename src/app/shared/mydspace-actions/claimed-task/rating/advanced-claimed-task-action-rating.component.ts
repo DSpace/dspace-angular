@@ -14,9 +14,11 @@ import {
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 /**
  * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionRatingComponent}
@@ -31,9 +33,10 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
     TranslateModule,
   ],
 })
+@rendersWorkflowTaskOption(ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING)
 export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 
-  workflowType = ADVANCED_WORKFLOW_ACTION_RATING;
+  workflowType = AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_RATING;
 
   constructor(
     protected injector: Injector,

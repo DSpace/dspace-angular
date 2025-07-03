@@ -70,6 +70,7 @@ import { ValueListBrowseDefinition } from './shared/value-list-browse-definition
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { CorrectionType } from './submission/models/correctiontype.model';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { WorkflowItem } from './submission/models/workflowitem.model';
@@ -187,4 +188,5 @@ export const models =
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
     SystemWideAlert,
+    CorrectionType,
   ];

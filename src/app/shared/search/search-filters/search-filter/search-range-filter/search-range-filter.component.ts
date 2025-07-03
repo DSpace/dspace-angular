@@ -30,11 +30,13 @@ import { SearchFilterService } from '../../../../../core/shared/search/search-fi
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
+import { FilterType } from '../../../models/filter-type.model';
 import {
   facetLoad,
   SearchFacetFilterComponent,
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
@@ -64,6 +66,7 @@ import {
 /**
  * Component that represents a range facet for a specific filter configuration
  */
+@renderFacetFor(FilterType.range)
 export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit {
   /**
    * Fallback minimum for the range

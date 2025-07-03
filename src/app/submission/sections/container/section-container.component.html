@@ -52,7 +52,9 @@
             </div>
           }
           <div id="sectionContent_{{sectionData.id}}" (click)="sectionRef.setFocus($event)">
-            <ng-container *ngComponentOutlet="getSectionContent(); injector: objectInjector;"></ng-container>
+            @if (sectionContent$ | async; as sectionContent) {
+              <ng-container *ngComponentOutlet="sectionContent; injector: objectInjector;"></ng-container>
+            }
           </div>
         </ng-template>
       </ngb-panel>

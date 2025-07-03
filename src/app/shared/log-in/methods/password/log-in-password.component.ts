@@ -37,6 +37,7 @@ import {
 } from '../../../../core/auth/auth.actions';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   getAuthenticationInfo,
@@ -49,6 +50,7 @@ import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { isNotEmpty } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
 /**
  * /users/sign-in
@@ -70,6 +72,7 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
     TranslateModule,
   ],
 })
+@renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
 
   /**

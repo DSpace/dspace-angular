@@ -23,11 +23,13 @@ import {
   followLink,
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Bitstream } from '../shared/bitstream.model';
+import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -69,6 +71,7 @@ import { RestRequestMethod } from './rest-request-method';
  * A service to retrieve {@link Bitstream}s from the REST API
  */
 @Injectable({ providedIn: 'root' })
+@dataService(BITSTREAM)
 export class BitstreamDataService extends IdentifiableDataService<Bitstream> implements SearchData<Bitstream>, PatchData<Bitstream>, DeleteData<Bitstream> {
   private searchData: SearchDataImpl<Bitstream>;
   private patchData: PatchDataImpl<Bitstream>;

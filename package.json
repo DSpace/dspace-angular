@@ -13,6 +13,7 @@
     "serve": "ts-node --project ./tsconfig.ts-node.json scripts/serve.ts",
     "serve:ssr": "node dist/server/main",
     "analyze": "webpack-bundle-analyzer dist/browser/stats.json",
+    "generate:decorator:registries": "ts-node --project ./tsconfig.ts-node.json scripts/generate-decorator-registries.ts",
     "build": "ng build --configuration development",
     "build:stats": "ng build --stats-json",
     "build:prod": "cross-env NODE_ENV=production npm run build:ssr",

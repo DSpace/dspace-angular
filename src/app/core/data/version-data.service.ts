@@ -11,11 +11,13 @@ import {
 
 import { isNotEmpty } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { Version } from '../shared/version.model';
+import { VERSION } from '../shared/version.resource-type';
 import { VersionHistory } from '../shared/version-history.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
@@ -31,6 +33,7 @@ import { RestRequestMethod } from './rest-request-method';
  * Service responsible for handling requests related to the Version object
  */
 @Injectable({ providedIn: 'root' })
+@dataService(VERSION)
 export class VersionDataService extends IdentifiableDataService<Version> implements PatchData<Version> {
   private patchData: PatchData<Version>;
 

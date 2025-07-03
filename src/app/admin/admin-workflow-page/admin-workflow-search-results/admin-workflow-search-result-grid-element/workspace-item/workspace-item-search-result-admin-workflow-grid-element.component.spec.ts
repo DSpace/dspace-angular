@@ -1,11 +1,10 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -15,7 +14,6 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
@@ -41,7 +39,6 @@ import { WorkspaceItemSearchResultAdminWorkflowGridElementComponent } from './wo
 describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkspaceItemSearchResultAdminWorkflowGridElementComponent;
   let fixture: ComponentFixture<WorkspaceItemSearchResultAdminWorkflowGridElementComponent>;
-  let id;
   let wfi;
   let itemRD$;
   let linkService;
@@ -51,7 +48,6 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
 
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
-    id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     object = new WorkflowItemSearchResult();
     wfi = new WorkflowItem();
     wfi.item = itemRD$;
@@ -74,8 +70,7 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           DynamicComponentLoaderDirective,
           NoopAnimationsModule,
           TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([]),
-          ListableModule,
+          RouterModule.forRoot([]),
           WorkspaceItemSearchResultAdminWorkflowGridElementComponent,
         ],
         providers: [
@@ -84,6 +79,8 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           {
             provide: TruncatableService, useValue: {
               isCollapsed: () => of(true),
+              collapse: () => {
+              },
             },
           },
           { provide: BitstreamDataService, useValue: {} },
@@ -92,7 +89,6 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           { provide: AuthService, useValue: new AuthServiceMock() },
           { provide: AuthorizationDataService, useValue: {} },
         ],
-        schemas: [NO_ERRORS_SCHEMA],
       })
       .compileComponents();
   }));

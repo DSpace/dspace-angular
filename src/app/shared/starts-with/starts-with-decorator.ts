@@ -1,32 +1,32 @@
-import { StartsWithDateComponent } from './date/starts-with-date.component';
+import { Component } from '@angular/core';
+
+import { RENDER_STARTS_WITH_FOR_MAP } from '../../../decorator-registries/render-starts-with-for-registry';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { hasValue } from '../empty.util';
+import {
+  DEFAULT_THEME,
+  getMatch,
+} from '../object-collection/shared/listable-object/listable-object.decorator';
 import { StartsWithType } from './starts-with-type';
-import { StartsWithTextComponent } from './text/starts-with-text.component';
 
-
-type StartsWithComponentType = typeof StartsWithDateComponent | typeof StartsWithTextComponent;
-export const STARTS_WITH_DECORATOR_MAP = new Map<StartsWithType, StartsWithComponentType>([
-  [StartsWithType.text, StartsWithTextComponent],
-  [StartsWithType.date, StartsWithDateComponent],
-]);
+export const DEFAULT_STARTS_WITH_TYPE = StartsWithType.text;
 
 /**
  * Fetch a decorator to render a StartsWith component for type
  * @param type
- * @deprecated
  */
-export function renderStartsWithFor(type: StartsWithType) {
+export function renderStartsWithFor(type: StartsWithType = DEFAULT_STARTS_WITH_TYPE) {
   return function decorator(objectElement: any) {
-    if (!objectElement) {
-      return;
-    }
-    STARTS_WITH_DECORATOR_MAP.set(type, objectElement);
   };
 }
 
 /**
  * Get the correct component depending on the StartsWith type
- * @param type
+ * @param type the {@link StartsWithType} to match
+ * @param theme the theme to match
+ * @param registry The registry containing all the components
  */
-export function getStartsWithComponent(type: StartsWithType) {
-  return STARTS_WITH_DECORATOR_MAP.get(type);
+export function getStartsWithComponent(type: StartsWithType, theme: string, registry = RENDER_STARTS_WITH_FOR_MAP): Promise<GenericConstructor<Component>> {
+  const match = getMatch(registry, [type, theme], [DEFAULT_STARTS_WITH_TYPE, DEFAULT_THEME]);
+  return hasValue(match) ? match.match() : undefined;
 }

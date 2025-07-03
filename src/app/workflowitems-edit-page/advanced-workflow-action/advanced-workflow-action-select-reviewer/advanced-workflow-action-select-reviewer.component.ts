@@ -29,12 +29,12 @@ import { SelectReviewerAdvancedWorkflowInfo } from '../../../core/tasks/models/s
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { hasValue } from '../../../shared/empty.util';
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
+import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
+import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
-
-export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
-export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
 
 /**
  * The page on which Review Managers can assign Reviewers to review an item.
@@ -51,6 +51,7 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
   ],
   standalone: true,
 })
+@rendersAdvancedWorkflowTaskOption(AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER)
 export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {
 
   multipleReviewers = true;
@@ -127,7 +128,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
   }
 
   getType(): string {
-    return ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
+    return AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
   }
 
   /**
@@ -146,7 +147,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
    */
   createBody(): any {
     return {
-      [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
+      [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
       eperson: this.selectedReviewers.map((ePerson: EPerson) => ePerson.id),
     };
   }

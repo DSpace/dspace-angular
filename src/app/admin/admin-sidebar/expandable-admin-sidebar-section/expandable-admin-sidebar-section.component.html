@@ -22,8 +22,9 @@
       <div class="sidebar-collapsible-element-outer-wrapper">
         <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
           <span [id]="adminMenuSectionTitleAccessibilityHandle(section)" [attr.data-test]="adminMenuSectionTitleAccessibilityHandle(section) | dsBrowserOnly">
-            <ng-container
-            *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+            @if (sectionMap().get(section.id); as sectionDTO) {
+              <ng-container *ngComponentOutlet="sectionDTO.component; injector: sectionDTO.injector;"></ng-container>
+            }
           </span>
           <i class="fas fa-chevron-right fa-xs" aria-hidden="true"
             [@rotate]="(isExpanded$ | async) ? 'expanded' : 'collapsed'"
@@ -39,8 +40,9 @@
             <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section)" [attr.aria-label]="('menu.section.' + section.id) | translate">
               @for (subSection of (subSections$ | async); track subSection) {
                 <div class="sidebar-item">
-                  <ng-container
-                  *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+                  @if (sectionMap().get(subSection.id); as subSectionDTO) {
+                    <ng-container *ngComponentOutlet="subSectionDTO.component; injector: subSectionDTO.injector;"></ng-container>
+                  }
                 </div>
               }
             </div>

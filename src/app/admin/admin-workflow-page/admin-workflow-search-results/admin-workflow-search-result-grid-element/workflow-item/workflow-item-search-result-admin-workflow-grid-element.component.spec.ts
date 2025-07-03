@@ -1,4 +1,3 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -14,7 +13,6 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
@@ -34,7 +32,6 @@ import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './wor
 describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
   let fixture: ComponentFixture<WorkflowItemSearchResultAdminWorkflowGridElementComponent>;
-  let id;
   let wfi;
   let itemRD$;
   let linkService;
@@ -43,7 +40,6 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
 
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
-    id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     object = new WorkflowItemSearchResult();
     wfi = new WorkflowItem();
     wfi.item = itemRD$;
@@ -63,7 +59,6 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
-          ListableModule,
           WorkflowItemSearchResultAdminWorkflowGridElementComponent,
         ],
         providers: [
@@ -72,18 +67,19 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
           {
             provide: TruncatableService, useValue: {
               isCollapsed: () => of(true),
+              collapse: () => {
+              },
             },
           },
           { provide: BitstreamDataService, useValue: {} },
           { provide: AuthService, useValue: new AuthServiceMock() },
           { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
-        schemas: [NO_ERRORS_SCHEMA],
       })
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async () => {
     linkService.resolveLink.and.callFake((a) => a);
     fixture = TestBed.createComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent);
     component = fixture.componentInstance;
@@ -92,6 +88,7 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
     component.index = 0;
     component.viewModes = ViewMode;
     fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

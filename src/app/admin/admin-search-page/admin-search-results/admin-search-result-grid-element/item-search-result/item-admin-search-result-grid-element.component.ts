@@ -6,6 +6,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import {
+  from,
+  Observable,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -60,25 +65,27 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    */
   ngOnInit(): void {
     super.ngOnInit();
-    const component: GenericConstructor<Component> = this.getComponent();
+    const component$: Observable<GenericConstructor<Component>> = from(this.getComponent());
 
-    const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
-    viewContainerRef.clear();
+    component$.pipe(take(1)).subscribe((component) => {
+      const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
+      viewContainerRef.clear();
 
-    this.compRef = viewContainerRef.createComponent(
-      component, {
-        index: 0,
-        injector: undefined,
-        projectableNodes: [
-          [this.badges.nativeElement],
-          [this.buttons.nativeElement],
-        ],
-      },
-    );
-    this.compRef.setInput('object',this.object);
-    this.compRef.setInput('index', this.index);
-    this.compRef.setInput('linkType', this.linkType);
-    this.compRef.setInput('listID', this.listID);
+      this.compRef = viewContainerRef.createComponent(
+        component, {
+          index: 0,
+          injector: undefined,
+          projectableNodes: [
+            [this.badges.nativeElement],
+            [this.buttons.nativeElement],
+          ],
+        },
+      );
+      this.compRef.setInput('object',this.object);
+      this.compRef.setInput('index', this.index);
+      this.compRef.setInput('linkType', this.linkType);
+      this.compRef.setInput('listID', this.listID);
+    });
   }
 
   ngOnDestroy(): void {
@@ -92,7 +99,7 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(): GenericConstructor<Component> {
+  private getComponent(): Promise<GenericConstructor<Component>> {
     return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined, this.themeService.getThemeName());
   }
 }
