@@ -1,5 +1,8 @@
-import { CSSVariableAction, CSSVariableActionTypes } from './css-variable.actions';
 import { KeyValuePair } from '../key-value-pair.model';
+import {
+  CSSVariableAction,
+  CSSVariableActionTypes,
+} from './css-variable.actions';
 
 export interface CSSVariablesState {
   [name: string]: string;
@@ -19,7 +22,7 @@ export function cssVariablesReducer(state = initialState, action: CSSVariableAct
       return Object.assign({}, state, { [variable.name]: variable.value });
     } case CSSVariableActionTypes.ADD_ALL: {
       const variables = action.payload;
-      return Object.assign({}, state, ...variables.map(({ key, value }: KeyValuePair<string, string>) => {return {[key]: value};}));
+      return Object.assign({}, state, ...variables.map(({ key, value }: KeyValuePair<string, string>) => {return { [key]: value };}));
     } case CSSVariableActionTypes.CLEAR: {
       return initialState;
     }

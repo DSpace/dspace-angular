@@ -1,27 +1,44 @@
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-
-import { filter, distinctUntilChanged, map } from 'rxjs/operators';
-import { HostWindowState } from './search/host-window.reducer';
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
-
-import { hasValue } from './empty.util';
-import { AppState } from '../app.reducer';
-import { CSSVariableService } from './sass-helper/css-variable.service';
 import { isPlatformServer } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
+
+import { AppState } from '../app.reducer';
+import { hasValue } from './empty.util';
+import { CSSVariableService } from './sass-helper/css-variable.service';
+import { HostWindowState } from './search/host-window.reducer';
 
 export enum WidthCategory {
-  XS,
-  SM,
-  MD,
-  LG,
-  XL
+  XS = 0,
+  SM = 1,
+  MD = 2,
+  LG = 3,
+  XL = 4,
 }
+
+export const maxMobileWidth = WidthCategory.SM;
 
 const hostWindowStateSelector = (state: AppState) => state.hostWindow;
 const widthSelector = createSelector(hostWindowStateSelector, (hostWindow: HostWindowState) => hostWindow.width);
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HostWindowService {
   private breakPoints: { XS_MIN, SM_MIN, MD_MIN, LG_MIN, XL_MIN } = {} as any;
 
@@ -33,24 +50,24 @@ export class HostWindowService {
     /* See _exposed_variables.scss */
     variableService.getAllVariables()
       .subscribe((variables) => {
-      this.breakPoints.XL_MIN = parseInt(variables['--bs-xl-min'], 10);
-      this.breakPoints.LG_MIN = parseInt(variables['--bs-lg-min'], 10);
-      this.breakPoints.MD_MIN = parseInt(variables['--bs-md-min'], 10);
-      this.breakPoints.SM_MIN = parseInt(variables['--bs-sm-min'], 10);
-    });
+        this.breakPoints.XL_MIN = parseInt(variables['--bs-xl'], 10);
+        this.breakPoints.LG_MIN = parseInt(variables['--bs-lg'], 10);
+        this.breakPoints.MD_MIN = parseInt(variables['--bs-md'], 10);
+        this.breakPoints.SM_MIN = parseInt(variables['--bs-sm'], 10);
+      });
   }
 
   private getWidthObs(): Observable<number> {
     return this.store.pipe(
       select(widthSelector),
-      filter((width) => hasValue(width))
+      filter((width) => hasValue(width)),
     );
   }
 
   get widthCategory(): Observable<WidthCategory> {
     if (isPlatformServer(this.platformId)) {
       // During SSR we won't know the viewport width -- assume we're rendering for desktop
-      return observableOf(WidthCategory.XL);
+      return of(WidthCategory.XL);
     }
 
     return this.getWidthObs().pipe(
@@ -67,52 +84,87 @@ export class HostWindowService {
           return WidthCategory.XL;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isXs(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat === WidthCategory.XS),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isSm(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat === WidthCategory.SM),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isMd(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat === WidthCategory.MD),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isLg(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat === WidthCategory.LG),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isXl(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat === WidthCategory.XL),
-      distinctUntilChanged()
+      distinctUntilChanged(),
+    );
+  }
+
+  is(exactWidthCat: WidthCategory): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat === exactWidthCat),
+      distinctUntilChanged(),
+    );
+  }
+
+  isIn(widthCatArray: [WidthCategory]): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCatArray.includes(widthCat)),
+      distinctUntilChanged(),
+    );
+  }
+
+  isUpTo(maxWidthCat: WidthCategory): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat <= maxWidthCat),
+      distinctUntilChanged(),
+    );
+  }
+
+  isMobile(): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat <= maxMobileWidth),
+      distinctUntilChanged(),
+    );
+  }
+
+  isDesktop(): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat > maxMobileWidth),
+      distinctUntilChanged(),
     );
   }
 
   isXsOrSm(): Observable<boolean> {
-    return observableCombineLatest(
+    return observableCombineLatest([
       this.isXs(),
-      this.isSm()
-    ).pipe(
+      this.isSm(),
+    ]).pipe(
       map(([isXs, isSm]) => isXs || isSm),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 }

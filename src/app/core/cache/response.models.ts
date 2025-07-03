@@ -1,10 +1,10 @@
 /* eslint-disable max-classes-per-file */
-import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
+import { RequestError } from '../data/request-error.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALLink } from '../shared/hal-link.model';
+import { PageInfo } from '../shared/page-info.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
-import { RequestError } from '../data/request-error.model';
 
 export class RestResponse {
   public toCache = true;
@@ -13,7 +13,7 @@ export class RestResponse {
   constructor(
     public isSuccessful: boolean,
     public statusCode: number,
-    public statusText: string
+    public statusText: string,
   ) {
   }
 }
@@ -29,7 +29,7 @@ export class DSOSuccessResponse extends RestResponse {
     public resourceSelfLinks: string[],
     public statusCode: number,
     public statusText: string,
-    public pageInfo?: PageInfo
+    public pageInfo?: PageInfo,
   ) {
     super(true, statusCode, statusText);
   }
@@ -43,7 +43,7 @@ export class EndpointMapSuccessResponse extends RestResponse {
   constructor(
     public endpointMap: EndpointMap,
     public statusCode: number,
-    public statusText: string
+    public statusText: string,
   ) {
     super(true, statusCode, statusText);
   }
@@ -64,7 +64,7 @@ export class ConfigSuccessResponse extends RestResponse {
     public configDefinition: ConfigObject,
     public statusCode: number,
     public statusText: string,
-    public pageInfo?: PageInfo
+    public pageInfo?: PageInfo,
   ) {
     super(true, statusCode, statusText);
   }
@@ -78,7 +78,7 @@ export class TokenResponse extends RestResponse {
     public token: string,
     public isSuccessful: boolean,
     public statusCode: number,
-    public statusText: string
+    public statusText: string,
   ) {
     super(isSuccessful, statusCode, statusText);
   }
@@ -89,7 +89,7 @@ export class PostPatchSuccessResponse extends RestResponse {
     public dataDefinition: any,
     public statusCode: number,
     public statusText: string,
-    public pageInfo?: PageInfo
+    public pageInfo?: PageInfo,
   ) {
     super(true, statusCode, statusText);
   }
@@ -100,7 +100,7 @@ export class EpersonSuccessResponse extends RestResponse {
     public epersonDefinition: DSpaceObject[],
     public statusCode: number,
     public statusText: string,
-    public pageInfo?: PageInfo
+    public pageInfo?: PageInfo,
   ) {
     super(true, statusCode, statusText);
   }
@@ -112,7 +112,7 @@ export class MessageResponse extends RestResponse {
   constructor(
     public statusCode: number,
     public statusText: string,
-    public pageInfo?: PageInfo
+    public pageInfo?: PageInfo,
   ) {
     super(true, statusCode, statusText);
   }
@@ -124,7 +124,7 @@ export class TaskResponse extends RestResponse {
   constructor(
     public statusCode: number,
     public statusText: string,
-    public pageInfo?: PageInfo
+    public pageInfo?: PageInfo,
   ) {
     super(true, statusCode, statusText);
   }
@@ -135,7 +135,7 @@ export class FilteredDiscoveryQueryResponse extends RestResponse {
     public filterQuery: string,
     public statusCode: number,
     public statusText: string,
-    public pageInfo?: PageInfo
+    public pageInfo?: PageInfo,
   ) {
     super(true, statusCode, statusText);
   }

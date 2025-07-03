@@ -1,12 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, } from '@ngrx/effects';
-import { tap } from 'rxjs/operators';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  map,
+  tap,
+} from 'rxjs/operators';
 
-import { MenuActionTypes, ToggleMenuAction, CollapseMenuAction, ExpandMenuAction } from './menu.actions';
+import { StoreActionTypes } from '../../store.actions';
+import {
+  CollapseMenuAction,
+  ExpandMenuAction,
+  MenuActionTypes,
+  ReinitMenuAction,
+  ToggleMenuAction,
+} from './menu.actions';
 import { MenuService } from './menu.service';
 
 @Injectable()
 export class MenuEffects {
+
+  /**
+   * When the store is rehydrated in the browser, re-initialise the menus to ensure
+   * the menus with functions are loaded correctly.
+   */
+  reinitDSOMenus = createEffect(() => this.actions$
+    .pipe(ofType(StoreActionTypes.REHYDRATE),
+      map(() => new ReinitMenuAction()),
+    ));
 
   menuCollapsedStateToggle$ = createEffect(() => this.actions$.pipe(
     ofType(MenuActionTypes.TOGGLE_MENU),

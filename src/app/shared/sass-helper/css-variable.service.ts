@@ -1,20 +1,39 @@
 import { Injectable } from '@angular/core';
-import { AppState, keySelector } from '../../app.reducer';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { AddAllCSSVariablesAction, AddCSSVariableAction, ClearCSSVariablesAction } from './css-variable.actions';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { KeyValuePair } from '../key-value-pair.model';
+
+import {
+  AppState,
+  keySelector,
+} from '../../app.reducer';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import { KeyValuePair } from '../key-value-pair.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import {
+  AddAllCSSVariablesAction,
+  AddCSSVariableAction,
+  ClearCSSVariablesAction,
+} from './css-variable.actions';
 import { CSSVariablesState } from './css-variable.reducer';
 
 /**
  * This service deals with adding and retrieving CSS variables to and from the store
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CSSVariableService {
   isSameDomain = (styleSheet) => {
@@ -24,6 +43,19 @@ export class CSSVariableService {
     }
 
     return styleSheet.href.indexOf(window.location.origin) === 0;
+  };
+
+  /**
+   * Checks whether the specific stylesheet object has the property cssRules
+   * @param styleSheet The stylesheet
+   */
+  hasCssRules = (styleSheet) => {
+    // Injected (cross-origin) styles might have no css rules value and throw some exception
+    try {
+      return styleSheet.cssRules;
+    } catch (e) {
+      return false;
+    }
   };
 
   /*
@@ -93,8 +125,10 @@ export class CSSVariableService {
     if (isNotEmpty(document.styleSheets)) {
       // styleSheets is array-like, so we convert it to an array.
       // Filter out any stylesheets not on this domain
+      // Filter out any stylesheets that have no cssRules property
       return [...document.styleSheets]
         .filter(this.isSameDomain)
+        .filter(this.hasCssRules)
         .reduce(
           (finalArr, sheet) =>
             finalArr.concat(
@@ -102,19 +136,19 @@ export class CSSVariableService {
               [...sheet.cssRules].filter(this.isStyleRule).reduce((propValArr, rule: any) => {
                 const props = [...rule.style]
                   .map((propName) => {
-                      return {
-                        key: propName.trim(),
-                        value: rule.style.getPropertyValue(propName).trim()
-                      } as KeyValuePair<string, string>;
-                    }
+                    return {
+                      key: propName.trim(),
+                      value: rule.style.getPropertyValue(propName).trim(),
+                    } as KeyValuePair<string, string>;
+                  },
                   )
                   // Discard any props that don't start with "--". Custom props are required to.
                   .filter(({ key }: KeyValuePair<string, string>) => key.indexOf('--') === 0);
 
                 return [...propValArr, ...props];
-              }, [])
+              }, []),
             ),
-          []
+          [],
         );
     } else {
       return [];

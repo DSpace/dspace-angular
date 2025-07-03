@@ -1,5 +1,5 @@
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { Item } from '../core/shared/item.model';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { isNotEmpty } from '../shared/empty.util';
 
 export const ITEM_MODULE_PATH = 'items';
@@ -7,6 +7,8 @@ export const ITEM_MODULE_PATH = 'items';
 export function getItemModuleRoute() {
   return `/${ITEM_MODULE_PATH}`;
 }
+
+export const ENTITY_MODULE_PATH = 'entities';
 
 /**
  * Get the route to an item's page
@@ -51,3 +53,5 @@ export const ITEM_EDIT_VERSIONHISTORY_PATH = 'versionhistory';
 export const ITEM_VERSION_PATH = 'version';
 export const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
 export const ORCID_PATH = 'orcid';
+
+export const ITEM_ACCESS_BY_TOKEN_PATH = 'access-by-token';

@@ -3,16 +3,18 @@ import {
   DynamicFormControlRelation,
   DynamicFormGroupModel,
   DynamicFormGroupModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
-
 import { Subject } from 'rxjs';
 
-import { hasNoValue, isNotEmpty } from '../../../../empty.util';
-import { DsDynamicInputModel } from './ds-dynamic-input.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';
@@ -86,7 +88,6 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   }
 
   set value(value: string | FormFieldMetadataValueObject) {
-    let values;
     let tempValue: string;
 
     if (typeof value === 'string') {
@@ -97,15 +98,19 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     if (hasNoValue(tempValue)) {
       tempValue = '';
     }
-    values = [...tempValue.split(this.separator), null].map((v) =>
+
+    // todo: this used to be valid, but results in a type error now -- REMEMBER TO INVESTIGATE!
+    const values = [...tempValue.split(this.separator), null].map((v) =>
       Object.assign(new FormFieldMetadataValueObject(), value, { display: v, value: v }));
 
     if (values[0].value) {
+      // @ts-ignore
       (this.get(0) as DsDynamicInputModel).value = values[0];
     } else {
       (this.get(0) as DsDynamicInputModel).value = undefined;
     }
     if (values[1].value) {
+      // @ts-ignore
       (this.get(1) as DsDynamicInputModel).value = values[1];
     } else {
       (this.get(1) as DsDynamicInputModel).value = undefined;

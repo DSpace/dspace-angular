@@ -1,36 +1,52 @@
-import { MetadataSchemaComponent } from './metadata-schema.component';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { HostWindowService } from '../../../shared/host-window.service';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RestResponse } from '../../../core/cache/response.models';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { RegistryServiceStub } from '../../../shared/testing/registry.service.stub';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
+import { MetadataSchemaComponent } from './metadata-schema.component';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
   let fixture: ComponentFixture<MetadataSchemaComponent>;
-  let registryService: RegistryService;
-  const mockSchemasList = [
+
+  let registryService: RegistryServiceStub;
+  let activatedRoute: ActivatedRouteStub;
+  let paginationService: PaginationServiceStub;
+
+  const mockSchemasList: MetadataSchema[] = [
     {
       id: 1,
       _links: {
@@ -39,7 +55,7 @@ describe('MetadataSchemaComponent', () => {
         },
       },
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/'
+      namespace: 'http://dublincore.org/documents/dcmi-terms/',
     },
     {
       id: 2,
@@ -49,10 +65,10 @@ describe('MetadataSchemaComponent', () => {
         },
       },
       prefix: 'mock',
-      namespace: 'http://dspace.org/mockschema'
-    }
-  ];
-  const mockFieldsList = [
+      namespace: 'http://dspace.org/mockschema',
+    },
+  ] as MetadataSchema[];
+  const mockFieldsList: MetadataField[] = [
     {
       id: 1,
       _links: {
@@ -63,7 +79,7 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'advisor',
       scopeNote: null,
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0])
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
     },
     {
       id: 2,
@@ -75,7 +91,7 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'author',
       scopeNote: null,
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0])
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
     },
     {
       id: 3,
@@ -87,7 +103,7 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'editor',
       scopeNote: 'test scope note',
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1])
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
     },
     {
       id: 4,
@@ -99,50 +115,68 @@ describe('MetadataSchemaComponent', () => {
       element: 'contributor',
       qualifier: 'illustrator',
       scopeNote: null,
-      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1])
-    }
-  ];
-  const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  const registryServiceStub = {
-    getMetadataSchemas: () => mockSchemas,
-    getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))),
-    getMetadataSchemaByPrefix: (schemaName: string) => createSuccessfulRemoteDataObject$(mockSchemasList.filter((value) => value.prefix === schemaName)[0]),
-    getActiveMetadataField: () => observableOf(undefined),
-    getSelectedMetadataFields: () => observableOf([]),
-    editMetadataField: (schema) => {
+      schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
     },
-    cancelEditMetadataField: () => {
-    },
-    deleteMetadataField: () => observableOf(new RestResponse(true, 200, 'OK')),
-    deselectAllMetadataField: () => {
-    },
-    clearMetadataFieldRequests: () => observableOf(undefined)
-  };
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+  ] as MetadataField[];
   const schemaNameParam = 'mock';
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({
-      schemaName: schemaNameParam
-    })
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
-  const paginationService = new PaginationServiceStub();
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
 
   beforeEach(waitForAsync(() => {
+    activatedRoute = new ActivatedRouteStub({
+      schemaName: schemaNameParam,
+    });
+    paginationService = new PaginationServiceStub();
+    registryService = new RegistryServiceStub();
+    spyOn(registryService, 'getMetadataFieldsBySchema').and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))));
+    spyOn(registryService, 'getMetadataSchemaByPrefix').and.callFake((schemaName) => createSuccessfulRemoteDataObject$(mockSchemasList.filter((value) => value.prefix === schemaName)[0]));
+
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MetadataSchemaComponent, PaginationComponent, EnumKeysPipe, VarDirective],
-      providers: [
-        { provide: RegistryService, useValue: registryServiceStub },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: Router, useValue: new RouterStub() },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        MetadataSchemaComponent,
+        PaginationComponent,
+        EnumKeysPipe,
+        VarDirective,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      providers: [
+        { provide: RegistryService, useValue: registryService },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: PaginationService, useValue: paginationService },
+        {
+          provide: NotificationsService,
+          useValue: new NotificationsServiceStub(),
+        },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub()  },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideComponent(MetadataSchemaComponent, {
+        remove: {
+          imports: [MetadataFieldFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -190,7 +224,7 @@ describe('MetadataSchemaComponent', () => {
     }));
 
     it('should cancel editing the selected field when clicked again', waitForAsync(() => {
-      spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(mockFieldsList[2] as MetadataField));
+      comp.activeField$ = of(mockFieldsList[2] as MetadataField);
       spyOn(registryService, 'cancelEditMetadataField');
       row.click();
       fixture.detectChanges();
@@ -205,7 +239,7 @@ describe('MetadataSchemaComponent', () => {
 
     beforeEach(() => {
       spyOn(registryService, 'deleteMetadataField').and.callThrough();
-      spyOn(registryService, 'getSelectedMetadataFields').and.returnValue(observableOf(selectedFields as MetadataField[]));
+      comp.selectedMetadataFieldIDs$ = of(selectedFields.map((metadataField: MetadataField) => metadataField.id));
       comp.deleteFields();
       fixture.detectChanges();
     });

@@ -1,5 +1,9 @@
 import { inheritSerialization } from 'cerialize';
-import { inheritLinkAnnotations, typedObject } from '../../cache/builders/build-decorators';
+
+import {
+  inheritLinkAnnotations,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { CLAIMED_TASK } from './claimed-task-object.resource-type';
 import { TaskObject } from './task-object.model';
 

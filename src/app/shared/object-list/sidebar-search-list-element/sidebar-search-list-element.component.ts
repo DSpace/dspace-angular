@@ -1,28 +1,54 @@
-import { SearchResult } from '../../search/models/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
-import { Component } from '@angular/core';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { Observable, of as observableOf } from 'rxjs';
-import { TruncatableService } from '../../truncatable/truncatable.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { find, map } from 'rxjs/operators';
-import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
-import { followLink } from '../../utils/follow-link-config.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Context } from '../../../core/shared/context.model';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  find,
+  map,
+} from 'rxjs/operators';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
+import { Context } from '../../../core/shared/context.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { SearchResult } from '../../search/models/search-result.model';
+import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
+import { followLink } from '../../utils/follow-link-config.model';
+import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
-  templateUrl: './sidebar-search-list-element.component.html'
+  templateUrl: './sidebar-search-list-element.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgClass,
+    TranslateModule,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal
  * It displays the name of the parent, title and description of the object. All of which are customizable in the child
  * component by overriding the relevant methods of this component
  */
-export class SidebarSearchListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends SearchResultListElementComponent<T, K> {
+export class SidebarSearchListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends SearchResultListElementComponent<T, K> implements OnInit {
   /**
    * Observable for the title of the parent object (displayed above the object's title)
    */
@@ -66,7 +92,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
         return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
-      })
+      }),
     );
   }
 
@@ -77,10 +103,10 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     if (typeof (this.dso as any).getParentLinkKey === 'function') {
       const propertyName = (this.dso as any).getParentLinkKey();
       return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
-        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204)
+        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
       );
     }
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   /**

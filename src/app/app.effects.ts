@@ -1,10 +1,10 @@
-import { StoreEffects } from './store.effects';
-import { NotificationsEffects } from './shared/notifications/notifications.effects';
 import { NavbarEffects } from './navbar/navbar.effects';
-import { SidebarEffects } from './shared/sidebar/sidebar-effects.service';
 import { RelationshipEffects } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.effects';
-import { ThemeEffects } from './shared/theme-support/theme.effects';
 import { MenuEffects } from './shared/menu/menu.effects';
+import { NotificationsEffects } from './shared/notifications/notifications.effects';
+import { SidebarEffects } from './shared/sidebar/sidebar-effects.service';
+import { ThemeEffects } from './shared/theme-support/theme.effects';
+import { StoreEffects } from './store.effects';
 
 export const appEffects = [
   StoreEffects,

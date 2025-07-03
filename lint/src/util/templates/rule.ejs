@@ -1,0 +1,69 @@
+[DSpace ESLint plugins](../../../../lint/README.md) > [<%= plugin.language %> rules](../index.md) > `<%= plugin.name %>/<%= rule.name %>`
+_______
+
+<%- rule.meta.docs?.description %>
+
+_______
+
+[Source code](../../../../lint/src/rules/<%- plugin.name.replace('dspace-angular-', '') %>/<%- rule.name %>.ts)
+
+<% if (rule.optionDocs?.length > 0) { %>
+### Options
+<%- rule.optionDocs.map(optionDoc => Object.keys(optionDoc).map(option => '\n#### ' + optionDoc[option].title + '\n\n' + optionDoc[option].description)) %>
+<% } %>
+
+### Examples
+
+<% if (tests.valid) {%>
+#### Valid code
+    <% tests.valid.forEach(test => { %>
+##### <%= test.name !== undefined ? test.name : 'UNNAMED' %>
+        <% if (test.filename) { %>
+Filename: `<%- test.filename %>`
+        <% } %>
+```<%- plugin.language.toLowerCase() %>
+<%- test.code.trim() %>
+```
+        <% if (test?.options?.length > 0) { %>
+With options:
+
+```json
+<%- JSON.stringify(test.options[0], null, 2) %>
+```
+        <% }%>
+    <% }) %>
+<% } %>
+
+<% if (tests.invalid) {%>
+#### Invalid code <%= rule.meta.fixable ? ' & automatic fixes' : '' %>
+    <% tests.invalid.forEach(test => { %>
+##### <%= test.name !== undefined ? test.name : 'UNNAMED' %>
+        <% if (test.filename) { %>
+Filename: `<%- test.filename %>`
+        <% } %>
+```<%- plugin.language.toLowerCase() %>
+<%- test.code.trim() %>
+
+        <% if (test?.options?.length > 0) { %>
+With options:
+
+```json
+<%- JSON.stringify(test.options[0], null, 2) %>
+```
+        <% }%>
+
+```
+Will produce the following error(s):
+```
+<% for (const error of test.errors) { -%>
+<%- rule.meta.messages[error.messageId] %>
+<% } -%>
+```
+        <% if (test.output) { %>
+Result of `yarn lint --fix`:
+```<%- plugin.language.toLowerCase() %>
+<%- test.output.trim() %>
+```
+        <% } %>
+    <% }) %>
+<% } %>
