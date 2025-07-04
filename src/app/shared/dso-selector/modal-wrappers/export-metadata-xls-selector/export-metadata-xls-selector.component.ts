@@ -24,6 +24,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import {
   COLLECTION_EXPORT_SCRIPT_NAME,
   ScriptDataService,
@@ -65,7 +66,8 @@ export class ExportMetadataXlsSelectorComponent extends DSOSelectorModalWrapperC
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router,
               protected notificationsService: NotificationsService, protected translationService: TranslateService,
               protected scriptDataService: ScriptDataService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private dsoNameService: DSONameService) {
     super(activeModal, route);
   }
 
@@ -76,7 +78,7 @@ export class ExportMetadataXlsSelectorComponent extends DSOSelectorModalWrapperC
   navigate(dso: DSpaceObject): Observable<boolean> {
     if (dso instanceof Collection) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = dso;
+      modalRef.componentInstance.name = this.dsoNameService.getName(dso);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.export-metadata-xls.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata-xls.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata-xls.cancel';
