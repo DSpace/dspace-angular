@@ -22,6 +22,7 @@ import {
   filter,
   map,
   take,
+  tap,
 } from 'rxjs/operators';
 
 import { Metadata } from '../../../../../core/shared/metadata.utils';
@@ -75,6 +76,8 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   protected otherInfoKey: string;
   public otherInfoValues: string[] = [];
   public otherInfoValuesUnformatted: string[] = [];
+
+  multiValueOnGenerator: boolean;
 
   protected constructor(protected vocabularyService: VocabularyService,
                         protected layoutService: DynamicFormLayoutService,
@@ -195,6 +198,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),
+      tap((vocabulary: Vocabulary) => this.multiValueOnGenerator = vocabulary.multiValueOnGenerator),
     );
   }
 
@@ -277,12 +281,14 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         for (const key in otherInformation) {
           if (otherInformation.hasOwnProperty(key) && key.startsWith('data-')) {
             const fieldId = key.replace('data-', '');
-            const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key], key);
-            if (isNotEmpty(newValue)) {
-              const updatedModel = this.formBuilderService.updateModelValue(fieldId, newValue);
-              if (isNotEmpty(updatedModel)) {
-                updatedModels.push(updatedModel);
-              }
+            const newValues: FormFieldMetadataValueObject[] = this.getOtherInformationValue(otherInformation[key], key);
+            if (isNotEmpty(newValues)) {
+              newValues.forEach((newValue) => {
+                const updatedModel = this.formBuilderService.updateModelValue(fieldId, newValue);
+                if (isNotEmpty(updatedModel)) {
+                  updatedModels.push(updatedModel);
+                }
+              });
             }
           }
         }
@@ -297,43 +303,53 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     }
   }
 
-  getOtherInformationValue(value: string, key: string): FormFieldMetadataValueObject {
+  getOtherInformationValue(value: string, key: string): FormFieldMetadataValueObject[] {
     if (isEmpty(value) || key === 'alternative-names' ) {
       return null;
     }
 
-    let returnValue;
+    const returnValue = [];
+    if (value.indexOf('|||') === -1) {
+      returnValue.push(this.generateFormField(value));
+    } else if (value.indexOf('|||') !== -1 && this.otherInfoValue) {
+      const otherValues: string[] = value.split('|||');
+      if (this.multiValueOnGenerator) {
+        otherValues.forEach((tmpValue) => returnValue.push(this.generateFormField(tmpValue)));
+      } else {
+        const unformattedValue = this.otherInfoValuesUnformatted.find(otherInfoValue => otherInfoValue.includes(this.otherInfoValue || this.otherName));
+        const authorityValue = hasValue(unformattedValue) ? unformattedValue.substring(unformattedValue.lastIndexOf('::') + 2) : null;
+        const otherInfo = {};
+        let alternativeValue: string;
+        otherInfo[key] = value;
+        if (hasValue(this.otherName)) {
+          alternativeValue = otherValues[0].substring(0, otherValues[0].lastIndexOf('::'));
+        }
+        returnValue.push(new FormFieldMetadataValueObject(
+          hasValue(alternativeValue) ? alternativeValue : this.otherInfoValue,
+          null,
+          null,
+          authorityValue,
+          null,
+          null,
+          null,
+          otherInfo,
+        ));
+      }
+    }
+    return returnValue;
+  }
+
+  private generateFormField(value: string): FormFieldMetadataValueObject {
     if (value.indexOf('::') === -1) {
-      returnValue = new FormFieldMetadataValueObject(value);
-    } else if (value.indexOf('|||') === -1) {
-      returnValue = new FormFieldMetadataValueObject(
+      return new FormFieldMetadataValueObject(value);
+    } else {
+      return new FormFieldMetadataValueObject(
         value.substring(0, value.lastIndexOf('::')),
         null,
         null,
         value.substring(value.lastIndexOf('::') + 2),
       );
-    } else if (value.indexOf('|||') !== -1 && this.otherInfoValue) {
-      const unformattedValue =  this.otherInfoValuesUnformatted.find(otherInfoValue => otherInfoValue.includes(this.otherInfoValue || this.otherName));
-      const authorityValue = hasValue(unformattedValue) ?  unformattedValue.substring(unformattedValue.lastIndexOf('::') + 2) : null;
-      const otherInfo = {};
-      let alternativeValue;
-      otherInfo[key] = value;
-      if (hasValue(this.otherName)) {
-        const otherValues = value.split('|||');
-        alternativeValue = otherValues[0].substring(0, otherValues[0].lastIndexOf('::'));
-      }
-      returnValue = new FormFieldMetadataValueObject(
-        hasValue(alternativeValue) ? alternativeValue : this.otherInfoValue,
-        null,
-        null,
-        authorityValue,
-        null,
-        null,
-        null,
-        otherInfo,
-      );
     }
-    return returnValue;
   }
 
   private hasValidAuthority(formMetadataValue: FormFieldMetadataValueObject) {

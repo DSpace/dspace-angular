@@ -2,6 +2,9 @@ options:
   runs-on: self.hosted
 
 definitions:
+  caches:
+    node-cris8: ./node_modules
+
   steps:
     - step: &unittest-code-checks
         name: test-code-checks
@@ -10,7 +13,7 @@ definitions:
           run-as-user: 1000
         size: 4x
         caches:
-          - node
+          - node-cris8
         script:
           - yarn install --frozen-lockfile
           - yarn run lint --quiet

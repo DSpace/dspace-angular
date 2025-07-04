@@ -4050,6 +4050,8 @@
 
   "itemtemplate.edit.metadata.headers.value": "Value",
 
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
