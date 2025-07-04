@@ -2886,13 +2886,21 @@
 
   "health-page.section.geoIp.title": "GeoIp",
 
+  "health-page.section.solrAudit.title": "Solr: audit core",
+
   "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
+  "health-page.section.solrDedup.title": "Solr: dedup core",
+
   "health-page.section.solrOaiCore.title": "Solr: oai core",
+
+  "health-page.section.solrQAEvent.title": "Solr: qaevent core",
 
   "health-page.section.solrSearchCore.title": "Solr: search core",
 
   "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
+
+  "health-page.section.solrSuggestion.title": "Solr: suggestion core",
 
   "health-page.section-info.app.title": "Application Backend",
 
