@@ -127,7 +127,7 @@ const writeRegistryFile = (
   const mapPathsSoFar = new Set<string>();
 
   for (const component of components) {
-    const argsArray = decoratorConfig.params.map((param, index) => (index < component.args.length && component.args[index] !== undefined) ? component.args[index] : param.default);
+    const argsArray = decoratorConfig.params.map((param, index) => (index < component.args.length && component.args[index]?.classRef !== 'undefined') ? component.args[index] : param.default);
 
     let currentMapPath = mapVarName;
     let currentPathKey = '';
