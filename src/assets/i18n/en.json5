@@ -6874,4 +6874,6 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
 }
