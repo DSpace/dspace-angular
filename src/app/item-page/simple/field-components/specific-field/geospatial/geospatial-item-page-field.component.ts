@@ -1,10 +1,9 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { Item } from '../../../../../core/shared/item.model';
 import {
@@ -21,8 +20,7 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   imports: [
     GeospatialMapComponent,
     MetadataFieldWrapperComponent,
-    NgIf,
-    TranslateModule,
+    TranslatePipe,
   ],
   standalone: true,
 })
