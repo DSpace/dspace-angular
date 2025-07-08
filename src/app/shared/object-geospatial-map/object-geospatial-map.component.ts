@@ -1,7 +1,4 @@
-import {
-  isPlatformBrowser,
-  NgIf,
-} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -35,7 +32,6 @@ import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
   standalone: true,
   imports: [
     GeospatialMapComponent,
-    NgIf,
   ],
 })
 
