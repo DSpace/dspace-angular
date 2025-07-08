@@ -1,111 +1,114 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, combineLatest as observableCombineLatest } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { CommunityPageComponent as BaseComponent } from '../../../../app/community-page/community-page.component';
-import { AuthService } from '../../../../app/core/auth/auth.service';
-import { DSONameService } from '../../../../app/core/breadcrumbs/dso-name.service';
-import { BROWSE_LINKS_TO_FOLLOW } from '../../../../app/core/browse/browse.service';
-import { SortDirection, SortOptions } from '../../../../app/core/cache/models/sort-options.model';
-import { CommunityDataService } from '../../../../app/core/data/community-data.service';
-import { AuthorizationDataService } from '../../../../app/core/data/feature-authorization/authorization-data.service';
-import { PaginatedList } from '../../../../app/core/data/paginated-list.model';
-import { RemoteData } from '../../../../app/core/data/remote-data';
-import { MetadataService } from '../../../../app/core/metadata/metadata.service';
-import { PaginationService } from '../../../../app/core/pagination/pagination.service';
-import { DSpaceObjectType } from '../../../../app/core/shared/dspace-object-type.model';
-import { Item } from '../../../../app/core/shared/item.model';
-import { getFirstSucceededRemoteData, toDSpaceObjectListRD } from '../../../../app/core/shared/operators';
-import { SearchService } from '../../../../app/core/shared/search/search.service';
-import { fadeInOut } from '../../../../app/shared/animations/fade';
-import { PaginationComponentOptions } from '../../../../app/shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../../app/shared/search/models/paginated-search-options.model';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
+import { getCommunityPageRoute } from 'src/app/community-page/community-page-routing-paths';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { redirectOn4xx } from 'src/app/core/shared/authorized.operators';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { Community } from 'src/app/core/shared/community.model';
+import { getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { fadeInOut } from 'src/app/shared/animations/fade';
+import { ThemedComcolPageBrowseByComponent } from 'src/app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ThemedComcolPageContentComponent } from 'src/app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from 'src/app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from 'src/app/shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from 'src/app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { hasValue } from 'src/app/shared/empty.util';
+import { ErrorComponent } from 'src/app/shared/error/error.component';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { VarDirective } from 'src/app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-community-page',
+  selector: 'ds-base-community-page',
+  styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
-  // templateUrl: '../../../../app/community-page/community-page.component.html',
-  // styleUrls: ['./community-page.component.scss'],
-  styleUrls: ['../../../../app/community-page/community-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  imports: [
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    DsoEditMenuComponent,
+    ErrorComponent,
+    RouterModule,
+    RouterOutlet,
+    ThemedComcolPageBrowseByComponent,
+    ThemedComcolPageContentComponent,
+    ThemedComcolPageHandleComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 /**
  * This component represents a detail page for a single community
  */
-export class CommunityPageComponent extends BaseComponent implements OnDestroy {
-  itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
-  paginationConfig: PaginationComponentOptions;
-  sortConfig: SortOptions;
-  private paginationChanges$: Subject<{
-    paginationConfig: PaginationComponentOptions,
-    sortConfig: SortOptions
-  }>;
+export class CommunityPageComponent implements OnInit {
+  /**
+   * The community displayed on this page
+   */
+  communityRD$: Observable<RemoteData<Community>>;
+
+  /**
+   * Whether the current user is a Community admin
+   */
+  isCommunityAdmin$: Observable<boolean>;
+
+  /**
+   * The logo of this community
+   */
+  logoRD$: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * Route to the community page
+   */
+  communityPageRoute$: Observable<string>;
 
   constructor(
-    private searchService: SearchService,
-    private paginationService: PaginationService,
-    communityDataService: CommunityDataService,
-    metadata: MetadataService,
-    route: ActivatedRoute,
-    router: Router,
-    authService: AuthService,
-    authorizationDataService: AuthorizationDataService,
-    dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) public appConfig: AppConfig,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private authorizationDataService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
   ) {
-    super(
-      communityDataService,
-      metadata,
-      route,
-      router,
-      authService,
-      authorizationDataService,
-      dsoNameService
-    );
-    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-      id: 'cp',
-      currentPage: 1,
-      pageSize: this.appConfig.browseBy.pageSize,
-    });
 
-    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
-
-    this.paginationChanges$ = new BehaviorSubject({
-      paginationConfig: this.paginationConfig,
-      sortConfig: this.sortConfig
-    });
-
-    const currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    const currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, this.sortConfig);
-
-    this.itemRD$ = observableCombineLatest([currentPagination$, currentSort$]).pipe(
-      switchMap(([currentPagination, currentSort]) => this.communityRD$.pipe(
-        getFirstSucceededRemoteData(),
-        map((rd) => rd.payload.id),
-        switchMap((id: string) => {
-          return this.searchService.search<Item>(
-            new PaginatedSearchOptions({
-              scope: id,
-              pagination: currentPagination,
-              sort: currentSort,
-              dsoTypes: [DSpaceObjectType.ITEM]
-            }), null, true, true, ...BROWSE_LINKS_TO_FOLLOW)
-            .pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
-        }),
-        startWith(undefined) // Make sure switching pages shows loading component
-      )
-      )
+    this.communityRD$ = this.route.data.pipe(
+      map((data) => data.dso as RemoteData<Community>),
+      redirectOn4xx(this.router, this.authService),
     );
+    this.logoRD$ = this.communityRD$.pipe(
+      map((rd: RemoteData<Community>) => rd.payload),
+      filter((community: Community) => hasValue(community)),
+      mergeMap((community: Community) => community.logo));
+    this.communityPageRoute$ = this.communityRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((community) => getCommunityPageRoute(community.id)),
+    );
+    this.isCommunityAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCommunityAdmin);
   }
-
-  ngOnDestroy(): void {
-    this.paginationService.clearPagination(this.paginationConfig.id);
-  }
-
 }
