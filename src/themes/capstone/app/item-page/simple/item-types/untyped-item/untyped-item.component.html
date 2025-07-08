@@ -32,6 +32,18 @@
     }
     <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
+    <!--TAMU Customization - Display Advisors-->
+    <div class="item-page-field">
+      <ds-metadata-values
+        [mdValues]="object?.allMetadata(['dc.contributor.advisor'])"
+        [separator]="', '"
+        [label]="'relationships.isAdvisorOf'"
+        [enableMarkdown]="'false'"
+        [urlRegex]="'false'"
+        [browseDefinition]="">
+      </ds-metadata-values>
+    </div>
+    <!--End TAMU Customization - Display Advisors-->
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
       [itemType]="'Person'"
@@ -56,6 +68,18 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
+    <!--TAMU Customization - Display Sponsors-->
+    <div class="item-page-field">
+      <ds-metadata-values
+        [mdValues]="object?.allMetadata(['dc.contributor.sponsor'])"
+        [separator]="', '"
+        [label]="'relationships.isSponsorOf'"
+        [enableMarkdown]="'false'"
+        [urlRegex]="'false'"
+        [browseDefinition]="">
+      </ds-metadata-values>
+    </div>
+    <!--End TAMU Customization - Display Sponsors-->
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"

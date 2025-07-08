@@ -10,6 +10,7 @@ import { Context } from '../../../../../../../app/core/shared/context.model';
 import { Item } from '../../../../../../../app/core/shared/item.model';
 import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { CollectionsComponent } from '../../../../../../../app/item-page/field-components/collections/collections.component';
+import { MetadataValuesComponent } from '../../../../../../../app/item-page/field-components/metadata-values/metadata-values.component';
 import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/media-viewer/themed-media-viewer.component';
 import { MiradorViewerComponent } from '../../../../../../../app/item-page/mirador-viewer/mirador-viewer.component';
 import { ThemedFileSectionComponent } from '../../../../../../../app/item-page/simple/field-components/file-section/themed-file-section.component';
@@ -51,6 +52,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     ItemPageDateFieldComponent,
     ItemPageUriFieldComponent,
     MetadataFieldWrapperComponent,
+    MetadataValuesComponent,
     MiradorViewerComponent,
     RouterLink,
     ThemedFileSectionComponent,
