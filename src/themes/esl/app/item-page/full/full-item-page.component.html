@@ -6,6 +6,11 @@
           <ds-item-alerts [item]="item"></ds-item-alerts>
           <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
           @if (!item.isWithdrawn || (isAdmin$|async)) {
+            <!-- TAMU Customization - ESL homepage link -->
+            <div class="d-flex flex-row justify-content-center font-weight-bold">
+              <p>{{"theme.esl.visit" | translate}} <a href="http://esl.tamu.edu/">{{"theme.esl.homepage" | translate}}</a>.</p>
+            </div>
+            <!-- End TAMU Customization - ESL homepage link -->
             <div class="full-item-info">
               <div class="d-flex flex-row">
                 <ds-item-page-title-field class="me-auto" [item]="item"></ds-item-page-title-field>
