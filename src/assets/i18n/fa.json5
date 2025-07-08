@@ -1855,313 +1855,237 @@
   // TODO New key - Add a translation
   "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
 
-  // "browse.back.all-results": "All browse results",
-  // TODO New key - Add a translation
-  "browse.back.all-results": "All browse results",
+   // "browse.back.all-results": "All browse results",
+  "browse.back.all-results": "همه نتایج مرور",
 
   // "browse.comcol.by.author": "By Author",
-  // TODO New key - Add a translation
-  "browse.comcol.by.author": "By Author",
+  "browse.comcol.by.author": "براساس نویسنده",
 
   // "browse.comcol.by.dateissued": "By Issue Date",
-  // TODO New key - Add a translation
-  "browse.comcol.by.dateissued": "By Issue Date",
+  "browse.comcol.by.dateissued": "بر اساس تاریخ انتشار",
 
   // "browse.comcol.by.subject": "By Subject",
-  // TODO New key - Add a translation
-  "browse.comcol.by.subject": "By Subject",
+  "browse.comcol.by.subject": "براساس موضوع",
 
   // "browse.comcol.by.srsc": "By Subject Category",
-  // TODO New key - Add a translation
-  "browse.comcol.by.srsc": "By Subject Category",
+  "browse.comcol.by.srsc": "بر اساس دسته‌بندی موضوعی",
 
   // "browse.comcol.by.nsi": "By Norwegian Science Index",
-  // TODO New key - Add a translation
-  "browse.comcol.by.nsi": "By Norwegian Science Index",
+  "browse.comcol.by.nsi": "براساس نمایه علم نروژ",
 
   // "browse.comcol.by.title": "By Title",
-  // TODO New key - Add a translation
-  "browse.comcol.by.title": "By Title",
+  "browse.comcol.by.title": "براساس عنوان",
 
   // "browse.comcol.head": "Browse",
-  // TODO New key - Add a translation
-  "browse.comcol.head": "Browse",
+  "browse.comcol.head": "مرور",
 
   // "browse.empty": "No items to show.",
-  // TODO New key - Add a translation
-  "browse.empty": "No items to show.",
+  "browse.empty": "آیتمی برای نمایش وجود ندارد.",
 
   // "browse.metadata.author": "Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author": "Author",
+  "browse.metadata.author": "نویسنده",
 
   // "browse.metadata.dateissued": "Issue Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued": "Issue Date",
+  "browse.metadata.dateissued": "تاریخ انتشار",
 
   // "browse.metadata.subject": "Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject": "Subject",
+  "browse.metadata.subject": "موضوع",
 
   // "browse.metadata.title": "Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title": "Title",
+  "browse.metadata.title": "عنوان",
 
   // "browse.metadata.srsc": "Subject Category",
-  // TODO New key - Add a translation
-  "browse.metadata.srsc": "Subject Category",
+  "browse.metadata.srsc": "دسته موضوعی",
 
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author.breadcrumbs": "Browse by Author",
+  "browse.metadata.author.breadcrumbs": "مرور براساس نویسنده",
 
   // "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+  "browse.metadata.dateissued.breadcrumbs": "مرور براسا تاریخ",
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+  "browse.metadata.subject.breadcrumbs": "مرور براساس موضوع",
 
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
-  // TODO New key - Add a translation
-  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+  "browse.metadata.srsc.breadcrumbs": "مرور براساس دسته بندی موضوعی",
 
   // "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
-  // TODO New key - Add a translation
-  "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
+  "browse.metadata.srsc.tree.description": "موضوعی را برای افزودن بعنوان فیلتر انتخاب کنید",
 
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
-  // TODO New key - Add a translation
-  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+  "browse.metadata.nsi.breadcrumbs": "مرور براساس نمایه علم نروژ",
 
   // "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
-  // TODO New key - Add a translation
-  "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "نمایه ای را برای افزودن بعنوان فیلتر جستجو انتحاب کنید",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title.breadcrumbs": "Browse by Title",
+  "browse.metadata.title.breadcrumbs": "مرور براساس عنوان",
 
   // "browse.metadata.map": "Browse by Geolocation",
-  // TODO New key - Add a translation
-  "browse.metadata.map": "Browse by Geolocation",
+  "browse.metadata.map": "مرور براساس موقعیت جغرافیایی",
 
   // "browse.metadata.map.breadcrumbs": "Browse by Geolocation",
-  // TODO New key - Add a translation
-  "browse.metadata.map.breadcrumbs": "Browse by Geolocation",
+  "browse.metadata.map.breadcrumbs": "مرور براساس موقعیت جغرافیایی",
 
   // "browse.metadata.map.count.items": "items",
-  // TODO New key - Add a translation
-  "browse.metadata.map.count.items": "items",
+  "browse.metadata.map.count.items": "موردها",
 
   // "pagination.next.button": "Next",
-  // TODO New key - Add a translation
-  "pagination.next.button": "Next",
+  "pagination.next.button": "بعدی",
 
   // "pagination.previous.button": "Previous",
-  // TODO New key - Add a translation
-  "pagination.previous.button": "Previous",
+  "pagination.previous.button": "قبل",
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
-  // TODO New key - Add a translation
-  "pagination.next.button.disabled.tooltip": "No more pages of results",
+  "pagination.next.button.disabled.tooltip": "صفحه دیگری از نتایج وجود ندارد",
 
   // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
-  // TODO New key - Add a translation
-  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+  "pagination.page-number-bar": "نوار کنترل برای پیمایش صفحه، مربوط به عنصر دارای ID: ",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
-  // TODO New key - Add a translation
-  "browse.startsWith": ", starting with {{ startsWith }}",
+  "browse.startsWith": ", شروع با {{ startsWith }}",
 
   // "browse.startsWith.choose_start": "(Choose start)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_start": "(Choose start)",
+  "browse.startsWith.choose_start": "(شروع را انتخاب کنید)",
 
   // "browse.startsWith.choose_year": "(Choose year)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_year": "(Choose year)",
+  "browse.startsWith.choose_year": "(سال را انتخاب کنید)",
 
   // "browse.startsWith.choose_year.label": "Choose the issue year",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_year.label": "Choose the issue year",
+  "browse.startsWith.choose_year.label": "سال انتشار را انتخاب کنید",
 
   // "browse.startsWith.jump": "Filter results by year or month",
-  // TODO New key - Add a translation
-  "browse.startsWith.jump": "Filter results by year or month",
+  "browse.startsWith.jump": "فیلتر نتایج براساس سال یا ماه",
 
   // "browse.startsWith.months.april": "April",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.april": "April",
+  "browse.startsWith.months.april": "آوریل",
 
   // "browse.startsWith.months.august": "August",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.august": "August",
+  "browse.startsWith.months.august": "اوت",
 
   // "browse.startsWith.months.december": "December",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.december": "December",
+  "browse.startsWith.months.december": "دسامبر",
 
   // "browse.startsWith.months.february": "February",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.february": "February",
+  "browse.startsWith.months.february": "فوریه",
 
   // "browse.startsWith.months.january": "January",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.january": "January",
+  "browse.startsWith.months.january": "ژانویه",
 
   // "browse.startsWith.months.july": "July",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.july": "July",
+  "browse.startsWith.months.july": "جولای",
 
   // "browse.startsWith.months.june": "June",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.june": "June",
+  "browse.startsWith.months.june": "ژوئن",
 
   // "browse.startsWith.months.march": "March",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.march": "March",
+  "browse.startsWith.months.march": "مارس",
 
   // "browse.startsWith.months.may": "May",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.may": "May",
+  "browse.startsWith.months.may": "می",
 
   // "browse.startsWith.months.none": "(Choose month)",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.none": "(Choose month)",
+  "browse.startsWith.months.none": "(انتخاب ماه)",
 
   // "browse.startsWith.months.none.label": "Choose the issue month",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.none.label": "Choose the issue month",
+  "browse.startsWith.months.none.label": "ماه انتشار را انتخاب کنید",
 
   // "browse.startsWith.months.november": "November",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.november": "November",
+  "browse.startsWith.months.november": "نوامبر",
 
   // "browse.startsWith.months.october": "October",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.october": "October",
+  "browse.startsWith.months.october": "اکتبر",
 
   // "browse.startsWith.months.september": "September",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.september": "September",
+  "browse.startsWith.months.september": "سپتامبر",
 
   // "browse.startsWith.submit": "Browse",
-  // TODO New key - Add a translation
-  "browse.startsWith.submit": "Browse",
+  "browse.startsWith.submit": "مرور",
 
   // "browse.startsWith.type_date": "Filter results by date",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_date": "Filter results by date",
+  "browse.startsWith.type_date": "فیلتر نتایج براساس تاریخ",
 
   // "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
+  "browse.startsWith.type_date.label": "یا یک تاریخ (سال-ماه) تایپ کنید و روی دکمه مرور کلیک کنید",
 
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_text": "Filter results by typing the first few letters",
+  "browse.startsWith.type_text": "فیلتر نتایج با تایپ چند حرف اول",
 
   // "browse.startsWith.input": "Filter",
-  // TODO New key - Add a translation
-  "browse.startsWith.input": "Filter",
+  "browse.startsWith.input": "فیلتر",
 
   // "browse.taxonomy.button": "Browse",
-  // TODO New key - Add a translation
-  "browse.taxonomy.button": "Browse",
+  "browse.taxonomy.button": "مرور",
 
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
-  // TODO New key - Add a translation
-  "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "مرور براساس {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
-  // TODO New key - Add a translation
-  "browse.title.page": "Browsing by {{ field }} {{ value }}",
+  "browse.title.page": "مرور براساس {{ field }} {{ value }}",
 
   // "search.browse.item-back": "Back to Results",
-  // TODO New key - Add a translation
-  "search.browse.item-back": "Back to Results",
+  "search.browse.item-back": "بازگشت به نتایج",
 
   // "chips.remove": "Remove chip",
   // TODO New key - Add a translation
   "chips.remove": "Remove chip",
 
   // "claimed-approved-search-result-list-element.title": "Approved",
-  // TODO New key - Add a translation
-  "claimed-approved-search-result-list-element.title": "Approved",
+  "claimed-approved-search-result-list-element.title": "تایید شده",
 
   // "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
-  // TODO New key - Add a translation
-  "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
+  "claimed-declined-search-result-list-element.title": "رد شد، به ارسال کننده بازگردانده شد",
 
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
-  // TODO New key - Add a translation
-  "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+  "claimed-declined-task-search-result-list-element.title": "رد شد، به گردش کار مدیر داور بازگردانده شد",
 
   // "collection.create.breadcrumbs": "Create collection",
-  // TODO New key - Add a translation
-  "collection.create.breadcrumbs": "Create collection",
+  "collection.create.breadcrumbs": "ایجاد مجموعه",
 
   // "collection.browse.logo": "Browse for a collection logo",
-  // TODO New key - Add a translation
-  "collection.browse.logo": "Browse for a collection logo",
+  "collection.browse.logo": "مرور برای یک لوگوی مجموعه",
 
   // "collection.create.head": "Create a Collection",
-  // TODO New key - Add a translation
-  "collection.create.head": "Create a Collection",
+  "collection.create.head": "ایجاد یک مجموعه",
 
   // "collection.create.notifications.success": "Successfully created the collection",
-  // TODO New key - Add a translation
-  "collection.create.notifications.success": "Successfully created the collection",
+  "collection.create.notifications.success": "مجموعه با موفقیت ایجاد شد",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
-  // TODO New key - Add a translation
-  "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
+  "collection.create.sub-head": "ایجاد یک مجموعه برای جامعه {{ parent }}",
 
   // "collection.curate.header": "Curate Collection: {{collection}}",
-  // TODO New key - Add a translation
-  "collection.curate.header": "Curate Collection: {{collection}}",
+  "collection.curate.header": "مجموعه گردآوری شده {{collection}}",
 
   // "collection.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.delete.cancel": "Cancel",
+  "collection.delete.cancel": "لغو",
 
   // "collection.delete.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "collection.delete.confirm": "Confirm",
+  "collection.delete.confirm": "تایید",
 
   // "collection.delete.processing": "Deleting",
-  // TODO New key - Add a translation
-  "collection.delete.processing": "Deleting",
+  "collection.delete.processing": "در حال حذف",
 
   // "collection.delete.head": "Delete Collection",
-  // TODO New key - Add a translation
-  "collection.delete.head": "Delete Collection",
+  "collection.delete.head": "حذف مجموعه",
 
   // "collection.delete.notification.fail": "Collection could not be deleted",
-  // TODO New key - Add a translation
-  "collection.delete.notification.fail": "Collection could not be deleted",
+  "collection.delete.notification.fail": "مجموعه نمیتواند حذف شود",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
-  // TODO New key - Add a translation
-  "collection.delete.notification.success": "Successfully deleted collection",
+  "collection.delete.notification.success": "مجموعه با موفقیت حذف شد",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  // TODO New key - Add a translation
-  "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
+  "collection.delete.text": "آیا مطمئن هستید که می‌خواهید مجموعه را حذف کنید؟ \"{{ dso }}\"",
 
   // "collection.edit.delete": "Delete this collection",
-  // TODO New key - Add a translation
-  "collection.edit.delete": "Delete this collection",
+  "collection.edit.delete": "حذف این مجموعه",
 
   // "collection.edit.head": "Edit Collection",
-  // TODO New key - Add a translation
-  "collection.edit.head": "Edit Collection",
+  "collection.edit.head": "ویرایش مجموعه",
 
   // "collection.edit.breadcrumbs": "Edit Collection",
-  // TODO New key - Add a translation
-  "collection.edit.breadcrumbs": "Edit Collection",
+  "collection.edit.breadcrumbs": "ویرایش مجموعه",
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   // TODO New key - Add a translation
@@ -2169,15 +2093,13 @@
 
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
   // TODO New key - Add a translation
-  "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
+  "collection.edit.tabs.item-mapper.title": "ویرایش مجموعه - Item Mapper",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.cancel": "Cancel",
+  "collection.edit.item-mapper.cancel": "لغو",
 
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+  "collection.edit.item-mapper.collection": "مجموعه: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
   // TODO New key - Add a translation
