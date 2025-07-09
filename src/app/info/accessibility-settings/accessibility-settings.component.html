@@ -8,10 +8,10 @@
       </label>
 
       <div class="col-sm-4">
-        <ui-switch [id]="'disableNotificationTimeOutInput'"
-                   [(ngModel)]="formValues.notificationTimeOutEnabled"
-                   [ngModelOptions]="{ standalone: true }"
-        ></ui-switch>
+        <ds-switch
+          [options]="switchOptions"
+          [(selectedValue)]="formValues.notificationTimeOutEnabled">
+        </ds-switch>
       </div>
 
       <div *dsContextHelp="{

@@ -10,7 +10,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,
   Subscription,
@@ -20,7 +19,6 @@ import {
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
-import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import {
   AccessibilitySetting,
@@ -29,6 +27,7 @@ import {
 } from '../../accessibility/accessibility-settings.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
 import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { KlaroService } from '../../shared/cookies/klaro.service';
 import {
@@ -36,6 +35,11 @@ import {
   isEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
 
 /**
  * Component providing the form where users can update accessibility settings.
@@ -47,9 +51,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     CommonModule,
     TranslateModule,
     FormsModule,
-    UiSwitchModule,
     ContextHelpDirective,
     AlertComponent,
+    SwitchComponent,
   ],
   standalone: true,
 })
@@ -61,6 +65,15 @@ export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
 
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   cookieIsAccepted: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, labelColor: SwitchColor.Success, backgroundColor: SwitchColor.Success ,
+      label: 'info.accessibility-settings.notificationTimeOutEnabled.label.enabled' },
+    { value: false, label: 'info.accessibility-settings.notificationTimeOutEnabled.label.disabled' },
+  ];
 
   private subscriptions: Subscription[] = [];
 

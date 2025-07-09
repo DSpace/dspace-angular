@@ -31,7 +31,7 @@ describe('accessibilitySettingsService', () => {
   let cookieService: CookieServiceMock;
   let authService: AuthServiceStub;
   let ePersonService: EPersonDataService;
-  let klaroService: KlaroServiceStub;
+  let klaroService: any;
   let appConfig: AppConfig;
 
   beforeEach(() => {

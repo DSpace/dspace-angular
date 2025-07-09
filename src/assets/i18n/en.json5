@@ -2957,6 +2957,10 @@
 
   "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
 
+  "info.accessibility-settings.notificationTimeOutEnabled.label.disabled": "Disabled",
+
+  "info.accessibility-settings.notificationTimeOutEnabled.label.enabled": "Enabled",
+
   "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
 
   "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
