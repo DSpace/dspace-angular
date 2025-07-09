@@ -55,7 +55,6 @@ import { NoContent } from '../shared/NoContent.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -263,14 +262,8 @@ export class AuthService {
    */
   public getAuthenticatedUserFromStoreIfAuthenticated(): Observable<EPerson> {
     return this.store.pipe(
-      select(getAuthenticatedUserId),
-      switchMap((id: string) => {
-        if (hasValue(id)) {
-          return this.epersonService.findById(id).pipe(getFirstSucceededRemoteDataPayload());
-        } else {
-          return observableOf(null);
-        }
-      }),
+      select(getAuthenticatedUser),
+      switchMap(() => this.getAuthenticatedUserFromStore()),
     );
   }
 

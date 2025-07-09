@@ -63,7 +63,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   /**
    * The list of exposed orcid authorization scopes for the orcid profile
    */
-  profileAuthorizationScopes$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  profileAuthorizationScopes$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   /**
    * A boolean representing if user has authorizations
@@ -73,7 +73,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   /**
    * The list of all orcid authorization scopes missing in the orcid profile
    */
-  missingAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  missingAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   /**
    * A boolean representing if user has missing authorizations
@@ -83,12 +83,12 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   /**
    * The list of all orcid authorization scopes available
    */
-  orcidAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  orcidAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   /**
    * A boolean representing if unlink operation is processing
    */
-  unlinkProcessing: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  unlinkProcessing: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * A boolean representing if orcid profile is linked
@@ -157,9 +157,9 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   getOrcidNotLinkedMessage(): Observable<string> {
     const orcid = this.item.firstMetadataValue('person.identifier.orcid');
     if (orcid) {
-      return this.translateService.instant('person.page.orcid.orcid-not-linked-message', { 'orcid': orcid });
+      return this.translateService.get('person.page.orcid.orcid-not-linked-message', { 'orcid': orcid });
     } else {
-      return this.translateService.instant('person.page.orcid.no-orcid-message');
+      return this.translateService.get('person.page.orcid.no-orcid-message');
     }
   }
 

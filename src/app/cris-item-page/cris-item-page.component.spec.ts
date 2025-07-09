@@ -34,7 +34,6 @@ import {
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { CrisItemPageComponent } from './cris-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -77,7 +76,7 @@ describe('CrisItemPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(CrisItemPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedItemAlertsComponent, ViewTrackerComponent, CrisLayoutComponent] } }).compileComponents();
+      .overrideComponent(CrisItemPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedItemAlertsComponent, CrisLayoutComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

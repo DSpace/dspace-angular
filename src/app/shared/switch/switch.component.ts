@@ -69,10 +69,7 @@ export class SwitchComponent implements OnInit, OnChanges {
   /**
    * BG style of the currently selected option
    */
-
   public backgroundClass: string;
-
-
 
   ngOnInit() {
     this.backgroundClass = this.getBackgroundColorClass();

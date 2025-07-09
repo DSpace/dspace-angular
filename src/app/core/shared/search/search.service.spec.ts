@@ -32,6 +32,7 @@ import SpyObj = jasmine.SpyObj;
 import { Component } from '@angular/core';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { CommunityDataService } from '../../../core/data/community-data.service';
 
 @Component({
   template: '',
@@ -55,6 +56,10 @@ describe('SearchService', () => {
   let msToLive: number;
   let remoteDataTimestamp: number;
 
+  const options: PaginatedSearchOptions = new PaginatedSearchOptions({
+    forcedEmbeddedKeys: [],
+  });
+
   beforeEach(() => {
     halService = new HALEndpointServiceStub(environment.rest.baseUrl);
     paginationService = new PaginationServiceStub();
@@ -74,6 +79,7 @@ describe('SearchService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: HALEndpointService, useValue: halService },
+        { provide: CommunityDataService, useValue: {} },
         { provide: DSpaceObjectDataService, useValue: {} },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
@@ -176,7 +182,7 @@ describe('SearchService', () => {
             e: remoteDataMocks.SuccessStale,
           };
 
-          expectObservable(service.search(undefined, msToLive, true)).toBe(expected, values);
+          expectObservable(service.search(options, msToLive, true)).toBe(expected, values);
         });
       });
     });
@@ -204,7 +210,7 @@ describe('SearchService', () => {
             e: remoteDataMocks.SuccessStale,
           };
 
-          expectObservable(service.search(undefined, msToLive, false)).toBe(expected, values);
+          expectObservable(service.search(options, msToLive, false)).toBe(expected, values);
         });
       });
 
@@ -219,7 +225,7 @@ describe('SearchService', () => {
             a: remoteDataMocks.Success,
             b: remoteDataMocks.SuccessStale,
           };
-          expectObservable(service.search(undefined, msToLive, false)).toBe(expected, values);
+          expectObservable(service.search(options, msToLive, false)).toBe(expected, values);
         });
       });
     });

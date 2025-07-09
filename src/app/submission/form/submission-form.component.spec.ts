@@ -36,7 +36,6 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
@@ -93,7 +92,6 @@ describe('SubmissionFormComponent', () => {
             isSectionReadOnly: () => observableOf(false),
           },
         },
-        { provide: ThemeService, useValue: getMockThemeService() },
         ChangeDetectorRef,
         SubmissionFormComponent,
       ],

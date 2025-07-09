@@ -19,7 +19,10 @@ import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import {
   APP_DATA_SERVICES_MAP,
@@ -42,6 +45,7 @@ import {
   getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
+import { isNotEmpty } from '../../shared/empty.util';
 import { fadeInOut } from '../animations/fade';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
@@ -163,6 +167,18 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Return a boolean representing if a table row is selected
+   *
+   * @return {boolean}
+   */
+  isSelected(entry: DSpaceObject): Observable<boolean> {
+    return this.entrySelectedId$.asObservable().pipe(
+      map((selectedId) => isNotEmpty(selectedId) && selectedId === entry.id),
+    );
+  }
+
+
+  /**
    * Method called on search
    */
   onSearch(searchEvent: SearchEvent) {
@@ -207,6 +223,6 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   emitDeselect(entry: DSpaceObject) {
     this.deselect.emit(entry);
-    this.entrySelectedId.next(null);
+    this.entrySelectedId$.next(null);
   }
 }
