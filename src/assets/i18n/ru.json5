@@ -1,7 +1,7 @@
 {
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
- "401.help": "У вас нет прав доступа к этой странице. Вы можете использовать кнопку ниже, чтобы вернуться на домашнюю страницу.",
+  "401.help": "У вас нет прав доступа к этой странице. Вы можете использовать кнопку ниже, чтобы вернуться на домашнюю страницу.",
 
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Перейти на домашнюю страницу",
@@ -148,7 +148,7 @@
   "admin.registries.bitstream-formats.edit.internal.label": "Внутренний",
 
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
- "admin.registries.bitstream-formats.edit.mimetype.hint": "Тип MIME, связанный с этим форматом, не обязательно должен быть уникальным.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "Тип MIME, связанный с этим форматом, не обязательно должен быть уникальным.",
 
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
   "admin.registries.bitstream-formats.edit.mimetype.label": "Тип MIME",
@@ -166,7 +166,7 @@
   "admin.registries.bitstream-formats.edit.success.head": "Успех",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
- "admin.registries.bitstream-formats.edit.supportLevel.hint": "Уровень поддержки, который ваша организация обещает для этого формата.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Уровень поддержки, который ваша организация обещает для этого формата.",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Уровень поддержки",
@@ -456,7 +456,7 @@
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "Удалить \"{{ name }}\"",
 
-   // "admin.access-control.epeople.no-items": "No EPeople to show.",
+  // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Нет пользователей для отображения.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
@@ -807,7 +807,7 @@
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
   "admin.access-control.groups.form.tooltip.editGroupPage": "На этой странице вы можете изменять свойства и участников группы. В верхнем разделе можно редактировать имя и описание группы, если это не административная группа коллекции или сообщества — в этом случае имя и описание генерируются автоматически и не подлежат редактированию. В последующих разделах вы можете изменять состав группы. Подробнее см. в [вики](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
 
-   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Чтобы добавить или удалить пользователя из этой группы, нажмите кнопку «Просмотреть все» или используйте панель поиска ниже для поиска пользователей (слева от панели поиска выберите, искать по метаданным или по электронной почте). Затем нажмите значок плюса рядом с пользователем, которого хотите добавить, или значок корзины рядом с пользователем, которого хотите удалить. Список может содержать несколько страниц — используйте навигацию под списком для перехода между страницами.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
@@ -882,7 +882,7 @@
   // "admin.reports.items.predicate.doesNotExist": "does not exist",
   "admin.reports.items.predicate.doesNotExist": "не существует",
 
-   // "admin.reports.items.predicate.equals": "equals",
+  // "admin.reports.items.predicate.equals": "equals",
   "admin.reports.items.predicate.equals": "равен",
 
   // "admin.reports.items.predicate.doesNotEqual": "does not equal",
@@ -1215,7 +1215,7 @@
   // "admin.metadata-import.page.button.select-collection": "Select Collection",
   "admin.metadata-import.page.button.select-collection": "Выберите коллекцию",
 
-   // "admin.metadata-import.page.error.addFile": "Select file first!",
+  // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Сначала выберите файл!",
 
   // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
@@ -1812,7 +1812,7 @@
   // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
   "collection.edit.tabs.access-control.title": "Редактирование коллекции: управление доступом",
 
-    // "collection.edit.tabs.curate.head": "Curate",
+  // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Кураторство",
 
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
@@ -1929,7 +1929,7 @@
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
   "collection.edit.template.notifications.delete.error": "Не удалось удалить шаблон элемента.",
 
-     // "collection.edit.template.title": "Edit Template Item",
+  // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Редактировать шаблон элемента",
 
   // "collection.form.abstract": "Short Description",
@@ -2001,7 +2001,7 @@
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Название",
 
-    // "collection.source.controls.head": "Harvest Controls",
+  // "collection.source.controls.head": "Harvest Controls",
   "collection.source.controls.head": "Управление сбором",
 
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
@@ -2077,7 +2077,7 @@
   "collection.source.update.notifications.error.title": "Ошибка сервера",
 
   // "communityList.breadcrumbs": "Community List",
-   "communityList.breadcrumbs": "Список сообществ",
+  "communityList.breadcrumbs": "Список сообществ",
 
   // "communityList.tabTitle": "Community List",
   "communityList.tabTitle": "Список сообществ",
@@ -2199,7 +2199,7 @@
   // "community.edit.tabs.access-control.head": "Access Control",
   "community.edit.tabs.access-control.head": "Контроль доступа",
 
-   // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
   "community.edit.tabs.access-control.title": "Редактирование сообщества: контроль доступа",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
@@ -2319,7 +2319,7 @@
   // "community.form.tableofcontents": "News (HTML)",
   "community.form.tableofcontents": "Новости (HTML)",
 
-    // "community.form.title": "Name",
+  // "community.form.title": "Name",
   "community.form.title": "Название",
 
   // "community.page.edit": "Edit this community",
@@ -2478,7 +2478,7 @@
   // "curation-task.task.translate.label": "Microsoft Translator",
   "curation-task.task.translate.label": "Microsoft Переводчик",
 
-    // "curation-task.task.vscan.label": "Virus Scan",
+  // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Проверка на вирусы",
 
   // "curation-task.task.registerdoi.label": "Register DOI",
@@ -3026,7 +3026,7 @@
   // "form.remove": "Remove",
   "form.remove": "Удалить",
 
-     // "form.save": "Save",
+  // "form.save": "Save",
   "form.save": "Сохранить",
 
   // "form.save-help": "Save changes",
@@ -3140,7 +3140,7 @@
   // "health-page.section.solrAuthorityCore.title": "Solr: authority core",
   "health-page.section.solrAuthorityCore.title": "Solr: основной модуль полномочий",
 
-    // "health-page.section.solrOaiCore.title": "Solr: oai core",
+  // "health-page.section.solrOaiCore.title": "Solr: oai core",
   "health-page.section.solrOaiCore.title": "Solr: основной модуль OAI",
 
   // "health-page.section.solrSearchCore.title": "Solr: search core",
@@ -3272,7 +3272,7 @@
   // "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
   "info.coar-notify-support.breadcrumbs": "Поддержка COAR Notify",
 
-    // "item.alerts.reinstate-request": "Request reinstate",
+  // "item.alerts.reinstate-request": "Request reinstate",
   "item.alerts.reinstate-request": "Запрос на восстановление",
 
   // "quality-assurance.event.table.person-who-requested": "Requested by",
@@ -3501,7 +3501,7 @@
   // "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion",
   "item.edit.identifiers.doi.status.TO_BE_DELETED": "В очереди на удаление",
 
-    // "item.edit.identifiers.doi.status.DELETED": "Deleted",
+  // "item.edit.identifiers.doi.status.DELETED": "Deleted",
   "item.edit.identifiers.doi.status.DELETED": "Удалено",
 
   // "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)",
@@ -3665,7 +3665,7 @@
   // "item.edit.metadata.notifications.discarded.title": "Changes discarded",
   "item.edit.metadata.notifications.discarded.title": "Изменения отменены",
 
-   // "item.edit.metadata.notifications.error.title": "An error occurred",
+  // "item.edit.metadata.notifications.error.title": "An error occurred",
   "item.edit.metadata.notifications.error.title": "Произошла ошибка",
 
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
@@ -3755,7 +3755,7 @@
   // "item.edit.move.title": "Move item",
   "item.edit.move.title": "Переместить элемент",
 
-    // "item.edit.private.cancel": "Cancel",
+  // "item.edit.private.cancel": "Cancel",
   "item.edit.private.cancel": "Отменить",
 
   // "item.edit.private.confirm": "Make it non-discoverable",
@@ -3881,7 +3881,7 @@
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Метаданные",
 
-   // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
   "item.edit.tabs.metadata.title": "Редактирование элемента: Метаданные",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -3923,7 +3923,7 @@
   // "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
   "item.edit.tabs.status.buttons.public.button": "Сделать общедоступным...",
 
-   // "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
+  // "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
   "item.edit.tabs.status.buttons.public.label": "Сделать элемент общедоступным",
 
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
@@ -4016,7 +4016,7 @@
   // "item.page.titleprefix": "Item: ",
   "item.page.titleprefix": "Элемент: ",
 
-   // "item.page.volume-title": "Volume Title",
+  // "item.page.volume-title": "Volume Title",
   "item.page.volume-title": "Название тома",
 
   // "item.search.results.head": "Item Search Results",
@@ -4109,7 +4109,7 @@
   // "item.page.collections.loading": "Loading...",
   "item.page.collections.loading": "Загрузка...",
 
-   // "item.page.collections.load-more": "Load more",
+  // "item.page.collections.load-more": "Load more",
   "item.page.collections.load-more": "Загрузить ещё",
 
   // "item.page.date": "Date",
@@ -4685,7 +4685,7 @@
   // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "Описание",
 
-    // "journalvolume.page.edit": "Edit this item",
+  // "journalvolume.page.edit": "Edit this item",
   "journalvolume.page.edit": "Редактировать этот элемент",
 
   // "journalvolume.page.issuedate": "Issue Date",
@@ -4835,7 +4835,7 @@
   // "menu.header.admin": "Management",
   "menu.header.admin": "Управление",
 
-    // "menu.header.image.logo": "Repository logo",
+  // "menu.header.image.logo": "Repository logo",
   "menu.header.image.logo": "Логотип репозитория",
 
   // "menu.header.admin.description": "Management menu",
@@ -4997,7 +4997,7 @@
   // "menu.section.import": "Import",
   "menu.section.import": "Импорт",
 
-    // "menu.section.import_batch": "Batch Import (ZIP)",
+  // "menu.section.import_batch": "Batch Import (ZIP)",
   "menu.section.import_batch": "Пакетный импорт (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
@@ -5084,7 +5084,7 @@
   // "menu.section.toggle.new": "Toggle New section",
   "menu.section.toggle.new": "Переключить раздел создания",
 
-    // "menu.section.toggle.registries": "Toggle Registries section",
+  // "menu.section.toggle.registries": "Toggle Registries section",
   "menu.section.toggle.registries": "Переключить раздел реестров",
 
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
@@ -5201,7 +5201,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Валидация",
 
-    // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Ожидание рецензента",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -5297,7 +5297,7 @@
   // "quality-assurance.title": "Quality Assurance",
   "quality-assurance.title": "Контроль качества",
 
-    // "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+  // "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
   "quality-assurance.topics.description": "Ниже вы можете увидеть все темы, полученные из подписок на {{source}}.",
 
   // "quality-assurance.source.description": "Below you can see all the notification's sources.",
@@ -5867,7 +5867,7 @@
   // "profile.metadata.form.label.lastname": "Last Name",
   "profile.metadata.form.label.lastname": "Фамилия",
 
-    // "profile.metadata.form.label.phone": "Contact Telephone",
+  // "profile.metadata.form.label.phone": "Contact Telephone",
   "profile.metadata.form.label.phone": "Контактный телефон",
 
   // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
@@ -6062,7 +6062,7 @@
   // "suggestion.ignoreSuggestion.success": "The suggestion has been discarded",
   "suggestion.ignoreSuggestion.success": "Предложение было отклонено",
 
-    // "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
+  // "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
   "suggestion.ignoreSuggestion.bulk": "Игнорировать выбранные предложения",
 
   // "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
@@ -6155,7 +6155,7 @@
   // "register-page.create-profile.submit.error.head": "Registration failed",
   "register-page.create-profile.submit.error.head": "Ошибка регистрации",
 
-    // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
+  // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
   "register-page.create-profile.submit.success.content": "Регистрация прошла успешно. Вы вошли в систему как созданный пользователь.",
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
@@ -6263,7 +6263,7 @@
   // "relationships.isProjectOf": "Research Projects",
   "relationships.isProjectOf": "Научные проекты",
 
-    // "relationships.isPublicationOf": "Publications",
+  // "relationships.isPublicationOf": "Publications",
   "relationships.isPublicationOf": "Публикации",
 
   // "relationships.isPublicationOfJournalIssue": "Articles",
@@ -6458,7 +6458,7 @@
   // "resource-policies.table.headers.deselect-all": "Deselect all",
   "resource-policies.table.headers.deselect-all": "Отменить выбор",
 
-    // "resource-policies.table.headers.select": "Select",
+  // "resource-policies.table.headers.select": "Select",
   "resource-policies.table.headers.select": "Выбрать",
 
   // "resource-policies.table.headers.deselect": "Deselect",
@@ -6578,7 +6578,7 @@
   // "search.filters.applied.operator.notauthority": " not authority",
   "search.filters.applied.operator.notauthority": " не авторитет",
 
-    // "search.filters.applied.operator.contains": " contains",
+  // "search.filters.applied.operator.contains": " contains",
   "search.filters.applied.operator.contains": " содержит",
 
   // "search.filters.applied.operator.notcontains": " not contains",
@@ -6800,7 +6800,7 @@
   // "search.filters.filter.show-less": "Collapse",
   "search.filters.filter.show-less": "Свернуть",
 
-    // "search.filters.filter.show-more": "Show more",
+  // "search.filters.filter.show-more": "Show more",
   "search.filters.filter.show-more": "Показать больше",
 
   // "search.filters.filter.subject.head": "Subject",
@@ -6998,7 +6998,7 @@
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Показать в виде списка",
 
-    // "selectable-list-item-control.deselect": "Deselect item",
+  // "selectable-list-item-control.deselect": "Deselect item",
   "selectable-list-item-control.deselect": "Снять выделение с элемента",
 
   // "selectable-list-item-control.select": "Select item",
@@ -7112,7 +7112,7 @@
   // "submission.general.discard.confirm.cancel": "Cancel",
   "submission.general.discard.confirm.cancel": "Отмена",
 
-    // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
+  // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
   "submission.general.discard.confirm.info": "Эту операцию нельзя отменить. Вы уверены?",
 
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
@@ -7181,7 +7181,7 @@
   // "submission.import-external.search.button": "Search",
   "submission.import-external.search.button": "Поиск",
 
-    // "submission.import-external.search.button.hint": "Write some words to search",
+  // "submission.import-external.search.button.hint": "Write some words to search",
   "submission.import-external.search.button.hint": "Введите несколько слов для поиска",
 
   // "submission.import-external.search.source.hint": "Pick an external source",
@@ -7226,7 +7226,7 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "Загрузка ...",
 
-    // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
   "submission.import-external.source.sherpaJournal": "Журналы SHERPA",
 
   // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
@@ -7322,7 +7322,7 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Импорт удалённого продукта",
 
-    // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Импорт удалённого оборудования",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
@@ -7355,7 +7355,7 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Локальный автор успешно добавлен в выбор",
 
-    // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Внешний автор успешно импортирован и добавлен в выбор",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
@@ -7430,7 +7430,7 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Import Remote Journal Volume",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Импорт удалённого тома журнала",
 
-    // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Successfully added local journal volume to the selection",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Successfully added local journal volume to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Локальный том журнала успешно добавлен в выбор.",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
@@ -7514,7 +7514,7 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Локальные тома журналов ({{ count }})",
 
-    // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Журналы Sherpa ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
@@ -7601,7 +7601,7 @@
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Выпуски журнала",
 
-    // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Тома журнала",
 
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
@@ -7667,7 +7667,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Выбранный том журнала",
 
-    // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Выбранные проекты",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
@@ -7742,7 +7742,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Результаты поиска",
 
-    // "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Результаты поиска",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
@@ -7826,7 +7826,7 @@
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
   "submission.sections.general.save_error_notice": "Произошла ошибка при сохранении элемента, пожалуйста, попробуйте позже.",
 
-    // "submission.sections.general.save_success_notice": "Submission saved successfully.",
+  // "submission.sections.general.save_success_notice": "Submission saved successfully.",
   "submission.sections.general.save_success_notice": "Отправка успешно сохранена.",
 
   // "submission.sections.general.search-collection": "Search for a collection",
@@ -7901,7 +7901,7 @@
   // "submission.sections.status.warnings.title": "Warnings",
   "submission.sections.status.warnings.title": "Предупреждения",
 
-    // "submission.sections.status.errors.aria": "has errors",
+  // "submission.sections.status.errors.aria": "has errors",
   "submission.sections.status.errors.aria": "с ошибками",
 
   // "submission.sections.status.valid.aria": "is valid",
@@ -8069,7 +8069,7 @@
   // "submission.sections.accesses.form.until-placeholder": "Until",
   "submission.sections.accesses.form.until-placeholder": "До",
 
-    // "submission.sections.duplicates.none": "No duplicates were detected.",
+  // "submission.sections.duplicates.none": "No duplicates were detected.",
   "submission.sections.duplicates.none": "Дубликаты не обнаружены.",
 
   // "submission.sections.duplicates.detected": "Potential duplicates were detected. Please review the list below.",
@@ -8135,7 +8135,7 @@
   // "submission.sections.sherpa.publisher.policy.nolocation": "None",
   "submission.sections.sherpa.publisher.policy.nolocation": "Отсутствует",
 
-    // "submission.sections.sherpa.publisher.policy.license": "License",
+  // "submission.sections.sherpa.publisher.policy.license": "License",
   "submission.sections.sherpa.publisher.policy.license": "Лицензия",
 
   // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
@@ -8207,7 +8207,7 @@
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Одобрить",
 
-    // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
   "submission.workflow.tasks.claimed.approve_help": "Если вы проверили элемент и он подходит для включения в коллекцию, выберите «Одобрить».",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
@@ -8282,7 +8282,7 @@
   // "submitter.empty": "N/A",
   "submitter.empty": "N/A",
 
-    // "subscriptions.title": "Subscriptions",
+  // "subscriptions.title": "Subscriptions",
   "subscriptions.title": "Подписки",
 
   // "subscriptions.item": "Subscriptions for items",
@@ -8378,7 +8378,7 @@
   // "subscriptions.table.delete": "Delete",
   "subscriptions.table.delete": "Удалить",
 
-    // "subscriptions.table.not-available": "Not available",
+  // "subscriptions.table.not-available": "Not available",
   "subscriptions.table.not-available": "Недоступно",
 
   // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
@@ -8468,7 +8468,7 @@
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-relationship.modal-head": "Выберите элементы, для которых вы хотите сохранить виртуальные метаданные как реальные",
 
-    // "supervisedWorkspace.search.results.head": "Supervised Items",
+  // "supervisedWorkspace.search.results.head": "Supervised Items",
   "supervisedWorkspace.search.results.head": "Контролируемые элементы",
 
   // "workspace.search.results.head": "Your submissions",
@@ -8546,7 +8546,7 @@
   // "workspace-item.view.title": "Workspace View",
   "workspace-item.view.title": "Просмотр рабочего пространства",
 
-    // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
   "workspace-item.delete.breadcrumbs": "Удаление рабочего пространства",
 
   // "workspace-item.delete.header": "Delete workspace item",
@@ -8621,7 +8621,7 @@
   // "workflow-item.scorereviewaction.button.confirm": "Confirm",
   "workflow-item.scorereviewaction.button.confirm": "Подтвердить",
 
-    // "idle-modal.header": "Session will expire soon",
+  // "idle-modal.header": "Session will expire soon",
   "idle-modal.header": "Сессия скоро истечет",
 
   // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
@@ -8705,7 +8705,7 @@
   // "person.page.orcid.link.processing": "Linking profile to ORCID...",
   "person.page.orcid.link.processing": "Связывание профиля с ORCID...",
 
-    // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+  // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
   "person.page.orcid.link.error.message": "Что-то пошло не так при подключении профиля к ORCID. Если проблема сохранится, обратитесь к администратору.",
 
   // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
@@ -8810,7 +8810,7 @@
   // "person.page.orcid.sync-queue.description.education": "Educations",
   "person.page.orcid.sync-queue.description.education": "Образование",
 
-    // "person.page.orcid.sync-queue.description.external_ids": "External ids",
+  // "person.page.orcid.sync-queue.description.external_ids": "External ids",
   "person.page.orcid.sync-queue.description.external_ids": "Внешние идентификаторы",
 
   // "person.page.orcid.sync-queue.description.other_names": "Other names",
@@ -8891,7 +8891,7 @@
   // "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
   "person.page.orcid.sync-queue.send.validation-error": "Данные, которые вы хотите синхронизировать с ORCID, недействительны",
 
-    // "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+  // "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
   "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "Требуется валюта суммы",
 
   // "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
@@ -8960,7 +8960,7 @@
   // "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
   "person.page.orcid.synchronization-mode-publication-message": "Выберите, хотите ли вы отправлять связанные публикации в список работ вашей записи ORCID.",
 
-    // "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+  // "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
   "person.page.orcid.synchronization-mode-profile-message": "Выберите, хотите ли вы отправлять биографические данные или личные идентификаторы в вашу запись ORCID",
 
   // "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
@@ -9008,7 +9008,7 @@
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Последние отправления",
 
-    // "listable-notification-object.default-message": "This object couldn't be retrieved",
+  // "listable-notification-object.default-message": "This object couldn't be retrieved",
   "listable-notification-object.default-message": "Не удалось получить этот объект",
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
@@ -9101,7 +9101,7 @@
   // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
   "access-control-item-toggle.enable": "Включить возможность изменять метаданные элемента",
 
-    // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
   "access-control-item-toggle.disable": "Отключить возможность изменять метаданные элемента",
 
   // "access-control-bitstream-header-toggle": "Bitstreams",
@@ -9170,7 +9170,7 @@
   // "access-control-option-start-date": "Grant access from",
   "access-control-option-start-date": "Предоставить доступ с",
 
-    // "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+  // "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
   "access-control-option-start-date-note": "Выберите дату, с которой будет применяться указанное условие доступа",
 
   // "access-control-option-end-date": "Grant access until",
@@ -9212,7 +9212,7 @@
   // "service.overview.delete.header": "Delete Service",
   "service.overview.delete.header": "Удалить сервис",
 
-    // "ldn-registered-services.title": "Registered Services",
+  // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "Зарегистрированные сервисы",
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "Название",
@@ -9236,7 +9236,7 @@
   "ldn-service.overview.table.clickToDisable": "Нажмите, чтобы отключить",
 
 
-    // "ldn-edit-registered-service.title": "Edit Service",
+  // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "Редактировать сервис",
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "Создать сервис",
@@ -9284,7 +9284,7 @@
   "ldn-service.form.label.placeholder.default-select": "Выберите шаблон",
 
 
-    // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+  // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "Подтвердить и принять",
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "Этот шаблон используется для подтверждения и принятия запроса (предложения). Он подразумевает намерение действовать в соответствии с запросом.",
@@ -9292,7 +9292,7 @@
   "ldn-service.form.pattern.ack-accept.category": "Подтверждения",
 
 
-    // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+  // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "Подтвердить и отклонить",
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "Этот шаблон используется для подтверждения и отклонения запроса (предложения). Он означает, что никаких дальнейших действий по запросу не будет предпринято.",
@@ -9300,7 +9300,7 @@
   "ldn-service.form.pattern.ack-reject.category": "Подтверждения",
 
 
-    // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+  // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "Подтвердить и предварительно принять",
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "Этот шаблон используется для подтверждения и предварительного принятия запроса (предложения). Он подразумевает намерение действовать, которое может измениться.",
@@ -9322,7 +9322,7 @@
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "Объявления",
 
-    // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+  // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "Объявить о загрузке",
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "Этот шаблон используется для объявления о том, что ресурс был загружен.",
@@ -9330,7 +9330,7 @@
   "ldn-service.form.pattern.announce-ingest.category": "Объявления",
 
 
-    // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+  // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "Объявить о взаимосвязи",
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "Этот шаблон используется для объявления взаимосвязи между двумя ресурсами.",
@@ -9771,7 +9771,7 @@
   "admin-notify-logs.NOTIFY.incoming.untrusted": "Сейчас отображаются: Недоверенные уведомления",
 
 
-    // "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Untrusted",
+  // "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Untrusted",
   "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Недоверенный",
 
   // "admin-notify-dashboard.NOTIFY.incoming.untrusted.description": "Inbound notifications not trusted",
@@ -9856,7 +9856,7 @@
   "search.filters.filter.queue_last_start_time.min.label": "Минимальный диапазон",
 
 
- // "search.filters.filter.queue_last_start_time.max.label": "Max range",
+  // "search.filters.filter.queue_last_start_time.max.label": "Max range",
   "search.filters.filter.queue_last_start_time.max.label": "Максимальный диапазон",
 
   // "search.filters.applied.f.queue_last_start_time.min": "Min range",
