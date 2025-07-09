@@ -2,38 +2,39 @@
   <ds-eperson-search-box *ngIf="isListOfEPerson" (search)="onSearch($event)"></ds-eperson-search-box>
   <ds-group-search-box *ngIf="!isListOfEPerson" (search)="onSearch($event)"></ds-group-search-box>
 
-  <ds-pagination *ngIf="(getList() | async)?.payload?.totalElements > 0"
-                 [paginationOptions]="paginationOptions"
-                 [collectionSize]="(getList() | async)?.payload?.totalElements"
-                 [retainScrollPosition]="true"
-                 [hideGear]="true">
+  <ng-container *ngIf="(list$ | async) as list">
+    <ds-pagination *ngIf="list.totalElements > 0"
+                   [paginationOptions]="paginationOptions"
+                   [collectionSize]="list.totalElements"
+                   [retainScrollPosition]="true"
+                   [hideGear]="true">
 
-    <div class="table-responsive">
-      <table id="groups" class="table table-sm table-striped table-hover table-bordered">
-        <thead>
-        <tr class="text-center">
-          <th>{{'resource-policies.form.eperson-group-list.table.headers.id' | translate}}</th>
-          <th>{{'resource-policies.form.eperson-group-list.table.headers.name' | translate}}</th>
-          <th>{{'resource-policies.form.eperson-group-list.table.headers.action' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let entry of (getList() | async)?.payload?.page"
-            [class.table-primary]="isSelected(entry) | async">
-          <td>{{entry.id}}</td>
-          <td>{{dsoNameService.getName(entry)}}</td>
-          <td class="text-center">
+      <div class="table-responsive">
+        <table id="groups" class="table table-sm table-striped table-hover table-bordered">
+          <thead>
+          <tr class="text-center">
+            <th>{{ 'resource-policies.form.eperson-group-list.table.headers.id' | translate }}</th>
+            <th>{{ 'resource-policies.form.eperson-group-list.table.headers.name' | translate }}</th>
+            <th>{{ 'resource-policies.form.eperson-group-list.table.headers.action' | translate }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entry of list.page"
+              [class.table-primary]="(entrySelectedId$ | async) === entry.id">
+            <td>{{ entry.id }}</td>
+            <td>{{ dsoNameService.getName(entry) }}</td>
+            <td class="text-center">
             <button class="btn btn-sm btn-outline-primary" *ngIf="(isSelected(entry) | async) === false" (click)="emitSelect(entry)">
-              {{'resource-policies.form.eperson-group-list.select.btn' | translate}}
+                {{ 'resource-policies.form.eperson-group-list.select.btn' | translate }}
             </button>
             <button class="btn btn-sm btn-primary" *ngIf="isSelected(entry) | async" (click)="emitDeselect(entry)">
               {{'resource-policies.form.eperson-group-list.deselect.btn' | translate}}
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </ds-pagination>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </ds-pagination>
+  </ng-container>
 </div>

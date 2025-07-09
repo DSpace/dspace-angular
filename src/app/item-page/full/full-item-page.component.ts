@@ -49,7 +49,6 @@ import { hasValue } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { CollectionsComponent } from '../field-components/collections/collections.component';
 import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
@@ -84,7 +83,6 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     ThemedItemPageTitleFieldComponent,
     DsoEditMenuComponent,
     ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
     ThemedItemAlertsComponent,
     VarDirective,
     ContextMenuComponent,

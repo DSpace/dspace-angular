@@ -12,7 +12,6 @@
     "eslint-plugin-rxjs",
     "eslint-plugin-simple-import-sort",
     "eslint-plugin-import-newlines",
-    "eslint-plugin-jsonc",
     "dspace-angular-ts",
     "dspace-angular-html"
   ],
@@ -302,10 +301,13 @@
         "*.json5"
       ],
       "extends": [
-        "plugin:jsonc/recommended-with-jsonc"
+        "plugin:jsonc/recommended-with-json5"
       ],
       "rules": {
-        "no-irregular-whitespace": "error",
+        // The ESLint core no-irregular-whitespace rule doesn't work well in JSON
+        // See: https://ota-meshi.github.io/eslint-plugin-jsonc/rules/no-irregular-whitespace.html
+        "no-irregular-whitespace": "off",
+        "jsonc/no-irregular-whitespace": "error",
         "no-trailing-spaces": "error",
         "jsonc/comma-dangle": [
           "error",

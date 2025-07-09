@@ -34,6 +34,14 @@
     </div>
 
     <div class="card mb-4">
+      <div class="card-header">{{'profile.card.accessibility.header' | translate}}</div>
+      <div class="card-body">
+        <ds-alert class="mb-4" [type]="'alert-info'">{{'profile.card.accessibility.content' | translate}}</ds-alert>
+        <a [routerLink]="'/info/accessibility'">{{'profile.card.accessibility.link' | translate}}</a>
+      </div>
+    </div>
+
+    <div class="card mb-4">
       <div class="card-header">{{'profile.card.access-token' | translate}}</div>
       <div class="card-body">
         <div class="mb-4">

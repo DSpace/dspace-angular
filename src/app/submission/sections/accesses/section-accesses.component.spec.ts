@@ -31,6 +31,8 @@ import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/d
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
@@ -133,6 +135,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+          { provide: LiveRegionService, useValue: getLiveRegionServiceStub },
           FormBuilderService,
           provideMockStore({}),
         ],
@@ -285,6 +288,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+          { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
           FormBuilderService,
           provideMockStore({}),
 

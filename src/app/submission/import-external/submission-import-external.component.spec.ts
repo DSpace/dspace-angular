@@ -503,6 +503,12 @@ describe('SubmissionImportExternalComponent test suite', () => {
         if (param === 'entity') {
           return observableOf('Publication');
         }
+        if (param === 'query') {
+          return observableOf('test');
+        }
+        if (param === 'sourceId') {
+          return observableOf('pubmed');
+        }
         return observableOf({});
       });
       fixture.detectChanges();

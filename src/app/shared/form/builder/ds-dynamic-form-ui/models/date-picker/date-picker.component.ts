@@ -86,7 +86,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              protected translateService: TranslateService,
               private renderer: Renderer2,
               @Inject(DOCUMENT) private _document: Document,
   ) {

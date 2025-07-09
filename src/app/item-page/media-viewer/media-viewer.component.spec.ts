@@ -1,4 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -14,7 +17,9 @@ import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { FileService } from '../../core/shared/file.service';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -35,6 +40,9 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
   let fixture: ComponentFixture<MediaViewerComponent>;
+  let authService;
+  let authorizationService;
+  let fileService;
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(), {
     sizeBytes: 10201,
@@ -59,7 +67,7 @@ describe('MediaViewerComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test_word.docx',
+          value: 'test_image.jpg',
         },
       ],
     },
@@ -77,6 +85,15 @@ describe('MediaViewerComponent', () => {
   );
 
   beforeEach(waitForAsync(() => {
+    authService = jasmine.createSpyObj('AuthService', {
+      isAuthenticated: observableOf(true),
+    });
+    authorizationService = jasmine.createSpyObj('AuthorizationService', {
+      isAuthorized: observableOf(true),
+    });
+    fileService = jasmine.createSpyObj('FileService', {
+      retrieveFileDownloadLink: null,
+    });
     return TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -92,6 +109,10 @@ describe('MediaViewerComponent', () => {
         MetadataFieldWrapperComponent,
       ],
       providers: [
+        { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: FileService, useValue: fileService },
+        { provide: PLATFORM_ID, useValue: 'browser' },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
@@ -154,9 +175,9 @@ describe('MediaViewerComponent', () => {
       expect(mediaItem.thumbnail).toBe(null);
     });
 
-    it('should display a default, thumbnail', () => {
+    it('should display a default thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-media-viewer-image'),
+        By.css('ds-thumbnail'),
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });

@@ -21,6 +21,7 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { AlertComponent } from '../../alert/alert.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { createTestComponent } from '../../testing/utils.test';
@@ -72,6 +73,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
     searchTopEntries: jasmine.createSpy('searchTopEntries'),
     getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
     clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests'),
+    findVocabularyById: createSuccessfulRemoteDataObject$({ preloadLevel: 2 }),
   });
 
   beforeEach(waitForAsync(() => {

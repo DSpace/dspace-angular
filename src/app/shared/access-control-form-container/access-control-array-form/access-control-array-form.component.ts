@@ -138,6 +138,10 @@ export class AccessControlArrayFormComponent implements OnInit {
     return item.id;
   }
 
+  isValid() {
+    return this.ngForm.valid;
+  }
+
 }
 
 

@@ -9,6 +9,7 @@ import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
@@ -68,11 +69,23 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCommunityPageComponent,
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
+          },
+          {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'community.search' },
           },
           {
             path: 'subcoms-cols',

@@ -54,7 +54,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ViewTrackerResolverService } from '../../statistics/angulartics/dspace/view-tracker-resolver.service';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
@@ -173,7 +173,7 @@ describe('ItemPageComponent', () => {
       remove: { imports: [
         ThemedItemAlertsComponent,
         ItemVersionsNoticeComponent,
-        ViewTrackerComponent,
+        ViewTrackerResolverService,
         ListableObjectComponentLoaderComponent,
         ItemVersionsComponent,
         ErrorComponent,

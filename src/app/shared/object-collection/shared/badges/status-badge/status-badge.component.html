@@ -1,6 +1,10 @@
 <div *ngIf="privateBadge" class="private-badge">
-    <span class="badge badge-danger">{{ "item.badge.private" | translate }}</span>
+  <span class="sr-only">{{ 'item.badge.status' | translate }}</span>
+  <span class="badge badge-danger">{{ "item.badge.private" | translate }}</span>
+  <span class="sr-only">, </span>
 </div>
 <div *ngIf="withdrawnBadge" class="withdrawn-badge">
-    <span class="badge badge-warning">{{ "item.badge.withdrawn" | translate }}</span>
+  <span class="sr-only">{{ 'item.badge.status' | translate }}</span>
+  <span class="badge badge-warning">{{ "item.badge.withdrawn" | translate }}</span>
+  <span class="sr-only">, </span>
 </div>

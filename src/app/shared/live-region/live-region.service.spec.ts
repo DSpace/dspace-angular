@@ -1,18 +1,26 @@
 import {
   fakeAsync,
-  flush,
   tick,
 } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { AccessibilitySettingsService } from 'src/app/accessibility/accessibility-settings.service';
+import { getAccessibilitySettingsServiceStub } from 'src/app/accessibility/accessibility-settings.service.stub';
 
 import { UUIDService } from '../../core/shared/uuid.service';
 import { LiveRegionService } from './live-region.service';
 
 describe('liveRegionService', () => {
   let service: LiveRegionService;
+  let accessibilitySettingsService: AccessibilitySettingsService;
 
   beforeEach(() => {
+    accessibilitySettingsService = getAccessibilitySettingsServiceStub();
+
+    accessibilitySettingsService.getAsNumber = jasmine.createSpy('getAsNumber').and.returnValue(of(100));
+
     service = new LiveRegionService(
       new UUIDService(),
+      accessibilitySettingsService,
     );
   });
 
@@ -86,13 +94,16 @@ describe('liveRegionService', () => {
       expect(results[2]).toEqual(['Message One', 'Message Two']);
 
       service.clear();
-      flush();
+      tick(200);
 
       expect(results.length).toEqual(4);
       expect(results[3]).toEqual([]);
     }));
 
     it('should not pop messages added after clearing within timeOut period', fakeAsync(() => {
+      // test expects a clear rate of 30 seconds
+      accessibilitySettingsService.getAsNumber = jasmine.createSpy('getAsNumber').and.returnValue(of(30000));
+
       const results: string[][] = [];
 
       service.getMessages$().subscribe((messages) => {
@@ -116,45 +127,6 @@ describe('liveRegionService', () => {
 
       // But should be cleared 30 seconds after it was added
       tick(25000);
-      expect(results.length).toEqual(5);
-      expect(results[4]).toEqual([]);
-    }));
-
-    it('should respect configured timeOut', fakeAsync(() => {
-      const results: string[][] = [];
-
-      service.getMessages$().subscribe((messages) => {
-        results.push(messages);
-      });
-
-      expect(results.length).toEqual(1);
-      expect(results[0]).toEqual([]);
-
-      const timeOutMs = 500;
-      service.setMessageTimeOutMs(timeOutMs);
-
-      service.addMessage('Message One');
-      tick(timeOutMs - 1);
-
-      expect(results.length).toEqual(2);
-      expect(results[1]).toEqual(['Message One']);
-
-      tick(1);
-
-      expect(results.length).toEqual(3);
-      expect(results[2]).toEqual([]);
-
-      const timeOutMsTwo = 50000;
-      service.setMessageTimeOutMs(timeOutMsTwo);
-
-      service.addMessage('Message Two');
-      tick(timeOutMsTwo - 1);
-
-      expect(results.length).toEqual(4);
-      expect(results[3]).toEqual(['Message Two']);
-
-      tick(1);
-
       expect(results.length).toEqual(5);
       expect(results[4]).toEqual([]);
     }));
