@@ -14,7 +14,7 @@
     <span role="img"
     [attr.aria-label]="'file-download-link.restricted' | translate"
     [title]="'file-download-link.restricted' | translate"
-    class="pr-1">
+    class="pe-1">
       <i class="fas fa-lock"></i>
     </span>
   } @else if ((canDownloadWithToken$ | async) && (canDownload$ | async) === false) {
@@ -22,7 +22,7 @@
     <span role="img"
     [attr.aria-label]="'file-download-link.secure-access' | translate"
     [title]="'file-download-link.secure-access' | translate"
-    class="pr-1 request-a-copy-access-icon">
+    class="pe-1 request-a-copy-access-icon">
       <i class="fa-solid fa-lock-open"></i>
     </span>
   } @else if (showIcon) {
