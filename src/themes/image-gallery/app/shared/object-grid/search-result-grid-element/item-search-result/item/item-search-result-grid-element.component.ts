@@ -16,7 +16,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../../app/thumbnail/
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement, Context.Any, 'image-gallery')
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.Any, 'image-gallery')
 @Component({
-  selector: 'ds-item-search-result-grid-element',
+  selector: 'ds-item-search-result-grid-element-custom',
   styleUrls: ['./item-search-result-grid-element.component.scss'],
   templateUrl: './item-search-result-grid-element.component.html',
   animations: [focusShadow],

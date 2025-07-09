@@ -20,6 +20,12 @@
     </span>
   }
   <div class="card-body">
+    <!-- TAMU Customization - truncated title with date centered -->
+    <p class="card-title h5 font-weight-bolder text-truncate" [innerHTML]="dsoTitle"></p>
+    @if (dso.hasMetadata('dc.date.created')) {
+      <span class="item-date">{{firstMetadataValue('dc.date.created')}}</span>
+    }
+    <!--
     @if (showLabel) {
       <ds-badges [object]="dso" [context]="context" [showAccessStatus]="true"></ds-badges>
     }
@@ -55,6 +61,8 @@
         class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
       </div>
     }
+    -->
+    <!-- End TAMU Customization - truncated title with date centered -->
   </div>
   <ng-content></ng-content>
 </div>

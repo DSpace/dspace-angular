@@ -5,7 +5,7 @@ import { ViewMode } from '../../../../../../../../app/core/shared/view-mode.mode
 import { focusShadow } from '../../../../../../../../app/shared/animations/focus';
 import { listableObjectComponent } from '../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ItemGridElementComponent as BaseComponent } from '../../../../../../../../app/shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { ItemSearchResultGridElementComponent } from '../../../../../../../../app/shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
+import { ItemSearchResultGridElementComponent } from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 
 @listableObjectComponent('Publication', ViewMode.GridElement, Context.Any, 'image-gallery')
 @listableObjectComponent(Item, ViewMode.GridElement, Context.Any, 'image-gallery')
