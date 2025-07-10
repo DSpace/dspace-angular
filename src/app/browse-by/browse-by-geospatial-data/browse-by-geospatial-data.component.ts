@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   isPlatformBrowser,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -45,7 +44,6 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
   imports: [
     AsyncPipe,
     GeospatialMapComponent,
-    NgIf,
     TranslateModule,
   ],
   standalone: true,
