@@ -112,6 +112,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   firstName: DynamicInputModel;
   lastName: DynamicInputModel;
   email: DynamicInputModel;
+  phone: DynamicInputModel;
   // booleans
   canLogIn: DynamicCheckboxModel;
   requireCertificate: DynamicCheckboxModel;
@@ -136,6 +137,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
     },
     email: {
+      grid: {
+        host: 'row',
+      },
+    },
+    phone: {
       grid: {
         host: 'row',
       },
@@ -310,6 +316,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       },
       hint: this.translateService.instant(`${this.messagePrefix}.emailHint`),
     });
+    this.phone = new DynamicInputModel({
+      id: 'phone',
+      label: this.translateService.instant(`${this.messagePrefix}.phone`),
+      name: 'phone',
+      required: false,
+    });
     this.canLogIn = new DynamicCheckboxModel(
       {
         id: 'canLogIn',
@@ -328,6 +340,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.firstName,
       this.lastName,
       this.email,
+      this.phone,
       this.canLogIn,
       this.requireCertificate,
     ];
@@ -343,6 +356,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
         lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
         email: eperson != null ? eperson.email : '',
+        phone: eperson != null ? eperson.firstMetadataValue('eperson.phone') : '',
         canLogIn: eperson != null ? eperson.canLogIn : true,
         requireCertificate: eperson != null ? eperson.requireCertificate : false,
       });
@@ -419,6 +433,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
                 value: this.lastName.value,
               },
             ],
+            'eperson.phone': [
+              {
+                value: this.phone.value,
+              },
+            ],
           },
           email: this.email.value,
           canLogIn: this.canLogIn.value,
@@ -474,6 +493,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         'eperson.lastname': [
           {
             value: (this.lastName.value ? this.lastName.value : ePerson.firstMetadataValue('eperson.lastname')),
+          },
+        ],
+        'eperson.phone': [
+          {
+            value: this.phone.value,
           },
         ],
       },
