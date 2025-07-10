@@ -18,7 +18,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
-import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { ThemedAuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 describe('CreateItemParentSelectorComponent', () => {
@@ -62,7 +62,7 @@ describe('CreateItemParentSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateItemParentSelectorComponent, {
-        remove: { imports: [AuthorizedCollectionSelectorComponent] },
+        remove: { imports: [ThemedAuthorizedCollectionSelectorComponent] },
       })
       .compileComponents();
 
