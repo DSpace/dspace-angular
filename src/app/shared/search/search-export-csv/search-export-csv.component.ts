@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
