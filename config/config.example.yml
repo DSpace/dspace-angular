@@ -301,6 +301,9 @@ languages:
   - code: pt-BR
     label: Português do Brasil
     active: true
+  - code: ru
+    label: Русский
+    active: true
   - code: sr-lat
     label: Srpski (lat)
     active: true
@@ -318,9 +321,6 @@ languages:
     active: true
   - code: vi
     label: Tiếng Việt
-    active: true
-  - code: ru
-    label: Русский
     active: true
 
 
