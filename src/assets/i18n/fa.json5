@@ -1855,7 +1855,7 @@
   // TODO New key - Add a translation
   "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
 
-   // "browse.back.all-results": "All browse results",
+  // "browse.back.all-results": "All browse results",
   "browse.back.all-results": "همه نتایج مرور",
 
   // "browse.comcol.by.author": "By Author",
