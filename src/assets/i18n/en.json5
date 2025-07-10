@@ -1683,6 +1683,10 @@
 
   "cookies.consent.app.description.matomo": "Allows us to track statistical data",
 
+  "cookies.consent.app.title.menu-state": "Menu State",
+
+  "cookies.consent.app.description.menu-state": "Required to save menu pins",
+
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
