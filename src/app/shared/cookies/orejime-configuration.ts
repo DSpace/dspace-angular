@@ -10,6 +10,7 @@ import {
 } from '../../core/google-recaptcha/google-recaptcha.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
 import { NativeWindowRef } from '../../core/services/window.service';
+import { PINNED_MENU_COOKIE } from '../menu/menu.service';
 
 /**
  * Cookie for has_agreed_end_user
@@ -229,6 +230,12 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
         required: false,
         cookies: [ACCESSIBILITY_COOKIE],
         onlyOnce: false,
+      },
+      {
+        name: 'menu-state',
+        purposes: ['functional'],
+        required: false,
+        cookies: [PINNED_MENU_COOKIE],
       },
     ],
   };
