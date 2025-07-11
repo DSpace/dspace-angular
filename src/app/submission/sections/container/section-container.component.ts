@@ -79,7 +79,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
   @ViewChild('sectionRef') sectionRef: SectionsDirective;
 
   // TAMU Customization - theme service to get active theme
-  private themeService: ThemeService;
+  private readonly themeService: ThemeService;
   // END TAMU Customization - theme service to get active theme
 
   /**

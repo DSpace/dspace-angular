@@ -1,7 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicCheckboxModel, DynamicFormLayout, DynamicRadioGroupModel, MATCH_DISABLED } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
@@ -18,10 +19,14 @@ import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/su
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../../../../app/core/submission/submission-response-parsing.service';
 import { isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../../../../../app/shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../../../app/shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../../../../app/shared/form/form.component';
 import { FormService } from '../../../../../../app/shared/form/form.service';
 import { NotificationsService } from '../../../../../../app/shared/notifications/notifications.service';
 import { UploaderOptions } from '../../../../../../app/shared/upload/uploader/uploader-options.model';
+import { UploaderComponent } from '../../../../../../app/shared/upload/uploader/uploader.component';
+import { FileSizePipe } from '../../../../../../app/shared/utils/file-size-pipe';
 import { followLink } from '../../../../../../app/shared/utils/follow-link-config.model';
 import { SectionFormOperationsService } from '../../../../../../app/submission/sections/form/section-form-operations.service';
 import { SubmissionSectionLicenseComponent as BaseComponent } from '../../../../../../app/submission/sections/license/section-license.component';
@@ -39,9 +44,19 @@ import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
  */
 @Component({
   selector: 'ds-submission-section-license',
-  // styleUrls: ['./section-license.component.scss'],
+  styleUrls: ['./section-license.component.scss'],
+  // styleUrls: ['../../../../../../app/submission/sections/license/section-license.component.scss'],
   templateUrl: './section-license.component.html',
   // templateUrl: '../../../../../../app/submission/sections/license/section-license.component.html',
+  imports: [
+    AsyncPipe,
+    FileSizePipe,
+    FormComponent,
+    UploaderComponent,
+    ThemedFileDownloadLinkComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 @renderSectionFor(SectionsType.License, 'tamu')
 export class SubmissionSectionLicenseComponent extends BaseComponent {

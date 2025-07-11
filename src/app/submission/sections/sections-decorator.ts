@@ -43,7 +43,7 @@ export function renderSectionFor(sectionType: SectionsType, theme: string = 'dsp
 export function rendersSectionType(sectionType: SectionsType, theme: string = 'dspace') {
   let themedMap = submissionSectionsMap.get(theme);
   if (themedMap === undefined || !themedMap.has(sectionType)) {
-    themedMap = submissionSectionsMap.get('dspace');
+    return submissionSectionsMap.get(sectionType);
   }
   return themedMap.get(sectionType);
 }
