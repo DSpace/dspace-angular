@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { FilterType } from '../../../models/filter-type.model';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import {
   facetLoad,
@@ -14,6 +15,7 @@ import {
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
 import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 
 /**
  * This component renders a simple item page.
@@ -40,6 +42,7 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
 /**
  * Component that represents a text facet for a specific filter configuration
  */
+@renderFacetFor(FilterType.text)
 export class SearchTextFilterComponent extends SearchFacetFilterComponent implements OnInit {
   /**
    * Submits a new active custom value to the filter from the input field

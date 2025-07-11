@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  Component,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -14,6 +15,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
@@ -66,7 +68,7 @@ describe('StartsWithLoaderComponent', () => {
     comp.type = type;
     comp.paginationId = 'bbm';
     comp.startsWithOptions = [];
-    spyOn(comp, 'getComponent').and.returnValue(StartsWithTextComponent);
+    spyOn(comp, 'getComponent').and.returnValue(Promise.resolve(StartsWithTextComponent as GenericConstructor<Component>));
 
     fixture.detectChanges();
   }));

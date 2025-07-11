@@ -19,6 +19,7 @@ import { WorkflowItem } from '../../../core/submission/models/workflowitem.model
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -36,10 +37,7 @@ import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
-import {
-  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
-  AdvancedWorkflowActionSelectReviewerComponent,
-} from './advanced-workflow-action-select-reviewer.component';
+import { AdvancedWorkflowActionSelectReviewerComponent } from './advanced-workflow-action-select-reviewer.component';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -143,7 +141,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
       component.performAction();
 
       expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-        [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
+        [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
         eperson: [EPersonMock.id, EPersonMock2.id],
       });
       expect(notificationService.success).toHaveBeenCalled();
@@ -166,7 +164,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
       component.performAction();
 
       expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-        [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
+        [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
         eperson: [EPersonMock.id, EPersonMock2.id],
       });
       expect(notificationService.error).toHaveBeenCalled();

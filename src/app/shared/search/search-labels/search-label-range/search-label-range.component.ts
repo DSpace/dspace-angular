@@ -18,6 +18,7 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
+import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -33,6 +34,7 @@ import { AppliedFilter } from '../../models/applied-filter.model';
     TranslateModule,
   ],
 })
+@renderSearchLabelFor('range')
 export class SearchLabelRangeComponent implements OnInit {
 
   @Input() inPlaceSearch: boolean;

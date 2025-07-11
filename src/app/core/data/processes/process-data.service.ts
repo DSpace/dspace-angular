@@ -17,9 +17,11 @@ import {
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 
 import { Process } from '../../../process-page/processes/process.model';
+import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Bitstream } from '../../shared/bitstream.model';
@@ -55,6 +57,7 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
 });
 
 @Injectable({ providedIn: 'root' })
+@dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process>, SearchData<Process> {
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;

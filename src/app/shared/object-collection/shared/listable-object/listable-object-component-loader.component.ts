@@ -12,6 +12,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';
@@ -22,6 +23,9 @@ import { getListableObjectComponent } from './listable-object.decorator';
   styleUrls: ['./listable-object-component-loader.component.scss'],
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
   standalone: true,
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -110,24 +114,24 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
     super(themeService);
   }
 
-  public instantiateComponent(): void {
-    super.instantiateComponent();
+  public async instantiateComponent(): Promise<void> {
+    await super.instantiateComponent();
     if ((this.compRef.instance as any).reloadedObject) {
-      (this.compRef.instance as any).reloadedObject.pipe(
+      this.subs.push((this.compRef.instance as any).reloadedObject.pipe(
         take(1),
-      ).subscribe((reloadedObject: DSpaceObject) => {
+      ).subscribe(async (reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
           this.destroyComponentInstance();
           this.object = reloadedObject;
-          this.instantiateComponent();
+          await this.instantiateComponent();
           this.cdr.detectChanges();
           this.contentChange.emit(reloadedObject);
         }
-      });
+      }));
     }
   }
 
-  public getComponent(): GenericConstructor<Component> {
+  public getComponent(): Promise<GenericConstructor<Component>> {
     return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context, this.themeService.getThemeName());
   }
 

@@ -1,7 +1,4 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -9,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -154,7 +151,7 @@ describe('CommunityPageSubCollectionListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([]),
+        RouterModule.forRoot([]),
         NgbModule,
         NoopAnimationsModule,
         CommunityPageSubCollectionListComponent,
@@ -170,7 +167,6 @@ describe('CommunityPageSubCollectionListComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -183,6 +179,8 @@ describe('CommunityPageSubCollectionListComponent', () => {
 
   it('should display a list of collections', async () => {
     subCollList = collections;
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();

@@ -22,6 +22,7 @@ import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -61,6 +62,7 @@ import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
+import { GROUP } from './models/group.resource-type';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -69,6 +71,7 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
  * Provides methods to retrieve eperson group resources from the REST API & Group related CRUD actions.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(GROUP)
 export class GroupDataService extends IdentifiableDataService<Group> implements CreateData<Group>, SearchData<Group>, PatchData<Group>, DeleteData<Group> {
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';

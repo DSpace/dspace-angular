@@ -5,9 +5,11 @@ import { tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { METADATA_SCHEMA } from '../metadata/metadata-schema.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import {
@@ -36,6 +38,7 @@ import { RequestService } from './request.service';
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(METADATA_SCHEMA)
 export class MetadataSchemaDataService extends IdentifiableDataService<MetadataSchema> implements FindAllData<MetadataSchema>, DeleteData<MetadataSchema> {
   private createData: CreateData<MetadataSchema>;
   private findAllData: FindAllData<MetadataSchema>;

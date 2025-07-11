@@ -34,7 +34,7 @@ export class SearchLabelLoaderComponent extends AbstractComponentLoaderComponent
     'appliedFilter',
   ];
 
-  public getComponent(): GenericConstructor<Component> {
+  public getComponent(): Promise<GenericConstructor<Component>> {
     return getSearchLabelByOperator(this.appliedFilter.operator, this.themeService.getThemeName());
   }
 

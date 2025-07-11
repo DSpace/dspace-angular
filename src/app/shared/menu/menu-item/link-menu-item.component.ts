@@ -11,6 +11,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { isNotEmpty } from '../../empty.util';
+import { rendersMenuItemForType } from '../menu-item.decorator';
+import { MenuItemType } from '../menu-item-type.model';
 import { LinkMenuItemModel } from './models/link.model';
 
 /**
@@ -27,6 +29,7 @@ import { LinkMenuItemModel } from './models/link.model';
     TranslateModule,
   ],
 })
+@rendersMenuItemForType(MenuItemType.LINK)
 export class LinkMenuItemComponent implements OnInit {
   item: LinkMenuItemModel;
   hasLink: boolean;

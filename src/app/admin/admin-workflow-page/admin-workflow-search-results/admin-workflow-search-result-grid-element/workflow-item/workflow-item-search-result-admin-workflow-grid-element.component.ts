@@ -8,8 +8,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {
+  from,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
@@ -93,9 +100,17 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
-    this.item$.pipe(take(1)).subscribe((item: Item) => {
-      const component: GenericConstructor<Component> = this.getComponent(item);
 
+    this.item$.pipe(
+      take(1),
+      switchMap((item: Item) => {
+        return from(this.getComponent(item)).pipe(
+          map((component: GenericConstructor<Component>) => {
+            return { item, component };
+          }),
+        );
+      }),
+    ).subscribe(({ item, component }: { item: Item, component: GenericConstructor<Component> }) => {
       const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
       viewContainerRef.clear();
 
@@ -128,7 +143,7 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
    * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(item: Item): GenericConstructor<Component> {
+  private getComponent(item: Item): Promise<GenericConstructor<Component>> {
     return getListableObjectComponent(item.getRenderTypes(), ViewMode.GridElement, undefined, this.themeService.getThemeName());
   }
 

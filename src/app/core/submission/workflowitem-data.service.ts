@@ -8,6 +8,7 @@ import {
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -25,6 +26,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { DeleteByIDRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { WORKFLOWITEM } from '../eperson/models/workflowitem.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
@@ -34,6 +36,7 @@ import { WorkflowItem } from './models/workflowitem.model';
  * A service that provides methods to make REST requests with workflow items endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(WORKFLOWITEM)
 export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
   protected searchByItemLinkPath = 'item';
   protected responseMsToLive = 10 * 1000;

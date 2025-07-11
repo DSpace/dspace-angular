@@ -13,6 +13,8 @@ import {
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
+import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
@@ -36,6 +38,7 @@ import { RestRequest } from './rest-request.model';
  * button appears for admins in the item status page
  */
 @Injectable({ providedIn: 'root' })
+@dataService(IDENTIFIERS)
 export class IdentifierDataService extends BaseDataService<IdentifierData> {
 
   constructor(
