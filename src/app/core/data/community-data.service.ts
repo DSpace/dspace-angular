@@ -54,7 +54,7 @@ export class CommunityDataService extends ComColDataService<Community> {
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
+    return this.getEndpoint().pipe(
       switchMap((communityEndpointHref: string) =>
         this.halService.getEndpoint('subcommunities', `${communityEndpointHref}/${parentUUID}`)),
     );
