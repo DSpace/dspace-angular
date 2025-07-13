@@ -481,267 +481,203 @@
   "admin.access-control.epeople.form.canLogIn": "میتوانید وارد شوید",
 
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+  "admin.access-control.epeople.form.requireCertificate": "نیاز به گواهی",
 
   // "admin.access-control.epeople.form.return": "Back",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.return": "Back",
+  "admin.access-control.epeople.form.return": "برگشت",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.success": "EPerson با موفقیت ایجاد شد \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.created.failure": "ایجاد EPerson ناموفق بود \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "ایجاد EPerson ناموفق بود \"{{name}}\", email \"{{email}}\" قبلاً استفاده شده است.",
 
   // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "ویرایش EPerson ناموفق بود \"{{name}}\", email \"{{email}}\" قبلاً استفاده شده است.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.success": "EPerson با موفقیت ویرایش شد \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "ویرایش EPerson ناموفق بود \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.success": "EPerson با موفقیت حذف شد \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.deleted.failure": "حذف EPerson ناموفق بود \"{{name}}\"",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "EPerson این گروه:",
 
   // "admin.access-control.epeople.form.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.table.id": "ID",
 
   // "admin.access-control.epeople.form.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.name": "Name",
+  "admin.access-control.epeople.form.table.name": "نام",
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.epeople.form.table.collectionOrCommunity": "مجموعه/جامعه",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+  "admin.access-control.epeople.form.memberOfNoGroups": "این EPerson عضو هیچ گروهی نیست",
 
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+  "admin.access-control.epeople.form.goToGroups": "افزودن به گروه",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "هنگام حذف این EPerson با آی دی \"{{id}}\" با کد: \"{{statusCode}}\" و پیام \"{{restResponse.errorMessage}}\"خطا اتفاق افتاد",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\"با موفقیت حذف شد",
 
   // "admin.access-control.groups.title": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title": "Groups",
+  "admin.access-control.groups.title": "گروهها",
 
   // "admin.access-control.groups.breadcrumbs": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.breadcrumbs": "Groups",
+  "admin.access-control.groups.breadcrumbs": "گروهها",
 
   // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
+  "admin.access-control.groups.singleGroup.breadcrumbs": "ویرایش گروه",
 
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.singleGroup": "Edit Group",
+  "admin.access-control.groups.title.singleGroup": "ویرایش گروه",
 
   // "admin.access-control.groups.title.addGroup": "New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.title.addGroup": "New Group",
+  "admin.access-control.groups.title.addGroup": "گروه جدید",
 
   // "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.addGroup.breadcrumbs": "New Group",
+  "admin.access-control.groups.addGroup.breadcrumbs": "گروه جدید",
 
   // "admin.access-control.groups.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.head": "Groups",
+  "admin.access-control.groups.head": "گروهها",
 
   // "admin.access-control.groups.button.add": "Add group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.add": "Add group",
+  "admin.access-control.groups.button.add": "افزودن گروه",
 
   // "admin.access-control.groups.search.head": "Search groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.head": "Search groups",
+  "admin.access-control.groups.search.head": "جستجوی گروهها",
 
   // "admin.access-control.groups.button.see-all": "Browse all",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.button.see-all": "Browse all",
+  "admin.access-control.groups.button.see-all": "مرور همه",
 
   // "admin.access-control.groups.search.button": "Search",
   "admin.access-control.groups.search.button": "جستجو",
 
   // "admin.access-control.groups.search.placeholder": "Search groups...",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.search.placeholder": "Search groups...",
+  "admin.access-control.groups.search.placeholder": "جستجوی گروهها...",
 
   // "admin.access-control.groups.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.access-control.groups.table.id": "ID",
 
   // "admin.access-control.groups.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.name": "Name",
+  "admin.access-control.groups.table.name": "نام",
 
   // "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.table.collectionOrCommunity": "مجموعه/جامعه",
 
   // "admin.access-control.groups.table.members": "Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.members": "Members",
+  "admin.access-control.groups.table.members": "اعضا",
 
   // "admin.access-control.groups.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit": "Edit",
+  "admin.access-control.groups.table.edit": "ویرایش",
 
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.edit": "ویرایش \"{{name}}\"",
 
   // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "حذف \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.no-items": "یافت نشد UUID هیچ گروهی با این در نام هایشان و این به عنوان",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.success": "گروه \"{{name}}\" با موفقیت حذف شد",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "حذف گروه \"{{name}}\" ناموفق بود",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+  "admin.access-control.groups.notification.deleted.failure.content": "علت: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.permanent": "این گروه دائمی است، بنابراین نمی‌توان آن را ویرایش یا حذف کرد. شما همچنان می‌توانید با استفاده از این صفحه اعضای گروه را اضافه و حذف کنید.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "این گروه قابل تغییر یا حذف نیست زیرا مربوط به نقشی در فرآیند ارسال و گردش کار در \"{{name}}\" {{comcol}}. میتوانید حذف کنید از <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> زبانه در ویرایش صفحه {{comcol}}  شما همچنان می‌توانید با استفاده از این صفحه، اعضای گروه را اضافه و حذف کنید.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.create": "Create group",
+  "admin.access-control.groups.form.head.create": "ایجاد گروه",
 
   // "admin.access-control.groups.form.head.edit": "Edit group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.head.edit": "Edit group",
+  "admin.access-control.groups.form.head.edit": "ویرایش گروه",
 
   // "admin.access-control.groups.form.groupName": "Group name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupName": "Group name",
+  "admin.access-control.groups.form.groupName": "نام گروه",
 
   // "admin.access-control.groups.form.groupCommunity": "Community or Collection",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupCommunity": "Community or Collection",
+  "admin.access-control.groups.form.groupCommunity": "جامعه یا مجموعه",
 
   // "admin.access-control.groups.form.groupDescription": "Description",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.groupDescription": "Description",
+  "admin.access-control.groups.form.groupDescription": "توصیف",
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "گروه \"{{name}}\" با موفقیت ایجاد شد",
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "ایجاد گروه \"{{name}}\" ناموفق بود",
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "ایجاد گروه با نام: \"{{name}}\" ناموفق بود،مطمئن شوید که این نام قبلاً استفاده نشده باشد.",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.failure": "ویرایش گروه \"{{name}}\" ناموفق بود",
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "نام \"{{name}}\" قبلا استفاده شده است!",
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.edited.success": "گروه \"{{name}}\" با موفقیت ویرایش شد",
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.actions.delete": "Delete Group",
+  "admin.access-control.groups.form.actions.delete": "حذف گروه",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.header": "حذف گروه \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "آیا مطمئن هستید میخواهید گروه \"{{ dsoName }}\" را حذف کنید",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+  "admin.access-control.groups.form.delete-group.modal.cancel": "لغو",
 
   // "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+  "admin.access-control.groups.form.delete-group.modal.confirm": "حذف",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.success": "گروه \"{{ name }}\" با موفقیت حذف شد",
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.title": "حذف گروه \"{{ name }}\" ناموفق بود",
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
+  "admin.access-control.groups.form.notification.deleted.failure.content": "علت: \"{{ cause }}\"",
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
   // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.head": "EPeople",
 
   // "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "افزودن EPeople",
 
   // "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.members-list.button.see-all": "مرور همه",
 
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
+  "admin.access-control.groups.form.members-list.headMembers": "اعضای جاری",
 
   // "admin.access-control.groups.form.members-list.search.button": "Search",
   "admin.access-control.groups.form.members-list.search.button": "جستجو",
@@ -751,80 +687,62 @@
   "admin.access-control.groups.form.members-list.table.id": "ID",
 
   // "admin.access-control.groups.form.members-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.name": "Name",
+  "admin.access-control.groups.form.members-list.table.name": "نام",
 
   // "admin.access-control.groups.form.members-list.table.identity": "Identity",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.identity": "Identity",
+  "admin.access-control.groups.form.members-list.table.identity": "هویت",
 
   // "admin.access-control.groups.form.members-list.table.email": "Email",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.email": "Email",
+  "admin.access-control.groups.form.members-list.table.email": "ایمیل",
 
   // "admin.access-control.groups.form.members-list.table.netid": "NetID",
   // TODO New key - Add a translation
   "admin.access-control.groups.form.members-list.table.netid": "NetID",
 
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.members-list.table.edit": "حذف/افزودن",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "حذف عضو با نام \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "عضو \"{{name}}\" با موفقیت افزوده شد",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "افزودن عضو: \"{{name}}\" ناموفق بود",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "عضو: \"{{name}}\" با موفقیت حذف شد",
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "حذف عضو:  \"{{name}}\" ناموفق بود",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "افزودن عضو با نام \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "در حال حاضر گروه فعالی وجود ندارد، ابتدا نام را ارسال کنید.",
 
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
+  "admin.access-control.groups.form.members-list.no-members-yet": "هنوز عضوی در گروه نیست، جستجو و اضافه کنید.",
 
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+  "admin.access-control.groups.form.members-list.no-items": "هیچ EPeople در آن جستجو یافت نشد",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure": "اشتباهی رخ داده است: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.head": "Groups",
+  "admin.access-control.groups.form.subgroups-list.head": "گروهها",
 
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
+  "admin.access-control.groups.form.subgroups-list.search.head": "افزودن زیرگروه",
 
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "مرور همه",
 
   // "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "زیر گروههای جاری",
 
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
   "admin.access-control.groups.form.subgroups-list.search.button": "جستجو",
@@ -834,228 +752,172 @@
   "admin.access-control.groups.form.subgroups-list.table.id": "ID",
 
   // "admin.access-control.groups.form.subgroups-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+  "admin.access-control.groups.form.subgroups-list.table.name": "نام",
 
   // "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "مجموعه/جامعه",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
+  "admin.access-control.groups.form.subgroups-list.table.edit": "حذف/افزودن",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "حذف زیر گروه با نام \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "افزودن زیر گروه با نام \"{{name}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "زیر گروه: \"{{name}}\" با موفقیت اضافه شد",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "افزودن زیر گروه: \"{{name}}\" ناموفق بود",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "زیر گروه: \"{{name}}\" با موفقیت حذف شد",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "حذف زیر گروه: \"{{name}}\" ناموفق بود",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "در حال حاضر گروه فعالی وجود ندارد، ابتدا نام را ارسال کنید.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "این گروه جاری است، نمیتوان آنرا اضافه کرد.",
 
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
+  "admin.access-control.groups.form.subgroups-list.no-items": " نام یا این شناسه کاربری UUID یافت نشد.",
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "هنوز هیچ زیرگروهی در گروه وجود ندارد.",
 
   // "admin.access-control.groups.form.return": "Back",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.return": "Back",
+  "admin.access-control.groups.form.return": "برگشت",
 
   // "admin.quality-assurance.breadcrumbs": "Quality Assurance",
-  // TODO New key - Add a translation
-  "admin.quality-assurance.breadcrumbs": "Quality Assurance",
+  "admin.quality-assurance.breadcrumbs": "تضمین کیفیت",
 
   // "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
-  // TODO New key - Add a translation
-  "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
+  "admin.notifications.event.breadcrumbs": "پیشنهادات تضمین کیفیت",
 
   // "admin.notifications.event.page.title": "Quality Assurance Suggestions",
-  // TODO New key - Add a translation
-  "admin.notifications.event.page.title": "Quality Assurance Suggestions",
+  "admin.notifications.event.page.title": "پیشنهادات تضمین کیفیت",
 
   // "admin.quality-assurance.page.title": "Quality Assurance",
-  // TODO New key - Add a translation
-  "admin.quality-assurance.page.title": "Quality Assurance",
+  "admin.quality-assurance.page.title": "تضمین کیفیت",
 
   // "admin.notifications.source.breadcrumbs": "Quality Assurance",
-  // TODO New key - Add a translation
-  "admin.notifications.source.breadcrumbs": "Quality Assurance",
+  "admin.notifications.source.breadcrumbs": "تضمین کیفیت",
 
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "در این صفحه، می‌توانید ویژگی‌ها و اعضای یک گروه را تغییر دهید. در بخش بالا، می‌توانید نام و توضیحات گروه را ویرایش کنید، مگر اینکه این یک گروه مدیریتی برای یک مجموعه یا انجمن باشد، که در این صورت نام و توضیحات گروه به صورت خودکار ایجاد می‌شوند و قابل ویرایش نیستند. در بخش‌های بعدی، می‌توانید عضویت گروه را ویرایش کنید. برای جزئیات بیشتر به [ویکی](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) مراجعه کنید.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "برای اضافه کردن یا حذف یک EPerson به/از این گروه، یا روی دکمه «مرور همه» کلیک کنید یا از نوار جستجوی زیر برای جستجوی کاربران استفاده کنید (از منوی کشویی سمت چپ نوار جستجو برای انتخاب جستجو بر اساس ابرداده یا ایمیل استفاده کنید). سپس روی نماد به علاوه برای هر کاربری که می‌خواهید در لیست زیر اضافه کنید، یا روی نماد سطل زباله برای هر کاربری که می‌خواهید حذف کنید، کلیک کنید. لیست زیر ممکن است چندین صفحه داشته باشد: از کنترل‌های صفحه زیر لیست برای رفتن به صفحات بعدی استفاده کنید.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "برای اضافه کردن یا حذف یک زیرگروه به/از این گروه، یا روی دکمه «مرور همه» کلیک کنید یا از نوار جستجوی زیر برای جستجوی گروه‌ها استفاده کنید. سپس روی نماد به علاوه برای هر گروهی که می‌خواهید در لیست زیر اضافه کنید، یا روی نماد سطل زباله برای هر گروهی که می‌خواهید حذف کنید، کلیک کنید. لیست زیر ممکن است چندین صفحه داشته باشد: از کنترل‌های صفحه زیر لیست برای رفتن به صفحات بعدی استفاده کنید.",
 
   // "admin.reports.collections.title": "Collection Filter Report",
-  // TODO New key - Add a translation
-  "admin.reports.collections.title": "Collection Filter Report",
+  "admin.reports.collections.title": "گزارش فیلتر مجموعه",
 
   // "admin.reports.collections.breadcrumbs": "Collection Filter Report",
-  // TODO New key - Add a translation
-  "admin.reports.collections.breadcrumbs": "Collection Filter Report",
+  "admin.reports.collections.breadcrumbs": "گزارش فیلتر مجموعه",
 
   // "admin.reports.collections.head": "Collection Filter Report",
-  // TODO New key - Add a translation
-  "admin.reports.collections.head": "Collection Filter Report",
+  "admin.reports.collections.head": "گزارش فیلتر مجموعه",
 
   // "admin.reports.button.show-collections": "Show Collections",
-  // TODO New key - Add a translation
-  "admin.reports.button.show-collections": "Show Collections",
+  "admin.reports.button.show-collections": "نمایش مجموعه ها",
 
   // "admin.reports.collections.collections-report": "Collection Report",
-  // TODO New key - Add a translation
-  "admin.reports.collections.collections-report": "Collection Report",
+  "admin.reports.collections.collections-report": "گزارش مجموعه",
 
   // "admin.reports.collections.item-results": "Item Results",
-  // TODO New key - Add a translation
-  "admin.reports.collections.item-results": "Item Results",
+  "admin.reports.collections.item-results": "نتایج آیتم",
 
   // "admin.reports.collections.community": "Community",
-  // TODO New key - Add a translation
-  "admin.reports.collections.community": "Community",
+  "admin.reports.collections.community": "جامعه",
 
   // "admin.reports.collections.collection": "Collection",
-  // TODO New key - Add a translation
-  "admin.reports.collections.collection": "Collection",
+  "admin.reports.collections.collection": "مجموعه",
 
   // "admin.reports.collections.nb_items": "Nb. Items",
-  // TODO New key - Add a translation
-  "admin.reports.collections.nb_items": "Nb. Items",
+  "admin.reports.collections.nb_items": "Nb. آیتمها",
 
   // "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
-  // TODO New key - Add a translation
-  "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
+  "admin.reports.collections.match_all_selected_filters": "منطبق با همه فیلترهای انتخاب شده",
 
   // "admin.reports.items.breadcrumbs": "Metadata Query Report",
-  // TODO New key - Add a translation
-  "admin.reports.items.breadcrumbs": "Metadata Query Report",
+  "admin.reports.items.breadcrumbs": "گزارش پرس و جوی ابرداده",
 
   // "admin.reports.items.head": "Metadata Query Report",
-  // TODO New key - Add a translation
-  "admin.reports.items.head": "Metadata Query Report",
+  "admin.reports.items.head": "زارش پرس و جوی ابرداده",
 
   // "admin.reports.items.run": "Run Item Query",
-  // TODO New key - Add a translation
-  "admin.reports.items.run": "Run Item Query",
+  "admin.reports.items.run": "اجرای پرس و جوی آیتم",
 
   // "admin.reports.items.section.collectionSelector": "Collection Selector",
-  // TODO New key - Add a translation
-  "admin.reports.items.section.collectionSelector": "Collection Selector",
+  "admin.reports.items.section.collectionSelector": "انتخاب کننده مجموعه",
 
   // "admin.reports.items.section.metadataFieldQueries": "Metadata Field Queries",
-  // TODO New key - Add a translation
-  "admin.reports.items.section.metadataFieldQueries": "Metadata Field Queries",
+  "admin.reports.items.section.metadataFieldQueries": "پرسو جوهای فیلد ابرداده",
 
   // "admin.reports.items.predefinedQueries": "Predefined Queries",
-  // TODO New key - Add a translation
-  "admin.reports.items.predefinedQueries": "Predefined Queries",
+  "admin.reports.items.predefinedQueries": "پرس و جوهای از پیش تعریف شده",
 
   // "admin.reports.items.section.limitPaginateQueries": "Limit/Paginate Queries",
-  // TODO New key - Add a translation
-  "admin.reports.items.section.limitPaginateQueries": "Limit/Paginate Queries",
+  "admin.reports.items.section.limitPaginateQueries": "محدود کردن/ صفحه بندی پرس و جوها",
 
   // "admin.reports.items.limit": "Limit/",
-  // TODO New key - Add a translation
-  "admin.reports.items.limit": "Limit/",
+  "admin.reports.items.limit": "محدود/",
 
   // "admin.reports.items.offset": "Offset",
-  // TODO New key - Add a translation
-  "admin.reports.items.offset": "Offset",
+  "admin.reports.items.offset": "آفست",
 
   // "admin.reports.items.wholeRepo": "Whole Repository",
-  // TODO New key - Add a translation
-  "admin.reports.items.wholeRepo": "Whole Repository",
+  "admin.reports.items.wholeRepo": "تمام مخزن",
 
   // "admin.reports.items.anyField": "Any field",
-  // TODO New key - Add a translation
-  "admin.reports.items.anyField": "Any field",
+  "admin.reports.items.anyField": "هر فیلد",
 
   // "admin.reports.items.predicate.exists": "exists",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.exists": "exists",
+  "admin.reports.items.predicate.exists": "وجود دارد",
 
   // "admin.reports.items.predicate.doesNotExist": "does not exist",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.doesNotExist": "does not exist",
+  "admin.reports.items.predicate.doesNotExist": "وجود ندارد",
 
   // "admin.reports.items.predicate.equals": "equals",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.equals": "equals",
+  "admin.reports.items.predicate.equals": "برابر است",
 
   // "admin.reports.items.predicate.doesNotEqual": "does not equal",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.doesNotEqual": "does not equal",
+  "admin.reports.items.predicate.doesNotEqual": "برابر نیست",
 
   // "admin.reports.items.predicate.like": "like",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.like": "like",
+  "admin.reports.items.predicate.like": "شبیه است",
 
   // "admin.reports.items.predicate.notLike": "not like",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.notLike": "not like",
+  "admin.reports.items.predicate.notLike": "شبیه نیست",
 
   // "admin.reports.items.predicate.contains": "contains",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.contains": "contains",
+  "admin.reports.items.predicate.contains": "شامل است",
 
   // "admin.reports.items.predicate.doesNotContain": "does not contain",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.doesNotContain": "does not contain",
+  "admin.reports.items.predicate.doesNotContain": "شامل نیست",
 
   // "admin.reports.items.predicate.matches": "matches",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.matches": "matches",
+  "admin.reports.items.predicate.matches": "منطبق است",
 
   // "admin.reports.items.predicate.doesNotMatch": "does not match",
-  // TODO New key - Add a translation
-  "admin.reports.items.predicate.doesNotMatch": "does not match",
+  "admin.reports.items.predicate.doesNotMatch": "منطبق نیست",
 
   // "admin.reports.items.preset.new": "New Query",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.new": "New Query",
+  "admin.reports.items.preset.new": "پرس و جوی جدید",
 
   // "admin.reports.items.preset.hasNoTitle": "Has No Title",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasNoTitle": "Has No Title",
+  "admin.reports.items.preset.hasNoTitle": "عنوانی ندارد",
 
   // "admin.reports.items.preset.hasNoIdentifierUri": "Has No dc.identifier.uri",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasNoIdentifierUri": "Has No dc.identifier.uri",
+  "admin.reports.items.preset.hasNoIdentifierUri": "ندارد dc.identifier.uri",
 
   // "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
   // TODO New key - Add a translation
