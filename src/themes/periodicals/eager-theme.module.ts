@@ -1,42 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NavbarModule } from '../../app/navbar/navbar.module';
+
 import { RootModule } from '../../app/root.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ComcolModule } from '../../app/shared/comcol/comcol.module';
-import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { SharedModule } from '../../app/shared/shared.module';
-import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
  */
-const ENTRY_COMPONENTS = [
-  CollectionPageComponent
-];
+const ENTRY_COMPONENTS = [];
 
 const DECLARATIONS = [
-  ...ENTRY_COMPONENTS
+  ...ENTRY_COMPONENTS,
+  CollectionPageComponent,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
     RootModule,
-    NavbarModule,
-    ComcolModule,
-    DsoPageModule,
-    StatisticsModule,
+    ...DECLARATIONS,
   ],
-  declarations: DECLARATIONS,
   providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
   ],
 })
 /**
