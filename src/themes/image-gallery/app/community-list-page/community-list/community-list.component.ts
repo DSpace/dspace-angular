@@ -1,4 +1,11 @@
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { TruncatablePartComponent } from '../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableComponent } from '../../../../../app/shared/truncatable/truncatable.component';
 import { CommunityListComponent as BaseComponent } from '../../../../tamu/app/community-list-page/community-list/community-list.component';
 
 /**
@@ -10,9 +17,20 @@ import { CommunityListComponent as BaseComponent } from '../../../../tamu/app/co
  */
 @Component({
   selector: 'ds-community-list',
+  styleUrls: ['../../../../../app/community-list-page/community-list/community-list.component.scss'],
   // styleUrls: ['./community-list.component.scss'],
-  // templateUrl: './community-list.component.html'
-  templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html'
+  templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
+  // templateUrl: './community-list.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    CdkTreeModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 export class CommunityListComponent extends BaseComponent {
 
