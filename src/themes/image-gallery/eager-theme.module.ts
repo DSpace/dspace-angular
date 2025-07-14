@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 
 import { RootModule } from '../../app/root.module';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
-import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityPageComponent } from './app/community-page/community-page.component';
 import { ItemGridElementComponent } from './app/shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { ItemSearchResultGridElementComponent } from './app/shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
@@ -18,7 +17,6 @@ const ENTRY_COMPONENTS = [];
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
   CollectionPageComponent,
-  CommunityListComponent,
   CommunityPageComponent,
   ItemGridElementComponent,
   ItemSearchResultGridElementComponent,
