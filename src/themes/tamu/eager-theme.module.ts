@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { RootModule } from '../../app/root.module';
-import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
+import { HeaderComponent } from './app/header/header.component';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 
@@ -11,7 +11,8 @@ import { NavbarComponent } from './app/navbar/navbar.component';
 import { LoginPageComponent } from './app/login-page/login-page.component';
 import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
-import { CommunityPageComponent } from './app/community-page/community-page.component';
+import { CommunityPageSubCollectionListComponent } from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
+import { CommunityPageSubCommunityListComponent } from './app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
 import { SubmissionSectionLicenseComponent } from './app/submission/sections/license/section-license.component';
 // END TAMU Customizations
 
@@ -29,7 +30,8 @@ const DECLARATIONS = [
   NavbarComponent,
   // TAMU Customizations
   CommunityListComponent,
-  CommunityPageComponent,
+  CommunityPageSubCollectionListComponent,
+  CommunityPageSubCommunityListComponent,
   LoginPageComponent,
   LogoutPageComponent,
   SubmissionSectionLicenseComponent,
