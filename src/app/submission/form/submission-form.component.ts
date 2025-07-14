@@ -320,7 +320,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
         this.definitionId = this.submissionDefinition.name;
         this.submissionService.resetSubmissionObject(
-        (submissionObject.collection as Collection).id,
+          (submissionObject.collection as Collection).id,
           this.submissionId,
           submissionObject._links.self.href,
           this.submissionDefinition,

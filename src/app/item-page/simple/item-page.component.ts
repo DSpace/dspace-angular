@@ -188,11 +188,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
               type: link.type,
             });
           }
-            if (isNotEmpty(link.profile)) {
-              tag = Object.assign(tag, {
-                profile: link.profile,
-              });
-            }
+          if (isNotEmpty(link.profile)) {
+            tag = Object.assign(tag, {
+              profile: link.profile,
+            });
+          }
           this.linkHeadService.addTag(tag);
         });
 
