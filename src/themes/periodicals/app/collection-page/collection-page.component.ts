@@ -1,4 +1,4 @@
-import { AsyncPipe, KeyValue } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,27 +6,12 @@ import {
 import {
   ActivatedRoute,
   Router,
-  RouterLink,
-  RouterOutlet,
+  RouterLink
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, map, switchMap } from 'rxjs';
 
 import { CollectionPageComponent as BaseComponent } from '../../../../app/collection-page/collection-page.component';
-import {
-  fadeIn,
-  fadeInOut,
-} from '../../../../app/shared/animations/fade';
-import { ThemedComcolPageBrowseByComponent } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ThemedComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
-import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { ErrorComponent } from '../../../../app/shared/error/error.component';
-import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
-import { VarDirective } from '../../../../app/shared/utils/var.directive';
-
 import { AuthService } from '../../../../app/core/auth/auth.service';
 import { DSONameService } from '../../../../app/core/breadcrumbs/dso-name.service';
 import { SortDirection, SortOptions } from '../../../../app/core/cache/models/sort-options.model';
@@ -37,8 +22,20 @@ import { DSpaceObjectType } from '../../../../app/core/shared/dspace-object-type
 import { Item } from '../../../../app/core/shared/item.model';
 import { getFirstSucceededRemoteData, toDSpaceObjectListRD } from '../../../../app/core/shared/operators';
 import { SearchService } from '../../../../app/core/shared/search/search.service';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../app/shared/animations/fade';
+import { ThemedComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ErrorComponent } from '../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../../../app/shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../../app/shared/search/models/paginated-search-options.model';
+import { VarDirective } from '../../../../app/shared/utils/var.directive';
 
 const regex = /^.*Volume (\d?\d?), Numbers? (.*) \(Complete\)$/;
 
@@ -64,13 +61,12 @@ interface Volume {
   standalone: true,
   imports: [
     AsyncPipe,
+    CommonModule,
     ComcolPageHeaderComponent,
     ComcolPageLogoComponent,
     DsoEditMenuComponent,
     ErrorComponent,
     RouterLink,
-    RouterOutlet,
-    ThemedComcolPageBrowseByComponent,
     ThemedComcolPageContentComponent,
     ThemedComcolPageHandleComponent,
     ThemedLoadingComponent,
@@ -82,7 +78,7 @@ export class CollectionPageComponent extends BaseComponent {
 
   private readonly _searchService: SearchService;
 
-  public volumes: Observable<Map<number, Volume[]>>;
+  public volumes$: Observable<Map<number, Volume[]>>;
 
   constructor(
     searchService: SearchService,
@@ -112,7 +108,7 @@ export class CollectionPageComponent extends BaseComponent {
 
     const sort = new SortOptions('dc.date.accessioned', SortDirection.DESC);
 
-    this.volumes = this.fetchCompleteItems(pagination, sort)
+    this.volumes$ = this.fetchCompleteItems(pagination, sort)
       .pipe(map(((data: RemoteData<PaginatedList<Item>>) => {
         const volumes = new Map<number, Volume[]>();
         data.payload.page.forEach((item) => {
@@ -139,8 +135,12 @@ export class CollectionPageComponent extends BaseComponent {
       })));
   }
 
-  public sortByKeyDescOrder(a: KeyValue<string, Volume[]>, b: KeyValue<string, Volume[]>): number {
-    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  public getMapEntries(map: Map<number, Volume[]>): [number, Volume[]][] {
+    return Array.from(map.entries()).sort((a, b) => this.sortByKeyDescOrder(a, b));
+  }
+
+  public sortByKeyDescOrder(a: [number, Volume[]], b: [number, Volume[]]): number {
+    return b[0] - a[0]; // Descending order by key
   }
 
   public trackByIndex = (index: number): number => {
