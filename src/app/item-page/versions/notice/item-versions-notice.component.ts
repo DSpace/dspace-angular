@@ -1,6 +1,10 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -16,6 +20,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { RemoteData } from '../../../core/data/remote-data';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -39,8 +44,9 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
   templateUrl: './item-versions-notice.component.html',
   standalone: true,
   imports: [
-    AlertComponent,
-    AsyncPipe,
+    NgIf, 
+    AlertComponent, 
+    AsyncPipe, 
     TranslateModule,
   ],
 })
@@ -84,6 +90,8 @@ export class ItemVersionsNoticeComponent implements OnInit {
    * @type {AlertType}
    */
   public AlertTypeEnum = AlertType;
+
+  private appConfig = inject(APP_CONFIG);
 
   constructor(private versionHistoryService: VersionHistoryDataService) {
   }
@@ -134,7 +142,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
    */
   getItemPage(item: Item): string {
     if (hasValue(item)) {
-      return getItemPageRoute(item);
+      return getItemPageRoute(item, this.appConfig.ui.nameSpace);
     }
   }
 }
