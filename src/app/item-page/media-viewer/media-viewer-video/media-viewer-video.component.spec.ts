@@ -1,17 +1,25 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
-import { By } from '@angular/platform-browser';
 
 describe('MediaViewerVideoComponent', () => {
   let component: MediaViewerVideoComponent;
@@ -27,8 +35,6 @@ describe('MediaViewerVideoComponent', () => {
           },
         }),
         BrowserAnimationsModule,
-      ],
-      declarations: [
         MediaViewerVideoComponent,
         VarDirective,
         FileSizePipe,
@@ -42,7 +48,7 @@ describe('MediaViewerVideoComponent', () => {
     sizeBytes: 10201,
     content:
       'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-    format: observableOf(MockBitstreamFormat1),
+    format: of(MockBitstreamFormat1),
     bundleName: 'ORIGINAL',
     _links: {
       self: {
@@ -72,11 +78,11 @@ describe('MediaViewerVideoComponent', () => {
     [
       { bitstream: mockBitstream, format: 'video', thumbnail: null },
       { bitstream: mockBitstream, format: 'video', thumbnail: null },
-    ]
+    ],
   );
   const mockMediaViewerItem: MediaViewerItem[] = Object.assign(
     new Array<MediaViewerItem>(),
-    [{ bitstream: mockBitstream, format: 'video', thumbnail: null }]
+    [{ bitstream: mockBitstream, format: 'video', thumbnail: null }],
   );
 
   beforeEach(() => {

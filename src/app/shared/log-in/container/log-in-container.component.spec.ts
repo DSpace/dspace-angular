@@ -1,22 +1,31 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogInContainerComponent } from './log-in-container.component';
 import { authReducer } from '../../../core/auth/auth.reducer';
-import { SharedModule } from '../../shared.module';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
-import { AuthServiceStub } from '../../testing/auth-service.stub';
-import { createTestComponent } from '../../testing/utils.test';
-import { HardRedirectService } from '../../../core/services/hard-redirect.service';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { RouterTestingModule } from '@angular/router/testing';
+import { createTestComponent } from '../../testing/utils.test';
+import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {
 
@@ -30,7 +39,7 @@ describe('LogInContainerComponent', () => {
   beforeEach(waitForAsync(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       redirect: {},
-      getCurrentRoute: {}
+      getCurrentRoute: {},
     });
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
@@ -38,22 +47,19 @@ describe('LogInContainerComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
-        SharedModule,
         TranslateModule.forRoot(),
         RouterTestingModule,
-      ],
-      declarations: [
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
-        LogInContainerComponent
+        LogInContainerComponent,
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 
@@ -114,7 +120,11 @@ describe('LogInContainerComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

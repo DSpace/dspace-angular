@@ -1,6 +1,7 @@
-import { of as observableOf } from 'rxjs';
-import { RouteService } from './route.service';
+import { of } from 'rxjs';
+
 import { BrowserReferrerService } from './browser.referrer.service';
+import { RouteService } from './route.service';
 
 describe(`BrowserReferrerService`, () => {
   let service: BrowserReferrerService;
@@ -10,19 +11,19 @@ describe(`BrowserReferrerService`, () => {
 
   beforeEach(() => {
     routeService = {
-      getHistory: () => observableOf([])
+      getHistory: () => of([]),
     } as any;
     service = new BrowserReferrerService(
       { referrer: documentReferrer },
       routeService,
-      { getCurrentOrigin: () => origin } as any
+      { getCurrentOrigin: () => origin } as any,
     );
   });
 
   describe(`getReferrer`, () => {
     describe(`when the history is an empty`, () => {
       beforeEach(() => {
-        spyOn(routeService, 'getHistory').and.returnValue(observableOf([]));
+        spyOn(routeService, 'getHistory').and.returnValue(of([]));
       });
 
       it(`should return document.referrer`, (done: DoneFn) => {
@@ -35,7 +36,7 @@ describe(`BrowserReferrerService`, () => {
 
     describe(`when the history only contains the current route`, () => {
       beforeEach(() => {
-        spyOn(routeService, 'getHistory').and.returnValue(observableOf(['/current/route']));
+        spyOn(routeService, 'getHistory').and.returnValue(of(['/current/route']));
       });
 
       it(`should return document.referrer`, (done: DoneFn) => {
@@ -49,11 +50,11 @@ describe(`BrowserReferrerService`, () => {
     describe(`when the history contains multiple routes`, () => {
       const prevUrl = '/the/route/we/need';
       beforeEach(() => {
-        spyOn(routeService, 'getHistory').and.returnValue(observableOf([
+        spyOn(routeService, 'getHistory').and.returnValue(of([
           '/first/route',
           '/second/route',
           prevUrl,
-          '/current/route'
+          '/current/route',
         ]));
       });
 

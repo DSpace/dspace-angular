@@ -1,34 +1,40 @@
 import { Injectable } from '@angular/core';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from '../data/request.service';
-import { WorkflowItem } from './models/workflowitem.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteByIDRequest } from '../data/request.models';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { Observable } from 'rxjs';
-import { find, map } from 'rxjs/operators';
+import {
+  find,
+  map,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { DeleteByIDRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { WorkspaceItem } from './models/workspaceitem.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { PaginatedList } from '../data/paginated-list.model';
-import { dataService } from '../data/base/data-service.decorator';
+import { WorkflowItem } from './models/workflowitem.model';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.
  */
-@Injectable()
-@dataService(WorkflowItem.type)
+@Injectable({ providedIn: 'root' })
 export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
-  protected linkPath = 'workflowitems';
   protected searchByItemLinkPath = 'item';
   protected responseMsToLive = 10 * 1000;
 
@@ -42,7 +48,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super('workspaceitems', requestService, rdbService, objectCache, halService);
+    super('workflowitems', requestService, rdbService, objectCache, halService);
 
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
@@ -65,7 +71,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
   sendBack(id: string): Observable<boolean> {
     return this.deleteWFI(id, false).pipe(
       getFirstCompletedRemoteData(),
-      map((response: RemoteData<NoContent>) => response.hasSucceeded)
+      map((response: RemoteData<NoContent>) => response.hasSucceeded),
     );
   }
 
@@ -105,9 +111,9 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
    * @param options        The {@link FindListOptions} object
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
+  public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkflowItem>[]): Observable<RemoteData<WorkflowItem>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
+    findListOptions.searchParams = [new RequestParam('uuid', uuid)];
     const href$ = this.searchData.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
@@ -126,7 +132,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<PaginatedList<WorkspaceItem>>> {
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkflowItem>[]): Observable<RemoteData<PaginatedList<WorkflowItem>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 

@@ -1,6 +1,5 @@
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-
 import { Item } from './item.model';
 
 describe('Item', () => {
@@ -12,22 +11,21 @@ describe('Item', () => {
   const bitstream1Path = 'document.pdf';
   const bitstream2Path = 'otherfile.doc';
 
-  const nonExistingBundleName = 'c1e568f7-d14e-496b-bdd7-07026998cc00';
   let bitstreams;
   let remoteDataThumbnail;
   let remoteDataThumbnailList;
   let remoteDataFiles;
   let remoteDataBundles;
 
-  beforeEach(() => {
+  it('should be possible to create an Item without any errors', () => {
     const thumbnail = {
-      content: thumbnailPath
+      content: thumbnailPath,
     };
 
     bitstreams = [{
-      content: bitstream1Path
+      content: bitstream1Path,
     }, {
-      content: bitstream2Path
+      content: bitstream2Path,
     }];
 
     remoteDataThumbnail = createSuccessfulRemoteDataObject$(thumbnail);
@@ -40,16 +38,17 @@ describe('Item', () => {
         {
           name: thumbnailBundleName,
           primaryBitstream: remoteDataThumbnail,
-          bitstreams: remoteDataThumbnailList
+          bitstreams: remoteDataThumbnailList,
         },
 
         {
           name: originalBundleName,
-          bitstreams: remoteDataFiles
+          bitstreams: remoteDataFiles,
         }];
 
     remoteDataBundles = createSuccessfulRemoteDataObject$(createPaginatedList(bundles));
 
     item = Object.assign(new Item(), { bundles: remoteDataBundles });
+    expect().nothing();
   });
 });

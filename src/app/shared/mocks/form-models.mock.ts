@@ -1,19 +1,19 @@
 import { DynamicSelectModel } from '@ng-dynamic-forms/core';
 
+import { FormRowModel } from '../../core/config/models/config-submission-form.model';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import {
   DynamicRowArrayModel,
-  DynamicRowArrayModelConfig
+  DynamicRowArrayModelConfig,
 } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRelationGroupModel } from '../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormFieldModel } from '../form/builder/models/form-field.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { FormRowModel } from '../../core/config/models/config-submission-form.model';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',
@@ -25,30 +25,30 @@ export const qualdropSelectConfig = {
   options: [
     {
       label: 'ISSN',
-      value: 'dc.identifier.issn'
+      value: 'dc.identifier.issn',
     },
     {
       label: 'Other',
-      value: 'dc.identifier.other'
+      value: 'dc.identifier.other',
     },
     {
       label: 'ISMN',
-      value: 'dc.identifier.ismn'
+      value: 'dc.identifier.ismn',
     },
     {
       label: 'Gov\'t Doc #',
-      value: 'dc.identifier.govdoc'
+      value: 'dc.identifier.govdoc',
     },
     {
       label: 'URI',
-      value: 'dc.identifier.uri'
+      value: 'dc.identifier.uri',
     },
     {
       label: 'ISBN',
-      value: 'dc.identifier.isbn'
-    }
+      value: 'dc.identifier.isbn',
+    },
   ],
-  value: 'dc.identifier.issn'
+  value: 'dc.identifier.issn',
 };
 
 export const qualdropInputConfig = {
@@ -60,7 +60,7 @@ export const qualdropInputConfig = {
   value: 'test',
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockQualdropSelectModel = new DynamicSelectModel(qualdropSelectConfig);
@@ -71,7 +71,7 @@ export const qualdropConfig = {
   legend: 'Identifiers',
   readOnly: false,
   group: [mockQualdropSelectModel, mockQualdropInputModel],
-  required: false
+  required: false,
 };
 
 export const MockQualdropModel = new DynamicQualdropModel(qualdropConfig);
@@ -90,7 +90,7 @@ const rowArrayQualdropConfig = {
   metadataKey: 'dc.some.key',
   metadataFields: ['dc.some.key'],
   hasSelectableMetadata: false,
-  showButtons: true
+  showButtons: true,
 } as DynamicRowArrayModelConfig;
 
 export const MockRowArrayQualdropModel: DynamicRowArrayModel = new DynamicRowArrayModel(rowArrayQualdropConfig);
@@ -107,10 +107,10 @@ const mockFormRowModel = {
         {
           metadata: 'journal',
           controlledVocabulary: 'JOURNALAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel,
     {
       input: { type: 'onebox' },
@@ -120,12 +120,12 @@ const mockFormRowModel = {
       hints: ' Enter issue number.',
       selectableMetadata: [
         {
-          metadata: 'issue'
-        }
+          metadata: 'issue',
+        },
       ],
-      languageCodes: []
-    } as FormFieldModel
-  ]
+      languageCodes: [],
+    } as FormFieldModel,
+  ],
 } as FormRowModel;
 
 const relationGroupConfig = {
@@ -140,15 +140,15 @@ const relationGroupConfig = {
   value: {
     journal: [
       'journal test 1',
-      'journal test 2'
+      'journal test 2',
     ],
     issue: [
       'issue test 1',
-      'issue test 2'
+      'issue test 2',
     ],
   },
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const MockRelationModel: DynamicRelationGroupModel = new DynamicRelationGroupModel(relationGroupConfig);
@@ -158,12 +158,12 @@ export const inputWithLanguageAndAuthorityConfig = {
   languageCodes: [
     {
       display: 'English',
-      code: 'en_US'
+      code: 'en_US',
     },
     {
       display: 'Italian',
-      code: 'it_IT'
-    }
+      code: 'it_IT',
+    },
   ],
   language: 'en_US',
   name: 'testWithAuthority',
@@ -178,7 +178,7 @@ export const inputWithLanguageAndAuthorityConfig = {
   },
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockInputWithLanguageAndAuthorityModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityConfig);
@@ -187,12 +187,12 @@ export const inputWithLanguageConfig = {
   languageCodes: [
     {
       display: 'English',
-      code: 'en_US'
+      code: 'en_US',
     },
     {
       display: 'Italian',
-      code: 'it_IT'
-    }
+      code: 'it_IT',
+    },
   ],
   language: 'en_US',
   name: 'testWithLanguage',
@@ -203,7 +203,7 @@ export const inputWithLanguageConfig = {
   value: 'testWithLanguage',
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockInputWithLanguageModel = new DsDynamicInputModel(inputWithLanguageConfig);
@@ -213,12 +213,12 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
   languageCodes: [
     {
       display: 'English',
-      code: 'en_US'
+      code: 'en_US',
     },
     {
       display: 'Italian',
-      code: 'it_IT'
-    }
+      code: 'it_IT',
+    },
   ],
   language: 'en_US',
   name: 'testWithLanguageAndAuthorityArray',
@@ -233,7 +233,7 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
   }],
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockInputWithLanguageAndAuthorityArrayModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityArrayConfig);
@@ -247,7 +247,7 @@ export const inputWithFormFieldValueConfig = {
   value: new FormFieldMetadataValueObject('testWithFormFieldValue'),
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockInputWithFormFieldValueModel = new DsDynamicInputModel(inputWithFormFieldValueConfig);
@@ -261,11 +261,11 @@ export const inputWithAuthorityValueConfig = {
   value: Object.assign({}, new VocabularyEntry(), {
     value: 'testWithAuthorityValue',
     authority: 'testWithAuthorityValue',
-    display: 'testWithAuthorityValue'
+    display: 'testWithAuthorityValue',
   }),
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockInputWithAuthorityValueModel = new DsDynamicInputModel(inputWithAuthorityValueConfig);
@@ -279,7 +279,7 @@ export const inputWithObjectValueConfig = {
   value: { value: 'testWithObjectValue', authority: 'testWithObjectValue', display: 'testWithObjectValue' },
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockInputWithObjectValueModel = new DsDynamicInputModel(inputWithObjectValueConfig);
@@ -297,14 +297,14 @@ export const fileFormEditInputConfig = {
   repeatable: false,
   submissionId: '1234',
   metadataFields: [],
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const mockFileFormEditInputModel = new DsDynamicInputModel(fileFormEditInputConfig);
 
 export const mockFileFormEditRowGroupModel = new DynamicRowGroupModel({
   id: 'mockRowGroupModel',
-  group: [mockFileFormEditInputModel]
+  group: [mockFileFormEditInputModel],
 });
 
 // Mock configuration and model for an input with type binding
@@ -317,30 +317,30 @@ export const inputWithTypeBindConfig = {
   value: {
     value: 'testWithTypeBind',
     display: 'testWithTypeBind',
-    authority: 'bound-auth-key'
+    authority: 'bound-auth-key',
   },
   submissionId: '1234',
   metadataFields: [],
   hasSelectableMetadata: false,
   getTypeBindModel: new DsDynamicInputModel({
-      name: 'testWithTypeBind',
-      id: 'testWithTypeBind',
-      readOnly: false,
-      disabled: false,
-      repeatable: false,
-      value: {
-        value: 'testWithTypeBind',
-        display: 'testWithTypeBind',
-        authority: 'bound-auth-key'
-      },
-      submissionId: '1234',
-      metadataFields: [],
-      hasSelectableMetadata: false,
-      typeBindRelations: [
-        {match: 'VISIBLE', operator: 'OR', when: [{'id': 'dc.type', 'value': 'boundType'}]}
-      ]
-    }
-  )
+    name: 'testWithTypeBind',
+    id: 'testWithTypeBind',
+    readOnly: false,
+    disabled: false,
+    repeatable: false,
+    value: {
+      value: 'testWithTypeBind',
+      display: 'testWithTypeBind',
+      authority: 'bound-auth-key',
+    },
+    submissionId: '1234',
+    metadataFields: [],
+    hasSelectableMetadata: false,
+    typeBindRelations: [
+      { match: 'VISIBLE', operator: 'OR', when: [{ 'id': 'dc.type', 'value': 'boundType' }] },
+    ],
+  },
+  ),
 };
 
 export const mockInputWithTypeBindModel = new DsDynamicInputModel(inputWithAuthorityValueConfig);
@@ -355,8 +355,8 @@ export const dcTypeInputConfig = {
   metadataFields: [],
   hasSelectableMetadata: false,
   value: {
-    value: 'boundType'
-  }
+    value: 'boundType',
+  },
 };
 
 export const mockDcTypeInputModel = new DsDynamicInputModel(dcTypeInputConfig);

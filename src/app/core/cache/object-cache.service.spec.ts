@@ -1,33 +1,44 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { cold } from 'jasmine-marbles';
-import { Store, StoreModule } from '@ngrx/store';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
 import { Operation } from 'fast-json-patch';
-import { empty, of as observableOf } from 'rxjs';
+import { cold } from 'jasmine-marbles';
+import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
+import {
+  empty,
+  of,
+} from 'rxjs';
 import { first } from 'rxjs/operators';
+import { TestScheduler } from 'rxjs/testing';
 
-import { coreReducers} from '../core.reducers';
+import { storeModuleConfig } from '../../app.reducer';
+import { coreReducers } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { IndexName } from '../index/index-name.model';
+import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
 import {
   AddDependentsObjectCacheAction,
-  RemoveDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
 } from './object-cache.actions';
 import { Patch } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { HALLink } from '../shared/hal-link.model';
-import { storeModuleConfig } from '../../app.reducer';
-import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
-import { IndexName } from '../index/index-name.model';
-import { CoreState } from '../core-state.model';
-import { TestScheduler } from 'rxjs/testing';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
@@ -69,8 +80,8 @@ describe('ObjectCacheService', () => {
       type: Item.type,
       _links: {
         self: { href: selfLink },
-        anotherLink: { href: anotherLink }
-      }
+        anotherLink: { href: anotherLink },
+      },
     };
     cacheEntry = {
       data: objectToCache,
@@ -96,8 +107,8 @@ describe('ObjectCacheService', () => {
         'cache/syncbuffer': {},
         'cache/object-updates': {},
         'data/request': {},
-        'index': {}
-      }
+        'index': {},
+      },
     };
   }
 
@@ -105,12 +116,12 @@ describe('ObjectCacheService', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, storeModuleConfig)
+        StoreModule.forRoot(coreReducers, storeModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: ObjectCacheService, useValue: service }
-      ]
+        { provide: ObjectCacheService, useValue: service },
+      ],
     }).compileComponents();
   }));
 
@@ -120,7 +131,7 @@ describe('ObjectCacheService', () => {
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
     linkServiceStub = {
-      removeResolvedLinks: (a) => a
+      removeResolvedLinks: (a) => a,
     };
     spyOn(linkServiceStub, 'removeResolvedLinks').and.callThrough();
     spyOn(store, 'dispatch');
@@ -141,7 +152,7 @@ describe('ObjectCacheService', () => {
 
   describe('remove', () => {
     beforeEach(() => {
-      spyOn(service as any, 'getByHref').and.returnValue(observableOf(cacheEntry));
+      spyOn(service as any, 'getByHref').and.returnValue(of(cacheEntry));
     });
 
     it('should dispatch a REMOVE action with the self link of the object to remove', () => {
@@ -168,8 +179,8 @@ describe('ObjectCacheService', () => {
   describe('getByHref', () => {
     describe('if getBySelfLink emits a valid object and getByAlternativeLink emits undefined', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(cacheEntry));
-        spyOn(service as any, 'getByAlternativeLink').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'getBySelfLink').and.returnValue(of(cacheEntry));
+        spyOn(service as any, 'getByAlternativeLink').and.returnValue(of(undefined));
       });
 
       it('should return the object emitted by getBySelfLink', () => {
@@ -181,8 +192,8 @@ describe('ObjectCacheService', () => {
 
     describe('if getBySelfLink emits undefined and getByAlternativeLink a valid object', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(undefined));
-        spyOn(service as any, 'getByAlternativeLink').and.returnValue(observableOf(cacheEntry));
+        spyOn(service as any, 'getBySelfLink').and.returnValue(of(undefined));
+        spyOn(service as any, 'getByAlternativeLink').and.returnValue(of(cacheEntry));
       });
 
       it('should return the object emitted by getByAlternativeLink', () => {
@@ -194,8 +205,8 @@ describe('ObjectCacheService', () => {
 
     describe('if getBySelfLink emits an invalid and getByAlternativeLink a valid object', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(cacheEntry));
-        spyOn(service as any, 'getByAlternativeLink').and.returnValue(observableOf(cacheEntry2));
+        spyOn(service as any, 'getBySelfLink').and.returnValue(of(cacheEntry));
+        spyOn(service as any, 'getByAlternativeLink').and.returnValue(of(cacheEntry2));
       });
 
       it('should return the object emitted by getByAlternativeLink', () => {
@@ -209,9 +220,9 @@ describe('ObjectCacheService', () => {
   describe('getList', () => {
     it('should return an observable of the array of cached objects with the specified self link and type', () => {
       const item = Object.assign(new Item(), {
-        _links: { self: { href: selfLink } }
+        _links: { self: { href: selfLink } },
       });
-      spyOn(service, 'getObjectByHref').and.returnValue(observableOf(item));
+      spyOn(service, 'getObjectByHref').and.returnValue(of(item));
 
       service.getList([selfLink, selfLink]).pipe(first()).subscribe((arr) => {
         expect(arr[0]._links.self.href).toBe(selfLink);
@@ -224,7 +235,7 @@ describe('ObjectCacheService', () => {
     describe('with requestUUID not specified', () => {
       describe('getByHref emits an object', () => {
         beforeEach(() => {
-          spyOn(service, 'getByHref').and.returnValue(observableOf(cacheEntry));
+          spyOn(service, 'getByHref').and.returnValue(of(cacheEntry));
         });
 
         it('should return true', () => {
@@ -246,12 +257,12 @@ describe('ObjectCacheService', () => {
     describe('with requestUUID specified', () => {
       describe('getByHref emits an object that includes the specified requestUUID', () => {
         beforeEach(() => {
-          spyOn(service, 'getByHref').and.returnValue(observableOf(Object.assign(cacheEntry, {
+          spyOn(service, 'getByHref').and.returnValue(of(Object.assign(cacheEntry, {
             requestUUIDs: [
               'something',
               'something-else',
               'specific-request',
-            ]
+            ],
           })));
         });
 
@@ -262,11 +273,11 @@ describe('ObjectCacheService', () => {
 
       describe('getByHref emits an object that doesn\'t include the specified requestUUID', () => {
         beforeEach(() => {
-          spyOn(service, 'getByHref').and.returnValue(observableOf(Object.assign(cacheEntry, {
+          spyOn(service, 'getByHref').and.returnValue(of(Object.assign(cacheEntry, {
             requestUUIDs: [
               'something',
               'something-else',
-            ]
+            ],
           })));
         });
 
@@ -292,9 +303,9 @@ describe('ObjectCacheService', () => {
       const state = Object.assign({}, initialState, {
         core: Object.assign({}, initialState.core, {
           'cache/object': {
-            [selfLink]: cacheEntry
-          }
-        })
+            [selfLink]: cacheEntry,
+          },
+        }),
       });
       mockStore.setState(state);
       const expected: TestColdObservable = cold('a', { a: cacheEntry });
@@ -310,14 +321,14 @@ describe('ObjectCacheService', () => {
       const state = Object.assign({}, initialState, {
         core: Object.assign({}, initialState.core, {
           'cache/object': {
-            [selfLink]: cacheEntry
+            [selfLink]: cacheEntry,
           },
           'index': {
             'object/alt-link-to-self-link': {
-              [anotherLink]: selfLink
-            }
-          }
-        })
+              [anotherLink]: selfLink,
+            },
+          },
+        }),
       });
       mockStore.setState(state);
       (service as any).getByAlternativeLink(anotherLink).subscribe();
@@ -335,8 +346,8 @@ describe('ObjectCacheService', () => {
     it('isDirty should return true when the patches list in the cache entry is not empty', () => {
       cacheEntry.patches = [
         {
-          operations: operations
-        } as Patch
+          operations: operations,
+        } as Patch,
       ];
       const result = (service as any).isDirty(cacheEntry);
       expect(result).toBe(true);
@@ -371,9 +382,9 @@ describe('ObjectCacheService', () => {
               [anotherLink]: selfLink,
               ['objectWithoutDependentsAlt']: 'objectWithoutDependents',
               ['objectWithDependentsAlt']: 'objectWithDependents',
-            }
-          }
-        })
+            },
+          },
+        }),
       });
       mockStore.setState(state);
     });
@@ -409,7 +420,7 @@ describe('ObjectCacheService', () => {
       });
 
       it('should work with observable hrefs', () => {
-        service.addDependency(observableOf(selfLink), observableOf('objectWithoutDependents'));
+        service.addDependency(of(selfLink), of('objectWithoutDependents'));
         expect(store.dispatch).toHaveBeenCalledOnceWith(new AddDependentsObjectCacheAction('objectWithoutDependents', [requestUUID]));
       });
 
@@ -421,11 +432,11 @@ describe('ObjectCacheService', () => {
         testScheduler.run(({ cold: tsCold, flush }) => {
           const href$ = tsCold('--y-n-n', {
             y: selfLink,
-            n: 'NOPE'
+            n: 'NOPE',
           });
           const dependsOnHref$ = tsCold('-y-n-n', {
             y: 'objectWithoutDependents',
-            n: 'NOPE'
+            n: 'NOPE',
           });
 
           service.addDependency(href$, dependsOnHref$);

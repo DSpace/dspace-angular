@@ -2,12 +2,16 @@ import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
-import { ChipsItem, ChipsItemIcon } from './chips-item.model';
-import { hasValue, isNotEmpty } from '../../../empty.util';
+
 import { MetadataIconConfig } from '../../../../../config/submission-config.interface';
-import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
+import { ChipsItem } from './chips-item.model';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
@@ -18,9 +22,9 @@ export class Chips {
   private _items: ChipsItem[];
 
   constructor(items: any[] = [],
-              displayField: string = 'display',
-              displayObj?: string,
-              iconsConfig?: MetadataIconConfig[]) {
+    displayField: string = 'display',
+    displayObj?: string,
+    iconsConfig?: MetadataIconConfig[]) {
 
     this.displayField = displayField;
     this.displayObj = displayObj;
@@ -34,7 +38,7 @@ export class Chips {
     const icons = this.getChipsIcons(item);
     const chipsItem = new ChipsItem(item, this.displayField, this.displayObj, icons);
 
-    const duplicatedIndex = findIndex(this._items, {display: chipsItem.display.trim()});
+    const duplicatedIndex = findIndex(this._items, { display: chipsItem.display.trim() });
     if (duplicatedIndex === -1 || !isEqual(item, this.getChipByIndex(duplicatedIndex).item)) {
       this._items.push(chipsItem);
       this.chipsItems.next(this._items);
@@ -42,7 +46,7 @@ export class Chips {
   }
 
   public getChipById(id): ChipsItem {
-    const index = findIndex(this._items, {id: id});
+    const index = findIndex(this._items, { id: id });
     return this.getChipByIndex(index);
   }
 
@@ -83,7 +87,7 @@ export class Chips {
   }
 
   public remove(chipsItem: ChipsItem): void {
-    const index = findIndex(this._items, {id: chipsItem.id});
+    const index = findIndex(this._items, { id: chipsItem.id });
     this._items.splice(index, 1);
     this.chipsItems.next(this._items);
   }
@@ -108,7 +112,7 @@ export class Chips {
       return icons;
     }
 
-    const defaultConfigIndex: number = findIndex(this.iconsConfig, {name: 'default'});
+    const defaultConfigIndex: number = findIndex(this.iconsConfig, { name: 'default' });
     const defaultConfig: MetadataIconConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex] : undefined;
     let config: MetadataIconConfig;
     let configIndex: number;
@@ -118,20 +122,18 @@ export class Chips {
       .forEach((metadata) => {
 
         value = item[metadata];
-        configIndex = findIndex(this.iconsConfig, {name: metadata});
+        configIndex = findIndex(this.iconsConfig, { name: metadata });
 
         config = (configIndex !== -1) ? this.iconsConfig[configIndex] : defaultConfig;
 
         if (hasValue(value) && isNotEmpty(config) && !this.hasPlaceholder(value)) {
-
-          let icon: ChipsItemIcon;
           const visibleWhenAuthorityEmpty = this.displayObj !== metadata;
 
           // Set icon
-          icon = {
+          const icon = {
             metadata,
             visibleWhenAuthorityEmpty,
-            style: config.style
+            style: config.style,
           };
 
           icons.push(icon);

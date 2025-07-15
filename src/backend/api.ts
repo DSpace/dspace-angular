@@ -1,15 +1,14 @@
+// Our API for demos only
+import { fakeDemoRedisCache } from './cache';
+import BITSTREAMS from './data/bitstreams.json';
+import BUNDLES from './data/bundles.json';
+import COLLECTIONS from './data/collections.json';
+import COMMUNITIES from './data/communities.json';
+import ITEMS from './data/items.json';
+import { fakeDataBase } from './db';
+
 const { Router } = require('express');
 const util = require('util');
-
-// Our API for demos only
-import { fakeDataBase } from './db';
-import { fakeDemoRedisCache } from './cache';
-
-import COMMUNITIES from './data/communities.json';
-import COLLECTIONS from './data/collections.json';
-import ITEMS from './data/items.json';
-import BUNDLES from './data/bundles.json';
-import BITSTREAMS from './data/bitstreams.json';
 
 // you would use cookies/token etc
 const USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example
@@ -36,12 +35,12 @@ function toHALResponse(req, data, included?) {
   const result = {
     _embedded: data,
     _links: {
-      self: req.protocol + '://' + req.get('host') + req.originalUrl
-    }
+      self: req.protocol + '://' + req.get('host') + req.originalUrl,
+    },
   };
   if (included && Array.isArray(included) && included.length > 0) {
     Object.assign(result, {
-      included: included
+      included: included,
     });
   }
   return result;

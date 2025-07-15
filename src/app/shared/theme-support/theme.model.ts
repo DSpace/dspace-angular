@@ -1,20 +1,38 @@
 /* eslint-disable max-classes-per-file */
-import { hasValue, hasNoValue, isNotEmpty } from '../empty.util';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getDSORoute } from '../../app-routing-paths';
-import { HandleObject } from '../../core/shared/handle-object.model';
 import { Injector } from '@angular/core';
+import {
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import {
+  HandleThemeConfig,
+  NamedThemeConfig,
+  RegExThemeConfig,
+  ThemeConfig,
+  UUIDThemeConfig,
+} from '../../../config/theme.config';
+import { getDSORoute } from '../../app-routing-paths';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { HandleObject } from '../../core/shared/handle-object.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 import { HandleService } from '../handle.service';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { HandleThemeConfig, NamedThemeConfig, RegExThemeConfig, UUIDThemeConfig, ThemeConfig } from '../../../config/theme.config';
 
 export class Theme {
   constructor(public config: NamedThemeConfig) {
   }
 
   matches(url: string, dso: DSpaceObject): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 }
 
@@ -38,14 +56,14 @@ export class RegExTheme extends Theme {
       match = url.match(this.regex);
     }
 
-    return observableOf(hasValue(match));
+    return of(hasValue(match));
   }
 }
 
 export class HandleTheme extends Theme {
 
   constructor(public config: HandleThemeConfig,
-              protected handleService: HandleService
+              protected handleService: HandleService,
   ) {
     super(config);
   }
@@ -62,7 +80,7 @@ export class HandleTheme extends Theme {
         take(1),
       );
     } else {
-      return observableOf(false);
+      return of(false);
     }
   }
 }
@@ -73,7 +91,7 @@ export class UUIDTheme extends Theme {
   }
 
   matches(url: string, dso: DSpaceObject): Observable<boolean> {
-    return observableOf(hasValue(dso) && dso.uuid === this.config.uuid);
+    return of(hasValue(dso) && dso.uuid === this.config.uuid);
   }
 }
 

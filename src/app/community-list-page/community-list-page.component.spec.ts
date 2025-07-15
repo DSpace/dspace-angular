@@ -1,9 +1,20 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { CommunityListPageComponent } from './community-list-page.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ThemeService } from '../shared/theme-support/theme.service';
+import { CommunityListPageComponent } from './community-list-page.component';
+import { CommunityListService } from './community-list-service';
 
 describe('CommunityListPageComponent', () => {
   let component: CommunityListPageComponent;
@@ -15,13 +26,15 @@ describe('CommunityListPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
+            useClass: TranslateLoaderMock,
           },
         }),
+        CommunityListPageComponent,
       ],
-      declarations: [CommunityListPageComponent],
       providers: [
         CommunityListPageComponent,
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: CommunityListService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

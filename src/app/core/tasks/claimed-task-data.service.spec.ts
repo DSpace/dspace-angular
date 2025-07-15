@@ -1,17 +1,17 @@
 import { HttpHeaders } from '@angular/common/http';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ClaimedTaskDataService } from './claimed-task-data.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestParam } from '../cache/models/request-param.model';
-import { getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FindListOptions } from '../data/find-list-options.model';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { FindListOptions } from '../data/find-list-options.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { ClaimedTaskDataService } from './claimed-task-data.service';
 
 describe('ClaimedTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -28,7 +28,7 @@ describe('ClaimedTaskDataService', () => {
     },
     getObjectBySelfLink: () => {
       /* empty */
-    }
+    },
   } as any;
 
   function initTestService(): ClaimedTaskDataService {
@@ -58,7 +58,7 @@ describe('ClaimedTaskDataService', () => {
     it('should call postToEndpoint method', () => {
       const scopeId = '1234';
       const body = {
-        submit_approve: 'true'
+        submit_approve: 'true',
       };
 
       spyOn(service, 'postToEndpoint');
@@ -74,7 +74,7 @@ describe('ClaimedTaskDataService', () => {
 
     it('should call postToEndpoint method', () => {
 
-      spyOn(service, 'postToEndpoint').and.returnValue(observableOf(null));
+      spyOn(service, 'postToEndpoint').and.returnValue(of(null));
 
       scheduler.schedule(() => service.claimTask('scopeId', 'poolTaskHref').subscribe());
       scheduler.flush();
@@ -103,14 +103,14 @@ describe('ClaimedTaskDataService', () => {
   describe('findByItem', () => {
 
     it('should call searchTask method', () => {
-      spyOn((service as any), 'searchTask').and.returnValue(observableOf(createSuccessfulRemoteDataObject$({})));
+      spyOn((service as any), 'searchTask').and.returnValue(of(createSuccessfulRemoteDataObject$({})));
 
       scheduler.schedule(() => service.findByItem('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
       scheduler.flush();
 
       const findListOptions = new FindListOptions();
       findListOptions.searchParams = [
-        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
+        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c'),
       ];
 
       expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions);

@@ -1,14 +1,43 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { EMPTY, Observable, of as observableOf } from 'rxjs';
+import {
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import {
+  EMPTY,
+  Observable,
+  of,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { storeModuleConfig } from '../../app.reducer';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
+import {
+  defaultUUID,
+  getMockUUIDService,
+} from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreReducers} from '../core.reducers';
+import { coreReducers } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction, RequestStaleAction } from './request.actions';
+import {
+  RequestConfigureAction,
+  RequestExecuteAction,
+  RequestStaleAction,
+} from './request.actions';
 import {
   DeleteRequest,
   GetRequest,
@@ -16,16 +45,12 @@ import {
   OptionsRequest,
   PatchRequest,
   PostRequest,
-  PutRequest
+  PutRequest,
 } from './request.models';
 import { RequestService } from './request.service';
-import { fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { storeModuleConfig } from '../../app.reducer';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { RequestEntry } from './request-entry.model';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
-import { CoreState } from '../core-state.model';
-import { RequestEntry } from './request-entry.model';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -53,19 +78,19 @@ describe('RequestService', () => {
       'cache/object-updates': {},
       'data/request': {},
       'index': {},
-    }
+    },
   };
 
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, storeModuleConfig)
+        StoreModule.forRoot(coreReducers, storeModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: RequestService, useValue: service }
-      ]
+        { provide: RequestService, useValue: service },
+      ],
     }).compileComponents();
   }));
 
@@ -80,11 +105,11 @@ describe('RequestService', () => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
+
     service = new RequestService(
       objectCache,
       uuidService,
       store,
-      undefined
     );
     serviceAsAny = service as any;
   });
@@ -101,7 +126,7 @@ describe('RequestService', () => {
   describe('isPending', () => {
     describe('before the request is configured', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+        spyOn(service, 'getByHref').and.returnValue(of(undefined));
       });
 
       it('should return false', () => {
@@ -114,7 +139,7 @@ describe('RequestService', () => {
 
     describe('when the request has been configured but hasn\'t reached the store yet', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+        spyOn(service, 'getByHref').and.returnValue(of(undefined));
         serviceAsAny.requestsOnTheirWayToTheStore = [testHref];
       });
 
@@ -128,8 +153,8 @@ describe('RequestService', () => {
 
     describe('when the request has reached the store, before the server responds', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf({
-          state: RequestEntryState.ResponsePending
+        spyOn(service, 'getByHref').and.returnValue(of({
+          state: RequestEntryState.ResponsePending,
         } as RequestEntry));
       });
 
@@ -143,8 +168,8 @@ describe('RequestService', () => {
 
     describe('after the server responds', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValues(observableOf({
-          state: RequestEntryState.Success
+        spyOn(service, 'getByHref').and.returnValues(of({
+          state: RequestEntryState.Success,
         } as RequestEntry));
       });
 
@@ -166,22 +191,22 @@ describe('RequestService', () => {
         entry = {
           state: RequestEntryState.Success,
           response: {
-            timeCompleted: new Date().getTime()
+            timeCompleted: new Date().getTime(),
           },
-          request: new GetRequest('request-uuid', 'request-href')
+          request: new GetRequest('request-uuid', 'request-href'),
         };
 
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'data/request': {
-              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry,
             },
             'index': {
               'get-request/configured-to-cache-uuid': {
-                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -189,7 +214,7 @@ describe('RequestService', () => {
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByUUID(testUUID);
         const expected = cold('b', {
-          b: entry
+          b: entry,
         });
 
         expect(result).toBeObservable(expected);
@@ -220,24 +245,24 @@ describe('RequestService', () => {
         entry = {
           state: RequestEntryState.Success,
           response: {
-            timeCompleted: new Date().getTime()
+            timeCompleted: new Date().getTime(),
           },
-          request: new GetRequest('request-uuid', 'request-href')
+          request: new GetRequest('request-uuid', 'request-href'),
         };
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'data/request': {
-              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry,
             },
             'index': {
               'get-request/configured-to-cache-uuid': {
-                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
               },
               'get-request/href-to-uuid': {
-                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -245,7 +270,7 @@ describe('RequestService', () => {
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
-          c: entry
+          c: entry,
         });
 
         expect(result).toBeObservable(expected);
@@ -263,7 +288,7 @@ describe('RequestService', () => {
       it('should return an Observable of undefined', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
-          c: undefined
+          c: undefined,
         });
 
         expect(result).toBeObservable(expected);
@@ -366,7 +391,7 @@ describe('RequestService', () => {
           describe('and it is cached', () => {
             describe('in the ObjectCache', () => {
               beforeEach(() => {
-                (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUID: 'some-uuid' }));
+                (objectCache.getByHref as any).and.returnValue(of({ requestUUID: 'some-uuid' }));
                 spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
                 spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
               });
@@ -375,7 +400,7 @@ describe('RequestService', () => {
             });
             describe('in the request cache', () => {
               beforeEach(() => {
-                (objectCache.getByHref as any).and.returnValue(observableOf(undefined));
+                (objectCache.getByHref as any).and.returnValue(of(undefined));
                 spyOn(serviceAsAny, 'hasByHref').and.returnValues(true);
                 spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
               });
@@ -426,7 +451,7 @@ describe('RequestService', () => {
           describe('and it is cached', () => {
             describe('in the ObjectCache', () => {
               beforeEach(() => {
-                (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUIDs: ['some-uuid'] }));
+                (objectCache.getByHref as any).and.returnValue(of({ requestUUIDs: ['some-uuid'] }));
                 spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
                 spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
               });
@@ -440,7 +465,7 @@ describe('RequestService', () => {
             });
             describe('in the request cache', () => {
               beforeEach(() => {
-                (objectCache.getByHref as any).and.returnValue(observableOf(undefined));
+                (objectCache.getByHref as any).and.returnValue(of(undefined));
                 spyOn(serviceAsAny, 'hasByHref').and.returnValues(true);
                 spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
               });
@@ -477,21 +502,23 @@ describe('RequestService', () => {
       dispatchSpy = spyOn(store, 'dispatch');
     });
 
-    it('should dispatch a RequestConfigureAction', () => {
+    it('should dispatch a RequestConfigureAction', fakeAsync(() => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
+      flush();
       const firstAction = dispatchSpy.calls.argsFor(0)[0];
       expect(firstAction).toBeInstanceOf(RequestConfigureAction);
       expect(firstAction.payload).toEqual(request);
-    });
+    }));
 
-    it('should dispatch a RequestExecuteAction', () => {
+    it('should dispatch a RequestExecuteAction', fakeAsync(() => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
+      flush();
       const secondAction = dispatchSpy.calls.argsFor(1)[0];
       expect(secondAction).toBeInstanceOf(RequestExecuteAction);
       expect(secondAction.payload).toEqual(request.uuid);
-    });
+    }));
 
     describe('when it\'s not a GET request', () => {
       it('shouldn\'t track it', () => {
@@ -527,9 +554,9 @@ describe('RequestService', () => {
       entry = {
         state: RequestEntryState.Success,
         response: {
-          timeCompleted: new Date().getTime()
+          timeCompleted: new Date().getTime(),
         },
-        request: request
+        request: request,
       };
     });
 
@@ -543,7 +570,7 @@ describe('RequestService', () => {
 
     describe('when the request is added to the store', () => {
       it('should stop tracking the request', () => {
-        spyOn(serviceAsAny, 'getByHref').and.returnValue(observableOf(entry));
+        spyOn(serviceAsAny, 'getByHref').and.returnValue(of(entry));
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });
@@ -563,7 +590,7 @@ describe('RequestService', () => {
 
     describe('when the RequestEntry is undefined', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+        spyOn(service, 'getByHref').and.returnValue(of(undefined));
       });
       it('hasByHref should return false', () => {
         const result = service.hasByHref('', false);
@@ -573,7 +600,7 @@ describe('RequestService', () => {
 
     describe('when the RequestEntry is not undefined', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf({} as any));
+        spyOn(service, 'getByHref').and.returnValue(of({} as any));
       });
       it('hasByHref should return true', () => {
         const result = service.hasByHref('', false);
@@ -591,7 +618,7 @@ describe('RequestService', () => {
       };
       const queryParams = service.uriEncodeBody(body);
       expect(queryParams).toEqual(
-        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123'
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123',
       );
     });
 
@@ -604,7 +631,7 @@ describe('RequestService', () => {
       };
       const queryParams = service.uriEncodeBody(body);
       expect(queryParams).toEqual(
-        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2'
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2',
       );
     });
   });
@@ -644,21 +671,21 @@ describe('RequestService', () => {
     const href = 'https://rest.api/some/object';
     const freshRE: any = {
       request: { uuid, href },
-      state: RequestEntryState.Success
+      state: RequestEntryState.Success,
     };
     const staleRE: any = {
       request: { uuid, href },
-      state: RequestEntryState.SuccessStale
+      state: RequestEntryState.SuccessStale,
     };
 
     it(`should call getByHref to retrieve the RequestEntry matching the href`, () => {
-      spyOn(service, 'getByHref').and.returnValue(observableOf(staleRE));
+      spyOn(service, 'getByHref').and.returnValue(of(staleRE));
       service.setStaleByHref(href);
       expect(service.getByHref).toHaveBeenCalledWith(href);
     });
 
     it(`should dispatch a RequestStaleAction for the RequestEntry returned by getByHref`, (done: DoneFn) => {
-      spyOn(service, 'getByHref').and.returnValue(observableOf(staleRE));
+      spyOn(service, 'getByHref').and.returnValue(of(staleRE));
       spyOn(store, 'dispatch');
       service.setStaleByHref(href).subscribe(() => {
         const requestStaleAction = new RequestStaleAction(uuid);
@@ -668,14 +695,14 @@ describe('RequestService', () => {
       });
     });
 
-   it(`should emit true when the request in the store is stale`, () => {
-     spyOn(service, 'getByHref').and.returnValue(cold('a-b', {
-       a: freshRE,
-       b: staleRE
-     }));
-     const result$ = service.setStaleByHref(href);
-     expect(result$).toBeObservable(cold('--(c|)', { c: true }));
-   });
+    it(`should emit true when the request in the store is stale`, () => {
+      spyOn(service, 'getByHref').and.returnValue(cold('a-b', {
+        a: freshRE,
+        b: staleRE,
+      }));
+      const result$ = service.setStaleByHref(href);
+      expect(result$).toBeObservable(cold('--(c|)', { c: true }));
+    });
   });
 
   describe('setStaleByHrefSubstring', () => {
@@ -700,10 +727,10 @@ describe('RequestService', () => {
           core: Object.assign({}, initialState.core, {
             'index': {
               'get-request/href-to-uuid': {
-                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });

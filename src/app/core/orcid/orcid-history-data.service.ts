@@ -1,27 +1,28 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { OrcidHistory } from './model/orcid-history.model';
-import { ORCID_HISTORY } from './model/orcid-history.resource-type';
-import { OrcidQueue } from './model/orcid-queue.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { RestRequest } from '../data/rest-request.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { sendRequest } from '../shared/request.operators';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { dataService } from '../data/base/data-service.decorator';
+import { OrcidHistory } from './model/orcid-history.model';
+import { OrcidQueue } from './model/orcid-queue.model';
 
 /**
  * A service that provides methods to make REST requests with Orcid History endpoint.
  */
-@Injectable()
-@dataService(ORCID_HISTORY)
+@Injectable({ providedIn: 'root' })
 export class OrcidHistoryDataService extends IdentifiableDataService<OrcidHistory> {
 
   constructor(
@@ -44,7 +45,7 @@ export class OrcidHistoryDataService extends IdentifiableDataService<OrcidHistor
         return new PostRequest(requestId, endpointURL, orcidQueue._links.self.href, options);
       }),
       sendRequest(this.requestService),
-      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)  as Observable<RemoteData<OrcidHistory>>)
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)  as Observable<RemoteData<OrcidHistory>>),
     );
   }
 }
