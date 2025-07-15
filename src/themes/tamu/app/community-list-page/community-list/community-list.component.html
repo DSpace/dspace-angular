@@ -15,7 +15,7 @@
       </button>
     </div>
     <div class="col-9">
-      @if (isExpanding | async) {
+      @if (((dataSource.loading$ | async) && !loadingNode) || (isExpanding | async)) {
         <ds-loading class="ds-themed-loading"></ds-loading>
       }
     </div>

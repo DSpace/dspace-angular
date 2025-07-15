@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RootModule } from '../../app/root.module';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
 import { CommunityPageComponent } from './app/community-page/community-page.component';
+import { ComcolPageBrowseByComponent } from './app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 import { ItemGridElementComponent } from './app/shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { ItemSearchResultGridElementComponent } from './app/shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 
@@ -17,6 +18,7 @@ const ENTRY_COMPONENTS = [];
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
   CollectionPageComponent,
+  ComcolPageBrowseByComponent,
   CommunityPageComponent,
   ItemGridElementComponent,
   ItemSearchResultGridElementComponent,

@@ -1,0 +1,23 @@
+<ng-container *ngVar="(itemRD$ | async) as itemRD">
+  @if (itemRD?.hasSucceeded) {
+    <div class="mt-4" @fadeIn>
+      <h3>{{'collection.page.browse.recent.head' | translate}}</h3>
+      <ds-object-grid
+          [config]="paginationConfig"
+          [sortConfig]="sortConfig"
+          [objects]="itemRD"
+          [hideGear]="false"
+          [context]="'ItemPage'">
+      </ds-object-grid>
+    </div>
+  }
+  @if (itemRD?.hasFailed) {
+    <ds-error *ngIf="itemRD?.hasFailed"message="{{'error.recent-submissions' | translate}}"></ds-error>
+  }
+  @if (!itemRD || itemRD.isLoading) {
+    <ds-loading message="{{'loading.recent-submissions' | translate}}"></ds-loading>
+  }
+  @if (!itemRD?.isLoading && itemRD?.payload?.page.length === 0) {
+    <div class="alert alert-info w-100" role="alert">{{'collection.page.browse.recent.empty' | translate}}</div>
+  }
+</ng-container>
