@@ -12,7 +12,7 @@
     </div>
   }
   @if (itemRD?.hasFailed) {
-    <ds-error *ngIf="itemRD?.hasFailed"message="{{'error.recent-submissions' | translate}}"></ds-error>
+    <ds-error message="{{'error.recent-submissions' | translate}}"></ds-error>
   }
   @if (!itemRD || itemRD.isLoading) {
     <ds-loading message="{{'loading.recent-submissions' | translate}}"></ds-loading>
