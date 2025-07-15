@@ -19,9 +19,9 @@
       </div>
     </span>
   }
-  <div class="card-body">
+  <div class="card-body text-center">
     <!-- TAMU Customization - truncated title with date centered -->
-    <p class="card-title h5 font-weight-bolder text-truncate" [innerHTML]="dsoTitle"></p>
+    <p class="card-title h5 fw-bolder text-truncate" [innerHTML]="dsoTitle"></p>
     @if (dso.hasMetadata('dc.date.created')) {
       <span class="item-date">{{firstMetadataValue('dc.date.created')}}</span>
     }
