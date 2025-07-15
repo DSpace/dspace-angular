@@ -455,4 +455,6 @@ export const environment: BuildConfig = {
       lng: 28.979530,
     },
   },
+
+  enableAuditLogsOverview: true,
 };

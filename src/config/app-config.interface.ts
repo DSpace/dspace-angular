@@ -70,6 +70,7 @@ interface AppConfig extends Config {
   liveRegion: LiveRegionConfig;
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
+  enableAuditLogsOverview?: boolean;
 }
 
 /**

@@ -113,8 +113,8 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    * @param audit  The audit object
    */
   getEpersonName(audit: Audit): Observable<string> {
-
-    if (!audit.epersonUUID) {
+    // TODO: check why person is missing
+    if (!audit.epersonUUID || !audit.eperson) {
       return of(AUDIT_PERSON_NOT_AVAILABLE);
     }
 

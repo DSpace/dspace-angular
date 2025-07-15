@@ -3382,6 +3382,8 @@
 
   "menu.section.access_control_people": "People",
 
+  "menu.section.audit": "Audit Overview",
+
   "menu.section.reports": "Reports",
 
   "menu.section.reports.collections": "Filtered Collections",

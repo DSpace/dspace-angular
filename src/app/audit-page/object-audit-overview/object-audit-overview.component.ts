@@ -24,7 +24,7 @@ import {
   map,
   mergeMap,
   switchMap,
-  take,
+  take, tap,
 } from 'rxjs/operators';
 
 import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
@@ -149,7 +149,10 @@ export class ObjectAuditOverviewComponent implements OnInit {
     this.auditsRD$ = combineLatest([isAdmin$, config$, this.owningCollection$, parentCommunity$]).pipe(
       mergeMap(([isAdmin, config,  owningCollection, parentCommunity]) => {
         if (isAdmin) {
-          return this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id);
+          return this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id).pipe(
+            getFirstCompletedRemoteData(),
+            tap(console.log)
+          );
         }
 
         return of(null);

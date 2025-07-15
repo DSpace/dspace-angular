@@ -16,7 +16,7 @@ describe('AuditLogsMenuProvider', () => {
         text: 'context-menu.actions.audit-item.btn',
         link: new URLCombiner('/auditlogs/object').toString(),
       },
-      icon: 'pencil-alt',
+      icon: 'key',
     },
   ];
 
