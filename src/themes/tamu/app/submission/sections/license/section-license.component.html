@@ -1,4 +1,4 @@
-<div class="ml-3 mb-1">
+<div class="ms-3 mb-1">
   <div class="h4">{{"submission.sections.proxy-license.header" | translate}}</div>
   <p>
     <span class="font-weight-bolder">{{"submission.sections.proxy-license.last-step-label" | translate}} </span>
@@ -31,11 +31,11 @@
       <div class="row">
         <div class="col-md-12">
           @if ((proxy.metadata['dc.source'] && proxy.metadata['dc.source'].length > 0)) {
-            <div class="float-left w-75">
+            <div class="float-start w-75">
               <span class="h3">{{proxy.metadata['dc.source'][0].value}} <span class="text-muted">({{proxy.sizeBytes | dsFileSize}})</span></span>
             </div>
           }
-          <div class="float-right w-15">
+          <div class="float-end w-15">
             <ng-container>
               <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true" [bitstream]="proxy" [enableRequestACopy]="false">
                 <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
