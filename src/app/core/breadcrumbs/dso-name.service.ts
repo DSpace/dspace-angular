@@ -80,7 +80,10 @@ export class DSONameService {
    * @param dso  The {@link DSpaceObject} you want a name for
    */
   getName(dso: DSpaceObject | undefined): string {
-    if (dso) {
+    // TAMU Customization - proxy license upload step - undefined
+    // if (dso) {
+    if (dso?.getRenderTypes) {
+    // End TAMU Customization - proxy license upload step - undefined
       const types = dso.getRenderTypes();
       const match = types
         .filter((type) => typeof type === 'string')
