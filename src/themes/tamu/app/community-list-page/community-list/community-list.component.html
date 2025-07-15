@@ -1,22 +1,26 @@
 <!-- TAMU Customization - expand/collapse all -->
-<!-- @if ((dataSource.loading$ | async) && !loadingNode) {
+<!--
+@if ((dataSource.loading$ | async) && !loadingNode) {
   <ds-loading class="ds-themed-loading"></ds-loading>
-} -->
-<div class="row mb-1" *ngIf="enableExpandCollapseAll">
-  <div class="col-3">
-    <button (click)="expandAll()" [disabled]="(dataSource.loading$ | async) || (isExpanding | async)" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
-      <span>{{ 'communityList.expandAll' | translate }}</span>
-    </button>
-    <button (click)="collapseAll()" [disabled]="(dataSource.loading$ | async) || (isExpanding | async)" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
-      <span>{{ 'communityList.collapseAll' | translate }}</span>
-    </button>
+}
+-->
+@if (enableExpandCollapseAll === true) {
+  <div class="row mb-2">
+    <div class="col-3">
+      <button (click)="expandAll()" [disabled]="(dataSource.loading$ | async) || (isExpanding | async)" class="btn btn-outline-primary btn-sm me-2 mb-2" role="button">
+        <span>{{ 'communityList.expandAll' | translate }}</span>
+      </button>
+      <button (click)="collapseAll()" [disabled]="(dataSource.loading$ | async) || (isExpanding | async)" class="btn btn-outline-primary btn-sm me-2 mb-2" role="button">
+        <span>{{ 'communityList.collapseAll' | translate }}</span>
+      </button>
+    </div>
+    <div class="col-9">
+      @if (isExpanding | async) {
+        <ds-loading class="ds-themed-loading"></ds-loading>
+      }
+    </div>
   </div>
-  <div class="col-9">
-    @if ((dataSource.loading$ | async) && !loadingNode) {
-      <ds-loading class="ds-themed-loading"></ds-loading>
-    }
-  </div>
-</div>
+}
 <!-- End TAMU Customization - expand/collapse all -->
 <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" [trackBy]="trackBy">
   <!-- This is the tree node template for show more node -->
@@ -33,7 +37,7 @@
             <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
           </button>
         }
-        @if (node===loadingNode && dataSource.loading$ | async) {
+        @if (node===loadingNode && (dataSource.loading$ | async) && (isExpanding | async) === false) {
           <ds-loading class="ds-themed-loading"></ds-loading>
         }
       </div>
@@ -48,7 +52,7 @@
     class="example-tree-node expandable-node">
     <div class="btn-group">
       @if (hasChild(null, node) | async) {
-        <button type="button" class="btn btn-default btn-transparent" cdkTreeNodeToggle
+        <button #toggle type="button" class="btn btn-default btn-transparent" cdkTreeNodeToggle
           [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
           (click)="toggleExpanded(node)"
           (keyup.enter)="toggleExpanded(node)"
@@ -91,7 +95,7 @@
         }
       </div>
     </ds-truncatable>
-    @if (node===loadingNode && dataSource.loading$ | async) {
+    @if (node===loadingNode && (dataSource.loading$ | async) && (isExpanding | async) === false) {
       <div class="d-flex"
         cdkTreeNodePadding>
         <span aria-hidden="true" class="btn btn-default invisible">

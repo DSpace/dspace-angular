@@ -40,12 +40,10 @@ import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-pa
 import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
-import { ObjectGridComponent } from '../../../../app/shared/object-grid/object-grid.component';
 import { PaginationComponentOptions } from '../../../../app/shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../../app/shared/search/models/paginated-search-options.model';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
-import { CommunityListComponent } from '../community-list-page/community-list/community-list.component';
 
 @Component({
   selector: 'ds-base-community-page',
@@ -57,10 +55,8 @@ import { CommunityListComponent } from '../community-list-page/community-list/co
     AsyncPipe,
     ComcolPageHeaderComponent,
     ComcolPageLogoComponent,
-    CommunityListComponent,
     DsoEditMenuComponent,
     ErrorComponent,
-    ObjectGridComponent,
     RouterModule,
     RouterOutlet,
     ThemedComcolPageBrowseByComponent,

@@ -3,12 +3,12 @@ import { AsyncPipe } from '@angular/common';
 import { Component, Input, QueryList, ViewChildren } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, take } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, lastValueFrom, take } from 'rxjs';
 
 import { CommunityListComponent as BaseComponent } from '../../../../../app/community-list-page/community-list/community-list.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
-import { TruncatableComponent } from '../../../../../app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableComponent } from '../../../../../app/shared/truncatable/truncatable.component';
 
 @Component({
   selector: 'ds-community-list',
@@ -43,33 +43,25 @@ export class CommunityListComponent extends BaseComponent {
     super.ngOnInit();
   }
 
-  expandAll(): void {
-    let anyExpanded = false;
+  async expandAll(): Promise<void> {
     this.isExpanding.next(true);
 
-    const expandable = this.toggle.filter((node: any) => {
+    const expandableNodes = this.toggle.filter((node: any) => {
       return !!node.nativeElement.querySelector('.fa-chevron-right');
     });
 
-    this.dataSource.loading$.pipe(
-      distinctUntilChanged(),
-      // allow 100 milliseconds per expanded subcommunity
-      debounceTime(expandable.length * 100),
-      take(1)
-    ).subscribe(() => {
-      if (anyExpanded) {
-        this.expandAll();
-      } else {
-        this.isExpanding.next(false);
-      }
-    });
-
-    expandable.forEach((node: any) => {
+    for (const node of expandableNodes) {
       node.nativeElement.click();
-      if (!anyExpanded) {
-        anyExpanded = true;
-      }
-    });
+
+      await lastValueFrom(this.dataSource.loading$.pipe(
+        distinctUntilChanged(),
+        debounceTime(100),
+        filter(loading => loading === false),
+        take(1)
+      ));
+    }
+
+    this.isExpanding.next(false);
   }
 
   collapseAll(): void {

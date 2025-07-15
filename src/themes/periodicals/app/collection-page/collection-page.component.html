@@ -43,7 +43,7 @@
                 <ng-template ngFor let-entry [ngForOf]="volumes | keyvalue : sortByKeyDescOrder" let-i="index" [ngForTrackBy]="trackByIndex">
                   <li class="list-group-item">
                     <div class="h3 mb-2">{{ 'theme.periodicals.volume' | translate }} {{ entry.key }}</div>
-                    <div class="ml-4">
+                    <div class="ms-4">
                       <ng-template ngFor let-volume [ngForOf]="entry.value" let-j="index" [ngForTrackBy]="trackByIndex">
                         <div class="h5 font-weight-bold">{{ 'theme.periodicals.issue' | translate }} {{ volume.issue }} ({{ volume.year }})</div>
                         <div class="mb-4">
