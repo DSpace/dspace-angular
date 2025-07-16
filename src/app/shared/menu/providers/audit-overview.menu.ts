@@ -6,13 +6,20 @@
  * http://www.dspace.org/license/
  */
 
-import { Inject, Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import {
   combineLatest,
   map,
-  Observable, of,
+  Observable,
 } from 'rxjs';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { MenuItemType } from '../menu-item-type.model';
@@ -20,7 +27,6 @@ import {
   AbstractMenuProvider,
   PartialMenuSection,
 } from '../menu-provider.model';
-import { APP_CONFIG, AppConfig } from "../../../../config/app-config.interface";
 
 /**
  * Menu provider to create the "Health" menu in the admin sidebar

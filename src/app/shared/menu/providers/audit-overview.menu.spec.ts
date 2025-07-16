@@ -13,8 +13,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
-import { HealthMenuProvider } from './health.menu';
-import { AuditOverviewMenuProvider } from "./audit-overview.menu";
+import { AuditOverviewMenuProvider } from './audit-overview.menu';
 
 describe('AuditOverviewMenuProvider', () => {
   const expectedSections: PartialMenuSection[] = [

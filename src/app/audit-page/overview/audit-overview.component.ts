@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -12,9 +10,14 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
+  forkJoin,
   Observable,
 } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
 import { AuditDataService } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
@@ -27,6 +30,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
@@ -37,11 +41,9 @@ import { VarDirective } from '../../shared/utils/var.directive';
   templateUrl: './audit-overview.component.html',
   imports: [
     PaginationComponent,
-    NgIf,
     AsyncPipe,
     TranslateModule,
     RouterLink,
-    NgForOf,
     VarDirective,
     DatePipe,
   ],
@@ -106,22 +108,34 @@ export class AuditOverviewComponent implements OnInit {
     this.auditsRD$ = combineLatest([this.isAdmin$, config$]).pipe(
       mergeMap(([isAdmin, config]) => {
         if (isAdmin) {
-          return this.auditService.findAll(config);
+          return this.auditService.findAll(config, true, true, followLink('eperson'));
         }
+      }),
+      filter(data => data && data?.payload?.page?.length > 0),
+      mergeMap(auditsRD => {
+        const updatedAudits$ = auditsRD.payload.page.map(audit => {
+          return this.auditService.getEpersonName(audit).pipe(
+            map(name => Object.assign(new Audit(), audit, { epersonName: name })),
+          );
+        });
+
+        return forkJoin(updatedAudits$).pipe(
+          map(updatedAudits => Object.assign(new RemoteData(
+            auditsRD.timeCompleted,
+            auditsRD.msToLive,
+            auditsRD.lastUpdated,
+            auditsRD.state,
+            auditsRD.errorMessage,
+            Object.assign(new PaginatedList(), { ...auditsRD.payload, page: updatedAudits }),
+            auditsRD.statusCode,
+          ))),
+        );
       }),
     );
   }
 
   isCurrentUserAdmin(): Observable<boolean> {
     return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined);
-  }
-
-  /**
-   * Get the name of an EPerson by ID
-   * @param audit  Audit object
-   */
-  getEpersonName(audit: Audit): Observable<string> {
-    return this.auditService.getEpersonName(audit);
   }
 
 }

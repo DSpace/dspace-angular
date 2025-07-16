@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -17,20 +15,26 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
+  forkJoin,
   Observable,
   of,
 } from 'rxjs';
 import {
+  filter,
   map,
   mergeMap,
   switchMap,
-  take, tap,
+  take,
 } from 'rxjs/operators';
 
 import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
-import { AuditDataService } from '../../core/audit/audit-data.service';
+import {
+  AUDIT_PERSON_NOT_AVAILABLE,
+  AuditDataService,
+} from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -56,10 +60,8 @@ import { VarDirective } from '../../shared/utils/var.directive';
   templateUrl: './object-audit-overview.component.html',
   imports: [
     PaginationComponent,
-    NgIf,
     AsyncPipe,
     TranslateModule,
-    NgForOf,
     VarDirective,
     RouterLink,
     DatePipe,
@@ -104,6 +106,8 @@ export class ObjectAuditOverviewComponent implements OnInit {
 
   owningCollection$: Observable<Collection>;
 
+  dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
+
   constructor(protected authService: AuthService,
               protected route: ActivatedRoute,
               protected router: Router,
@@ -112,6 +116,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
               protected authorizationService: AuthorizationDataService,
               protected paginationService: PaginationService,
               protected collectionDataService: CollectionDataService,
+              public dsoNameService: DSONameService,
   ) {}
 
   ngOnInit(): void {
@@ -151,13 +156,38 @@ export class ObjectAuditOverviewComponent implements OnInit {
         if (isAdmin) {
           return this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id).pipe(
             getFirstCompletedRemoteData(),
-            tap(console.log)
           );
         }
-
         return of(null);
       }),
+      filter(data => data && data?.payload?.page?.length > 0),
+      mergeMap(auditsRD => {
+        const updatedAudits$ = auditsRD.payload.page.map(audit => {
+          return forkJoin({
+            epersonName: this.auditService.getEpersonName(audit),
+            otherAuditObject: this.auditService.getOtherObject(audit, this.object.id),
+          }).pipe(
+            map(({ epersonName, otherAuditObject }) =>
+              Object.assign(new Audit(), audit, { epersonName, otherAuditObject }),
+            ),
+          );
+        });
+
+        return forkJoin(updatedAudits$).pipe(
+          map(updatedAudits => Object.assign(new RemoteData(
+            auditsRD.timeCompleted,
+            auditsRD.msToLive,
+            auditsRD.lastUpdated,
+            auditsRD.state,
+            auditsRD.errorMessage,
+            Object.assign(new PaginatedList(), { ...auditsRD.payload, page: updatedAudits }),
+            auditsRD.statusCode,
+          ))),
+        );
+      }),
     );
+
+    this.auditsRD$.subscribe(console.log);
   }
 
   isCurrentUserAdmin(): Observable<boolean> {
@@ -172,17 +202,4 @@ export class ObjectAuditOverviewComponent implements OnInit {
       take(1),
     );
   }
-
-  /**
-   * Get the name of an EPerson by ID
-   * @param audit  Audit object
-   */
-  getEpersonName(audit: Audit): Observable<string> {
-    return this.auditService.getEpersonName(audit);
-  }
-
-  getOtherObject(audit: Audit, contextObjectId: string): Observable<any> {
-    return this.auditService.getOtherObject(audit, contextObjectId);
-  }
-
 }

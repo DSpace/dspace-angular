@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -33,7 +32,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
   templateUrl: './audit-detail.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    NgIf,
     AsyncPipe,
     TranslateModule,
     VarDirective,

@@ -909,6 +909,8 @@
 
   "audit.overview.table.eperson": "EPerson",
 
+  "audit.overview.table.other": "Other Object",
+
   "audit.overview.table.timestamp": "Time",
 
   "audit.overview.breadcrumbs": "Audit Logs Overview",

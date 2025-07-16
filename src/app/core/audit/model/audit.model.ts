@@ -118,4 +118,14 @@ export class Audit implements CacheableObject {
    */
   @link(ITEM)
     object?: Observable<RemoteData<DSpaceObject>>;
+
+  /**
+   * The name of the person who performed the action
+   */
+  epersonName?: string;
+
+  /**
+   * A different object connected to the current audited object
+   */
+  otherAuditObject?: DSpaceObject;
 }

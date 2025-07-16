@@ -30,6 +30,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { EPerson } from '../eperson/models/eperson.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   getFirstSucceededRemoteDataPayload,
@@ -113,12 +114,10 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    * @param audit  The audit object
    */
   getEpersonName(audit: Audit): Observable<string> {
-    // TODO: check why person is missing
     if (!audit.epersonUUID || !audit.eperson) {
       return of(AUDIT_PERSON_NOT_AVAILABLE);
     }
 
-    // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
     return audit.eperson.pipe(
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
@@ -130,13 +129,13 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    * @param audit
    * @param contextObjectId
    */
-  getOtherObject(audit: Audit, contextObjectId: string): Observable<any> {
+  getOtherObject(audit: Audit, contextObjectId: string): Observable<DSpaceObject> {
     const otherObjectHref = this.getOtherObjectHref(audit, contextObjectId);
 
     if (otherObjectHref) {
       return this.findByHref(otherObjectHref).pipe(
         getFirstSucceededRemoteDataPayload(),
-      );
+      ) as Observable<DSpaceObject>;
     }
     return of(null);
   }
