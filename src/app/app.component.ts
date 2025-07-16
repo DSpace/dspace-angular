@@ -179,7 +179,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private shouldSkipLoadingStatus(currentUrl: string, nextUrl: string): boolean {
-    return (currentUrl.startsWith('/entities' || getEditItemPageRoute()) && !(this.isAdministrativeEditItemPageRoute(nextUrl, currentUrl)))
+    return ((currentUrl.startsWith('/entities') || currentUrl.startsWith(getEditItemPageRoute())) && !(this.isAdministrativeEditItemPageRoute(nextUrl, currentUrl)))
       || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute());
   }
 
