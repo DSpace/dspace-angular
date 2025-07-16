@@ -39,19 +39,25 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import {
+  DSPACE_OBJECT_DELETION_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../core/data/processes/script-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
+import { Process } from '../../../process-page/processes/process.model';
+import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
@@ -172,6 +178,7 @@ export class ItemDeleteComponent
               protected relationshipService: RelationshipDataService,
               protected entityTypeService: EntityTypeDataService,
               protected linkService: LinkService,
+              protected scriptDataService: ScriptDataService, // AGGIUNTO
   ) {
     super(
       route,
@@ -416,23 +423,18 @@ export class ItemDeleteComponent
    */
   performAction(): void {
     this.isDeleting$.next(true);
-    this.subs.push(this.typeDTOs$.pipe(
-      switchMap((types: RelationshipTypeDTO[]) =>
-        combineLatest(
-          types.map((type: RelationshipTypeDTO) => type.isSelected$),
-        ).pipe(
-          defaultIfEmpty([]),
-          map((selection: boolean[]) => types.filter(
-            (type: RelationshipTypeDTO, index: number) => selection[index],
-          )),
-          map((selectedDtoTypes: RelationshipTypeDTO[]) => selectedDtoTypes.map((typeDto: RelationshipTypeDTO) => typeDto.relationshipType.id)),
-        ),
-      ),
-      switchMap((types: string[]) => this.itemDataService.delete(this.item.id, types)),
-      getFirstCompletedRemoteData(),
-    ).subscribe((rd: RemoteData<NoContent>) => {
-      this.notify(rd.hasSucceeded);
-    }));
+    const parameterValues = [ Object.assign(new ProcessParameter(), { name: '-i', value: this.item.uuid }) ];
+    this.scriptDataService.invoke(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, [])
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe((rd: RemoteData<Process>) => {
+        if (rd.hasSucceeded && rd.payload) {
+          this.notificationsService.success(this.translateService.get('item.edit.delete.success'));
+          this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
+        } else {
+          this.notificationsService.error(this.translateService.get('item.edit.delete.error'));
+          this.router.navigate([getItemEditRoute(this.item)]);
+        }
+      });
   }
 
   /**
