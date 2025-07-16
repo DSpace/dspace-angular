@@ -18,11 +18,17 @@ import {
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import {
+  DSPACE_OBJECT_DELETION_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
-import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
+import { Process } from '../../../../process-page/processes/process.model';
+import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
 
 /**
@@ -56,6 +62,7 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
     protected translate: TranslateService,
+    protected scriptDataService: ScriptDataService,
   ) {
   }
 
@@ -69,17 +76,19 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
    */
   onConfirm(dso: TDomain) {
     this.processing$.next(true);
-    this.dsoDataService.delete(dso.id)
+    const parameterValues = [ Object.assign(new ProcessParameter(), { name: '-i', value: dso.uuid }) ];
+    this.scriptDataService.invoke(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, [])
       .pipe(getFirstCompletedRemoteData())
-      .subscribe((response: RemoteData<NoContent>) => {
-        if (response.hasSucceeded) {
+      .subscribe((rd: RemoteData<Process>) => {
+        if (rd.hasSucceeded && rd.payload) {
           const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
           this.notifications.success(successMessage);
+          this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
         } else {
           const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
           this.notifications.error(errorMessage);
+          this.router.navigate(['/']);
         }
-        this.router.navigate(['/']);
       });
   }
 

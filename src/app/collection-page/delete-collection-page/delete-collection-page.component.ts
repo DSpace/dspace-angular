@@ -11,6 +11,7 @@ import {
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
@@ -42,7 +43,8 @@ export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Col
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
     protected translate: TranslateService,
+    protected scriptDataService: ScriptDataService,
   ) {
-    super(dsoDataService, dsoNameService, router, route, notifications, translate);
+    super(dsoDataService, dsoNameService, router, route, notifications, translate, scriptDataService);
   }
 }
