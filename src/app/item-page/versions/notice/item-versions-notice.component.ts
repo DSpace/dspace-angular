@@ -44,9 +44,9 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
   templateUrl: './item-versions-notice.component.html',
   standalone: true,
   imports: [
-    NgIf, 
-    AlertComponent, 
-    AsyncPipe, 
+    AlertComponent,
+    AsyncPipe,
+    NgIf,
     TranslateModule,
   ],
 })
