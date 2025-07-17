@@ -10,27 +10,30 @@ import { AuditOverviewComponent } from './overview/audit-overview.component';
 export const ROUTES: Route[] = [
   {
     path: '',
-    resolve: { breadcrumb: i18nBreadcrumbResolver },
-    data: { breadcrumbKey: 'audit.overview' },
     canActivate: [authenticatedGuard],
     children: [
       {
         path: '',
         component: AuditOverviewComponent,
-        data: { title: 'audit.overview.title' },
+        data: { title: 'audit.overview.title', breadcrumbKey: 'audit.overview' },
+        resolve: { breadcrumb: i18nBreadcrumbResolver },
       },
       {
         path: ':id',
         component: AuditDetailComponent,
+        data: { title: 'audit.detail.title', breadcrumbKey: 'audit.detail' },
         resolve: {
           process: auditPageResolver,
-          // TODO: breadcrumbs resolver
+          breadcrumb: i18nBreadcrumbResolver,
         },
       },
       {
         path: 'object/:objectId',
         component: ObjectAuditOverviewComponent,
-        // TODO: breadcrumbs resolver
+        data: { title: 'audit.object.title', breadcrumbKey: 'audit.object' },
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
       },
     ],
   },

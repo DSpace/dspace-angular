@@ -57,7 +57,7 @@
           </div>
         </ds-pagination>
       }
-      <a class="btn btn-light mt-3" [routerLink]="['/items', object.id]"><i class="fas fa-arrow-left"></i> Back to Item</a>
+      <a class="btn btn-light mt-3" [routerLink]="['/items', object.id]"><i class="fas fa-arrow-left"></i>{{ 'audit.object.back' | translate }}</a>
     }
     @if ((auditsRD$ | async)?.statusCode === 404) {
       <h4 class="mt-4 mb-4">{{'audit.object.overview.disabled.message' | translate}}</h4>

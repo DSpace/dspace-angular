@@ -893,6 +893,8 @@
   "admin.batch-import.page.remove": "remove",
 
 
+  "audit.detail.breadcrumbs": "Audit Details",
+
   "audit.overview.title": "Audit Logs Overview",
 
   "audit.overview.table.id": "Audit ID",
@@ -914,6 +916,10 @@
   "audit.overview.table.timestamp": "Time",
 
   "audit.overview.breadcrumbs": "Audit Logs Overview",
+
+  "audit.object.back": "Back to Item",
+
+  "audit.object.breadcrumbs": "Subject Audit Logs",
 
   "audit.object.overview.title": "Subject Audit Logs Overview",
 

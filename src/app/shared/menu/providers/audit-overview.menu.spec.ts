@@ -9,6 +9,8 @@
 import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { MenuItemType } from '../menu-item-type.model';
@@ -40,6 +42,7 @@ describe('AuditOverviewMenuProvider', () => {
       providers: [
         AuditOverviewMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
     provider = TestBed.inject(AuditOverviewMenuProvider);
