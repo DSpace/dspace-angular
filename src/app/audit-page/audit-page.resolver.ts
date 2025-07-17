@@ -10,6 +10,7 @@ import { AuditDataService } from '../core/audit/audit-data.service';
 import { Audit } from '../core/audit/model/audit.model';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstSucceededRemoteData } from '../core/shared/operators';
+import { followLink } from '../shared/utils/follow-link-config.model';
 
 
 /**
@@ -24,7 +25,7 @@ export const auditPageResolver: ResolveFn<RemoteData<Audit>> = (
   state: RouterStateSnapshot,
 ): Observable<RemoteData<Audit>> => {
   const auditService = inject(AuditDataService);
-  return auditService.findById(route.params.id).pipe(
+  return auditService.findById(route.params.id, true, true, followLink('eperson')).pipe(
     getFirstSucceededRemoteData(),
   );
 };

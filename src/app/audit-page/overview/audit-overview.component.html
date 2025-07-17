@@ -1,13 +1,11 @@
 <div class="container">
   <div class="d-flex">
-    <h2 class="flex-grow-1">{{'audit.overview.title' | translate}}</h2>
+    <h1 class="flex-grow-1">{{'audit.overview.title' | translate}}</h1>
   </div>
 
   @if (isAdmin$ | async) {
     @if ((auditsRD$ | async)?.payload?.totalElements === 0) {
-      <div>
-        No audits found.
-      </div>
+      <div>{{ 'audit.data.not-found' | translate }}</div>
     }
     @if ((auditsRD$ | async)?.payload?.totalElements > 0) {
       <ds-pagination

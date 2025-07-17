@@ -1,25 +1,25 @@
 <div class="container" *ngVar="(auditRD$ | async)?.payload as audit">
     <div class="d-flex">
-        <h2 class="flex-grow-1">{{'audit.detail.title' | translate }}</h2>
+      <h1 class="flex-grow-1">{{'audit.detail.title' | translate }}</h1>
     </div>
 
     @if (audit) {
-        <h4 class="mt-4">{{ 'audit.detail.id' | translate}}</h4>
+        <h2 class="h4 mt-4">{{ 'audit.detail.id' | translate}}</h2>
         <div>{{ audit.id }}</div>
 
-        <h4 class="mt-4">{{ 'audit.detail.eventType' | translate}}</h4>
+        <h2 class="h4 mt-4">{{ 'audit.detail.eventType' | translate}}</h2>
         <div>{{ audit.eventType }}</div>
 
-        <h4 class="mt-4">{{ 'audit.detail.subjectUUID' | translate}}</h4>
+        <h2 class="h4 mt-4">{{ 'audit.detail.subjectUUID' | translate}}</h2>
         <div>{{ audit.subjectUUID }}</div>
 
-        <h4 class="mt-4">{{ 'audit.detail.subjectType' | translate}}</h4>
+        <h2 class="h4 mt-4">{{ 'audit.detail.subjectType' | translate}}</h2>
         <div>{{ audit.subjectType }}</div>
 
-        <h4 class="mt-4">{{ 'audit.detail.eperson' | translate}}</h4>
-        <div *ngVar="(getEpersonName(audit) | async) as ePersonName">{{ePersonName}}</div>
+        <h2 class="h4 mt-4">{{ 'audit.detail.eperson' | translate}}</h2>
+        <div>{{ audit.epersonName }}</div>
 
-        <h4 class="mt-4">{{ 'audit.detail.timeStamp' | translate}}</h4>
+        <h2 class="h4 mt-4">{{ 'audit.detail.timeStamp' | translate}}</h2>
         <div>{{ audit.timeStamp | date:dateFormat}}</div>
     }
 

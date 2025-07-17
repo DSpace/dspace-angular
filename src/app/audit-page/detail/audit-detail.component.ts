@@ -13,13 +13,15 @@ import {
   RouterLink,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  switchMap,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuditDataService } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -56,8 +58,7 @@ export class AuditDetailComponent implements OnInit {
               protected route: ActivatedRoute,
               protected router: Router,
               protected auditService: AuditDataService,
-              protected nameService: DSONameService) {
-  }
+  ) {}
 
   /**
    * Initialize component properties
@@ -67,15 +68,20 @@ export class AuditDetailComponent implements OnInit {
     this.auditRD$ = this.route.data.pipe(
       map((data) => data.process as RemoteData<Audit>),
       redirectOn4xx(this.router, this.authService),
+      switchMap((auditRD) => {
+        const epersonName$ = this.auditService.getEpersonName(auditRD.payload);
+        return epersonName$.pipe(
+          map( epersonName => new RemoteData(
+            auditRD.timeCompleted,
+            auditRD.msToLive,
+            auditRD.lastUpdated,
+            auditRD.state,
+            auditRD.errorMessage,
+            Object.assign(new Audit(), { ...auditRD.payload, epersonName }),
+            auditRD.statusCode,
+          )),
+        );
+      }),
     );
   }
-
-  /**
-   * Get the name of an EPerson by ID
-   * @param audit  Audit object
-   */
-  getEpersonName(audit: Audit): Observable<string> {
-    return this.auditService.getEpersonName(audit);
-  }
-
 }

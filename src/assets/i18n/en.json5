@@ -892,8 +892,27 @@
 
   "admin.batch-import.page.remove": "remove",
 
+  "audit.data.not-found": "No audits found.",
 
   "audit.detail.breadcrumbs": "Audit Details",
+
+  "audit.detail.title": "Audit Detail",
+
+  "audit.detail.id": "Audit Id",
+
+  "audit.detail.subjectUUID": "Subject ID",
+
+  "audit.detail.subjectType": "Subject Type",
+
+  "audit.detail.eventType": "Audit Type",
+
+  "audit.detail.eperson": "EPerson",
+
+  "audit.detail.timeStamp": "Time",
+
+  "audit.detail.back": "All Audit Logs",
+
+  "audit.detail.back.subject": "Subject Audit Logs",
 
   "audit.overview.title": "Audit Logs Overview",
 
@@ -924,25 +943,6 @@
   "audit.object.overview.title": "Subject Audit Logs Overview",
 
   "audit.object.overview.disabled.message": "Audit feature is currently disabled",
-
-  "audit.detail.title": "Audit Detail",
-
-  "audit.detail.id": "Audit Id",
-
-  "audit.detail.subjectUUID": "Subject ID",
-
-  "audit.detail.subjectType": "Subject Type",
-
-  "audit.detail.eventType": "Audit Type",
-
-  "audit.detail.eperson": "EPerson",
-
-  "audit.detail.timeStamp": "Time",
-
-  "audit.detail.back": "All Audit Logs",
-
-  "audit.detail.back.subject": "Subject Audit Logs",
-
 
   "auth.errors.invalid-user": "Invalid email address or password.",
 

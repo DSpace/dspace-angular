@@ -186,8 +186,6 @@ export class ObjectAuditOverviewComponent implements OnInit {
         );
       }),
     );
-
-    this.auditsRD$.subscribe(console.log);
   }
 
   isCurrentUserAdmin(): Observable<boolean> {

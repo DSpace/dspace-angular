@@ -37,7 +37,6 @@ export class AuditOverviewMenuProvider extends AbstractMenuProvider {
     protected authorizationService: AuthorizationDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    console.log('AuditOverviewMenuProvider');
     super();
   }
 
