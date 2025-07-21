@@ -1,8 +1,29 @@
 :host {
-    .dropdown-toggle::after {
-        display: none;
+  .dropdown-toggle::after {
+    display: none;
+  }
+
+  .dropdown-item {
+    padding-left: 20px;
+  }
+
+  .search-button {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  div.input-group {
+    @include media-breakpoint-down(xs) {
+      input {
+        padding: 0.34rem 0.5rem 0.28rem;
+        font-size: 0.875rem;
+        height: 100%;
+      }
+      button.search-button {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+      }
     }
-    .dropdown-item {
-        padding-left: 20px;
-    }
+  }
 }

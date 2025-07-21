@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgStyle,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -77,6 +78,7 @@ interface PaginationDetails {
     NgbPaginationModule,
     NgbTooltipModule,
     NgClass,
+    NgStyle,
     RSSComponent,
     TranslateModule,
   ],
@@ -121,6 +123,11 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * The current sorting configuration
    */
   @Input() sortConfig: SortOptions;
+
+  /**
+   * Whether or not the pagination should show an input field to select the page number.
+   */
+  @Input() enablePaginationInput = false;
 
   /**
    * An event fired when the page is changed.
@@ -451,11 +458,31 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   /**
    * Update page when next or prev button is clicked
    * @param value
+   * @param isPageInsteadOfDelta
    */
-  updatePagination(value: number) {
+  updatePagination(value: number, isPageInsteadOfDelta = false) {
     this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(take(1)).subscribe((currentPaginationOptions) => {
-      this.updateParams({ page: (currentPaginationOptions.currentPage + value) });
+      const page = isPageInsteadOfDelta ? value : currentPaginationOptions.currentPage + value;
+      this.updateParams({ page });
     });
+  }
+
+  /**
+   * Select any given page.
+   * @param page
+   */
+  selectPage(page: string) {
+    const pageNumber = parseInt(page, 10);
+    this.pageChange.emit(pageNumber);
+    this.updatePagination(pageNumber, true);
+  }
+
+  /**
+   * Format the input value to only allow numbers
+   * @param input
+   */
+  formatInput(input: HTMLInputElement) {
+    input.value = input.value.replace(/[^0-9]/g, '');
   }
 
   /**
