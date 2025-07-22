@@ -7,6 +7,7 @@ import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-bre
 import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { ComcolRecentSectionComponent } from '../shared/comcol/sections/comcol-recent-section/comcol-recent-section.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
@@ -103,6 +104,21 @@ export const ROUTES: Route[] = [
               enableRSS: true,
             },
           },
+          // TAMU Customization - recent submissions image gallery
+          {
+            path: 'recent',
+            pathMatch: 'full',
+            component: ComcolRecentSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'collection.recent',
+              menuRoute: MenuRoute.COLLECTION_PAGE,
+              enableRSS: true,
+            },
+          },
+          // End TAMU Customization - recent submissions image gallery
           {
             path: 'browse/:id',
             pathMatch: 'full',

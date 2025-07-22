@@ -1,21 +1,33 @@
-import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { BehaviorSubject, debounceTime, filter, take } from 'rxjs';
-import { CommunityListComponent as BaseComponent } from '../../../../../app/community-list-page/community-list/community-list.component';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { AsyncPipe } from '@angular/common';
+import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, lastValueFrom, take } from 'rxjs';
 
-/**
- * A tree-structured list of nodes representing the communities, their subCommunities and collections.
- * Initially only the page-restricted top communities are shown.
- * Each node can be expanded to show its children and all children are also page-limited.
- * More pages of a page-limited result can be shown by pressing a show more node/link.
- * Which nodes were expanded is kept in the store, so this persists across pages.
- */
+import { CommunityListComponent as BaseComponent } from '../../../../../app/community-list-page/community-list/community-list.component';
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { TruncatablePartComponent } from '../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableComponent } from '../../../../../app/shared/truncatable/truncatable.component';
+
 @Component({
   selector: 'ds-community-list',
-  // styleUrls: ['./community-list.component.scss'],
+  styleUrls: ['./community-list.component.scss'],
+  // styleUrls: ['../../../../../app/community-list-page/community-list/community-list.component.scss'],
   templateUrl: './community-list.component.html',
-  // templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html'
+  // templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    CdkTreeModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
-export class CommunityListComponent extends BaseComponent implements OnInit {
+export class CommunityListComponent extends BaseComponent {
 
   @Input() scopeId!: string;
 
@@ -23,32 +35,33 @@ export class CommunityListComponent extends BaseComponent implements OnInit {
 
   @ViewChildren('toggle') toggle!: QueryList<any>;
 
-  expanding: BehaviorSubject<boolean>;
+  isExpanding: BehaviorSubject<boolean>;
 
   ngOnInit(): void {
     this.paginationConfig.scopeID = this.scopeId;
-    this.expanding = new BehaviorSubject<boolean>(false);
+    this.isExpanding = new BehaviorSubject<boolean>(false);
     super.ngOnInit();
   }
 
-  expandAll(): void {
-    this.expanding.next(true);
+  async expandAll(): Promise<void> {
+    this.isExpanding.next(true);
 
-    const expandable = this.toggle.filter((node: any) => {
+    const expandableNodes = this.toggle.filter((node: any) => {
       return !!node.nativeElement.querySelector('.fa-chevron-right');
     });
 
-    this.dataSource.loading$.pipe(
-      debounceTime(expandable.length * 100),
-      filter((loading: boolean) => !loading),
-      take(1)
-    ).subscribe(() => {
-      this.expanding.next(false);
-    });
-
-    expandable.forEach((node: any) => {
+    for (const node of expandableNodes) {
       node.nativeElement.click();
-    });
+
+      await lastValueFrom(this.dataSource.loading$.pipe(
+        distinctUntilChanged(),
+        debounceTime(100),
+        filter(loading => loading === false),
+        take(1)
+      ));
+    }
+
+    this.isExpanding.next(false);
   }
 
   collapseAll(): void {
@@ -60,4 +73,3 @@ export class CommunityListComponent extends BaseComponent implements OnInit {
   }
 
 }
-

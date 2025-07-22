@@ -113,9 +113,16 @@ export class LinkService {
    */
   public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
     const linkDefinitions = this.getLinkDefinitions(model.constructor as GenericConstructor<T>);
-    const linkDef = linkDefinitions.get(linkToFollow.name);
+    // TAMU Customization - proxy license upload step - undefined
+    // const linkDef = linkDefinitions.get(linkToFollow.name);
+    const linkDef = linkDefinitions?.get(linkToFollow.name);
 
-    if (isNotEmpty(linkDef)) {
+    if (!linkDef) {
+      linkToFollow.name = 'proxy';
+      linkToFollow.isOptional = true;
+    } else if (isNotEmpty(linkDef)) {
+    // if (isNotEmpty(linkDef)) {
+    // End TAMU Customization - proxy license upload step - undefined
       // If link exist in definition we can resolve it and  use a real property name
       model[linkDef.propertyName] = this.resolveLinkWithoutAttaching(model, linkToFollow);
     } else {

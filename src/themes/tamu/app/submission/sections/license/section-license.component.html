@@ -1,83 +1,91 @@
-<div class="ml-3 mb-1">
-    <div class="h4">{{"submission.sections.proxy-license.header" | translate}}</div>
-    <p>
-        <span class="font-weight-bolder">{{"submission.sections.proxy-license.last-step-label" | translate}} </span>
-        <span>{{"submission.sections.proxy-license.last-step" | translate}}</span>
-    </p>
-    <p>{{"submission.sections.proxy-license.instructions" | translate}}</p>
+<div class="ms-3 mb-1">
+  <div class="h4">{{"submission.sections.proxy-license.header" | translate}}</div>
+  <p>
+    <span class="fw-bolder">{{"submission.sections.proxy-license.last-step-label" | translate}} </span>
+    <span>{{"submission.sections.proxy-license.last-step" | translate}}</span>
+  </p>
+  <p>{{"submission.sections.proxy-license.instructions" | translate}}</p>
 </div>
 
 <div #labelWrapper [hidden]="(license | async) === undefined" class="tamu-control-license tamu-control-label">
-    <label class="font-weight-bolder">{{"submission.sections.proxy-license.label" | translate}}</label>
+  <label class="fw-bolder">{{"submission.sections.proxy-license.label" | translate}}</label>
 </div>
 
 <div #licenseWrapper [hidden]="(license | async) === undefined" class="tamu-control-license">
-    <p [innerHTML]="license | async"></p>
+  <p [innerHTML]="license | async"></p>
 </div>
 
 <div #uploaderWrapper class="mb-1" [hidden]="(selected | async) !== 'proxy'" class="tamu-control-license">
-    <label class="font-weight-bolder">{{"submission.sections.proxy-license.upload-label" | translate}}</label>
-    <ds-uploader *ngIf="uploadFilesOptions.url"
-                [dropMsg]="dropMsg"
-                [dropOverDocumentMsg]="dropOverDocumentMsg"
-                [enableDragOverDocument]="enableDragOverDocument"
-                [onBeforeUpload]="onBeforeUpload"
-                [uploadFilesOptions]="uploadFilesOptions"
-                (onCompleteItem)="onCompleteItem($event)"
-                (onUploadError)="onUploadError()"></ds-uploader>
-    <ng-container *ngIf="proxyLicense | async; let proxy">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="float-left w-75" *ngIf="proxy.metadata['dc.source'] && proxy.metadata['dc.source'].length > 0">
-                    <span class="h3">{{proxy.metadata['dc.source'][0].value}} <span class="text-muted">({{proxy.sizeBytes | dsFileSize}})</span></span>
-                </div>
-                <div class="float-right w-15">
-                    <ng-container>
-                      <ds-themed-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
-                                                    [bitstream]="proxy" [enableRequestACopy]="false">
-                        <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
-                      </ds-themed-file-download-link>
-                      <button class="btn btn-link-focus"
-                              [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
-                              title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
-                              [disabled]="(removingProxy | async)"
-                              (click)="$event.preventDefault();confirmRemoveProxy(content, proxy);">
-                        <i *ngIf="(removingProxy | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-                        <i *ngIf="!(removingProxy | async)" class="fa fa-trash fa-2x text-danger"></i>
-                      </button>
-                    </ng-container>
-                  </div>
+  <label class="fw-bolder">{{"submission.sections.proxy-license.upload-label" | translate}}</label>
+  @if (uploadFilesOptions.url) {
+      <ds-uploader [dropMsg]="dropMsg"
+          [dropOverDocumentMsg]="dropOverDocumentMsg"
+          [enableDragOverDocument]="enableDragOverDocument"
+          [onBeforeUpload]="onBeforeUpload"
+          [uploadFilesOptions]="uploadFilesOptions"
+          (onCompleteItem)="onCompleteItem($event)"
+          (onUploadError)="onUploadError()"></ds-uploader>
+  }
+  @if (proxyLicense | async; as proxy) {
+    <ng-container>
+      <div class="row">
+        <div class="col-md-12">
+          @if ((proxy.metadata['dc.source'] && proxy.metadata['dc.source'].length > 0)) {
+            <div class="float-start w-75">
+              <span class="h3">{{proxy.metadata['dc.source'][0].value}} <span class="text-muted">({{proxy.sizeBytes | dsFileSize}})</span></span>
             </div>
+          }
+          <div class="float-end w-15">
+            <ng-container>
+              <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true" [bitstream]="proxy" [enableRequestACopy]="false">
+                <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
+              </ds-file-download-link>
+              <button class="btn btn-link-focus"
+                  [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
+                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
+                  [disabled]="(removingProxy | async)"
+                  (click)="$event.preventDefault();confirmRemoveProxy(content, proxy);">
+                @if ((removingProxy | async)) {
+                  <i class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
+                }
+                @if (!(removingProxy | async)) {
+                  <i class="fa fa-trash fa-2x text-danger"></i>
+                }
+              </button>
+            </ng-container>
+          </div>
         </div>
+      </div>
     </ng-container>
-    <small class="form-text text-muted">{{"submission.sections.proxy-license.upload-instructions" | translate}}</small>
+  }
+  <small class="form-text text-muted">{{"submission.sections.proxy-license.upload-instructions" | translate}}</small>
 </div>
 
 <div #formWrapper>
-    <ds-form *ngIf="formModel" #formRef="formComponent"
-            [formId]="formId"
-            [formModel]="formModel"
-            [formLayout]="formLayout"
-            [displaySubmit]="displaySubmit"
-            [displayCancel]="false"
-            (dfChange)="onChange($event)">
+  @if (formModel) {
+    <ds-form #formRef="formComponent"
+        [formId]="formId"
+        [formModel]="formModel"
+        [formLayout]="formLayout"
+        [displaySubmit]="displaySubmit"
+        [displayCancel]="false"
+        (dfChange)="onChange($event)">
     </ds-form>
+  }
 </div>
 
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"
-                (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
-        <button type="button" class="btn btn-danger"
-                (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
+  </div>
 </ng-template>

@@ -1,24 +1,41 @@
-import { KeyValue } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable, map, switchMap } from 'rxjs';
+
 import { CollectionPageComponent as BaseComponent } from '../../../../app/collection-page/collection-page.component';
 import { AuthService } from '../../../../app/core/auth/auth.service';
 import { DSONameService } from '../../../../app/core/breadcrumbs/dso-name.service';
 import { SortDirection, SortOptions } from '../../../../app/core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../../app/core/data/collection-data.service';
 import { AuthorizationDataService } from '../../../../app/core/data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../../../../app/core/data/paginated-list.model';
 import { RemoteData } from '../../../../app/core/data/remote-data';
-import { PaginationService } from '../../../../app/core/pagination/pagination.service';
 import { DSpaceObjectType } from '../../../../app/core/shared/dspace-object-type.model';
 import { Item } from '../../../../app/core/shared/item.model';
 import { getFirstSucceededRemoteData, toDSpaceObjectListRD } from '../../../../app/core/shared/operators';
 import { SearchService } from '../../../../app/core/shared/search/search.service';
-import { fadeIn, fadeInOut } from '../../../../app/shared/animations/fade';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../app/shared/animations/fade';
+import { ThemedComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ErrorComponent } from '../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../../../app/shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../../app/shared/search/models/paginated-search-options.model';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { VarDirective } from '../../../../app/shared/utils/var.directive';
 
 const regex = /^.*Volume (\d?\d?), Numbers? (.*) \(Complete\)$/;
 
@@ -31,46 +48,52 @@ interface Volume {
 }
 
 @Component({
-  selector: 'ds-collection-page',
+  selector: 'ds-themed-collection-page',
   templateUrl: './collection-page.component.html',
   // templateUrl: '../../../../app/collection-page/collection-page.component.html',
-  // styleUrls: ['./collection-page.component.scss']
-  styleUrls: ['../../../../app/collection-page/collection-page.component.scss'],
+  styleUrls: ['./collection-page.component.scss'],
+  // styleUrls: ['../../../../app/collection-page/collection-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    CommonModule,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    DsoEditMenuComponent,
+    ErrorComponent,
+    RouterLink,
+    ThemedComcolPageContentComponent,
+    ThemedComcolPageHandleComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-/**
- * This component represents a detail page for a single collection
- */
 export class CollectionPageComponent extends BaseComponent {
 
-  private _searchService: SearchService;
+  private readonly _searchService: SearchService;
 
-  public volumes: Observable<Map<number, Volume[]>>;
+  public volumes$: Observable<Map<number, Volume[]>>;
 
   constructor(
-    collectionDataService: CollectionDataService,
     searchService: SearchService,
-    route: ActivatedRoute,
-    router: Router,
-    authService: AuthService,
-    paginationService: PaginationService,
-    authorizationDataService: AuthorizationDataService,
+    protected route: ActivatedRoute,
+    protected router: Router,
+    protected authService: AuthService,
+    protected authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) public appConfig: AppConfig,
   ) {
-    super(collectionDataService,
-      searchService,
+    super(
       route,
       router,
       authService,
-      paginationService,
       authorizationDataService,
-      dsoNameService,
-      appConfig);
+      dsoNameService);
     this._searchService = searchService;
   }
 
@@ -85,7 +108,7 @@ export class CollectionPageComponent extends BaseComponent {
 
     const sort = new SortOptions('dc.date.accessioned', SortDirection.DESC);
 
-    this.volumes = this.fetchCompleteItems(pagination, sort)
+    this.volumes$ = this.fetchCompleteItems(pagination, sort)
       .pipe(map(((data: RemoteData<PaginatedList<Item>>) => {
         const volumes = new Map<number, Volume[]>();
         data.payload.page.forEach((item) => {
@@ -112,8 +135,12 @@ export class CollectionPageComponent extends BaseComponent {
       })));
   }
 
-  public sortByKeyDescOrder(a: KeyValue<string, Volume[]>, b: KeyValue<string, Volume[]>): number {
-    return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+  public getMapEntries(map: Map<number, Volume[]>): [number, Volume[]][] {
+    return Array.from(map.entries()).sort((a, b) => this.sortByKeyDescOrder(a, b));
+  }
+
+  public sortByKeyDescOrder(a: [number, Volume[]], b: [number, Volume[]]): number {
+    return b[0] - a[0]; // Descending order by key
   }
 
   public trackByIndex = (index: number): number => {
