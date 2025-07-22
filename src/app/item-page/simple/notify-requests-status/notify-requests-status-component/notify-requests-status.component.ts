@@ -8,17 +8,17 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { NotifyRequestsStatusDataService } from '@core/data/notify-services-status-data.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   filter,
   map,
   Observable,
 } from 'rxjs';
 
-import { NotifyRequestsStatusDataService } from '../../../../core/data/notify-services-status-data.service';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import {
   NotifyRequestsStatus,

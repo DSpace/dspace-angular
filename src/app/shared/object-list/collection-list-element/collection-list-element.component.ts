@@ -1,9 +1,9 @@
 
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Collection } from '@core/shared/collection.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 
-import { Collection } from '../../../core/shared/collection.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 

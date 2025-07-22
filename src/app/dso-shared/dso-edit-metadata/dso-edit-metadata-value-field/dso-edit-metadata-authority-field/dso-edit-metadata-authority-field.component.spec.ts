@@ -4,19 +4,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ItemDataService } from '@core/data/item-data.service';
+import { MetadataField } from '@core/metadata/metadata-field.model';
+import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { RegistryService } from '@core/registry/registry.service';
+import { Collection } from '@core/shared/collection.model';
+import { ConfidenceType } from '@core/shared/confidence-type';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { MetadataValue } from '@core/shared/metadata.models';
+import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { MetadataField } from '../../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { RegistryService } from '../../../../core/registry/registry.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../core/shared/item.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { Vocabulary } from '../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicOneboxModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DsDynamicScrollableDropdownComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';

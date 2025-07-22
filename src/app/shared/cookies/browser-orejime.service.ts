@@ -3,6 +3,17 @@ import {
   Injectable,
   InjectionToken,
 } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { CAPTCHA_NAME } from '@core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '@core/services/cookie.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
@@ -19,17 +30,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '../../core/services/cookie.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../core/services/window.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import {
   hasValue,

@@ -6,14 +6,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Collection } from '@core/shared/collection.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';

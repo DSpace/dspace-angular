@@ -11,16 +11,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { Context } from '@core/shared/context.model';
+import { Item } from '@core/shared/item.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';

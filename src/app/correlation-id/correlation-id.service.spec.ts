@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { UUIDService } from '@core/shared/uuid.service';
 import {
   Store,
   StoreModule,
@@ -11,7 +12,6 @@ import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
-import { UUIDService } from '../core/shared/uuid.service';
 import { CORRELATION_ID_COOKIE } from '../shared/cookies/orejime-configuration';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { SetCorrelationIdAction } from './correlation-id.actions';

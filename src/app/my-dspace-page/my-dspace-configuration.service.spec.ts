@@ -1,15 +1,15 @@
 import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { Context } from '@core/shared/context.model';
+import {
   cold,
   hot,
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
-import {
-  SortDirection,
-  SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { Context } from '../core/shared/context.model';
 import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';

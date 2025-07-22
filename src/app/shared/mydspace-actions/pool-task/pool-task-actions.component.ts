@@ -9,6 +9,16 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
+import { PoolTask } from '@core/tasks/models/pool-task-object.model';
+import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '@core/tasks/pool-task-data.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -20,16 +30,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { NotificationsService } from '../../notifications/notifications.service';

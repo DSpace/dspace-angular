@@ -10,11 +10,11 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { Community } from '@core/shared/community.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '../../../core/shared/community.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../error/error.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';

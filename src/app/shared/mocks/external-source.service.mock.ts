@@ -1,6 +1,6 @@
-import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { ExternalSource } from '../../core/shared/external-source.model';
-import { ResourceType } from '../../core/shared/resource-type';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { ExternalSource } from '@core/shared/external-source.model';
+import { ResourceType } from '@core/shared/resource-type';
 
 export const externalSourceOrcid: ExternalSource = {
   type: new ResourceType('externalsource'),

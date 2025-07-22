@@ -14,6 +14,11 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
+import { BrowseService } from '@core/browse/browse.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { BrowseDefinition } from '@core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -35,11 +40,6 @@ import {
 } from '../../../../config/app-config.interface';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
-import { BrowseService } from '../../../core/browse/browse.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { isNotEmpty } from '../../empty.util';
 
 export interface ComColPageNavOption {

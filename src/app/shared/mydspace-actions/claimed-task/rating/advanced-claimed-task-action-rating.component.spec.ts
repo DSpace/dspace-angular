@@ -9,14 +9,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';

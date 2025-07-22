@@ -6,12 +6,12 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { VersionDataService } from '@core/data/version-data.service';
+import { Item } from '@core/shared/item.model';
+import { Version } from '@core/shared/version.model';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,

@@ -1,6 +1,5 @@
+import { Collection } from '@core/shared/collection.model';
 import { Item } from 'src/app/core/shared/item.model';
-
-import { Collection } from '../../../core/shared/collection.model';
 
 export class FilteredItems {
 

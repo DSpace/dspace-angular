@@ -1,3 +1,4 @@
+import { MetadataValue } from '@core/shared/metadata.models';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
@@ -7,7 +8,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import {
   hasNoValue,
   isNotEmpty,

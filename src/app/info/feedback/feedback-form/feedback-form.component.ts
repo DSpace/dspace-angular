@@ -11,6 +11,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { RemoteData } from '@core/data/remote-data';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { FeedbackDataService } from '@core/feedback/feedback-data.service';
+import { RouteService } from '@core/services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { URLCombiner } from '@core/url-combiner/url-combiner';
 import {
   TranslateModule,
   TranslateService,
@@ -18,18 +30,6 @@ import {
 import { take } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
-import { RouteService } from '../../../core/services/route.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../core/services/window.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

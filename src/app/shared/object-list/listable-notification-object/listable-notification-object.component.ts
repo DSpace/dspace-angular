@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableNotificationObject } from './listable-notification-object.model';

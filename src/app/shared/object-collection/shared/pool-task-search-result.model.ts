@@ -1,4 +1,5 @@
-import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
+import { PoolTask } from '@core/tasks/models/pool-task-object.model';
+
 import { SearchResult } from '../../search/models/search-result.model';
 
 /**

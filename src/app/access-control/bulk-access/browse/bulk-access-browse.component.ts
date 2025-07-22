@@ -6,6 +6,13 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import {
   NgbAccordionModule,
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -20,13 +27,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../shared/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';

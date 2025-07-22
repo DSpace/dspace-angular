@@ -14,6 +14,9 @@ import {
   DomSanitizer,
   SafeResourceUrl,
 } from '@angular/platform-browser';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -25,9 +28,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../core/data/bundle-data.service';
-import { Item } from '../../core/shared/item.model';
 import {
   HostWindowService,
   WidthCategory,

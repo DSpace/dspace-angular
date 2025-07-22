@@ -10,6 +10,14 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Collection } from '@core/shared/collection.model';
+import { ExternalSource } from '@core/shared/external-source.model';
+import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -17,14 +25,6 @@ import {
   of,
 } from 'rxjs';
 
-import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';

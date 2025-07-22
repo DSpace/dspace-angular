@@ -5,13 +5,12 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { AuthService } from '../core/auth/auth.service';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * A guard responsible for redirecting to 4xx pages upon retrieving a Registration object

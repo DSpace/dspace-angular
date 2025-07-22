@@ -5,6 +5,8 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   utcToZonedTime,
@@ -12,8 +14,6 @@ import {
 } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
-import { RequestService } from '../../core/data/request.service';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

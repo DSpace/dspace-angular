@@ -14,17 +14,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
+import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../../testing/search-configuration-service.stub';

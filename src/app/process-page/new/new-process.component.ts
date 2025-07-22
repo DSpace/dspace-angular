@@ -4,15 +4,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LinkService } from '@core/cache/builders/link.service';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../core/cache/builders/link.service';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

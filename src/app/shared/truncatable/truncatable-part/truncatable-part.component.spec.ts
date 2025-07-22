@@ -10,16 +10,16 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../core/services/window.service';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { getMockTranslateService } from '../../mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';

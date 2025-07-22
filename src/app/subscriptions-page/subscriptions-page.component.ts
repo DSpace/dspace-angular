@@ -4,6 +4,16 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { getAllCompletedRemoteData } from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -19,16 +29,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { getAllCompletedRemoteData } from '../core/shared/operators';
-import { PageInfo } from '../core/shared/page-info.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { hasValue } from '../shared/empty.util';

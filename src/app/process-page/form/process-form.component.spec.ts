@@ -9,14 +9,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { RequestService } from '@core/data/request.service';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RequestService } from '../../core/data/request.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

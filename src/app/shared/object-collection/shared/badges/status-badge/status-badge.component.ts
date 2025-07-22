@@ -4,9 +4,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { hasValue } from '../../../../empty.util';
 
 @Component({

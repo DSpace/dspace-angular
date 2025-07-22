@@ -8,6 +8,23 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import {
+  Field,
+  Option,
+  SubmissionCcLicence,
+} from '@core/submission/models/submission-cc-license.model';
+import { WorkspaceitemSectionCcLicenseObject } from '@core/submission/models/workspaceitem-section-cc-license.model';
+import { SubmissionCcLicenseDataService } from '@core/submission/submission-cc-license-data.service';
+import { SubmissionCcLicenseUrlDataService } from '@core/submission/submission-cc-license-url-data.service';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -28,23 +45,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import {
-  Field,
-  Option,
-  SubmissionCcLicence,
-} from '../../../core/submission/models/submission-cc-license.model';
-import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
-import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
-import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import {
   hasNoValue,

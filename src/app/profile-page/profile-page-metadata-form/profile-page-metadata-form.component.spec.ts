@@ -8,6 +8,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
 import {
   TranslateModule,
   TranslateService,
@@ -15,9 +18,6 @@ import {
 import cloneDeep from 'lodash/cloneDeep';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

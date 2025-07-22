@@ -12,6 +12,21 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { AuthService } from '@core/auth/auth.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { ComColDataService } from '@core/data/comcol-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@core/shared/metadata.models';
+import { NoContent } from '@core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { ResourceType } from '@core/shared/resource-type';
 import {
   NgbModal,
   NgbModalRef,
@@ -39,21 +54,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '../../../../core/shared/metadata.models';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ResourceType } from '../../../../core/shared/resource-type';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import {
   hasValue,

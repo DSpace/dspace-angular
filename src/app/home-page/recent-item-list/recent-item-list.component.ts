@@ -12,6 +12,19 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { Item } from '@core/shared/item.model';
+import { toDSpaceObjectListRD } from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -20,19 +33,6 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { Item } from '../../core/shared/item.model';
-import { toDSpaceObjectListRD } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import {
   fadeIn,
   fadeInOut,

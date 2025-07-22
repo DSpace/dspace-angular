@@ -7,6 +7,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
+import { ITEM } from '@core/shared/item.resource-type';
 import { Store } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
 import {
@@ -19,8 +21,6 @@ import {
   APP_DATA_SERVICES_MAP,
 } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { ITEM } from '../../../../../core/shared/item.resource-type';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';

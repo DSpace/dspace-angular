@@ -1,4 +1,25 @@
 import { Injectable } from '@angular/core';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
+import {
+  DeleteRelationship,
+  RelationshipIdentifiable,
+} from '@core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -16,27 +37,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import {
-  DeleteRelationship,
-  RelationshipIdentifiable,
-} from '../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 

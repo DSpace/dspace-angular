@@ -10,6 +10,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { Bundle } from '@core/shared/bundle.model';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -27,19 +40,6 @@ import {
 
 import { environment } from '../../../../environments/environment';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import {
   hasValue,
   isEmpty,

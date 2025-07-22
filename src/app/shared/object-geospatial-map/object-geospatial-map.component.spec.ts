@@ -6,6 +6,9 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -14,9 +17,6 @@ import {
   TranslateStore,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-detail.model';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';

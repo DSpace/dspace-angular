@@ -8,11 +8,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Collection } from '@core/shared/collection.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Collection } from '../../../core/shared/collection.model';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CollectionCurateComponent } from './collection-curate.component';

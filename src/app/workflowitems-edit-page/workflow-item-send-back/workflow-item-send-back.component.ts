@@ -7,15 +7,15 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { RouteService } from '@core/services/route.service';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { RequestService } from '../../core/data/request.service';
-import { RouteService } from '../../core/services/route.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';

@@ -4,14 +4,14 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
+} from '@core/cache/models/sort-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Observable } from 'rxjs';
+
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { StartsWithType } from '../starts-with/starts-with-type';

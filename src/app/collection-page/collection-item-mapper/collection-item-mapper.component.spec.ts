@@ -12,6 +12,21 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { LinkHeadService } from '@core/services/link-head.service';
+import { RouteService } from '@core/services/route.service';
+import { Collection } from '@core/shared/collection.model';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -19,21 +34,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { RouteService } from '../../core/services/route.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';

@@ -14,6 +14,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '@core/auth/auth.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   NgbActiveModal,
   NgbModalModule,
@@ -23,11 +28,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';

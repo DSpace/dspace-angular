@@ -12,15 +12,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { Item } from '@core/shared/item.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { PoolTask } from '@core/tasks/models/pool-task-object.model';
 import { of } from 'rxjs';
 import { Context } from 'src/app/core/shared/context.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';

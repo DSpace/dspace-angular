@@ -11,6 +11,17 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { ItemTemplateDataService } from '@core/data/item-template-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { Collection } from '@core/shared/collection.model';
+import { Item } from '@core/shared/item.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -24,17 +35,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

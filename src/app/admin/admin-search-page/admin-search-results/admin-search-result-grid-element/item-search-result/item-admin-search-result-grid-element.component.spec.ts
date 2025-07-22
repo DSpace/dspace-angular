@@ -6,18 +6,18 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { FileService } from '@core/shared/file.service';
+import { Item } from '@core/shared/item.model';
+import { ListableModule } from '@core/shared/listable.module';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { FileService } from '../../../../../core/shared/file.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';

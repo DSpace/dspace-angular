@@ -5,6 +5,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { RemoteData } from '@core/data/remote-data';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -20,16 +30,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { isNotEmpty } from '../../shared/empty.util';

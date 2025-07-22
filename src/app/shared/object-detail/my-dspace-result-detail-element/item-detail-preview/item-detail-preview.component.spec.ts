@@ -9,6 +9,23 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthService } from '@core/auth/auth.service';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { FileService } from '@core/shared/file.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { UUIDService } from '@core/shared/uuid.service';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -16,32 +33,15 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { FileService } from '../../../../core/shared/file.service';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { XSRFService } from '../../../../core/xsrf/xsrf.service';
-import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
-import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { AuthServiceMock } from '../../../mocks/auth.service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../testing/utils.test';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { FollowLinkConfig } from '../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../utils/truncate.pipe';

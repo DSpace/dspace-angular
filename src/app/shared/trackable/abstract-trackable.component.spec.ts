@@ -5,12 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
 import {
   INotification,
   Notification,

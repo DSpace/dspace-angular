@@ -9,6 +9,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import {
   TranslateModule,
   TranslateService,
@@ -16,11 +20,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';

@@ -11,6 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   BehaviorSubject,
   combineLatest,
@@ -26,7 +27,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   hasNoValue,
   hasValue,

@@ -1,8 +1,8 @@
+import { RequestService } from '@core/data/request.service';
+import { RestRequest } from '@core/data/rest-request.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
 import isEqual from 'lodash/isEqual';
 
-import { RequestService } from '../core/data/request.service';
-import { RestRequest } from '../core/data/rest-request.model';
-import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { SearchOptions } from '../shared/search/models/search-options.model';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';

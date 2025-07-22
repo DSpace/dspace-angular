@@ -12,20 +12,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RequestService } from '@core/data/request.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Bundle } from '@core/shared/bundle.model';
+import { Item } from '@core/shared/item.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {

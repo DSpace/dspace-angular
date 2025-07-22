@@ -1,4 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { RestResponse } from '@core/cache/response.models';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { CookieService } from '@core/services/cookie.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { MetadataValue } from '@core/shared/metadata.models';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
@@ -7,14 +15,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
-import { RestResponse } from '../../core/cache/response.models';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { CookieService } from '../../core/services/cookie.service';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { MetadataValue } from '../../core/shared/metadata.models';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
 import {
   createFailedRemoteDataObject$,

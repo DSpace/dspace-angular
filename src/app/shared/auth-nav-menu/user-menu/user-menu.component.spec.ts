@@ -11,6 +11,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import {
+  authReducer,
+  AuthState,
+} from '@core/auth/auth.reducer';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
+import { XSRFService } from '@core/xsrf/xsrf.service';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -23,13 +30,6 @@ import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
-import {
-  authReducer,
-  AuthState,
-} from '../../../core/auth/auth.reducer';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { EPersonMock } from '../../testing/eperson.mock';

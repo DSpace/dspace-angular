@@ -1,19 +1,19 @@
+import { BrowseService } from '@core/browse/browse.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { BrowseDefinition } from '@core/shared/browse-definition.model';
+import { FlatBrowseDefinition } from '@core/shared/flat-browse-definition.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
 import {
   EMPTY,
   Observable,
   of,
 } from 'rxjs';
 
-import { BrowseService } from '../../core/browse/browse.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 
 // This data is in post-serialized form (metadata -> metadataKeys)

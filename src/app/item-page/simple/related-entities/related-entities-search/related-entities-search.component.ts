@@ -3,8 +3,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Item } from '@core/shared/item.model';
 
-import { Item } from '../../../../core/shared/item.model';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';

@@ -17,6 +17,21 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BrowseService } from '@core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '@core/browse/browse-entry-search-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { BrowseEntry } from '@core/shared/browse-entry.model';
+import { Context } from '@core/shared/context.model';
+import { Item } from '@core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -36,21 +51,6 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Context } from '../../core/shared/context.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import {
   hasValue,
   isNotEmpty,

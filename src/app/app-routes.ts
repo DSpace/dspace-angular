@@ -3,6 +3,15 @@ import {
   Route,
   RouterConfigOptions,
 } from '@angular/router';
+import { authBlockingGuard } from '@core/auth/auth-blocking.guard';
+import { authenticatedGuard } from '@core/auth/authenticated.guard';
+import { groupAdministratorGuard } from '@core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { siteAdministratorGuard } from '@core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { siteRegisterGuard } from '@core/data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { endUserAgreementCurrentUserGuard } from '@core/end-user-agreement/end-user-agreement-current-user.guard';
+import { reloadGuard } from '@core/reload/reload.guard';
+import { forgotPasswordCheckGuard } from '@core/rest-property/forgot-password-check-guard.guard';
+import { ServerCheckGuard } from '@core/server-check/server-check.guard';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
@@ -23,15 +32,6 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { authBlockingGuard } from './core/auth/auth-blocking.guard';
-import { authenticatedGuard } from './core/auth/authenticated.guard';
-import { groupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { siteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { endUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
-import { reloadGuard } from './core/reload/reload.guard';
-import { forgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
-import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';

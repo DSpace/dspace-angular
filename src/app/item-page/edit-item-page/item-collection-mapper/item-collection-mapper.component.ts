@@ -9,6 +9,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Collection } from '@core/shared/collection.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { Item } from '@core/shared/item.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  toDSpaceObjectListRD,
+} from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -27,25 +46,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Collection } from '../../../core/shared/collection.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { Item } from '../../../core/shared/item.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-  toDSpaceObjectListRD,
-} from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import {
   fadeIn,
   fadeInOut,

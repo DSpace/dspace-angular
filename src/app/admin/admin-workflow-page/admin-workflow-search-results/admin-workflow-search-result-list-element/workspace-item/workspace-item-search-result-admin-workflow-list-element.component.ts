@@ -4,6 +4,21 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -20,21 +35,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Context } from '../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';

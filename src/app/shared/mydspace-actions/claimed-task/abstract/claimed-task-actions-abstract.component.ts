@@ -5,19 +5,19 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import { CLAIMED_TASK } from '@core/tasks/models/claimed-task-object.resource-type';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { CLAIMED_TASK } from '../../../../core/tasks/models/claimed-task-object.resource-type';
 import { isEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-actions';

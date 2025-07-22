@@ -6,11 +6,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { isNotEmpty } from '../../../empty.util';
 
 /**

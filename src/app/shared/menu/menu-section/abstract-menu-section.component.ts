@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   BehaviorSubject,
   Observable,
@@ -14,7 +15,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import {
   hasNoValue,
   hasValue,

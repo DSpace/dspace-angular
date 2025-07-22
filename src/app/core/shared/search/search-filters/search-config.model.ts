@@ -1,11 +1,11 @@
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
 import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 
 import { FilterType } from '../../../../shared/search/models/filter-type.model';
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
 import { HALLink } from '../../hal-link.model';
 import { ResourceType } from '../../resource-type';
 import { SEARCH_CONFIG } from './search-config.resource-type';

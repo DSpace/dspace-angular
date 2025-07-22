@@ -2,6 +2,19 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RestResponse } from '@core/cache/response.models';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
+import { RequestService } from '@core/data/request.service';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '@core/shared/metadata.models';
+import { DEBOUNCE_TIME_OPERATOR } from '@core/shared/operators';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,19 +29,6 @@ import {
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../../../core/cache/response.models';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
-import { RequestService } from '../../../../../core/data/request.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { DEBOUNCE_TIME_OPERATOR } from '../../../../../core/shared/operators';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';

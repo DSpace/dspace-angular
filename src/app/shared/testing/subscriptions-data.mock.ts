@@ -1,6 +1,7 @@
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Item } from '../../core/shared/item.model';
-import { ITEM_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Item } from '@core/shared/item.model';
+import { ITEM_TYPE } from '@core/shared/item-relationships/item-type.resource-type';
+
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export const mockSubscriptionEperson = Object.assign(new EPerson(), {

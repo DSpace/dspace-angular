@@ -19,6 +19,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { ActionType } from '@core/resource-policy/models/action-type.model';
+import { PolicyType } from '@core/resource-policy/models/policy-type.model';
+import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
+import { RESOURCE_POLICY } from '@core/resource-policy/models/resource-policy.resource-type';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -34,16 +44,6 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { SubmissionService } from '../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {

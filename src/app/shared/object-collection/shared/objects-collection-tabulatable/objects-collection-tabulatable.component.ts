@@ -4,11 +4,11 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Context } from '../../../../core/shared/context.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';
 

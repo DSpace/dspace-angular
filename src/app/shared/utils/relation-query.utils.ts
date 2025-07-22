@@ -1,5 +1,6 @@
-import { Item } from '../../core/shared/item.model';
-import { Relationship } from '../../core/shared/item-relationships/relationship.model';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+
 import {
   followLink,
   FollowLinkConfig,

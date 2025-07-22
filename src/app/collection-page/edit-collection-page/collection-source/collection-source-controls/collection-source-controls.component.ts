@@ -6,6 +6,19 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { RequestService } from '@core/data/request.service';
+import { Collection } from '@core/shared/collection.model';
+import { ContentSource } from '@core/shared/content-source.model';
+import { ContentSourceSetSerializer } from '@core/shared/content-source-set-serializer';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -22,19 +35,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { ContentSource } from '../../../../core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';

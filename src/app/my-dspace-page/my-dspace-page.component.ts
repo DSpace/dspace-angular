@@ -5,15 +5,15 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { MyDSpaceResponseParsingService } from '@core/data/mydspace-response-parsing.service';
+import { MyDSpaceRequest } from '@core/data/request.models';
+import { RoleType } from '@core/roles/role-types';
+import { Context } from '@core/shared/context.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
-import { MyDSpaceRequest } from '../core/data/request.models';
-import { RoleType } from '../core/roles/role-types';
-import { Context } from '../core/shared/context.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { ViewMode } from '../core/shared/view-mode.model';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';

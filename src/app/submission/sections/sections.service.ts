@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { WorkspaceitemSectionDataType } from '@core/submission/models/workspaceitem-sections.model';
+import { normalizeSectionData } from '@core/submission/submission-response-parsing.service';
+import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import { parseReviver } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,11 +26,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
-import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import {
   hasValue,
   isEmpty,

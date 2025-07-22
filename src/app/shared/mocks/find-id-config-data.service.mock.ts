@@ -1,4 +1,5 @@
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export function getMockFindByIdDataService(propertyKey: string, ...values: string[]) {

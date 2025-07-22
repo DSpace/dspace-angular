@@ -14,6 +14,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -40,10 +44,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {

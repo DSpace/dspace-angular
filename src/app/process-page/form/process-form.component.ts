@@ -13,14 +13,14 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';

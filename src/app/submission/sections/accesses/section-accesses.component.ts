@@ -5,6 +5,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { AccessesConditionOption } from '@core/config/models/config-accesses-conditions-options.model';
+import { SubmissionAccessesConfigDataService } from '@core/config/submission-accesses-config-data.service';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { getFirstSucceededRemoteData } from '@core/shared/operators';
+import { WorkspaceitemSectionAccessesObject } from '@core/submission/models/workspaceitem-section-accesses.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -34,13 +41,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../shared/date.util';
 import {
   hasValue,

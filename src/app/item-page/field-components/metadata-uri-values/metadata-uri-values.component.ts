@@ -3,9 +3,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { MetadataValue } from '@core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MetadataValue } from '../../../core/shared/metadata.models';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 

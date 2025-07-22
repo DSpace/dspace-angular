@@ -1,4 +1,5 @@
-import { Context } from '../../../../core/shared/context.model';
+import { Context } from '@core/shared/context.model';
+
 import { hasValue } from '../../../../shared/empty.util';
 import {
   DEFAULT_CONTEXT,

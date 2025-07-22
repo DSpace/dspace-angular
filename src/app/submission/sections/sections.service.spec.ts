@@ -2,6 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import {
   Store,
   StoreModule,
@@ -19,7 +20,6 @@ import {
 import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/mocks/form-service.mock';

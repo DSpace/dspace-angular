@@ -1,17 +1,17 @@
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PageInfo } from '@core/shared/page-info.model';
+import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import {
   Observable,
   of,
 } from 'rxjs';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { Vocabulary } from '../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export class VocabularyServiceStub {

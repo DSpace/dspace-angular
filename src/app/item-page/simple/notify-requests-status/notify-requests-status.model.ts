@@ -1,15 +1,15 @@
 // eslint-disable-next-line max-classes-per-file
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { HALLink } from '@core/shared/hal-link.model';
+import { ResourceType } from '@core/shared/resource-type';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { NOTIFYREQUEST } from './notify-requests-status.resource-type';
 import { RequestStatusEnum } from './notify-status.enum';
 

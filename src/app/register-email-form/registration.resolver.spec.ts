@@ -1,7 +1,7 @@
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { Registration } from '@core/shared/registration.model';
 import { first } from 'rxjs/operators';
 
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { Registration } from '../core/shared/registration.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { registrationResolver } from './registration.resolver';
 

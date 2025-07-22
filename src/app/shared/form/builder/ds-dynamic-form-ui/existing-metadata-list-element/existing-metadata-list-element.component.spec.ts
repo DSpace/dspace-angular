@@ -5,6 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -12,8 +14,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';

@@ -1,17 +1,17 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import {
+  DeleteRelationship,
+  RelationshipIdentifiable,
+} from '@core/data/object-updates/object-updates.reducer';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
   Observable,
   Subscription,
 } from 'rxjs';
 
-import {
-  DeleteRelationship,
-  RelationshipIdentifiable,
-} from '../../core/data/object-updates/object-updates.reducer';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { Relationship } from '../../core/shared/item-relationships/relationship.model';
-import { NoContent } from '../../core/shared/NoContent.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 /**

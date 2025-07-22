@@ -14,6 +14,15 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RegistryService } from '@core/registry/registry.service';
+import { ConfidenceType } from '@core/shared/confidence-type';
+import {
+  getFirstCompletedRemoteData,
+  metadataFieldsToString,
+} from '@core/shared/operators';
+import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -31,15 +40,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RegistryService } from '../../../../core/registry/registry.service';
-import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import {
-  getFirstCompletedRemoteData,
-  metadataFieldsToString,
-} from '../../../../core/shared/operators';
-import { Vocabulary } from '../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { DsDynamicOneboxComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {

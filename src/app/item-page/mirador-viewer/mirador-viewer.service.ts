@@ -2,6 +2,15 @@ import {
   Injectable,
   isDevMode,
 } from '@angular/core';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { Bundle } from '@core/shared/bundle.model';
+import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -11,15 +20,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../core/data/bundle-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { Bundle } from '../../core/shared/bundle.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import {
   followLink,
   FollowLinkConfig,

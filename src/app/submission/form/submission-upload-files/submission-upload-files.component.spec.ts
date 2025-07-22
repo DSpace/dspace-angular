@@ -9,6 +9,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -20,7 +21,6 @@ import {
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,

@@ -14,6 +14,14 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { LinkHeadService } from '@core/services/link-head.service';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   TranslateModule,
   TranslateService,
@@ -26,14 +34,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import {
   hasValue,
   isUndefined,

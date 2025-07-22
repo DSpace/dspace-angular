@@ -8,6 +8,8 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import { RoleService } from '@core/roles/role.service';
+import { RoleType } from '@core/roles/role-types';
 import {
   combineLatest,
   Observable,
@@ -19,8 +21,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RoleService } from '../../core/roles/role.service';
-import { RoleType } from '../../core/roles/role-types';
 import { hasValue } from '../empty.util';
 
 @Directive({

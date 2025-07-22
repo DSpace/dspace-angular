@@ -12,13 +12,13 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ItemDataService } from '@core/data/item-data.service';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ItemDataService } from '../../core/data/item-data.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

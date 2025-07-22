@@ -14,6 +14,10 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { Item } from '@core/shared/item.model';
 import {
   NgbModal,
   NgbModalRef,
@@ -21,10 +25,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { Item } from '../../core/shared/item.model';
 import { MenuService } from '../../shared/menu/menu.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';

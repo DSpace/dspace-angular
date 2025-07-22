@@ -4,12 +4,12 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 
-import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import {
   followLink,
   FollowLinkConfig,

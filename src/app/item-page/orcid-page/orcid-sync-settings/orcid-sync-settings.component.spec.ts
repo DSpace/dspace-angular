@@ -16,6 +16,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { Item } from '@core/shared/item.model';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -25,9 +28,6 @@ import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
-import { Item } from '../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {

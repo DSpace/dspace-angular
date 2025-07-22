@@ -1,11 +1,10 @@
+import { RequestService } from '@core/data/request.service';
 import {
   Observable,
   of,
 } from 'rxjs';
-
-import { RequestService } from '../../core/data/request.service';
 import SpyObj = jasmine.SpyObj;
-import { RequestEntry } from '../../core/data/request-entry.model';
+import { RequestEntry } from '@core/data/request-entry.model';
 
 export function getMockRequestService(requestEntry$: Observable<RequestEntry> = of(new RequestEntry())): SpyObj<RequestService> {
   return jasmine.createSpyObj('requestService', {

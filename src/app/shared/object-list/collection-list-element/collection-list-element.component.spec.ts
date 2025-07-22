@@ -9,9 +9,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Collection } from '@core/shared/collection.model';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Collection } from '../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CollectionListElementComponent } from './collection-list-element.component';

@@ -10,13 +10,13 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import { Context } from '@core/shared/context.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Context } from '../../../../core/shared/context.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';

@@ -16,6 +16,14 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowseService } from '@core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '@core/browse/browse-entry-search-options.model';
+import { SortDirection } from '@core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { BrowseEntry } from '@core/shared/browse-entry.model';
+import { Community } from '@core/shared/community.model';
+import { Item } from '@core/shared/item.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,14 +32,6 @@ import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Community } from '../../core/shared/community.model';
-import { Item } from '../../core/shared/item.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';

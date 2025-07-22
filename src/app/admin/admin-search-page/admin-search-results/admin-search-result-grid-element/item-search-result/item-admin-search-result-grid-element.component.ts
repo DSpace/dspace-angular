@@ -6,13 +6,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { Context } from '@core/shared/context.model';
+import { GenericConstructor } from '@core/shared/generic-constructor';
+import { Item } from '@core/shared/item.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { Context } from '../../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { hasValue } from '../../../../../shared/empty.util';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';

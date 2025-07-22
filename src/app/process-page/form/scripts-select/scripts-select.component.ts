@@ -17,6 +17,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -29,13 +36,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { Script } from '../../scripts/script.model';

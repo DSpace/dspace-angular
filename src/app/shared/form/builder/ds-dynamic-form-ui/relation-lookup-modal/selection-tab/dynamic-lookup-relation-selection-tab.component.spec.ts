@@ -6,24 +6,24 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Item } from '../../../../../../core/shared/item.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { ObjectCollectionComponent } from '../../../../../../shared/object-collection/object-collection.component';
-import { PageSizeSelectorComponent } from '../../../../../../shared/page-size-selector/page-size-selector.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';

@@ -2,11 +2,11 @@ import {
   Route,
   Routes,
 } from '@angular/router';
+import { i18nBreadcrumbResolver } from '@core/breadcrumbs/i18n-breadcrumb.resolver';
+import { notifyInfoGuard } from '@core/coar-notify/notify-info/notify-info.guard';
+import { feedbackGuard } from '@core/feedback/feedback.guard';
 
 import { environment } from '../../environments/environment';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { notifyInfoGuard } from '../core/coar-notify/notify-info/notify-info.guard';
-import { feedbackGuard } from '../core/feedback/feedback.guard';
 import { hasValue } from '../shared/empty.util';
 import { AccessibilitySettingsComponent } from './accessibility-settings/accessibility-settings.component';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';

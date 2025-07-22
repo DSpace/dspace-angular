@@ -1,15 +1,16 @@
-import { ACCESSIBILITY_COOKIE } from '../../accessibility/accessibility-settings.service';
 import {
   IMPERSONATING_COOKIE,
   REDIRECT_COOKIE,
-} from '../../core/auth/auth.service';
-import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
+} from '@core/auth/auth.service';
+import { TOKENITEM } from '@core/auth/models/auth-token-info.model';
 import {
   CAPTCHA_COOKIE,
   CAPTCHA_NAME,
-} from '../../core/google-recaptcha/google-recaptcha.service';
-import { LANG_COOKIE } from '../../core/locale/locale.service';
-import { NativeWindowRef } from '../../core/services/window.service';
+} from '@core/google-recaptcha/google-recaptcha.service';
+import { LANG_COOKIE } from '@core/locale/locale.service';
+import { NativeWindowRef } from '@core/services/window.service';
+
+import { ACCESSIBILITY_COOKIE } from '../../accessibility/accessibility-settings.service';
 
 /**
  * Cookie for has_agreed_end_user

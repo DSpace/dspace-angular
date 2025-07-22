@@ -12,6 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -26,19 +27,18 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-import { LdnServicesService } from 'src/app/admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { LdnServicesService } from 'src/app/core/data/ldn-services-data.service';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { hasValue } from '../../../../shared/empty.util';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { FindListOptions } from '../../find-list-options.model';
+import { PaginatedList } from '../../paginated-list.model';
+import { RemoteData } from '../../remote-data';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 
 /**

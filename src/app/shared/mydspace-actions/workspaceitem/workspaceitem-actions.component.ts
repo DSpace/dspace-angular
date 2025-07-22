@@ -9,6 +9,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { Item } from '@core/shared/item.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import {
   NgbModal,
   NgbTooltipModule,
@@ -24,19 +37,6 @@ import {
 } from 'rxjs';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';

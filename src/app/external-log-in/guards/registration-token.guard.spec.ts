@@ -7,15 +7,15 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Registration } from '@core/shared/registration.model';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Registration } from '../../core/shared/registration.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import {
   createFailedRemoteDataObject$,

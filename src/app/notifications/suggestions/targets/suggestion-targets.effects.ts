@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
+  AuthActionTypes,
+  RetrieveAuthenticatedEpersonSuccessAction,
+} from '@core/auth/auth.actions';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
+import {
   Actions,
   createEffect,
   ofType,
@@ -18,12 +24,6 @@ import { RemoteData } from 'src/app/core/data/remote-data';
 import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
-import {
-  AuthActionTypes,
-  RetrieveAuthenticatedEpersonSuccessAction,
-} from '../../../core/auth/auth.actions';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {

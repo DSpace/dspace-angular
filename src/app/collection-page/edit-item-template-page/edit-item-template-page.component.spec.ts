@@ -7,11 +7,11 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ItemTemplateDataService } from '@core/data/item-template-data.service';
+import { Collection } from '@core/shared/collection.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { Collection } from '../../core/shared/collection.model';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

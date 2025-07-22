@@ -13,6 +13,22 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { VersionDataService } from '@core/data/version-data.service';
+import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { Version } from '@core/shared/version.model';
+import { VersionHistory } from '@core/shared/version-history.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -32,22 +48,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {

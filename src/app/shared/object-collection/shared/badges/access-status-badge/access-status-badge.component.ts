@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -21,7 +22,6 @@ import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operator
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { environment } from 'src/environments/environment';
 
-import { Item } from '../../../../../core/shared/item.model';
 import { hasValue } from '../../../../empty.util';
 import { AccessStatusObject } from './access-status.model';
 

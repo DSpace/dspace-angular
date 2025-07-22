@@ -7,12 +7,12 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { ConfigurationDataServiceStub } from '../../testing/configuration-data.service.stub';

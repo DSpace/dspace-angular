@@ -3,8 +3,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@core/shared/item.model';
 
-import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 

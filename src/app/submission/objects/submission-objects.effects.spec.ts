@@ -1,4 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { SubmissionSectionModel } from '@core/config/models/config-submission-section.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { Item } from '@core/shared/item.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,
@@ -23,13 +30,6 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import {
   mockSectionsData,
   mockSectionsDataTwo,

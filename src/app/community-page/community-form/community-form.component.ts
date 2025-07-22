@@ -6,6 +6,11 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { RequestService } from '@core/data/request.service';
+import { Community } from '@core/shared/community.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -19,11 +24,6 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';

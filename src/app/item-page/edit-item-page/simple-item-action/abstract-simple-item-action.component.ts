@@ -8,6 +8,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -18,10 +22,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditRoute,

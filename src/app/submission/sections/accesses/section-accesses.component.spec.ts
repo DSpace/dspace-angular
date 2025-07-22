@@ -3,6 +3,11 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { SubmissionAccessesConfigDataService } from '@core/config/submission-accesses-config-data.service';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
@@ -21,11 +26,6 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

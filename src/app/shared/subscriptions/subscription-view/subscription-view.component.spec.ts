@@ -15,6 +15,8 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Item } from '@core/shared/item.model';
+import { ITEM } from '@core/shared/item.resource-type';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -22,8 +24,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 // Import mocks
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';

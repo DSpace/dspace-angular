@@ -11,13 +11,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TestScheduler } from 'rxjs/testing';
 
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';

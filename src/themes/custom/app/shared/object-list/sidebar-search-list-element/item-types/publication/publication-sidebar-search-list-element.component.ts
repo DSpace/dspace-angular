@@ -3,10 +3,10 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { Context } from '@core/shared/context.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Context } from '../../../../../../../../app/core/shared/context.model';
-import { ViewMode } from '../../../../../../../../app/core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../../../../app/shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { PublicationSidebarSearchListElementComponent as BaseComponent } from '../../../../../../../../app/shared/object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';

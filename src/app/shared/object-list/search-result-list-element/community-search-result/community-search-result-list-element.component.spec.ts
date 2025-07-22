@@ -10,18 +10,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Community } from '@core/shared/community.model';
 import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Community } from '../../../../core/shared/community.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { getMockThemeService } from './../../../../shared/mocks/theme-service.mock';
-import { ThemeService } from './../../../../shared/theme-support/theme.service';
 import { CommunitySearchResultListElementComponent } from './community-search-result-list-element.component';
 
 let communitySearchResultListElementComponent: CommunitySearchResultListElementComponent;

@@ -14,6 +14,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -25,17 +36,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Item } from '../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { isNotEmpty } from '../../shared/empty.util';

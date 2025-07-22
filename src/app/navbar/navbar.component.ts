@@ -9,6 +9,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { isAuthenticated } from '@core/auth/selectors';
+import { BrowseService } from '@core/browse/browse.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,
@@ -18,9 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
-import { isAuthenticated } from '../core/auth/selectors';
-import { BrowseService } from '../core/browse/browse.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { slideMobileNav } from '../shared/animations/slide';
 import { ThemedUserMenuComponent } from '../shared/auth-nav-menu/user-menu/themed-user-menu.component';
 import {

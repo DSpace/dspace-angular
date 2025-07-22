@@ -1,3 +1,7 @@
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { ResourceType } from '@core/shared/resource-type';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,
@@ -5,10 +9,6 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { LDN_SERVICE } from './ldn-service.resource-type';
 import { NotifyServicePattern } from './ldn-service-patterns.model';
 

@@ -7,19 +7,19 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { Context } from '@core/shared/context.model';
+import { Item } from '@core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { BehaviorSubject } from 'rxjs';
 
 import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';

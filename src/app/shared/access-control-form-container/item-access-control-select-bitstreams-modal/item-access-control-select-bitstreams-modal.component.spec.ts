@@ -7,6 +7,13 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Item } from '@core/shared/item.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -14,13 +21,6 @@ import {
   of,
 } from 'rxjs';
 
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';

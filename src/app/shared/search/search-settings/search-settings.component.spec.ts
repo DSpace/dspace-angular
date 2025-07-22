@@ -7,16 +7,16 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+} from '@core/cache/models/sort-options.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { SidebarService } from '../../sidebar/sidebar.service';

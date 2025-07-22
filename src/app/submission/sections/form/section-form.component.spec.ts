@@ -14,6 +14,14 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { FormRowModel } from '@core/config/models/config-submission-form.model';
+import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
+import { RequestService } from '@core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
@@ -25,14 +33,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

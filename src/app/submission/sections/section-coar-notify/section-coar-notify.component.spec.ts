@@ -3,23 +3,23 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { SubmissionCoarNotifyModel } from '@core/coar-notify/models/submission-coar-notify.model';
+import { NotifyServicePattern } from '@core/data/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
+import {
+  LdnService,
+  LdnServiceByPattern,
+} from '@core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { CoarNotifyConfigDataService } from '@core/data/coar-notify-config-data.service';
+import { LdnServicesService } from '@core/data/ldn-services-data.service';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
-import {
-  LdnService,
-  LdnServiceByPattern,
-} from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';
-import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 
 describe('SubmissionSectionCoarNotifyComponent', () => {
   let component: SubmissionSectionCoarNotifyComponent;
@@ -33,8 +33,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   let cdRefStub: any;
 
 
-  const patterns: SubmissionCoarNotifyConfig[] = Object.assign(
-    [new SubmissionCoarNotifyConfig()],
+  const patterns: SubmissionCoarNotifyModel[] = Object.assign(
+    [new SubmissionCoarNotifyModel()],
     {
       patterns: [{ pattern: 'review', multipleRequest: false }, { pattern: 'endorsment', multipleRequest: false }],
     },

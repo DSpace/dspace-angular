@@ -12,6 +12,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   NgbDatepickerModule,
   NgbDateStruct,
@@ -35,11 +40,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasValue,

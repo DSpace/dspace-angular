@@ -15,19 +15,19 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticateAction } from '@core/auth/auth.actions';
+import { CoreState } from '@core/core-state.model';
+import {
+  END_USER_AGREEMENT_METADATA_FIELD,
+  EndUserAgreementService,
+} from '@core/end-user-agreement/end-user-agreement.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Registration } from '@core/shared/registration.model';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { CoreState } from '../../core/core-state.model';
-import {
-  END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService,
-} from '../../core/end-user-agreement/end-user-agreement.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {

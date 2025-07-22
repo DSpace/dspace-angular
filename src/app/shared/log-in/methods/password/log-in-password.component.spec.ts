@@ -11,6 +11,12 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { authReducer } from '@core/auth/auth.reducer';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
 import {
   Store,
   StoreModule,
@@ -19,12 +25,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { authReducer } from '../../../../core/auth/auth.reducer';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';

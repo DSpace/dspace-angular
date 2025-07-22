@@ -11,6 +11,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SubmissionRestService } from '@core/submission/submission-rest.service';
 import {
   NgbModal,
   NgbModule,
@@ -24,7 +25,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';

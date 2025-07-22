@@ -14,11 +14,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ConfidenceType } from '@core/shared/confidence-type';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { createTestComponent } from '../../testing/utils.test';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';

@@ -17,6 +17,20 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { RemoteData } from '@core/data/remote-data';
+import {
+  CAPTCHA_NAME,
+  GoogleRecaptchaService,
+} from '@core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '@core/services/cookie.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { Registration } from '@core/shared/registration.model';
 import {
   TranslateModule,
   TranslateService,
@@ -35,20 +49,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { RemoteData } from '../core/data/remote-data';
-import {
-  CAPTCHA_NAME,
-  GoogleRecaptchaService,
-} from '../core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '../core/services/cookie.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-} from '../core/shared/operators';
-import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../shared/btn-disabled.directive';

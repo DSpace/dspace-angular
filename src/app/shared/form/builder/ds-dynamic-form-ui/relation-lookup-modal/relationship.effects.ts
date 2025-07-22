@@ -3,6 +3,23 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { ServerSyncBufferActionTypes } from '@core/cache/server-sync-buffer.actions';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { JsonPatchOperationsActionTypes } from '@core/json-patch/json-patch-operations.actions';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import {
+  DEBOUNCE_TIME_OPERATOR,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import {
   Actions,
   createEffect,
@@ -25,23 +42,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestService } from '../../../../../core/data/request.service';
-import { JsonPatchOperationsActionTypes } from '../../../../../core/json-patch/json-patch-operations.actions';
-import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import {
-  DEBOUNCE_TIME_OPERATOR,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionState } from '../../../../../submission/submission.reducers';
 import {

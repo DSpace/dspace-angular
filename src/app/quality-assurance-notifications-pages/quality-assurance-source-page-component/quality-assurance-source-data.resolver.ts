@@ -5,6 +5,8 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,8 +14,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceService } from '../../notifications/qa/source/quality-assurance-source.service';
 
 /**

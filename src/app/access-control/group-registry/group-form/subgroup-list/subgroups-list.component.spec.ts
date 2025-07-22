@@ -23,6 +23,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RestResponse } from '@core/cache/response.models';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { Group } from '@core/eperson/models/group.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { PageInfo } from '@core/shared/page-info.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -35,17 +46,6 @@ import {
 } from 'rxjs';
 import { EPersonMock2 } from 'src/app/shared/testing/eperson.mock';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { RestResponse } from '../../../../core/cache/response.models';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';

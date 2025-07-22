@@ -4,6 +4,9 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { SearchService } from '@core/shared/search/search.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -15,9 +18,6 @@ import {
 } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';

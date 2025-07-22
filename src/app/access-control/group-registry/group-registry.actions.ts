@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
+import { Group } from '@core/eperson/models/group.model';
 import { Action } from '@ngrx/store';
 
-import { Group } from '../../core/eperson/models/group.model';
 import { type } from '../../shared/ngrx/type';
 
 /**

@@ -7,9 +7,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { SearchService } from '@core/shared/search/search.service';
 import { BehaviorSubject } from 'rxjs';
 
-import { SearchService } from '../../../core/shared/search/search.service';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { AppliedFilter } from '../models/applied-filter.model';
 import { SearchLabelComponent } from './search-label/search-label.component';

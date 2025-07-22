@@ -7,14 +7,14 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { SearchService } from '@core/shared/search/search.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 

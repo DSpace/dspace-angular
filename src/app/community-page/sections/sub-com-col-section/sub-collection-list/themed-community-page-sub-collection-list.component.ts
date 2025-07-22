@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Community } from '@core/shared/community.model';
 
-import { Community } from '../../../../core/shared/community.model';
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { CommunityPageSubCollectionListComponent } from './community-page-sub-collection-list.component';
 

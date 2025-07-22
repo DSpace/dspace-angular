@@ -7,12 +7,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-
-import { Context } from '../../core/shared/context.model';
+import { Context } from '@core/shared/context.model';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
-} from '../../core/shared/metadata-representation/metadata-representation.model';
+} from '@core/shared/metadata-representation/metadata-representation.model';
+
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';

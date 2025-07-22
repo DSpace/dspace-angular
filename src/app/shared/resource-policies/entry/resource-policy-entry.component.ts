@@ -18,21 +18,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@core/data/remote-data';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { Group } from '@core/eperson/models/group.model';
+import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import {
   dateToString,
   stringToNgbDateStruct,

@@ -6,18 +6,18 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { Item } from '@core/shared/item.model';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';

@@ -10,6 +10,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
+import { RequestService } from '@core/data/request.service';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -24,20 +38,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

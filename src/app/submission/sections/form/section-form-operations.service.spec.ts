@@ -2,6 +2,9 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -14,9 +17,6 @@ import {
 } from '@ngx-translate/core';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';

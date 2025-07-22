@@ -4,10 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 

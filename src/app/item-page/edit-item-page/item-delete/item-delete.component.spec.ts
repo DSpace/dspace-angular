@@ -12,6 +12,16 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LinkService } from '@core/cache/builders/link.service';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -19,16 +29,6 @@ import {
   of,
 } from 'rxjs';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

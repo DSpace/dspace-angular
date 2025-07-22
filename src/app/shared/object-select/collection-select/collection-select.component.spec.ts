@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { LinkHeadService } from '@core/services/link-head.service';
+import { Collection } from '@core/shared/collection.model';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../../core/services/link-head.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../host-window.service';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';

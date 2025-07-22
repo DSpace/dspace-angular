@@ -3,6 +3,21 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   createSelector,
   Store,
@@ -26,21 +41,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { AppState } from '../app.reducer';
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '../core/shared/operators';
-import { PageInfo } from '../core/shared/page-info.model';
 import {
   hasValue,
   isNotEmpty,

@@ -4,6 +4,20 @@ import {
   EventEmitter,
   OnInit,
 } from '@angular/core';
+import { ItemDataService } from '@core/data/item-data.service';
+import { LookupRelationService } from '@core/data/lookup-relation.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { MetadataValue } from '@core/shared/metadata.models';
+import { Metadata } from '@core/shared/metadata.utils';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   NgbActiveModal,
   NgbModal,
@@ -19,20 +33,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../../../../core/data/item-data.service';
-import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { Context } from '../../../../../../../core/shared/context.model';
-import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { Metadata } from '../../../../../../../core/shared/metadata.utils';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../../../core/shared/operators';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';

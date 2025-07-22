@@ -11,6 +11,12 @@ import {
   ActivatedRoute,
   Params,
 } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -25,12 +31,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../shared/empty.util';
 import { GeospatialMapComponent } from '../../shared/geospatial-map/geospatial-map.component';
 import { FacetValues } from '../../shared/search/models/facet-values.model';

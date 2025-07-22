@@ -3,11 +3,11 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { Context } from '@core/shared/context.model';
+import { Item } from '@core/shared/item.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Context } from '../../../../../core/shared/context.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';

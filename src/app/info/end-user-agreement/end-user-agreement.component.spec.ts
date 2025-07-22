@@ -9,13 +9,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { LogOutAction } from '@core/auth/auth.actions';
+import { AuthService } from '@core/auth/auth.service';
+import { EndUserAgreementService } from '@core/end-user-agreement/end-user-agreement.service';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { AuthService } from '../../core/auth/auth.service';
-import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';

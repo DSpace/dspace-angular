@@ -12,13 +12,13 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { Process } from '../process-page/processes/process.model';
 import { HandleService } from '../shared/handle.service';

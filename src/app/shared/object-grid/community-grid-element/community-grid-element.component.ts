@@ -4,12 +4,12 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { Community } from '@core/shared/community.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { Community } from '../../../core/shared/community.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 import {
   hasNoValue,

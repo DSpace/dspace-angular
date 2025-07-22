@@ -1,5 +1,6 @@
+import { URLCombiner } from '@core/url-combiner/url-combiner';
+
 import { getAccessControlModuleRoute } from '../app-routing-paths';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 
 export const EPERSON_PATH = 'epeople';
 

@@ -16,6 +16,15 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   NgbActiveModal,
   NgbModal,
@@ -38,15 +47,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { isNotEmpty } from '../../empty.util';

@@ -10,6 +10,9 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ComColDataService } from '@core/data/comcol-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { Community } from '@core/shared/community.model';
 import {
   TranslateModule,
   TranslateService,
@@ -17,9 +20,6 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { Community } from '../../../../core/shared/community.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

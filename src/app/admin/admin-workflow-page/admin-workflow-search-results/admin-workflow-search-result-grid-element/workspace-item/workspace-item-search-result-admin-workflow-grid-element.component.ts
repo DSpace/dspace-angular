@@ -7,6 +7,24 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { GenericConstructor } from '@core/shared/generic-constructor';
+import { Item } from '@core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -19,24 +37,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Context } from '../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { hasValue } from '../../../../../shared/empty.util';
 import {

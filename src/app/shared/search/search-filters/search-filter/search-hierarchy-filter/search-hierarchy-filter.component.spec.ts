@@ -12,6 +12,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestEntryState } from '@core/data/request-entry-state.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import {
   NgbModal,
   NgbModule,
@@ -24,15 +33,6 @@ import {
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
-import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';

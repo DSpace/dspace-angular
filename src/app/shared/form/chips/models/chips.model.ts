@@ -1,10 +1,10 @@
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
 import { MetadataIconConfig } from '../../../../../config/submission-config.interface';
-import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   hasValue,
   isNotEmpty,

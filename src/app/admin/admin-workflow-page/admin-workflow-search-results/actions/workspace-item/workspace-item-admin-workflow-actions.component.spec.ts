@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestEntryState } from '@core/data/request-entry-state.model';
+import { Item } from '@core/shared/item.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
+import { URLCombiner } from '@core/url-combiner/url-combiner';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';

@@ -2,16 +2,16 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 import { Context } from 'src/app/core/shared/context.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { isNotUndefined } from '../../../empty.util';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';

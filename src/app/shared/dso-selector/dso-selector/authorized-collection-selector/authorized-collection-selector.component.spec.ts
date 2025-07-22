@@ -5,12 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { Collection } from '@core/shared/collection.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { SearchService } from '@core/shared/search/search.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';

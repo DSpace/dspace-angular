@@ -19,6 +19,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { RequestService } from '@core/data/request.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { ActionType } from '@core/resource-policy/models/action-type.model';
+import { PolicyType } from '@core/resource-policy/models/policy-type.model';
+import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Bundle } from '@core/shared/bundle.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -28,19 +41,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { ActionType } from '../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Bundle } from '../../core/shared/bundle.model';
-import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { getMockLinkService } from '../mocks/link-service.mock';
 import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
 import { getMockRequestService } from '../mocks/request.service.mock';

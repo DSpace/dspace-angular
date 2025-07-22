@@ -1,4 +1,5 @@
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+
 import { SearchResult } from '../../search/models/search-result.model';
 
 /**

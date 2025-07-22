@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ItemDataService } from '@core/data/item-data.service';
+import { LookupRelationService } from '@core/data/lookup-relation.service';
+import { Collection } from '@core/shared/collection.model';
+import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
+import { Item } from '@core/shared/item.model';
 import {
   NgbActiveModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ItemDataService } from '../../../../../../../core/data/item-data.service';
-import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
-import { Collection } from '../../../../../../../core/shared/collection.model';
-import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
-import { Item } from '../../../../../../../core/shared/item.model';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';

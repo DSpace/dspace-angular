@@ -1,9 +1,9 @@
+import { FormRowModel } from '@core/config/models/config-submission-form.model';
+import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { DynamicSelectModel } from '@ng-dynamic-forms/core';
 
-import { FormRowModel } from '../../core/config/models/config-submission-form.model';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import {

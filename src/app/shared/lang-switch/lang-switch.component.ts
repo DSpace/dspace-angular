@@ -4,6 +4,7 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
+import { LocaleService } from '@core/locale/locale.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -12,7 +13,6 @@ import {
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import { LocaleService } from '../../core/locale/locale.service';
 
 @Component({
   selector: 'ds-base-lang-switch',

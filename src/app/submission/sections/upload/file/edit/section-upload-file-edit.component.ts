@@ -7,6 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { AccessConditionOption } from '@core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -32,12 +38,6 @@ import { SubmissionObject } from 'src/app/core/submission/models/submission-obje
 import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
-import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import {

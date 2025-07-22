@@ -4,6 +4,12 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { RemoteData } from '@core/data/remote-data';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -14,12 +20,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { isNotEmpty } from '../../../empty.util';
 import { followLink } from '../../../utils/follow-link-config.model';
 

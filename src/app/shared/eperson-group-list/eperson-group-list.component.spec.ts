@@ -12,6 +12,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { RequestService } from '@core/data/request.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { EPERSON } from '@core/eperson/models/eperson.resource-type';
+import { GROUP } from '@core/eperson/models/group.resource-type';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { PageInfo } from '@core/shared/page-info.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
@@ -21,15 +30,6 @@ import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
 } from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { EPERSON } from '../../core/eperson/models/eperson.resource-type';
-import { GROUP } from '../../core/eperson/models/group.resource-type';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';

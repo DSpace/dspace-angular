@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
+} from '@core/cache/models/sort-options.model';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
+import { PageInfo } from '@core/shared/page-info.model';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
 import {
   getMockQualityAssuranceSourceRestService,
   qualityAssuranceSourceObjectMoreAbstract,

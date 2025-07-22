@@ -1,5 +1,6 @@
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { HALResource } from '../../core/shared/hal-resource.model';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { HALResource } from '@core/shared/hal-resource.model';
+
 import { hasValue } from '../empty.util';
 
 /**

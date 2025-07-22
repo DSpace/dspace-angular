@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
+import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { Action } from '@ngrx/store';
 
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { type } from '../../../shared/ngrx/type';
 
 /**

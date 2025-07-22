@@ -6,6 +6,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   BehaviorSubject,
   Observable,
@@ -17,8 +19,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   hasValue,
   isNotEmptyOperator,

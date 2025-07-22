@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { ItemDataService } from '@core/data/item-data.service';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
 import { VocabularyServiceStub } from '../../../shared/testing/vocabulary-service.stub';
 import { DsoEditMetadataFieldService } from './dso-edit-metadata-field.service';

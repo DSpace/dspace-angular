@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '@core/auth/auth.service';
 import {
   TranslateModule,
   TranslateService,
@@ -26,7 +27,6 @@ import {
   AccessibilitySettingsFormValues,
   AccessibilitySettingsService,
 } from '../../accessibility/accessibility-settings.service';
-import { AuthService } from '../../core/auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { OrejimeService } from '../../shared/cookies/orejime.service';

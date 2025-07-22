@@ -5,6 +5,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { SuggestionSource } from '@core/notifications/suggestions/models/suggestion-source.model';
+import { SuggestionSourceDataService } from '@core/notifications/suggestions/source/suggestion-source-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -17,12 +23,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SuggestionSource } from '../../../core/notifications/suggestions/models/suggestion-source.model';
-import { SuggestionSourceDataService } from '../../../core/notifications/suggestions/source/suggestion-source-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import {

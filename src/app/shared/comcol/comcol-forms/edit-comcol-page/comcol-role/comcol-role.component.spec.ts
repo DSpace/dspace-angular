@@ -10,13 +10,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RequestService } from '@core/data/request.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { RequestService } from '../../../../../core/data/request.service';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import {

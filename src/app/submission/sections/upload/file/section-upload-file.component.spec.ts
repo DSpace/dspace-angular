@@ -13,6 +13,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import {
   NgbModal,
   NgbModule,
@@ -21,10 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';

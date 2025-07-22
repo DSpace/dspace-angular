@@ -15,6 +15,25 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '@core/eperson/models/eperson-dto.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+} from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -32,25 +51,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

@@ -9,15 +9,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { take } from 'rxjs/operators';
-
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+} from '@core/cache/models/sort-options.model';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
+
 import { isEmpty } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';

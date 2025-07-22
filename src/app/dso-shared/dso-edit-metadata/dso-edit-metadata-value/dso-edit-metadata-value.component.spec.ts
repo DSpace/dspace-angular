@@ -9,16 +9,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
-} from '../../../core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+} from '@core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '@core/shared/metadata-representation/item/item-metadata-representation.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DsoEditMetadataFieldServiceStub } from '../../../shared/testing/dso-edit-metadata-field.service.stub';

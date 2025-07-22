@@ -25,6 +25,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -41,14 +43,12 @@ import {
 } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
 
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
-import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { IpV4Validator } from '../../../../shared/utils/ipV4.validator';
+import { FindListOptions } from '../../find-list-options.model';
+import { LdnItemfiltersService } from '../../ldn-itemfilters-data.service';
+import { LdnServicesService } from '../../ldn-services-data.service';
+import { PaginatedList } from '../../paginated-list.model';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
 import { NotifyServicePattern } from '../ldn-services-model/ldn-service-patterns.model';

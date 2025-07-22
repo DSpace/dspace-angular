@@ -9,14 +9,14 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import { Context } from '@core/shared/context.model';
+import { SearchService } from '@core/shared/search/search.service';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Context } from '../../../core/shared/context.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';

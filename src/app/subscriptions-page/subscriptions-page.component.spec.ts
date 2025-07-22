@@ -15,16 +15,16 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../core/auth/auth.service';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { PageInfo } from '../core/shared/page-info.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';

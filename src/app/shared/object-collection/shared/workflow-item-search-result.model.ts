@@ -1,4 +1,5 @@
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+
 import { SearchResult } from '../../search/models/search-result.model';
 
 /**

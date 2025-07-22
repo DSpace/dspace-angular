@@ -11,6 +11,9 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import {
   TranslateModule,
   TranslateService,
@@ -19,9 +22,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../core/auth/auth.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { SuggestionApproveAndImport } from '../notifications/suggestions/list-element/suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from '../notifications/suggestions/list-element/suggestion-evidences/suggestion-evidences.component';
 import { SuggestionListElementComponent } from '../notifications/suggestions/list-element/suggestion-list-element.component';

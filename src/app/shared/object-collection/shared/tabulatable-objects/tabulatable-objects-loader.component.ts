@@ -11,6 +11,10 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { Context } from '@core/shared/context.model';
+import { GenericConstructor } from '@core/shared/generic-constructor';
+import { ViewMode } from '@core/shared/view-mode.model';
 import {
   combineLatest,
   Observable,
@@ -19,10 +23,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { Context } from '../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
   hasNoValue,
   hasValue,

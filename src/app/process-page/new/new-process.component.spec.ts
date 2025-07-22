@@ -6,16 +6,16 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { LinkService } from '@core/cache/builders/link.service';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { RequestService } from '@core/data/request.service';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LinkService } from '../../core/cache/builders/link.service';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RequestService } from '../../core/data/request.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';

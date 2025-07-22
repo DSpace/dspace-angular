@@ -16,25 +16,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RestResponse } from '@core/cache/response.models';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ItemRequestDataService } from '@core/data/item-request-data.service';
+import { RequestService } from '@core/data/request.service';
+import { RequestEntry } from '@core/data/request-entry.model';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Item } from '@core/shared/item.model';
+import { ITEM } from '@core/shared/item.resource-type';
+import { ItemRequest } from '@core/shared/item-request.model';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RestResponse } from '../../../core/cache/response.models';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { RequestEntry } from '../../../core/data/request-entry.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
-import { ItemRequest } from '../../../core/shared/item-request.model';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

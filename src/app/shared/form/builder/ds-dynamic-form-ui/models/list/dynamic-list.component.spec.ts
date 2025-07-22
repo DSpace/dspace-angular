@@ -16,6 +16,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlLayout,
@@ -25,11 +30,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,

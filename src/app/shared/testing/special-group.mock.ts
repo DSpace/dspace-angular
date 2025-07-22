@@ -1,12 +1,12 @@
-import { Observable } from 'rxjs';
-
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Group } from '../../core/eperson/models/group.model';
-import { PageInfo } from '../../core/shared/page-info.model';
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Group } from '@core/eperson/models/group.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { Observable } from 'rxjs';
+
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,

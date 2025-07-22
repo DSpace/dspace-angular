@@ -7,14 +7,14 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { Item } from '@core/shared/item.model';
+import { CorrectionTypeDataService } from '@core/submission/correctiontype-data.service';
+import { CorrectionType } from '@core/submission/models/correctiontype.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../core/shared/item.model';
-import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
-import { CorrectionType } from '../../core/submission/models/correctiontype.model';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,

@@ -13,6 +13,18 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { Group } from '@core/eperson/models/group.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   TranslateModule,
   TranslateService,
@@ -28,18 +40,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../../core/shared/operators';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

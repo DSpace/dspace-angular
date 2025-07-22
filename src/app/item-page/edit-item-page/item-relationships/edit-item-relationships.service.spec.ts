@@ -1,23 +1,23 @@
 import { TestBed } from '@angular/core/testing';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
+import {
+  DeleteRelationship,
+  RelationshipIdentifiable,
+} from '@core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import {
-  DeleteRelationship,
-  RelationshipIdentifiable,
-} from '../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject,

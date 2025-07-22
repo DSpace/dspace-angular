@@ -1,10 +1,10 @@
+import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
 import {
   createFeatureSelector,
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { subStateSelector } from '../../../submission/selectors';
 import {
   suggestionNotificationsSelector,

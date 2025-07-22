@@ -1,22 +1,22 @@
 /* eslint-disable max-classes-per-file */
 import {
+  link,
+  typedObject,
+} from '@core/cache/builders/build-decorators';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { RemoteData } from '@core/data/remote-data';
+import { HALLink } from '@core/shared/hal-link.model';
+import { Item } from '@core/shared/item.model';
+import { ITEM } from '@core/shared/item.resource-type';
+import { ResourceType } from '@core/shared/resource-type';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
+import {
   autoserialize,
   autoserializeAs,
   deserialize,
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import {
-  link,
-  typedObject,
-} from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { RemoteData } from '../../../data/remote-data';
-import { HALLink } from '../../../shared/hal-link.model';
-import { Item } from '../../../shared/item.model';
-import { ITEM } from '../../../shared/item.resource-type';
-import { ResourceType } from '../../../shared/resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';
 
 /**

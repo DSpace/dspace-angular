@@ -12,6 +12,13 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import { NativeWindowService } from '@core/services/window.service';
+import { Registration } from '@core/shared/registration.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -19,13 +26,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../../core/services/window.service';
-import { Registration } from '../../../core/shared/registration.model';
 import {
   MockWindow,
   NativeWindowMockFactory,

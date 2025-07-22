@@ -5,6 +5,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -18,14 +26,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

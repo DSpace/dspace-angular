@@ -1,6 +1,6 @@
+import { Community } from '@core/shared/community.model';
 import { first } from 'rxjs/operators';
 
-import { Community } from '../../core/shared/community.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import {
   createFailedRemoteDataObject$,

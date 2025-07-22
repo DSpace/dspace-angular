@@ -10,6 +10,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ErrorResponse } from '@core/cache/response.models';
+import { RequestService } from '@core/data/request.service';
+import { RequestError } from '@core/data/request-error.model';
+import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
+import { RouteService } from '@core/services/route.service';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '@core/submission/submission-rest.service';
+import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -29,16 +39,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
-import { ErrorResponse } from '../core/cache/response.models';
-import { RequestService } from '../core/data/request.service';
-import { RequestError } from '../core/data/request-error.model';
-import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
-import { RouteService } from '../core/services/route.service';
-import { Item } from '../core/shared/item.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { RouterMock } from '../shared/mocks/router.mock';

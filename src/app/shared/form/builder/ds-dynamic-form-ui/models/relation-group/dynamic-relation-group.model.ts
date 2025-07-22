@@ -1,9 +1,9 @@
+import { FormRowModel } from '@core/config/models/config-submission-form.model';
 import {
   DynamicFormControlLayout,
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import {
   isEmpty,
   isNull,

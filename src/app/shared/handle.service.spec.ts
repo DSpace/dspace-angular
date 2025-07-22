@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
   CANONICAL_PREFIX_KEY,
   HandleService,

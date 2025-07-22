@@ -2,6 +2,8 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
+import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
@@ -11,8 +13,8 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
 import { isNgbDateStruct } from '../../../date.util';
 import {
   hasValue,
@@ -31,8 +33,6 @@ import {
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../models/relationship-options.model';
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';

@@ -2,6 +2,17 @@ import {
   inject,
   TestBed,
 } from '@angular/core/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -9,17 +20,6 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import { AppState } from '../app.reducer';
-import {
-  SortDirection,
-  SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
-import { PageInfo } from '../core/shared/page-info.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,

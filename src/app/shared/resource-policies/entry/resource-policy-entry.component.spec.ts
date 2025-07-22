@@ -16,15 +16,15 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { ActionType } from '@core/resource-policy/models/action-type.model';
+import { PolicyType } from '@core/resource-policy/models/policy-type.model';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { GroupMock } from '../../testing/group-mock';

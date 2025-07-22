@@ -14,23 +14,23 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { SignpostingDataService } from '@core/data/signposting-data.service';
+import { SignpostingLink } from '@core/data/signposting-links.model';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '@core/services/link-head.service';
+import { ServerResponseService } from '@core/services/server-response.service';
+import { Item } from '@core/shared/item.model';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { SignpostingLink } from '../../core/data/signposting-links.model';
-import {
-  LinkDefinition,
-  LinkHeadService,
-} from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Item } from '../../core/shared/item.model';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';

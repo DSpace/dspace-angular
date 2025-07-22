@@ -10,12 +10,12 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../core/data/processes/script-data.service';
+} from '@core/data/processes/script-data.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {

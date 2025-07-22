@@ -7,12 +7,12 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-comcol-browse-by',

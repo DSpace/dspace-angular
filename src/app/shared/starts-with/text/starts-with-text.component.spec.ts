@@ -11,10 +11,10 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PaginationService } from '@core/pagination/pagination.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { RouterStub } from '../../testing/router.stub';

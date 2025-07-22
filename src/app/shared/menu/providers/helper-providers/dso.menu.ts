@@ -9,13 +9,13 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import {
   hasNoValue,
   hasValue,

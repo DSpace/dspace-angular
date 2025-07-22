@@ -10,6 +10,28 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@core/data/item-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Collection } from '@core/shared/collection.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  toDSpaceObjectListRD,
+} from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -27,28 +49,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-  toDSpaceObjectListRD,
-} from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,

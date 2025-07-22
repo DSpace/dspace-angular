@@ -13,6 +13,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { RequestService } from '@core/data/request.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import {
   NgbModal,
   NgbModule,
@@ -23,14 +31,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';

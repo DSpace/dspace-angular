@@ -7,6 +7,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BrowseService } from '@core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import {
   TranslateLoader,
   TranslateModule,
@@ -14,8 +16,6 @@ import {
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { BrowseService } from '../../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';

@@ -15,23 +15,23 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Collection } from '@core/shared/collection.model';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { Item } from '@core/shared/item.model';
+import { License } from '@core/shared/license.model';
+import { WorkspaceitemSectionIdentifiersObject } from '@core/submission/models/workspaceitem-section-identifiers.model';
+import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { of } from 'rxjs';
 
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { Item } from '../../../core/shared/item.model';
-import { License } from '../../../core/shared/license.model';
-import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';

@@ -5,18 +5,17 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RequestEntry } from '@core/data/request-entry.model';
+import { RequestEntryState } from '@core/data/request-entry-state.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { UnCacheableObject } from '@core/shared/uncacheable-object.model';
+import {
   Observable,
   of,
 } from 'rxjs';
-
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RequestEntry } from '../../core/data/request-entry.model';
-import { RequestEntryState } from '../../core/data/request-entry-state.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { UnCacheableObject } from '../../core/shared/uncacheable-object.model';
 
 /**
  * Returns true if a Native Element has a specified css class.

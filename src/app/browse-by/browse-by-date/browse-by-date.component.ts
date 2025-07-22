@@ -14,6 +14,16 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BrowseService } from '@core/browse/browse.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -31,16 +41,6 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
 import { isValidDate } from '../../shared/date.util';
 import {
   hasValue,

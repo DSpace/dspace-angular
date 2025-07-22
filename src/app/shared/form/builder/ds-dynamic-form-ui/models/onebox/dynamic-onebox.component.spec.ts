@@ -20,6 +20,9 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import {
   NgbModal,
   NgbModule,
@@ -35,9 +38,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,

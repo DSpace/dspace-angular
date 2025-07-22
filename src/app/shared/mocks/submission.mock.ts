@@ -1,7 +1,8 @@
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { Group } from '../../core/eperson/models/group.model';
-import { PageInfo } from '../../core/shared/page-info.model';
+import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Group } from '@core/eperson/models/group.model';
+import { PageInfo } from '@core/shared/page-info.model';
+
 import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';

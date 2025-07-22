@@ -11,12 +11,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { PaginationService } from '@core/pagination/pagination.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {

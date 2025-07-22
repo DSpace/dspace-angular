@@ -7,6 +7,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { Item } from '@core/shared/item.model';
+import { ItemRequest } from '@core/shared/item-request.model';
+import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -20,15 +29,6 @@ import {
 
 import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { environment } from '../../../environments/environment';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';

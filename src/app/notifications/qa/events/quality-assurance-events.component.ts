@@ -9,6 +9,29 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { ItemDataService } from '@core/data/item-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
+import {
+  QualityAssuranceEventObject,
+  SourceQualityAssuranceEventMessageObject,
+} from '@core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
+import { Metadata } from '@core/shared/metadata.utils';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import {
   NgbModal,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -36,29 +59,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import {
-  QualityAssuranceEventObject,
-  SourceQualityAssuranceEventMessageObject,
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

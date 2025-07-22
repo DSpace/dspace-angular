@@ -4,6 +4,17 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -14,17 +25,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Context } from '../../../../../core/shared/context.model';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';

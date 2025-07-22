@@ -2,13 +2,13 @@ import {
   fakeAsync,
   flush,
 } from '@angular/core/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { CookieService } from '@core/services/cookie.service';
 import { of } from 'rxjs';
 
 import { AppConfig } from '../../config/app-config.interface';
-import { AuthService } from '../core/auth/auth.service';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { CookieService } from '../core/services/cookie.service';
 import { OrejimeServiceStub } from '../shared/cookies/orejime.service.stub';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import {

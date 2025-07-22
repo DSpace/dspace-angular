@@ -1,5 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Injector } from '@angular/core';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { HandleObject } from '@core/shared/handle-object.model';
 import {
   combineLatest,
   Observable,
@@ -18,8 +20,6 @@ import {
   UUIDThemeConfig,
 } from '../../../config/theme.config';
 import { getDSORoute } from '../../app-routing-paths';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { HandleObject } from '../../core/shared/handle-object.model';
 import {
   hasNoValue,
   hasValue,

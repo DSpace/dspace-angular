@@ -10,6 +10,16 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import {
+  AuthService,
+  LOGIN_ROUTE,
+  LOGOUT_ROUTE,
+} from '@core/auth/auth.service';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@core/auth/selectors';
+import { EPerson } from '@core/eperson/models/eperson.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterReducerState } from '@ngrx/router-store';
 import {
@@ -31,16 +41,6 @@ import {
   AppState,
   routerStateSelector,
 } from '../../app.reducer';
-import {
-  AuthService,
-  LOGIN_ROUTE,
-  LOGOUT_ROUTE,
-} from '../../core/auth/auth.service';
-import {
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import {
   fadeInOut,
   fadeOut,

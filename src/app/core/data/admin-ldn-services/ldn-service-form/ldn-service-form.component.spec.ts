@@ -20,6 +20,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RouteService } from '@core/services/route.service';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -32,14 +33,13 @@ import {
 import { PaginationService } from 'ngx-pagination';
 import { of } from 'rxjs';
 
-import { RouteService } from '../../../core/services/route.service';
-import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
+import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../../shared/testing/router.stub';
+import { LdnItemfiltersService } from '../../ldn-itemfilters-data.service';
+import { LdnServicesService } from '../../ldn-services-data.service';
 import { LdnServiceFormComponent } from './ldn-service-form.component';
 
 describe('LdnServiceFormEditComponent', () => {

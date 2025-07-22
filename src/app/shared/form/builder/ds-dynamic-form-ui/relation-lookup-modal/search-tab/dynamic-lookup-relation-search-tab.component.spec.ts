@@ -5,17 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LookupRelationService } from '@core/data/lookup-relation.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
-import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Item } from '../../../../../../core/shared/item.model';
-import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';

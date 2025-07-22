@@ -1,4 +1,16 @@
 import { Injectable } from '@angular/core';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionDuplicatesObject } from '@core/submission/models/workspaceitem-section-duplicates.model';
+import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionsObject } from '@core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import {
   Actions,
   createEffect,
@@ -26,18 +38,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionDuplicatesObject } from '../../core/submission/models/workspaceitem-section-duplicates.model';
-import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import {
   isEmpty,
   isNotEmpty,

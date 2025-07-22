@@ -8,6 +8,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
 import {
   NgbModal,
   NgbModalRef,
@@ -15,11 +20,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';

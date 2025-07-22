@@ -3,6 +3,17 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ComColDataService } from '@core/data/comcol-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { RouteService } from '@core/services/route.service';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { ResourceType } from '@core/shared/resource-type';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -17,17 +28,6 @@ import {
 } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../../app-routing-paths';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { RouteService } from '../../../../core/services/route.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { ResourceType } from '../../../../core/shared/resource-type';
 import {
   hasValue,
   isNotEmpty,

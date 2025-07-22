@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { WorkspaceitemSectionAccessesObject } from '@core/submission/models/workspaceitem-section-accesses.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -6,7 +7,6 @@ import {
   filter,
 } from 'rxjs/operators';
 
-import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
 import { isNotUndefined } from '../../../shared/empty.util';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { SubmissionState } from '../../submission.reducers';

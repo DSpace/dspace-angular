@@ -1,4 +1,20 @@
 import { HttpClient } from '@angular/common/http';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RestResponse } from '@core/cache/response.models';
+import { CoreState } from '@core/core-state.model';
+import { FindAllData } from '@core/data/base/find-all-data';
+import { testFindAllDataImplementation } from '@core/data/base/find-all-data.spec';
+import { SearchData } from '@core/data/base/search-data';
+import { testSearchDataImplementation } from '@core/data/base/search-data.spec';
+import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
+import { RemoteData } from '@core/data/remote-data';
+import { GetRequest } from '@core/data/request.models';
+import { RequestService } from '@core/data/request.service';
+import { RequestEntry } from '@core/data/request-entry.model';
+import { RequestEntryState } from '@core/data/request-entry-state.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 import {
   cold,
@@ -9,22 +25,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { RestResponse } from '../../../cache/response.models';
-import { CoreState } from '../../../core-state.model';
-import { FindAllData } from '../../../data/base/find-all-data';
-import { testFindAllDataImplementation } from '../../../data/base/find-all-data.spec';
-import { SearchData } from '../../../data/base/search-data';
-import { testSearchDataImplementation } from '../../../data/base/search-data.spec';
-import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
-import { RemoteData } from '../../../data/remote-data';
-import { GetRequest } from '../../../data/request.models';
-import { RequestService } from '../../../data/request.service';
-import { RequestEntry } from '../../../data/request-entry.model';
-import { RequestEntryState } from '../../../data/request-entry-state.model';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 import { SuggestionTargetDataService } from './suggestion-target-data.service';
 

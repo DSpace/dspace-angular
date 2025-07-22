@@ -14,16 +14,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { RouteService } from '@core/services/route.service';
+import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { RouteService } from '../../core/services/route.service';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

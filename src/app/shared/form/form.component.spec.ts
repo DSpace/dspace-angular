@@ -15,6 +15,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -33,7 +34,6 @@ import { BehaviorSubject } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { StoreMock } from '../testing/store.mock';
 import { createTestComponent } from '../testing/utils.test';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';

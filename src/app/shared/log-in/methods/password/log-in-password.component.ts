@@ -13,6 +13,20 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction,
+} from '@core/auth/auth.actions';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import {
+  getAuthenticationError,
+  getAuthenticationInfo,
+} from '@core/auth/selectors';
+import { CoreState } from '@core/core-state.model';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -31,20 +45,6 @@ import {
   getForgotPasswordRoute,
   getRegisterRoute,
 } from '../../../../app-routing-paths';
-import {
-  AuthenticateAction,
-  ResetAuthenticationMessagesAction,
-} from '../../../../core/auth/auth.actions';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import {
-  getAuthenticationError,
-  getAuthenticationInfo,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { isNotEmpty } from '../../../empty.util';

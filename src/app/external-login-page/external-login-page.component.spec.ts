@@ -4,13 +4,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { Registration } from '@core/shared/registration.model';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Registration } from '../core/shared/registration.model';
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { ExternalLoginPageComponent } from './external-login-page.component';

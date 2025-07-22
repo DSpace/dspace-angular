@@ -1,4 +1,4 @@
-import { WorkspaceitemSectionSherpaPoliciesObject } from '../../core/submission/models/workspaceitem-section-sherpa-policies.model';
+import { WorkspaceitemSectionSherpaPoliciesObject } from '@core/submission/models/workspaceitem-section-sherpa-policies.model';
 
 export const SherpaDataResponse = {
   'id': 'sherpaPolicies',

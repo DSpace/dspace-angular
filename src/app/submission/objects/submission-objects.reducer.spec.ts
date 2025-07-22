@@ -1,4 +1,5 @@
-import { Item } from '../../core/shared/item.model';
+import { Item } from '@core/shared/item.model';
+
 import {
   mockSubmissionCollectionId,
   mockSubmissionDefinitionResponse,

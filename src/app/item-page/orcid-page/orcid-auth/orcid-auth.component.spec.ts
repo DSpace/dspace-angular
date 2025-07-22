@@ -11,6 +11,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import { NativeWindowService } from '@core/services/window.service';
+import { Item } from '@core/shared/item.model';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -20,10 +24,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { NativeWindowService } from '../../../core/services/window.service';
-import { Item } from '../../../core/shared/item.model';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

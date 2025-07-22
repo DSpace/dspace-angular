@@ -4,10 +4,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { Community } from '@core/shared/community.model';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { Community } from '../../../core/shared/community.model';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CommunityFormComponent } from '../../community-form/community-form.component';

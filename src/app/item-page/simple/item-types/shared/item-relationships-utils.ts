@@ -1,4 +1,9 @@
 import { InjectionToken } from '@angular/core';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -12,11 +17,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 
 export const PAGINATED_RELATIONS_TO_ITEMS_OPERATOR = new InjectionToken<(thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>>('paginatedRelationsToItems', {

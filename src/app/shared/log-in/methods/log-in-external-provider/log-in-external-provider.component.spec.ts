@@ -8,17 +8,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { authReducer } from '@core/auth/auth.reducer';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import { NativeWindowService } from '@core/services/window.service';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { authReducer } from '../../../../core/auth/auth.reducer';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../../../core/services/window.service';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';

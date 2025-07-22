@@ -13,6 +13,27 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Group } from '@core/eperson/models/group.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
+import { Registration } from '@core/shared/registration.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
@@ -38,27 +59,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Group } from '../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { Registration } from '../../../core/shared/registration.model';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';

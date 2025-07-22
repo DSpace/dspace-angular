@@ -21,6 +21,26 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { Group } from '@core/eperson/models/group.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { UUIDService } from '@core/shared/uuid.service';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,26 +50,6 @@ import {
   of,
 } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { DSOChangeAnalyzer } from '../../../core/data/dso-change-analyzer.service';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

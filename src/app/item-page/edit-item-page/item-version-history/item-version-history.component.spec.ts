@@ -9,10 +9,10 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemVersionsComponent } from '../../versions/item-versions.component';

@@ -6,6 +6,13 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '@core/shared/collection.model';
+import { License } from '@core/shared/license.model';
+import { WorkspaceitemSectionLicenseObject } from '@core/submission/models/workspaceitem-section-license.model';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -27,13 +34,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../core/shared/collection.model';
-import { License } from '../../../core/shared/license.model';
-import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
 import {
   hasValue,
   isNotEmpty,

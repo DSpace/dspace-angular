@@ -10,6 +10,8 @@ import {
   Injectable,
   TransferState,
 } from '@angular/core';
+import { LocaleService } from '@core/locale/locale.service';
+import { HeadTagService } from '@core/metadata/head-tag.service';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
@@ -17,8 +19,6 @@ import { take } from 'rxjs/operators';
 
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import {

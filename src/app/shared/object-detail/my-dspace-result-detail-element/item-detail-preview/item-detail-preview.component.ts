@@ -5,18 +5,18 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Context } from '@core/shared/context.model';
+import { FileService } from '@core/shared/file.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { Item } from '@core/shared/item.model';
+import { getFirstSucceededRemoteListPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Context } from '../../../../core/shared/context.model';
-import { FileService } from '../../../../core/shared/file.service';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';

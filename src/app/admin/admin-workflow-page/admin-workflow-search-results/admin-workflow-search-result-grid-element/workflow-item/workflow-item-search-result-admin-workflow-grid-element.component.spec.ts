@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { Item } from '@core/shared/item.model';
+import { ListableModule } from '@core/shared/listable.module';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';

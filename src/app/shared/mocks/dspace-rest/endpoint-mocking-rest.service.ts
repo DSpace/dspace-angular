@@ -6,18 +6,18 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { RestRequestMethod } from '@core/data/rest-request-method';
+import {
+  DspaceRestService,
+  HttpOptions,
+} from '@core/dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '@core/dspace-rest/raw-rest-response.model';
 import {
   Observable,
   of,
 } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
-import {
-  DspaceRestService,
-  HttpOptions,
-} from '../../../core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
 import { isEmpty } from '../../empty.util';
 import {
   MOCK_RESPONSE_MAP,

@@ -1,7 +1,8 @@
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { SupervisionOrder } from '../../core/supervision-order/models/supervision-order.model';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
+
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,

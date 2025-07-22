@@ -1,13 +1,13 @@
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { HALLink } from '@core/shared/hal-link.model';
+import { ResourceType } from '@core/shared/resource-type';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { HALLink } from '../../../shared/hal-link.model';
-import { ResourceType } from '../../../shared/resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { SUGGESTION_TARGET } from './suggestion-target-object.resource-type';
 
 /**

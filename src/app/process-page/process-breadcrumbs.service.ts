@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { BreadcrumbsProviderService } from '@core/breadcrumbs/breadcrumbsProviderService';
 import {
   Observable,
   of,
 } from 'rxjs';
 
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
-import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
 import { hasValue } from '../shared/empty.util';
 import { Process } from './processes/process.model';
 

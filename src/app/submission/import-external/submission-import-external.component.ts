@@ -8,6 +8,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RouteService } from '@core/services/route.service';
+import { Context } from '@core/shared/context.model';
+import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
+import { NONE_ENTITY_TYPE } from '@core/shared/item-relationships/item-type.resource-type';
+import { getFinishedRemoteData } from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   NgbModal,
   NgbModalRef,
@@ -27,19 +40,6 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RouteService } from '../../core/services/route.service';
-import { Context } from '../../core/shared/context.model';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { getFinishedRemoteData } from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import {

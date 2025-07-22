@@ -11,6 +11,14 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { RemoteData } from '@core/data/remote-data';
+import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -29,14 +37,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';

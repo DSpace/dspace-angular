@@ -6,6 +6,14 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
@@ -13,14 +21,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import {
   fadeIn,
   fadeInOut,

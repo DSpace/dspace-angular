@@ -18,16 +18,16 @@ import {
   RouterModule,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { Bitstream } from '@core/shared/bitstream.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';

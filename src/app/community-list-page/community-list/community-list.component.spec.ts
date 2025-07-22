@@ -14,6 +14,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -21,10 +25,6 @@ import {
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import {
   isEmpty,
   isNotEmpty,

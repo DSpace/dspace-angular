@@ -8,6 +8,12 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Item } from '@core/shared/item.model';
+import { ItemRequest } from '@core/shared/item-request.model';
+import { URLCombiner } from '@core/url-combiner/url-combiner';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -18,12 +24,6 @@ import { of } from 'rxjs';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';

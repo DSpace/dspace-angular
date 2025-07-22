@@ -7,15 +7,15 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ComColDataService } from '@core/data/comcol-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { RequestService } from '@core/data/request.service';
+import { RouteService } from '@core/services/route.service';
+import { Community } from '@core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { RouteService } from '../../../../core/services/route.service';
-import { Community } from '../../../../core/shared/community.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

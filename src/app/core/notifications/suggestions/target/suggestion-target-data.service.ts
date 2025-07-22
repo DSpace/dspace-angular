@@ -1,29 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { CoreState } from '@core/core-state.model';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '@core/data/base/find-all-data';
+import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '@core/data/base/search-data';
+import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { CoreState } from '../../../core-state.model';
-import {
-  FindAllData,
-  FindAllDataImpl,
-} from '../../../data/base/find-all-data';
-import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
-import {
-  SearchData,
-  SearchDataImpl,
-} from '../../../data/base/search-data';
-import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
-import { FindListOptions } from '../../../data/find-list-options.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { RemoteData } from '../../../data/remote-data';
-import { RequestService } from '../../../data/request.service';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 
 @Injectable({ providedIn: 'root' })

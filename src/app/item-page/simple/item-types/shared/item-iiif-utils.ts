@@ -2,15 +2,14 @@ import {
   DefaultUrlSerializer,
   UrlTree,
 } from '@angular/router';
+import { RouteService } from '@core/services/route.service';
+import { Item } from '@core/shared/item.model';
 import { Observable } from 'rxjs';
 import {
   filter,
   map,
   take,
 } from 'rxjs/operators';
-
-import { RouteService } from '../../../../core/services/route.service';
-import { Item } from '../../../../core/shared/item.model';
 
 export const isIiifEnabled = (item: Item) => {
   return !!item.firstMetadataValue('dspace.iiif.enabled');

@@ -9,6 +9,15 @@ import {
   ParamMap,
   Router,
 } from '@angular/router';
+import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Collection } from '@core/shared/collection.model';
+import { Item } from '@core/shared/item.model';
+import { getAllSucceededRemoteData } from '@core/shared/operators';
+import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '@core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -20,15 +29,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { Item } from '../../core/shared/item.model';
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import {
   hasValue,
   isEmpty,

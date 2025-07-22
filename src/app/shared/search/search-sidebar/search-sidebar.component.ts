@@ -7,6 +7,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import { RemoteData } from '@core/data/remote-data';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { FilterConfig } from '@core/shared/search/search-filters/search-config.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -18,11 +23,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';

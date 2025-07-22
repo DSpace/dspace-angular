@@ -4,6 +4,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   NgbAccordionModule,
   NgbNavModule,
@@ -11,8 +13,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';

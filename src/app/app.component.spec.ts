@@ -10,6 +10,15 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { authReducer } from '@core/auth/auth.reducer';
+import { AuthService } from '@core/auth/auth.service';
+import { LocaleService } from '@core/locale/locale.service';
+import { HeadTagService } from '@core/metadata/head-tag.service';
+import { RouteService } from '@core/services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
 import {
   Store,
   StoreModule,
@@ -26,15 +35,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { authReducer } from './core/auth/auth.reducer';
-import { AuthService } from './core/auth/auth.service';
-import { LocaleService } from './core/locale/locale.service';
-import { HeadTagService } from './core/metadata/head-tag.service';
-import { RouteService } from './core/services/route.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from './core/services/window.service';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';

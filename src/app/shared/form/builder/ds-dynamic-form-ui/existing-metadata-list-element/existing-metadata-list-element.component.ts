@@ -10,6 +10,15 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { MetadataValue } from '@core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '@core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadataRepresentation } from '@core/shared/metadata-representation/metadata-representation.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,15 +32,6 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataRepresentation } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import {

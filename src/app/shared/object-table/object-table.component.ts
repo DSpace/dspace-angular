@@ -7,17 +7,17 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Context } from '../../core/shared/context.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
+} from '@core/cache/models/sort-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
+
 import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';

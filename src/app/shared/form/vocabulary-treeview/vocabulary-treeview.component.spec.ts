@@ -12,15 +12,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { PageInfo } from '@core/shared/page-info.model';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createTestComponent } from '../../testing/utils.test';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';

@@ -5,6 +5,9 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { normalizeSectionData } from '@core/submission/submission-response-parsing.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,9 +19,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
 import {
   hasValue,
   isEmpty,

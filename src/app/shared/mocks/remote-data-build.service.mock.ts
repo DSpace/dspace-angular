@@ -1,17 +1,17 @@
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestEntry } from '@core/data/request-entry.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { Observable } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestEntry } from '../../core/data/request-entry.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue } from '../empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 

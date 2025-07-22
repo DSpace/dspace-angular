@@ -11,6 +11,11 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RequestService } from '@core/data/request.service';
+import { RestRequestMethod } from '@core/data/rest-request-method';
+import { Community } from '@core/shared/community.model';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -20,11 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { RestRequestMethod } from '../../../../core/data/rest-request-method';
-import { Community } from '../../../../core/shared/community.model';
 import { hasValue } from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';

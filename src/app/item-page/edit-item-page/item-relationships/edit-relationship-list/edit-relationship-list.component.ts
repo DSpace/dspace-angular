@@ -11,6 +11,29 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { LinkService } from '@core/cache/builders/link.service';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
+import { RelationshipIdentifiable } from '@core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Collection } from '@core/shared/collection.model';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   NgbModal,
   NgbModalRef,
@@ -40,29 +63,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { RelationshipIdentifiable } from '../../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasNoValue,

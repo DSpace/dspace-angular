@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { Item } from '@core/shared/item.model';
+import { ITEM } from '@core/shared/item.resource-type';
+import { CorrectionTypeDataService } from '@core/submission/correctiontype-data.service';
+import { CorrectionType } from '@core/submission/models/correctiontype.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
-import { CorrectionTypeDataService } from '../../../core/submission/correctiontype-data.service';
-import { CorrectionType } from '../../../core/submission/models/correctiontype.model';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_WITHDRAWN,

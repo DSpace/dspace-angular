@@ -8,6 +8,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { Context } from '@core/shared/context.model';
+import { Item } from '@core/shared/item.model';
+import { MetadataValue } from '@core/shared/metadata.models';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
@@ -15,13 +22,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { Context } from '../../../../../core/shared/context.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';

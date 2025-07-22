@@ -7,6 +7,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { ItemRequestDataService } from '@core/data/item-request-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import { Item } from '@core/shared/item.model';
+import { ItemRequest } from '@core/shared/item-request.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -20,19 +33,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

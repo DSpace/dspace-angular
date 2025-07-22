@@ -16,6 +16,11 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -31,11 +36,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasNoValue,

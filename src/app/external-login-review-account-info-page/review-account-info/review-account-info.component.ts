@@ -8,6 +8,17 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
+import { RemoteData } from '@core/data/remote-data';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import { Registration } from '@core/shared/registration.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -26,17 +37,6 @@ import {
   tap,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../core/services/window.service';
-import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';

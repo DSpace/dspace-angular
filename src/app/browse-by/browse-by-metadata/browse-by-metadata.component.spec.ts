@@ -16,6 +16,20 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowseService } from '@core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '@core/browse/browse-entry-search-options.model';
+import { SortDirection } from '@core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { BrowseEntry } from '@core/shared/browse-entry.model';
+import { Community } from '@core/shared/community.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -33,20 +47,6 @@ import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Community } from '../../core/shared/community.model';
-import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';

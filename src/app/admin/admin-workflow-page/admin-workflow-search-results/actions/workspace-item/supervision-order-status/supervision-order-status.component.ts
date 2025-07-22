@@ -7,6 +7,11 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Group } from '@core/eperson/models/group.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -20,11 +25,6 @@ import {
   reduce,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { Group } from '../../../../../../core/eperson/models/group.model';
-import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
-import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { isNotEmpty } from '../../../../../../shared/empty.util';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 

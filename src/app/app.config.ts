@@ -16,6 +16,17 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import { AuthInterceptor } from '@core/auth/auth.interceptor';
+import { DspaceRestInterceptor } from '@core/dspace-rest/dspace-rest.interceptor';
+import { LocaleInterceptor } from '@core/locale/locale.interceptor';
+import { LogInterceptor } from '@core/log/log.interceptor';
+import {
+  models,
+  provideCore,
+} from '@core/provide-core';
+import { ClientCookieService } from '@core/services/client-cookie.service';
+import { ListableModule } from '@core/shared/listable.module';
+import { XsrfInterceptor } from '@core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
@@ -55,17 +66,6 @@ import {
   APP_ROUTING_SCROLL_CONF,
 } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
-import { AuthInterceptor } from './core/auth/auth.interceptor';
-import { DspaceRestInterceptor } from './core/dspace-rest/dspace-rest.interceptor';
-import { LocaleInterceptor } from './core/locale/locale.interceptor';
-import { LogInterceptor } from './core/log/log.interceptor';
-import {
-  models,
-  provideCore,
-} from './core/provide-core';
-import { ClientCookieService } from './core/services/client-cookie.service';
-import { ListableModule } from './core/shared/listable.module';
-import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { LOGIN_METHOD_FOR_DECORATOR_MAP } from './external-log-in/decorators/external-log-in.methods-decorator';
 import { RootModule } from './root.module';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';

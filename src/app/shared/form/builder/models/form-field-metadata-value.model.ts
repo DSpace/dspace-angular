@@ -1,8 +1,9 @@
-import { ConfidenceType } from '../../../../core/shared/confidence-type';
+import { ConfidenceType } from '@core/shared/confidence-type';
 import {
   MetadataValueInterface,
   VIRTUAL_METADATA_PREFIX,
-} from '../../../../core/shared/metadata.models';
+} from '@core/shared/metadata.models';
+
 import {
   hasValue,
   isEmpty,

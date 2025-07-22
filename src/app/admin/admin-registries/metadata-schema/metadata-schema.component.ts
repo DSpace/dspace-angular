@@ -11,6 +11,17 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { MetadataField } from '@core/metadata/metadata-field.model';
+import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { RegistryService } from '@core/registry/registry.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -29,17 +40,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';

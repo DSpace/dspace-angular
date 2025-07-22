@@ -14,6 +14,23 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RouteService } from '@core/services/route.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import {
+  SearchConfig,
+  SortConfig,
+} from '@core/shared/search/search-filters/search-config.model';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -31,23 +48,6 @@ import {
 import { environment } from '../../../environments/environment.test';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import {
-  SearchConfig,
-  SortConfig,
-} from '../../core/shared/search/search-filters/search-config.model';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';

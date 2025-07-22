@@ -12,14 +12,14 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { Item } from '@core/shared/item.model';
+import { ItemRequest } from '@core/shared/item-request.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import {
   createSuccessfulRemoteDataObject,

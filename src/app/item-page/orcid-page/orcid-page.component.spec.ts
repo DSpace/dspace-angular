@@ -12,6 +12,15 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '@core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '@core/orcid/orcid-queue-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { Item } from '@core/shared/item.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -20,15 +29,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { Item } from '../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {

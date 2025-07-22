@@ -1,4 +1,5 @@
-import { Group } from '../../core/eperson/models/group.model';
+import { Group } from '@core/eperson/models/group.model';
+
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 

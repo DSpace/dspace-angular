@@ -9,20 +9,20 @@ import {
   Router,
 } from '@angular/router';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { SuggestionSource } from '@core/notifications/suggestions/models/suggestion-source.model';
+import { SuggestionSourceDataService } from '@core/notifications/suggestions/source/suggestion-source-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { PageInfo } from '@core/shared/page-info.model';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SuggestionSource } from '../../../core/notifications/suggestions/models/suggestion-source.model';
-import { SuggestionSourceDataService } from '../../../core/notifications/suggestions/source/suggestion-source-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';

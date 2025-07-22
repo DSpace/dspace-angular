@@ -10,6 +10,15 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { RemoteData } from '@core/data/remote-data';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Community } from '@core/shared/community.model';
+import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -18,15 +27,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../core/data/remote-data';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { Community } from '../core/shared/community.model';
-import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';

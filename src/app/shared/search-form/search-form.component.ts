@@ -8,6 +8,14 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import {
   NgbModal,
   NgbTooltipModule,
@@ -16,14 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import {
   hasValue,
   isNotEmpty,

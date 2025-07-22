@@ -6,6 +6,8 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
 import {
   NgbModal,
   NgbModalRef,
@@ -14,8 +16,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { getDSORoute } from 'src/app/app-routing-paths';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../empty.util';

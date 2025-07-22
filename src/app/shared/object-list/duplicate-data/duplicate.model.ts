@@ -1,12 +1,12 @@
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { HALLink } from '@core/shared/hal-link.model';
+import { MetadataMap } from '@core/shared/metadata.models';
+import { ResourceType } from '@core/shared/resource-type';
 import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
-import { MetadataMap } from '../../../core/shared/metadata.models';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { DUPLICATE } from './duplicate.resource-type';
 
 /**

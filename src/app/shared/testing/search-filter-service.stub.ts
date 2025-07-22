@@ -1,13 +1,13 @@
 import { Params } from '@angular/router';
 import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import {
   Observable,
   of,
 } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 

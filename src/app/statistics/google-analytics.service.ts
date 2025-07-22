@@ -3,14 +3,14 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   Angulartics2GoogleAnalytics,
   Angulartics2GoogleGlobalSiteTag,
 } from 'angulartics2';
 import { combineLatest } from 'rxjs';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 import { isEmpty } from '../shared/empty.util';

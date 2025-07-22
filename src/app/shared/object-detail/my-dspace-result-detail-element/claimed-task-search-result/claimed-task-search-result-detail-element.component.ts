@@ -4,6 +4,15 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import {
   BehaviorSubject,
   EMPTY,
@@ -15,15 +24,6 @@ import {
 } from 'rxjs/operators';
 import { Context } from 'src/app/core/shared/context.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import {
   hasValue,
   isNotEmpty,

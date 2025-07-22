@@ -10,14 +10,14 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

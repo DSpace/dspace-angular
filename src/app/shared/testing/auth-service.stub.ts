@@ -1,14 +1,14 @@
+import { RetrieveAuthMethodsAction } from '@core/auth/auth.actions';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { AuthStatus } from '@core/auth/models/auth-status.model';
+import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
+import { EPerson } from '@core/eperson/models/eperson.model';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { RetrieveAuthMethodsAction } from '../../core/auth/auth.actions';
-import { AuthMethod } from '../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import { AuthStatus } from '../../core/auth/models/auth-status.model';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { hasValue } from '../empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';

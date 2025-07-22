@@ -1,10 +1,9 @@
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { ObjectCacheEntry } from '@core/cache/object-cache.reducer';
 import {
   Observable,
   of,
 } from 'rxjs';
-
-import { CacheableObject } from '../../core/cache/cacheable-object.model';
-import { ObjectCacheEntry } from '../../core/cache/object-cache.reducer';
 
 /* eslint-disable @typescript-eslint/no-empty-function */
 /**

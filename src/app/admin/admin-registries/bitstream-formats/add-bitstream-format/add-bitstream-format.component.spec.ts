@@ -7,13 +7,13 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
+import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';

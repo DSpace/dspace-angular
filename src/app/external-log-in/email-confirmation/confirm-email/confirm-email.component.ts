@@ -12,6 +12,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '@core/auth/auth.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { Registration } from '@core/shared/registration.model';
 import {
   TranslateModule,
   TranslateService,
@@ -23,19 +36,6 @@ import {
   take,
 } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../core/services/window.service';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Registration } from '../../../core/shared/registration.model';
 import {
   hasNoValue,
   hasValue,

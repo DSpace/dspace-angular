@@ -19,6 +19,17 @@ import {
   UntypedFormControl,
 } from '@angular/forms';
 import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { RegistryService } from '@core/registry/registry.service';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  metadataFieldsToString,
+} from '@core/shared/operators';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -39,17 +50,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { RegistryService } from '../../../core/registry/registry.service';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  metadataFieldsToString,
-} from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

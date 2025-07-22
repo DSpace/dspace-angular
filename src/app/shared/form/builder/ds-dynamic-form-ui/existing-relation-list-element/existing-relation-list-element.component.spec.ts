@@ -4,12 +4,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';

@@ -7,6 +7,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
@@ -19,10 +23,6 @@ import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '../../../../../config/app-config.interface';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';

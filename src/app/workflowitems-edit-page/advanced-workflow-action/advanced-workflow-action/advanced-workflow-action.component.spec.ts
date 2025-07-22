@@ -6,16 +6,16 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RequestService } from '@core/data/request.service';
+import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
+import { RouteService } from '@core/services/route.service';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { RouteService } from '../../../core/services/route.service';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';

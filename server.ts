@@ -51,7 +51,7 @@ import {
 } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
+import { TOKENITEM } from '@core/auth/models/auth-token-info.model';
 import { CommonEngine } from '@angular/ssr';
 import { APP_BASE_HREF } from '@angular/common';
 import {

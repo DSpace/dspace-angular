@@ -14,6 +14,13 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { coreSelector } from '@core/core.selectors';
+import { RequestService } from '@core/data/request.service';
+import { RootDataService } from '@core/data/root-data.service';
+import { LocaleService } from '@core/locale/locale.service';
+import { HeadTagService } from '@core/metadata/head-tag.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -30,13 +37,6 @@ import {
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { AuthService } from '../../app/core/auth/auth.service';
-import { coreSelector } from '../../app/core/core.selectors';
-import { RequestService } from '../../app/core/data/request.service';
-import { RootDataService } from '../../app/core/data/root-data.service';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { HeadTagService } from '../../app/core/metadata/head-tag.service';
-import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';

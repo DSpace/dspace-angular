@@ -6,9 +6,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Context } from '@core/shared/context.model';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 
-import { Context } from '../../core/shared/context.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { BrowseByDataType } from './browse-by-data-type';

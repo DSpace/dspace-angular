@@ -10,11 +10,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { PaginationService } from '@core/pagination/pagination.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   getMockNotificationsStateService,

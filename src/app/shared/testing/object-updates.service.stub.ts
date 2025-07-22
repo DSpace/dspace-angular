@@ -1,13 +1,12 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
+import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
+import { Identifiable } from '@core/data/object-updates/identifiable.model';
+import { PatchOperationService } from '@core/data/object-updates/patch-operation-service/patch-operation.service';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   Observable,
   of,
 } from 'rxjs';
-
-import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
-import { Identifiable } from '../../core/data/object-updates/identifiable.model';
-import { PatchOperationService } from '../../core/data/object-updates/patch-operation-service/patch-operation.service';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 
 /**
  * Stub class of {@link ObjectUpdatesService}

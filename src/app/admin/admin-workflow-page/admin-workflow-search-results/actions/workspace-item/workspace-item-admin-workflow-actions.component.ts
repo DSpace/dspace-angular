@@ -7,6 +7,13 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
 import {
   NgbModal,
   NgbModalRef,
@@ -25,13 +32,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../../../shared/empty.util';

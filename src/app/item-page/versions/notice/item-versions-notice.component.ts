@@ -4,6 +4,16 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { RemoteData } from '@core/data/remote-data';
+import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { Item } from '@core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { Version } from '@core/shared/version.model';
+import { VersionHistory } from '@core/shared/version-history.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -16,16 +26,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import {

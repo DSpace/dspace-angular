@@ -5,16 +5,16 @@ import {
   tick,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { RemoteData } from '@core/data/remote-data';
+import { NoContent } from '@core/shared/NoContent.model';
+import { Registration } from '@core/shared/registration.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { Registration } from '../../core/shared/registration.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {

@@ -1,14 +1,14 @@
 import { Params } from '@angular/router';
 import {
+  FilterConfig,
+  SearchConfig,
+} from '@core/shared/search/search-filters/search-config.model';
+import {
   BehaviorSubject,
   Observable,
   of,
 } from 'rxjs';
 
-import {
-  FilterConfig,
-  SearchConfig,
-} from '../../core/shared/search/search-filters/search-config.model';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchOptions } from '../search/models/search-options.model';
 

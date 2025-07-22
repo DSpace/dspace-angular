@@ -4,6 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RawRestResponse } from '@core/dspace-rest/raw-rest-response.model';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -11,7 +12,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
 import {
   HealthInfoResponseObj,
   HealthResponseObj,

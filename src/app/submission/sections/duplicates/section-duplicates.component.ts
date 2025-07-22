@@ -5,6 +5,9 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { Metadata } from '@core/shared/metadata.utils';
+import { WorkspaceitemSectionDuplicatesObject } from '@core/submission/models/workspaceitem-section-duplicates.model';
+import { URLCombiner } from '@core/url-combiner/url-combiner';
 import {
   TranslateModule,
   TranslateService,
@@ -15,9 +18,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { WorkspaceitemSectionDuplicatesObject } from '../../../core/submission/models/workspaceitem-section-duplicates.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';

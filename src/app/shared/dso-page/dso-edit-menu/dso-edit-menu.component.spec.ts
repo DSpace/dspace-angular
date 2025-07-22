@@ -9,11 +9,11 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { MenuService } from '../../menu/menu.service';
 import { TextMenuItemModel } from '../../menu/menu-item/models/text.model';
 import { getMockThemeService } from '../../mocks/theme-service.mock';

@@ -9,20 +9,20 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { ExternalSource } from '@core/shared/external-source.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { ExternalSource } from '../../../core/shared/external-source.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { HostWindowService } from '../../../shared/host-window.service';
 import {
   externalSourceCiencia,

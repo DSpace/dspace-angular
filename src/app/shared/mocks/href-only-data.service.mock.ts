@@ -1,7 +1,7 @@
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
 import { Observable } from 'rxjs';
 
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,

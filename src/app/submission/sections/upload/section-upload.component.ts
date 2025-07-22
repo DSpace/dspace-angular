@@ -4,6 +4,18 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { AccessConditionOption } from '@core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { SubmissionUploadsModel } from '@core/config/models/config-submission-uploads.model';
+import { SubmissionUploadsConfigDataService } from '@core/config/submission-uploads-config-data.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { Group } from '@core/eperson/models/group.model';
+import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
+import { Collection } from '@core/shared/collection.model';
+import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -22,18 +34,6 @@ import {
 } from 'rxjs/operators';
 import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
-import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import {

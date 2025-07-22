@@ -12,13 +12,13 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { ResourceType } from '@core/shared/resource-type';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import {

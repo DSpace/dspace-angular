@@ -9,6 +9,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Item } from '@core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
@@ -18,12 +24,6 @@ import {
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import {
   hasValue,

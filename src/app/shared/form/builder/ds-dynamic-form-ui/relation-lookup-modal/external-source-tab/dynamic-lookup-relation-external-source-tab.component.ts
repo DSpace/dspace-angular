@@ -9,6 +9,18 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Collection } from '@core/shared/collection.model';
+import { Context } from '@core/shared/context.model';
+import { ExternalSource } from '@core/shared/external-source.model';
+import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   NgbModal,
   NgbModalRef,
@@ -24,18 +36,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { Context } from '../../../../../../core/shared/context.model';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,

@@ -13,6 +13,20 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RequestService } from '@core/data/request.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Bundle } from '@core/shared/bundle.model';
+import { Item } from '@core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  paginatedListToArray,
+} from '@core/shared/operators';
 import {
   NgbDropdownModule,
   NgbTooltipModule,
@@ -35,20 +49,6 @@ import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bundle } from '../../../../core/shared/bundle.model';
-import { Item } from '../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  paginatedListToArray,
-} from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasNoValue,

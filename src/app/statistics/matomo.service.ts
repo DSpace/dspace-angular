@@ -4,6 +4,11 @@ import {
   Injectable,
   runInInjectionContext,
 } from '@angular/core';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { NativeWindowService } from '@core/services/window.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   MatomoInitializerService,
   MatomoTracker,
@@ -20,11 +25,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { NativeWindowService } from '../core/services/window.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { isNotEmpty } from '../shared/empty.util';
 

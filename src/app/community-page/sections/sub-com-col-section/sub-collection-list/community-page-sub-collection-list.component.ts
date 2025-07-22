@@ -6,6 +6,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -14,16 +24,6 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
 import { fadeIn } from '../../../../shared/animations/fade';
 import { hasValue } from '../../../../shared/empty.util';
 import { ErrorComponent } from '../../../../shared/error/error.component';

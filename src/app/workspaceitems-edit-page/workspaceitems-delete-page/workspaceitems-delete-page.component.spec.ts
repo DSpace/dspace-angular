@@ -12,6 +12,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RouteService } from '@core/services/route.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -19,10 +23,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';

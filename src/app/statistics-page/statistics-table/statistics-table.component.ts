@@ -4,11 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { UsageReport } from '@core/statistics/models/usage-report.model';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
 
 /**
  * Component representing a statistics table for a given usage report.

@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -11,9 +14,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Process } from '../processes/process.model';

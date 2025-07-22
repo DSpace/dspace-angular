@@ -7,15 +7,15 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
+} from '@core/cache/models/sort-options.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { hasValue } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';

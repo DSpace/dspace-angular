@@ -9,9 +9,9 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { Community } from '@core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '../../core/shared/community.model';
 import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { getCommunityPageRoute } from '../community-page-routing-paths';
 

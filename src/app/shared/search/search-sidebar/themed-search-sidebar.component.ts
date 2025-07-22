@@ -4,14 +4,14 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import { RemoteData } from '@core/data/remote-data';
+import { ViewMode } from '@core/shared/view-mode.model';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';

@@ -1,3 +1,7 @@
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { GenericConstructor } from '@core/shared/generic-constructor';
+import { HALLink } from '@core/shared/hal-link.model';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,
@@ -7,10 +11,6 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { GenericConstructor } from '../../../shared/generic-constructor';
-import { HALLink } from '../../../shared/hal-link.model';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 
 /**

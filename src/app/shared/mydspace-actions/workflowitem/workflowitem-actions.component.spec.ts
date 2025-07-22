@@ -13,17 +13,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';

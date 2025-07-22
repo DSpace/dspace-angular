@@ -6,6 +6,11 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -17,11 +22,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { Process } from '../../../../process-page/processes/process.model';
 import { hasValue } from '../../../../shared/empty.util';

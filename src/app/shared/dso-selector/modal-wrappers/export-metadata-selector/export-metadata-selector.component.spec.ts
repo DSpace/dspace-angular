@@ -13,6 +13,14 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '@core/data/processes/script-data.service';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import { Item } from '@core/shared/item.model';
 import {
   NgbActiveModal,
   NgbModal,
@@ -24,14 +32,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../../../core/data/processes/script-data.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { Item } from '../../../../core/shared/item.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';

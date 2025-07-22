@@ -11,6 +11,23 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { LinkService } from '@core/cache/builders/link.service';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '@core/shared/metadata.models';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
 import {
   NgbModal,
   NgbModalRef,
@@ -35,23 +52,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,

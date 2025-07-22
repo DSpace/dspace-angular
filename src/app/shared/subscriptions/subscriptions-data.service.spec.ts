@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
+import { RequestService } from '@core/data/request.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
-import { RequestService } from '../../core/data/request.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';

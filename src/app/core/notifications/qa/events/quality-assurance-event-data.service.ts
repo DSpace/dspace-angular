@@ -3,6 +3,38 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '@core/data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '@core/data/base/delete-data';
+import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '@core/data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '@core/data/base/search-data';
+import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import {
+  DeleteByIDRequest,
+  PostRequest,
+} from '@core/data/request.models';
+import { RequestService } from '@core/data/request.service';
+import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { NoContent } from '@core/shared/NoContent.model';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -15,38 +47,6 @@ import { QualityAssuranceEventData } from '../../../../notifications/qa/project-
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import {
-  CreateData,
-  CreateDataImpl,
-} from '../../../data/base/create-data';
-import {
-  DeleteData,
-  DeleteDataImpl,
-} from '../../../data/base/delete-data';
-import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
-import {
-  PatchData,
-  PatchDataImpl,
-} from '../../../data/base/patch-data';
-import {
-  SearchData,
-  SearchDataImpl,
-} from '../../../data/base/search-data';
-import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
-import { FindListOptions } from '../../../data/find-list-options.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { RemoteData } from '../../../data/remote-data';
-import {
-  DeleteByIDRequest,
-  PostRequest,
-} from '../../../data/request.models';
-import { RequestService } from '../../../data/request.service';
-import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { NoContent } from '../../../shared/NoContent.model';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
 
 /**

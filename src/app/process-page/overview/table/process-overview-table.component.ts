@@ -15,6 +15,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { RouteService } from '@core/services/route.service';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '@core/shared/operators';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -36,19 +49,6 @@ import {
 } from 'rxjs/operators';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { RouteService } from '../../../core/services/route.service';
-import { redirectOn4xx } from '../../../core/shared/authorized.operators';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../core/shared/operators';
 import {
   hasValue,
   isNotEmpty,

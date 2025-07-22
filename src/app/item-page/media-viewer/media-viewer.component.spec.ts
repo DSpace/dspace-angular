@@ -10,18 +10,18 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { FileService } from '@core/shared/file.service';
+import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { FileService } from '../../core/shared/file.service';
-import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';

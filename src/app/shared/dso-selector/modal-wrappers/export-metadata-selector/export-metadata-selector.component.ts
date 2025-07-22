@@ -6,6 +6,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '@core/data/processes/script-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   NgbActiveModal,
   NgbModal,
@@ -23,19 +36,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../../../core/data/processes/script-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';

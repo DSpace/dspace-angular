@@ -12,6 +12,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { FindAllDataImpl } from '@core/data/base/find-all-data';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { lazyDataService } from '@core/lazy-data-service';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import {
   NgbDropdown,
   NgbDropdownModule,
@@ -38,17 +49,6 @@ import {
   LazyDataServicesMap,
 } from 'src/config/app-config.interface';
 
-import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
-import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { lazyDataService } from '../../../../../../core/lazy-data-service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,

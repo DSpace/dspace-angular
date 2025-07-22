@@ -7,21 +7,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+} from '@core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { LinkHeadService } from '@core/services/link-head.service';
+import { Collection } from '@core/shared/collection.model';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { TranslateService } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RouterMock } from '../mocks/router.mock';
 import { getMockTranslateService } from '../mocks/translate.service.mock';

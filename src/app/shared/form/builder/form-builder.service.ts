@@ -7,6 +7,10 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { VIRTUAL_METADATA_PREFIX } from '@core/shared/metadata.models';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -28,10 +32,6 @@ import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import {
   dateToString,
   isNgbDateStruct,

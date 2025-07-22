@@ -10,16 +10,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { SearchService } from '@core/shared/search/search.service';
+import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import { PoolTaskDataService } from '@core/tasks/pool-task-data.service';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';

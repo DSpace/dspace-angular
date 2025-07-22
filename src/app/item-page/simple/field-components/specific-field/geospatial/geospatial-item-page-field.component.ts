@@ -3,9 +3,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Item } from '@core/shared/item.model';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { Item } from '../../../../../core/shared/item.model';
 import {
   hasValue,
   isNotEmpty,

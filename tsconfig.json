@@ -40,7 +40,10 @@
       "jasmine"
     ],
     "useDefineForClassFields": false,
-    "useUnknownInCatchVariables": true
+    "useUnknownInCatchVariables": true,
+    "paths": {
+      "@core/*": ["src/app/core/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
@@ -55,5 +58,5 @@
   },
   "exclude": [
     "cypress.config.ts"
-  ]
+  ],
 }

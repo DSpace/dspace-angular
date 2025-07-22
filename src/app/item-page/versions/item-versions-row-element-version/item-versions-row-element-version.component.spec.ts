@@ -17,21 +17,21 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { VersionDataService } from '@core/data/version-data.service';
+import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { Item } from '@core/shared/item.model';
+import { Version } from '@core/shared/version.model';
+import { VersionHistory } from '@core/shared/version-history.model';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';

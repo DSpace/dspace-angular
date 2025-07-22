@@ -8,17 +8,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
+import { RouteService } from '@core/services/route.service';
+import { Item } from '@core/shared/item.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { RouteService } from '../../../core/services/route.service';
-import { Item } from '../../../core/shared/item.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,

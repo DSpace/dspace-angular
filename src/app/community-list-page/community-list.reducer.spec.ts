@@ -1,8 +1,8 @@
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Community } from '@core/shared/community.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { of } from 'rxjs';
 
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { Community } from '../core/shared/community.model';
-import { PageInfo } from '../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListReducer } from './community-list.reducer';

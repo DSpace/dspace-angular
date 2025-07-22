@@ -1,7 +1,7 @@
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
 import { hot } from 'jasmine-marbles';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import {
   createFailedRemoteDataObject,

@@ -1,4 +1,12 @@
 import { HttpClient } from '@angular/common/http';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RestResponse } from '@core/cache/response.models';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { RequestService } from '@core/data/request.service';
+import { RequestEntry } from '@core/data/request-entry.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   cold,
   getTestScheduler,
@@ -13,14 +21,6 @@ import {
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { RestResponse } from '../../../cache/response.models';
-import { buildPaginatedList } from '../../../data/paginated-list.model';
-import { RequestService } from '../../../data/request.service';
-import { RequestEntry } from '../../../data/request-entry.model';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { PageInfo } from '../../../shared/page-info.model';
 import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
 
 describe('QualityAssuranceTopicDataService', () => {

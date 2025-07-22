@@ -1,3 +1,4 @@
+import { MetadataValue } from '@core/shared/metadata.models';
 import {
   DynamicDateControlModel,
   DynamicDatePickerModelConfig,
@@ -11,7 +12,6 @@ import {
   Subject,
 } from 'rxjs';
 
-import { MetadataValue } from '../../../../../../core/shared/metadata.models';
 import {
   isEmpty,
   isNotUndefined,

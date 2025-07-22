@@ -9,10 +9,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';

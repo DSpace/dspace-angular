@@ -7,6 +7,20 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { LdnPattern } from '@core/coar-notify/models/submission-coar-notify.model';
+import {
+  LdnService,
+  LdnServiceByPattern,
+} from '@core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { CoarNotifyConfigDataService } from '@core/data/coar-notify-config-data.service';
+import { LdnServicesService } from '@core/data/ldn-services-data.service';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   NgbDropdown,
   NgbDropdownModule,
@@ -24,18 +38,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import {
-  LdnService,
-  LdnServiceByPattern,
-} from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import {
   hasValue,
   isEmpty,
@@ -45,8 +47,6 @@ import { SubmissionSectionError } from '../../objects/submission-section-error.m
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
-import { LdnPattern } from './submission-coar-notify.config';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.

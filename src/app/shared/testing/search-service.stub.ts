@@ -1,10 +1,10 @@
+import { ViewMode } from '@core/shared/view-mode.model';
 import {
   BehaviorSubject,
   Observable,
   of,
 } from 'rxjs';
 
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { AppliedFilter } from '../search/models/applied-filter.model';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '../search/models/search-filter-config.model';

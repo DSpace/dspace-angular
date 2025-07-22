@@ -9,6 +9,7 @@ import {
   By,
 } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import {
@@ -19,7 +20,6 @@ import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';

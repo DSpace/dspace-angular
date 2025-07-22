@@ -7,6 +7,21 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { LookupRelationService } from '@core/data/lookup-relation.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -15,21 +30,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Context } from '../../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../../core/shared/operators';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';

@@ -7,6 +7,14 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
+import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
+import { SubmissionSectionModel } from '@core/config/models/config-submission-section.model';
+import { Collection } from '@core/shared/collection.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { Item } from '@core/shared/item.model';
+import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '@core/submission/models/workspaceitem-sections.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
@@ -21,14 +29,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { Collection } from '../../core/shared/collection.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import {
   hasValue,
   isNotEmpty,

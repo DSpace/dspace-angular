@@ -9,12 +9,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { Collection } from '@core/shared/collection.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Collection } from '../../../core/shared/collection.model';
 import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';

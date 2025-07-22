@@ -14,6 +14,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { LinkService } from '@core/cache/builders/link.service';
+import { ActionType } from '@core/resource-policy/models/action-type.model';
+import { PolicyType } from '@core/resource-policy/models/policy-type.model';
+import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -22,11 +27,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { Item } from '../../../core/shared/item.model';
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import { NotificationsService } from '../../notifications/notifications.service';

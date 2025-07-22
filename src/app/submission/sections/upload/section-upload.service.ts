@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -10,7 +11,6 @@ import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/js
 import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { isUndefined } from '../../../shared/empty.util';
 import {
   DeleteUploadedFileAction,

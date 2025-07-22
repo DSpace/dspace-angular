@@ -7,6 +7,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthenticateAction } from '@core/auth/auth.actions';
+import { CoreState } from '@core/core-state.model';
+import { RemoteData } from '@core/data/remote-data';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { Registration } from '@core/shared/registration.model';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -15,16 +25,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { CoreState } from '../../core/core-state.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

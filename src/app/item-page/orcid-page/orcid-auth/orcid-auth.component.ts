@@ -9,6 +9,15 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { RemoteData } from '@core/data/remote-data';
+import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -20,15 +29,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../core/services/window.service';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

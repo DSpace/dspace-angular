@@ -13,20 +13,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import { WorkflowAction } from '@core/tasks/models/workflow-action-object.model';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';

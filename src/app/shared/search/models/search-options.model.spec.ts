@@ -1,4 +1,5 @@
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+
 import { SearchFilter } from './search-filter.model';
 import { SearchOptions } from './search-options.model';
 

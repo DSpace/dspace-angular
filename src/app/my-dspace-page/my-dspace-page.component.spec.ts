@@ -8,14 +8,14 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RoleService } from '@core/roles/role.service';
+import { Context } from '@core/shared/context.model';
+import { SearchService } from '@core/shared/search/search.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { RoleService } from '../core/roles/role.service';
-import { Context } from '../core/shared/context.model';
-import { SearchService } from '../core/shared/search/search.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';

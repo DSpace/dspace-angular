@@ -12,13 +12,13 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { SearchService } from '@core/shared/search/search.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { SearchService } from '../../core/shared/search/search.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import {
   isEmpty,
   isNotEmpty,

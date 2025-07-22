@@ -13,6 +13,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { RemoteData } from '@core/data/remote-data';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { SequenceService } from '@core/shared/sequence.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -26,11 +31,6 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
-import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
 import {

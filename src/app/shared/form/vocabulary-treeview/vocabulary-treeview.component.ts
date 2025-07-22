@@ -16,6 +16,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RemoteData } from '@core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
+import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -29,13 +36,6 @@ import {
 } from 'rxjs/operators';
 import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';

@@ -12,6 +12,22 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { FieldUpdate } from '@core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { Collection } from '@core/shared/collection.model';
+import {
+  ContentSource,
+  ContentSourceHarvestType,
+} from '@core/shared/content-source.model';
+import { MetadataConfig } from '@core/shared/metadata-config.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '@core/shared/operators';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -39,22 +55,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Collection } from '../../../core/shared/collection.model';
-import {
-  ContentSource,
-  ContentSourceHarvestType,
-} from '../../../core/shared/content-source.model';
-import { MetadataConfig } from '../../../core/shared/metadata-config.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasNoValue,

@@ -16,12 +16,12 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SearchService } from '@core/shared/search/search.service';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { SearchNavbarComponent } from './search-navbar.component';
 

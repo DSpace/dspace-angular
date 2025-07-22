@@ -4,6 +4,13 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -11,13 +18,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Context } from '../../../../../core/shared/context.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';

@@ -11,11 +11,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Collection } from '@core/shared/collection.model';
+import { MetadataValue } from '@core/shared/metadata.models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Collection } from '../../../../core/shared/collection.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
 import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';

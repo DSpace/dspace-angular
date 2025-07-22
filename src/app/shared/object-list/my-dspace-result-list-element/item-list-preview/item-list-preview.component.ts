@@ -8,6 +8,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
@@ -16,8 +18,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../../core/shared/item.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';

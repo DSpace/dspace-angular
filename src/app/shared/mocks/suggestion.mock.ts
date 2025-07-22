@@ -1,7 +1,7 @@
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
 import { of } from 'rxjs';
 
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
 import { createPaginatedList } from '../testing/utils.test';

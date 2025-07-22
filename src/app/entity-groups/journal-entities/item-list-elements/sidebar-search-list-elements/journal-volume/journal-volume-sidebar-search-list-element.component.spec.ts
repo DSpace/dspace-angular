@@ -1,5 +1,6 @@
-import { Collection } from '../../../../../core/shared/collection.model';
-import { Item } from '../../../../../core/shared/item.model';
+import { Collection } from '@core/shared/collection.model';
+import { Item } from '@core/shared/item.model';
+
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { createSidebarSearchListElementTests } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
 import { JournalVolumeSidebarSearchListElementComponent } from './journal-volume-sidebar-search-list-element.component';

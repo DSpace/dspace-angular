@@ -8,10 +8,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { RouteService } from '@core/services/route.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { of } from 'rxjs';
 
-import { RouteService } from '../core/services/route.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { configureSearchComponentTestingModule } from '../shared/search/search.component.spec';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import createSpy = jasmine.createSpy;

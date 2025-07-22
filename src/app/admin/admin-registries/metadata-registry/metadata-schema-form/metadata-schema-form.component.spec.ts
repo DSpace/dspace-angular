@@ -7,12 +7,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { RegistryService } from '@core/registry/registry.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';

@@ -7,6 +7,16 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,16 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Context } from '../../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';

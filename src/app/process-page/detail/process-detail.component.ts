@@ -17,6 +17,22 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { URLCombiner } from '@core/url-combiner/url-combiner';
 import {
   NgbModal,
   NgbModalRef,
@@ -40,22 +56,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/alert-type';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';

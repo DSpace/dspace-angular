@@ -1,6 +1,7 @@
-import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
-import { Item } from '../../../../core/shared/item.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
+
 import {
   createRelationshipsObservable,
   getItemPageFieldsTest,

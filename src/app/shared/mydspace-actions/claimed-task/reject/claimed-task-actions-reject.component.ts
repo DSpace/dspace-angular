@@ -12,6 +12,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { SearchService } from '@core/shared/search/search.service';
 import {
   NgbModal,
   NgbModalRef,
@@ -26,10 +30,6 @@ import {
   of,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';

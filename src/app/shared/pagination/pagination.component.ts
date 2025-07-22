@@ -16,6 +16,15 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationRouteParams } from '@core/pagination/pagination-route-params.interface';
+import { ViewMode } from '@core/shared/view-mode.model';
+import {
   NgbDropdownModule,
   NgbPaginationModule,
   NgbTooltipModule,
@@ -33,15 +42,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,

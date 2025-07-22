@@ -9,6 +9,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { ItemRequestDataService } from '@core/data/item-request-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import { ItemRequest } from '@core/shared/item-request.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { URLCombiner } from '@core/url-combiner/url-combiner';
 import {
   TranslatePipe,
   TranslateService,
@@ -20,17 +31,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

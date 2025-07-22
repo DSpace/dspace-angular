@@ -7,6 +7,16 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { OrcidHistory } from '@core/orcid/model/orcid-history.model';
+import { OrcidQueue } from '@core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '@core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '@core/orcid/orcid-queue-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -25,16 +35,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';

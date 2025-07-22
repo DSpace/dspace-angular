@@ -3,10 +3,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
 import { NotificationsService } from '../notifications/notifications.service';
 
 /**

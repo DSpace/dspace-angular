@@ -5,6 +5,24 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { ConfigObject } from '@core/config/models/config.model';
+import { FormRowModel } from '@core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionFormObject } from '@core/submission/models/workspaceitem-section-form.model';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -28,24 +46,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { ConfigObject } from '../../../core/config/models/config.model';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import {
   hasValue,
   isEmpty,

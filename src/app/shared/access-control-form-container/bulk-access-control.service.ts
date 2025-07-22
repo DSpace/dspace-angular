@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';

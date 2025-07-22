@@ -1,18 +1,18 @@
 import {
+  link,
+  typedObject,
+} from '@core/cache/builders/build-decorators';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { HALLink } from '@core/shared/hal-link.model';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
+import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import {
-  link,
-  typedObject,
-} from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { RemoteData } from '../../../data/remote-data';
-import { HALLink } from '../../../shared/hal-link.model';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import {
   VOCABULARY,
   VOCABULARY_ENTRY,

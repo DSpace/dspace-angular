@@ -1,9 +1,9 @@
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { HALLink } from '@core/shared/hal-link.model';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import { deserialize } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { FACET_CONFIG_RESPONSE } from './types/facet-config-response.resouce-type';
 

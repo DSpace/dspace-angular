@@ -5,25 +5,25 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../core/cache/response.models';
-import { CreateData } from '../../../core/data/base/create-data';
-import { testCreateDataImplementation } from '../../../core/data/base/create-data.spec';
-import { DeleteData } from '../../../core/data/base/delete-data';
-import { testDeleteDataImplementation } from '../../../core/data/base/delete-data.spec';
-import { FindAllData } from '../../../core/data/base/find-all-data';
-import { testFindAllDataImplementation } from '../../../core/data/base/find-all-data.spec';
-import { PatchData } from '../../../core/data/base/patch-data';
-import { testPatchDataImplementation } from '../../../core/data/base/patch-data.spec';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { RequestEntry } from '../../../core/data/request-entry.model';
-import { RequestEntryState } from '../../../core/data/request-entry-state.model';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { CreateData } from './base/create-data';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { DeleteData } from './base/delete-data';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { FindAllData } from './base/find-all-data';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { PatchData } from './base/patch-data';
+import { testPatchDataImplementation } from './base/patch-data.spec';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { RequestEntryState } from './request-entry-state.model';
 
 describe('CoarNotifyConfigDataService test', () => {
   let scheduler: TestScheduler;

@@ -8,20 +8,20 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RequestService } from '@core/data/request.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Bundle } from '@core/shared/bundle.model';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of,
   Subject,
 } from 'rxjs';
 
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bundle } from '../../../../core/shared/bundle.model';
-import { Item } from '../../../../core/shared/item.model';
 import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';

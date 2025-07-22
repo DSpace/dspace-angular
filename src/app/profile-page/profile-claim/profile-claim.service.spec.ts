@@ -1,3 +1,6 @@
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
 import {
   cold,
   getTestScheduler,
@@ -5,9 +8,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Item } from '../../core/shared/item.model';
-import { SearchService } from '../../core/shared/search/search.service';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import {
   createNoContentRemoteDataObject,

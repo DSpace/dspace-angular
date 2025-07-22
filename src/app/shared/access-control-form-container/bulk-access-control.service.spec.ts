@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../notifications/notifications.service';

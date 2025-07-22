@@ -1,7 +1,8 @@
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { TypedObject } from '../../../core/cache/typed-object.model';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import { ResourceType } from '../../../core/shared/resource-type';
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { TypedObject } from '@core/cache/typed-object.model';
+import { GenericConstructor } from '@core/shared/generic-constructor';
+import { ResourceType } from '@core/shared/resource-type';
+
 import { NotificationType } from '../../notifications/models/notification-type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';

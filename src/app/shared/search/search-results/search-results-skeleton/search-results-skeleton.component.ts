@@ -4,11 +4,11 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { SearchService } from '@core/shared/search/search.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Observable } from 'rxjs';
 
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { hasValue } from '../../../empty.util';
 
 @Component({

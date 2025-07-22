@@ -5,18 +5,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RequestService } from '@core/data/request.service';
+import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RequestService } from '../../../core/data/request.service';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';

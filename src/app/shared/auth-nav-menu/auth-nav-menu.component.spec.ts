@@ -11,6 +11,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  authReducer,
+  AuthState,
+} from '@core/auth/auth.reducer';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   Store,
@@ -21,13 +28,6 @@ import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
-import {
-  authReducer,
-  AuthState,
-} from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../host-window.service';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';

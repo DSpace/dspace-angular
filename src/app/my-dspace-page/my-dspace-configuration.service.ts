@@ -4,6 +4,19 @@ import {
   InjectionToken,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LinkService } from '@core/cache/builders/link.service';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { RequestService } from '@core/data/request.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { RoleService } from '@core/roles/role.service';
+import { RouteService } from '@core/services/route.service';
+import { Context } from '@core/shared/context.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   combineLatest,
   Observable,
@@ -17,19 +30,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../config/app-config.interface';
-import { LinkService } from '../core/cache/builders/link.service';
-import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { RequestService } from '../core/data/request.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { RoleService } from '../core/roles/role.service';
-import { RouteService } from '../core/services/route.service';
-import { Context } from '../core/shared/context.model';
-import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';

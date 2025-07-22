@@ -20,6 +20,18 @@ import {
 } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { PageInfo } from '@core/shared/page-info.model';
 import {
   NgbModal,
   NgbModule,
@@ -30,18 +42,6 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

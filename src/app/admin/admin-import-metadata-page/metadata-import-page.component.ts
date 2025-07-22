@@ -3,16 +3,16 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '@core/data/processes/script-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import {
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../core/data/processes/script-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';

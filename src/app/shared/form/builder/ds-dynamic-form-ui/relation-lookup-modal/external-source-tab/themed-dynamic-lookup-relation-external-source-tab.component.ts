@@ -4,11 +4,11 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Collection } from '@core/shared/collection.model';
+import { Context } from '@core/shared/context.model';
+import { ExternalSource } from '@core/shared/external-source.model';
+import { Item } from '@core/shared/item.model';
 
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { Context } from '../../../../../../core/shared/context.model';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { Item } from '../../../../../../core/shared/item.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
 import { RelationshipOptions } from '../../../models/relationship-options.model';

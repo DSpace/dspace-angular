@@ -12,6 +12,26 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { VersionDataService } from '@core/data/version-data.service';
+import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { RouteService } from '@core/services/route.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { Item } from '@core/shared/item.model';
+import { MetadataMap } from '@core/shared/metadata.models';
+import { SearchService } from '@core/shared/search/search.service';
+import { UUIDService } from '@core/shared/uuid.service';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -26,26 +46,6 @@ import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configurati
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { VersionDataService } from '../../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
-import { RouteService } from '../../../../core/services/route.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../core/shared/item.model';
-import { MetadataMap } from '../../../../core/shared/metadata.models';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';

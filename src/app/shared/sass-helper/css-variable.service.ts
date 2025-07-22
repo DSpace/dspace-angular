@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -11,11 +16,6 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import {
   hasValue,
   isNotEmpty,

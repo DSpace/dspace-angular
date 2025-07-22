@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Community } from '@core/shared/community.model';
+import { Context } from '@core/shared/context.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 
-import { Community } from '../../../../../../app/core/shared/community.model';
-import { Context } from '../../../../../../app/core/shared/context.model';
-import { ViewMode } from '../../../../../../app/core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { CommunityListElementComponent as BaseComponent } from '../../../../../../app/shared/object-list/community-list-element/community-list-element.component';
 

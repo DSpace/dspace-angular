@@ -10,11 +10,11 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ComColDataService } from '@core/data/comcol-data.service';
+import { Community } from '@core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ComColDataService } from '../../../../../core/data/comcol-data.service';
-import { Community } from '../../../../../core/shared/community.model';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

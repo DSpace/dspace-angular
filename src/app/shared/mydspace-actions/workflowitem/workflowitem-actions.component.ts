@@ -7,16 +7,16 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { SearchService } from '@core/shared/search/search.service';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';

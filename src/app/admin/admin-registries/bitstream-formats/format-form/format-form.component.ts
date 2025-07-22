@@ -7,6 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
 import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
@@ -18,8 +20,6 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { environment } from '../../../../../environments/environment';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import {
   hasValue,
   isEmpty,

@@ -4,6 +4,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { ResourceType } from '@core/shared/resource-type';
+import { SearchService } from '@core/shared/search/search.service';
+import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,14 +24,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ResourceType } from '../../core/shared/resource-type';
-import { SearchService } from '../../core/shared/search/search.service';
-import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
 import { getSearchResultFor } from '../search/search-result-element-decorator';

@@ -7,10 +7,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Item } from '@core/shared/item.model';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';

@@ -1,6 +1,7 @@
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { URLCombiner } from '@core/url-combiner/url-combiner';
+
 import {
   hasValue,
   isNotEmpty,

@@ -12,6 +12,10 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -32,10 +36,6 @@ import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../core/services/window.service';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { slideSidebarPadding } from '../shared/animations/slide';

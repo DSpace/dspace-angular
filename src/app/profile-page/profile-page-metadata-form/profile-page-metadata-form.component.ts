@@ -5,6 +5,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
@@ -16,12 +22,6 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
 import {
   hasValue,
   isNotEmpty,

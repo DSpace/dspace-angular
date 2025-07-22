@@ -4,9 +4,9 @@ import {
   Input,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { NotificationBoxComponent } from '../../../shared/notification-box/notification-box.component';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 

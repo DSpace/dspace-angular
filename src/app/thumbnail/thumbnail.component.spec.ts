@@ -10,14 +10,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { FileService } from '@core/shared/file.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../core/auth/auth.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { FileService } from '../core/shared/file.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import {
   createFailedRemoteDataObject,

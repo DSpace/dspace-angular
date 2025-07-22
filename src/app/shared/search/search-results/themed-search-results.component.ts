@@ -4,13 +4,13 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { ThemedComponent } from '../../theme-support/themed.component';

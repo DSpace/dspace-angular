@@ -12,6 +12,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { authReducer } from '@core/auth/auth.reducer';
+import { AuthService } from '@core/auth/auth.service';
+import { LocaleService } from '@core/locale/locale.service';
+import { RouteService } from '@core/services/route.service';
 import {
   Store,
   StoreModule,
@@ -28,10 +32,6 @@ import { AppComponent } from './app.component';
 import { getMockLocaleService } from './app.component.spec';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { authReducer } from './core/auth/auth.reducer';
-import { AuthService } from './core/auth/auth.service';
-import { LocaleService } from './core/locale/locale.service';
-import { RouteService } from './core/services/route.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { InitService } from './init.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -46,9 +46,9 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { HeadTagService } from '@core/metadata/head-tag.service';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { HeadTagService } from './core/metadata/head-tag.service';
 import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
 
 let spy: SpyObj<any>;

@@ -7,6 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { RegistryService } from '@core/registry/registry.service';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -27,8 +29,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 

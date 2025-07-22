@@ -4,6 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { RemoteData } from '@core/data/remote-data';
+import { Registration } from '@core/shared/registration.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   first,
@@ -12,9 +15,6 @@ import {
   tap,
 } from 'rxjs';
 
-import { AuthMethodType } from '../core/auth/models/auth.method-type';
-import { RemoteData } from '../core/data/remote-data';
-import { Registration } from '../core/shared/registration.model';
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';

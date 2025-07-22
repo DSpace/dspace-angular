@@ -6,15 +6,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { RegistryService } from '../../../core/registry/registry.service';
+} from '@core/cache/models/sort-options.model';
+import { MetadataField } from '@core/metadata/metadata-field.model';
+import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { RegistryService } from '@core/registry/registry.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

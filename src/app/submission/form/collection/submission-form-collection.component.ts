@@ -11,6 +11,15 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '@core/shared/collection.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -25,15 +34,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../core/shared/collection.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';

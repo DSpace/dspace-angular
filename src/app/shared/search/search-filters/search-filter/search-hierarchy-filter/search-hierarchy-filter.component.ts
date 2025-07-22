@@ -13,6 +13,13 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import {
   NgbModal,
   NgbModalRef,
@@ -34,13 +41,6 @@ import {
   AppConfig,
 } from '../../../../../../config/app-config.interface';
 import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
-import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';

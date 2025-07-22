@@ -14,6 +14,10 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { FilterConfig } from '@core/shared/search/search-filters/search-config.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -26,10 +30,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,

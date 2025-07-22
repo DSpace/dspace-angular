@@ -9,18 +9,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { OrcidQueue } from '@core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '@core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '@core/orcid/orcid-queue-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';

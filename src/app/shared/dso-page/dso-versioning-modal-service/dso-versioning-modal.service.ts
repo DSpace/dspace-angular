@@ -1,5 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { VersionDataService } from '@core/data/version-data.service';
+import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { Version } from '@core/shared/version.model';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   Observable,
@@ -11,18 +23,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
 import { ItemVersionsSummaryModalComponent } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 

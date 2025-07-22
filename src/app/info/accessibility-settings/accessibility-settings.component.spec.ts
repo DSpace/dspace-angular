@@ -4,13 +4,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { AuthService } from '@core/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ContextHelpDirective } from 'src/app/shared/context-help.directive';
 
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
 import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
-import { AuthService } from '../../core/auth/auth.service';
 import { OrejimeService } from '../../shared/cookies/orejime.service';
 import { OrejimeServiceStub } from '../../shared/cookies/orejime.service.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

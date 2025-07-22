@@ -18,6 +18,22 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { SearchService } from '@core/shared/search/search.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import {
   TranslateModule,
   TranslateService,
@@ -38,22 +54,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import {
   hasNoValue,
   hasValue,

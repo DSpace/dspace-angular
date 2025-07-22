@@ -8,6 +8,13 @@ import {
 } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { RemoteData } from '@core/data/remote-data';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import { NativeWindowService } from '@core/services/window.service';
+import { Registration } from '@core/shared/registration.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -20,13 +27,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../core/services/window.service';
-import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';

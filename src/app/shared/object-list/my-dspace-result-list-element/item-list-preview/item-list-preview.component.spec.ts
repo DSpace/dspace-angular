@@ -9,6 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Item } from '@core/shared/item.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -16,7 +17,6 @@ import {
 import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { Item } from '../../../../core/shared/item.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';

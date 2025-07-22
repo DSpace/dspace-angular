@@ -4,19 +4,19 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { DSOBreadcrumbsService } from '@core/breadcrumbs/dso-breadcrumbs.service';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getDSORoute } from '../app-routing-paths';
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
-import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../core/shared/operators';
 import { hasValue } from '../shared/empty.util';
 
 /**

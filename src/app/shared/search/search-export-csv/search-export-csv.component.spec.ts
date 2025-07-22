@@ -5,13 +5,13 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
 import { NotificationsService } from '../../notifications/notifications.service';

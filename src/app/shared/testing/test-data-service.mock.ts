@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Item } from '@core/shared/item.model';
 import { Operation } from 'fast-json-patch';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
 

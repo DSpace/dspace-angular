@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { Item } from '@core/shared/item.model';
+import { ITEM } from '@core/shared/item.resource-type';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { MenuService } from '../menu.service';

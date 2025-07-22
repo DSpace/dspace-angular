@@ -9,6 +9,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -16,8 +18,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';

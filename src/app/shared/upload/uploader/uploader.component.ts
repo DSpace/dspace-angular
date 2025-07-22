@@ -12,6 +12,13 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { DragService } from '@core/drag.service';
+import { CookieService } from '@core/services/cookie.service';
+import {
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from '@core/xsrf/xsrf.constants';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -20,13 +27,6 @@ import {
 } from 'ng2-file-upload';
 import { of } from 'rxjs';
 
-import { DragService } from '../../../core/drag.service';
-import { CookieService } from '../../../core/services/cookie.service';
-import {
-  XSRF_COOKIE,
-  XSRF_REQUEST_HEADER,
-  XSRF_RESPONSE_HEADER,
-} from '../../../core/xsrf/xsrf.constants';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,

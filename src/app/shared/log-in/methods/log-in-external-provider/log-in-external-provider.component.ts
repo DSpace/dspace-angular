@@ -3,6 +3,18 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@core/auth/selectors';
+import { CoreState } from '@core/core-state.model';
+import { HardRedirectService } from '@core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
 import {
   select,
   Store,
@@ -11,18 +23,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import {
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../../core/services/window.service';
 import { isEmpty } from '../../../empty.util';
 
 @Component({

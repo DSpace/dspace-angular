@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { makeEnvironmentProviders } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
-import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { Process } from '../process-page/processes/process.model';
 import { Script } from '../process-page/scripts/script.model';
@@ -15,16 +13,18 @@ import {
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
+import { SubmissionCoarNotifyModel } from './coar-notify/models/submission-coar-notify.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 import { SubmissionDefinitionsModel } from './config/models/config-submission-definitions.model';
 import { SubmissionFormsModel } from './config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from './config/models/config-submission-section.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
+import { Itemfilter } from './data/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
+import { LdnService } from './data/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { Root } from './data/root.model';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { EPerson } from './eperson/models/eperson.model';
@@ -184,7 +184,7 @@ export const models =
     SuggestionSource,
     LdnService,
     Itemfilter,
-    SubmissionCoarNotifyConfig,
+    SubmissionCoarNotifyModel,
     NotifyRequestsStatus,
     SystemWideAlert,
   ];

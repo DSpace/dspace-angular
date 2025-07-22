@@ -8,12 +8,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';

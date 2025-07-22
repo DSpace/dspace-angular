@@ -16,6 +16,15 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { ConfidenceType } from '@core/shared/confidence-type';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import {
   NgbDropdown,
   NgbDropdownModule,
   NgbTooltipModule,
@@ -35,15 +44,6 @@ import {
   distinctUntilChanged,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,

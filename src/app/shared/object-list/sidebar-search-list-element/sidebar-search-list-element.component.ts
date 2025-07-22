@@ -6,6 +6,12 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { RemoteData } from '@core/data/remote-data';
+import { ChildHALResource } from '@core/shared/child-hal-resource.model';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,12 +22,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   hasValue,
   isNotEmpty,

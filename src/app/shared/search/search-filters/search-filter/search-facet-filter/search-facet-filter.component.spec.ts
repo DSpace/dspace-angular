@@ -10,6 +10,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
@@ -17,10 +21,6 @@ import {
   of,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';

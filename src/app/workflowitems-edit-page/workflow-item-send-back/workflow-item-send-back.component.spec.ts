@@ -9,16 +9,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@core/data/request.service';
+import { RouteService } from '@core/services/route.service';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../core/data/request.service';
-import { RouteService } from '../../core/services/route.service';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

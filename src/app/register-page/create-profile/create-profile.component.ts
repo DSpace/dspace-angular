@@ -14,6 +14,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthenticateAction } from '@core/auth/auth.actions';
+import { CoreState } from '@core/core-state.model';
+import { RemoteData } from '@core/data/remote-data';
+import {
+  END_USER_AGREEMENT_METADATA_FIELD,
+  EndUserAgreementService,
+} from '@core/end-user-agreement/end-user-agreement.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { Registration } from '@core/shared/registration.model';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -24,20 +38,6 @@ import { map } from 'rxjs/operators';
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { CoreState } from '../../core/core-state.model';
-import { RemoteData } from '../../core/data/remote-data';
-import {
-  END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService,
-} from '../../core/end-user-agreement/end-user-agreement.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { isEmpty } from '../../shared/empty.util';

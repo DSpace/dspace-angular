@@ -3,6 +3,11 @@ import {
   Injectable,
   Optional,
 } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { CookieService } from '@core/services/cookie.service';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,
@@ -20,11 +25,6 @@ import {
   AppConfig,
 } from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';
-import { AuthService } from '../core/auth/auth.service';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { CookieService } from '../core/services/cookie.service';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import {
   hasNoValue,

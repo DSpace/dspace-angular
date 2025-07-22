@@ -6,6 +6,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { RouteService } from '@core/services/route.service';
 import {
   NgbCollapse,
   NgbModal,
@@ -17,12 +23,6 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { ProcessDataService } from '../../../core/data/processes/process-data.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RouteService } from '../../../core/services/route.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';

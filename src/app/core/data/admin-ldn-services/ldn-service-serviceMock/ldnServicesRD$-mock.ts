@@ -3,9 +3,9 @@ import {
   of,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { PaginatedList } from '../../paginated-list.model';
+import { RemoteData } from '../../remote-data';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 

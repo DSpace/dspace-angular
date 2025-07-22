@@ -13,14 +13,14 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ArrayMoveChangeAnalyzer } from '@core/data/array-move-change-analyzer.service';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { ITEM } from '@core/shared/item.resource-type';
+import { MetadataValue } from '@core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
-import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { MetadataValue } from '../../core/shared/metadata.models';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

@@ -1,4 +1,5 @@
-import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import { FormRowModel } from '@core/config/models/config-submission-form.model';
+
 import { isNotEmpty } from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {

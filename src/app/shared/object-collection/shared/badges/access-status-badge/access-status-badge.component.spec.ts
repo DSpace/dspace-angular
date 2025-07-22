@@ -5,6 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { LinkService } from 'src/app/core/cache/builders/link.service';
 import { getMockLinkService } from 'src/app/shared/mocks/link-service.mock';
@@ -12,8 +14,6 @@ import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { AccessStatusObject } from './access-status.model';

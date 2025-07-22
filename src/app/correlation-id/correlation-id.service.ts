@@ -2,6 +2,12 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { CookieService } from '@core/services/cookie.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import { UUIDService } from '@core/shared/uuid.service';
 import {
   select,
   Store,
@@ -9,12 +15,6 @@ import {
 import { take } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
-import { CookieService } from '../core/services/cookie.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../core/services/window.service';
-import { UUIDService } from '../core/shared/uuid.service';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,

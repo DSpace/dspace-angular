@@ -1,5 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { DeleteDataImpl } from '@core/data/base/delete-data';
+import { FindAllData } from '@core/data/base/find-all-data';
+import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
+import { SearchDataImpl } from '@core/data/base/search-data';
+import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import {
+  CreateRequest,
+  PutRequest,
+} from '@core/data/request.models';
+import { RequestService } from '@core/data/request.service';
+import { RestRequest } from '@core/data/rest-request.model';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { NoContent } from '@core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -11,27 +32,6 @@ import {
 } from 'rxjs/operators';
 import { sendRequest } from 'src/app/core/shared/request.operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { RequestParam } from '../../core/cache/models/request-param.model';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { DeleteDataImpl } from '../../core/data/base/delete-data';
-import { FindAllData } from '../../core/data/base/find-all-data';
-import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
-import { SearchDataImpl } from '../../core/data/base/search-data';
-import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import {
-  CreateRequest,
-  PutRequest,
-} from '../../core/data/request.models';
-import { RequestService } from '../../core/data/request.service';
-import { RestRequest } from '../../core/data/rest-request.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import {
   isNotEmpty,
   isNotEmptyOperator,

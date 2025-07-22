@@ -1,10 +1,9 @@
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
 import {
   Observable,
   of,
 } from 'rxjs';
-
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Vocabulary } from '../../core/submission/vocabularies/models/vocabulary.model';
 
 /**
  * Stub class of {@link DsoEditMetadataFieldService}

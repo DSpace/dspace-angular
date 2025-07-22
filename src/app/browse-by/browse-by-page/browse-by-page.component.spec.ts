@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { BrowseDefinition } from '@core/shared/browse-definition.model';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';

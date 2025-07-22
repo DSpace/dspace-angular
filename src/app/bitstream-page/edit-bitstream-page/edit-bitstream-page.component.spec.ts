@@ -16,6 +16,15 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
+import { PrimaryBitstreamService } from '@core/data/primary-bitstream.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
+import { Item } from '@core/shared/item.model';
+import { MetadataValueFilter } from '@core/shared/metadata.models';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -23,15 +32,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { Item } from '../../core/shared/item.model';
-import { MetadataValueFilter } from '../../core/shared/metadata.models';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import {

@@ -5,6 +5,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -15,13 +22,6 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';

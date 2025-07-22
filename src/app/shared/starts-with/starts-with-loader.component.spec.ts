@@ -11,9 +11,9 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginationService } from '@core/pagination/pagination.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../testing/active-router.stub';

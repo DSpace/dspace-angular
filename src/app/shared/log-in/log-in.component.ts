@@ -5,22 +5,22 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthMethodsService } from '@core/auth/auth-methods.service';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import {
+  getAuthenticationError,
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@core/auth/selectors';
+import { CoreState } from '@core/core-state.model';
 import {
   select,
   Store,
 } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthMethodsService } from '../../core/auth/auth-methods.service';
-import { AuthMethod } from '../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import {
-  getAuthenticationError,
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import { CoreState } from '../../core/core-state.model';
 import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';

@@ -17,19 +17,19 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '@core/shared/collection.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../core/shared/collection.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';

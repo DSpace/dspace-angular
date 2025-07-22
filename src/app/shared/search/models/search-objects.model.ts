@@ -1,12 +1,12 @@
+import { typedObject } from '@core/cache/builders/build-decorators';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
   autoserializeAs,
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchResult } from './search-result.model';
 import { SEARCH_OBJECTS } from './types/search-objects.resource-type';

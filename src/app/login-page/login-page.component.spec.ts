@@ -5,14 +5,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
-import { AuthService } from '../core/auth/auth.service';
-import { XSRFService } from '../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';

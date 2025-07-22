@@ -8,6 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -20,7 +21,6 @@ import {
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import {

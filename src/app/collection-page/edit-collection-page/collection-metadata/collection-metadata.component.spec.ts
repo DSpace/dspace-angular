@@ -11,18 +11,18 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { CommunityDataService } from '@core/data/community-data.service';
+import { ItemTemplateDataService } from '@core/data/item-template-data.service';
+import { RequestService } from '@core/data/request.service';
+import { Collection } from '@core/shared/collection.model';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { AuthService } from '../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {

@@ -9,6 +9,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowseService } from '@core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
+import { Item } from '@core/shared/item.model';
+import { MathService } from '@core/shared/math.service';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@core/shared/metadata.models';
 import {
   TranslateLoader,
   TranslateModule,
@@ -16,14 +24,6 @@ import {
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
-import { BrowseService } from '../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { Item } from '../../../../core/shared/item.model';
-import { MathService } from '../../../../core/shared/math.service';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';

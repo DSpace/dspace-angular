@@ -7,6 +7,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { Params } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -19,10 +23,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';

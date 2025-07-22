@@ -10,6 +10,24 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { VersionDataService } from '@core/data/version-data.service';
+import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { Version } from '@core/shared/version.model';
+import { VersionHistory } from '@core/shared/version-history.model';
 import {
   TranslateModule,
   TranslateService,
@@ -26,24 +44,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { Version } from '../../core/shared/version.model';
-import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';

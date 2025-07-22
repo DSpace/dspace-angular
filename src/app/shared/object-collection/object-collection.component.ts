@@ -18,21 +18,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Context } from '../../core/shared/context.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';

@@ -4,6 +4,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
+import { Registration } from '@core/shared/registration.model';
 import {
   first,
   map,
@@ -11,8 +13,6 @@ import {
   tap,
 } from 'rxjs';
 
-import { RemoteData } from '../core/data/remote-data';
-import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { hasNoValue } from '../shared/empty.util';

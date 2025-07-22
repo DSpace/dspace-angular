@@ -3,9 +3,9 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { Registration } from '@core/shared/registration.model';
 
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { Registration } from '../../core/shared/registration.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,

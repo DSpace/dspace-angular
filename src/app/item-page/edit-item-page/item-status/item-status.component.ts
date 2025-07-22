@@ -12,6 +12,18 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { IdentifierDataService } from '@core/data/identifier-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { Item } from '@core/shared/item.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -30,18 +42,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-} from '../../../core/shared/operators';
 import {
   fadeIn,
   fadeInOut,

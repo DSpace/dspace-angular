@@ -8,9 +8,9 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 import { Subscription } from 'rxjs';
 
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   hasValue,
   isNotEmpty,

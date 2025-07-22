@@ -1,8 +1,4 @@
 import { LazyDataServicesMap } from '../../config/app-config.interface';
-import {
-  LDN_SERVICE,
-  LDN_SERVICE_CONSTRAINT_FILTERS,
-} from '../admin/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
 import { ADMIN_NOTIFY_MESSAGE } from '../admin/admin-notify-dashboard/models/admin-notify-message.resource-type';
 import { NOTIFYREQUEST } from '../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
 import { PROCESS } from '../process-page/processes/process.resource-type';
@@ -11,7 +7,6 @@ import { ACCESS_STATUS } from '../shared/object-collection/shared/badges/access-
 import { DUPLICATE } from '../shared/object-list/duplicate-data/duplicate.resource-type';
 import { IDENTIFIERS } from '../shared/object-list/identifier-data/identifier-data.resource-type';
 import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';
-import { SUBMISSION_COAR_NOTIFY_CONFIG } from '../submission/sections/section-coar-notify/section-coar-notify-service.resource-type';
 import { SYSTEMWIDEALERT } from '../system-wide-alert/system-wide-alert.resource-type';
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
@@ -19,6 +14,10 @@ import {
   SUBMISSION_FORMS_TYPE,
   SUBMISSION_UPLOADS_TYPE,
 } from './config/models/config-type';
+import {
+  LDN_SERVICE,
+  LDN_SERVICE_CONSTRAINT_FILTERS,
+} from './data/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
 import { ROOT } from './data/root.resource-type';
 import { EPERSON } from './eperson/models/eperson.resource-type';
 import { GROUP } from './eperson/models/group.resource-type';
@@ -52,6 +51,7 @@ import { ITEM_TYPE } from './shared/item-relationships/item-type.resource-type';
 import { RELATIONSHIP } from './shared/item-relationships/relationship.resource-type';
 import { RELATIONSHIP_TYPE } from './shared/item-relationships/relationship-type.resource-type';
 import { LICENSE } from './shared/license.resource-type';
+import { SUBMISSION_COAR_NOTIFY_CONFIG } from './shared/section-coar-notify-service.resource-type';
 import { SITE } from './shared/site.resource-type';
 import { VERSION } from './shared/version.resource-type';
 import { VERSION_HISTORY } from './shared/version-history.resource-type';
@@ -122,9 +122,9 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [FEATURE.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
   [DSPACE_OBJECT.value, () => import('./data/dspace-object-data.service').then(m => m.DSpaceObjectDataService)],
   [BITSTREAM_FORMAT.value, () => import('./data/bitstream-format-data.service').then(m => m.BitstreamFormatDataService)],
-  [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('../submission/sections/section-coar-notify/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
-  [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('../admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
-  [LDN_SERVICE.value, () => import('../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service').then(m => m.LdnServicesService)],
+  [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('./data/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
+  [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('./data/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
+  [LDN_SERVICE.value, () => import('./data/ldn-services-data.service').then(m => m.LdnServicesService)],
   [ADMIN_NOTIFY_MESSAGE.value, () => import('../admin/admin-notify-dashboard/services/admin-notify-messages.service').then(m => m.AdminNotifyMessagesService)],
   [SUBMISSION_FORMS_TYPE.value, () => import('./config/submission-forms-config-data.service').then(m => m.SubmissionFormsConfigDataService)],
   [NOTIFYREQUEST.value, () => import('./data/notify-services-status-data.service').then(m => m.NotifyRequestsStatusDataService)],

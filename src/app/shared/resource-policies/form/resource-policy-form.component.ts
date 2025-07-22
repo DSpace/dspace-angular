@@ -9,6 +9,15 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
+import { RESOURCE_POLICY } from '@core/resource-policy/models/resource-policy.resource-type';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import {
   NgbModal,
   NgbNavChangeEvent,
@@ -34,15 +43,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,

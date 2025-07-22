@@ -8,10 +8,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { ListableObject } from '../listable-object.model';

@@ -9,6 +9,20 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { ExternalSource } from '@core/shared/external-source.model';
+import {
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -22,20 +36,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ExternalSource } from '../../../core/shared/external-source.model';
-import {
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../shared/empty.util';
 import { HostWindowService } from '../../../shared/host-window.service';

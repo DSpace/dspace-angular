@@ -14,6 +14,14 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
+import { CollectionDataService } from '@core/data/collection-data.service';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '@core/shared/collection.model';
+import { License } from '@core/shared/license.model';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
@@ -32,14 +40,6 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../core/shared/collection.model';
-import { License } from '../../../core/shared/license.model';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';

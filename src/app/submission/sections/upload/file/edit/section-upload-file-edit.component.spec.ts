@@ -15,6 +15,10 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   NgbActiveModal,
   NgbModal,
@@ -35,10 +39,6 @@ import {
   APP_DATA_SERVICES_MAP,
 } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';

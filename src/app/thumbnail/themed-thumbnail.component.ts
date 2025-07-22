@@ -2,9 +2,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { RemoteData } from '@core/data/remote-data';
+import { Bitstream } from '@core/shared/bitstream.model';
 
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ThumbnailComponent } from './thumbnail.component';
 

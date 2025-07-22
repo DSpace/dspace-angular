@@ -2,6 +2,14 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import {
+  BATCH_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '@core/data/processes/script-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -10,14 +18,6 @@ import {
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import {
-  BATCH_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../core/data/processes/script-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';

@@ -4,13 +4,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { SearchService } from '@core/shared/search/search.service';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { SearchService } from '../../core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';

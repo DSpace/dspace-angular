@@ -13,6 +13,15 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { SignpostingDataService } from '@core/data/signposting-data.service';
+import { HeadTagService } from '@core/metadata/head-tag.service';
+import { LinkHeadService } from '@core/services/link-head.service';
+import { ServerResponseService } from '@core/services/server-response.service';
+import { Item } from '@core/shared/item.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -22,15 +31,6 @@ import {
   of,
 } from 'rxjs';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { HeadTagService } from '../../core/metadata/head-tag.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Item } from '../../core/shared/item.model';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';

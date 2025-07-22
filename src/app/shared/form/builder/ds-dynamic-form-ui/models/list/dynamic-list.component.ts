@@ -18,6 +18,11 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { PageInfo } from '@core/shared/page-info.model';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
@@ -36,11 +41,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import {
   hasValue,
   isNotEmpty,

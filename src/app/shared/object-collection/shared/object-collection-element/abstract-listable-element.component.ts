@@ -4,11 +4,11 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { ViewMode } from '@core/shared/view-mode.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Context } from '../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';
 

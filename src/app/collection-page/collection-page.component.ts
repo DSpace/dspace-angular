@@ -9,6 +9,16 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { RemoteData } from '@core/data/remote-data';
+import { redirectOn4xx } from '@core/shared/authorized.operators';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Collection } from '@core/shared/collection.model';
+import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -18,16 +28,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { SortOptions } from '../core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../core/data/remote-data';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { Collection } from '../core/shared/collection.model';
-import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import {
   fadeIn,
   fadeInOut,

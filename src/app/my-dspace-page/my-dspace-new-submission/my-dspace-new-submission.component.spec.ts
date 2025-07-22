@@ -11,6 +11,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { DragService } from '@core/drag.service';
+import { CookieService } from '@core/services/cookie.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import {
   NgbModal,
   NgbModule,
@@ -21,11 +26,6 @@ import {
 } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { DragService } from '../../core/drag.service';
-import { CookieService } from '../../core/services/cookie.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { HostWindowService } from '../../shared/host-window.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';

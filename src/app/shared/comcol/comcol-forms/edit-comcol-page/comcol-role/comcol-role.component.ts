@@ -5,6 +5,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { Group } from '@core/eperson/models/group.model';
+import { Collection } from '@core/shared/collection.model';
+import { Community } from '@core/shared/community.model';
+import { HALLink } from '@core/shared/hal-link.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -23,19 +36,6 @@ import {
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestService } from '../../../../../core/data/request.service';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { Group } from '../../../../../core/eperson/models/group.model';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { Community } from '../../../../../core/shared/community.model';
-import { HALLink } from '../../../../../core/shared/hal-link.model';
-import { NoContent } from '../../../../../core/shared/NoContent.model';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../../../core/shared/operators';
 import { AlertComponent } from '../../../../alert/alert.component';
 import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
 import {

@@ -3,9 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { Community } from '@core/shared/community.model';
 import { of } from 'rxjs';
 
-import { Community } from '../../../core/shared/community.model';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CommunityAccessControlComponent } from './community-access-control.component';

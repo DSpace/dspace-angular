@@ -8,6 +8,23 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { LookupRelationService } from '@core/data/lookup-relation.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { ExternalSource } from '@core/shared/external-source.model';
+import { Item } from '@core/shared/item.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '@core/shared/operators';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   NgbActiveModal,
   NgbNavModule,
@@ -28,23 +45,6 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../../../core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
-import { FindListOptions } from '../../../../../core/data/find-list-options.model';
-import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { Context } from '../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import {

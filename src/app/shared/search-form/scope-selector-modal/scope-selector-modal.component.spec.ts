@@ -11,11 +11,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Community } from '@core/shared/community.model';
+import { MetadataValue } from '@core/shared/metadata.models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '../../../core/shared/community.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { RouterStub } from '../../testing/router.stub';

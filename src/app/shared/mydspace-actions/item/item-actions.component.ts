@@ -8,16 +8,16 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RequestService } from '@core/data/request.service';
+import { Item } from '@core/shared/item.model';
+import { SearchService } from '@core/shared/search/search.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';

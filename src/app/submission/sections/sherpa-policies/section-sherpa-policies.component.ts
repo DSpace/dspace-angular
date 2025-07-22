@@ -3,6 +3,9 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionSherpaPoliciesObject } from '@core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -12,9 +15,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionSherpaPoliciesObject } from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import {

@@ -9,6 +9,16 @@ import {
   ResolveEnd,
   Router,
 } from '@angular/router';
+import { LinkService } from '@core/cache/builders/link.service';
+import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { distinctNext } from '@core/shared/distinct-next';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   createFeatureSelector,
   createSelector,
@@ -39,16 +49,6 @@ import {
   ThemeConfig,
 } from '../../../config/theme.config';
 import { environment } from '../../../environments/environment';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { distinctNext } from '../../core/shared/distinct-next';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
 import {
   hasNoValue,
   hasValue,

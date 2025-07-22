@@ -12,25 +12,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RestResponse } from '@core/cache/response.models';
+import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
+import { RequestService } from '@core/data/request.service';
+import { Item } from '@core/shared/item.model';
+import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   of,
 } from 'rxjs';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../core/cache/response.models';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import {

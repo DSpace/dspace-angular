@@ -5,15 +5,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { FacetValue } from '../../shared/search/models/facet-value.model';
 import { FilterType } from '../../shared/search/models/filter-type.model';

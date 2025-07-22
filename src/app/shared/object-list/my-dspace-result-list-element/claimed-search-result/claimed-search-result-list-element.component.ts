@@ -8,6 +8,20 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { LinkService } from '@core/cache/builders/link.service';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { Context } from '@core/shared/context.model';
+import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { ViewMode } from '@core/shared/view-mode.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '@core/submission/submission-duplicate-data.service';
+import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -25,20 +39,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import {
   hasValue,
   isNotEmpty,

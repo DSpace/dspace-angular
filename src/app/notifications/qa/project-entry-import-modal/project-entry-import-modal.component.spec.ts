@@ -10,14 +10,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { Item } from '@core/shared/item.model';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchService } from '@core/shared/search/search.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {

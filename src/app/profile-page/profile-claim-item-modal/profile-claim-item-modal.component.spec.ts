@@ -9,11 +9,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Item } from '@core/shared/item.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../core/shared/item.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

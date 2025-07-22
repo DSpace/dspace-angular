@@ -20,6 +20,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { EPerson } from '@core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '@core/eperson/models/eperson-dto.model';
+import { Group } from '@core/eperson/models/group.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -33,15 +42,6 @@ import {
   EPersonListActionConfig,
   MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { hasValue } from '../../../../shared/empty.util';

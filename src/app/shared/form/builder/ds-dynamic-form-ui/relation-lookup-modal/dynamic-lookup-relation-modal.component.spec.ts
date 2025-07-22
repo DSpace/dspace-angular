@@ -10,6 +10,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { LookupRelationService } from '@core/data/lookup-relation.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { Collection } from '@core/shared/collection.model';
+import { ExternalSource } from '@core/shared/external-source.model';
+import { Item } from '@core/shared/item.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   NgbActiveModal,
   NgbModule,
@@ -23,16 +33,6 @@ import {
 } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
-import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';

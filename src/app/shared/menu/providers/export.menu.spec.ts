@@ -7,10 +7,10 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { MenuItemType } from '../menu-item-type.model';

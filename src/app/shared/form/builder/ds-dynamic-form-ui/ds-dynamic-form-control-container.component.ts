@@ -30,6 +30,28 @@ import {
   UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { MetadataService } from '@core/metadata/metadata.service';
+import { Collection } from '@core/shared/collection.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Item } from '@core/shared/item.model';
+import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '@core/shared/metadata.models';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
+import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { SUBMISSION_LINKS_TO_FOLLOW } from '@core/submission/resolver/submission-links-to-follow';
+import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import {
   NgbModal,
   NgbModalRef,
@@ -76,28 +98,6 @@ import {
   AppConfig,
 } from '../../../../../config/app-config.interface';
 import { AppState } from '../../../../app.reducer';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { MetadataService } from '../../../../core/metadata/metadata.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '../../../../core/shared/metadata.models';
-import {
-  getAllSucceededRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
-import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
-import { SUBMISSION_LINKS_TO_FOLLOW } from '../../../../core/submission/resolver/submission-links-to-follow';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';

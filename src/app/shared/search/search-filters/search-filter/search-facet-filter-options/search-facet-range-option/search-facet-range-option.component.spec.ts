@@ -14,13 +14,13 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';

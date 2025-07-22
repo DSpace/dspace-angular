@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { MetadataValue } from '@core/shared/metadata.models';
 import {
   TranslateLoader,
   TranslateModule,
@@ -15,7 +16,6 @@ import {
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
-import { MetadataValue } from '../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataValuesComponent } from './metadata-values.component';
 

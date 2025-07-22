@@ -6,6 +6,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
@@ -15,10 +19,6 @@ import { of } from 'rxjs';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';

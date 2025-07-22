@@ -6,42 +6,42 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { LdnServiceConstrain } from './admin-ldn-services/ldn-services-model/ldn-service.constrain.model';
+import { LdnService } from './admin-ldn-services/ldn-services-model/ldn-services.model';
 import {
   CreateData,
   CreateDataImpl,
-} from '../../../core/data/base/create-data';
+} from './base/create-data';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../../../core/data/base/delete-data';
+} from './base/delete-data';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../../../core/data/base/find-all-data';
-import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
+} from './base/find-all-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PatchData,
   PatchDataImpl,
-} from '../../../core/data/base/patch-data';
-import { SearchDataImpl } from '../../../core/data/base/search-data';
-import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { MultipartPostRequest } from '../../../core/data/request.models';
-import { RequestService } from '../../../core/data/request.service';
-import { RestRequest } from '../../../core/data/rest-request.model';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { LdnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
+} from './base/patch-data';
+import { SearchDataImpl } from './base/search-data';
+import { ChangeAnalyzer } from './change-analyzer';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { MultipartPostRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RestRequest } from './rest-request.model';
+import { RestRequestMethod } from './rest-request-method';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint.

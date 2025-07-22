@@ -8,6 +8,12 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
@@ -19,12 +25,6 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,

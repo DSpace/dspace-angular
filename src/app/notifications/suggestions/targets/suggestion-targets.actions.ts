@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
+import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
 import { Action } from '@ngrx/store';
 
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { type } from '../../../shared/ngrx/type';
 
 /**

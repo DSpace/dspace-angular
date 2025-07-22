@@ -17,6 +17,18 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { RelationshipDataService } from '@core/data/relationship-data.service';
+import { MetadataService } from '@core/metadata/metadata.service';
+import { ConfidenceType } from '@core/shared/confidence-type';
+import { Context } from '@core/shared/context.model';
+import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { ItemMetadataRepresentation } from '@core/shared/metadata-representation/item/item-metadata-representation.model';
+import {
+  MetadataRepresentation,
+  MetadataRepresentationType,
+} from '@core/shared/metadata-representation/metadata-representation.model';
+import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -25,18 +37,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataService } from '../../../core/metadata/metadata.service';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import {
-  MetadataRepresentation,
-  MetadataRepresentationType,
-} from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../shared/empty.util';

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
+import { RemoteData } from '@core/data/remote-data';
+import { NoContent } from '@core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   select,
   Store,
@@ -14,10 +18,6 @@ import { AuthMethod } from 'src/app/core/auth/models/auth.method';
 import { getAuthenticationMethods } from 'src/app/core/auth/selectors';
 import { CoreState } from 'src/app/core/core-state.model';
 
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({

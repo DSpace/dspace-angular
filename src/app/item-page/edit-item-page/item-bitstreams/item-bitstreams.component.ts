@@ -14,6 +14,20 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { ItemDataService } from '@core/data/item-data.service';
+import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
+import { RequestService } from '@core/data/request.service';
+import { Bundle } from '@core/shared/bundle.model';
+import { NoContent } from '@core/shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -34,20 +48,6 @@ import {
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,

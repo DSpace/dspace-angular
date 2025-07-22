@@ -4,16 +4,16 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { BundleDataService } from '@core/data/bundle-data.service';
+import { Item } from '@core/shared/item.model';
+import { MetadataMap } from '@core/shared/metadata.models';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../core/data/bundle-data.service';
-import { Item } from '../../core/shared/item.model';
-import { MetadataMap } from '../../core/shared/metadata.models';
 import { HostWindowService } from '../../shared/host-window.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';

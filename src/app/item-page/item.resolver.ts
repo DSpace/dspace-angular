@@ -4,16 +4,16 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { ItemDataService } from '@core/data/item-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { ResolvedAction } from '@core/resolving/resolver.actions';
+import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { AppState } from '../app.reducer';
-import { ItemDataService } from '../core/data/item-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { ResolvedAction } from '../core/resolving/resolver.actions';
-import { Item } from '../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import {
   followLink,
   FollowLinkConfig,

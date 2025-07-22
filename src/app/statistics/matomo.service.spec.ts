@@ -7,6 +7,12 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@core/services/window.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
   MatomoInitializerService,
   MatomoTracker,
@@ -15,12 +21,6 @@ import { MatomoTestingModule } from 'ngx-matomo-client/testing';
 import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../core/services/window.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import {
   createFailedRemoteDataObject$,

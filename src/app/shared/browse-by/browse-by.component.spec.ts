@@ -11,6 +11,22 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { GroupDataService } from '@core/eperson/group-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { LinkHeadService } from '@core/services/link-head.service';
+import { RouteService } from '@core/services/route.service';
+import { BrowseEntry } from '@core/shared/browse-entry.model';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { ITEM } from '@core/shared/item.resource-type';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { ViewMode } from '@core/shared/view-mode.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -18,22 +34,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { RouteService } from '../../core/services/route.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { HostWindowService } from '../host-window.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';

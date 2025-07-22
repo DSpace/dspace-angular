@@ -1,6 +1,6 @@
+import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
 import { first } from 'rxjs/operators';
 
-import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,

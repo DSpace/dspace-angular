@@ -1,10 +1,10 @@
+import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { RemoteData } from '@core/data/remote-data';
 import {
   EMPTY,
   Observable,
 } from 'rxjs';
 
-import { CacheableObject } from '../../core/cache/cacheable-object.model';
-import { RemoteData } from '../../core/data/remote-data';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
 import { BaseDataServiceStub } from './base-data-service.stub';
 

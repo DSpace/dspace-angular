@@ -9,6 +9,9 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { AuthService } from '@core/auth/auth.service';
+import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -17,9 +20,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   mockSectionsData,

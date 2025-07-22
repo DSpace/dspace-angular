@@ -13,6 +13,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { SortOptions } from '@core/cache/models/sort-options.model';
+import { ItemDataService } from '@core/data/item-data.service';
+import { QualityAssuranceTopicObject } from '@core/notifications/qa/models/quality-assurance-topic.model';
+import { PaginationService } from '@core/pagination/pagination.service';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -26,15 +35,6 @@ import {
 } from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
