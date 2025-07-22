@@ -134,7 +134,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       ))
     ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
       if (event instanceof NavigationStart) {
-        if (!(currentUrl.startsWith('/entities' || getEditItemPageRoute()) || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
+        const nextUrl = event.url;
+        if (!this.shouldSkipLoadingStatus(currentUrl, nextUrl)) {
           distinctNext(this.isRouteLoading$, true);
         }
         // distinctNext(this.isRouteLoading$, true);
@@ -175,6 +176,16 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
         }
       });
+  }
+
+  private shouldSkipLoadingStatus(currentUrl: string, nextUrl: string): boolean {
+    return ((currentUrl.startsWith('/entities') || currentUrl.startsWith(getEditItemPageRoute())) && !(this.isAdministrativeEditItemPageRoute(nextUrl, currentUrl)))
+      || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute());
+  }
+
+  private isAdministrativeEditItemPageRoute(nextUrl: string, currentUrl: string): boolean {
+    const editPageRegEx = /\/(entities\/[^\/]+|items)\/[0-9a-f-]{36}\/edit(?:\/.*)?$/;
+    return editPageRegEx.test(nextUrl) && !editPageRegEx.test(currentUrl);
   }
 
 }
