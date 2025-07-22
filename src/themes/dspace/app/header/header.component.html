@@ -5,7 +5,7 @@
          [attr.role]="(isMobile$ | async) ? 'navigation' : 'presentation'"
          [attr.aria-label]="(isMobile$ | async) ? ('nav.main.description' | translate) : null"
          class="h-100 flex-fill d-flex flex-row flex-nowrap justify-content-start align-items-center gapx-3 flex-grow-1">
-      <a class="d-block my-2 my-md-0" routerLink="/home" [attr.aria-label]="'home.title' | translate">
+      <a class="d-block my-2 my-md-0" routerLink="/home" [attr.aria-label]="'home.title' | translate" role="button" tabindex="0">
         <img id="header-logo" src="assets/images/dspace-cris-logo.png" [attr.alt]="'menu.header.image.logo' | translate"/>
       </a>
       <nav *ngIf="(isMobile$ | async) !== true" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch flex-grow-1 flex-shrink-1" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
@@ -15,7 +15,7 @@
     <!-- Search bar and other menus -->
     <div id="header-right" class="h-100 d-flex flex-row flex-nowrap flex-shrink-0 justify-content-end align-items-center gapx-1 ml-auto">
       <ds-search-navbar></ds-search-navbar>
-      <div role="menubar" class="h-100 d-flex flex-row flex-nowrap align-items-center gapx-1">
+      <div role="toolbar" class="h-100 d-flex flex-row flex-nowrap align-items-center gapx-1">
         <ds-lang-switch></ds-lang-switch>
         <ds-context-help-toggle></ds-context-help-toggle>
         <ds-impersonate-navbar></ds-impersonate-navbar>

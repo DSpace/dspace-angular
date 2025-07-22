@@ -22,13 +22,9 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { hasValue } from '../../../../../empty.util';
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
@@ -47,7 +43,6 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
     NumberPickerComponent,
     FormsModule,
     TranslateModule,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -86,7 +81,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              protected translateService: TranslateService,
               private renderer: Renderer2,
               @Inject(DOCUMENT) private _document: Document,
   ) {

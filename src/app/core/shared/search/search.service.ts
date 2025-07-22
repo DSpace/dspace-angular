@@ -13,6 +13,7 @@ import {
 import {
   distinctUntilChanged,
   map,
+  skipWhile,
   switchMap,
   take,
   tap,
@@ -188,6 +189,7 @@ export class SearchService implements OnDestroy {
   search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
     const href$ = this.getEndpoint(searchOptions);
 
+    let startTime: number;
     href$.pipe(
       take(1),
       map((href: string) => {
@@ -212,6 +214,7 @@ export class SearchService implements OnDestroy {
         searchOptions: searchOptions,
       });
 
+      startTime = new Date().getTime();
       this.requestService.send(request, useCachedVersionIfAvailable);
     });
 
@@ -219,7 +222,13 @@ export class SearchService implements OnDestroy {
       switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href)),
     );
 
-    return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<SearchObjects<T>>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
+    );
   }
 
   /**
@@ -324,9 +333,15 @@ export class SearchService implements OnDestroy {
         return FacetValueResponseParsingService;
       },
     });
+    const startTime = new Date().getTime();
     this.requestService.send(request, useCachedVersionIfAvailable);
 
     return this.rdb.buildFromHref(href).pipe(
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<FacetValues>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
       tap((facetValuesRD: RemoteData<FacetValues>) => {
         if (facetValuesRD.hasSucceeded) {
           const appliedFilters: AppliedFilter[] = (facetValuesRD.payload.appliedFilters ?? [])

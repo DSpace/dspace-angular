@@ -12,7 +12,8 @@
 
 <div class="d-flex justify-content-between">
     <h1 *ngIf="!disableHeader">{{ (configuration ? configuration + '.search.results.head' : 'search.results.head') | translate }}</h1>
-  <ds-search-export-csv *ngIf="showCsvExport" [searchConfig]="searchConfig"></ds-search-export-csv>
+    <ds-search-export-csv *ngIf="showCsvExport" [total]="searchResults?.payload?.totalElements"
+                          [searchConfig]="searchConfig"></ds-search-export-csv>
 </div>
 <div *ngIf="searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0" @fadeIn>
     <ds-alert *ngIf="showSearchResultNotice" [type]="searchResultNoticeType" [content]="searchResultNotice"></ds-alert>
@@ -52,7 +53,9 @@
     {{ 'search.results.no-results' | translate }}
     <a [routerLink]="['/search']"
        [queryParams]="{ query: surroundStringWithQuotes(searchConfig?.query) }"
-       queryParamsHandling="merge">
+       queryParamsHandling="merge"
+       role="link"
+       tabindex="0">
         {{"search.results.no-results-link" | translate}}
     </a>
 </div>

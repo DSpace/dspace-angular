@@ -5,7 +5,9 @@ import {
 import {
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,10 +23,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
@@ -46,12 +50,17 @@ import { SearchFilter } from '../models/search-filter.model';
 /**
  * Display a button to export the current search results as csv
  */
-export class SearchExportCsvComponent implements OnInit {
+export class SearchExportCsvComponent implements OnInit, OnChanges {
 
   /**
    * The current configuration of the search
    */
   @Input() searchConfig: PaginatedSearchOptions;
+
+  /**
+   * The total number of items in the search results which can be exported
+   */
+  @Input() total: number;
 
   /**
    * Observable used to determine whether the button should be shown
@@ -63,12 +72,18 @@ export class SearchExportCsvComponent implements OnInit {
    */
   tooltipMsg = 'metadata-export-search.tooltip';
 
+  exportLimitExceededKey = 'metadata-export-search.submit.error.limit-exceeded';
+
+  exportLimitExceededMsg = '';
+
+  shouldShowWarning$: Observable<boolean>;
+
   constructor(private scriptDataService: ScriptDataService,
               private authorizationDataService: AuthorizationDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private router: Router,
-  ) {
+              private configurationService: ConfigurationDataService) {
   }
 
   ngOnInit(): void {
@@ -77,6 +92,31 @@ export class SearchExportCsvComponent implements OnInit {
       switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute('metadata-export-search')),
       map((canExecute: boolean) => canExecute),
       startWith(false),
+    );
+    this.shouldShowWarning$ = this.itemExceeds();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.total) {
+      this.shouldShowWarning$ = this.itemExceeds();
+    }
+  }
+
+  /**
+   * Checks if the export limit has been exceeded and updates the tooltip accordingly
+   */
+  private itemExceeds(): Observable<boolean> {
+    return this.configurationService.findByPropertyName('bulkedit.export.max.items').pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<ConfigurationProperty>) => {
+        const limit = Number(response.payload?.values?.[0]) || 500;
+        if (limit < this.total) {
+          this.exportLimitExceededMsg = this.translateService.instant(this.exportLimitExceededKey, { limit: String(limit) });
+          return true;
+        } else {
+          return false;
+        }
+      }),
     );
   }
 

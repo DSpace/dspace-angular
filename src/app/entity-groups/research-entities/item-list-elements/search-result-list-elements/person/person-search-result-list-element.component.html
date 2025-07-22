@@ -2,7 +2,7 @@
   <div *ngIf="showThumbnails" class="col-3 col-xl-2 pr-sm-0">
     <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
        [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-       [routerLink]="[itemPageRoute]" class="dont-break-out">
+       [routerLink]="[itemPageRoute]" class="dont-break-out" role="link" tabindex="-1">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
                            [defaultImage]="'assets/images/person-placeholder.svg'"
                            [alt]="'thumbnail.person.alt'"
@@ -25,7 +25,7 @@
       <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
            [routerLink]="[itemPageRoute]" class="lead"
-             [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)"></a>
+         [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)" role="link" tabindex="0"></a>
       <span *ngIf="linkType === linkTypes.None"
               class="lead"
               [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)"></span>

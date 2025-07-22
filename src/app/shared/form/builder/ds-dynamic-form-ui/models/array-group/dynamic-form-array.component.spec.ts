@@ -29,6 +29,8 @@ import {
 } from '../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { TranslateLoaderMock } from '../../../../../mocks/translate-loader.mock';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
@@ -70,6 +72,7 @@ describe('DsDynamicFormArrayComponent', () => {
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
     }).overrideComponent(DsDynamicFormArrayComponent, {
       remove: {

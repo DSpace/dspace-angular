@@ -17,7 +17,6 @@ import { ThemedFacetSectionComponent } from '../../../../app/shared/explore/sect
 import { ThemedSearchSectionComponent } from '../../../../app/shared/explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from '../../../../app/shared/explore/section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from '../../../../app/shared/explore/section-component/top-section/themed-top-section.component';
-import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -39,7 +38,6 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     ThemedSearchSectionComponent,
     ThemedFacetSectionComponent,
     ThemedCountersSectionComponent,
-    ViewTrackerComponent,
     SuggestionsPopupComponent,
     AsyncPipe,
   ],

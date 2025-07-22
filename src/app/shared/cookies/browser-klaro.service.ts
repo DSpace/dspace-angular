@@ -222,7 +222,7 @@ export class BrowserKlaroService extends KlaroService {
          */
         this.translateConfiguration();
 
-        if (this._window?.nativeWindow?.Cypress) {
+        if (!environment.info?.enableCookieConsentPopup || this._window?.nativeWindow?.Cypress) {
           this.klaroConfig.services = [];
         } else {
           this.klaroConfig.services = this.filterConfigServices(servicesToHide);

@@ -42,8 +42,8 @@ describe('OrcidSyncSettingsComponent test suite', () => {
   let comp: OrcidSyncSettingsComponent;
   let fixture: ComponentFixture<OrcidSyncSettingsComponent>;
   let scheduler: TestScheduler;
-  let notificationsService;
   let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
+  let notificationsService;
   let formGroup: UntypedFormGroup;
 
   const mockResearcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {

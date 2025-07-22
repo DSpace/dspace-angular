@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -145,11 +145,11 @@ describe('OrcidAuthComponent test suite', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        RouterTestingModule.withRoutes([]),
         OrcidAuthComponent,
         NoopAnimationsModule,
       ],
       providers: [
+        provideRouter([]),
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: OrcidAuthService, useValue: orcidAuthService },
