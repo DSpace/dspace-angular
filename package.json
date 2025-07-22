@@ -150,7 +150,7 @@
     "mirador": "^3.4.3",
     "mirador-dl-plugin": "^0.13.0",
     "mirador-share-plugin": "^0.16.0",
-    "morgan": "^1.10.0",
+    "morgan": "^1.10.1",
     "ng2-file-upload": "7.0.1",
     "ng2-nouislider": "^2.0.0",
     "ngx-infinite-scroll": "^18.0.0",
