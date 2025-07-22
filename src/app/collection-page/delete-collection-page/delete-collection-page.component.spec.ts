@@ -50,7 +50,7 @@ describe('DeleteCollectionPageComponent', () => {
     scriptService = jasmine.createSpyObj('scriptService', {
       invoke: createSuccessfulRemoteDataObject$({ processId: '123' }),
     });
-    router = jasmine.createSpyObj('router', ['navigateByUrl']);
+    router = jasmine.createSpyObj('router', ['navigateByUrl', 'navigate']);
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, DeleteCollectionPageComponent],
       providers: [
@@ -85,14 +85,24 @@ describe('DeleteCollectionPageComponent', () => {
         Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.uuid }),
       ];
       (scriptService.invoke as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$({ processId: '123' }));
-      expect(scriptService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
-      expect(notificationService.success).toHaveBeenCalledWith('collection.delete.notification.success');
-      expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
+      comp.onConfirm(mockCollection);
+      setTimeout(() => {
+        expect(scriptService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
+        expect(notificationService.success).toHaveBeenCalledWith('collection.delete.notification.success');
+        expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
+        done();
+      }, 0);
     });
 
     it('error notification is shown', (done) => {
       (scriptService.invoke as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));
-      expect(notificationService.error).toHaveBeenCalledWith('collection.delete.notification.fail');
+      comp.onConfirm(mockCollection);
+      setTimeout(() => {
+        expect(notificationService.error).toHaveBeenCalledWith('collection.delete.notification.fail');
+        expect(router.navigate).toHaveBeenCalledWith(['/']);
+        done();
+      }, 0);
     });
   });
+
 });
