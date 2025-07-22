@@ -50,7 +50,7 @@ describe('DeleteCommunityPageComponent', () => {
     scriptService = jasmine.createSpyObj('scriptService', {
       invoke: createSuccessfulRemoteDataObject$({ processId: '123' }),
     });
-    router = jasmine.createSpyObj('router', ['navigateByUrl']);
+    router = jasmine.createSpyObj('router', ['navigateByUrl', 'navigate']);
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, DeleteCommunityPageComponent],
       providers: [
@@ -85,14 +85,23 @@ describe('DeleteCommunityPageComponent', () => {
         Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.uuid }),
       ];
       (scriptService.invoke as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$({ processId: '123' }));
-      expect(scriptService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
-      expect(notificationService.success).toHaveBeenCalledWith('community.delete.notification.success');
-      expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
+      comp.onConfirm(mockCommunity);
+      setTimeout(() => {
+        expect(scriptService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
+        expect(notificationService.success).toHaveBeenCalledWith('community.delete.notification.success');
+        expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
+        done();
+      }, 0);
     });
 
     it('error notification is shown', (done) => {
       (scriptService.invoke as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));
-      expect(notificationService.error).toHaveBeenCalledWith('community.delete.notification.fail');
+      comp.onConfirm(mockCommunity);
+      setTimeout(() => {
+        expect(notificationService.error).toHaveBeenCalledWith('community.delete.notification.fail');
+        expect(router.navigate).toHaveBeenCalledWith(['/']);
+        done();
+      }, 0);
     });
   });
 

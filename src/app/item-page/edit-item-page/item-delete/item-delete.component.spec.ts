@@ -14,25 +14,29 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import {
+  DSPACE_OBJECT_DELETION_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../core/data/processes/script-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
+import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
+  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
@@ -64,6 +68,7 @@ let linkService;
 let entityTypeService;
 let notificationsServiceStub;
 let typesSelection;
+let scriptDataService;
 
 describe('ItemDeleteComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -163,6 +168,10 @@ describe('ItemDeleteComponent', () => {
 
     notificationsServiceStub = new NotificationsServiceStub();
 
+    scriptDataService = {
+      invoke: jasmine.createSpy('invoke').and.returnValue(createSuccessfulRemoteDataObject$({ processId: '123' })),
+    };
+
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemDeleteComponent, VarDirective],
       providers: [
@@ -176,6 +185,7 @@ describe('ItemDeleteComponent', () => {
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ScriptDataService, useValue: scriptDataService },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
@@ -189,6 +199,10 @@ describe('ItemDeleteComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
+    // Verifica che il componente stia usando il mock corretto
+    expect(comp.scriptDataService).toBe(scriptDataService);
+    console.log('scriptDataService mock:', scriptDataService);
+    console.log('comp scriptDataService:', comp.scriptDataService);
     fixture.detectChanges();
   });
 
@@ -204,45 +218,32 @@ describe('ItemDeleteComponent', () => {
   });
 
   describe('performAction', () => {
-    describe(`when there are entitytypes`, () => {
-      it('should call delete function from the ItemDataService', () => {
-        spyOn(comp, 'notify');
-        comp.performAction();
-        expect(mockItemDataService.delete)
-          .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
-        expect(comp.notify).toHaveBeenCalled();
-      });
-
-      it('should call delete function from the ItemDataService with empty types', () => {
-
-        spyOn(comp, 'notify');
-        jasmine.getEnv().allowRespy(true);
-        spyOn(entityTypeService, 'getEntityTypeRelationships').and.returnValue([]);
-        comp.ngOnInit();
-
-        comp.performAction();
-
-        expect(mockItemDataService.delete).toHaveBeenCalledWith(mockItem.id, []);
-        expect(comp.notify).toHaveBeenCalled();
-      });
+    it('should invoke the deletion script with correct params, show success notification and redirect on success', (done) => {
+      const parameterValues: ProcessParameter[] = [
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockItem.uuid }),
+      ];
+      scriptDataService.invoke.and.returnValue(createSuccessfulRemoteDataObject$({ processId: '123' }));
+      console.log('Before performAction - scriptDataService.invoke:', scriptDataService.invoke);
+      console.log('Before performAction - isSpy:', jasmine.isSpy(scriptDataService.invoke));
+      comp.performAction();
+      setTimeout(() => {
+        console.log('After performAction - scriptDataService.invoke:', scriptDataService.invoke);
+        console.log('After performAction - calls:', scriptDataService.invoke.calls);
+        console.log('After performAction - isSpy:', jasmine.isSpy(scriptDataService.invoke));
+        expect(scriptDataService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
+        expect(comp.notificationsService.success).toHaveBeenCalled();
+        expect(comp.router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
+        done();
+      }, 0);
     });
-
-    describe(`when there are no entity types`, () => {
-      beforeEach(() => {
-        (comp as any).entityTypeService = jasmine.createSpyObj('entityTypeService',
-          {
-            getEntityTypeByLabel: EMPTY,
-          },
-        );
-      });
-
-      it('should call delete function from the ItemDataService', () => {
-        spyOn(comp, 'notify');
-        comp.performAction();
-        expect(mockItemDataService.delete)
-          .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
-        expect(comp.notify).toHaveBeenCalled();
-      });
+    it('should show error notification and redirect to item edit page on failure', (done) => {
+      scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
+      comp.performAction();
+      setTimeout(() => {
+        expect(comp.notificationsService.error).toHaveBeenCalled();
+        expect(comp.router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        done();
+      }, 0);
     });
   });
   describe('notify', () => {
@@ -250,8 +251,7 @@ describe('ItemDeleteComponent', () => {
       comp.notify(true);
       expect(routerStub.navigate).toHaveBeenCalledWith(['']);
     });
-  });
-  describe('notify', () => {
+
     it('should navigate to the item edit page on failed deletion of the item', () => {
       comp.notify(false);
       expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
