@@ -161,7 +161,7 @@
     "deep-freeze": "0.0.1",
     "eslint": "^8.39.0",
     "eslint-plugin-deprecation": "^1.5.0",
-    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^45.0.0",
     "eslint-plugin-jsonc": "^2.20.1",
     "eslint-plugin-lodash": "^7.4.0",
