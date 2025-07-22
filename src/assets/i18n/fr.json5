@@ -1632,8 +1632,8 @@
   // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
   "pagination.page-number-bar": "Barre de contrôle pour la page de navigation, relative à l'élément ayant l'identifiant : ",
 
-  // "browse.startsWith": ": "starting with {{ startsWith }}",
-  "browse.startsWith": ": "Commencant par {{ startsWith }}",
+  // "browse.startsWith": ": ", starting with {{ startsWith }}",
+  "browse.startsWith": ": ", commencant par {{ startsWith }}",
 
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Choisir le début)",
@@ -4316,7 +4316,7 @@
   "item.page.volume-title": "Titre du volume",
 
   // "item.page.dcterms.spatial": "Geospatial point",
-  "item.page.dcterms.spatial": Point géospacial",
+  "item.page.dcterms.spatial": "Point géospacial",
 
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Résultats de la recherche d'Items",
@@ -4579,10 +4579,6 @@
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "Droits",
 
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Autre identifiant :",
-
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -4669,10 +4665,6 @@
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "Identifiant OpenAlex",
-
-  // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.description": "Description :",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Confirmer la sélection",
@@ -6962,7 +6954,7 @@
   "search.filters.applied.f.original_bundle_descriptions": "Description du fichier",
 
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
-  "search.filters.applied.f.has_geospatial_metadata": A l'emplacement géographique",
+  "search.filters.applied.f.has_geospatial_metadata": "A l'emplacement géographique",
 
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "Type",
@@ -7001,10 +6993,9 @@
   "search.filters.applied.operator.authority": "",
 
   // "search.filters.applied.operator.notauthority": " not authority",
-  "search.filters.applied.operator.contains": " contient",
+  "search.filters.applied.operator.notauthority": " sauf autorité",
 
   // "search.filters.applied.operator.contains": " contains",
-  // TODO Source message changed - Revise the translation
   "search.filters.applied.operator.contains": " contient",
 
   // "search.filters.applied.operator.notcontains": " not contains",
@@ -7706,7 +7697,7 @@
   "submission.import-external.source.sherpaPublisher": "Éditeurs SHERPA",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
-  "submission.import-external.source.openaire": Recherche OpenAIRE par auteurs",
+  "submission.import-external.source.openaire": "Recherche OpenAIRE par auteurs",
 
   // "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
   "submission.import-external.source.openaireTitle": "Recherche OpenAIRE par titre",
@@ -9662,10 +9653,9 @@
   "access-control-access-conditions": "Conditions d'accès",
 
   // "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
-  "access-control-replace-all": "Remplacer les conditions d'accès",
+  "access-control-no-access-conditions-warning-message": "Aucune condition d'accès n'est définie pour le moment. Si exécutée, l'action remplacera les conditions d'accès atuelles par celles par défaut héritées de la collection parente.",
 
   // "access-control-replace-all": "Replace access conditions",
-  // TODO Source message changed - Revise the translation
   "access-control-replace-all": "Remplacer les conditions d'accès",
 
   // "access-control-add-to-existing": "Add to existing ones",
