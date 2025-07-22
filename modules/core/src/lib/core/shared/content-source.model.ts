@@ -5,8 +5,10 @@ import {
   serializeAs,
 } from 'cerialize';
 
-import { typedObject } from '../cache';
-import { CacheableObject } from '../cache';
+import {
+  CacheableObject,
+  typedObject,
+} from '../cache';
 import { excludeFromEquals } from '../utilities';
 import { CONTENT_SOURCE } from './content-source.resource-type';
 import { ContentSourceSetSerializer } from './content-source-set-serializer';

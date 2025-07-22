@@ -10,10 +10,12 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RequestService } from '../data';
-import { RequestEntry } from '../data';
-import { ResponseState } from '../data';
-import { RestRequest } from '../data';
+import {
+  RequestEntry,
+  RequestService,
+  ResponseState,
+  RestRequest,
+} from '../data';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places

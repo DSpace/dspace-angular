@@ -6,15 +6,17 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
   link,
   typedObject,
 } from '../../cache';
-import { CacheableObject } from '../../cache';
 import { RemoteData } from '../../data';
-import { HALLink } from '../../shared';
-import { Item } from '../../shared';
-import { ITEM } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  HALLink,
+  ITEM,
+  Item,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { RESEARCHER_PROFILE } from './researcher-profile.resource-type';
 

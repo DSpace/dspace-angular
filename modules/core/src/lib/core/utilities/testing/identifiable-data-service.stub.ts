@@ -4,8 +4,10 @@ import {
 } from 'rxjs';
 
 import { CacheableObject } from '../../cache';
-import { FollowLinkConfig } from '../../data';
-import { RemoteData } from '../../data';
+import {
+  FollowLinkConfig,
+  RemoteData,
+} from '../../data';
 import { BaseDataServiceStub } from './base-data-service.stub';
 
 /**

@@ -11,26 +11,28 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
+import {
+  BrowseDefinitionRestRequest,
   FindAllData,
   FindAllDataImpl,
-} from '../data';
-import { IdentifiableDataService } from '../data';
-import {
+  FindListOptions,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
   SearchData,
   SearchDataImpl,
 } from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { BrowseDefinitionRestRequest } from '../data';
-import { RequestService } from '../data';
-import { BrowseDefinition } from '../shared';
-import { HALEndpointService } from '../shared';
+import {
+  BrowseDefinition,
+  HALEndpointService,
+} from '../shared';
 
 /**
  * Create a GET request for the given href, and send it.

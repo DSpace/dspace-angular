@@ -5,21 +5,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { BaseDataService } from '../data';
-import {
+import { RemoteDataBuildService , RequestParam , ObjectCacheService } from '../cache';
+import { BaseDataService ,
   SearchData,
   SearchDataImpl,
-} from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
-import { HALEndpointService } from '../shared';
-import {
+, FindListOptions , FollowLinkConfig , PaginatedList , RemoteData , RequestService } from '../data';
+import { HALEndpointService ,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared';
@@ -27,8 +18,7 @@ import {
   Field,
   Option,
   SubmissionCcLicence,
-} from './models';
-import { SubmissionCcLicenceUrl } from './models';
+ SubmissionCcLicenceUrl } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {

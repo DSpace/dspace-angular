@@ -11,16 +11,16 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../config';
+import { CoreState } from '../../core-state.model';
 import {
   followLink,
   FollowLinkConfig,
+  ItemDataService,
+  RemoteData,
 } from '../../data';
-import { ItemDataService } from '../../data';
-import { RemoteData } from '../../data';
 import { ResolvedAction } from '../../resolving';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';
-import { CoreState } from "../../core-state.model";
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

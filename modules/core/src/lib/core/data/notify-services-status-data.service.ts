@@ -5,8 +5,10 @@ import {
   take,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import { NotifyRequestsStatus } from '../notify-requests';
 import { HALEndpointService } from '../shared';
 import { IdentifiableDataService } from './base';

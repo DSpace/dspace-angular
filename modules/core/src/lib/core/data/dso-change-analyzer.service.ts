@@ -5,8 +5,10 @@ import {
 } from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { DSpaceObject } from '../shared';
-import { MetadataMap } from '../shared';
+import {
+  DSpaceObject,
+  MetadataMap,
+} from '../shared';
 import { ChangeAnalyzer } from './change-analyzer';
 
 /**

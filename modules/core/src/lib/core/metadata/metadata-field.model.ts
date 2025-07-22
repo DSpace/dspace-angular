@@ -11,10 +11,12 @@ import {
 } from '../cache';
 import { RemoteData } from '../data';
 import { ListableObject } from '../object-collection';
-import { GenericConstructor } from '../shared';
-import { HALLink } from '../shared';
-import { HALResource } from '../shared';
-import { ResourceType } from '../shared';
+import {
+  GenericConstructor,
+  HALLink,
+  HALResource,
+  ResourceType,
+} from '../shared';
 import { excludeFromEquals } from '../utilities';
 import { METADATA_FIELD } from './metadata-field.resource-type';
 import { MetadataSchema } from './metadata-schema.model';

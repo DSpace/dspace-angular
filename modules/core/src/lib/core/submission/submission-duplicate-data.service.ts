@@ -5,26 +5,12 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Duplicate } from '../data';
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { BaseDataService } from '../data';
-import {
+import { RemoteDataBuildService , RequestParam , ObjectCacheService } from '../cache';
+import { Duplicate , BaseDataService ,
   SearchData,
   SearchDataImpl,
-} from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { ResponseParsingService } from '../data';
-import { RemoteData } from '../data';
-import { GetRequest } from '../data';
-import { RequestService } from '../data';
-import { RestRequest } from '../data';
-import { SearchResponseParsingService } from '../data';
-import { GenericConstructor } from '../shared';
-import { HALEndpointService } from '../shared';
+, FindListOptions , FollowLinkConfig , PaginatedList , ResponseParsingService , RemoteData , GetRequest , RequestService , RestRequest , SearchResponseParsingService } from '../data';
+import { GenericConstructor , HALEndpointService } from '../shared';
 
 /**
  * Service that handles search requests for potential duplicate items.

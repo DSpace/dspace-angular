@@ -9,9 +9,9 @@ import { RemoteDataBuildService } from '../cache';
 import {
   buildPaginatedList,
   PaginatedList,
+  RemoteData,
+  RequestEntry,
 } from '../data';
-import { RemoteData } from '../data';
-import { RequestEntry } from '../data';
 import { PageInfo } from '../shared';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
 

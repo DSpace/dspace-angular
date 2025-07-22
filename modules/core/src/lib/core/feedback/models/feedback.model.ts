@@ -4,8 +4,10 @@ import {
 } from 'cerialize';
 
 import { typedObject } from '../../cache';
-import { DSpaceObject } from '../../shared';
-import { HALLink } from '../../shared';
+import {
+  DSpaceObject,
+  HALLink,
+} from '../../shared';
 import { FEEDBACK } from './feedback.resource-type';
 
 @typedObject

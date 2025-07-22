@@ -6,18 +6,22 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
   link,
   typedObject,
 } from '../../cache';
-import { CacheableObject } from '../../cache';
 import { RemoteData } from '../../data';
-import { EPerson } from '../../eperson';
-import { EPERSON } from '../../eperson';
-import { Group } from '../../eperson';
-import { GROUP } from '../../eperson';
-import { WORKFLOWITEM } from '../../eperson';
-import { DSpaceObject } from '../../shared';
-import { HALLink } from '../../shared';
+import {
+  EPERSON,
+  EPerson,
+  GROUP,
+  Group,
+  WORKFLOWITEM,
+} from '../../eperson';
+import {
+  DSpaceObject,
+  HALLink,
+} from '../../shared';
 import { TASK_OBJECT } from './task-object.resource-type';
 import { WorkflowAction } from './workflow-action-object.model';
 import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';

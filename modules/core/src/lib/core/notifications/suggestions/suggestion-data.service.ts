@@ -2,22 +2,26 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../cache';
-import { RequestParam } from '../../cache';
-import { ObjectCacheService } from '../../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../../cache';
 import {
   DeleteData,
   DeleteDataImpl,
+  FindListOptions,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+  SearchDataImpl,
 } from '../../data';
-import { IdentifiableDataService } from '../../data';
-import { SearchDataImpl } from '../../data';
-import { FindListOptions } from '../../data';
-import { FollowLinkConfig } from '../../data';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { RequestService } from '../../data';
-import { HALEndpointService } from '../../shared';
-import { NoContent } from '../../shared';
+import {
+  HALEndpointService,
+  NoContent,
+} from '../../shared';
 import { NotificationsService } from '../notifications.service';
 import { Suggestion } from './models';
 

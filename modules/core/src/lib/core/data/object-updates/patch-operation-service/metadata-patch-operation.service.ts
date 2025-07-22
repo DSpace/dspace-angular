@@ -5,10 +5,12 @@ import { Operation } from 'fast-json-patch';
 import { MetadatumViewModel } from '../../../shared';
 import { FieldChangeType } from '../field-change-type.model';
 import { FieldUpdates } from '../field-updates.model';
-import { MetadataPatchAddOperation } from './operations';
-import { MetadataPatchOperation } from './operations';
-import { MetadataPatchRemoveOperation } from './operations';
-import { MetadataPatchReplaceOperation } from './operations';
+import {
+  MetadataPatchAddOperation,
+  MetadataPatchOperation,
+  MetadataPatchRemoveOperation,
+  MetadataPatchReplaceOperation,
+} from './operations';
 import { PatchOperationService } from './patch-operation.service';
 
 /**

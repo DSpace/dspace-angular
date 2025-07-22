@@ -10,11 +10,15 @@ import {
   link,
   typedObject,
 } from '../../cache';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { DSpaceObject } from '../../shared';
-import { DSPACE_OBJECT } from '../../shared';
-import { HALLink } from '../../shared';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../../data';
+import {
+  DSPACE_OBJECT,
+  DSpaceObject,
+  HALLink,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { EPerson } from './eperson.model';
 import { EPERSON } from './eperson.resource-type';

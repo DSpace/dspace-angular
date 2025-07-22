@@ -20,40 +20,53 @@ import {
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache';
-
+import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data';
-import { EPersonDataService } from '../eperson';
-import { EPerson } from '../eperson';
-
-import { ClientCookieService } from '../services';
-import { CookieService } from '../services';
-import { HardRedirectService } from '../services';
-import { RouteService } from '../services';
 import {
+  EPerson,
+  EPersonDataService,
+} from '../eperson';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import {
+  ClientCookieService,
+  CookieService,
+  HardRedirectService,
   NativeWindowRef,
   NativeWindowService,
+  RouteService,
 } from '../services';
 import { REQUEST } from '../tokens';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
-
-import { AuthMethod } from './models';
-import { AuthStatus } from './models';
-import { AuthTokenInfo } from './models';
-import { EPersonMock } from '../utilities/testing/eperson.mock';
-import { SpecialGroupDataMock, SpecialGroupDataMock$ } from '../utilities/testing/special-group.mock';
-import { RouterStub } from '../utilities/testing/router.stub';
-import { AuthRequestServiceStub } from '../utilities/testing/auth-request-service.stub';
 import { ActivatedRouteStub } from '../utilities/testing/active-router.stub';
-import { routeServiceStub } from '../utilities/testing/route-service.stub';
-import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
+import { AuthRequestServiceStub } from '../utilities/testing/auth-request-service.stub';
 import { authMethodsMock } from '../utilities/testing/auth-service.stub';
-import { authReducer, AuthState } from './auth.reducer';
-import { AuthService, IMPERSONATING_COOKIE } from './auth.service';
+import { EPersonMock } from '../utilities/testing/eperson.mock';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { routeServiceStub } from '../utilities/testing/route-service.stub';
+import { RouterStub } from '../utilities/testing/router.stub';
+import {
+  SpecialGroupDataMock,
+  SpecialGroupDataMock$,
+} from '../utilities/testing/special-group.mock';
+import {
+  SetUserAsIdleAction,
+  UnsetUserAsIdleAction,
+} from './auth.actions';
+import {
+  authReducer,
+  AuthState,
+} from './auth.reducer';
+import {
+  AuthService,
+  IMPERSONATING_COOKIE,
+} from './auth.service';
 import { AuthRequestService } from './auth-request.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { SetUserAsIdleAction, UnsetUserAsIdleAction } from './auth.actions';
-import { CoreState } from '../core-state.model';
+import {
+  AuthMethod,
+  AuthStatus,
+  AuthTokenInfo,
+} from './models';
 
 describe('AuthService test', () => {
 

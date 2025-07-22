@@ -10,8 +10,10 @@ import {
 } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 
-import { FormFieldLanguageValueObject } from '../../config';
-import { FormFieldMetadataValueObject } from '../../config';
+import {
+  FormFieldLanguageValueObject,
+  FormFieldMetadataValueObject,
+} from '../../config';
 import { CoreState } from '../../core-state.model';
 import { VocabularyEntry } from '../../submission';
 import {

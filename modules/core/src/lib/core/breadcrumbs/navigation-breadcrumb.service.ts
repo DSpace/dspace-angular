@@ -6,7 +6,7 @@ import {
 
 import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
-import { BREADCRUMB_MESSAGE_POSTFIX } from "./i18n-breadcrumbs.service";
+import { BREADCRUMB_MESSAGE_POSTFIX } from './i18n-breadcrumbs.service';
 
 
 /**

@@ -6,11 +6,13 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '../data';
-import { FollowLinkConfig } from '../data';
-import { getDSpaceObjectRoute } from '../router';
-import { DSpaceObject } from '../shared';
 import {
+  FollowLinkConfig,
+  IdentifiableDataService,
+} from '../data';
+import { getDSpaceObjectRoute } from '../router';
+import {
+  DSpaceObject,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../shared';

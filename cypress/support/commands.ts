@@ -5,10 +5,8 @@
 
 import {
   AuthTokenInfo,
-  TOKENITEM,
-} from '@dspace/core';
-import {
   DSPACE_XSRF_COOKIE,
+  TOKENITEM,
   XSRF_REQUEST_HEADER,
 } from '@dspace/core';
 import { v4 as uuidv4 } from 'uuid';

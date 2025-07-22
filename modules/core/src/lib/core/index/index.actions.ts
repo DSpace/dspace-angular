@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
+import { type } from '../shared';
 import { IndexName } from './index-name.model';
-import { type } from "../shared";
 
 /**
  * The list of HrefIndexAction type definitions

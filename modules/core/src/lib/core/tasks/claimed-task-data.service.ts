@@ -2,17 +2,25 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { FindListOptions } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
+import {
+  FindListOptions,
+  RemoteData,
+  RequestService,
+} from '../data';
 import { HttpOptions } from '../dspace-rest';
-import { HALEndpointService } from '../shared';
-import { getFirstSucceededRemoteData } from '../shared';
-import { ClaimedTask } from './models';
-import { ProcessTaskResponse } from './models';
+import {
+  getFirstSucceededRemoteData,
+  HALEndpointService,
+} from '../shared';
+import {
+  ClaimedTask,
+  ProcessTaskResponse,
+} from './models';
 import { TasksService } from './tasks.service';
 
 /**

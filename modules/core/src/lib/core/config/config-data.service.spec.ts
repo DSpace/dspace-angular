@@ -1,16 +1,20 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { FindListOptions } from '../data';
-import { GetRequest } from '../data';
-import { RequestService } from '../data';
-import { ConfigDataService } from './config-data.service';
-import { getMockRequestService } from '../mocks/request.service.mock';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
+import {
+  FindListOptions,
+  GetRequest,
+  RequestService,
+} from '../data';
 import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { ConfigDataService } from './config-data.service';
 
 
 const LINK_NAME = 'test';

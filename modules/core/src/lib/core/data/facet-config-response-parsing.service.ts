@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { ParsedResponse } from '../cache';
-import { DSpaceSerializer } from '../dspace-rest';
-import { RawRestResponse } from '../dspace-rest';
-import { FacetConfigResponse } from '../shared';
-import { SearchFilterConfig } from '../shared';
+import {
+  DSpaceSerializer,
+  RawRestResponse,
+} from '../dspace-rest';
+import {
+  FacetConfigResponse,
+  SearchFilterConfig,
+} from '../shared';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 

@@ -13,8 +13,10 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../../data';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';
 import { Relationship } from './relationship.model';

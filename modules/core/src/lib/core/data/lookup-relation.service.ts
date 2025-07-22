@@ -13,19 +13,10 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import { DSpaceObject } from '../shared';
-import { ExternalSource } from '../shared';
-import { ExternalSourceEntry } from '../shared';
-import { RelationshipOptions } from '../shared';
-import { Item } from '../shared';
-import {
+import { DSpaceObject , ExternalSource , ExternalSourceEntry , RelationshipOptions , Item ,
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '../shared';
-import { PaginatedSearchOptions } from '../shared';
-import { PaginationComponentOptions } from '../shared';
-import { SearchResult } from '../shared';
-import { SearchService } from '../shared';
+, PaginatedSearchOptions , PaginationComponentOptions , SearchResult , SearchService } from '../shared';
 import { ExternalSourceDataService } from './external-source-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';

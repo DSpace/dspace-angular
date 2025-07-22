@@ -3,8 +3,10 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../cache';
-import { CacheableObject } from '../cache';
+import {
+  CacheableObject,
+  typedObject,
+} from '../cache';
 import { excludeFromEquals } from '../utilities';
 import { HALLink } from './hal-link.model';
 import { ITEM_REQUEST } from './item-request.resource-type';

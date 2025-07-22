@@ -8,8 +8,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { PostRequest } from '../data';
-import { RequestService } from '../data';
+import {
+  PostRequest,
+  RequestService,
+} from '../data';
 import { HALEndpointService } from '../shared';
 import {
   XSRF_REQUEST_HEADER,

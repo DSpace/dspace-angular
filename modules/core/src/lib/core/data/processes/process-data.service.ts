@@ -16,25 +16,27 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { ObjectCacheService } from '../../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
 import { NotificationsService } from '../../notifications';
-import { Process } from '../../processes';
-import { ProcessStatus } from '../../processes';
-import { Bitstream } from '../../shared';
-import { HALEndpointService } from '../../shared';
-import { NoContent } from '../../shared';
-import { getAllCompletedRemoteData } from '../../shared';
+import {
+  Process,
+  ProcessStatus,
+} from '../../processes';
+import {
+  Bitstream,
+  getAllCompletedRemoteData,
+  HALEndpointService,
+  NoContent,
+} from '../../shared';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../base';
-import {
   FindAllData,
   FindAllDataImpl,
-} from '../base';
-import { IdentifiableDataService } from '../base';
-import {
+  IdentifiableDataService,
   SearchData,
   SearchDataImpl,
 } from '../base';

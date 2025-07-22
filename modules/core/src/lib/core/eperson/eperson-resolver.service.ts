@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 import {
   followLink,
   FollowLinkConfig,
+  RemoteData,
 } from '../data';
-import { RemoteData } from '../data';
 import { ResolvedAction } from '../resolving';
 import { getFirstCompletedRemoteData } from '../shared';
 import { EPersonDataService } from './eperson-data.service';

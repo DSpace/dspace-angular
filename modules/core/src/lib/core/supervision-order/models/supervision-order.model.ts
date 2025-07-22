@@ -6,18 +6,22 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
+  IDToUUIDSerializer,
   link,
   typedObject,
 } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { IDToUUIDSerializer } from '../../cache';
 import { RemoteData } from '../../data';
-import { Group } from '../../eperson';
-import { GROUP } from '../../eperson';
-import { HALLink } from '../../shared';
-import { Item } from '../../shared';
-import { ITEM } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  GROUP,
+  Group,
+} from '../../eperson';
+import {
+  HALLink,
+  ITEM,
+  Item,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { SUPERVISION_ORDER } from './supervision-order.resource-type';
 

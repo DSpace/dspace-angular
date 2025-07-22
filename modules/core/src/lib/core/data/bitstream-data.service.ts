@@ -17,31 +17,31 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import { HttpOptions } from '../dspace-rest';
 import { NotificationsService } from '../notifications';
-import { Bitstream } from '../shared';
-import { BitstreamFormat } from '../shared';
-import { Bundle } from '../shared';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { NoContent } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
-import { PageInfo } from '../shared';
-import { sendRequest } from '../shared';
+import {
+  Bitstream,
+  BitstreamFormat,
+  Bundle,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  Item,
+  NoContent,
+  PageInfo,
+  sendRequest,
+} from '../shared';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './base';
-import { IdentifiableDataService } from './base';
-import {
+  IdentifiableDataService,
   PatchData,
   PatchDataImpl,
-} from './base';
-import {
   SearchData,
   SearchDataImpl,
 } from './base';

@@ -4,9 +4,11 @@ import {
   deserializeAs,
 } from 'cerialize';
 
-import { typedObject } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { IDToUUIDSerializer } from '../../cache';
+import {
+  CacheableObject,
+  IDToUUIDSerializer,
+  typedObject,
+} from '../../cache';
 import { excludeFromEquals } from '../../utilities';
 import { HALLink } from '../hal-link.model';
 import { ResourceType } from '../resource-type';

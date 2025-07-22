@@ -6,9 +6,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../data';
-import { FeatureID } from '../data';
-import { ItemDataService } from '../data';
+import {
+  AuthorizationDataService,
+  FeatureID,
+  ItemDataService,
+} from '../data';
 import { getFirstCompletedRemoteData } from '../shared';
 import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';

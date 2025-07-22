@@ -12,41 +12,40 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../cache';
-import { RequestParam } from '../../../cache';
-import { ObjectCacheService } from '../../../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../../../cache';
 import {
   CreateData,
   CreateDataImpl,
-} from '../../../data';
-import {
+  DefaultChangeAnalyzer,
+  DeleteByIDRequest,
   DeleteData,
   DeleteDataImpl,
-} from '../../../data';
-import { IdentifiableDataService } from '../../../data';
-import {
+  FindListOptions,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  PaginatedList,
   PatchData,
   PatchDataImpl,
-} from '../../../data';
-import {
+  PostRequest,
+  RemoteData,
+  RequestService,
   SearchData,
   SearchDataImpl,
 } from '../../../data';
-import { DefaultChangeAnalyzer } from '../../../data';
-import { FindListOptions } from '../../../data';
-import { FollowLinkConfig } from '../../../data';
-import { PaginatedList } from '../../../data';
-import { RemoteData } from '../../../data';
-import {
-  DeleteByIDRequest,
-  PostRequest,
-} from '../../../data';
-import { RequestService } from '../../../data';
 import { HttpOptions } from '../../../dspace-rest';
-import { HALEndpointService } from '../../../shared';
-import { NoContent } from '../../../shared';
+import {
+  HALEndpointService,
+  NoContent,
+} from '../../../shared';
 import { NotificationsService } from '../../notifications.service';
-import { QualityAssuranceEventData, QualityAssuranceEventObject } from '../models';
+import {
+  QualityAssuranceEventData,
+  QualityAssuranceEventObject,
+} from '../models';
 
 /**
  * The service handling all Quality Assurance topic REST requests.

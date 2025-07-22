@@ -16,10 +16,12 @@ import {
 
 import { RemoteDataBuildService } from '../cache';
 import { HttpOptions } from '../dspace-rest';
-import { GenericConstructor } from '../shared';
-import { HALEndpointService } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
-import { Registration } from '../shared';
+import {
+  GenericConstructor,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  Registration,
+} from '../shared';
 import { ResponseParsingService } from './parsing.service';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
 import { RemoteData } from './remote-data';

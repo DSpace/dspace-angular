@@ -5,12 +5,14 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
   link,
   typedObject,
 } from '../../../cache';
-import { CacheableObject } from '../../../cache';
-import { PaginatedList } from '../../../data';
-import { RemoteData } from '../../../data';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../../../data';
 import { HALLink } from '../../../shared';
 import { excludeFromEquals } from '../../../utilities';
 import {

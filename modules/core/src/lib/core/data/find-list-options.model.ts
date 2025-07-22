@@ -1,5 +1,7 @@
-import { RequestParam } from '../cache';
-import { SortOptions } from '../cache';
+import {
+  RequestParam,
+  SortOptions,
+} from '../cache';
 
 /**
  * The options for a find list request

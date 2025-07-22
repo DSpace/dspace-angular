@@ -13,19 +13,12 @@ import {
 } from 'rxjs/operators';
 
 import { LinkService } from '../cache';
-import { BitstreamDataService } from '../data';
-import { RemoteData } from '../data';
+import { BitstreamDataService , RemoteData } from '../data';
 import { getDSpaceObjectRoute } from '../router';
-import { Bitstream } from '../shared';
-import { Bundle } from '../shared';
-import { ChildHALResource } from '../shared';
-import { DSpaceObject } from '../shared';
-import { Item } from '../shared';
-import {
+import { Bitstream , Bundle , ChildHALResource , DSpaceObject , Item ,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../shared';
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared';
+, BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared';
 import { Breadcrumb } from './breadcrumb.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';

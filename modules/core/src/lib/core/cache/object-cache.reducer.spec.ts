@@ -6,9 +6,11 @@ import { Item } from '../shared';
 import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
-  AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction
+  ResetObjectCacheTimestampsAction,
 } from './object-cache.actions';
 import { objectCacheReducer } from './object-cache.reducer';
 

@@ -4,8 +4,10 @@ import {
   Operation,
 } from 'fast-json-patch';
 
-import { getClassForType } from '../cache';
-import { TypedObject } from '../cache';
+import {
+  getClassForType,
+  TypedObject,
+} from '../cache';
 import { DSpaceNotNullSerializer } from '../dspace-rest';
 import { ChangeAnalyzer } from './change-analyzer';
 

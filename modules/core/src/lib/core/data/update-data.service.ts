@@ -14,36 +14,30 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { CacheableObject } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheEntry } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  CacheableObject,
+  ObjectCacheEntry,
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
+import {
+  HALEndpointService,
+  NoContent,
+} from '../shared';
 import {
   CreateData,
   CreateDataImpl,
-} from './base';
-import {
   DeleteData,
   DeleteDataImpl,
-} from './base';
-import {
   FindAllData,
   FindAllDataImpl,
-} from './base';
-import { IdentifiableDataService } from './base';
-import {
+  IdentifiableDataService,
   PatchData,
   PatchDataImpl,
-} from './base';
-import {
   PutData,
   PutDataImpl,
-} from './base';
-import {
   SearchData,
   SearchDataImpl,
 } from './base';

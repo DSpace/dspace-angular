@@ -23,22 +23,22 @@ import {
 import {
   followLink,
   FollowLinkConfig,
+  HrefOnlyDataService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
 } from '../data';
-import { HrefOnlyDataService } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
-import { BrowseDefinition } from '../shared';
-import { BrowseEntry } from '../shared';
-import { FlatBrowseDefinition } from '../shared';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
 import {
+  BrowseDefinition,
+  BrowseEntry,
+  FlatBrowseDefinition,
   getBrowseDefinitionLinks,
   getFirstOccurrence,
   getFirstSucceededRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
+  HALEndpointService,
+  Item,
 } from '../shared';
 import { URLCombiner } from '../url-combiner';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';

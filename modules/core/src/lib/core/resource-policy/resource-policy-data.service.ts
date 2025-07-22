@@ -7,34 +7,44 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { CreateDataImpl } from '../data';
-import { DeleteDataImpl } from '../data';
-import { IdentifiableDataService } from '../data';
-import { PatchDataImpl } from '../data';
-import { SearchDataImpl } from '../data';
-import { DefaultChangeAnalyzer } from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { ResponseParsingService } from '../data';
-import { RemoteData } from '../data';
-import { PutRequest } from '../data';
-import { RequestService } from '../data';
-import { StatusCodeOnlyResponseParsingService } from '../data';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
+import {
+  CreateDataImpl,
+  DefaultChangeAnalyzer,
+  DeleteDataImpl,
+  FindListOptions,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  PaginatedList,
+  PatchDataImpl,
+  PutRequest,
+  RemoteData,
+  RequestService,
+  ResponseParsingService,
+  SearchDataImpl,
+  StatusCodeOnlyResponseParsingService,
+} from '../data';
 import { HttpOptions } from '../dspace-rest';
-import { EPersonDataService } from '../eperson';
-import { GroupDataService } from '../eperson';
+import {
+  EPersonDataService,
+  GroupDataService,
+} from '../eperson';
 import { NotificationsService } from '../notifications';
-import { Collection } from '../shared';
-import { GenericConstructor } from '../shared';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
-import { ActionType } from './models';
-import { ResourcePolicy } from './models';
+import {
+  Collection,
+  GenericConstructor,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  NoContent,
+} from '../shared';
+import {
+  ActionType,
+  ResourcePolicy,
+} from './models';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the resourcepolicies endpoint

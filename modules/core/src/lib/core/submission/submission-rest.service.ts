@@ -12,24 +12,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ErrorResponse } from '../cache';
-import { RemoteData } from '../data';
-import {
+import { RemoteDataBuildService , ErrorResponse } from '../cache';
+import { RemoteData ,
   DeleteRequest,
   PostRequest,
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
   SubmissionRequest,
-} from '../data';
-import { RequestService } from '../data';
-import { RequestError } from '../data';
-import { RestRequest } from '../data';
+, RequestService , RequestError , RestRequest } from '../data';
 import { HttpOptions } from '../dspace-rest';
-import { HALEndpointService } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
-import { SubmitDataResponseDefinitionObject } from '../shared';
+import { HALEndpointService , getFirstCompletedRemoteData , SubmitDataResponseDefinitionObject } from '../shared';
 import { URLCombiner } from '../url-combiner';
 import { SubmissionResponse } from './submission-response.model';
 

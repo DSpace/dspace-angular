@@ -3,14 +3,16 @@ import { hasValue } from '@dspace/shared/utils';
 
 import { ObjectCacheService } from '../cache';
 import { Serializer } from '../serializer';
-import { BrowseDefinition } from '../shared';
-import { BROWSE_DEFINITION } from '../shared';
-import { FlatBrowseDefinition } from '../shared';
-import { FLAT_BROWSE_DEFINITION } from '../shared';
-import { HierarchicalBrowseDefinition } from '../shared';
-import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared';
-import { ValueListBrowseDefinition } from '../shared';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../shared';
+import {
+  BROWSE_DEFINITION,
+  BrowseDefinition,
+  FLAT_BROWSE_DEFINITION,
+  FlatBrowseDefinition,
+  HIERARCHICAL_BROWSE_DEFINITION,
+  HierarchicalBrowseDefinition,
+  VALUE_LIST_BROWSE_DEFINITION,
+  ValueListBrowseDefinition,
+} from '../shared';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 
 /**

@@ -3,8 +3,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { CacheableObject } from '../../cache';
-import { ObjectCacheEntry } from '../../cache';
+import {
+  CacheableObject,
+  ObjectCacheEntry,
+} from '../../cache';
 
 /* eslint-disable @typescript-eslint/no-empty-function */
 /**

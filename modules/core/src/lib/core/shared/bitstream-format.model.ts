@@ -4,9 +4,11 @@ import {
   deserializeAs,
 } from 'cerialize';
 
-import { typedObject } from '../cache';
-import { CacheableObject } from '../cache';
-import { IDToUUIDSerializer } from '../cache';
+import {
+  CacheableObject,
+  IDToUUIDSerializer,
+  typedObject,
+} from '../cache';
 import { excludeFromEquals } from '../utilities';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
 import { BitstreamFormatSupportLevel } from './bitstream-format-support-level';

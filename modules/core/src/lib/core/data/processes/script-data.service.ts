@@ -6,19 +6,25 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { Process } from '../../processes';
-import { ProcessParameter } from '../../processes';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
+import {
+  Process,
+  ProcessParameter,
+} from '../../processes';
 import { Script } from '../../scripts';
-import { HALEndpointService } from '../../shared';
-import { getFirstCompletedRemoteData } from '../../shared';
+import {
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+} from '../../shared';
 import { URLCombiner } from '../../url-combiner';
 import {
   FindAllData,
   FindAllDataImpl,
+  IdentifiableDataService,
 } from '../base';
-import { IdentifiableDataService } from '../base';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';

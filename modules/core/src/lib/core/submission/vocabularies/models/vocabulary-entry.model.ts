@@ -4,12 +4,16 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { PLACEHOLDER_PARENT_METADATA } from '../../../config';
-import { OtherInformation } from '../../../config';
 import { typedObject } from '../../../cache';
+import {
+  OtherInformation,
+  PLACEHOLDER_PARENT_METADATA,
+} from '../../../config';
 import { ListableObject } from '../../../object-collection';
-import { GenericConstructor } from '../../../shared';
-import { HALLink } from '../../../shared';
+import {
+  GenericConstructor,
+  HALLink,
+} from '../../../shared';
 import { excludeFromEquals } from '../../../utilities';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 

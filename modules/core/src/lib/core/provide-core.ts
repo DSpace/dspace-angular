@@ -4,87 +4,109 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 
-import { Itemfilter } from './data';
-import { LdnService } from './data';
 import { AccessStatusObject } from './access-status';
-import { Subscription } from './subscription';
+import {
+  AuthStatus,
+  ShortLivedToken,
+} from './auth';
 import { SubmissionCoarNotifyConfig } from './coar-notify';
-import { AuthStatus } from './auth';
-import { ShortLivedToken } from './auth';
-import { APP_CONFIG } from './config';
-import { BulkAccessConditionOptions } from './config';
-import { SubmissionAccessesModel } from './config';
-import { SubmissionDefinitionsModel } from './config';
-import { SubmissionFormsModel } from './config';
-import { SubmissionSectionModel } from './config';
-import { SubmissionUploadsModel } from './config';
-import { IdentifierData } from './data';
-import { Root } from './data';
+import {
+  APP_CONFIG,
+  BulkAccessConditionOptions,
+  SubmissionAccessesModel,
+  SubmissionDefinitionsModel,
+  SubmissionFormsModel,
+  SubmissionSectionModel,
+  SubmissionUploadsModel,
+} from './config';
+import {
+  IdentifierData,
+  Itemfilter,
+  LdnService,
+  Root,
+} from './data';
 import { DspaceRestService } from './dspace-rest';
-import { EPerson } from './eperson';
-import { Group } from './eperson';
-import { MetadataField } from './metadata';
-import { MetadataSchema } from './metadata';
-
-import { QualityAssuranceEventObject } from './notifications';
-import { QualityAssuranceSourceObject } from './notifications';
-import { QualityAssuranceTopicObject } from './notifications';
-import { SuggestionSource } from './notifications';
-import { SuggestionTarget } from './notifications';
+import {
+  EPerson,
+  Group,
+} from './eperson';
+import {
+  MetadataField,
+  MetadataSchema,
+} from './metadata';
+import { EndpointMockingRestService } from './mocks/endpoint-mocking-rest.service';
+import {
+  MOCK_RESPONSE_MAP,
+  ResponseMapMock,
+} from './mocks/response-map.mock';
+import {
+  QualityAssuranceEventObject,
+  QualityAssuranceSourceObject,
+  QualityAssuranceTopicObject,
+  SuggestionSource,
+  SuggestionTarget,
+} from './notifications';
 import { NotifyRequestsStatus } from './notify-requests';
-import { OrcidHistory } from './orcid';
-import { OrcidQueue } from './orcid';
+import {
+  OrcidHistory,
+  OrcidQueue,
+} from './orcid';
 import { Process } from './processes';
 import { ResearcherProfile } from './profile';
 import { ResourcePolicy } from './resource-policy';
 import { Script } from './scripts';
-import { Authorization } from './shared';
-import { Bitstream } from './shared';
-import { BitstreamFormat } from './shared';
-import { BrowseDefinition } from './shared';
-import { BrowseEntry } from './shared';
-import { Bundle } from './shared';
-import { Collection } from './shared';
-import { Community } from './shared';
-import { ConfigurationProperty } from './shared';
-import { DSpaceObject } from './shared';
-import { ExternalSource } from './shared';
-import { ExternalSourceEntry } from './shared';
-import { Feature } from './shared';
-import { FlatBrowseDefinition } from './shared';
-import { HierarchicalBrowseDefinition } from './shared';
-import { Item } from './shared';
-import { ItemType } from './shared';
-import { Relationship } from './shared';
-import { RelationshipType } from './shared';
-import { ItemRequest } from './shared';
-import { License } from './shared';
-import { NonHierarchicalBrowseDefinition } from './shared';
-import { Registration } from './shared';
-import { SearchConfig } from './shared';
-import { Site } from './shared';
-import { TemplateItem } from './shared';
-import { ValueListBrowseDefinition } from './shared';
-import { Version } from './shared';
-import { VersionHistory } from './shared';
+import {
+  Authorization,
+  Bitstream,
+  BitstreamFormat,
+  BrowseDefinition,
+  BrowseEntry,
+  Bundle,
+  Collection,
+  Community,
+  ConfigurationProperty,
+  DSpaceObject,
+  ExternalSource,
+  ExternalSourceEntry,
+  Feature,
+  FlatBrowseDefinition,
+  HierarchicalBrowseDefinition,
+  Item,
+  ItemRequest,
+  ItemType,
+  License,
+  NonHierarchicalBrowseDefinition,
+  Registration,
+  Relationship,
+  RelationshipType,
+  SearchConfig,
+  Site,
+  TemplateItem,
+  ValueListBrowseDefinition,
+  Version,
+  VersionHistory,
+} from './shared';
 import { UsageReport } from './statistics';
-import { SubmissionCcLicence } from './submission';
-import { SubmissionCcLicenceUrl } from './submission';
-import { WorkflowItem } from './submission';
-import { WorkspaceItem } from './submission';
-import { Vocabulary } from './submission';
-import { VocabularyEntry } from './submission';
-import { VocabularyEntryDetail } from './submission';
+import {
+  SubmissionCcLicence,
+  SubmissionCcLicenceUrl,
+  Vocabulary,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  WorkflowItem,
+  WorkspaceItem,
+} from './submission';
+import { Subscription } from './subscription';
 import { SystemWideAlert } from './system-wide-alert';
-import { AdvancedWorkflowInfo } from './tasks';
-import { ClaimedTask } from './tasks';
-import { PoolTask } from './tasks';
-import { RatingAdvancedWorkflowInfo } from './tasks';
-import { SelectReviewerAdvancedWorkflowInfo } from './tasks';
-import { TaskObject } from './tasks';
-import { WorkflowAction } from './tasks';
-import { MOCK_RESPONSE_MAP, ResponseMapMock } from "./mocks/response-map.mock";
-import { EndpointMockingRestService } from "./mocks/endpoint-mocking-rest.service";
+import {
+  AdvancedWorkflowInfo,
+  ClaimedTask,
+  PoolTask,
+  RatingAdvancedWorkflowInfo,
+  SelectReviewerAdvancedWorkflowInfo,
+  TaskObject,
+  WorkflowAction,
+} from './tasks';
 
 
 export const provideCore = () => {

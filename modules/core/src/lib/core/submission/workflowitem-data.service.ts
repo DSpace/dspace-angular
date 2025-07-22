@@ -6,28 +6,30 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
+import {
+  DeleteByIDRequest,
   DeleteData,
   DeleteDataImpl,
-} from '../data';
-import { IdentifiableDataService } from '../data';
-import {
+  FindListOptions,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
   SearchData,
   SearchDataImpl,
 } from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { DeleteByIDRequest } from '../data';
-import { RequestService } from '../data';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import {
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  NoContent,
+} from '../shared';
 import { WorkflowItem } from './models';
 
 /**

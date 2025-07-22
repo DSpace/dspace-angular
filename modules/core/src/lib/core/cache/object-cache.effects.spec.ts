@@ -5,9 +5,10 @@ import {
   hot,
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { ObjectCacheEffects } from './object-cache.effects';
+
 import { StoreActionTypes } from '../store.actions';
 import { ResetObjectCacheTimestampsAction } from './object-cache.actions';
+import { ObjectCacheEffects } from './object-cache.effects';
 
 describe('ObjectCacheEffects', () => {
   let cacheEffects: ObjectCacheEffects;

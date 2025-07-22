@@ -20,11 +20,16 @@ import {
   map,
 } from 'rxjs/operators';
 
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache';
 import { InputSuggestion } from '../../config';
 import {
-  getFacetValueForType,
-  stripOperatorFromFilterValue,
-} from '../../utilities';
+  PaginatedList,
+  RemoteData,
+} from '../../data';
+import { RouteService } from '../../services';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -33,25 +38,22 @@ import {
   SearchFilterInitializeAction,
   SearchFilterMinimizeAllPageAction,
   SearchFilterResetPageAction,
+  SearchFiltersState,
+  SearchFilterState,
   SearchFilterToggleAction,
 } from '../../states';
 import {
-  SearchFiltersState,
-  SearchFilterState,
-} from '../../states';
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from '../../utilities';
 import { EmphasizePipe } from '../emphasize.pipe';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../cache';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { RouteService } from '../../services';
 import { getFirstSucceededRemoteData } from '../operators';
 import { PaginationComponentOptions } from '../pagination-component-options.model';
-import { FacetValue } from './models';
-import { SearchFilterConfig } from './models';
-import { SearchOptions } from './models';
+import {
+  FacetValue,
+  SearchFilterConfig,
+  SearchOptions,
+} from './models';
 import { SearchService } from './search.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;

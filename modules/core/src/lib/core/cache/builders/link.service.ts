@@ -17,14 +17,18 @@ import {
 } from 'rxjs/operators';
 
 import { APP_DATA_SERVICES_MAP } from '../../config';
-import { HALDataService } from '../../data';
-import { FollowLinkConfig } from '../../data';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
+import {
+  FollowLinkConfig,
+  HALDataService,
+  PaginatedList,
+  RemoteData,
+} from '../../data';
 import { LazyDataServicesMap } from '../../data-services-map';
 import { lazyDataService } from '../../lazy-data-service';
-import { GenericConstructor } from '../../shared';
-import { HALResource } from '../../shared';
+import {
+  GenericConstructor,
+  HALResource,
+} from '../../shared';
 import {
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,

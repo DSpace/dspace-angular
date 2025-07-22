@@ -7,12 +7,17 @@ import {
 
 import { APP_DATA_SERVICES_MAP } from '../../config';
 import { followLink } from '../../data';
-import { HALLink } from '../../shared';
-import { HALResource } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  HALLink,
+  HALResource,
+  ResourceType,
+} from '../../shared';
 import { TestDataService } from '../../utilities/testing/test-data-service.mock';
+import {
+  LINK_DEFINITION_FACTORY,
+  LINK_DEFINITION_MAP_FACTORY,
+} from './build-decorators';
 import { LinkService } from './link.service';
-import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;

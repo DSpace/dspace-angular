@@ -30,28 +30,36 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SelectableListService } from '../selectable-list';
-import { SaveSubmissionSectionFormSuccessAction } from '../submission';
-import { SubmissionState } from '../submission';
-import { ObjectCacheService } from '../../cache';
-import { ServerSyncBufferActionTypes } from '../../cache';
-import { followLink } from '../../data';
-import { RelationshipDataService } from '../../data';
-import { RelationshipTypeDataService } from '../../data';
-import { RemoteData } from '../../data';
-import { RequestService } from '../../data';
+import {
+  ObjectCacheService,
+  ServerSyncBufferActionTypes,
+} from '../../cache';
+import {
+  followLink,
+  RelationshipDataService,
+  RelationshipTypeDataService,
+  RemoteData,
+  RequestService,
+} from '../../data';
 import { JsonPatchOperationsActionTypes } from '../../json-patch';
 import { NotificationsService } from '../../notifications';
-import { Item } from '../../shared';
-import { Relationship } from '../../shared';
-import { RelationshipType } from '../../shared';
 import {
   DEBOUNCE_TIME_OPERATOR,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
+  Item,
+  Relationship,
+  RelationshipType,
 } from '../../shared';
-import { SubmissionObject } from '../../submission';
-import { SubmissionObjectDataService } from '../../submission';
+import {
+  SubmissionObject,
+  SubmissionObjectDataService,
+} from '../../submission';
+import { SelectableListService } from '../selectable-list';
+import {
+  SaveSubmissionSectionFormSuccessAction,
+  SubmissionState,
+} from '../submission';
 import {
   AddRelationshipAction,
   RelationshipAction,

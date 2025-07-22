@@ -39,13 +39,17 @@ import {
   AppConfig,
 } from '../config';
 import { CoreState } from '../core-state.model';
-import { AuthorizationDataService } from '../data';
-import { RequestActionTypes } from '../data';
+import {
+  AuthorizationDataService,
+  RequestActionTypes,
+} from '../data';
 import { EPerson } from '../eperson';
 import { NotificationsActionTypes } from '../notifications';
 import { StoreActionTypes } from '../store.actions';
-import { EnterZoneScheduler } from '../utilities';
-import { LeaveZoneScheduler } from '../utilities';
+import {
+  EnterZoneScheduler,
+  LeaveZoneScheduler,
+} from '../utilities';
 // import actions
 import {
   AuthActionTypes,
@@ -74,9 +78,11 @@ import {
 } from './auth.actions';
 // import services
 import { AuthService } from './auth.service';
-import { AuthMethod } from './models';
-import { AuthStatus } from './models';
-import { AuthTokenInfo } from './models';
+import {
+  AuthMethod,
+  AuthStatus,
+  AuthTokenInfo,
+} from './models';
 import {
   isAuthenticated,
   isAuthenticatedLoaded,

@@ -23,26 +23,24 @@ import {
 import {
   followLink,
   FollowLinkConfig,
-} from '../../data';
-import { PaginatedList } from '../../data';
-import { PAGINATED_LIST } from '../../data';
-import { RemoteData } from '../../data';
-import { RequestService } from '../../data';
-import { RequestEntry } from '../../data';
-import {
   hasSucceeded,
   isStale,
+  PAGINATED_LIST,
+  PaginatedList,
+  RemoteData,
+  RequestEntry,
   RequestEntryState,
+  RequestService,
+  ResponseState,
 } from '../../data';
-import { ResponseState } from '../../data';
 import { getUrlWithoutEmbedParams } from '../../index';
-import { GenericConstructor } from '../../shared';
-import { HALLink } from '../../shared';
-import { HALResource } from '../../shared';
-import { getFirstCompletedRemoteData } from '../../shared';
 import {
+  GenericConstructor,
+  getFirstCompletedRemoteData,
   getRequestFromRequestHref,
   getRequestFromRequestUUID,
+  HALLink,
+  HALResource,
 } from '../../shared';
 import { createSuccessfulRemoteDataObject$ } from '../../utilities';
 import { getResourceTypeValueFor } from '../object-cache.reducer';

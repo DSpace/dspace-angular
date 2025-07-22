@@ -1,10 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import { ConfigObject } from '../config';
 import { RequestError } from '../data';
-import { DSpaceObject } from '../shared';
-import { HALLink } from '../shared';
-import { PageInfo } from '../shared';
-import { UnCacheableObject } from '../shared';
+import {
+  DSpaceObject,
+  HALLink,
+  PageInfo,
+  UnCacheableObject,
+} from '../shared';
 
 export class RestResponse {
   public toCache = true;

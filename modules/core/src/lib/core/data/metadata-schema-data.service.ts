@@ -3,26 +3,24 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import { MetadataSchema } from '../metadata';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
+import {
+  HALEndpointService,
+  NoContent,
+} from '../shared';
 import {
   CreateData,
   CreateDataImpl,
-} from './base';
-import {
   DeleteData,
   DeleteDataImpl,
-} from './base';
-import {
   FindAllData,
   FindAllDataImpl,
-} from './base';
-import { IdentifiableDataService } from './base';
-import {
+  IdentifiableDataService,
   PutData,
   PutDataImpl,
 } from './base';

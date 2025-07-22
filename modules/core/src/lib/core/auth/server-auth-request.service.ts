@@ -8,8 +8,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../cache';
-import { PostRequest } from '../data';
-import { RequestService } from '../data';
+import {
+  PostRequest,
+  RequestService,
+} from '../data';
 import { HALEndpointService } from '../shared';
 import {
   DSPACE_XSRF_COOKIE,

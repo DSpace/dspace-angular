@@ -21,11 +21,11 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '../auth';
-import { CookieService } from '../services';
-import { RouteService } from '../services';
 import {
+  CookieService,
   NativeWindowRef,
   NativeWindowService,
+  RouteService,
 } from '../services';
 import { REQUEST } from '../tokens';
 import {

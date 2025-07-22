@@ -10,8 +10,10 @@ import { map } from 'rxjs/operators';
 import { RemoteData } from '../data';
 import { HttpOptions } from '../dspace-rest';
 import { AuthService } from './auth.service';
-import { AuthStatus } from './models';
-import { AuthTokenInfo } from './models';
+import {
+  AuthStatus,
+  AuthTokenInfo,
+} from './models';
 
 /**
  * The auth service.

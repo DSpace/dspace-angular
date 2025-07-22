@@ -14,9 +14,11 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '../../auth';
-import { Authorization } from '../../shared';
-import { Feature } from '../../shared';
-import { getFirstSucceededRemoteDataPayload } from '../../shared';
+import {
+  Authorization,
+  Feature,
+  getFirstSucceededRemoteDataPayload,
+} from '../../shared';
 import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { FeatureID } from './feature-id';

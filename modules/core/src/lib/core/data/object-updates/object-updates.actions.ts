@@ -2,8 +2,10 @@
 import { Action } from '@ngrx/store';
 
 import { INotification } from '../../notifications';
-import { GenericConstructor } from '../../shared';
-import { type } from '../../shared';
+import {
+  GenericConstructor,
+  type,
+} from '../../shared';
 import { FieldChangeType } from './field-change-type.model';
 import { Identifiable } from './identifiable.model';
 import { PatchOperationService } from './patch-operation-service';

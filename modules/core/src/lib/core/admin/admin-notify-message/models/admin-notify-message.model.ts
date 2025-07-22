@@ -5,11 +5,14 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
-import { DSpaceObject, GenericConstructor } from '../../../shared';
 import { typedObject } from '../../../cache';
-import { excludeFromEquals } from '../../../utilities';
 import { ListableObject } from '../../../object-collection';
+import {
+  DSpaceObject,
+  GenericConstructor,
+} from '../../../shared';
+import { excludeFromEquals } from '../../../utilities';
+import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
 
 /**
  * A message that includes admin notify info

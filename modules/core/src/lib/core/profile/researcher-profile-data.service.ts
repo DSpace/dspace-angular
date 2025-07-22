@@ -19,44 +19,40 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import {
   CreateData,
   CreateDataImpl,
-} from '../data';
-import {
+  DefaultChangeAnalyzer,
   DeleteData,
   DeleteDataImpl,
-} from '../data';
-import { IdentifiableDataService } from '../data';
-import {
+  FindListOptions,
+  followLink,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  ItemDataService,
+  PaginatedList,
   PatchData,
   PatchDataImpl,
-} from '../data';
-import {
+  PostRequest,
+  RemoteData,
+  RequestService,
+  RestRequestMethod,
   SearchData,
   SearchDataImpl,
 } from '../data';
-import { DefaultChangeAnalyzer } from '../data';
-import { FindListOptions } from '../data';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../data';
-import { ItemDataService } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { PostRequest } from '../data';
-import { RequestService } from '../data';
-import { RestRequestMethod } from '../data';
 import { HttpOptions } from '../dspace-rest';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { NoContent } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import {
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  Item,
+  NoContent,
+} from '../shared';
 import { createFailedRemoteDataObject$ } from '../utilities';
 import { ResearcherProfile } from './model';
 

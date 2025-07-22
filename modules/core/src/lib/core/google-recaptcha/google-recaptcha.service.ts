@@ -20,15 +20,19 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../data';
-import { RemoteData } from '../data';
-import { CookieService } from '../services';
 import {
+  ConfigurationDataService,
+  RemoteData,
+} from '../data';
+import {
+  CookieService,
   NativeWindowRef,
   NativeWindowService,
 } from '../services';
-import { ConfigurationProperty } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import {
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+} from '../shared';
 
 export const CAPTCHA_COOKIE = '_GRECAPTCHA';
 export const CAPTCHA_NAME = 'google-recaptcha';

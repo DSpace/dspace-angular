@@ -11,9 +11,9 @@ import { of as observableOf } from 'rxjs';
 import { RestRequestMethod } from '../data';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { AuthServiceStub } from '../utilities/testing/auth-service.stub';
-import { AuthService } from './auth.service';
 import { RouterStub } from '../utilities/testing/router.stub';
 import { AuthInterceptor } from './auth.interceptor';
+import { AuthService } from './auth.service';
 
 
 describe(`AuthInterceptor`, () => {

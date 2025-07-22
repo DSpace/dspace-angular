@@ -3,10 +3,12 @@ import {
   hasValue,
 } from '@dspace/shared/utils';
 
-import { GenericConstructor } from '../../shared';
-import { Item } from '../../shared';
-import { Relationship } from '../../shared';
-import { RelationshipType } from '../../shared';
+import {
+  GenericConstructor,
+  Item,
+  Relationship,
+  RelationshipType,
+} from '../../shared';
 import { FieldChangeType } from './field-change-type.model';
 import { FieldUpdates } from './field-updates.model';
 import { Identifiable } from './identifiable.model';

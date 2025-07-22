@@ -6,18 +6,22 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
+  IDToUUIDSerializer,
   link,
   typedObject,
 } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { IDToUUIDSerializer } from '../../cache';
 import { RemoteData } from '../../data';
-import { EPerson } from '../../eperson';
-import { EPERSON } from '../../eperson';
-import { Group } from '../../eperson';
-import { GROUP } from '../../eperson';
-import { HALLink } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  EPERSON,
+  EPerson,
+  GROUP,
+  Group,
+} from '../../eperson';
+import {
+  HALLink,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { ActionType } from './action-type.model';
 import { PolicyType } from './policy-type.model';

@@ -11,34 +11,33 @@ import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
 import {
+  buildPaginatedList,
   followLink,
   FollowLinkConfig,
-} from '../../data';
-import {
-  buildPaginatedList,
   PaginatedList,
+  RemoteData,
+  RequestEntry,
+  RequestEntryState,
+  RequestService,
 } from '../../data';
-import { RemoteData } from '../../data';
-import { RequestService } from '../../data';
-import { RequestEntry } from '../../data';
-import { RequestEntryState } from '../../data';
-
-import { HALLink } from '../../shared';
-import { Item } from '../../shared';
-import { ITEM } from '../../shared';
-import { PageInfo } from '../../shared';
-import { UnCacheableObject } from '../../shared';
-import { LinkService } from './link.service';
-import { ObjectCacheService } from '../object-cache.service';
-import { RemoteDataBuildService } from './remote-data-build.service';
-import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
 import { getMockLinkService } from '../../mocks/link-service.mock';
+import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
 import { getMockRequestService } from '../../mocks/request.service.mock';
+import {
+  HALLink,
+  ITEM,
+  Item,
+  PageInfo,
+  UnCacheableObject,
+} from '../../shared';
 import {
   createFailedRemoteDataObject,
   createPendingRemoteDataObject,
-  createSuccessfulRemoteDataObject
+  createSuccessfulRemoteDataObject,
 } from '../../utilities/remote-data.utils';
+import { ObjectCacheService } from '../object-cache.service';
+import { LinkService } from './link.service';
+import { RemoteDataBuildService } from './remote-data-build.service';
 
 
 

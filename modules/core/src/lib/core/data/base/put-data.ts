@@ -8,12 +8,16 @@
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { ObjectCacheService } from '../../cache';
+import {
+  CacheableObject,
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
 import { DSpaceSerializer } from '../../dspace-rest';
-import { GenericConstructor } from '../../shared';
-import { HALEndpointService } from '../../shared';
+import {
+  GenericConstructor,
+  HALEndpointService,
+} from '../../shared';
 import { RemoteData } from '../remote-data';
 import { PutRequest } from '../request.models';
 import { RequestService } from '../request.service';

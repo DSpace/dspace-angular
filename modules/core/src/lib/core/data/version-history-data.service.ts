@@ -17,21 +17,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import { RemoteDataBuildService , ObjectCacheService } from '../cache';
 import { HttpOptions } from '../dspace-rest';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import {
+import { HALEndpointService , Item ,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../shared';
-import { PaginatedSearchOptions } from '../shared';
-import { PaginationComponentOptions } from '../shared';
-import { Version } from '../shared';
-import { VersionHistory } from '../shared';
+, PaginatedSearchOptions , PaginationComponentOptions , Version , VersionHistory } from '../shared';
 import { IdentifiableDataService } from './base';
 import { FindListOptions } from './find-list-options.model';
 import {

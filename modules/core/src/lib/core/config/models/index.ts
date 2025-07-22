@@ -2,6 +2,7 @@
 
 export * from './admin-notify-metrics.model';
 export * from './bulk-access-condition-options.model';
+export * from './config.model';
 export * from './config-access-condition-option.model';
 export * from './config-accesses-conditions-options.model';
 export * from './config-submission-access.model';
@@ -15,7 +16,6 @@ export * from './config-submission-sections.model';
 export * from './config-submission-upload.model';
 export * from './config-submission-uploads.model';
 export * from './config-type';
-export * from './config.model';
 export * from './ds-dynamic-form-constants';
 export * from './form-field-language-value.model';
 export * from './form-field-metadata-value.model';

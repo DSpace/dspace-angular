@@ -6,13 +6,15 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { CollectionDataService } from '../data';
 import {
+  CollectionDataService,
   followLink,
   FollowLinkConfig,
 } from '../data';
-import { Collection } from '../shared';
-import { DSpaceObject } from '../shared';
+import {
+  Collection,
+  DSpaceObject,
+} from '../shared';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';

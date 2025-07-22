@@ -1,6 +1,5 @@
 // created from 'create-ts-index'
 
-export * from './models';
 export * from './actuators.config';
 export * from './advance-search-config.interface';
 export * from './app-config.interface';
@@ -14,8 +13,8 @@ export * from './cache-config.interface';
 export * from './collection-page-config.interface';
 export * from './community-list-config.interface';
 export * from './community-page-config.interface';
-export * from './config-data.service';
 export * from './config.interface';
+export * from './config-data.service';
 export * from './discovery-sort.config';
 export * from './filter-vocabulary-config';
 export * from './form-config.interfaces';
@@ -26,6 +25,7 @@ export * from './lang-config.interface';
 export * from './live-region.config';
 export * from './markdown-config.interface';
 export * from './media-viewer-config.interface';
+export * from './models';
 export * from './notifications-config.interfaces';
 export * from './quality-assurance.config';
 export * from './search-page-config.interface';

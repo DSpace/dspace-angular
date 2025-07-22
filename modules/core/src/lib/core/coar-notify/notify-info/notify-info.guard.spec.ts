@@ -1,4 +1,5 @@
 import { of } from 'rxjs';
+
 import { notifyInfoGuard } from './notify-info.guard';
 
 describe('notifyInfoGuard', () => {

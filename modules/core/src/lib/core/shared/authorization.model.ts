@@ -10,8 +10,10 @@ import {
   typedObject,
 } from '../cache';
 import { RemoteData } from '../data';
-import { EPerson } from '../eperson';
-import { EPERSON } from '../eperson';
+import {
+  EPERSON,
+  EPerson,
+} from '../eperson';
 import { AUTHORIZATION } from './authorization.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { Feature } from './feature.model';

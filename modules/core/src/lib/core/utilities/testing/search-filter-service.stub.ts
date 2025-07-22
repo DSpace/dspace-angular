@@ -8,8 +8,10 @@ import {
   SortDirection,
   SortOptions,
 } from '../../cache';
-import { PaginationComponentOptions } from '../../shared';
-import { SearchFilterConfig } from '../../shared';
+import {
+  PaginationComponentOptions,
+  SearchFilterConfig,
+} from '../../shared';
 
 /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
 /**

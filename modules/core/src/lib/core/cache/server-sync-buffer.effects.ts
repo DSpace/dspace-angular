@@ -39,9 +39,11 @@ import {
 } from '../config';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { PatchRequest } from '../data';
-import { RequestService } from '../data';
-import { RestRequestMethod } from '../data';
+import {
+  PatchRequest,
+  RequestService,
+  RestRequestMethod,
+} from '../data';
 import { NoOpAction } from '../shared';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheEntry } from './object-cache.reducer';

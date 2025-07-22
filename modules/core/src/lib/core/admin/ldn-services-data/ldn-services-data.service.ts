@@ -6,20 +6,39 @@ import {
   take,
 } from 'rxjs/operators';
 
-
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../../cache';
 import {
   ChangeAnalyzer,
-  CreateData, CreateDataImpl,
-  DeleteData, DeleteDataImpl,
-  FindAllData, FindAllDataImpl, FindListOptions, FollowLinkConfig,
+  CreateData,
+  CreateDataImpl,
+  DeleteData,
+  DeleteDataImpl,
+  FindAllData,
+  FindAllDataImpl,
+  FindListOptions,
+  FollowLinkConfig,
   IdentifiableDataService,
-  LdnServiceConstrain, MultipartPostRequest, PaginatedList,
-  PatchData, PatchDataImpl, RemoteData, RequestService, RestRequest, RestRequestMethod, SearchDataImpl
+  LdnService,
+  LdnServiceConstrain,
+  MultipartPostRequest,
+  PaginatedList,
+  PatchData,
+  PatchDataImpl,
+  RemoteData,
+  RequestService,
+  RestRequest,
+  RestRequestMethod,
+  SearchDataImpl,
 } from '../../data';
-import { LdnService } from '../../data';
-import { ObjectCacheService, RemoteDataBuildService, RequestParam } from '../../cache';
-import { HALEndpointService, NoContent } from '../../shared';
 import { NotificationsService } from '../../notifications';
+import {
+  HALEndpointService,
+  NoContent,
+} from '../../shared';
 import { URLCombiner } from '../../url-combiner';
 
 /**

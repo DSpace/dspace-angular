@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { FindListOptions } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
-import { HALEndpointService } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
+import {
+  FindListOptions,
+  RemoteData,
+  RequestService,
+} from '../data';
+import {
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+} from '../shared';
 import { PoolTask } from './models';
 import { TasksService } from './tasks.service';
 

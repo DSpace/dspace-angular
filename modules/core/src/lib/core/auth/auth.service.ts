@@ -37,29 +37,21 @@ import {
   AppConfig,
 } from '../config';
 import { CoreState } from '../core-state.model';
-import { followLink } from '../data';
-import {
+import { followLink ,
   buildPaginatedList,
   PaginatedList,
-} from '../data';
-import { RemoteData } from '../data';
+, RemoteData } from '../data';
 import { HttpOptions } from '../dspace-rest';
-import { EPersonDataService } from '../eperson';
-import { EPerson } from '../eperson';
-import { Group } from '../eperson';
+import { EPersonDataService , EPerson , Group } from '../eperson';
 import { NotificationsService } from '../notifications';
-import { CookieService } from '../services';
-import { HardRedirectService } from '../services';
-import { RouteService } from '../services';
-import {
+import { CookieService , HardRedirectService , RouteService ,
   NativeWindowRef,
   NativeWindowService,
 } from '../services';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-} from '../shared';
-import { PageInfo } from '../shared';
+ PageInfo } from '../shared';
 import {
   REQUEST,
   RESPONSE,
@@ -75,9 +67,7 @@ import {
   UnsetUserAsIdleAction,
 } from './auth.actions';
 import { AuthRequestService } from './auth-request.service';
-import { AuthMethod } from './models';
-import { AuthStatus } from './models';
-import {
+import { AuthMethod , AuthStatus ,
   AuthTokenInfo,
   TOKENITEM,
 } from './models';

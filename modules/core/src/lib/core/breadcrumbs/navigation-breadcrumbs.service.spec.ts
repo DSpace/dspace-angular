@@ -3,9 +3,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
+
 import { Breadcrumb } from './breadcrumb.model';
 import { BREADCRUMB_MESSAGE_POSTFIX } from './i18n-breadcrumbs.service';
+import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
 
 describe('NavigationBreadcrumbsService', () => {
   let service: NavigationBreadcrumbsService;

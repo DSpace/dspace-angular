@@ -18,13 +18,15 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { HALEndpointService } from '../../shared';
+import {
+  CacheableObject,
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
+  HALEndpointService,
 } from '../../shared';
 import { ChangeAnalyzer } from '../change-analyzer';
 import { RemoteData } from '../remote-data';

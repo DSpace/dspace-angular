@@ -5,20 +5,30 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { link } from '../../cache';
-import { CacheableObject } from '../../cache';
+import {
+  CacheableObject,
+  link,
+} from '../../cache';
 import { SubmissionDefinitionsModel } from '../../config';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { EPerson } from '../../eperson';
-import { EPERSON } from '../../eperson';
-import { Collection } from '../../shared';
-import { COLLECTION } from '../../shared';
-import { DSpaceObject } from '../../shared';
-import { HALLink } from '../../shared';
-import { ITEM } from '../../shared';
-import { SupervisionOrder } from '../../supervision-order';
-import { SUPERVISION_ORDER } from '../../supervision-order';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../../data';
+import {
+  EPERSON,
+  EPerson,
+} from '../../eperson';
+import {
+  COLLECTION,
+  Collection,
+  DSpaceObject,
+  HALLink,
+  ITEM,
+} from '../../shared';
+import {
+  SUPERVISION_ORDER,
+  SupervisionOrder,
+} from '../../supervision-order';
 import { excludeFromEquals } from '../../utilities';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 

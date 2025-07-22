@@ -29,18 +29,20 @@ import {
 } from 'rxjs/operators';
 
 import {
+  CacheableObject,
   getLinkDefinition,
   LinkDefinition,
+  ObjectCacheEntry,
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
 } from '../../cache';
-import { RemoteDataBuildService } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { RequestParam } from '../../cache';
-import { ObjectCacheEntry } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { GenericConstructor } from '../../shared';
-import { HALEndpointService } from '../../shared';
-import { HALLink } from '../../shared';
-import { getFirstCompletedRemoteData } from '../../shared';
+import {
+  GenericConstructor,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  HALLink,
+} from '../../shared';
 import { URLCombiner } from '../../url-combiner';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../follow-link-config.model';

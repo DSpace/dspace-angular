@@ -3,10 +3,14 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { HALLink } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  CacheableObject,
+  typedObject,
+} from '../../cache';
+import {
+  HALLink,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { ORCID_HISTORY } from './orcid-history.resource-type';
 

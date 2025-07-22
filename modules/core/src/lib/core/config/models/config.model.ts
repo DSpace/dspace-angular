@@ -4,8 +4,10 @@ import {
 } from 'cerialize';
 
 import { CacheableObject } from '../../cache';
-import { HALLink } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  HALLink,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 
 export abstract class ConfigObject implements CacheableObject {

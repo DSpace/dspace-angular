@@ -10,8 +10,10 @@ import {
   typedObject,
 } from '../cache';
 import { RemoteData } from '../data';
-import { EPerson } from '../eperson';
-import { EPERSON } from '../eperson';
+import {
+  EPERSON,
+  EPerson,
+} from '../eperson';
 import { excludeFromEquals } from '../utilities';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';

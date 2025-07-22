@@ -5,8 +5,10 @@ import {
 } from 'cerialize';
 
 import { typedObject } from '../../cache';
-import { HALLink } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  HALLink,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { ConfigObject } from './config.model';
 import { AccessesConditionOption } from './config-accesses-conditions-options.model';

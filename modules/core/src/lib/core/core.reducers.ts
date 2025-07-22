@@ -1,23 +1,29 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import { metadataRegistryReducer } from './states';
 import { authReducer } from './auth';
-import { objectCacheReducer } from './cache';
-import { serverSyncBufferReducer } from './cache';
+import {
+  objectCacheReducer,
+  serverSyncBufferReducer,
+} from './cache';
 import { CoreState } from './core-state.model';
-import { objectUpdatesReducer } from './data';
-import { requestReducer } from './data';
+import {
+  objectUpdatesReducer,
+  requestReducer,
+} from './data';
 import { historyReducer } from './history';
 import { indexReducer } from './index';
 import { jsonPatchOperationsReducer } from './json-patch';
 import { metaTagReducer } from './metadata';
+import { notificationsReducer } from './notifications';
 import { routeReducer } from './services';
-import { bitstreamFormatReducer } from './states';
-import { correlationIdReducer } from './states';
-import { ePeopleRegistryReducer } from './states';
-import { groupRegistryReducer } from './states';
-import { nameVariantReducer } from './states';
-import { notificationsReducer } from "./notifications";
+import {
+  bitstreamFormatReducer,
+  correlationIdReducer,
+  ePeopleRegistryReducer,
+  groupRegistryReducer,
+  metadataRegistryReducer,
+  nameVariantReducer,
+} from './states';
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,

@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { ObjectCacheService } from '../cache';
-import { ParsedResponse } from '../cache';
-import { BaseResponseParsingService } from '../data';
-import { ResponseParsingService } from '../data';
-import { RestRequest } from '../data';
+import {
+  ObjectCacheService,
+  ParsedResponse,
+} from '../cache';
+import {
+  BaseResponseParsingService,
+  ResponseParsingService,
+  RestRequest,
+} from '../data';
 import { RawRestResponse } from '../dspace-rest';
 
 /**

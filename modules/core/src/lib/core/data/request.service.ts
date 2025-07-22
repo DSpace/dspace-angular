@@ -32,15 +32,17 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { ObjectCacheEntry } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { CommitSSBAction } from '../cache';
+import {
+  CommitSSBAction,
+  ObjectCacheEntry,
+  ObjectCacheService,
+} from '../cache';
 import { APP_CONFIG } from '../config';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { IndexState } from '../index';
 import {
   getUrlWithoutEmbedParams,
+  IndexState,
   requestIndexSelector,
 } from '../index';
 import { UUIDService } from '../shared';

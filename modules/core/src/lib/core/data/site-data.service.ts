@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { HALEndpointService } from '../shared';
-import { getFirstSucceededRemoteData } from '../shared';
-import { Site } from '../shared';
-import { BaseDataService } from './base';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
+import {
+  getFirstSucceededRemoteData,
+  HALEndpointService,
+  Site,
+} from '../shared';
+import {
+  BaseDataService,
   FindAllData,
   FindAllDataImpl,
 } from './base';

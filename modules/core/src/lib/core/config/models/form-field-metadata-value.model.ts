@@ -5,8 +5,8 @@ import {
   isNotNull,
 } from '@dspace/shared/utils';
 
-import { ConfidenceType } from '../../shared';
 import {
+  ConfidenceType,
   MetadataValueInterface,
   VIRTUAL_METADATA_PREFIX,
 } from '../../shared';

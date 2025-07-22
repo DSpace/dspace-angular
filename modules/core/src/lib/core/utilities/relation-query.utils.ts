@@ -2,8 +2,10 @@ import {
   followLink,
   FollowLinkConfig,
 } from '../data';
-import { Item } from '../shared';
-import { Relationship } from '../shared';
+import {
+  Item,
+  Relationship,
+} from '../shared';
 
 /**
  * Get the query for looking up items by relation type

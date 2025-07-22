@@ -10,11 +10,15 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../config';
-import { FollowLinkConfig } from '../data';
-import { ItemDataService } from '../data';
-import { DSpaceObject } from '../shared';
-import { Item } from '../shared';
-import { getItemPageLinksToFollow } from '../shared';
+import {
+  FollowLinkConfig,
+  ItemDataService,
+} from '../data';
+import {
+  DSpaceObject,
+  getItemPageLinksToFollow,
+  Item,
+} from '../shared';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';

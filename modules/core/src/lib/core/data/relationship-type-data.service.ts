@@ -11,20 +11,24 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { HALEndpointService } from '../shared';
-import { ItemType } from '../shared';
-import { RelationshipType } from '../shared';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
+  HALEndpointService,
+  ItemType,
+  RelationshipType,
 } from '../shared';
-import { BaseDataService } from './base';
-import { FindAllDataImpl } from './base';
-import { SearchDataImpl } from './base';
+import {
+  BaseDataService,
+  FindAllDataImpl,
+  SearchDataImpl,
+} from './base';
 import {
   followLink,
   FollowLinkConfig,

@@ -11,14 +11,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { ExternalSource } from '../shared';
-import { ExternalSourceEntry } from '../shared';
-import { HALEndpointService } from '../shared';
-import { PaginatedSearchOptions } from '../shared';
-import { IdentifiableDataService } from './base';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
+import {
+  ExternalSource,
+  ExternalSourceEntry,
+  HALEndpointService,
+  PaginatedSearchOptions,
+} from '../shared';
+import {
+  IdentifiableDataService,
   SearchData,
   SearchDataImpl,
 } from './base';

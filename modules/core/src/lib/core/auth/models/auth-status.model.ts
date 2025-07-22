@@ -6,19 +6,25 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
+  IDToUUIDSerializer,
   link,
   typedObject,
 } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { IDToUUIDSerializer } from '../../cache';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { EPerson } from '../../eperson';
-import { EPERSON } from '../../eperson';
-import { Group } from '../../eperson';
-import { GROUP } from '../../eperson';
-import { HALLink } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../../data';
+import {
+  EPERSON,
+  EPerson,
+  GROUP,
+  Group,
+} from '../../eperson';
+import {
+  HALLink,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { AuthMethod } from './auth.method';
 import { AuthError } from './auth-error.model';

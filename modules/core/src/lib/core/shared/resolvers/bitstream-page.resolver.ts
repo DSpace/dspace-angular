@@ -6,12 +6,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { BitstreamDataService } from '../../data';
-import {
+import { BitstreamDataService ,
   followLink,
   FollowLinkConfig,
-} from '../../data';
-import { RemoteData } from '../../data';
+, RemoteData } from '../../data';
 import { Bitstream } from '../bitstream.model';
 import { getFirstCompletedRemoteData } from '../operators';
 

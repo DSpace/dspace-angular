@@ -273,7 +273,9 @@
       "parserOptions": {
         "project": [
           "./tsconfig.json",
-          "./cypress/tsconfig.json"
+          "./cypress/tsconfig.json",
+          "./modules/core/tsconfig.json",
+          "./modules/utils/tsconfig.json"
         ],
         "createDefaultProgram": true
       },

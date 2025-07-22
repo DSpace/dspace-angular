@@ -6,18 +6,26 @@ import {
 } from '@dspace/shared/utils';
 import { deepClone } from 'fast-json-patch';
 
-import { FormFieldMetadataValueObject } from '../config';
-import { ObjectCacheService } from '../cache';
-import { ParsedResponse } from '../cache';
-import { ConfigObject } from '../config';
-import { BaseResponseParsingService } from '../data';
-import { DSOResponseParsingService } from '../data';
-import { ResponseParsingService } from '../data';
-import { RestRequest } from '../data';
+import {
+  ObjectCacheService,
+  ParsedResponse,
+} from '../cache';
+import {
+  ConfigObject,
+  FormFieldMetadataValueObject,
+} from '../config';
+import {
+  BaseResponseParsingService,
+  DSOResponseParsingService,
+  ResponseParsingService,
+  RestRequest,
+} from '../data';
 import { RawRestResponse } from '../dspace-rest';
-import { SubmissionObject } from './models';
-import { WorkflowItem } from './models';
-import { WorkspaceItem } from './models';
+import {
+  SubmissionObject,
+  WorkflowItem,
+  WorkspaceItem,
+} from './models';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject

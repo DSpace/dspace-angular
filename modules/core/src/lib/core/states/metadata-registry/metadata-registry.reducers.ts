@@ -1,5 +1,7 @@
-import { MetadataField } from '../../metadata';
-import { MetadataSchema } from '../../metadata';
+import {
+  MetadataField,
+  MetadataSchema,
+} from '../../metadata';
 import {
   MetadataRegistryAction,
   MetadataRegistryActionTypes,

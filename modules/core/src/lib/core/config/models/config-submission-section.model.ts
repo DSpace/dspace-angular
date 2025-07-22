@@ -4,13 +4,13 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import {
-  SectionScope,
-  SectionVisibility,
-} from '../../submission';
-import { SectionsType } from '../../submission';
 import { typedObject } from '../../cache';
 import { HALLink } from '../../shared';
+import {
+  SectionScope,
+  SectionsType,
+  SectionVisibility,
+} from '../../submission';
 import { ConfigObject } from './config.model';
 import { SUBMISSION_SECTION_TYPE } from './config-type';
 

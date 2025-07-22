@@ -8,15 +8,19 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { Bitstream } from '../shared';
-import { Bundle } from '../shared';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { PaginatedSearchOptions } from '../shared';
-import { IdentifiableDataService } from './base';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
+import {
+  Bitstream,
+  Bundle,
+  HALEndpointService,
+  Item,
+  PaginatedSearchOptions,
+} from '../shared';
+import {
+  IdentifiableDataService,
   PatchData,
   PatchDataImpl,
 } from './base';

@@ -23,11 +23,15 @@ import {
 
 import { RemoteDataBuildService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { RemoteData } from '../data';
-import { PatchRequest } from '../data';
-import { RequestService } from '../data';
-import { HALEndpointService } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import {
+  PatchRequest,
+  RemoteData,
+  RequestService,
+} from '../data';
+import {
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+} from '../shared';
 import { JsonPatchOperationModel } from './json-patch.model';
 import {
   CommitPatchOperationsAction,

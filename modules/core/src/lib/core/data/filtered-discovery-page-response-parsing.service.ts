@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { ObjectCacheService } from '../cache';
 import {
   FilteredDiscoveryQueryResponse,
+  ObjectCacheService,
   RestResponse,
 } from '../cache';
 import { RawRestResponse } from '../dspace-rest';

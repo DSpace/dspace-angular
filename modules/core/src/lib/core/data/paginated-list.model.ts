@@ -9,12 +9,16 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../cache';
-import { CacheableObject } from '../cache';
-import { HALLink } from '../shared';
-import { HALResource } from '../shared';
-import { PageInfo } from '../shared';
-import { ResourceType } from '../shared';
+import {
+  CacheableObject,
+  typedObject,
+} from '../cache';
+import {
+  HALLink,
+  HALResource,
+  PageInfo,
+  ResourceType,
+} from '../shared';
 import { excludeFromEquals } from '../utilities';
 import { PAGINATED_LIST } from './paginated-list.resource-type';
 

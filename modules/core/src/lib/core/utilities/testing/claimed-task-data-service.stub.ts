@@ -4,8 +4,10 @@ import {
 } from 'rxjs';
 
 import { RemoteData } from '../../data';
-import { ClaimedTask } from '../../tasks';
-import { ProcessTaskResponse } from '../../tasks';
+import {
+  ClaimedTask,
+  ProcessTaskResponse,
+} from '../../tasks';
 
 export class ClaimedTaskDataServiceStub {
 

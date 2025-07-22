@@ -3,9 +3,9 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { BrowseByDataType } from './browse-by-data-type';
 import { typedObject } from '../cache';
 import { excludeFromEquals } from '../utilities';
+import { BrowseByDataType } from './browse-by-data-type';
 import { FLAT_BROWSE_DEFINITION } from './flat-browse-definition.resource-type';
 import { HALLink } from './hal-link.model';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';

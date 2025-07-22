@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { CoreState } from "../core-state.model";
+
+import { CoreState } from '../core-state.model';
 
 
 @Injectable()

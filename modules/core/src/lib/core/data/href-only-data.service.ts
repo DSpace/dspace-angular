@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { CacheableObject } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  CacheableObject,
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import { HALEndpointService } from '../shared';
-import { BaseDataService } from './base';
-import { HALDataService } from './base';
+import {
+  BaseDataService,
+  HALDataService,
+} from './base';
 import { FindListOptions } from './find-list-options.model';
 import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';

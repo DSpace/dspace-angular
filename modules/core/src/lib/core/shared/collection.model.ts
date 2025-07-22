@@ -9,10 +9,14 @@ import {
   link,
   typedObject,
 } from '../cache';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { ResourcePolicy } from '../resource-policy';
-import { RESOURCE_POLICY } from '../resource-policy';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../data';
+import {
+  RESOURCE_POLICY,
+  ResourcePolicy,
+} from '../resource-policy';
 import { excludeFromEquals } from '../utilities';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';

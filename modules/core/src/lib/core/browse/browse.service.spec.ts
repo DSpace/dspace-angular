@@ -6,21 +6,27 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RequestService } from '../data';
-import { RequestEntry } from '../data';
-
-import { FlatBrowseDefinition } from '../shared';
-import { HierarchicalBrowseDefinition } from '../shared';
-import { ValueListBrowseDefinition } from '../shared';
+import {
+  RequestEntry,
+  RequestService,
+} from '../data';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import {
+  FlatBrowseDefinition,
+  HierarchicalBrowseDefinition,
+  ValueListBrowseDefinition,
+} from '../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
-import { BrowseService } from './browse.service';
 import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
-import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../utilities/testing/utils.test';
-import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
+import {
+  createPaginatedList,
+  getFirstUsedArgumentOfSpyMethod,
+} from '../utilities/testing/utils.test';
+import { BrowseService } from './browse.service';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 describe('BrowseService', () => {

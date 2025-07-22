@@ -8,24 +8,15 @@ import {
 } from 'rxjs/operators';
 
 import { RequestParam } from '../../cache';
-import { FindListOptions } from '../../data';
-import {
+import { FindListOptions ,
   followLink,
   FollowLinkConfig,
-} from '../../data';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { RequestService } from '../../data';
+, PaginatedList , RemoteData , RequestService } from '../../data';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
-} from '../../shared';
-import { PageInfo } from '../../shared';
-import { Vocabulary } from './models';
-import { VocabularyEntry } from './models';
-import { VocabularyEntryDetail } from './models';
-import { VocabularyFindOptions } from './models';
-import { VocabularyOptions } from './models';
+ PageInfo } from '../../shared';
+import { Vocabulary , VocabularyEntry , VocabularyEntryDetail , VocabularyFindOptions , VocabularyOptions } from './models';
 import { VocabularyDataService } from './vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 

@@ -4,9 +4,9 @@ import {
   hasValue,
 } from '@dspace/shared/utils';
 
-import { ObjectCacheService } from '../cache';
 import {
   DSOSuccessResponse,
+  ObjectCacheService,
   RestResponse,
 } from '../cache';
 import { RawRestResponse } from '../dspace-rest';

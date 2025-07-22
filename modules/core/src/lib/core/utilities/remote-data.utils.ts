@@ -4,8 +4,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteData } from '../data';
-import { RequestEntryState } from '../data';
+import {
+  RemoteData,
+  RequestEntryState,
+} from '../data';
 
 /**
  * A fixed timestamp to use in tests

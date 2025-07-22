@@ -17,19 +17,23 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../data';
-import { RemoteData } from '../data';
-import { ResearcherProfile } from '../profile';
-import { ResearcherProfileDataService } from '../profile';
+import {
+  ConfigurationDataService,
+  RemoteData,
+} from '../data';
+import {
+  ResearcherProfile,
+  ResearcherProfileDataService,
+} from '../profile';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services';
-import { ConfigurationProperty } from '../shared';
-import { Item } from '../shared';
 import {
+  ConfigurationProperty,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
+  Item,
 } from '../shared';
 import { URLCombiner } from '../url-combiner';
 

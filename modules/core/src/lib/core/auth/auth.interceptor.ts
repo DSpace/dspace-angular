@@ -32,10 +32,12 @@ import {
 import { CoreState } from '../core-state.model';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
 import { AuthService } from './auth.service';
-import { AuthMethod } from './models';
-import { AuthMethodType } from './models';
-import { AuthStatus } from './models';
-import { AuthTokenInfo } from './models';
+import {
+  AuthMethod,
+  AuthMethodType,
+  AuthStatus,
+  AuthTokenInfo,
+} from './models';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

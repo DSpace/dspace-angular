@@ -11,11 +11,15 @@ import {
 } from 'rxjs/operators';
 
 import { LinkService } from '../cache';
-import { followLink } from '../data';
-import { RemoteData } from '../data';
+import {
+  followLink,
+  RemoteData,
+} from '../data';
 import { getDSpaceObjectRoute } from '../router';
-import { ChildHALResource } from '../shared';
-import { DSpaceObject } from '../shared';
+import {
+  ChildHALResource,
+  DSpaceObject,
+} from '../shared';
 import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';

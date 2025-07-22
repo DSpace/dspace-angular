@@ -23,10 +23,14 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { MetadataField } from '../metadata';
-import { MetadataSchema } from '../metadata';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../data';
+import {
+  MetadataField,
+  MetadataSchema,
+} from '../metadata';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { SearchResult } from './search';

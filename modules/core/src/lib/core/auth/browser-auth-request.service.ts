@@ -5,8 +5,10 @@ import {
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache';
-import { PostRequest } from '../data';
-import { RequestService } from '../data';
+import {
+  PostRequest,
+  RequestService,
+} from '../data';
 import { HALEndpointService } from '../shared';
 import { AuthRequestService } from './auth-request.service';
 

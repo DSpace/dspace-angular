@@ -1,6 +1,8 @@
-import { GenericConstructor } from '../shared';
-import { Item } from '../shared';
-import { SearchResult } from '../shared';
+import {
+  GenericConstructor,
+  Item,
+  SearchResult,
+} from '../shared';
 import { inheritEquatable } from '../utilities';
 import { ListableObject } from './listable-object.model';
 

@@ -20,6 +20,25 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { RequestParam } from '../cache';
+import { CoreState } from '../core-state.model';
+import {
+  FindListOptions,
+  FollowLinkConfig,
+  MetadataFieldDataService,
+  MetadataSchemaDataService,
+  PaginatedList,
+  RemoteData,
+} from '../data';
+import {
+  MetadataField,
+  MetadataSchema,
+} from '../metadata';
+import { NotificationsService } from '../notifications';
+import {
+  getFirstSucceededRemoteDataPayload,
+  NoContent,
+} from '../shared';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -31,21 +50,8 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
+  MetadataRegistryState,
 } from '../states';
-import { MetadataRegistryState } from '../states';
-import { RequestParam } from '../cache';
-import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { MetadataFieldDataService } from '../data';
-import { MetadataSchemaDataService } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { MetadataField } from '../metadata';
-import { MetadataSchema } from '../metadata';
-import { NotificationsService } from '../notifications';
-import { NoContent } from '../shared';
-import { getFirstSucceededRemoteDataPayload } from '../shared';
 
 const metadataRegistryStateSelector = (state: any) => state.core.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);

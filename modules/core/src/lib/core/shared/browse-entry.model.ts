@@ -4,8 +4,10 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../cache';
-import { TypedObject } from '../cache';
+import {
+  TypedObject,
+  typedObject,
+} from '../cache';
 import { ListableObject } from '../object-collection';
 import { excludeFromEquals } from '../utilities';
 import { BROWSE_ENTRY } from './browse-entry.resource-type';

@@ -4,13 +4,19 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { BrowseService } from '../browse';
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { CreateDataImpl } from './base';
-import { IdentifiableDataService } from './base';
+import {
+  HALEndpointService,
+  Item,
+} from '../shared';
+import {
+  CreateDataImpl,
+  IdentifiableDataService,
+} from './base';
 import { BundleDataService } from './bundle-data.service';
 import { CollectionDataService } from './collection-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';

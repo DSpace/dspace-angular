@@ -14,14 +14,18 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { RequestParam } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { Authorization } from '../../shared';
-import { HALEndpointService } from '../../shared';
-import { getFirstCompletedRemoteData } from '../../shared';
-import { BaseDataService } from '../base';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../../cache';
+import {
+  Authorization,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+} from '../../shared';
+import {
+  BaseDataService,
   SearchData,
   SearchDataImpl,
 } from '../base';

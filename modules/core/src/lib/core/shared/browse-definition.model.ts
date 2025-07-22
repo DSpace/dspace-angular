@@ -3,8 +3,8 @@ import {
   autoserializeAs,
 } from 'cerialize';
 
-import { BrowseByDataType } from './browse-by-data-type';
 import { CacheableObject } from '../cache';
+import { BrowseByDataType } from './browse-by-data-type';
 
 /**
  * Base class for BrowseDefinition models

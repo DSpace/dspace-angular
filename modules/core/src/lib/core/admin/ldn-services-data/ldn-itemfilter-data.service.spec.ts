@@ -4,18 +4,19 @@ import {
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { LdnItemfiltersService } from './ldn-itemfilters-data.service';
-import { RequestService } from '../../data/request.service';
+
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestEntry } from '../../data/request-entry.model';
-import { RemoteData } from '../../data/remote-data';
-import { RequestEntryState } from '../../data/request-entry-state.model';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
-import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
 import { RestResponse } from '../../cache/response.models';
+import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { RequestEntryState } from '../../data/request-entry-state.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { LdnItemfiltersService } from './ldn-itemfilters-data.service';
 
 
 

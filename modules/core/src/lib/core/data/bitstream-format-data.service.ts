@@ -11,31 +11,33 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { NotificationsService } from '../notifications';
-import { Bitstream } from '../shared';
-import { BitstreamFormat } from '../shared';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
-import { sendRequest } from '../shared';
 import {
+  Bitstream,
+  BitstreamFormat,
+  HALEndpointService,
+  NoContent,
+  sendRequest,
+} from '../shared';
+import {
+  BitstreamFormatRegistryState,
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
 } from '../states';
-import { BitstreamFormatRegistryState } from '../states';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './base';
-import {
   FindAllData,
   FindAllDataImpl,
+  IdentifiableDataService,
 } from './base';
-import { IdentifiableDataService } from './base';
 import { FindListOptions } from './find-list-options.model';
 import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';

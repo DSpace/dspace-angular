@@ -2,22 +2,25 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { LinkService } from '../cache';
-
-import { getDSpaceObjectRoute } from '../router';
-import { Collection } from '../shared';
-import { Community } from '../shared';
-import { DSpaceObject } from '../shared';
-import { Item } from '../shared';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { getMockLinkService } from '../mocks/link-service.mock';
-import { DSONameService } from './dso-name.service';
+import { getDSpaceObjectRoute } from '../router';
+import {
+  Collection,
+  Community,
+  DSpaceObject,
+  Item,
+} from '../shared';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { Breadcrumb } from './breadcrumb.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { DSONameService } from './dso-name.service';
 
 
 describe('DSOBreadcrumbsService', () => {

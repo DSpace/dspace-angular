@@ -2,8 +2,8 @@
 
 export * from './bitstream-breadcrumb.resolver';
 export * from './bitstream-breadcrumbs.service';
-export * from './breadcrumb-config.model';
 export * from './breadcrumb.model';
+export * from './breadcrumb-config.model';
 export * from './breadcrumbsProviderService';
 export * from './collection-breadcrumb.resolver';
 export * from './community-breadcrumb.resolver';

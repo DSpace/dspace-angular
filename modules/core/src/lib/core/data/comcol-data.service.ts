@@ -16,37 +16,33 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import { NotificationsService } from '../notifications';
-import { Bitstream } from '../shared';
-import { Collection } from '../shared';
-import { Community } from '../shared';
-import { HALEndpointService } from '../shared';
-import { HALLink } from '../shared';
-import { NoContent } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import {
+  Bitstream,
+  Collection,
+  Community,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  HALLink,
+  NoContent,
+} from '../shared';
 import { URLCombiner } from '../url-combiner';
 import { createFailedRemoteDataObject$ } from '../utilities';
 import {
   CreateData,
   CreateDataImpl,
-} from './base';
-import {
   DeleteData,
   DeleteDataImpl,
-} from './base';
-import {
   FindAllData,
   FindAllDataImpl,
-} from './base';
-import { IdentifiableDataService } from './base';
-import {
+  IdentifiableDataService,
   PatchData,
   PatchDataImpl,
-} from './base';
-import {
   SearchData,
   SearchDataImpl,
 } from './base';

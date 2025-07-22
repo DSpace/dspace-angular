@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 
-import { getClassForType } from '../cache';
-import { CacheableObject } from '../cache';
-import { ParsedResponse } from '../cache';
+import {
+  CacheableObject,
+  getClassForType,
+  ParsedResponse,
+} from '../cache';
 import { RawRestResponse } from '../dspace-rest';
-import { DSpaceObject } from '../shared';
-import { GenericConstructor } from '../shared';
+import {
+  DSpaceObject,
+  GenericConstructor,
+} from '../shared';
 import {
   DspaceRestResponseParsingService,
   isCacheableObject,

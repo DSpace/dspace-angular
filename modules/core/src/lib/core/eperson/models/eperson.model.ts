@@ -8,12 +8,16 @@ import {
   link,
   typedObject,
 } from '../../cache';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../../data';
 import { ListableObject } from '../../object-collection';
-import { DSpaceObject } from '../../shared';
-import { GenericConstructor } from '../../shared';
-import { HALLink } from '../../shared';
+import {
+  DSpaceObject,
+  GenericConstructor,
+  HALLink,
+} from '../../shared';
 import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
 import { GROUP } from './group.resource-type';

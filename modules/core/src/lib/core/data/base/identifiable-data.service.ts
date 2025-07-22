@@ -12,9 +12,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { ObjectCacheService } from '../../cache';
+import {
+  CacheableObject,
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
 import { HALEndpointService } from '../../shared';
 import { FollowLinkConfig } from '../follow-link-config.model';
 import { RemoteData } from '../remote-data';

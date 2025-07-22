@@ -5,17 +5,21 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
   link,
   typedObject,
 } from '../cache';
-import { CacheableObject } from '../cache';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../data';
 import { excludeFromEquals } from '../utilities';
 import { EXTERNAL_SOURCE } from './external-source.resource-type';
 import { HALLink } from './hal-link.model';
-import { ItemType } from './item-relationships';
-import { ITEM_TYPE } from './item-relationships';
+import {
+  ITEM_TYPE,
+  ItemType,
+} from './item-relationships';
 import { ResourceType } from './resource-type';
 
 /**

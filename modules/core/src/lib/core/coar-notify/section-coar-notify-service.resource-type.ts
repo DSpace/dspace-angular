@@ -5,7 +5,7 @@
  * dependencies in webpack.
  */
 
-import { ResourceType } from "../shared/resource-type";
+import { ResourceType } from '../shared/resource-type';
 
 
 

@@ -5,13 +5,17 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
+import {
+  CacheableObject,
+  typedObject,
+} from '../cache';
+import {
+  HALLink,
+  ResourceType,
+} from '../shared';
+import { excludeFromEquals } from '../utilities';
 import { NOTIFYREQUEST } from './notify-requests-status.resource-type';
 import { RequestStatusEnum } from './notify-status.enum';
-import { typedObject } from '../cache';
-import { CacheableObject } from '../cache';
-import { HALLink } from '../shared';
-import { ResourceType } from '../shared';
-import { excludeFromEquals } from '../utilities';
 
 /**
  * Represents the status of notify requests for an item.

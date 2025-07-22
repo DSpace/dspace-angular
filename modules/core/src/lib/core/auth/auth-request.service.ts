@@ -10,20 +10,14 @@ import {
 } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../cache';
-import { FollowLinkConfig } from '../data';
-import { RemoteData } from '../data';
-import {
+import { FollowLinkConfig , RemoteData ,
   GetRequest,
   PostRequest,
-} from '../data';
-import { RequestService } from '../data';
-import { RestRequest } from '../data';
+, RequestService , RestRequest } from '../data';
 import { HttpOptions } from '../dspace-rest';
-import { HALEndpointService } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import { HALEndpointService , getFirstCompletedRemoteData } from '../shared';
 import { URLCombiner } from '../url-combiner';
-import { AuthStatus } from './models';
-import { ShortLivedToken } from './models';
+import { AuthStatus , ShortLivedToken } from './models';
 
 /**
  * Abstract service to send authentication requests

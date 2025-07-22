@@ -25,35 +25,33 @@ import {
 } from 'rxjs/operators';
 
 import { BrowseService } from '../browse';
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import { HttpOptions } from '../dspace-rest';
 import { NotificationsService } from '../notifications';
-import { Bundle } from '../shared';
-import { Collection } from '../shared';
-import { ExternalSourceEntry } from '../shared';
-import { GenericConstructor } from '../shared';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { MetadataMap } from '../shared';
-import { NoContent } from '../shared';
-import { PaginatedSearchOptions } from '../shared';
-import { sendRequest } from '../shared';
+import {
+  Bundle,
+  Collection,
+  ExternalSourceEntry,
+  GenericConstructor,
+  HALEndpointService,
+  Item,
+  MetadataMap,
+  NoContent,
+  PaginatedSearchOptions,
+  sendRequest,
+} from '../shared';
 import { URLCombiner } from '../url-combiner';
 import {
+  ConstructIdEndpoint,
   CreateData,
   CreateDataImpl,
-} from './base';
-import {
   DeleteData,
   DeleteDataImpl,
-} from './base';
-import {
-  ConstructIdEndpoint,
   IdentifiableDataService,
-} from './base';
-import {
   PatchData,
   PatchDataImpl,
 } from './base';

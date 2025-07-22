@@ -1,5 +1,7 @@
-import { HALLink } from '../shared';
-import { UnCacheableObject } from '../shared';
+import {
+  HALLink,
+  UnCacheableObject,
+} from '../shared';
 
 /**
  * The response substate in the NgRx store

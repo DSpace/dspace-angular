@@ -5,11 +5,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { PaginatedSearchOptions } from '../../shared';
-import { SearchOptions } from '../../shared';
 import {
   FilterConfig,
+  PaginatedSearchOptions,
   SearchConfig,
+  SearchOptions,
 } from '../../shared';
 
 /**

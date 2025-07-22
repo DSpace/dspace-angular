@@ -46,24 +46,26 @@ import {
 } from '../config';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { BundleDataService } from '../data';
-import { AuthorizationDataService } from '../data';
-import { FindListOptions } from '../data';
-import { followLink } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { RootDataService } from '../data';
+import {
+  AuthorizationDataService,
+  BundleDataService,
+  FindListOptions,
+  followLink,
+  PaginatedList,
+  RemoteData,
+  RootDataService,
+} from '../data';
 import { getBitstreamDownloadRoute } from '../router';
 import { HardRedirectService } from '../services';
-import { Bitstream } from '../shared';
-import { getDownloadableBitstream } from '../shared';
-import { BitstreamFormat } from '../shared';
-import { Bundle } from '../shared';
-import { DSpaceObject } from '../shared';
-import { Item } from '../shared';
 import {
+  Bitstream,
+  BitstreamFormat,
+  Bundle,
+  DSpaceObject,
+  getDownloadableBitstream,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
+  Item,
 } from '../shared';
 import { URLCombiner } from '../url-combiner';
 import {

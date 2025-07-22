@@ -13,13 +13,25 @@ import {
   tap,
 } from 'rxjs/operators';
 
-
-import { IdentifiableDataService, ItemDataService, PostRequest, RequestService, RestRequest } from '../../data';
-import { ObjectCacheService, RemoteDataBuildService } from '../../cache';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, HALEndpointService } from '../../shared';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
+import {
+  IdentifiableDataService,
+  ItemDataService,
+  PostRequest,
+  RequestService,
+  RestRequest,
+} from '../../data';
 import { NotificationsService } from '../../notifications';
-import { AdminNotifyMessage } from './models/admin-notify-message.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+} from '../../shared';
 import { LdnServicesService } from '../ldn-services-data';
+import { AdminNotifyMessage } from './models/admin-notify-message.model';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.

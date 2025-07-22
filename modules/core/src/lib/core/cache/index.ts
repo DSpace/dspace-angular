@@ -1,10 +1,10 @@
 // created from 'create-ts-index'
 
 export * from './builders';
-export * from './models';
 export * from './cache-entry';
 export * from './cacheable-object.model';
 export * from './id-to-uuid-serializer';
+export * from './models';
 export * from './object-cache.actions';
 export * from './object-cache.effects';
 export * from './object-cache.reducer';

@@ -13,28 +13,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { CacheableObject } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { IdentifiableDataService } from '../data';
-import {
+import { RemoteDataBuildService , CacheableObject , ObjectCacheService } from '../cache';
+import { IdentifiableDataService ,
   SearchData,
   SearchDataImpl,
-} from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import {
+, FindListOptions , FollowLinkConfig , PaginatedList , RemoteData ,
   DeleteRequest,
   PostRequest,
   TaskDeleteRequest,
-  TaskPostRequest,
-} from '../data';
-import { RequestService } from '../data';
+  TaskPostRequest, RequestService } from '../data';
 import { HttpOptions } from '../dspace-rest';
-import { HALEndpointService } from '../shared';
-import {
+import { HALEndpointService ,
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../shared';

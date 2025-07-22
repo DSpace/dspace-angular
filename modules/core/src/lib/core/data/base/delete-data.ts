@@ -12,12 +12,16 @@ import {
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { ObjectCacheService } from '../../cache';
+import {
+  CacheableObject,
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
 import { NotificationsService } from '../../notifications';
-import { HALEndpointService } from '../../shared';
-import { NoContent } from '../../shared';
+import {
+  HALEndpointService,
+  NoContent,
+} from '../../shared';
 import { RemoteData } from '../remote-data';
 import { DeleteRequest } from '../request.models';
 import { RequestService } from '../request.service';

@@ -16,53 +16,30 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import { RemoteDataBuildService , RequestParam , ObjectCacheService } from '../cache';
 import {
   CreateData,
   CreateDataImpl,
-} from '../data';
-import {
+
   DeleteData,
-  DeleteDataImpl,
-} from '../data';
-import { IdentifiableDataService } from '../data';
-import {
+  DeleteDataImpl, IdentifiableDataService ,
   PatchData,
   PatchDataImpl,
-} from '../data';
-import {
   SearchData,
-  SearchDataImpl,
-} from '../data';
-import { DSOChangeAnalyzer } from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import {
+  SearchDataImpl, DSOChangeAnalyzer , FindListOptions , FollowLinkConfig ,
   buildPaginatedList,
-  PaginatedList,
-} from '../data';
-import { RemoteData } from '../data';
-import {
+  PaginatedList, RemoteData ,
   PatchRequest,
-  PostRequest,
-} from '../data';
-import { RequestService } from '../data';
-import { RestRequestMethod } from '../data';
+  PostRequest, RequestService , RestRequestMethod } from '../data';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
-import {
+import { HALEndpointService , NoContent ,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../shared';
-import { PageInfo } from '../shared';
+, PageInfo } from '../shared';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
-} from '../states';
-import { EPeopleRegistryState } from '../states';
+ EPeopleRegistryState } from '../states';
 import { URLCombiner } from '../url-combiner';
 import { EPerson } from './models';
 

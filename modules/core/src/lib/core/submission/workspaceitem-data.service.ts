@@ -11,30 +11,32 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import { CoreState } from '../core-state.model';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../data';
-import { IdentifiableDataService } from '../data';
-import {
+  DSOChangeAnalyzer,
+  FindListOptions,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  PaginatedList,
+  PostRequest,
+  RemoteData,
+  RequestService,
   SearchData,
   SearchDataImpl,
 } from '../data';
-import { DSOChangeAnalyzer } from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { PostRequest } from '../data';
-import { RequestService } from '../data';
 import { HttpOptions } from '../dspace-rest';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
+import {
+  HALEndpointService,
+  NoContent,
+} from '../shared';
 import { WorkspaceItem } from './models';
 
 /**

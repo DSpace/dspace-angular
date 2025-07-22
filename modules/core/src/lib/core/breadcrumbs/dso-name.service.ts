@@ -5,8 +5,10 @@ import {
 } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../shared';
-import { Metadata } from '../shared';
+import {
+  DSpaceObject,
+  Metadata,
+} from '../shared';
 
 /**
  * Returns a name for a {@link DSpaceObject} based

@@ -5,19 +5,21 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { RemoteDataBuildService } from '../cache';
-import { RemoteData } from '../data';
-import { PostRequest } from '../data';
-import { RequestService } from '../data';
-import { RestRequestMethod } from '../data';
-
+import {
+  PostRequest,
+  RemoteData,
+  RequestService,
+  RestRequestMethod,
+} from '../data';
 import { HALEndpointService } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
-
-import { AuthStatus } from './models';
-import { ShortLivedToken } from './models';
+import {
+  AuthStatus,
+  ShortLivedToken,
+} from './models';
 import objectContaining = jasmine.objectContaining;
-import { AuthRequestService } from './auth-request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { AuthRequestService } from './auth-request.service';
 
 describe(`AuthRequestService`, () => {
   let halService: HALEndpointService;

@@ -31,9 +31,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import { RemoteDataBuildService , RequestParam , ObjectCacheService } from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
@@ -41,44 +39,26 @@ import {
 import { CoreState } from '../core-state.model';
 import { HttpOptions } from '../dspace-rest';
 import { MetadataService } from '../metadata';
-import { DSpaceObject } from '../shared';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import {
+import { DSpaceObject , HALEndpointService , Item ,
   compareArraysUsingIds,
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems,
-} from '../shared';
-import { Relationship } from '../shared';
-import { RelationshipType } from '../shared';
-import { ReorderableRelationship } from '../shared';
-import { MetadataValue } from '../shared';
-import { ItemMetadataRepresentation } from '../shared';
-import { MetadataRepresentation } from '../shared';
-import { MetadatumRepresentation } from '../shared';
-import { NoContent } from '../shared';
-import {
+, Relationship , RelationshipType , ReorderableRelationship , MetadataValue , ItemMetadataRepresentation , MetadataRepresentation , MetadatumRepresentation , NoContent ,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../shared';
-import { sendRequest } from '../shared';
+  getRemoteDataPayload, sendRequest } from '../shared';
 import {
   RemoveNameVariantAction,
   SetNameVariantAction,
-} from '../states';
-import { NameVariantListState } from '../states';
+ NameVariantListState } from '../states';
 import { itemLinksToFollow } from '../utilities';
-import { IdentifiableDataService } from './base';
-import {
+import { IdentifiableDataService ,
   PutData,
   PutDataImpl,
-} from './base';
-import {
+,
   SearchData,
-  SearchDataImpl,
-} from './base';
+  SearchDataImpl} from './base';
 import { FindListOptions } from './find-list-options.model';
 import {
   followLink,

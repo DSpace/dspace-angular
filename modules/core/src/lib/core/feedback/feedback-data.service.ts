@@ -2,21 +2,23 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import {
   CreateData,
   CreateDataImpl,
+  IdentifiableDataService,
+  RemoteData,
+  RequestService,
 } from '../data';
-import { IdentifiableDataService } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
+  HALEndpointService,
 } from '../shared';
 import { Feedback } from './models';
 

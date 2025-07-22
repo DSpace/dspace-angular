@@ -15,9 +15,9 @@ import {
 import {
   INotification,
   Notification,
+  NotificationOptions,
+  NotificationType,
 } from './models';
-import { NotificationOptions } from './models';
-import { NotificationType } from './models';
 import {
   NewNotificationAction,
   RemoveAllNotificationsAction,

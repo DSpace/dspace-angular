@@ -1,5 +1,5 @@
-import { AdminNotifySearchResult } from '../../admin/admin-notify-message/models/admin-notify-message-search-result.model';
 import { AdminNotifyMessage } from '../../admin/admin-notify-message/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '../../admin/admin-notify-message/models/admin-notify-message-search-result.model';
 import { ClaimedTaskSearchResult } from '../../object-collection/claimed-task-search-result.model';
 import { CollectionSearchResult } from '../../object-collection/collection-search-result.model';
 import { CommunitySearchResult } from '../../object-collection/community-search-result.model';

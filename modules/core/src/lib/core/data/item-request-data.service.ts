@@ -12,14 +12,18 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import { HttpOptions } from '../dspace-rest';
 import { RequestCopyEmail } from '../request-copy';
-import { HALEndpointService } from '../shared';
-import { ItemRequest } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
-import { sendRequest } from '../shared';
+import {
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  ItemRequest,
+  sendRequest,
+} from '../shared';
 import { IdentifiableDataService } from './base';
 import { RemoteData } from './remote-data';
 import {

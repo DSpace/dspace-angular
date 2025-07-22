@@ -3,11 +3,16 @@ import {
   deserialize,
 } from 'cerialize';
 
-
-import { ACCESS_STATUS } from './access-status.resource-type';
-import { CacheableObject, typedObject } from '../cache';
+import {
+  CacheableObject,
+  typedObject,
+} from '../cache';
+import {
+  HALLink,
+  ResourceType,
+} from '../shared';
 import { excludeFromEquals } from '../utilities';
-import { HALLink, ResourceType } from '../shared';
+import { ACCESS_STATUS } from './access-status.resource-type';
 
 @typedObject
 export class AccessStatusObject implements CacheableObject {

@@ -24,13 +24,13 @@ import { AuthService } from '../auth';
 import {
   APP_CONFIG,
   AppConfig,
+  LangConfig,
 } from '../config';
-import { LangConfig } from '../config';
-import { CookieService } from '../services';
-import { RouteService } from '../services';
 import {
+  CookieService,
   NativeWindowRef,
   NativeWindowService,
+  RouteService,
 } from '../services';
 
 export const LANG_COOKIE = 'dsLanguage';

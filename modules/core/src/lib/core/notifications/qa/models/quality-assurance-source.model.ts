@@ -3,13 +3,18 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache';
-import { CacheableObject } from '../../../cache';
-import { HALLink, Item } from '../../../shared';
-import { ResourceType } from '../../../shared';
+import {
+  CacheableObject,
+  typedObject,
+} from '../../../cache';
+import {
+  HALLink,
+  Item,
+  ResourceType,
+} from '../../../shared';
 import { excludeFromEquals } from '../../../utilities';
+import { QualityAssuranceEventObject } from './quality-assurance-event.model';
 import { QUALITY_ASSURANCE_SOURCE_OBJECT } from './quality-assurance-source-object.resource-type';
-import { QualityAssuranceEventObject } from "./quality-assurance-event.model";
 
 /**
  * The interface representing the Quality Assurance source model

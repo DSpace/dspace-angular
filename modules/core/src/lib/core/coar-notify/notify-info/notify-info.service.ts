@@ -4,12 +4,16 @@ import {
   Observable,
 } from 'rxjs';
 
-import { ConfigurationDataService } from '../../data';
-import { AuthorizationDataService } from '../../data';
-import { FeatureID } from '../../data';
-import { RemoteData } from '../../data';
-import { ConfigurationProperty } from '../../shared';
-import { getFirstCompletedRemoteData } from '../../shared';
+import {
+  AuthorizationDataService,
+  ConfigurationDataService,
+  FeatureID,
+  RemoteData,
+} from '../../data';
+import {
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+} from '../../shared';
 
 /**
  * Service to check COAR availability and LDN services information for the COAR Notify functionalities

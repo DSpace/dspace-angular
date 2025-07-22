@@ -14,22 +14,28 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { DSpaceSerializer } from '../dspace-rest';
-import { HttpOptions } from '../dspace-rest';
-import { INotification } from '../notifications';
-import { NotificationOptions } from '../notifications';
-import { NotificationsService } from '../notifications';
-import { Collection } from '../shared';
-import { Community } from '../shared';
-import { ContentSource } from '../shared';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
+import {
+  DSpaceSerializer,
+  HttpOptions,
+} from '../dspace-rest';
+import {
+  INotification,
+  NotificationOptions,
+  NotificationsService,
+} from '../notifications';
+import {
+  Collection,
+  Community,
+  ContentSource,
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
+  HALEndpointService,
+  Item,
 } from '../shared';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';

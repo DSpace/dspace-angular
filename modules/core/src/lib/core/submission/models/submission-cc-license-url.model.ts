@@ -4,8 +4,10 @@ import {
 } from 'cerialize';
 
 import { typedObject } from '../../cache';
-import { HALResource } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  HALResource,
+  ResourceType,
+} from '../../shared';
 import { excludeFromEquals } from '../../utilities';
 import { SUBMISSION_CC_LICENSE_URL } from './submission-cc-licence-link.resource-type';
 

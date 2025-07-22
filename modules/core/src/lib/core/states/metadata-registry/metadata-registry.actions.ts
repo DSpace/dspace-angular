@@ -1,8 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { MetadataField } from '../../metadata';
-import { MetadataSchema } from '../../metadata';
+import {
+  MetadataField,
+  MetadataSchema,
+} from '../../metadata';
 import { type } from '../../shared';
 
 /**

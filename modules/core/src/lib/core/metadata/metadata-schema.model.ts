@@ -5,10 +5,12 @@ import {
 
 import { typedObject } from '../cache';
 import { ListableObject } from '../object-collection';
-import { GenericConstructor } from '../shared';
-import { HALLink } from '../shared';
-import { HALResource } from '../shared';
-import { ResourceType } from '../shared';
+import {
+  GenericConstructor,
+  HALLink,
+  HALResource,
+  ResourceType,
+} from '../shared';
 import { excludeFromEquals } from '../utilities';
 import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 

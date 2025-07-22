@@ -3,10 +3,14 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteData } from '../../data';
-import { RequestEntryState } from '../../data';
-import { Bitstream } from '../../shared';
-import { NoContent } from '../../shared';
+import {
+  RemoteData,
+  RequestEntryState,
+} from '../../data';
+import {
+  Bitstream,
+  NoContent,
+} from '../../shared';
 
 export class BitstreamDataServiceStub {
 

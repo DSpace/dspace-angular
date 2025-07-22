@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from '../access-status';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
+import { AccessStatusObject } from '../access-status';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
+import {
+  HALEndpointService,
+  Item,
+} from '../shared';
 import { BaseDataService } from './base';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';

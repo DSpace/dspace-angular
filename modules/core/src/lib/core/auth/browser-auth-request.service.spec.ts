@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs';
 
-import { PostRequest } from '../data';
-import { RequestService } from '../data';
-import { BrowserAuthRequestService } from './browser-auth-request.service';
+import {
+  PostRequest,
+  RequestService,
+} from '../data';
 import { AuthRequestService } from './auth-request.service';
+import { BrowserAuthRequestService } from './browser-auth-request.service';
 
 
 describe(`BrowserAuthRequestService`, () => {

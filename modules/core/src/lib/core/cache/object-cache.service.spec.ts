@@ -19,22 +19,24 @@ import {
 } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-import { ObjectCacheService } from './object-cache.service';
-import { CoreState } from '../core-state.model';
-import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+
 import { coreReducers } from '../core.reducers';
-import {
-  AddDependentsObjectCacheAction,
-  AddPatchObjectCacheAction,
-  AddToObjectCacheAction,
-  ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction,
-  RemoveFromObjectCacheAction
-} from './object-cache.actions';
+import { CoreState } from '../core-state.model';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import { IndexName } from '../index/index-name.model';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
-import { RestRequestMethod } from '../data/rest-request-method';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+import {
+  AddDependentsObjectCacheAction,
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
+  RemoveFromObjectCacheAction,
+} from './object-cache.actions';
+import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 
 describe('ObjectCacheService', () => {

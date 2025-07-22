@@ -14,9 +14,11 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { ObjectCacheService } from '../../cache';
+import {
+  CacheableObject,
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../../cache';
 import { HALEndpointService } from '../../shared';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../follow-link-config.model';

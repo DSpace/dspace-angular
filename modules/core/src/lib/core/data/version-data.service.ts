@@ -10,14 +10,18 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { HALEndpointService } from '../shared';
-import { getFirstSucceededRemoteDataPayload } from '../shared';
-import { Version } from '../shared';
-import { VersionHistory } from '../shared';
-import { IdentifiableDataService } from './base';
 import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
+import {
+  getFirstSucceededRemoteDataPayload,
+  HALEndpointService,
+  Version,
+  VersionHistory,
+} from '../shared';
+import {
+  IdentifiableDataService,
   PatchData,
   PatchDataImpl,
 } from './base';

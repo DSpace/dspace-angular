@@ -1,7 +1,9 @@
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { RequestParam } from '../../../cache';
-import { SortOptions } from '../../../cache';
+import {
+  RequestParam,
+  SortOptions,
+} from '../../../cache';
 import { FindListOptions } from '../../../data';
 
 /**

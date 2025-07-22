@@ -2,21 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { IdentifiableDataService } from '../data';
-import {
+import { RemoteDataBuildService , RequestParam , ObjectCacheService } from '../cache';
+import { IdentifiableDataService ,
   SearchData,
   SearchDataImpl,
-} from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
-import { HALEndpointService } from '../shared';
-import {
+, FindListOptions , FollowLinkConfig , PaginatedList , RemoteData , RequestService } from '../data';
+import { HALEndpointService ,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared';

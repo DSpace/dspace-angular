@@ -15,15 +15,17 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../config';
-import { ItemDataService } from '../../data';
-import { RemoteData } from '../../data';
+import { CoreState } from '../../core-state.model';
+import {
+  ItemDataService,
+  RemoteData,
+} from '../../data';
 import { ResolvedAction } from '../../resolving';
 import { getDSpaceObjectRoute } from '../../router';
 import { redirectOn4xx } from '../authorized.operators';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';
 import { getItemPageLinksToFollow } from './item.resolver';
-import { CoreState } from "../../core-state.model";
 
 /**
  * Method for resolving an item based on the parameters in the current route

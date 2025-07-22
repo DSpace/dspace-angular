@@ -1,26 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import { NotificationsService } from '../notifications';
 import { HALEndpointService } from '../shared';
 import { SystemWideAlert } from '../system-wide-alert';
 import {
   CreateData,
   CreateDataImpl,
-} from './base';
-import {
   FindAllData,
   FindAllDataImpl,
-} from './base';
-import { IdentifiableDataService } from './base';
-import {
+  IdentifiableDataService,
   PutData,
   PutDataImpl,
-} from './base';
-import {
   SearchData,
   SearchDataImpl,
 } from './base';

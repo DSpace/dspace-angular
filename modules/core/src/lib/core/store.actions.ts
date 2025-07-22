@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
+import { CoreState } from './core-state.model';
 import { type } from './shared';
-import { CoreState } from "./core-state.model";
 
 export const StoreActionTypes = {
   REHYDRATE: type('dspace/ngrx/REHYDRATE'),

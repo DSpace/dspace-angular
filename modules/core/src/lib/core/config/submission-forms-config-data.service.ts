@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { FollowLinkConfig } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
+import {
+  FollowLinkConfig,
+  RemoteData,
+  RequestService,
+} from '../data';
 import { HALEndpointService } from '../shared';
 import { ConfigDataService } from './config-data.service';
-import { ConfigObject } from './models';
-import { SubmissionFormsModel } from './models';
+import {
+  ConfigObject,
+  SubmissionFormsModel,
+} from './models';
 
 /**
  * Data service to retrieve submission form configuration objects from the REST server.

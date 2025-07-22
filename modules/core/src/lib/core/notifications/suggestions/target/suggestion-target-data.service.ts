@@ -3,25 +3,25 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../cache';
-import { RequestParam } from '../../../cache';
-import { ObjectCacheService } from '../../../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../../../cache';
 import { CoreState } from '../../../core-state.model';
 import {
+  DefaultChangeAnalyzer,
   FindAllData,
   FindAllDataImpl,
-} from '../../../data';
-import { IdentifiableDataService } from '../../../data';
-import {
+  FindListOptions,
+  FollowLinkConfig,
+  IdentifiableDataService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
   SearchData,
   SearchDataImpl,
 } from '../../../data';
-import { DefaultChangeAnalyzer } from '../../../data';
-import { FindListOptions } from '../../../data';
-import { FollowLinkConfig } from '../../../data';
-import { PaginatedList } from '../../../data';
-import { RemoteData } from '../../../data';
-import { RequestService } from '../../../data';
 import { HALEndpointService } from '../../../shared';
 import { NotificationsService } from '../../notifications.service';
 import { SuggestionTarget } from '../models';

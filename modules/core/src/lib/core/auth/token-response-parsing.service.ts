@@ -5,8 +5,10 @@ import {
   RestResponse,
   TokenResponse,
 } from '../cache';
-import { ResponseParsingService } from '../data';
-import { RestRequest } from '../data';
+import {
+  ResponseParsingService,
+  RestRequest,
+} from '../data';
 import { RawRestResponse } from '../dspace-rest';
 
 @Injectable({ providedIn: 'root' })

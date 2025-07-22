@@ -7,17 +7,21 @@ import {
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from '../access-status';
-import { ACCESS_STATUS } from '../access-status';
 
+import {
+  ACCESS_STATUS,
+  AccessStatusObject,
+} from '../access-status';
 import {
   link,
   typedObject,
 } from '../cache';
-import { IdentifierData } from '../data';
-import { IDENTIFIERS } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
+import {
+  IdentifierData,
+  IDENTIFIERS,
+  PaginatedList,
+  RemoteData,
+} from '../data';
 import { ListableObject } from '../object-collection';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
@@ -31,8 +35,10 @@ import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { HandleObject } from './handle-object.model';
 import { ITEM } from './item.resource-type';
-import { Relationship } from './item-relationships';
-import { RELATIONSHIP } from './item-relationships';
+import {
+  RELATIONSHIP,
+  Relationship,
+} from './item-relationships';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
 

@@ -4,20 +4,24 @@ import {
   Observable,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { IdentifiableDataService } from '../data';
-import { SearchDataImpl } from '../data';
-import { FindListOptions } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
+import {
+  FindListOptions,
+  IdentifiableDataService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+  SearchDataImpl,
+} from '../data';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
 import {
   getAllSucceededRemoteDataPayload,
   getPaginatedListPayload,
+  HALEndpointService,
 } from '../shared';
 import { CorrectionType } from './models';
 

@@ -4,10 +4,10 @@ import {
 } from 'cerialize';
 
 import {
+  IDToUUIDSerializer,
   inheritLinkAnnotations,
   typedObject,
 } from '../../cache';
-import { IDToUUIDSerializer } from '../../cache';
 import { WORKFLOWITEM } from '../../eperson';
 import { SubmissionObject } from './submission-object.model';
 

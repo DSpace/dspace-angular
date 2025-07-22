@@ -18,13 +18,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { CacheableObject } from '../cache';
-import { EndpointMap } from '../cache';
+import {
+  CacheableObject,
+  EndpointMap,
+  RemoteDataBuildService,
+} from '../cache';
 import { APP_CONFIG } from '../config';
-import { RemoteData } from '../data';
-import { EndpointMapRequest } from '../data';
-import { RequestService } from '../data';
+import {
+  EndpointMapRequest,
+  RemoteData,
+  RequestService,
+} from '../data';
 import { RESTURLCombiner } from '../url-combiner';
 import { getFirstCompletedRemoteData } from './operators';
 

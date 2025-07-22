@@ -4,14 +4,11 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache';
-import { CacheableObject } from '../../../cache';
-import { HALLink } from '../../../shared';
-import {
+import { typedObject , CacheableObject } from '../../../cache';
+import { HALLink ,
   MetadataMap,
   MetadataMapSerializer,
-} from '../../../shared';
-import { ResourceType } from '../../../shared';
+, ResourceType } from '../../../shared';
 import { excludeFromEquals } from '../../../utilities';
 import { SUGGESTION } from './suggestion-objects.resource-type';
 

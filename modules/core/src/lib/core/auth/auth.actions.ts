@@ -4,8 +4,10 @@ import { Action } from '@ngrx/store';
 
 // import type function
 import { type } from '../shared';
-import { AuthMethod } from './models';
-import { AuthStatus } from './models';
+import {
+  AuthMethod,
+  AuthStatus,
+} from './models';
 // import models
 import { AuthTokenInfo } from './models';
 

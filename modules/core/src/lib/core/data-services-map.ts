@@ -1,14 +1,7 @@
 import { Type } from '@angular/core';
 
-import {
-  LDN_SERVICE,
-  LDN_SERVICE_CONSTRAINT_FILTERS,
-} from './data';
-import { ADMIN_NOTIFY_MESSAGE } from './admin';
-import { NOTIFYREQUEST } from './notify-requests';
 import { ACCESS_STATUS } from './access-status';
-import { DUPLICATE } from './data';
-import { SUBSCRIPTION } from './data';
+import { ADMIN_NOTIFY_MESSAGE } from './admin';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from './coar-notify';
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
@@ -16,60 +9,79 @@ import {
   SUBMISSION_FORMS_TYPE,
   SUBMISSION_UPLOADS_TYPE,
 } from './config';
-import { HALDataService } from './data';
-import { IDENTIFIERS } from './data';
-import { ROOT } from './data';
-import { EPERSON } from './eperson';
-import { GROUP } from './eperson';
-import { WORKFLOWITEM } from './eperson';
-import { WORKSPACEITEM } from './eperson';
+import {
+  DUPLICATE,
+  HALDataService,
+  IDENTIFIERS,
+  LDN_SERVICE,
+  LDN_SERVICE_CONSTRAINT_FILTERS,
+  ROOT,
+  SUBSCRIPTION,
+} from './data';
+import {
+  EPERSON,
+  GROUP,
+  WORKFLOWITEM,
+  WORKSPACEITEM,
+} from './eperson';
 import { FEEDBACK } from './feedback';
-import { METADATA_FIELD } from './metadata';
-import { METADATA_SCHEMA } from './metadata';
-import { QUALITY_ASSURANCE_EVENT_OBJECT } from './notifications';
-import { QUALITY_ASSURANCE_SOURCE_OBJECT } from './notifications';
-import { QUALITY_ASSURANCE_TOPIC_OBJECT } from './notifications';
-import { SUGGESTION } from './notifications';
-import { SUGGESTION_SOURCE } from './notifications';
-import { SUGGESTION_TARGET } from './notifications';
-import { ORCID_HISTORY } from './orcid';
-import { ORCID_QUEUE } from './orcid';
+import {
+  METADATA_FIELD,
+  METADATA_SCHEMA,
+} from './metadata';
+import {
+  QUALITY_ASSURANCE_EVENT_OBJECT,
+  QUALITY_ASSURANCE_SOURCE_OBJECT,
+  QUALITY_ASSURANCE_TOPIC_OBJECT,
+  SUGGESTION,
+  SUGGESTION_SOURCE,
+  SUGGESTION_TARGET,
+} from './notifications';
+import { NOTIFYREQUEST } from './notify-requests';
+import {
+  ORCID_HISTORY,
+  ORCID_QUEUE,
+} from './orcid';
 import { PROCESS } from './processes';
 import { RESEARCHER_PROFILE } from './profile';
 import { RESOURCE_POLICY } from './resource-policy';
 import { SCRIPT } from './scripts';
-import { AUTHORIZATION } from './shared';
-import { BITSTREAM } from './shared';
-import { BITSTREAM_FORMAT } from './shared';
-import { BROWSE_DEFINITION } from './shared';
-import { BUNDLE } from './shared';
-import { COLLECTION } from './shared';
-import { COMMUNITY } from './shared';
-import { CONFIG_PROPERTY } from './shared';
-import { DSPACE_OBJECT } from './shared';
-import { FEATURE } from './shared';
-import { ITEM } from './shared';
-import { ITEM_TYPE } from './shared';
-import { RELATIONSHIP } from './shared';
-import { RELATIONSHIP_TYPE } from './shared';
-import { LICENSE } from './shared';
-import { SITE } from './shared';
-import { VERSION } from './shared';
-import { VERSION_HISTORY } from './shared';
-import { USAGE_REPORT } from './statistics';
-import { CorrectionType } from './submission';
-import { SUBMISSION_CC_LICENSE } from './submission';
-import { SUBMISSION_CC_LICENSE_URL } from './submission';
 import {
+  AUTHORIZATION,
+  BITSTREAM,
+  BITSTREAM_FORMAT,
+  BROWSE_DEFINITION,
+  BUNDLE,
+  COLLECTION,
+  COMMUNITY,
+  CONFIG_PROPERTY,
+  DSPACE_OBJECT,
+  FEATURE,
+  ITEM,
+  ITEM_TYPE,
+  LICENSE,
+  RELATIONSHIP,
+  RELATIONSHIP_TYPE,
+  SITE,
+  VERSION,
+  VERSION_HISTORY,
+} from './shared';
+import { USAGE_REPORT } from './statistics';
+import {
+  CorrectionType,
+  SUBMISSION_CC_LICENSE,
+  SUBMISSION_CC_LICENSE_URL,
   VOCABULARY,
   VOCABULARY_ENTRY,
   VOCABULARY_ENTRY_DETAIL,
 } from './submission';
 import { SUPERVISION_ORDER } from './supervision-order';
 import { SYSTEMWIDEALERT } from './system-wide-alert';
-import { CLAIMED_TASK } from './tasks';
-import { POOL_TASK } from './tasks';
-import { WORKFLOW_ACTION } from './tasks';
+import {
+  CLAIMED_TASK,
+  POOL_TASK,
+  WORKFLOW_ACTION,
+} from './tasks';
 
 export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
 

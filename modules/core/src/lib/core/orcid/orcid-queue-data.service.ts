@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../cache';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../data';
-import { IdentifiableDataService } from '../data';
-import {
+  IdentifiableDataService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
   SearchData,
   SearchDataImpl,
 } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
 import { NotificationsService } from '../notifications';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
-import { PaginationComponentOptions } from '../shared';
+import {
+  HALEndpointService,
+  NoContent,
+  PaginationComponentOptions,
+} from '../shared';
 import { OrcidQueue } from './model';
 
 /**

@@ -6,19 +6,25 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
   link,
   typedObject,
 } from '../cache';
-import { CacheableObject } from '../cache';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { Script } from '../scripts';
-import { SCRIPT } from '../scripts';
-import { Bitstream } from '../shared';
-import { BITSTREAM } from '../shared';
-import { HALLink } from '../shared';
-import { PROCESS_OUTPUT_TYPE } from '../shared';
-import { ResourceType } from '../shared';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../data';
+import {
+  SCRIPT,
+  Script,
+} from '../scripts';
+import {
+  BITSTREAM,
+  Bitstream,
+  HALLink,
+  PROCESS_OUTPUT_TYPE,
+  ResourceType,
+} from '../shared';
 import { excludeFromEquals } from '../utilities';
 import { Filetypes } from './filetypes.model';
 import { FILETYPES } from './filetypes.resource-type';

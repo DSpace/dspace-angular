@@ -19,18 +19,20 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getSearchResultFor } from '../../config';
 import { RemoteDataBuildService } from '../../cache';
-import { BaseDataService } from '../../data';
-import { DSpaceObjectDataService } from '../../data';
-import { FacetValueResponseParsingService } from '../../data';
-import { FollowLinkConfig } from '../../data';
-import { ResponseParsingService } from '../../data';
-import { RemoteData } from '../../data';
-import { GetRequest } from '../../data';
-import { RequestService } from '../../data';
-import { RestRequest } from '../../data';
-import { SearchResponseParsingService } from '../../data';
+import { getSearchResultFor } from '../../config';
+import {
+  BaseDataService,
+  DSpaceObjectDataService,
+  FacetValueResponseParsingService,
+  FollowLinkConfig,
+  GetRequest,
+  RemoteData,
+  RequestService,
+  ResponseParsingService,
+  RestRequest,
+  SearchResponseParsingService,
+} from '../../data';
 import { ListableObject } from '../../object-collection';
 import { PaginationService } from '../../pagination';
 import { RouteService } from '../../services';
@@ -45,11 +47,13 @@ import {
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { PaginationComponentOptions } from '../pagination-component-options.model';
 import { ViewMode } from '../view-mode.model';
-import { AppliedFilter } from './models';
-import { FacetValues } from './models';
-import { SearchFilterConfig } from './models';
-import { SearchObjects } from './models';
-import { SearchResult } from './models';
+import {
+  AppliedFilter,
+  FacetValues,
+  SearchFilterConfig,
+  SearchObjects,
+  SearchResult,
+} from './models';
 import { SearchConfigurationService } from './search-configuration.service';
 
 /**

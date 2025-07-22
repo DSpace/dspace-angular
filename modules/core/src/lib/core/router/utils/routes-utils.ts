@@ -3,10 +3,12 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { Collection } from '../../shared';
-import { Community } from '../../shared';
-import { DSpaceObject } from '../../shared';
-import { Item } from '../../shared';
+import {
+  Collection,
+  Community,
+  DSpaceObject,
+  Item,
+} from '../../shared';
 import { URLCombiner } from '../../url-combiner';
 
 

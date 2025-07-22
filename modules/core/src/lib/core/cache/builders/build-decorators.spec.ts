@@ -1,7 +1,14 @@
-import { HALLink } from '../../shared';
-import { HALResource } from '../../shared';
-import { ResourceType } from '../../shared';
-import { dataService, getDataServiceFor, getLinkDefinition, link } from './build-decorators';
+import {
+  HALLink,
+  HALResource,
+  ResourceType,
+} from '../../shared';
+import {
+  dataService,
+  getDataServiceFor,
+  getLinkDefinition,
+  link,
+} from './build-decorators';
 
 class TestHALResource implements HALResource {
   _links: {

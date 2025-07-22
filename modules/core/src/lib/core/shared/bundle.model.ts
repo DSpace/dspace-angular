@@ -8,8 +8,10 @@ import {
   link,
   typedObject,
 } from '../cache';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../data';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { BUNDLE } from './bundle.resource-type';

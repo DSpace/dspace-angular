@@ -3,11 +3,15 @@ import { Store } from '@ngrx/store';
 
 import { RemoteDataBuildService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { SubmissionPatchRequest } from '../data';
-import { RequestService } from '../data';
+import {
+  RequestService,
+  SubmissionPatchRequest,
+} from '../data';
 import { JsonPatchOperationsService } from '../json-patch';
-import { HALEndpointService } from '../shared';
-import { SubmitDataResponseDefinitionObject } from '../shared';
+import {
+  HALEndpointService,
+  SubmitDataResponseDefinitionObject,
+} from '../shared';
 import { URLCombiner } from '../url-combiner';
 
 /**

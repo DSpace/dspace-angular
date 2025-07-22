@@ -20,11 +20,15 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { getClassForType } from '../cache';
-import { ParsedResponse } from '../cache';
-import { DSpaceSerializer } from '../dspace-rest';
-import { DspaceRestService } from '../dspace-rest';
-import { RawRestResponse } from '../dspace-rest';
+import {
+  getClassForType,
+  ParsedResponse,
+} from '../cache';
+import {
+  DspaceRestService,
+  DSpaceSerializer,
+  RawRestResponse,
+} from '../dspace-rest';
 import { StoreActionTypes } from '../store.actions';
 import { XSRFService } from '../xsrf';
 import {

@@ -6,28 +6,40 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../notifications/notifications.service';
 import { RequestParam } from '../cache/models/request-param.model';
-import { RemoteData } from '../data/remote-data';
-import { RestRequestMethod } from '../data/rest-request-method';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../data/base/find-all-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import { ChangeAnalyzer } from '../data/change-analyzer';
 import { FindListOptions } from '../data/find-list-options.model';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { MultipartPostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RestRequest } from '../data/rest-request.model';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { MultipartPostRequest } from '../data/request.models';
-import { RestRequest } from '../data/rest-request.model';
-import { PaginatedList } from '../data/paginated-list.model';
+import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 
 
 /**

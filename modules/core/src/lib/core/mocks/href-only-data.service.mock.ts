@@ -1,12 +1,14 @@
 import { Observable } from 'rxjs';
 
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
+import {
+  PaginatedList,
+  RemoteData,
+} from '../data';
 import {
   createNoContentRemoteDataObject$,
+  createPaginatedList,
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
-import { createPaginatedList } from '../utilities';
 
 export function getMockHrefOnlyDataService(
   findByHref$: Observable<RemoteData<any>> = createNoContentRemoteDataObject$(),

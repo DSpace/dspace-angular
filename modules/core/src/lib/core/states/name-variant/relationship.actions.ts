@@ -4,9 +4,11 @@
  */
 import { Action } from '@ngrx/store';
 
-import { Item } from '../../shared';
-import { Relationship } from '../../shared';
-import { type } from '../../shared';
+import {
+  Item,
+  Relationship,
+  type,
+} from '../../shared';
 
 export const RelationshipActionTypes = {
   ADD_RELATIONSHIP: type('dspace/relationship/ADD_RELATIONSHIP'),

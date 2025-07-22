@@ -12,11 +12,13 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
+  RequestEntry,
+  RequestEntryState,
 } from '../../data';
-import { RequestEntry } from '../../data';
-import { RequestEntryState } from '../../data';
-import { PageInfo } from '../../shared';
-import { UnCacheableObject } from '../../shared';
+import {
+  PageInfo,
+  UnCacheableObject,
+} from '../../shared';
 
 /**
  * Returns true if a Native Element has a specified css class.

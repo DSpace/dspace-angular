@@ -27,10 +27,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { addOperatorToFilterValue } from '../../utilities';
-import { LinkService } from '../../cache';
-import { RemoteDataBuildService } from '../../cache';
 import {
+  LinkService,
+  RemoteDataBuildService,
   SortDirection,
   SortOptions,
 } from '../../cache';
@@ -38,15 +37,20 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../config';
-import { FacetConfigResponseParsingService } from '../../data';
-import { ResponseParsingService } from '../../data';
-import { RemoteData } from '../../data';
-import { GetRequest } from '../../data';
-import { RequestService } from '../../data';
+import {
+  FacetConfigResponseParsingService,
+  GetRequest,
+  RemoteData,
+  RequestService,
+  ResponseParsingService,
+} from '../../data';
 import { PaginationService } from '../../pagination';
 import { RouteService } from '../../services';
 import { URLCombiner } from '../../url-combiner';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities';
+import {
+  addOperatorToFilterValue,
+  createSuccessfulRemoteDataObject$,
+} from '../../utilities';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
@@ -57,11 +61,13 @@ import {
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { PaginationComponentOptions } from '../pagination-component-options.model';
 import { ViewMode } from '../view-mode.model';
-import { FacetConfigResponse } from './models';
-import { FilterType } from './models';
-import { SearchFilter } from './models';
-import { SearchFilterConfig } from './models';
-import { SearchOptions } from './models';
+import {
+  FacetConfigResponse,
+  FilterType,
+  SearchFilter,
+  SearchFilterConfig,
+  SearchOptions,
+} from './models';
 import {
   FilterConfig,
   SearchConfig,

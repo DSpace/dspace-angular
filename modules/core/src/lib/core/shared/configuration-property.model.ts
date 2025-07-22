@@ -4,8 +4,10 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../cache';
-import { CacheableObject } from '../cache';
+import {
+  CacheableObject,
+  typedObject,
+} from '../cache';
 import { excludeFromEquals } from '../utilities';
 import { CONFIG_PROPERTY } from './config-property.resource-type';
 import { HALLink } from './hal-link.model';

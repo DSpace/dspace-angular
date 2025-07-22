@@ -11,16 +11,20 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import { CoreState } from '../core-state.model';
 import { HttpOptions } from '../dspace-rest';
 import { NotificationsService } from '../notifications';
-import { ConfigurationProperty } from '../shared';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
-import { sendRequest } from '../shared';
+import {
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+  Item,
+  sendRequest,
+} from '../shared';
 import { BaseDataService } from './base';
 import { ConfigurationDataService } from './configuration-data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';

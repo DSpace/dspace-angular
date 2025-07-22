@@ -8,17 +8,19 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionService } from './submission.service';
 import {
   APP_CONFIG,
   AppConfig,
 } from '../config';
-import { IdentifiableDataService } from '../data';
-import { FollowLinkConfig } from '../data';
-import { RemoteData } from '../data';
-import { RequestEntryState } from '../data';
+import {
+  FollowLinkConfig,
+  IdentifiableDataService,
+  RemoteData,
+  RequestEntryState,
+} from '../data';
 import { HALEndpointService } from '../shared';
 import { SubmissionObject } from './models';
+import { SubmissionService } from './submission.service';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';

@@ -6,11 +6,11 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  CacheableObject,
+  IDToUUIDSerializer,
   link,
   typedObject,
 } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { IDToUUIDSerializer } from '../../cache';
 import { RemoteData } from '../../data';
 import { excludeFromEquals } from '../../utilities';
 import { HALLink } from '../hal-link.model';

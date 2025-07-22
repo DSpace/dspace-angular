@@ -14,17 +14,21 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+} from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
 } from '../config';
 import { getDSpaceObjectRoute } from '../router';
 import { HardRedirectService } from '../services';
-import { DSpaceObject } from '../shared';
-import { HALEndpointService } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+import {
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  HALEndpointService,
+} from '../shared';
 import { IdentifiableDataService } from './base';
 import { RemoteData } from './remote-data';
 import { IdentifierType } from './request.models';

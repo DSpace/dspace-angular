@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { BaseDataService } from '../data';
-import {
+import { RemoteDataBuildService , ObjectCacheService } from '../cache';
+import { BaseDataService ,
   FindAllData,
   FindAllDataImpl,
-} from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
-import { RequestService } from '../data';
+, FindListOptions , FollowLinkConfig , PaginatedList , RemoteData , RequestService } from '../data';
 import { HALEndpointService } from '../shared';
 import { SubmissionCcLicence } from './models';
 

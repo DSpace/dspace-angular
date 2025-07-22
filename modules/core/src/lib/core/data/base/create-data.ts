@@ -17,14 +17,18 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import { getClassForType } from '../../cache';
-import { RemoteDataBuildService } from '../../cache';
-import { CacheableObject } from '../../cache';
-import { RequestParam } from '../../cache';
-import { ObjectCacheService } from '../../cache';
+import {
+  CacheableObject,
+  getClassForType,
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RequestParam,
+} from '../../cache';
 import { DSpaceSerializer } from '../../dspace-rest';
-import { NotificationOptions } from '../../notifications';
-import { NotificationsService } from '../../notifications';
+import {
+  NotificationOptions,
+  NotificationsService,
+} from '../../notifications';
 import { HALEndpointService } from '../../shared';
 import { RemoteData } from '../remote-data';
 import { CreateRequest } from '../request.models';

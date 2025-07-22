@@ -32,16 +32,12 @@ import {
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data';
-import { RemoveFromIndexBySubstringAction } from '../index';
-import {
+import { RemoveFromIndexBySubstringAction ,
   selfLinkFromAlternativeLinkSelector,
   selfLinkFromUuidSelector,
-} from '../index';
-import { IndexName } from '../index';
-import { GenericConstructor } from '../shared';
-import { HALLink } from '../shared';
-import { getClassForType } from './builders';
-import { LinkService } from './builders';
+, IndexName } from '../index';
+import { GenericConstructor , HALLink } from '../shared';
+import { getClassForType , LinkService } from './builders';
 import { CacheableObject } from './cacheable-object.model';
 import {
   AddDependentsObjectCacheAction,

@@ -9,24 +9,31 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { getClassForType } from '../cache';
-import { CacheableObject } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { ParsedResponse } from '../cache';
+import {
+  CacheableObject,
+  getClassForType,
+  ObjectCacheService,
+  ParsedResponse,
+} from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
 } from '../config';
-import { DSpaceSerializer } from '../dspace-rest';
-import { RawRestResponse } from '../dspace-rest';
+import {
+  DSpaceSerializer,
+  RawRestResponse,
+} from '../dspace-rest';
 import {
   getEmbedSizeParams,
-  getUrlWithoutEmbedParams, isRestPaginatedList,
+  getUrlWithoutEmbedParams,
+  isRestPaginatedList,
 } from '../index';
 import { Serializer } from '../serializer';
-import { DSpaceObject } from '../shared';
-import { GenericConstructor } from '../shared';
-import { PageInfo } from '../shared';
+import {
+  DSpaceObject,
+  GenericConstructor,
+  PageInfo,
+} from '../shared';
 import { URLCombiner } from '../url-combiner';
 import {
   buildPaginatedList,

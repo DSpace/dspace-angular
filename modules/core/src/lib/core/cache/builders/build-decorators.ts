@@ -4,9 +4,11 @@ import {
   hasValue,
 } from '@dspace/shared/utils';
 
-import { GenericConstructor } from '../../shared';
-import { HALResource } from '../../shared';
-import { ResourceType } from '../../shared';
+import {
+  GenericConstructor,
+  HALResource,
+  ResourceType,
+} from '../../shared';
 import { CacheableObject } from '../cacheable-object.model';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { TypedObject } from '../typed-object.model';

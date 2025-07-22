@@ -10,8 +10,10 @@ import {
   deserializeAs,
 } from 'cerialize';
 
-import { typedObject } from '../cache';
-import { CacheableObject } from '../cache';
+import {
+  CacheableObject,
+  typedObject,
+} from '../cache';
 import { ListableObject } from '../object-collection';
 import { excludeFromEquals } from '../utilities';
 import { DSPACE_OBJECT } from './dspace-object.resource-type';
