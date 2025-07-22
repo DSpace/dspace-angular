@@ -178,7 +178,7 @@ export class ItemDeleteComponent
               protected relationshipService: RelationshipDataService,
               protected entityTypeService: EntityTypeDataService,
               protected linkService: LinkService,
-              protected scriptDataService: ScriptDataService, // AGGIUNTO
+              protected scriptDataService: ScriptDataService,
   ) {
     super(
       route,
