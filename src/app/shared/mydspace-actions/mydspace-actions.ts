@@ -102,17 +102,25 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
   reload(): void {
 
     this.router.navigated = false;
-    const url = decodeURIComponent(this.router.url);
     // override the route reuse strategy
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
     // This assures that the search cache is empty before reloading mydspace.
     // See https://github.com/DSpace/dspace-angular/pull/468
+    this.invalidateCacheForCurrentSearchUrl(true);
+  }
+
+  invalidateCacheForCurrentSearchUrl(shouldNavigate = false): void {
+    const url = decodeURIComponent(this.router.url);
     this.searchService.getEndpoint().pipe(
       take(1),
       tap((cachedHref: string) => this.requestService.removeByHrefSubstring(cachedHref)),
-    ).subscribe(() => this.router.navigateByUrl(url));
+    ).subscribe(() => {
+      if (shouldNavigate) {
+        this.router.navigateByUrl(url);
+      }
+    });
   }
 
   /**

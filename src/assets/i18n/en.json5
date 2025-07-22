@@ -1,5 +1,4 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -37,6 +36,8 @@
   "error-page.description.404": "Page not found",
 
   "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+
+  "listelement.badge.access-status": "Access status:",
 
   "access-status.embargo.listelement.badge": "Embargo",
 
@@ -778,7 +779,6 @@
 
   "admin.reports.items.title": "Title",
 
-
   "admin.reports.commons.filters": "Filters",
 
   "admin.reports.commons.additional-data": "Additional data to return",
@@ -798,7 +798,6 @@
   "admin.reports.commons.filters.select_all": "Select all filters",
 
   "admin.reports.commons.filters.matches_all": "Matches all specified filters",
-
 
   "admin.reports.commons.filters.property": "Item Property Filters",
 
@@ -1639,6 +1638,8 @@
 
   "collection.page.news": "News",
 
+  "collection.search.breadcrumbs": "Search",
+
   "collection.search.results.head": "Search Results",
 
   "collection.select.confirm": "Confirm selected",
@@ -1879,6 +1880,8 @@
 
   "community.all-lists.head": "Subcommunities and Collections",
 
+  "community.search.breadcrumbs": "Search",
+
   "community.search.results.head": "Search Results",
 
   "community.sub-collection-list.head": "Collections in this Community",
@@ -2052,6 +2055,10 @@
   "cookies.consent.content-modal.services": "services",
 
   "cookies.consent.content-modal.service": "service",
+
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
 
   "cookies.consent.app.title.authentication": "Authentication",
 
@@ -2634,6 +2641,8 @@
 
   "footer.link.4science": "4Science",
 
+  "footer.link.accessibility": "Accessibility settings",
+
   "footer.link.dspace": "DSpace software",
 
   "footer.link.dspace-cris": "DSpace-CRIS software",
@@ -2930,6 +2939,48 @@
 
   "home.top-level-communities.help": "Search for a collection",
 
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  "info.accessibility-settings.notificationTimeOutEnabled.label.disabled": "Disabled",
+
+  "info.accessibility-settings.notificationTimeOutEnabled.label.enabled": "Enabled",
+
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  "info.accessibility-settings.title": "Accessibility settings",
+
   "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
 
   "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
@@ -2999,6 +3050,8 @@
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",
+
+  "item.badge.status": "Item status:",
 
   "item.badge.private": "Non-discoverable",
 
@@ -3765,6 +3818,14 @@
   "item.preview.oaire.citation.issue": "Issue",
 
   "item.preview.oaire.citation.volume": "Volume",
+
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  "item.preview.dc.rights": "Rights",
+
+  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -4582,6 +4643,8 @@
 
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
+  "mydspace.status": "My DSpace status:",
+
   "mydspace.status.mydspaceArchived": "Archived",
 
   "mydspace.status.mydspaceValidation": "Validation",
@@ -4654,6 +4717,8 @@
   "nav.toggle": "Toggle navigation",
 
   "nav.user.description": "User profile bar",
+
+  "listelement.badge.dso-type": "Item type:",
 
   "none.listelement.badge": "Item",
 
@@ -5037,6 +5102,12 @@
   "product.listelement.badge": "Product",
 
   "profile.breadcrumbs": "Update Profile",
+
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  "profile.card.accessibility.header": "Accessibility",
+
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
 
   "profile.card.access-token": "Personal access token",
 
@@ -5667,6 +5738,10 @@
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
 
   "search.filters.filter.creativeDatePublished.label": "Search date published",
+
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  "search.filters.filter.creativeDatePublished.max.label": "End",
 
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
@@ -6802,6 +6877,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
@@ -6866,6 +6943,8 @@
 
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
@@ -6907,6 +6986,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
@@ -7429,6 +7510,8 @@
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   "subscriptions.modal.title": "Subscriptions",
 
@@ -8360,7 +8443,7 @@
 
   "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
 
-  "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
+  "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
 
   "quality-assurance.event.table.event.message.link": "Link:",
 
@@ -8423,6 +8506,8 @@
   "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
 
   "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required.",
 
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
@@ -8829,6 +8914,8 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
 
   "external-login.form.email": "Enter the email",
 

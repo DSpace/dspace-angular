@@ -1,6 +1,6 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <div class="collections">
-        <a *ngFor="let collection of (collections$ | async); let last=last;" [routerLink]="['/collections', collection.id]">
+        <a *ngFor="let collection of (collections$ | async); let last=last;" [routerLink]="['/collections', collection.id]" role="button" tabindex="0">
             <span>{{ dsoNameService.getName(collection) }}</span><span *ngIf="!last" [innerHTML]="separator"></span>
         </a>
     </div>
@@ -14,6 +14,7 @@
         (click)="$event.preventDefault(); handleLoadMore()"
         class="load-more-btn btn btn-sm btn-outline-secondary"
         role="button"
+        tabindex="0"
         href="javascript:void(0);"
     >
         {{'item.page.collections.load-more' | translate}}

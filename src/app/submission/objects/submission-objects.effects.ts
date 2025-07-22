@@ -113,16 +113,23 @@ export class SubmissionObjectEffects {
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
         // A section is enabled if it is mandatory or contains data in its section payload
-        // except for detect duplicate steps which will be hidden with no data unless overridden in config, even if mandatory
-        const enabled = (sectionDefinition.mandatory && (sectionDefinition.sectionType !== SectionsType.DetectDuplicate &&
-          sectionDefinition.sectionType !== SectionsType.Correction && sectionDefinition.sectionType !== SectionsType.Duplicates))
-          || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
-            && sectionDefinition.sectionType !== SectionsType.Correction)
-          || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
-            && sectionDefinition.sectionType === SectionsType.Correction && !((action.payload.sections[sectionId] as any).empty))
-          || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
-            && (sectionDefinition.sectionType === SectionsType.Duplicates && (alwaysDisplayDuplicates() || isNotEmpty((action.payload.sections[sectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates)))
-          );
+        let enabled = (sectionDefinition.mandatory || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)));
+
+        // Duplicates will ignore mandatory and display only when "always display" is set or there is data to show
+        if (sectionDefinition.sectionType === SectionsType.Duplicates) {
+          enabled = (alwaysDisplayDuplicates() || isNotEmpty((action.payload.sections[sectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates));
+        }
+
+        // DetectDuplicate will ignore mandatory and display only when "always display" is set or there is data to show
+        if (sectionDefinition.sectionType === SectionsType.DetectDuplicate) {
+          enabled = (alwaysDisplayDuplicates() || isNotEmpty((action.payload.sections[sectionId] as WorkspaceitemSectionDetectDuplicateObject)?.matches));
+        }
+
+        // Correction will ignore mandatory and display only when there is data to show
+        if (sectionDefinition.sectionType === SectionsType.Correction) {
+          enabled = !((action.payload.sections[sectionId] as any)?.empty);
+        }
+
         let sectionData;
         if (sectionDefinition.sectionType !== SectionsType.SubmissionForm) {
           sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);

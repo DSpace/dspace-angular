@@ -435,7 +435,7 @@ export class SectionFormOperationsService {
             );
           }
         }
-      } else if (!value.hasValue()) {
+      } else if (isNotEmpty(value) && !value.hasValue()) {
         // New value is empty, so dispatch a remove operation
         if (this.getArrayIndexFromEvent(event) === 0) {
           this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));

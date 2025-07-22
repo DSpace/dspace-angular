@@ -9,7 +9,7 @@
       </span>
       <div class="align-middle my-auto">
         <button *ngIf="(dataSource.loading$ | async) !== true" (click)="getNextPage(node)"
-           class="btn btn-outline-primary btn-sm" role="button">
+           class="btn btn-outline-primary btn-sm" role="button" tabindex="0">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </button>
         <ds-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-loading>
@@ -27,7 +27,12 @@
       <button *ngIf="hasChild(null, node) | async" type="button" class="btn btn-default" cdkTreeNodeToggle
               [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
               (click)="toggleExpanded(node)"
-              data-test="expand-button">
+              data-test="expand-button"
+              (keyup.enter)="toggleExpanded(node)"
+              (keyup.space)="toggleExpanded(node)"
+              data-test="expand-button"
+              role="button"
+              tabindex="0">
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
         <span class="sr-only">{{ (node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) } }}</span>
@@ -38,7 +43,7 @@
       </span>
       <div class="d-flex flex-row">
         <span class="d-flex align-middle my-auto">
-          <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
+          <a [routerLink]="node.route" class="lead" role="link" tabindex="0">{{ dsoNameService.getName(node.payload) }}</a>
           <span class="pr-2">&nbsp;</span>
           <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead my-auto">{{node.payload.archivedItemsCount}}</span>
         </span>
@@ -72,7 +77,7 @@
         <span class="fa fa-chevron-right"></span>
       </span>
       <h6 class="align-middle my-auto">
-        <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
+        <a [routerLink]="node.route" class="lead" role="link" tabindex="0">{{ dsoNameService.getName(node.payload) }}</a>
       </h6>
     </div>
     <ds-truncatable [id]="node.id">

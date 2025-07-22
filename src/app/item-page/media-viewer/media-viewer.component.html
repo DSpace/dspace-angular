@@ -16,12 +16,7 @@
     </ng-container>
   </div>
   <ng-template #showThumbnail>
-    <ds-media-viewer-image *ngIf="mediaOptions.image && mediaOptions.video"
-      [image]="(thumbnailsRD$ | async)?.payload?.page[0]?._links.content.href || thumbnailPlaceholder"
-      [preview]="false"
-    ></ds-media-viewer-image>
-    <ds-thumbnail *ngIf="!(mediaOptions.image && mediaOptions.video)"
-                  [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
+    <ds-thumbnail [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
     </ds-thumbnail>
   </ng-template>
 </ng-container>

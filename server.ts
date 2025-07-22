@@ -59,6 +59,7 @@ import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
+import { SsrExcludePatterns } from "./src/config/ssr-config.interface";
 
 /*
  * Set path for the browser application's dist folder
@@ -269,7 +270,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || environment.ssr.paths.some(pathPrefix => req.path.startsWith(pathPrefix)))) {
+  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -687,6 +688,21 @@ function clientHealthCheck(req, res) {
   if (isServerHealthy) {
     res.status(200).json({ status: 'UP' });
   }
+}
+
+/**
+ * Check if SSR should be skipped for path
+ *
+ * @param path
+ * @param excludePathPattern
+ */
+function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
+  const patterns = excludePathPattern.map(p =>
+    new RegExp(p.pattern, p.flag || '')
+  );
+  return patterns.some((regex) => {
+    return regex.test(path)
+  });
 }
 
 /*

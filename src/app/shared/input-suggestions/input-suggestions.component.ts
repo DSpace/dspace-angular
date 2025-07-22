@@ -182,11 +182,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   }
 
   /**
-   * When any key is pressed (except for the Enter button) the query input should move to the input field
+   * When any key is pressed (except for the Enter & Tab button) the query input should move to the input field
    * @param {KeyboardEvent} event The keyboard event
    */
   onKeydown(event: KeyboardEvent) {
-    if (event.key !== 'Enter') {
+    if (event.key !== 'Enter' && event.key !== 'Tab') {
       this.queryInput.nativeElement.focus();
     }
   }

@@ -25,7 +25,7 @@
         </ds-viewable-collection>
         <ds-loading *ngIf="(isLoading$ | async)"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
-        <div *ngIf="(isLoading$ | async) !== true && entriesRD?.payload?.page?.length === 0" data-test="empty-external-entry-list">
+        <div *ngIf="(isLoading$ | async) !== true && entriesRD?.payload?.page?.length === 0 && routeData?.query?.length > 0" data-test="empty-external-entry-list">
           <ds-alert [type]="AlertType.Info">{{ 'search.results.empty' | translate }}</ds-alert>
         </div>
         <div *ngIf="(isLoading$ | async) !== true && entriesRD.statusCode === 500" data-test="empty-external-error-500">

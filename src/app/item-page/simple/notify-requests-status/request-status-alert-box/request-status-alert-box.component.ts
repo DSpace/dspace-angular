@@ -74,6 +74,13 @@ export class RequestStatusAlertBoxComponent implements OnInit {
         };
         break;
 
+      case RequestStatusEnum.TENTATIVE_REJECT:
+        this.displayOptions = {
+          alertType: 'alert-warning',
+          text: 'request-status-alert-box.tentative_rejected',
+        };
+        break;
+
       case RequestStatusEnum.REQUESTED:
         this.displayOptions = {
           alertType: 'alert-warning',

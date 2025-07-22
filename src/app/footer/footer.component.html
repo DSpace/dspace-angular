@@ -12,15 +12,15 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="https://github.com/4Science/DSpace/tree/main-cris">
+              <a href="https://github.com/4Science/DSpace/tree/main-cris" role="link" tabindex="0">
                 <i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
             </li>
             <li>
-              <a href="https://wiki.lyrasis.org/display/DSPACECRIS/">
+              <a href="https://wiki.lyrasis.org/display/DSPACECRIS/" role="link" tabindex="0">
                 <i class="fa fa-book" aria-hidden="true"></i> Documentation</a>
             </li>
             <li>
-              <a href="https://dspace-org.slack.com/messages/dspace-cris/">
+              <a href="https://dspace-org.slack.com/messages/dspace-cris/" role="link" tabindex="0">
                 <i class="fab fa-slack" aria-hidden="true"></i> Slack Channel</a>
             </li>
           </ul>
@@ -57,34 +57,38 @@
     <div class="content-container">
       <p class="m-0">
         {{ 'footer.built-with' | translate }}
-        <a class="text-white" href="https://wiki.lyrasis.org/display/DSPACECRIS/">{{ 'footer.link.dspace-cris' | translate}}</a>
+        <a class="text-white" href="https://wiki.lyrasis.org/display/DSPACECRIS/" role="link" tabindex="0">{{ 'footer.link.dspace-cris' | translate}}</a>
         {{ 'footer.extension-by' | translate }}
-        <a class="text-white" href="https://www.4science.it/en/">
+        <a class="text-white" href="https://www.4science.it/en/" role="link" tabindex="0">
           <img src="assets/images/logo-4science-small.png" alt="{{ 'footer.link.4science' | translate}}" />
         </a>
       </p>
       <ul class="footer-info list-unstyled d-flex justify-content-center mb-0">
-        <li>
-          <button class="btn btn-link text-white" type="button" (click)="showCookieSettings()">
+        <li *ngIf="showCookieSettings">
+          <button class="btn btn-link text-white" type="button" (click)="openCookieSettings()" role="button" tabindex="0">
             {{ 'footer.link.cookies' | translate}}
           </button>
         </li>
+        <li>
+          <a class="btn text-white"
+             routerLink="info/accessibility" role="link" tabindex="0">{{ 'footer.link.accessibility' | translate }}</a>
+        </li>
         <li *ngIf="showPrivacyPolicy">
           <a class="btn text-white"
-             routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+             routerLink="info/privacy" role="link" tabindex="0">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
         <li *ngIf="showEndUserAgreement">
           <a class="btn text-white"
-             routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+             routerLink="info/end-user-agreement" role="link" tabindex="0">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>
         <li *ngIf="showSendFeedback$ | async">
           <a class="btn text-white"
-             routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
+             routerLink="info/feedback" role="link" tabindex="0">{{ 'footer.link.feedback' | translate}}</a>
         </li>
       </ul>
     </div>
     <div *ngIf="coarLdnEnabled$ | async" class="notify-enabled text-white">
-      <a class="coar-notify-support-route" routerLink="info/coar-notify-support">
+      <a class="coar-notify-support-route" routerLink="info/coar-notify-support" role="link" tabindex="0">
         <img class="n-coar" src="assets/images/n-coar.svg" [attr.alt]="'menu.header.image.logo' | translate" />
         {{ 'footer.link.coar-notify-support' | translate }}
       </a>

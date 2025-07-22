@@ -56,7 +56,6 @@ import { ThemedFacetSectionComponent } from '../shared/explore/section-component
 import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
 import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 
@@ -78,7 +77,6 @@ import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component'
     ThemedSearchSectionComponent,
     ThemedFacetSectionComponent,
     ThemedCountersSectionComponent,
-    ViewTrackerComponent,
     SuggestionsPopupComponent,
     AsyncPipe,
   ],

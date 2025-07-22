@@ -1,4 +1,4 @@
-<div *ngIf="canShowEditHeader$ | async; then editheader; else createHeader"></div>
+<div *ngIf="activeMetadataField$ | async; then editheader; else createHeader"></div>
 
 <ng-template #createHeader>
     <h2>{{messagePrefix + '.create' | translate}}</h2>
