@@ -2,12 +2,15 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   inject,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
   ActivatedRoute,
+  NavigationStart,
   Router,
 } from '@angular/router';
 import {
@@ -19,7 +22,10 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import {
+  of,
+  Subject,
+} from 'rxjs';
 
 import { APP_CONFIG } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
@@ -46,7 +52,6 @@ import { MockActivatedRoute } from './shared/mocks/active-router.mock';
 import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
 import { AuthServiceMock } from './shared/mocks/auth.service.mock';
 import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
-import { RouterMock } from './shared/mocks/router.mock';
 import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
@@ -65,6 +70,8 @@ const initialState = {
   core: { auth: { loading: false } },
 };
 
+const itemPageUrl = '/entities/publication/3b6ef8e8-15a1-4607-abf8-2a6fbd572346';
+
 export function getMockLocaleService(): LocaleService {
   return jasmine.createSpyObj('LocaleService', {
     setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
@@ -77,11 +84,18 @@ describe('App component', () => {
   let routeServiceMock;
   let klaroServiceSpy: jasmine.SpyObj<KlaroService>;
   let datadogRumServiceSpy: jasmine.SpyObj<DatadogRumService>;
+  let routerEventsObs: Subject<any>;
+  let routerMock: Router;
 
   const getDefaultTestBedConf = () => {
     breadcrumbsServiceSpy = jasmine.createSpyObj(['listenForRouteChanges']);
     routeServiceMock = jasmine.createSpyObj('RouterService', {
       getCurrentUrl: of('/home'),
+    });
+
+    routerEventsObs = new Subject<any>();
+    routerMock = jasmine.createSpyObj([], {
+      events: routerEventsObs,
     });
 
     klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
@@ -112,7 +126,7 @@ describe('App component', () => {
         { provide: HeadTagService, useValue: new HeadTagServiceMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
-        { provide: Router, useValue: new RouterMock() },
+        { provide: Router, useValue: routerMock },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
@@ -171,6 +185,34 @@ describe('App component', () => {
     it('should dispatch a HostWindowResizeAction with the width and height of the window as its payload', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
     });
+
+  });
+
+  describe('isRouteLoading$ handling', () => {
+
+    it('should not show loading for item page', fakeAsync(() => {
+      routeServiceMock.getCurrentUrl.and.returnValue(of(itemPageUrl));
+      routerEventsObs.next(new NavigationStart(1, itemPageUrl));
+      fixture.detectChanges();
+      tick();
+      expect(comp.isRouteLoading$.value).toBeFalse();
+    }));
+
+    it('should show loading for item page administrative edit', fakeAsync(() => {
+      routeServiceMock.getCurrentUrl.and.returnValue(of(itemPageUrl));
+      routerEventsObs.next(new NavigationStart(2, itemPageUrl + '/edit'));
+      fixture.detectChanges();
+      tick();
+      expect(comp.isRouteLoading$.value).toBeTrue();
+    }));
+
+    it('should not show loading navigating between item pages in administrative edit', fakeAsync(() => {
+      routeServiceMock.getCurrentUrl.and.returnValue(of(itemPageUrl + '/edit'));
+      routerEventsObs.next(new NavigationStart(2, itemPageUrl + '/edit/status'));
+      fixture.detectChanges();
+      tick();
+      expect(comp.isRouteLoading$.value).toBeFalse();
+    }));
 
   });
 });
