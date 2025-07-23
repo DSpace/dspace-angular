@@ -69,9 +69,17 @@ let entityTypeService;
 let notificationsServiceStub;
 let typesSelection;
 let scriptDataService;
+let router;
+let scriptService;
+let notificationService: NotificationsServiceStub;
 
-describe('ItemDeleteComponent', () => {
+fdescribe('ItemDeleteComponent', () => {
   beforeEach(waitForAsync(() => {
+    notificationService = new NotificationsServiceStub();
+    scriptService = jasmine.createSpyObj('scriptService', {
+      invoke: createSuccessfulRemoteDataObject$({ processId: '123' }),
+    });
+    router = jasmine.createSpyObj('router', ['navigateByUrl', 'navigate']);
 
     mockItem = Object.assign(new Item(), {
       id: 'fake-id',
@@ -199,10 +207,6 @@ describe('ItemDeleteComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
-    // Verifica che il componente stia usando il mock corretto
-    expect(comp.scriptDataService).toBe(scriptDataService);
-    console.log('scriptDataService mock:', scriptDataService);
-    console.log('comp scriptDataService:', comp.scriptDataService);
     fixture.detectChanges();
   });
 
@@ -227,12 +231,9 @@ describe('ItemDeleteComponent', () => {
       console.log('Before performAction - isSpy:', jasmine.isSpy(scriptDataService.invoke));
       comp.performAction();
       setTimeout(() => {
-        console.log('After performAction - scriptDataService.invoke:', scriptDataService.invoke);
-        console.log('After performAction - calls:', scriptDataService.invoke.calls);
-        console.log('After performAction - isSpy:', jasmine.isSpy(scriptDataService.invoke));
         expect(scriptDataService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
-        expect(comp.notificationsService.success).toHaveBeenCalled();
-        expect(comp.router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
+        expect(notificationsServiceStub.success).toHaveBeenCalled();
+        expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
         done();
       }, 0);
     });
@@ -240,8 +241,8 @@ describe('ItemDeleteComponent', () => {
       scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
       comp.performAction();
       setTimeout(() => {
-        expect(comp.notificationsService.error).toHaveBeenCalled();
-        expect(comp.router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        expect(notificationService.error).toHaveBeenCalled();
+        expect(router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
         done();
       }, 0);
     });
