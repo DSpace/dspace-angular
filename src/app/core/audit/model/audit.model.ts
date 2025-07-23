@@ -88,6 +88,60 @@ export class Audit implements CacheableObject {
     timeStamp: string;
 
   /**
+   * The audited metadata
+   */
+  @autoserialize
+  metadataField: string;
+
+  /**
+   * The audited value
+   */
+  @autoserialize
+  value: string;
+
+  /**
+   * The related authority
+   */
+  @autoserialize
+  authority: string;
+
+  /**
+   * The confidence of the audit
+   */
+  @autoserialize
+  confidence: number;
+
+  /**
+   * The place of the audit
+   */
+  @autoserialize
+  place: number;
+
+  /**
+   * The action type of the audit
+   */
+  @autoserialize
+  action: string;
+
+  /**
+   * The checksum of the audit
+   */
+  @autoserialize
+  checksum: string;
+
+  /**
+   * Property to expand details section
+   */
+  @autoserialize
+  isCollapsed = true;
+
+  /**
+   * Property to check if audit has details
+   */
+  @autoserialize
+  hasDetails: boolean;
+
+  /**
    * The {@link HALLink}s for this Audit
    */
   @deserialize

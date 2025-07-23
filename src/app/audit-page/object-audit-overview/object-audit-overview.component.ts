@@ -17,7 +17,6 @@ import {
   combineLatest,
   forkJoin,
   Observable,
-  of,
 } from 'rxjs';
 import {
   filter,
@@ -51,7 +50,7 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../shared/utils/var.directive';
-
+import { AuditTableComponent } from '../audit-table/audit-table.component';
 /**
  * Component displaying a list of all audit about a object in a paginated table
  */
@@ -65,6 +64,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
     VarDirective,
     RouterLink,
     DatePipe,
+    AuditTableComponent,
   ],
   standalone: true,
 })
@@ -144,23 +144,26 @@ export class ObjectAuditOverviewComponent implements OnInit {
    */
   setAudits() {
     const config$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config);
-    const isAdmin$ = this.isCurrentUserAdmin();
     const parentCommunity$ = this.owningCollection$.pipe(
       switchMap(collection => collection.parentCommunity),
       getFirstCompletedRemoteData(),
       map(data => data?.payload),
     );
 
-    this.auditsRD$ = combineLatest([isAdmin$, config$, this.owningCollection$, parentCommunity$]).pipe(
-      mergeMap(([isAdmin, config,  owningCollection, parentCommunity]) => {
-        if (isAdmin) {
-          return this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id).pipe(
-            getFirstCompletedRemoteData(),
-          );
-        }
-        return of(null);
-      }),
+    this.auditsRD$ = combineLatest([ config$, this.owningCollection$, parentCommunity$]).pipe(
+      switchMap(([config,  owningCollection, parentCommunity]) =>
+        this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id).pipe(
+          getFirstCompletedRemoteData(),
+        ),
+      ),
       filter(data => data && data?.payload?.page?.length > 0),
+      map((audits) => {
+        audits.payload?.page.forEach((audit) => {
+          audit.hasDetails = this.auditService.auditHasDetails(audit);
+        });
+
+        return audits;
+      }),
       mergeMap(auditsRD => {
         const updatedAudits$ = auditsRD.payload.page.map(audit => {
           return forkJoin({
@@ -172,7 +175,6 @@ export class ObjectAuditOverviewComponent implements OnInit {
             ),
           );
         });
-
         return forkJoin(updatedAudits$).pipe(
           map(updatedAudits => Object.assign(new RemoteData(
             auditsRD.timeCompleted,

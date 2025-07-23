@@ -3,50 +3,14 @@
     <h1 class="flex-grow-1">{{'audit.overview.title' | translate}}</h1>
   </div>
 
-  @if (isAdmin$ | async) {
-    @if ((auditsRD$ | async)?.payload?.totalElements === 0) {
-      <div>{{ 'audit.data.not-found' | translate }}</div>
-    }
-    @if ((auditsRD$ | async)?.payload?.totalElements > 0) {
-      <ds-pagination
-        [paginationOptions]="pageConfig"
-        [collectionSize]="(auditsRD$ | async)?.payload?.totalElements"
-        [hideGear]="true"
-        [hidePagerWhenSinglePage]="true">
-        <div class="table-responsive">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>{{ 'audit.overview.table.id' | translate }}</th>
-                <th>{{ 'audit.overview.table.entityType' | translate }}</th>
-                <th>{{ 'audit.overview.table.objectUUID' | translate }}</th>
-                <th>{{ 'audit.overview.table.objectType' | translate }}</th>
-                <th>{{ 'audit.overview.table.subjectUUID' | translate }}</th>
-                <th>{{ 'audit.overview.table.subjectType' | translate }}</th>
-                <th>{{ 'audit.overview.table.eperson' | translate }}</th>
-                <th>{{ 'audit.overview.table.timestamp' | translate }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (audit of (auditsRD$ | async)?.payload?.page; track audit) {
-                <tr>
-                  <td><a [routerLink]="['/auditlogs/', audit.id]">{{audit.id}}</a></td>
-                  <td>{{ audit.eventType }}</td>
-                  <td>@if (audit.objectUUID) {
-                    <a [routerLink]="['/auditlogs/object/', audit.objectUUID]">{{audit.objectUUID}}</a>
-                  }</td>
-                  <td>{{ audit.objectType }}</td>
-                  <td>{{ audit.subjectUUID }}</td>
-                  <td>{{ audit.subjectType }}</td>
-                  <td>{{ audit.epersonName }}</td>
-                  <td>{{ audit.timeStamp | date:dateFormat}}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </ds-pagination>
-    }
+  @if ((auditsRD$ | async)?.payload; as audits) {
+     <ds-audit-table
+       [audits]="audits"
+       [isOverviewPage]="true"
+       [pageConfig]="pageConfig"
+     ></ds-audit-table>
+  } @else {
+    <div>{{ 'audit.data.not-found' | translate }}</div>
   }
 
 </div>

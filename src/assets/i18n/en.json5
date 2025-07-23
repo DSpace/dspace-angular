@@ -914,6 +914,20 @@
 
   "audit.detail.back.subject": "Subject Audit Logs",
 
+  "audit.detail.metadata.field": "Metadata field:",
+
+  "audit.detail.metadata.value": "Value:",
+
+  "audit.detail.metadata.authority": "Authority:",
+
+  "audit.detail.metadata.confidence": "Confidence:",
+
+  "audit.detail.metadata.place": "Place:",
+
+  "audit.detail.metadata.action": "Action:",
+
+  "audit.detail.metadata.checksum": "Checksum:",
+
   "audit.overview.title": "Audit Logs Overview",
 
   "audit.overview.table.id": "Audit ID",

@@ -3,10 +3,7 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import {
-  map,
-  startWith,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -30,12 +27,8 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { EPerson } from '../eperson/models/eperson.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataWithNotEmptyPayload,
-} from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Audit } from './model/audit.model';
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
@@ -114,14 +107,14 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    * @param audit  The audit object
    */
   getEpersonName(audit: Audit): Observable<string> {
-    if (!audit.epersonUUID || !audit.eperson) {
+    if (!audit.eperson) {
       return of(AUDIT_PERSON_NOT_AVAILABLE);
     }
 
     return audit.eperson.pipe(
-      getFirstSucceededRemoteDataWithNotEmptyPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
-      startWith(AUDIT_PERSON_NOT_AVAILABLE));
+      getFirstCompletedRemoteData(),
+      map((epersonRd: RemoteData<EPerson>) => epersonRd.payload ? this.dsoNameService.getName(epersonRd.payload) : AUDIT_PERSON_NOT_AVAILABLE),
+    );
   }
 
   /**
@@ -129,13 +122,14 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    * @param audit
    * @param contextObjectId
    */
-  getOtherObject(audit: Audit, contextObjectId: string): Observable<DSpaceObject> {
+  getOtherObject(audit: Audit, contextObjectId: string): Observable<Audit> {
     const otherObjectHref = this.getOtherObjectHref(audit, contextObjectId);
 
     if (otherObjectHref) {
       return this.findByHref(otherObjectHref).pipe(
-        getFirstSucceededRemoteDataPayload(),
-      ) as Observable<DSpaceObject>;
+        getFirstCompletedRemoteData(),
+        map(rd => rd.payload ?? null),
+      );
     }
     return of(null);
   }
@@ -153,6 +147,16 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
     } else {
       return null;
     }
+  }
+
+  auditHasDetails(audit: Audit): boolean {
+    return hasValue(audit.metadataField)
+      || hasValue(audit.authority)
+      || hasValue(audit.confidence)
+      || hasValue(audit.checksum)
+      || hasValue(audit.authority)
+      || hasValue(audit.place)
+      || hasValue(audit.value);
   }
 
 }

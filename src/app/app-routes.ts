@@ -268,7 +268,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: 'auditlogs',
         loadChildren: () => import('./audit-page/audit-page-routes').then((m) => m.ROUTES),
-        canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
+        canActivate: [siteAdministratorGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: 'subscriptions',
