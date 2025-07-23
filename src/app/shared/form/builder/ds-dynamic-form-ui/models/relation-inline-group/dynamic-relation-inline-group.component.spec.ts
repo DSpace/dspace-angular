@@ -39,6 +39,7 @@ import { SubmissionFormsModel } from '../../../../../../core/config/models/confi
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
 import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { FormComponent } from '../../../../form.component';
@@ -56,6 +57,7 @@ import {
   DynamicRelationGroupModelConfig,
 } from '../relation-group/dynamic-relation-group.model';
 import { DsDynamicRelationInlineGroupComponent } from './dynamic-relation-inline-group.components';
+
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -192,6 +194,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SubmissionObjectDataService, useValue: {} },
         { provide: XSRFService, useValue: {} },
+        { provide: LiveRegionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
@@ -684,7 +687,6 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    DsDynamicRelationInlineGroupComponent,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,

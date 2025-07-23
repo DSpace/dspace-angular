@@ -14,12 +14,12 @@
     <p>{{'researcher.profile.not.associated' | translate}}</p>
   </div>
   <button *ngIf="!researcherProfile" class="btn btn-primary mr-2"
-          [dsBtnDisabled]="(isProcessingCreate() | async)"
+          [dsBtnDisabled]="(processingCreate$ | async)"
           (click)="createProfile()">
-    <span *ngIf="(isProcessingCreate() | async)">
+    <span *ngIf="(processingCreate$ | async) === true">
         <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
     </span>
-    <span *ngIf="(isProcessingCreate() | async) !== true">
+    <span *ngIf="(processingCreate$ | async) !== true">
         <i class="fas fa-plus"></i> &nbsp;{{'researcher.profile.create.new' | translate}}
     </span>
   </button>
@@ -28,10 +28,10 @@
       <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
     </button>
     <button class="btn btn-danger" [dsBtnDisabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
-        <span *ngIf="(isProcessingDelete() | async)">
+        <span *ngIf="(processingDelete$ | async)">
             <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
         </span>
-        <span *ngIf="(isProcessingDelete() | async) !== true">
+        <span *ngIf="(processingDelete$ | async) !== true">
             <i class="fas fa-trash-alt"></i> &nbsp;{{'researcher.profile.delete' | translate}}
         </span>
     </button>

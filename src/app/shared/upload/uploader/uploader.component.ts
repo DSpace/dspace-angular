@@ -51,6 +51,11 @@ import { UploaderProperties } from './uploader-properties.model';
 export class UploaderComponent implements OnInit, AfterViewInit {
 
   /**
+   * Header key to impersonate a user
+   */
+  private readonly ON_BEHALF_HEADER = 'X-On-Behalf-Of';
+
+  /**
    * The message to show when drag files on the drop zone
    */
   @Input() dropMsg: string;
@@ -171,7 +176,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
 
       // When present, add the ID of the EPerson we're impersonating to the headers
-      const impersonatingID = this.authService.getImpersonateID();
+      const impersonatingID = this.authService.getImpersonateID() || this.uploadFilesOptions.impersonatingID;
       if (hasValue(impersonatingID)) {
         this.uploader.options.headers.push({ name: ON_BEHALF_OF_HEADER, value: impersonatingID });
       }

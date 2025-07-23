@@ -20,6 +20,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
@@ -93,6 +95,7 @@ describe('ComcolPageBrowseByComponent', () => {
           },
         }), ComcolPageBrowseByComponent],
       providers: [ComcolPageBrowseByComponent,
+        { provide: APP_CONFIG, useValue: environment },
         { provide: ConfigurationDataService, useValue: configurationServiceStub },
         { provide: CollectionDataService, useValue: collectionServiceStub }],
       schemas: [NO_ERRORS_SCHEMA],
@@ -118,7 +121,7 @@ describe('ComcolPageBrowseByComponent', () => {
       const firstOption = component.allOptions[0];
       expect(firstOption.id).toEqual('search');
       expect(firstOption.label).toEqual('community.page.browse.search.head');
-      expect(firstOption.routerLink).toEqual('/communities/' + communityId);
+      expect(firstOption.routerLink).toEqual('/communities/' + communityId + '/search');
 
       const secondOption = component.allOptions[1];
       expect(secondOption.id).toEqual('comcols');
@@ -145,7 +148,7 @@ describe('ComcolPageBrowseByComponent', () => {
       const firstOption = component.allOptions[0];
       expect(firstOption.id).toEqual('search');
       expect(firstOption.label).toEqual('collection.page.browse.search.head');
-      expect(firstOption.routerLink).toEqual('/collections/' + publicationId);
+      expect(firstOption.routerLink).toEqual('/collections/' + publicationId + '/search');
       const secondOption = component.allOptions[1];
       expect(secondOption.id).toEqual('author');
       expect(secondOption.label).toEqual('browse.comcol.by.author');
@@ -167,7 +170,7 @@ describe('ComcolPageBrowseByComponent', () => {
       const firstOption = component.allOptions[0];
       expect(firstOption.id).toEqual('search');
       expect(firstOption.label).toEqual('collection.page.browse.search.head');
-      expect(firstOption.routerLink).toEqual('/collections/' + orgUnitId);
+      expect(firstOption.routerLink).toEqual('/collections/' + orgUnitId + '/search');
       const secondOption = component.allOptions[1];
       expect(secondOption.id).toEqual('ouname');
       expect(secondOption.label).toEqual('browse.comcol.by.ouname');

@@ -7,6 +7,7 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   combineLatest,
@@ -70,6 +71,7 @@ import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/
     ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormSectionAddComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -139,7 +141,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * A boolean representing if a submission form is pending
    * @type {Observable<boolean>}
    */
-  public loading: Observable<boolean> = observableOf(true);
+  public isLoading$: Observable<boolean> = observableOf(true);
 
   /**
    * Emits true when the submission config has bitstream uploading enabled in submission
@@ -221,7 +223,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       );
 
       // check if is submission loading
-      this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      this.isLoading$ = this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter(() => this.isActive),
         map((submission: SubmissionObjectEntry) => submission.isLoading),
         map((isLoading: boolean) => isLoading),
@@ -233,6 +235,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           distinctUntilChanged())
           .subscribe((endpointURL) => {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+            this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
             // const { errors } = item;
@@ -317,7 +320,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
         this.definitionId = this.submissionDefinition.name;
         this.submissionService.resetSubmissionObject(
-          this.collectionId,
+          (submissionObject.collection as Collection).id,
           this.submissionId,
           submissionObject._links.self.href,
           this.submissionDefinition,
@@ -329,13 +332,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         this.changeDetectorRef.detectChanges();
       }
     });
-  }
-
-  /**
-   * Check if submission form is loading
-   */
-  isLoading(): Observable<boolean> {
-    return this.loading;
   }
 
   /**

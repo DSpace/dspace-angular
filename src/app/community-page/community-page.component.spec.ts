@@ -9,9 +9,9 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
+  provideRouter,
   Router,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
@@ -38,7 +38,6 @@ import {
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { CommunityPageComponent } from './community-page.component';
 import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
@@ -90,8 +89,9 @@ describe('CommunityPageComponent', () => {
     authorizationDataServiceSpy = jasmine.createSpyObj('AuthorizationDataService', ['isAuthorized']);
     dsoNameServiceSpy = jasmine.createSpyObj('DSONameService', ['getName']);
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CommunityPageComponent, VarDirective],
+      imports: [FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CommunityPageComponent, VarDirective],
       providers: [
+        provideRouter([]),
         { provide: ActivatedRoute, useValue: aroute },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authServiceSpy },
@@ -99,7 +99,7 @@ describe('CommunityPageComponent', () => {
         { provide: DSONameService, useValue: dsoNameServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(CommunityPageComponent, { remove: { imports: [ThemedComcolPageContentComponent, ErrorComponent, ThemedLoadingComponent, ThemedCommunityPageSubCommunityListComponent, ThemedCollectionPageSubCollectionListComponent, ThemedComcolPageBrowseByComponent, DsoEditMenuComponent, ThemedComcolPageHandleComponent, ComcolPageLogoComponent, ComcolPageHeaderComponent, ViewTrackerComponent, ContextMenuComponent] } }).compileComponents();
+    }).overrideComponent(CommunityPageComponent, { remove: { imports: [ThemedComcolPageContentComponent, ErrorComponent, ThemedLoadingComponent, ThemedCommunityPageSubCommunityListComponent, ThemedCollectionPageSubCollectionListComponent, ThemedComcolPageBrowseByComponent, DsoEditMenuComponent, ThemedComcolPageHandleComponent, ComcolPageLogoComponent, ComcolPageHeaderComponent, ContextMenuComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

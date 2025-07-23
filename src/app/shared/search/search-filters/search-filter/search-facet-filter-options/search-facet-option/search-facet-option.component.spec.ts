@@ -22,6 +22,8 @@ import { SearchService } from '../../../../../../core/shared/search/search.servi
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { MockActivatedRoute } from '../../../../../mocks/active-router.mock';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
@@ -87,6 +89,7 @@ describe('SearchFacetOptionComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetOptionComponent, {

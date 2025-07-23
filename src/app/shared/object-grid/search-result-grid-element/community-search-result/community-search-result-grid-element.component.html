@@ -1,5 +1,5 @@
 <div class="card">
-    <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', dso.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
+    <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', dso.id]" class="card-img-top" tabindex="-1" [attr.title]="'search.results.view-result' | translate">
         <ds-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
         </ds-thumbnail>
     </a>

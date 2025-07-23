@@ -1,9 +1,10 @@
 <a class="d-flex flex-row"
    [tabIndex]="-1"
    [routerLink]="[searchLink]"
-   [queryParams]="removeQueryParams | async">
+   [queryParams]="removeQueryParams | async"
+   role="button" tabindex="0">
   <label class="mb-0 d-flex w-100">
-    <input type="checkbox" [checked]="true" class="my-1 align-self-baseline filter-checkbox"/>
+    <input type="checkbox" [checked]="true" class="my-1 align-self-baseline filter-checkbox" role="checkbox" tabindex="0"/>
     <span class="filter-value pl-1 break-facet">
         {{ 'search.filters.' + filterConfig.name + '.' + selectedValue.value | translate: {default: selectedValue.label} }}
     </span>

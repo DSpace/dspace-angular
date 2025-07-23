@@ -1,34 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import {
-  Router,
-  UrlTree,
-} from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-import { map } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
+import { environment } from '../../../../environments/environment.test';
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { FacetValues } from '../../../shared/search/models/facet-values.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { CommunityDataService } from '../../data/community-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
-import { RequestEntry } from '../../data/request-entry.model';
+import { RequestEntryState } from '../../data/request-entry-state.model';
 import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
 import { HALEndpointService } from '../hal-endpoint.service';
@@ -36,194 +28,323 @@ import { ViewMode } from '../view-mode.model';
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
-import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
+import SpyObj = jasmine.SpyObj;
+import { Component } from '@angular/core';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { CommunityDataService } from '../../../core/data/community-data.service';
 
 @Component({
   template: '',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
 })
 class DummyComponent {
 }
 
 describe('SearchService', () => {
-  describe('By default', () => {
-    let searchService: SearchService;
-    const router = new RouterStub();
-    const route = new ActivatedRouteStub();
-    const searchConfigService = { paginationID: 'page-id' };
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          CommonModule,
-          RouterTestingModule.withRoutes([
-            { path: 'search', component: DummyComponent, pathMatch: 'full' },
-          ]),
-          DummyComponent,
-        ],
-        providers: [
-          { provide: Router, useValue: router },
-          { provide: RouteService, useValue: routeServiceStub },
-          { provide: RequestService, useValue: getMockRequestService() },
-          { provide: RemoteDataBuildService, useValue: {} },
-          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
-          { provide: CommunityDataService, useValue: {} },
-          { provide: DSpaceObjectDataService, useValue: {} },
-          { provide: PaginationService, useValue: {} },
-          { provide: SearchConfigurationService, useValue: searchConfigService },
-          { provide: Angulartics2, useValue: {} },
-          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-          SearchService,
-        ],
-      });
-      searchService = TestBed.inject(SearchService);
-    });
+  let service: SearchService;
 
-    it('should return list view mode', () => {
-      searchService.getViewMode().subscribe((viewMode) => {
-        expect(viewMode).toBe(ViewMode.ListElement);
-      });
-    });
+  let halService: HALEndpointServiceStub;
+  let paginationService: PaginationServiceStub;
+  let remoteDataBuildService: RemoteDataBuildService;
+  let requestService: SpyObj<RequestService>;
+  let routeService: RouteService;
+  let searchConfigService: SearchConfigurationServiceStub;
+
+  let testScheduler: TestScheduler;
+  let msToLive: number;
+  let remoteDataTimestamp: number;
+
+  const options: PaginatedSearchOptions = new PaginatedSearchOptions({
+    forcedEmbeddedKeys: [],
   });
-  describe('', () => {
-    let searchService: SearchService;
-    const router = new RouterStub();
-    let routeService;
 
-    const halService = {
-      /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-      getEndpoint: () => {
-      },
-      /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
+  beforeEach(() => {
+    halService = new HALEndpointServiceStub(environment.rest.baseUrl);
+    paginationService = new PaginationServiceStub();
+    remoteDataBuildService = getMockRemoteDataBuildService();
+    requestService = getMockRequestService();
+    searchConfigService = new SearchConfigurationServiceStub();
 
-    };
+    initTestData();
 
-    const remoteDataBuildService = {
-      toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
-        return observableCombineLatest([requestEntryObs, payloadObs]).pipe(
-          map(([req, pay]) => {
-            return { req, pay };
-          }),
-        );
-      },
-      aggregate: (input: Observable<RemoteData<any>>[]): Observable<RemoteData<any[]>> => {
-        return createSuccessfulRemoteDataObject$([]);
-      },
-      buildFromHref: (href: string): Observable<RemoteData<any>> => {
-        return createSuccessfulRemoteDataObject$(Object.assign(new SearchObjects(), {
-          page: [],
-        }));
-      },
-    };
+    TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        RouterModule.forRoot([]),
+      ],
+      providers: [
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: RequestService, useValue: requestService },
+        { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: DSpaceObjectDataService, useValue: {} },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigService },
+        { provide: Angulartics2, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        SearchService,
+      ],
+    });
+    service = TestBed.inject(SearchService);
+    routeService = TestBed.inject(RouteService);
+  });
 
-    const paginationService = new PaginationServiceStub();
-    const searchConfigService = { paginationID: 'page-id' };
-    const requestService = getMockRequestService();
-
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          CommonModule,
-          RouterTestingModule.withRoutes([
-            { path: 'search', component: DummyComponent, pathMatch: 'full' },
-          ]),
-          DummyComponent,
-        ],
-        providers: [
-          { provide: Router, useValue: router },
-          { provide: RouteService, useValue: routeServiceStub },
-          { provide: RequestService, useValue: requestService },
-          { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
-          { provide: HALEndpointService, useValue: halService },
-          { provide: CommunityDataService, useValue: {} },
-          { provide: DSpaceObjectDataService, useValue: {} },
-          { provide: PaginationService, useValue: paginationService },
-          { provide: SearchConfigurationService, useValue: searchConfigService },
-          { provide: Angulartics2, useValue: {} },
-          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-          SearchService,
-        ],
-      });
-      searchService = TestBed.inject(SearchService);
-      routeService = TestBed.inject(RouteService);
-      const urlTree = Object.assign(new UrlTree(), { root: { children: { primary: 'search' } } });
-      router.parseUrl.and.returnValue(urlTree);
+  function initTestData(): void {
+    testScheduler = new TestScheduler((actual, expected) => {
+      expect(actual).toEqual(expected);
     });
 
+    msToLive = 15 * 60 * 1000;
+    // The response's lastUpdated equals the time of 60 seconds after the test started, ensuring they are not perceived
+    // as cached values.
+    remoteDataTimestamp = new Date().getTime() + 60 * 1000;
+  }
+
+  describe('setViewMode', () => {
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
-      searchService.setViewMode(ViewMode.ListElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement },
-      );
+      service.setViewMode(ViewMode.ListElement);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('test-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement });
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
-      searchService.setViewMode(ViewMode.GridElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement },
-      );
+      service.setViewMode(ViewMode.GridElement);
+
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('test-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement });
+    });
+  });
+
+  describe('getViewMode', () => {
+    it('should return list view mode', () => {
+      testScheduler.run(({ expectObservable }) => {
+        expectObservable(service.getViewMode()).toBe('(a|)', {
+          a: ViewMode.ListElement,
+        });
+      });
     });
 
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {
-      let viewMode = ViewMode.GridElement;
-      spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
-        ['view', ViewMode.ListElement],
-      ])));
+      testScheduler.run(({ expectObservable }) => {
+        spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+          ['view', ViewMode.ListElement],
+        ])));
 
-      searchService.getViewMode().subscribe((mode) => viewMode = mode);
-      expect(viewMode).toEqual(ViewMode.ListElement);
+        expectObservable(service.getViewMode()).toBe('(a|)', {
+          a: ViewMode.ListElement,
+        });
+      });
     });
 
     it('should return ViewMode.Grid when the viewMode is set to ViewMode.Grid in the ActivatedRoute', () => {
-      let viewMode = ViewMode.ListElement;
-      spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
-        ['view', ViewMode.GridElement],
-      ])));
-      searchService.getViewMode().subscribe((mode) => viewMode = mode);
-      expect(viewMode).toEqual(ViewMode.GridElement);
-    });
+      testScheduler.run(({ expectObservable }) => {
+        spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+          ['view', ViewMode.GridElement],
+        ])));
 
-    describe('when search is called', () => {
-      const endPoint = 'http://endpoint.com/test/test';
-      const searchOptions = new PaginatedSearchOptions({});
-      beforeEach(() => {
-        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
-        /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-        searchService.search(searchOptions).subscribe((t) => {
-        }); // subscribe to make sure all methods are called
-        /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-      });
-
-      it('should call getEndpoint on the halService', () => {
-        expect((searchService as any).halService.getEndpoint).toHaveBeenCalled();
-      });
-
-      it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalled();
-      });
-
-      it('should call getByHref on the request service with the correct request url', () => {
-        expect((searchService as any).rdb.buildFromHref).toHaveBeenCalledWith(endPoint);
+        expectObservable(service.getViewMode()).toBe('(a|)', {
+          a: ViewMode.GridElement,
+        });
       });
     });
+  });
 
-    describe('when getFacetValuesFor is called with a filterQuery', () => {
-      it('should add the encoded filterQuery to the args list', () => {
-        jasmine.getEnv().allowRespy(true);
-        const spyRequest = spyOn((searchService as any), 'request').and.stub();
-        spyOn(requestService, 'send').and.returnValue(true);
-        const searchFilterConfig = new SearchFilterConfig();
-        searchFilterConfig._links = {
-          self: {
-            href: 'https://demo.dspace.org/',
-          },
-        };
+  describe('search', () => {
+    let remoteDataMocks: Record<string, RemoteData<SearchObjects<any>>>;
 
-        searchService.getFacetValuesFor(searchFilterConfig, 1, undefined, 'filter&Query');
+    beforeEach(() => {
+      remoteDataMocks = {
+        RequestPending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
+        ResponsePending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
+        Success: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Success, undefined, new SearchObjects(), 200),
+        SuccessStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.SuccessStale, undefined, new SearchObjects(), 200),
+      };
+    });
 
-        expect(spyRequest).toHaveBeenCalledWith(anything(), 'https://demo.dspace.org?page=0&size=5&prefix=filter%26Query');
+    describe('when useCachedVersionIfAvailable is true', () => {
+      it(`should emit a cached completed RemoteData immediately, and keep emitting if it gets re-requested`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = 'a-b-c-d-e';
+          const values = {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.search(options, msToLive, true)).toBe(expected, values);
+        });
       });
+    });
+
+    describe('when useCachedVersionIfAvailable is false', () => {
+      it('should not emit a cached completed RemoteData', () => {
+        // Old cached value from 1 minute before the test started
+        const oldCachedSucceededData: RemoteData<SearchObjects<any>> = Object.assign(new SearchObjects(), remoteDataMocks.Success, {
+          timeCompleted: remoteDataTimestamp - 2 * 60 * 1000,
+          lastUpdated: remoteDataTimestamp - 2 * 60 * 1000,
+        });
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
+            a: oldCachedSucceededData,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.search(options, msToLive, false)).toBe(expected, values);
+        });
+      });
+
+      it('should emit the first completed RemoteData since the request was made', () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.SuccessStale,
+          }));
+          const expected = 'a-b';
+          const values = {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.SuccessStale,
+          };
+          expectObservable(service.search(options, msToLive, false)).toBe(expected, values);
+        });
+      });
+    });
+
+    it('should call getEndpoint on the halService', () => {
+      spyOn(halService, 'getEndpoint').and.callThrough();
+
+      service.search(new PaginatedSearchOptions({})).subscribe();
+
+      expect(halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      service.search(new PaginatedSearchOptions({})).subscribe();
+
+      expect(requestService.send).toHaveBeenCalled();
+    });
+
+    it('should call getByHref on the request service with the correct request url', () => {
+      spyOn(remoteDataBuildService, 'buildFromHref').and.callThrough();
+
+      service.search(new PaginatedSearchOptions({})).subscribe();
+
+      expect(remoteDataBuildService.buildFromHref).toHaveBeenCalledWith(environment.rest.baseUrl + '/discover/search/objects');
+    });
+  });
+
+  describe('getFacetValuesFor', () => {
+    let remoteDataMocks: Record<string, RemoteData<FacetValues>>;
+    let filterConfig: SearchFilterConfig;
+
+    beforeEach(() => {
+      remoteDataMocks = {
+        RequestPending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
+        ResponsePending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
+        Success: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Success, undefined, new FacetValues(), 200),
+        SuccessStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.SuccessStale, undefined, new FacetValues(), 200),
+      };
+      filterConfig = new SearchFilterConfig();
+      filterConfig._links = {
+        self: {
+          href: environment.rest.baseUrl,
+        },
+      };
+    });
+
+    describe('when useCachedVersionIfAvailable is true', () => {
+      it(`should emit a cached completed RemoteData immediately, and keep emitting if it gets re-requested`, () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = 'a-b-c-d-e';
+          const values = {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.getFacetValuesFor(filterConfig, 1, undefined, undefined, true)).toBe(expected, values);
+        });
+      });
+    });
+
+    describe('when useCachedVersionIfAvailable is false', () => {
+      it('should not emit a cached completed RemoteData', () => {
+        // Old cached value from 1 minute before the test started
+        const oldCachedSucceededData: RemoteData<FacetValues> = Object.assign(new FacetValues(), remoteDataMocks.Success, {
+          timeCompleted: remoteDataTimestamp - 2 * 60 * 1000,
+          lastUpdated: remoteDataTimestamp - 2 * 60 * 1000,
+        });
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b-c-d-e', {
+            a: oldCachedSucceededData,
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          }));
+          const expected = '--b-c-d-e';
+          const values = {
+            b: remoteDataMocks.RequestPending,
+            c: remoteDataMocks.ResponsePending,
+            d: remoteDataMocks.Success,
+            e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.getFacetValuesFor(filterConfig, 1, undefined, undefined, false)).toBe(expected, values);
+        });
+      });
+
+      it('should emit the first completed RemoteData since the request was made', () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(remoteDataBuildService, 'buildFromHref').and.returnValue(cold('a-b', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.SuccessStale,
+          }));
+          const expected = 'a-b';
+          const values = {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.SuccessStale,
+          };
+          expectObservable(service.getFacetValuesFor(filterConfig, 1, undefined, undefined, false)).toBe(expected, values);
+        });
+      });
+    });
+
+    it('should encode the filterQuery', () => {
+      spyOn((service as any), 'request').and.callThrough();
+
+      service.getFacetValuesFor(filterConfig, 1, undefined, 'filter&Query');
+
+      expect((service as any).request).toHaveBeenCalledWith(anything(), environment.rest.baseUrl + '?page=0&size=5&prefix=filter%26Query');
     });
   });
 });

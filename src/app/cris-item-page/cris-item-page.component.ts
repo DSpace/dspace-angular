@@ -19,7 +19,6 @@ import { CrisLayoutComponent } from '../cris-layout/cris-layout.component';
 import { ThemedItemAlertsComponent } from '../item-page/alerts/themed-item-alerts.component';
 import { fadeInOut } from '../shared/animations/fade';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 
 /**
  * This component is the entry point for the page that renders items.
@@ -34,7 +33,6 @@ import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-trac
     NgIf,
     ThemedLoadingComponent,
     ThemedItemAlertsComponent,
-    ViewTrackerComponent,
     CrisLayoutComponent,
     AsyncPipe,
     TranslateModule,
