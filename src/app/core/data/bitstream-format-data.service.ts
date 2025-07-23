@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -12,13 +7,6 @@ import {
 } from 'rxjs/operators';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
-import {
-  BitstreamFormatsRegistryDeselectAction,
-  BitstreamFormatsRegistryDeselectAllAction,
-  BitstreamFormatsRegistrySelectAction,
-} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
-import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
-import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -45,12 +33,6 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 
-export const bitstreamFormatsStateSelector = (state: AppState) => state.bitstreamFormats;
-const selectedBitstreamFormatSelector = createSelector(
-  bitstreamFormatsStateSelector,
-  (bitstreamFormatRegistryState: BitstreamFormatRegistryState) => bitstreamFormatRegistryState.selectedBitstreamFormats,
-);
-
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
@@ -68,7 +50,6 @@ export class BitstreamFormatDataService extends IdentifiableDataService<Bitstrea
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
-    protected store: Store<AppState>,
   ) {
     super('bitstreamformats', requestService, rdbService, objectCache, halService);
 
@@ -134,36 +115,6 @@ export class BitstreamFormatDataService extends IdentifiableDataService<Bitstrea
     return this.getBrowseEndpoint().pipe(
       tap((href: string) => this.requestService.removeByHrefSubstring(href)),
     );
-  }
-
-  /**
-   * Gets all the selected BitstreamFormats from the store
-   */
-  public getSelectedBitstreamFormats(): Observable<BitstreamFormat[]> {
-    return this.store.pipe(select(selectedBitstreamFormatSelector));
-  }
-
-  /**
-   * Adds a BistreamFormat to the selected BitstreamFormats in the store
-   * @param bitstreamFormat
-   */
-  public selectBitstreamFormat(bitstreamFormat: BitstreamFormat) {
-    this.store.dispatch(new BitstreamFormatsRegistrySelectAction(bitstreamFormat));
-  }
-
-  /**
-   * Removes a BistreamFormat from the list of selected BitstreamFormats in the store
-   * @param bitstreamFormat
-   */
-  public deselectBitstreamFormat(bitstreamFormat: BitstreamFormat) {
-    this.store.dispatch(new BitstreamFormatsRegistryDeselectAction(bitstreamFormat));
-  }
-
-  /**
-   * Removes all BitstreamFormats from the list of selected BitstreamFormats in the store
-   */
-  public deselectAllBitstreamFormats() {
-    this.store.dispatch(new BitstreamFormatsRegistryDeselectAllAction());
   }
 
   findByBitstream(bitstream: Bitstream): Observable<RemoteData<BitstreamFormat>> {

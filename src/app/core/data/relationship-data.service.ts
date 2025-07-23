@@ -4,11 +4,6 @@ import {
   Injectable,
 } from '@angular/core';
 import {
-  MemoizedSelector,
-  select,
-  Store,
-} from '@ngrx/store';
-import {
   combineLatest as observableCombineLatest,
   Observable,
   of,
@@ -29,10 +24,6 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import {
-  AppState,
-  keySelector,
-} from '../../app.reducer';
-import {
   compareArraysUsingIds,
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems,
@@ -44,11 +35,6 @@ import {
   isNotEmptyOperator,
 } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import {
-  RemoveNameVariantAction,
-  SetNameVariantAction,
-} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
-import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import {
   followLink,
   FollowLinkConfig,
@@ -97,16 +83,6 @@ import { RequestService } from './request.service';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
 
-const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
-
-const relationshipListStateSelector = (listID: string): MemoizedSelector<AppState, NameVariantListState> => {
-  return keySelector<NameVariantListState>(listID, relationshipListsStateSelector);
-};
-
-const relationshipStateSelector = (listID: string, itemID: string): MemoizedSelector<AppState, string> => {
-  return keySelector<string>(itemID, relationshipListStateSelector(listID));
-};
-
 /**
  * Return true if the Item in the payload of the source observable matches
  * the given Item by UUID
@@ -135,7 +111,6 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected objectCache: ObjectCacheService,
     protected metadataService: MetadataService,
     protected itemService: ItemDataService,
-    protected appStore: Store<AppState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
@@ -433,44 +408,6 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       filter((relationship) => hasValue(relationship)),
       take(1),
     );
-  }
-
-  /**
-   * Method to set the name variant for specific list and item
-   * @param listID The list for which to save the name variant
-   * @param itemID The item ID for which to save the name variant
-   * @param nameVariant The name variant to save
-   */
-  public setNameVariant(listID: string, itemID: string, nameVariant: string) {
-    this.appStore.dispatch(new SetNameVariantAction(listID, itemID, nameVariant));
-  }
-
-  /**
-   * Method to retrieve the name variant for a specific list and item
-   * @param listID The list for which to retrieve the name variant
-   * @param itemID The item ID for which to retrieve the name variant
-   */
-  public getNameVariant(listID: string, itemID: string): Observable<string> {
-    return this.appStore.pipe(
-      select(relationshipStateSelector(listID, itemID)),
-    );
-  }
-
-  /**
-   * Method to remove the name variant for specific list and item
-   * @param listID The list for which to remove the name variant
-   * @param itemID The item ID for which to remove the name variant
-   */
-  public removeNameVariant(listID: string, itemID: string) {
-    this.appStore.dispatch(new RemoveNameVariantAction(listID, itemID));
-  }
-
-  /**
-   * Method to retrieve all name variants for a single list
-   * @param listID The id of the list
-   */
-  public getNameVariantsByListID(listID: string) {
-    return this.appStore.pipe(select(relationshipListStateSelector(listID)));
   }
 
   /**

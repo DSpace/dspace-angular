@@ -10,7 +10,6 @@ import {
 import { FormsModule } from '@angular/forms';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '@core/data/item-data.service';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { MetadataValue } from '@core/shared/metadata.models';
@@ -22,6 +21,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../../config/app-config.interface';
+import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
@@ -60,7 +60,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   showThumbnails: boolean;
 
   constructor(protected truncatableService: TruncatableService,
-              private relationshipService: RelationshipDataService,
+              private nameVariantService: NameVariantService,
               private modalService: NgbModal,
               private itemDataService: ItemDataService,
               private selectableListService: SelectableListService,
@@ -76,7 +76,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
 
-    this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
+    this.nameVariantService.getNameVariant(this.listID, this.dso.uuid)
       .pipe(take(1))
       .subscribe((nameVariant: string) => {
         this.selectedName = nameVariant || defaultValue;
@@ -86,7 +86,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   }
 
   select(value) {
-    this.relationshipService.setNameVariant(this.listID, this.dso.uuid, value);
+    this.nameVariantService.setNameVariant(this.listID, this.dso.uuid, value);
     this.selectableListService.isObjectSelected(this.listID, this.object)
       .pipe(take(1))
       .subscribe((selected) => {

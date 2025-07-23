@@ -72,6 +72,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
+import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
 @Component({
@@ -239,6 +240,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
     public epersonService: EPersonDataService,
+    public epeopleRegistryService: EpeopleRegistryService,
     public groupsDataService: GroupDataService,
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
@@ -256,7 +258,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.activeEPerson$ = this.epersonService.getActiveEPerson();
+    this.activeEPerson$ = this.epeopleRegistryService.getActiveEPerson();
     this.subs.push(this.activeEPerson$.subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
       if (hasValue(eperson)) {
@@ -274,7 +276,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   initialisePage() {
     if (this.route.snapshot.params.id) {
       this.subs.push(this.epersonService.findById(this.route.snapshot.params.id).subscribe((ePersonRD: RemoteData<EPerson>) => {
-        this.epersonService.editEPerson(ePersonRD.payload);
+        this.epeopleRegistryService.editEPerson(ePersonRD.payload);
       }));
     }
     this.firstName = new DynamicInputModel({
@@ -393,7 +395,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Stop editing the currently selected eperson
    */
   onCancel() {
-    this.epersonService.cancelEditEPerson();
+    this.epeopleRegistryService.cancelEditEPerson();
     this.cancelForm.emit();
     void this.router.navigate([getEPersonsRoute()]);
   }

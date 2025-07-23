@@ -42,6 +42,7 @@ import {
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { REQUEST } from '../../../../../express.tokens';
+import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
@@ -65,6 +66,7 @@ describe('EditRelationshipListComponent', () => {
 
   let linkService;
   let objectUpdatesService;
+  let nameVariantService;
   let relationshipService;
   let selectableListService;
   let paginationService: PaginationServiceStub;
@@ -213,6 +215,11 @@ describe('EditRelationshipListComponent', () => {
         isLeftItem: of(true),
       },
     );
+    nameVariantService = jasmine.createSpyObj('nameVariantService',
+      {
+        getNameVariant: jasmine.createSpy('getNameVariant'),
+      },
+    );
 
     selectableListService = {};
 
@@ -255,6 +262,7 @@ describe('EditRelationshipListComponent', () => {
       providers: [
         provideMockStore({ initialState }),
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: NameVariantService, useValue: nameVariantService },
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: LinkService, useValue: linkService },

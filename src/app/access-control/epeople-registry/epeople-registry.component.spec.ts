@@ -57,6 +57,7 @@ import {
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
+import { EpeopleRegistryService } from './epeople-registry.service';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 
 describe('EPeopleRegistryComponent', () => {
@@ -66,6 +67,7 @@ describe('EPeopleRegistryComponent', () => {
 
   let mockEPeople: EPerson[];
   let ePersonDataServiceStub: any;
+  let epeopleRegistryServiceStub: any;
   let authorizationService: AuthorizationDataService;
   let modalService: NgbModal;
   let paginationService: PaginationServiceStub;
@@ -73,6 +75,9 @@ describe('EPeopleRegistryComponent', () => {
   beforeEach(waitForAsync(async () => {
     jasmine.getEnv().allowRespy(true);
     mockEPeople = [EPersonMock, EPersonMock2];
+    epeopleRegistryServiceStub = jasmine.createSpyObj('', {
+      getActiveEPerson: of(null),
+    });
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
@@ -83,9 +88,6 @@ describe('EPeopleRegistryComponent', () => {
           totalPages: 1,
           currentPage: 1,
         }), this.allEpeople));
-      },
-      getActiveEPerson(): Observable<EPerson> {
-        return of(this.activeEPerson);
       },
       searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (scope === 'email') {
@@ -155,6 +157,7 @@ describe('EPeopleRegistryComponent', () => {
         TranslateModule.forRoot(), EPeopleRegistryComponent, BtnDisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
+        { provide: EpeopleRegistryService, useValue: epeopleRegistryServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FormBuilderService, useValue: builderService },

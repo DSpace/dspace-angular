@@ -100,7 +100,6 @@ import {
 import { AppState } from '../../../../app.reducer';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -124,6 +123,7 @@ import {
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',
@@ -132,7 +132,6 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     AsyncPipe,
-    BtnDisabledDirective,
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
@@ -203,6 +202,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
     protected modalService: NgbModal,
+    protected nameVariantService: NameVariantService,
     protected relationshipService: RelationshipDataService,
     protected selectableListService: SelectableListService,
     protected store: Store<AppState>,
@@ -254,7 +254,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
                 const relationshipMD: MetadataValue = item.firstMetadata(relationshipOptions.metadataField, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
                 const nameVariantMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
                 if (hasValue(relationshipMD) && isNotEmpty(relationshipMD.value) && hasValue(nameVariantMD) && isNotEmpty(nameVariantMD.value)) {
-                  this.relationshipService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
+                  this.nameVariantService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
                 }
               });
             });

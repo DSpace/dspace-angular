@@ -1,6 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
@@ -35,7 +33,7 @@ import { DeleteRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 
-describe('RelationshipDataService', () => {
+describe('NameVariantService', () => {
   let service: RelationshipDataService;
   let requestService: RequestService;
 
@@ -151,7 +149,6 @@ describe('RelationshipDataService', () => {
         { provide: ItemDataService, useValue: itemService },
         { provide: RequestService, useValue: requestService },
         { provide: PAGINATED_RELATIONS_TO_ITEMS_OPERATOR, useValue: jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v) },
-        { provide: Store, useValue: provideMockStore() },
         { provide: APP_CONFIG, useValue: environment },
         RelationshipDataService,
       ],
@@ -160,7 +157,7 @@ describe('RelationshipDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null, environment);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, environment);
 
     testSearchDataImplementation(initService);
   });

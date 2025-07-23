@@ -36,6 +36,7 @@ import {
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { REQUEST } from '../../../../../../express.tokens';
+import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
@@ -53,7 +54,7 @@ let mockItemWithMetadata: ItemSearchResult;
 let mockItemWithoutMetadata: ItemSearchResult;
 
 let nameVariant;
-let mockRelationshipService;
+let mockNameVariantService;
 
 const environmentUseThumbs = {
   browseBy: {
@@ -114,7 +115,7 @@ function init() {
     });
 
   nameVariant = 'Doe J.';
-  mockRelationshipService = {
+  mockNameVariantService = {
     getNameVariant: () => of(nameVariant),
   };
 }
@@ -131,7 +132,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: mockRelationshipService },
+        { provide: NameVariantService, useValue: mockNameVariantService },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
@@ -232,7 +233,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: mockRelationshipService },
+        { provide: RelationshipDataService, useValue: mockNameVariantService },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },

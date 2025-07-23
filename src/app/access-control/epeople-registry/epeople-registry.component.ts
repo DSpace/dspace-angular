@@ -61,14 +61,13 @@ import {
   getEPersonEditRoute,
   getEPersonsRoute,
 } from '../access-control-routing-paths';
-import { EPersonFormComponent } from './eperson-form/eperson-form.component';
+import { EpeopleRegistryService } from './epeople-registry.service';
 
 @Component({
   selector: 'ds-epeople-registry',
   templateUrl: './epeople-registry.component.html',
   imports: [
     AsyncPipe,
-    EPersonFormComponent,
     NgClass,
     PaginationComponent,
     ReactiveFormsModule,
@@ -135,6 +134,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   constructor(private epersonService: EPersonDataService,
+              private epeopleRegistryService: EpeopleRegistryService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private authorizationService: AuthorizationDataService,
@@ -163,7 +163,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   initialisePage() {
     this.searching$.next(true);
     this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
-    this.activeEPerson$ = this.epersonService.getActiveEPerson();
+    this.activeEPerson$ = this.epeopleRegistryService.getActiveEPerson();
     this.subs.push(this.ePeople$.pipe(
       switchMap((epeople: PaginatedList<EPerson>) => {
         if (epeople.pageInfo.totalElements > 0) {

@@ -29,6 +29,7 @@ import {
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { BitstreamFormatService } from './bitstream-format.service';
 
 /**
  * This component renders a list of bitstream formats
@@ -68,7 +69,8 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
   constructor(private notificationsService: NotificationsService,
               private translateService: TranslateService,
-              private bitstreamFormatService: BitstreamFormatDataService,
+              private bitstreamFormatDataService: BitstreamFormatDataService,
+              private bitstreamFormatService: BitstreamFormatService,
               private paginationService: PaginationService,
   ) {
   }
@@ -78,13 +80,13 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    * Deletes the currently selected formats from the registry and updates the presented list
    */
   deleteFormats() {
-    this.bitstreamFormatService.clearBitStreamFormatRequests();
+    this.bitstreamFormatDataService.clearBitStreamFormatRequests();
     this.bitstreamFormatService.getSelectedBitstreamFormats().pipe(
       take(1),
       // emit all formats in the array one at a time
       mergeMap((formats: BitstreamFormat[]) => formats),
       // delete each format
-      mergeMap((format: BitstreamFormat) => this.bitstreamFormatService.delete(format.id).pipe(
+      mergeMap((format: BitstreamFormat) => this.bitstreamFormatDataService.delete(format.id).pipe(
         // wait for each response to come back
         getFirstCompletedRemoteData(),
         // return a boolean to indicate whether a response succeeded
@@ -162,7 +164,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.bitstreamFormats$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.pageConfig).pipe(
       switchMap((findListOptions: FindListOptions) => {
-        return this.bitstreamFormatService.findAll(findListOptions);
+        return this.bitstreamFormatDataService.findAll(findListOptions);
       }),
     );
     this.selectedBitstreamFormatIDs$ = this.selectedBitstreamFormatIDs();

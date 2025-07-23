@@ -71,6 +71,7 @@ import {
   isNotEmpty,
 } from '../../../../shared/empty.util';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
@@ -209,6 +210,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
+    protected nameVariantService: NameVariantService,
     protected relationshipService: RelationshipDataService,
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
@@ -352,7 +354,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         concatMap(({ type, searchResult }: { type: string, searchResult: ItemSearchResult }) => {
           const relatedItem: Item = searchResult.indexableObject;
           if (type === 'add') {
-            return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
+            return this.nameVariantService.getNameVariant(this.listId, relatedItem.uuid).pipe(
               switchMap((nameVariant) => {
                 const update = {
                   uuid: `${this.relationshipType.id}-${relatedItem.uuid}`,
@@ -367,7 +369,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
               take(1),
             );
           } else if (type === 'remove') {
-            return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
+            return this.nameVariantService.getNameVariant(this.listId, relatedItem.uuid).pipe(
               switchMap((nameVariant) => {
                 return this.getRelationFromId(searchResult.indexableObject).pipe(
                   map( (relationship: Relationship) => {

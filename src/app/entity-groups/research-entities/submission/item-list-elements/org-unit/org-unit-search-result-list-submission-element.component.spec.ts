@@ -18,7 +18,6 @@ import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.servic
 import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
@@ -34,6 +33,7 @@ import {
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
@@ -51,7 +51,7 @@ let mockItemWithMetadata: ItemSearchResult;
 let mockItemWithoutMetadata: ItemSearchResult;
 
 let nameVariant;
-let mockRelationshipService;
+let mockNameVariantService;
 
 function init() {
   mockItemWithMetadata = Object.assign(
@@ -98,7 +98,7 @@ function init() {
     });
 
   nameVariant = 'Doe J.';
-  mockRelationshipService = {
+  mockNameVariantService = {
     getNameVariant: () => of(nameVariant),
   };
 }
@@ -115,7 +115,7 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       imports: [TruncatePipe, OrgUnitSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
-        { provide: RelationshipDataService, useValue: mockRelationshipService },
+        { provide: NameVariantService, useValue: mockNameVariantService },
         { provide: NotificationsService, useValue: {} },
         { provide: TranslateService, useValue: {} },
         { provide: NgbModal, useValue: {} },

@@ -14,13 +14,8 @@ import {
   compare,
   Operation,
 } from 'fast-json-patch';
-import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import {
-  EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction,
-} from '../../access-control/epeople-registry/epeople-registry.actions';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -55,10 +50,7 @@ import {
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import {
-  editEPersonSelector,
-  EPersonDataService,
-} from './eperson-data.service';
+import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
 
 describe('EPersonDataService', () => {
@@ -325,33 +317,6 @@ describe('EPersonDataService', () => {
 
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(epersonsEndpoint);
     }));
-  });
-
-  describe('getActiveEPerson', () => {
-    it('should retrieve the ePerson currently getting edited, if any', () => {
-      // Update the state with the ePerson (the provideMockStore doesn't update itself when dispatch is called)
-      store.overrideSelector(editEPersonSelector, EPersonMock);
-
-      expect(service.getActiveEPerson()).toBeObservable(cold('a', { a: EPersonMock }));
-    });
-
-    it('should retrieve the ePerson currently getting edited, null if none being edited', () => {
-      expect(service.getActiveEPerson()).toBeObservable(cold('a', { a: null }));
-    });
-  });
-
-  describe('cancelEditEPerson', () => {
-    it('should dispatch a CANCEL_EDIT_EPERSON action', () => {
-      service.cancelEditEPerson();
-      expect(store.dispatch).toHaveBeenCalledWith(new EPeopleRegistryCancelEPersonAction());
-    });
-  });
-
-  describe('editEPerson', () => {
-    it('should dispatch a EDIT_EPERSON action with the EPerson to start editing', () => {
-      service.editEPerson(EPersonMock);
-      expect(store.dispatch).toHaveBeenCalledWith(new EPeopleRegistryEditEPersonAction(EPersonMock));
-    });
   });
 
   describe('deleteEPerson', () => {
