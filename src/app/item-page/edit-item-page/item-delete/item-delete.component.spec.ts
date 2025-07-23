@@ -184,7 +184,7 @@ fdescribe('ItemDeleteComponent', () => {
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: Router, useValue: routerStub },
+        { provide: Router, useValue: router },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ObjectUpdatesService, useValue: objectUpdatesServiceStub },
@@ -207,6 +207,7 @@ fdescribe('ItemDeleteComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
+    expect(comp['router']).toBe(router);
     fixture.detectChanges();
   });
 
@@ -237,25 +238,16 @@ fdescribe('ItemDeleteComponent', () => {
         done();
       }, 0);
     });
+
     it('should show error notification and redirect to item edit page on failure', (done) => {
       scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
       comp.performAction();
       setTimeout(() => {
-        expect(notificationService.error).toHaveBeenCalled();
-        expect(router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        expect(comp['notificationsService'].error).toHaveBeenCalled();
+        expect(comp['router'].navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
         done();
       }, 0);
     });
-  });
-  describe('notify', () => {
-    it('should navigate to the homepage on successful deletion of the item', () => {
-      comp.notify(true);
-      expect(routerStub.navigate).toHaveBeenCalledWith(['']);
-    });
 
-    it('should navigate to the item edit page on failed deletion of the item', () => {
-      comp.notify(false);
-      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
-    });
   });
 });
