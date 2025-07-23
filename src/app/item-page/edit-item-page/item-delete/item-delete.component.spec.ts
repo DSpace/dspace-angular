@@ -207,7 +207,7 @@ fdescribe('ItemDeleteComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
-    expect(comp['router']).toBe(router);
+    expect(comp.router).toBe(router);
     fixture.detectChanges();
   });
 
@@ -243,8 +243,8 @@ fdescribe('ItemDeleteComponent', () => {
       scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
       comp.performAction();
       setTimeout(() => {
-        expect(comp['notificationsService'].error).toHaveBeenCalled();
-        expect(comp['router'].navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        expect(comp.notificationsService.error).toHaveBeenCalled();
+        expect(comp.router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
         done();
       }, 0);
     });
