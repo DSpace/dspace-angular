@@ -1,4 +1,4 @@
-import { ResourceType } from 'src/app/core/shared/resource-type';
+import { ResourceType } from '@core/shared/resource-type';
 
 /**
  * The resource type for Duplicate preview stubs

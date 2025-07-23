@@ -8,6 +8,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { RemoteData } from '@core/data/remote-data';
+import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -22,7 +23,6 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { Context } from 'src/app/core/shared/context.model';
 
 import {
   hasValue,

@@ -17,6 +17,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
 import {
   NgbDatepickerModule,
   NgbDateStruct,
@@ -46,7 +47,6 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SystemWideAlert } from '../system-wide-alert.model';
 
 
 /**

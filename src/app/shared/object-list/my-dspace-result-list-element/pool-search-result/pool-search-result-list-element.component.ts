@@ -16,6 +16,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Context } from '@core/shared/context.model';
+import { Duplicate } from '@core/shared/duplicate-data/duplicate.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -49,7 +50,6 @@ import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-tas
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
-import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 

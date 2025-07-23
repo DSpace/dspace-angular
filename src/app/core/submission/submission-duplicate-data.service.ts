@@ -3,9 +3,9 @@ import {
   Injectable,
   OnDestroy,
 } from '@angular/core';
+import { Duplicate } from '@core/shared/duplicate-data/duplicate.model';
 import { Observable } from 'rxjs';
 
-import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';

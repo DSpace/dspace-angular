@@ -6,9 +6,9 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Suggestion } from '@core/notifications/suggestions/models/suggestion.model';
 import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { Suggestion } from 'src/app/core/notifications/suggestions/models/suggestion.model';
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { isNotEmpty } from '../../../shared/empty.util';

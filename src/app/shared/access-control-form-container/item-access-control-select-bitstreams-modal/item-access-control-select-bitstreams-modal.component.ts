@@ -6,7 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { Bitstream } from '@core/shared/bitstream.model';
+import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -15,10 +19,6 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { Context } from 'src/app/core/shared/context.model';
 
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';

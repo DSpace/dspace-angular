@@ -5,7 +5,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { LinkService } from '@core/cache/builders/link.service';
+import { AccessStatusObject } from '@core/shared/access-status.model';
+import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,14 +20,10 @@ import {
   catchError,
   map,
 } from 'rxjs/operators';
-import { LinkService } from 'src/app/core/cache/builders/link.service';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { environment } from 'src/environments/environment';
 
 import { hasValue } from '../../../../empty.util';
-import { AccessStatusObject } from './access-status.model';
 
 @Component({
   selector: 'ds-base-access-status-badge',

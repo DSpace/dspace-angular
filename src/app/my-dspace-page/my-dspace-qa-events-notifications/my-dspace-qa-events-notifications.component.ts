@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
 import {
   getFirstCompletedRemoteData,
@@ -17,7 +18,6 @@ import {
   of,
   tap,
 } from 'rxjs';
-import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
 

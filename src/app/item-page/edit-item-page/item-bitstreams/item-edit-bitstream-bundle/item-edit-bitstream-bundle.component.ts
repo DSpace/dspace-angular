@@ -19,8 +19,11 @@ import { FieldChangeType } from '@core/data/object-updates/field-change-type.mod
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { Bitstream } from '@core/shared/bitstream.model';
 import { Bundle } from '@core/shared/bundle.model';
 import { Item } from '@core/shared/item.model';
 import {
@@ -45,9 +48,6 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {

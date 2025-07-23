@@ -10,6 +10,7 @@ import {
   RouterLink,
 } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
@@ -35,7 +36,6 @@ import {
   Observable,
   switchMap,
 } from 'rxjs';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';

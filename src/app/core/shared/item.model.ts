@@ -1,3 +1,5 @@
+import { AccessStatusObject } from '@core/shared/access-status.model';
+import { ACCESS_STATUS } from '@core/shared/access-status.resource-type';
 import {
   autoserialize,
   autoserializeAs,
@@ -6,13 +8,9 @@ import {
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
 import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
-import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import {
   link,
   typedObject,
@@ -30,6 +28,8 @@ import { DSpaceObject } from './dspace-object.model';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { HandleObject } from './handle-object.model';
+import { IdentifierData } from './identifiers-data/identifier-data.model';
+import { IDENTIFIERS } from './identifiers-data/identifier-data.resource-type';
 import { ITEM } from './item.resource-type';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';

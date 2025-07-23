@@ -12,6 +12,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LdnServicesService } from '@core/data/ldn-services-data.service';
+import { PaginationService } from '@core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -27,8 +29,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-import { LdnServicesService } from 'src/app/core/data/ldn-services-data.service';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';

@@ -3,6 +3,9 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@core/auth/auth.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@core/data/item-data.service';
 import { Item } from '@core/shared/item.model';
 import { Store } from '@ngrx/store';
@@ -11,9 +14,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';

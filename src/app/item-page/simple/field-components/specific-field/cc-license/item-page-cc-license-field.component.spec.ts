@@ -8,17 +8,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { Item } from '@core/shared/item.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@core/shared/metadata.models';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { Item } from 'src/app/core/shared/item.model';
-import {
-  MetadataMap,
-  MetadataValue,
-} from 'src/app/core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';

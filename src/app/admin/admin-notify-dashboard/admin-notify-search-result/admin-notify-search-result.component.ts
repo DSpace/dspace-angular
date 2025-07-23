@@ -9,6 +9,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
+import { AdminNotifyMessagesDataService } from '@core/data/admin-notify-messages-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,9 +26,6 @@ import { TabulatableResultListElementsComponent } from '../../../shared/object-l
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
-import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
 
 @Component({
   selector: 'ds-admin-notify-search-result',
@@ -103,7 +103,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
   private dateFormat = 'YYYY/MM/d hh:mm:ss';
 
   constructor(private modalService: NgbModal,
-                private adminNotifyMessagesService: AdminNotifyMessagesService,
+                private adminNotifyMessagesService: AdminNotifyMessagesDataService,
                 private datePipe: DatePipe,
                 @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
     super();

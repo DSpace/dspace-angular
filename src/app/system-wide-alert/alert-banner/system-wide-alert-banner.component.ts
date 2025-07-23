@@ -12,6 +12,7 @@ import {
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
+import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import {
@@ -31,7 +32,6 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SystemWideAlert } from '../system-wide-alert.model';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert

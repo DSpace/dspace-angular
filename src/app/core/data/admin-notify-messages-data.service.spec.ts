@@ -1,6 +1,7 @@
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { RestResponse } from '@core/cache/response.models';
+import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { LdnServicesService } from '@core/data/ldn-services-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -16,14 +17,13 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { mockAdminNotifyMessages } from '../admin-notify-search-result/admin-notify-search-result.component.spec';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { AdminNotifyMessagesService } from './admin-notify-messages.service';
+import { mockAdminNotifyMessages } from '../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component.spec';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { AdminNotifyMessagesDataService } from './admin-notify-messages-data.service';
 
-describe('AdminNotifyMessagesService test', () => {
-  let service: AdminNotifyMessagesService;
+describe('AdminNotifyMessagesDataService test', () => {
+  let service: AdminNotifyMessagesDataService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
@@ -43,7 +43,7 @@ describe('AdminNotifyMessagesService test', () => {
   const testRelatedItemName = 'testRelatedItem';
 
   function initTestService() {
-    return new AdminNotifyMessagesService(
+    return new AdminNotifyMessagesDataService(
       requestService,
       rdbService,
       objectCache,

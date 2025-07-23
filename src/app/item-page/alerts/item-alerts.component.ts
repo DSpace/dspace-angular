@@ -11,6 +11,7 @@ import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { CorrectionTypeDataService } from '@core/submission/correctiontype-data.service';
 import { CorrectionType } from '@core/submission/models/correctiontype.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,7 +20,6 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';

@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@core/auth/auth.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { PageInfo } from '@core/shared/page-info.model';
 import {
@@ -32,7 +33,6 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import {
   mockSubscriptionEperson,

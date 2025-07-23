@@ -2,8 +2,8 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
-import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 

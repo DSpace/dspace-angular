@@ -25,6 +25,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
@@ -41,7 +42,6 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { IpV4Validator } from '../../../../shared/utils/ipV4.validator';

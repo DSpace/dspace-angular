@@ -3,6 +3,7 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
+import { LazyDataServicesMap } from '@core/data-services-map';
 import {
   EMPTY,
   Observable,
@@ -12,10 +13,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import {
   hasValue,
   isNotEmpty,

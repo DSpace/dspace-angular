@@ -1,9 +1,9 @@
+import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
 import { Context } from '@core/shared/context.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { ViewMode } from '@core/shared/view-mode.model';
 
 import { AdminNotifySearchResultComponent } from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
-import { AdminNotifySearchResult } from '../../../../admin/admin-notify-dashboard/models/admin-notify-message-search-result.model';
 import {
   hasNoValue,
   hasValue,

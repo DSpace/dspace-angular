@@ -21,6 +21,8 @@ import { RestRequest } from '@core/data/rest-request.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { sendRequest } from '@core/shared/request.operators';
+import { Subscription } from '@core/shared/subscription.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -30,15 +32,13 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-import { sendRequest } from 'src/app/core/shared/request.operators';
 
 import {
   isNotEmpty,
   isNotEmptyOperator,
-} from '../empty.util';
-import { NotificationsService } from '../notifications/notifications.service';
-import { followLink } from '../utils/follow-link-config.model';
-import { Subscription } from './models/subscription.model';
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.

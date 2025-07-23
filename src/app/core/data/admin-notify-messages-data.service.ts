@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
 import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { LdnServicesService } from '@core/data/ldn-services-data.service';
@@ -26,18 +27,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.
  *
  * @export
- * @class AdminNotifyMessagesService
+ * @class AdminNotifyMessagesDataService
  * @extends {IdentifiableDataService<AdminNotifyMessage>}
  */
 @Injectable({ providedIn: 'root' })
-export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNotifyMessage> {
+export class AdminNotifyMessagesDataService extends IdentifiableDataService<AdminNotifyMessage> {
 
   protected reprocessEndpoint = 'enqueueretry';
 

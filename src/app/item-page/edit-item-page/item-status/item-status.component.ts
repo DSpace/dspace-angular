@@ -19,6 +19,8 @@ import { IdentifierDataService } from '@core/data/identifier-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { Identifier } from '@core/shared/identifiers-data/identifier.model';
+import { IdentifierData } from '@core/shared/identifiers-data/identifier-data.model';
 import { Item } from '@core/shared/item.model';
 import {
   getAllSucceededRemoteDataPayload,
@@ -47,8 +49,6 @@ import {
   fadeInOut,
 } from '../../../shared/animations/fade';
 import { hasValue } from '../../../shared/empty.util';
-import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
-import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 import {
   getItemEditRoute,
   getItemPageRoute,

@@ -14,6 +14,7 @@ import {
 } from '@angular/router';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { Script } from '@core/shared/scripts/script.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -23,7 +24,6 @@ import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { Script } from '../../scripts/script.model';
 import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {

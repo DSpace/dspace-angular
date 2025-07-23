@@ -14,6 +14,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -40,7 +41,6 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import {

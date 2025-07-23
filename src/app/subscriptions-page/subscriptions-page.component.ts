@@ -10,10 +10,12 @@ import {
   PaginatedList,
 } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { getAllCompletedRemoteData } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
+import { Subscription } from '@core/shared/subscription.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -35,9 +37,7 @@ import { hasValue } from '../shared/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { VarDirective } from '../shared/utils/var.directive';
 
 @Component({

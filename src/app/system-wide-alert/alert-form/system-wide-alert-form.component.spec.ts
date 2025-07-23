@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
+import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   utcToZonedTime,
@@ -22,7 +23,6 @@ import {
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { SystemWideAlert } from '../system-wide-alert.model';
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {

@@ -11,6 +11,8 @@ import {
 } from '@angular/router';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RequestService } from '@core/data/request.service';
+import { Script } from '@core/shared/scripts/script.model';
+import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -23,8 +25,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ProcessParameter } from '../processes/process-parameter.model';
-import { Script } from '../scripts/script.model';
-import { ScriptParameter } from '../scripts/script-parameter.model';
 import { ProcessFormComponent } from './process-form.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 

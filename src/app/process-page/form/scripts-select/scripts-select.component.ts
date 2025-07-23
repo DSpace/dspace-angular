@@ -24,6 +24,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '@core/shared/operators';
+import { Script } from '@core/shared/scripts/script.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -38,7 +39,6 @@ import {
 
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { Script } from '../../scripts/script.model';
 import { controlContainerFactory } from '../process-form-factory';
 
 const SCRIPT_QUERY_PARAMETER = 'script';

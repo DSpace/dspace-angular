@@ -7,8 +7,8 @@ import {
   Observable,
 } from 'rxjs';
 
-import { LazyDataServicesMap } from '../../config/app-config.interface';
 import { HALDataService } from './data/base/hal-data-service.interface';
+import { LazyDataServicesMap } from './data-services-map';
 
 /**
  * Loads a service lazily. The service is loaded when the observable is subscribed to.

@@ -16,6 +16,8 @@ import {
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { Script } from '@core/shared/scripts/script.model';
+import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
 import {
   TranslateModule,
   TranslateService,
@@ -26,8 +28,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
-import { Script } from '../scripts/script.model';
-import { ScriptParameter } from '../scripts/script-parameter.model';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptHelpComponent } from './script-help/script-help.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';

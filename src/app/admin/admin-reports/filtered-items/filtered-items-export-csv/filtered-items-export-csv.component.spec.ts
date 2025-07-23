@@ -11,13 +11,13 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { Script } from '@core/shared/scripts/script.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { Process } from '../../../../process-page/processes/process.model';
-import { Script } from '../../../../process-page/scripts/script.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

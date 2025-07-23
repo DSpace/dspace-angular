@@ -16,6 +16,7 @@ import {
 import { ArrayMoveChangeAnalyzer } from '@core/data/array-move-change-analyzer.service';
 import { RemoteData } from '@core/data/remote-data';
 import { UpdateDataService } from '@core/data/update-data.service';
+import { LazyDataServicesMap } from '@core/data-services-map';
 import { lazyDataService } from '@core/lazy-data-service';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -38,10 +39,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';

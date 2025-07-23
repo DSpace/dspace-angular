@@ -12,6 +12,7 @@ import {
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
+import { LazyDataServicesMap } from '@core/data-services-map';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
@@ -34,16 +35,14 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { fadeInOut } from '../animations/fade';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
+
 
 @Component({
   selector: 'ds-eperson-group-list',

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LinkService } from '@core/cache/builders/link.service';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { Script } from '@core/shared/scripts/script.model';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -18,7 +19,6 @@ import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';
 import { Process } from '../processes/process.model';
-import { Script } from '../scripts/script.model';
 
 /**
  * Component to create a new script

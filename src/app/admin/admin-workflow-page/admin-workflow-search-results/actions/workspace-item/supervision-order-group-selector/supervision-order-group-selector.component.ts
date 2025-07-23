@@ -9,6 +9,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestEntryState } from '@core/data/request-entry-state.model';
 import { Group } from '@core/eperson/models/group.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +17,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';

@@ -8,11 +8,11 @@ import {
   FormBuilder,
   FormGroup,
 } from '@angular/forms';
+import { Registration } from '@core/shared/registration.model';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { Registration } from 'src/app/core/shared/registration.model';
 
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';

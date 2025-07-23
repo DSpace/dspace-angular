@@ -23,6 +23,8 @@ import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-pa
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Collection } from '@core/shared/collection.model';
+import { Duplicate } from '@core/shared/duplicate-data/duplicate.model';
+import { DUPLICATE } from '@core/shared/duplicate-data/duplicate.resource-type';
 import { License } from '@core/shared/license.model';
 import { MetadataValue } from '@core/shared/metadata.models';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
@@ -42,8 +44,6 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Duplicate } from '../../../shared/object-list/duplicate-data/duplicate.model';
-import { DUPLICATE } from '../../../shared/object-list/duplicate-data/duplicate.resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';

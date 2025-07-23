@@ -1,19 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { makeEnvironmentProviders } from '@angular/core';
+import { Script } from '@core/shared/scripts/script.model';
 
 import { environment } from '../../environments/environment';
 import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { Process } from '../process-page/processes/process.model';
-import { Script } from '../process-page/scripts/script.model';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
 import {
   MOCK_RESPONSE_MAP,
   ResponseMapMock,
 } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
-import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
-import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { SubmissionCoarNotifyModel } from './coar-notify/models/submission-coar-notify.model';
@@ -40,6 +36,7 @@ import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { ResourcePolicy } from './resource-policy/models/resource-policy.model';
+import { AccessStatusObject } from './shared/access-status.model';
 import { Authorization } from './shared/authorization.model';
 import { Bitstream } from './shared/bitstream.model';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -55,6 +52,7 @@ import { ExternalSourceEntry } from './shared/external-source-entry.model';
 import { Feature } from './shared/feature.model';
 import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { HierarchicalBrowseDefinition } from './shared/hierarchical-browse-definition.model';
+import { IdentifierData } from './shared/identifiers-data/identifier-data.model';
 import { Item } from './shared/item.model';
 import { ItemType } from './shared/item-relationships/item-type.model';
 import { Relationship } from './shared/item-relationships/relationship.model';
@@ -65,6 +63,8 @@ import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-brows
 import { Registration } from './shared/registration.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { Site } from './shared/site.model';
+import { Subscription } from './shared/subscription.model';
+import { SystemWideAlert } from './shared/system-wide-alert.model';
 import { TemplateItem } from './shared/template-item.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { Version } from './shared/version.model';

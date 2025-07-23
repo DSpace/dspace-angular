@@ -22,6 +22,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { PaginationService } from '@core/pagination/pagination.service';
 import { RouteService } from '@core/services/route.service';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
 import {
@@ -47,7 +48,6 @@ import {
   take,
   toArray,
 } from 'rxjs/operators';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
 import {
   hasValue,

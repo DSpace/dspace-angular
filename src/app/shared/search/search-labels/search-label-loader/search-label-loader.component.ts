@@ -4,7 +4,7 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
-import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';

@@ -5,8 +5,8 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
+import { NotifyRequestsStatusDataService } from '@core/data/notify-services-status-data.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { NotifyRequestsStatusDataService } from 'src/app/core/data/notify-services-status-data.service';
 
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotifyRequestsStatus } from '../notify-requests-status.model';

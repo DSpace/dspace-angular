@@ -11,6 +11,7 @@ import {
 import { IdentifierDataService } from '@core/data/identifier-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { Identifier } from '@core/shared/identifiers-data/identifier.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import {
@@ -25,7 +26,6 @@ import {
 
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';

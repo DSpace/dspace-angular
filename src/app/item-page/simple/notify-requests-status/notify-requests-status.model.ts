@@ -2,6 +2,7 @@
 import { typedObject } from '@core/cache/builders/build-decorators';
 import { CacheableObject } from '@core/cache/cacheable-object.model';
 import { HALLink } from '@core/shared/hal-link.model';
+import { NOTIFYREQUEST } from '@core/shared/notify-requests-status.resource-type';
 import { ResourceType } from '@core/shared/resource-type';
 import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
@@ -10,7 +11,6 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { NOTIFYREQUEST } from './notify-requests-status.resource-type';
 import { RequestStatusEnum } from './notify-status.enum';
 
 /**

@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Subscription } from '@core/shared/subscription.model';
 import {
   NgbModal,
   NgbModalRef,
@@ -20,9 +22,7 @@ import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../empty.util';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../models/subscription.model';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector

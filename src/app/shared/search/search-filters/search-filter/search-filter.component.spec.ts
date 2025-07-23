@@ -10,6 +10,7 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { SearchService } from '@core/shared/search/search.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { SequenceService } from '@core/shared/sequence.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -17,7 +18,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';

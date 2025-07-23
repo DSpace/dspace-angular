@@ -26,6 +26,7 @@ import {
 } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { RouteService } from '@core/services/route.service';
 import { BrowseEntry } from '@core/shared/browse-entry.model';
 import { Community } from '@core/shared/community.model';
 import { Item } from '@core/shared/item.model';
@@ -37,7 +38,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { RouteService } from 'src/app/core/services/route.service';
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';

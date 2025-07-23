@@ -1,13 +1,5 @@
-import { LazyDataServicesMap } from '../../config/app-config.interface';
-import { ADMIN_NOTIFY_MESSAGE } from '../admin/admin-notify-dashboard/models/admin-notify-message.resource-type';
-import { NOTIFYREQUEST } from '../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
-import { PROCESS } from '../process-page/processes/process.resource-type';
-import { SCRIPT } from '../process-page/scripts/script.resource-type';
-import { ACCESS_STATUS } from '../shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
-import { DUPLICATE } from '../shared/object-list/duplicate-data/duplicate.resource-type';
-import { IDENTIFIERS } from '../shared/object-list/identifier-data/identifier-data.resource-type';
-import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';
-import { SYSTEMWIDEALERT } from '../system-wide-alert/system-wide-alert.resource-type';
+import { Type } from '@angular/core';
+
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,
@@ -18,6 +10,7 @@ import {
   LDN_SERVICE,
   LDN_SERVICE_CONSTRAINT_FILTERS,
 } from './data/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
+import { HALDataService } from './data/base/hal-data-service.interface';
 import { ROOT } from './data/root.resource-type';
 import { EPERSON } from './eperson/models/eperson.resource-type';
 import { GROUP } from './eperson/models/group.resource-type';
@@ -36,6 +29,8 @@ import { ORCID_HISTORY } from './orcid/model/orcid-history.resource-type';
 import { ORCID_QUEUE } from './orcid/model/orcid-queue.resource-type';
 import { RESEARCHER_PROFILE } from './profile/model/researcher-profile.resource-type';
 import { RESOURCE_POLICY } from './resource-policy/models/resource-policy.resource-type';
+import { ACCESS_STATUS } from './shared/access-status.resource-type';
+import { ADMIN_NOTIFY_MESSAGE } from './shared/admin-notify-message.resource-type';
 import { AUTHORIZATION } from './shared/authorization.resource-type';
 import { BITSTREAM } from './shared/bitstream.resource-type';
 import { BITSTREAM_FORMAT } from './shared/bitstream-format.resource-type';
@@ -45,14 +40,21 @@ import { COLLECTION } from './shared/collection.resource-type';
 import { COMMUNITY } from './shared/community.resource-type';
 import { CONFIG_PROPERTY } from './shared/config-property.resource-type';
 import { DSPACE_OBJECT } from './shared/dspace-object.resource-type';
+import { DUPLICATE } from './shared/duplicate-data/duplicate.resource-type';
 import { FEATURE } from './shared/feature.resource-type';
+import { IDENTIFIERS } from './shared/identifiers-data/identifier-data.resource-type';
 import { ITEM } from './shared/item.resource-type';
 import { ITEM_TYPE } from './shared/item-relationships/item-type.resource-type';
 import { RELATIONSHIP } from './shared/item-relationships/relationship.resource-type';
 import { RELATIONSHIP_TYPE } from './shared/item-relationships/relationship-type.resource-type';
 import { LICENSE } from './shared/license.resource-type';
+import { NOTIFYREQUEST } from './shared/notify-requests-status.resource-type';
+import { PROCESS } from './shared/process.resource-type';
+import { SCRIPT } from './shared/scripts/script.resource-type';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from './shared/section-coar-notify-service.resource-type';
 import { SITE } from './shared/site.resource-type';
+import { SUBSCRIPTION } from './shared/subscription.resource-type';
+import { SYSTEMWIDEALERT } from './shared/system-wide-alert.resource-type';
 import { VERSION } from './shared/version.resource-type';
 import { VERSION_HISTORY } from './shared/version-history.resource-type';
 import { USAGE_REPORT } from './statistics/models/usage-report.resource-type';
@@ -68,6 +70,8 @@ import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
+
+export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
@@ -85,7 +89,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [VOCABULARY_ENTRY.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
   [ITEM_TYPE.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
   [LICENSE.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
-  [SUBSCRIPTION.value, () => import('../shared/subscriptions/subscriptions-data.service').then(m => m.SubscriptionsDataService)],
+  [SUBSCRIPTION.value, () => import('./data/subscriptions-data.service').then(m => m.SubscriptionsDataService)],
   [COMMUNITY.value, () => import('./data/community-data.service').then(m => m.CommunityDataService)],
   [VOCABULARY.value, () => import('./submission/vocabularies/vocabulary.data.service').then(m => m.VocabularyDataService)],
   [BUNDLE.value, () => import('./data/bundle-data.service').then(m => m.BundleDataService)],
@@ -125,7 +129,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('./data/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
   [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('./data/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
   [LDN_SERVICE.value, () => import('./data/ldn-services-data.service').then(m => m.LdnServicesService)],
-  [ADMIN_NOTIFY_MESSAGE.value, () => import('../admin/admin-notify-dashboard/services/admin-notify-messages.service').then(m => m.AdminNotifyMessagesService)],
+  [ADMIN_NOTIFY_MESSAGE.value, () => import('./data/admin-notify-messages-data.service').then(m => m.AdminNotifyMessagesDataService)],
   [SUBMISSION_FORMS_TYPE.value, () => import('./config/submission-forms-config-data.service').then(m => m.SubmissionFormsConfigDataService)],
   [NOTIFYREQUEST.value, () => import('./data/notify-services-status-data.service').then(m => m.NotifyRequestsStatusDataService)],
   [QUALITY_ASSURANCE_EVENT_OBJECT.value, () => import('./notifications/qa/events/quality-assurance-event-data.service').then(m => m.QualityAssuranceEventDataService)],

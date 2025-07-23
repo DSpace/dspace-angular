@@ -3,8 +3,12 @@ import {
   AuthActionTypes,
   RetrieveAuthenticatedEpersonSuccessAction,
 } from '@core/auth/auth.actions';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
+import { RemoteData } from '@core/data/remote-data';
 import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
   Actions,
   createEffect,
@@ -19,10 +23,6 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';

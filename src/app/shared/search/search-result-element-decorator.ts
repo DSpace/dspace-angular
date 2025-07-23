@@ -1,3 +1,5 @@
+import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
@@ -7,8 +9,6 @@ import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { PoolTask } from '@core/tasks/models/pool-task-object.model';
 
-import { AdminNotifyMessage } from '../../admin/admin-notify-dashboard/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '../../admin/admin-notify-dashboard/models/admin-notify-message-search-result.model';
 import { ClaimedTaskSearchResult } from '../object-collection/shared/claimed-task-search-result.model';
 import { CollectionSearchResult } from '../object-collection/shared/collection-search-result.model';
 import { CommunitySearchResult } from '../object-collection/shared/community-search-result.model';

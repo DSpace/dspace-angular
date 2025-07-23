@@ -8,8 +8,8 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { ServerResponseService } from '@core/services/server-response.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 /**
  * This component representing the `PageNotFound` DSpace page.

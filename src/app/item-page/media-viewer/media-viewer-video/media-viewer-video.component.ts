@@ -4,10 +4,10 @@ import {
   Input,
 } from '@angular/core';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Bitstream } from '@core/shared/bitstream.model';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../shared/empty.util';

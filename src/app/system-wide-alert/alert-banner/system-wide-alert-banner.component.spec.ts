@@ -8,6 +8,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
+import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { utcToZonedTime } from 'date-fns-tz';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -17,7 +18,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { SystemWideAlert } from '../system-wide-alert.model';
 import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
 
 

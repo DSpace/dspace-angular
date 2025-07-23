@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { JsonPatchOperationPathObject } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -7,9 +10,6 @@ import {
   filter,
   map,
 } from 'rxjs/operators';
-import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
 import { isUndefined } from '../../../shared/empty.util';
 import {

@@ -16,6 +16,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { AuthService } from '@core/auth/auth.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -37,7 +38,6 @@ import {
   subscriptionMock2,
 } from '../../testing/subscriptions-data.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 
 describe('SubscriptionModalComponent', () => {

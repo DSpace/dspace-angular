@@ -10,6 +10,7 @@ import {
 } from '@angular/router';
 import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { LazyDataServicesMap } from '@core/data-services-map';
 import { lazyDataService } from '@core/lazy-data-service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -17,11 +18,9 @@ import { ResourceType } from '@core/shared/resource-type';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { isEmpty } from '../../empty.util';
+
 
 /**
  * Method for resolving an item based on the parameters in the current route

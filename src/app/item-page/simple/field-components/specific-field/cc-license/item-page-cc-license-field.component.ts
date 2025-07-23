@@ -8,19 +8,19 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { Item } from '@core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
   Observable,
   of,
 } from 'rxjs';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { Item } from 'src/app/core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from 'src/app/core/shared/operators';
 import { hasValue } from 'src/app/shared/empty.util';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { parseCcCode } from 'src/app/shared/utils/license.utils';

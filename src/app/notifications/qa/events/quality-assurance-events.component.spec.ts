@@ -14,7 +14,9 @@ import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
+import { ItemDataService } from '@core/data/item-data.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '@core/notifications/qa/models/quality-assurance-event.model';
@@ -31,8 +33,6 @@ import {
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
 
 import {
   getMockQualityAssuranceEventRestService,

@@ -4,6 +4,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,8 +17,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
-import { AdminNotifyMessage } from './models/admin-notify-message.model';
-import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
 
 describe('AdminNotifyDashboardComponent', () => {
   let component: AdminNotifyDashboardComponent;

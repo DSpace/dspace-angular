@@ -5,6 +5,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
+import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
+import { AdminNotifyMessagesDataService } from '@core/data/admin-notify-messages-data.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,8 +16,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configu
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
 import { AdminNotifySearchResultComponent } from './admin-notify-search-result.component';
 
 export const mockAdminNotifyMessages = [
@@ -78,7 +78,7 @@ describe('AdminNotifySearchResultComponent', () => {
   let component: AdminNotifySearchResultComponent;
   let fixture: ComponentFixture<AdminNotifySearchResultComponent>;
 
-  let adminNotifyMessageService: AdminNotifyMessagesService;
+  let adminNotifyMessageService: AdminNotifyMessagesDataService;
   let searchConfigService: SearchConfigurationService;
   let modalService: NgbModal;
 
@@ -99,7 +99,7 @@ describe('AdminNotifySearchResultComponent', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
-        { provide: AdminNotifyMessagesService, useValue: adminNotifyMessageService },
+        { provide: AdminNotifyMessagesDataService, useValue: adminNotifyMessageService },
         DatePipe,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

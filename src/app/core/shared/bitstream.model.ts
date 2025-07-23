@@ -1,11 +1,11 @@
+import { AccessStatusObject } from '@core/shared/access-status.model';
+import { ACCESS_STATUS } from '@core/shared/access-status.resource-type';
 import {
   autoserialize,
   deserialize,
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
 import {
   link,

@@ -10,10 +10,10 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
+import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { of } from 'rxjs';
-import { Context } from 'src/app/core/shared/context.model';
 
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';

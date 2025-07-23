@@ -5,13 +5,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { IdentifierDataService } from '@core/data/identifier-data.service';
+import { IdentifierData } from '@core/shared/identifiers-data/identifier-data.model';
+import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Item } from 'src/app/core/shared/item.model';
 
 import { hasValue } from '../../empty.util';
-import { IdentifierData } from './identifier-data.model';
 
 @Component({
   selector: 'ds-identifier-data',

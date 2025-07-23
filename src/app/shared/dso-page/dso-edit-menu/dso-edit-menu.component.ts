@@ -7,7 +7,7 @@ import {
   Injector,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';

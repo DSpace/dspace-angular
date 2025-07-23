@@ -17,6 +17,7 @@ import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.s
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { CommunityDataService } from '@core/data/community-data.service';
+import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -41,7 +42,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
 import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';

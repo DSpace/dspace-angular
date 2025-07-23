@@ -20,11 +20,13 @@ import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '@core/shared/operators';
+import { Subscription } from '@core/shared/subscription.model';
 import {
   NgbActiveModal,
   NgbModal,
@@ -52,8 +54,6 @@ import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { isNotEmpty } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../models/subscription.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 
 @Component({
   selector: 'ds-subscription-modal',

@@ -6,6 +6,8 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Script } from '@core/shared/scripts/script.model';
+import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
 import {
   TranslateLoader,
   TranslateModule,
@@ -13,8 +15,6 @@ import {
 
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ProcessParameter } from '../../processes/process-parameter.model';
-import { Script } from '../../scripts/script.model';
-import { ScriptParameter } from '../../scripts/script-parameter.model';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { ProcessParametersComponent } from './process-parameters.component';
 

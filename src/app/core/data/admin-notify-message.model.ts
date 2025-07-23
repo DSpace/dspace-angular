@@ -1,4 +1,5 @@
 import { typedObject } from '@core/cache/builders/build-decorators';
+import { ADMIN_NOTIFY_MESSAGE } from '@core/shared/admin-notify-message.resource-type';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { excludeFromEquals } from '@core/utilities/equals.decorators';
@@ -9,8 +10,7 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 
 /**
  * A message that includes admin notify info

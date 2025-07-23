@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import { getAuthenticationMethods } from '@core/auth/selectors';
+import { CoreState } from '@core/core-state.model';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { RemoteData } from '@core/data/remote-data';
 import { NoContent } from '@core/shared/NoContent.model';
@@ -14,9 +17,6 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { AuthMethod } from 'src/app/core/auth/models/auth.method';
-import { getAuthenticationMethods } from 'src/app/core/auth/selectors';
-import { CoreState } from 'src/app/core/core-state.model';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 

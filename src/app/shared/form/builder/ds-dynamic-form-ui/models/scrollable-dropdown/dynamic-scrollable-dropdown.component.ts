@@ -19,6 +19,7 @@ import {
   PaginatedList,
 } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { LazyDataServicesMap } from '@core/data-services-map';
 import { lazyDataService } from '@core/lazy-data-service';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -44,10 +45,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from 'src/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
@@ -57,6 +55,7 @@ import {
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
+
 
 /**
  * Component representing a dropdown input field

@@ -15,8 +15,10 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
+import { Subscription } from '@core/shared/subscription.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -36,8 +38,6 @@ import {
   subscriptionMock,
 } from '../../testing/subscriptions-data.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { Subscription } from '../models/subscription.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionViewComponent } from './subscription-view.component';
 
 describe('SubscriptionViewComponent', () => {

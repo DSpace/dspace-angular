@@ -8,12 +8,12 @@ import {
   Output,
 } from '@angular/core';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { Observable } from 'rxjs';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from 'src/app/core/services/window.service';
+} from '@core/services/window.service';
+import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { Observable } from 'rxjs';
 
 import { isNotEmpty } from '../empty.util';
 

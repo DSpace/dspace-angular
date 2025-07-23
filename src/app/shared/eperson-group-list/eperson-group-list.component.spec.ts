@@ -28,7 +28,6 @@ import { of } from 'rxjs';
 
 import {
   APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
 } from '../../../config/app-config.interface';
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
@@ -43,6 +42,7 @@ import { EpersonGroupListComponent } from './eperson-group-list.component';
 import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
+import { LazyDataServicesMap } from '@core/data-services-map';
 
 const mockDataServiceMap: LazyDataServicesMap = new Map([
   [EPERSON.value, () => import('../../core/eperson/eperson-data.service').then(m => m.EPersonDataService)],

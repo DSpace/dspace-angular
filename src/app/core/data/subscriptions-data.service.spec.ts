@@ -5,19 +5,19 @@ import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
 import { RequestService } from '@core/data/request.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { Subscription } from '@core/shared/subscription.model';
 import { Store } from '@ngrx/store';
 
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { NotificationsService } from '../notifications/notifications.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
-import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
-import { Subscription } from './models/subscription.model';
+} from '../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SubscriptionsDataService } from './subscriptions-data.service';
 
 describe('SubscriptionsDataService', () => {

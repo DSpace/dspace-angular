@@ -9,10 +9,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
+import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { Context } from 'src/app/core/shared/context.model';
-import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
 import {
   APP_CONFIG,

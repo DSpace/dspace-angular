@@ -4,6 +4,7 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { SearchService } from '@core/shared/search/search.service';
@@ -16,7 +17,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
