@@ -72,7 +72,7 @@ let scriptDataService;
 let router;
 let scriptService;
 
-fdescribe('ItemDeleteComponent', () => {
+describe('ItemDeleteComponent', () => {
   beforeEach(waitForAsync(() => {
     scriptService = jasmine.createSpyObj('scriptService', {
       invoke: createSuccessfulRemoteDataObject$({ processId: '123' }),
