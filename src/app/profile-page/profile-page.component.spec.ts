@@ -123,6 +123,7 @@ describe('ProfilePageComponent', () => {
         NoopAnimationsModule,
         ProfilePageComponent,
         VarDirective,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },

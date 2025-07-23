@@ -132,4 +132,32 @@ describe('ConfirmationModalComponent', () => {
     });
   });
 
+  describe('displaying the name in the modal', () => {
+    const testName = 'Test Name';
+    beforeEach(() => {
+      component.name = testName;
+      component.headerLabel = `Header: ${component.name}`;
+      component.infoLabel = `Info: ${component.name}`;
+      component.cancelLabel = `Cancel: ${component.name}`;
+      component.confirmLabel = `Confirm: ${component.name}`;
+      fixture.detectChanges();
+    });
+    it('should display the name in the header', () => {
+      const header = debugElement.query(By.css('.modal-header')).nativeElement.textContent;
+      expect(header).toContain(testName);
+    });
+    it('should display the name in the body', () => {
+      const body = debugElement.query(By.css('.modal-body')).nativeElement.textContent;
+      expect(body).toContain(testName);
+    });
+    it('should display the name in the cancel button', () => {
+      const cancelBtn = debugElement.query(By.css('button.cancel')).nativeElement.textContent;
+      expect(cancelBtn).toContain(testName);
+    });
+    it('should display the name in the confirm button', () => {
+      const confirmBtn = debugElement.query(By.css('button.confirm')).nativeElement.textContent;
+      expect(confirmBtn).toContain(testName);
+    });
+  });
+
 });

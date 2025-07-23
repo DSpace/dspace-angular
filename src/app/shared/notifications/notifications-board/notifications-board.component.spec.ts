@@ -20,6 +20,8 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
+import { getAccessibilitySettingsServiceStub } from '../../../accessibility/accessibility-settings.service.stub';
 import { AppState } from '../../../app.reducer';
 import { LiveRegionService } from '../../live-region/live-region.service';
 import { LiveRegionServiceStub } from '../../live-region/live-region.service.stub';
@@ -58,6 +60,7 @@ describe('NotificationsBoardComponent', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: LiveRegionService, useValue: liveRegionService },
+        { provide: AccessibilitySettingsService, useValue: getAccessibilitySettingsServiceStub() },
         ChangeDetectorRef,
       ],
     }).overrideComponent(NotificationsBoardComponent, { remove: { imports: [NotificationComponent, ProcessNotificationComponent] } }).compileComponents();  // compile template and css

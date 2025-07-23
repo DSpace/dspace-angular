@@ -11,7 +11,6 @@
         <ds-qa-event-notification [item]="item"></ds-qa-event-notification>
         <ds-notify-requests-status [itemUuid]="item.uuid"></ds-notify-requests-status>
         <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
-        <ds-view-tracker [object]="item"></ds-view-tracker>
         <ds-listable-object-component-loader *ngIf="!item.isWithdrawn || (isAdmin$|async)" [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
         <ds-item-versions class="mt-2" [item]="item" [displayActions]="false"></ds-item-versions>
       </div>

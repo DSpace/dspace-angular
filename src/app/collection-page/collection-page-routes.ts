@@ -11,6 +11,7 @@ import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
@@ -85,11 +86,23 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCollectionPageComponent,
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
+          },
+          {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'collection.search' },
           },
           {
             path: 'browse/:id',

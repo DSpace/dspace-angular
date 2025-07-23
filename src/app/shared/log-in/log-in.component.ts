@@ -156,7 +156,7 @@ export class LogInComponent implements OnInit, OnDestroy {
     this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay({ refCount: false, bufferSize: 1 }));
     this.canShowDivider$ = this.canRegister$.pipe(
       combineLatestWith(this.canForgot$),
-      map(([canRegister, canForgot]) => canRegister || canForgot),
+      map(([canRegister, canForgot]) => (canRegister || canForgot) && (!environment.auth.disableStandardLogin || this.isStandalonePage)),
       filter(Boolean),
     );
   }

@@ -1,5 +1,5 @@
-<div class="row" *ngIf="!!submissionId">
-  <div class="col">
+<div class="d-flex flex-row gap-1 justify-content-between" *ngIf="!!submissionId">
+  <div class="flex-grow-0">
     <button *ngIf="(showDepositAndDiscard | async)"
             type="button"
             id="discard"
@@ -10,7 +10,7 @@
       <i class="fas fa-trash"></i> {{'submission.general.discard.submit' | translate}}
     </button>
   </div>
-  <div class="col text-right d-flex justify-content-end align-items-center">
+  <div class="text-right d-flex justify-content-end align-items-center">
     <span *ngIf="(hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true && (submissionIsInvalid | async)">
       <i class="fas fa-warning"></i> {{'submission.general.info.invalid' | translate}}
     </span>

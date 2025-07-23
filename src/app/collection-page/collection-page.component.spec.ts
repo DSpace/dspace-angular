@@ -12,9 +12,9 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
+  provideRouter,
   Router,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
@@ -44,7 +44,6 @@ import {
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { CollectionPageComponent } from './collection-page.component';
 
 describe('CollectionPageComponent', () => {
@@ -78,8 +77,9 @@ describe('CollectionPageComponent', () => {
     dsoNameServiceSpy = jasmine.createSpyObj('DSONameService', ['getName']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CollectionPageComponent, VarDirective],
+      imports: [FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CollectionPageComponent, VarDirective],
       providers: [
+        provideRouter([]),
         { provide: ActivatedRoute, useValue: aroute },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authServiceSpy },
@@ -90,7 +90,7 @@ describe('CollectionPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(CollectionPageComponent, { remove: { imports: [ThemedComcolPageContentComponent, ErrorComponent, ThemedLoadingComponent, ViewTrackerComponent, ComcolPageHeaderComponent, ComcolPageLogoComponent, ThemedComcolPageHandleComponent, DsoEditMenuComponent, ThemedComcolPageBrowseByComponent, ObjectCollectionComponent, ContextMenuComponent] } }).compileComponents();
+      .overrideComponent(CollectionPageComponent, { remove: { imports: [ThemedComcolPageContentComponent, ErrorComponent, ThemedLoadingComponent, ComcolPageHeaderComponent, ComcolPageLogoComponent, ThemedComcolPageHandleComponent, DsoEditMenuComponent, ThemedComcolPageBrowseByComponent, ObjectCollectionComponent, ContextMenuComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

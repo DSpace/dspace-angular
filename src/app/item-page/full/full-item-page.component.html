@@ -3,7 +3,6 @@
     <div *ngIf="itemRD?.payload as item">
       <ds-item-alerts [item]="item"></ds-item-alerts>
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
-      <ds-view-tracker [object]="item"></ds-view-tracker>
       <div *ngIf="!item.isWithdrawn || (isAdmin$|async)" class="full-item-info">
         <div class="d-flex flex-row">
           <ds-item-page-title-field class="mr-auto" [item]="item"></ds-item-page-title-field>
@@ -12,7 +11,7 @@
           </div>
         </div>
         <div class="simple-view-link my-3" *ngIf="!fromSubmissionObject">
-          <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]">
+          <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]" role="button" tabindex="0">
             {{"item.page.link.simple" | translate}}
           </a>
         </div>

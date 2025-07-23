@@ -1,9 +1,9 @@
 <div class="container">
   <ds-alert [type]="'alert-info'" [content]="'item.edit.authorizations.heading'"></ds-alert>
-  <ds-resource-policies [resourceType]="'item'" [resourceName]="(getItemName() | async)"
+  <ds-resource-policies [resourceType]="'item'" [resourceName]="itemName$ | async"
     [resourceUUID]="(itemUuid$ | async)">
   </ds-resource-policies>
-  <ng-container *ngFor="let bundle of (bundles$ | async); trackById">
+  <ng-container *ngFor="let bundle of (bundles$ | async)">
     <ds-resource-policies [resourceType]="'bundle'" [resourceUUID]="bundle.id" [resourceName]="bundle.name">
     </ds-resource-policies>
     <ng-container *ngIf="(bundleBitstreamsMap.get(bundle.id)?.bitstreams | async)?.length > 0">
@@ -16,7 +16,7 @@
         </div>
         <div class="card-body" [id]="bundle.id" [ngbCollapse]="bundleBitstreamsMap.get(bundle.id).isCollapsed">
           <ng-container
-            *ngFor="let bitstream of (bundleBitstreamsMap.get(bundle.id).bitstreams | async); trackById">
+            *ngFor="let bitstream of (bundleBitstreamsMap.get(bundle.id).bitstreams | async)">
             <ds-resource-policies [resourceType]="'bitstream'" [resourceUUID]="bitstream.id"
               [resourceName]="bitstream.name"></ds-resource-policies>
           </ng-container>

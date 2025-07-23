@@ -124,8 +124,6 @@ describe('BrowseByComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: 'startsWithOptions', useValue: [] },
-        { provide: 'paginationId', useValue: 'bbm' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

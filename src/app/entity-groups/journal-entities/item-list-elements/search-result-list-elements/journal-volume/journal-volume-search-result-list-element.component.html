@@ -2,7 +2,7 @@
   <div *ngIf="showThumbnails" class="col-3 col-xl-2 pr-sm-0">
     <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
        [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-       [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out">
+       [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out" role="link" tabindex="-1">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
       </ds-thumbnail>
     </a>
@@ -17,7 +17,7 @@
       <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
          [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-         [innerHTML]="dsoTitle"></a>
+         [innerHTML]="dsoTitle" role="link" tabindex="0"></a>
       <span *ngIf="linkType === linkTypes.None"
             class="lead item-list-title dont-break-out"
             [innerHTML]="dsoTitle"></span>

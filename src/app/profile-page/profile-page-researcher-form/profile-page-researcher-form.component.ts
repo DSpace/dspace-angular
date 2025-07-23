@@ -13,10 +13,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {
   map,
   mergeMap,
@@ -201,24 +198,6 @@ export class ProfilePageResearcherFormComponent implements OnInit {
         this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
       }
     });
-  }
-
-  /**
-   * Return a boolean representing if a delete operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingDelete(): Observable<boolean> {
-    return this.processingDelete$.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if a create operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingCreate(): Observable<boolean> {
-    return this.processingCreate$.asObservable();
   }
 
   /**

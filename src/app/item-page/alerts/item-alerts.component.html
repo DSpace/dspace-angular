@@ -7,8 +7,8 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <span class="align-self-center">{{'item.alerts.withdrawn' | translate}}</span>
                 <div class="gap-2 d-flex">
-                  <a *ngIf="(isAdministrator$ | async) !== true" routerLink="/home" class="btn btn-primary btn-sm">{{"404.link.home-page" | translate}}</a>
-                  <a *ngIf="showReinstateButton$ | async" class="btn btn-primary btn-sm" (click)="openReinstateModal()">{{ 'item.alerts.reinstate-request' | translate}}</a>
+                  <a *ngIf="(isAdministrator$ | async) !== true" routerLink="/home" class="btn btn-primary btn-sm" role="link" tabindex="0">{{"404.link.home-page" | translate}}</a>
+                  <a *ngIf="showReinstateButton$ | async" class="btn btn-primary btn-sm" (click)="openReinstateModal()" role="link" tabindex="0">{{ 'item.alerts.reinstate-request' | translate}}</a>
                 </div>
             </div>
         </ds-alert>

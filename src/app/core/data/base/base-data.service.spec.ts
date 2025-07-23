@@ -646,22 +646,6 @@ describe('BaseDataService', () => {
         });
       });
 
-      it('should emit the first completed RemoteData since the request was made', () => {
-        testScheduler.run(({ cold, expectObservable }) => {
-          spyOn(rdbService, 'buildList').and.returnValue(cold('a-b', {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.SuccessStale,
-          }));
-          const expected = 'a-b';
-          const values = {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.SuccessStale,
-          };
-
-          expectObservable(service.findListByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
-        });
-      });
-
       it(`should not emit a cached stale RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
         testScheduler.run(({ cold, expectObservable }) => {
           spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e-f-g', {
