@@ -1,4 +1,3 @@
-import { BitstreamFormatRegistryState } from '../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { AuthState } from './auth/auth.reducer';
 import { ObjectCacheState } from './cache/object-cache.reducer';
 import { ServerSyncBufferState } from './cache/server-sync-buffer.reducer';
@@ -14,7 +13,6 @@ import { RouteState } from './services/route.reducer';
  * The core sub-state in the NgRx store
  */
 export interface CoreState {
-    'bitstreamFormats': BitstreamFormatRegistryState;
     'cache/object': ObjectCacheState;
     'cache/syncbuffer': ServerSyncBufferState;
     'cache/object-updates': ObjectUpdatesState;

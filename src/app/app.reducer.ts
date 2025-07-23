@@ -17,6 +17,10 @@ import {
   GroupRegistryState,
 } from './access-control/group-registry/group-registry.reducers';
 import {
+  bitstreamFormatReducer,
+  BitstreamFormatRegistryState,
+} from './admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import {
   metadataRegistryReducer,
   MetadataRegistryState,
 } from './admin/admin-registries/metadata-registry/metadata-registry.reducers';
@@ -97,6 +101,7 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   correlationId: string;
   contextHelp: ContextHelpState;
+  bitstreamFormats: BitstreamFormatRegistryState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -119,6 +124,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   groupRegistry: groupRegistryReducer,
   correlationId: correlationIdReducer,
   contextHelp: contextHelpReducer,
+  bitstreamFormats: bitstreamFormatReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

@@ -19,12 +19,12 @@ import {
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
 } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
+import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
-import { CoreState } from '../core-state.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
@@ -47,7 +47,7 @@ describe('BitstreamFormatDataService', () => {
     dispatch(action: Action) {
       // Do Nothing
     },
-  } as Store<CoreState>;
+  } as Store<AppState>;
 
   const requestUUIDs = ['some', 'uuid'];
 

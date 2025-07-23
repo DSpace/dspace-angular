@@ -18,11 +18,10 @@ import {
   BitstreamFormatsRegistrySelectAction,
 } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core-state.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -46,10 +45,7 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 
-const bitstreamFormatsStateSelector = createSelector(
-  coreSelector,
-  (state: CoreState) => state.bitstreamFormats,
-);
+export const bitstreamFormatsStateSelector = (state: AppState) => state.bitstreamFormats;
 const selectedBitstreamFormatSelector = createSelector(
   bitstreamFormatsStateSelector,
   (bitstreamFormatRegistryState: BitstreamFormatRegistryState) => bitstreamFormatRegistryState.selectedBitstreamFormats,
@@ -72,7 +68,7 @@ export class BitstreamFormatDataService extends IdentifiableDataService<Bitstrea
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
-    protected store: Store<CoreState>,
+    protected store: Store<AppState>,
   ) {
     super('bitstreamformats', requestService, rdbService, objectCache, halService);
 
