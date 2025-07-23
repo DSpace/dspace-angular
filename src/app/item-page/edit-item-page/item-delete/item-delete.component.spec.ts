@@ -207,7 +207,7 @@ describe('ItemDeleteComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
-    expect(comp.router).toBe(router);
+    expect(comp['router']).toBe(router);
     fixture.detectChanges();
   });
 
@@ -228,8 +228,6 @@ describe('ItemDeleteComponent', () => {
         Object.assign(new ProcessParameter(), { name: '-i', value: mockItem.uuid }),
       ];
       scriptDataService.invoke.and.returnValue(createSuccessfulRemoteDataObject$({ processId: '123' }));
-      console.log('Before performAction - scriptDataService.invoke:', scriptDataService.invoke);
-      console.log('Before performAction - isSpy:', jasmine.isSpy(scriptDataService.invoke));
       comp.performAction();
       setTimeout(() => {
         expect(scriptDataService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
@@ -243,8 +241,8 @@ describe('ItemDeleteComponent', () => {
       scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
       comp.performAction();
       setTimeout(() => {
-        expect(comp.notificationsService.error).toHaveBeenCalled();
-        expect(comp.router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        expect(comp['notificationsService'].error).toHaveBeenCalled();
+        expect(comp['router'].navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
         done();
       }, 0);
     });
