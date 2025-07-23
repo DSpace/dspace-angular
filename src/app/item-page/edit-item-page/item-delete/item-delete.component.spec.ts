@@ -73,7 +73,7 @@ let router;
 let scriptService;
 let notificationService: NotificationsServiceStub;
 
-fdescribe('ItemDeleteComponent', () => {
+describe('ItemDeleteComponent', () => {
   beforeEach(waitForAsync(() => {
     notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService', {
