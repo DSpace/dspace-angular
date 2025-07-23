@@ -276,7 +276,6 @@ export class ItemDeleteComponent
    * @param relationshipType  the relationship type to get the label for
    */
   getLabel(relationshipType: RelationshipType): Observable<string> {
-
     return this.getRelationships(relationshipType).pipe(
       switchMap((relationships) =>
         this.isLeftItem(relationships[0]).pipe(
@@ -291,7 +290,6 @@ export class ItemDeleteComponent
    * @param relationshipType  the relationship type to filter the item's relationships on
    */
   getRelationships(relationshipType: RelationshipType): Observable<Relationship[]> {
-
     if (!this.relationships$.has(relationshipType)) {
       this.relationships$.set(
         relationshipType,
@@ -319,7 +317,6 @@ export class ItemDeleteComponent
    * @param relationship  the relationship to get the type for
    */
   private getRelationshipType(relationship: Relationship): Observable<RelationshipType> {
-
     this.linkService.resolveLinks(
       relationship,
       followLink('relationshipType'),
@@ -338,9 +335,7 @@ export class ItemDeleteComponent
    * @param relationship  the relationship to get the other item for
    */
   getRelatedItem(relationship: Relationship): Observable<Item> {
-
     if (!this.relatedItems$.has(relationship)) {
-
       this.relatedItems$.set(
         relationship,
         this.isLeftItem(relationship).pipe(
@@ -361,7 +356,6 @@ export class ItemDeleteComponent
   getVirtualMetadata(relationship: Relationship): Observable<VirtualMetadata[]> {
 
     if (!this.virtualMetadata$.has(relationship)) {
-
       this.virtualMetadata$.set(
         relationship,
         this.getRelatedItem(relationship).pipe(
@@ -435,20 +429,6 @@ export class ItemDeleteComponent
           this.router.navigate([getItemEditRoute(this.item)]);
         }
       });
-  }
-
-  /**
-   * When the item is successfully delete, navigate to the homepage, otherwise navigate back to the item edit page
-   * @param succeeded
-   */
-  notify(succeeded: boolean) {
-    if (succeeded) {
-      this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
-      void this.router.navigate(['']);
-    } else {
-      this.notificationsService.error(this.translateService.get('item.edit.' + this.messageKey + '.error'));
-      void this.router.navigate([getItemEditRoute(this.item)]);
-    }
   }
 
   /**
