@@ -23,7 +23,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AppState } from '../../app.reducer';
 import {
   hasNoValue,
   hasValue,
@@ -36,6 +35,7 @@ import {
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { CoreState } from '../core-state.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -115,7 +115,7 @@ export class AuthService {
     protected router: Router,
     protected routeService: RouteService,
     protected storage: CookieService,
-    protected store: Store<AppState>,
+    protected store: Store<CoreState>,
     protected hardRedirectService: HardRedirectService,
     protected notificationService: NotificationsService,
     protected translateService: TranslateService,

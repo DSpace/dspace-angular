@@ -7,9 +7,9 @@ import uniqBy from 'lodash/uniqBy';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppState } from '../../app.reducer';
 import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
 import { rendersAuthMethodType } from '../../shared/log-in/methods/log-in.methods-decorator.utils';
+import { CoreState } from '../core-state.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
 import { getAuthenticationMethods } from './selectors';
@@ -22,7 +22,7 @@ import { getAuthenticationMethods } from './selectors';
  * Provides methods to retrieve and process authentication methods from the application store.
  */
 export class AuthMethodsService {
-  constructor(protected store: Store<AppState>) {
+  constructor(protected store: Store<CoreState>) {
   }
 
   /**

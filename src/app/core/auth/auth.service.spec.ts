@@ -20,7 +20,6 @@ import {
 } from 'rxjs';
 
 import { REQUEST } from '../../../express.tokens';
-import { AppState } from '../../app.reducer';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -36,6 +35,7 @@ import {
   SpecialGroupDataMock$,
 } from '../../shared/testing/special-group.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
@@ -282,7 +282,7 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<CoreState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
@@ -358,7 +358,7 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<CoreState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
       const expiredToken: AuthTokenInfo = new AuthTokenInfo('test_token');
       expiredToken.expires = Date.now() - (1000 * 60 * 60);
       authenticatedState = {
@@ -587,7 +587,7 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<CoreState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
@@ -627,7 +627,7 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<CoreState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});

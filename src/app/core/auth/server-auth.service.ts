@@ -14,12 +14,12 @@ import {
   REQUEST,
   RESPONSE,
 } from '../../../express.tokens';
-import { AppState } from '../../app.reducer';
 import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
@@ -53,7 +53,7 @@ export class ServerAuthService extends AuthService {
     protected router: Router,
     protected routeService: RouteService,
     protected storage: CookieService,
-    protected store: Store<AppState>,
+    protected store: Store<CoreState>,
     protected hardRedirectService: HardRedirectService,
     protected notificationService: NotificationsService,
     protected translateService: TranslateService,
