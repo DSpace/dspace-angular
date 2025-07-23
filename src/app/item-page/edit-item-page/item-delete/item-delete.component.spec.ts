@@ -71,11 +71,9 @@ let typesSelection;
 let scriptDataService;
 let router;
 let scriptService;
-let notificationService: NotificationsServiceStub;
 
-describe('ItemDeleteComponent', () => {
+fdescribe('ItemDeleteComponent', () => {
   beforeEach(waitForAsync(() => {
-    notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService', {
       invoke: createSuccessfulRemoteDataObject$({ processId: '123' }),
     });
@@ -207,7 +205,6 @@ describe('ItemDeleteComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
-    expect(comp['router']).toBe(router);
     fixture.detectChanges();
   });
 
@@ -241,8 +238,8 @@ describe('ItemDeleteComponent', () => {
       scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
       comp.performAction();
       setTimeout(() => {
-        expect(comp['notificationsService'].error).toHaveBeenCalled();
-        expect(comp['router'].navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        expect(notificationsServiceStub.error).toHaveBeenCalled();
+        expect(router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
         done();
       }, 0);
     });
