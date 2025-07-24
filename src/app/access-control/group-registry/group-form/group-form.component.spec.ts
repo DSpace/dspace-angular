@@ -65,6 +65,7 @@ import {
   GroupMock2,
 } from '../../../shared/testing/group-mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { GroupRegistryService } from '../group-registry.service';
 import { GroupFormComponent } from './group-form.component';
 import { MembersListComponent } from './members-list/members-list.component';
 import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
@@ -76,6 +77,7 @@ describe('GroupFormComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let groupRegistryServiceStub: any;
   let dsoDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
   let notificationService: NotificationsServiceStub;
@@ -86,6 +88,7 @@ describe('GroupFormComponent', () => {
   let groupName: string;
   let groupDescription: string;
   let expected: Group;
+  let activeGroup;
 
   beforeEach(waitForAsync(() => {
     groups = [GroupMock, GroupMock2];
@@ -111,18 +114,23 @@ describe('GroupFormComponent', () => {
       },
     });
     ePersonDataServiceStub = {};
+    groupRegistryServiceStub = {
+      getActiveGroup(): Observable<Group> {
+        return of(activeGroup);
+      },
+      cancelEditGroup(): void {
+        activeGroup = null;
+      },
+      editGroup(group: Group) {
+        activeGroup = group;
+      },
+    };
     groupsDataServiceStub = {
       allGroups: groups,
       activeGroup: null,
       createdGroup: null,
-      getActiveGroup(): Observable<Group> {
-        return of(this.activeGroup);
-      },
       getGroupRegistryRouterLink(): string {
         return '/access-control/groups';
-      },
-      editGroup(group: Group) {
-        this.activeGroup = group;
       },
       clearGroupsRequests() {
         return null;
@@ -133,9 +141,7 @@ describe('GroupFormComponent', () => {
       delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
         return createSuccessfulRemoteDataObject$({});
       },
-      cancelEditGroup(): void {
-        this.activeGroup = null;
-      },
+
       findById(id: string) {
         return of({ payload: null, hasSucceeded: true });
       },
@@ -247,6 +253,7 @@ describe('GroupFormComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
+        { provide: GroupRegistryService, useValue: groupRegistryServiceStub },
         { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: FormBuilderService, useValue: builderService },
@@ -330,7 +337,7 @@ describe('GroupFormComponent', () => {
             },
           },
         });
-        spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(of(expected));
+        spyOn(groupRegistryServiceStub, 'getActiveGroup').and.returnValue(of(expected));
         spyOn(groupsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected2));
         component.ngOnInit();
       });

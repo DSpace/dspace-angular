@@ -63,6 +63,7 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
+import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EpeopleRegistryService } from '../epeople-registry.service';
 import { EPersonFormComponent } from './eperson-form.component';
@@ -79,6 +80,7 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+  let groupRegistryService: GroupRegistryService;
   let epersonRegistrationService: EpersonRegistrationService;
   let route: ActivatedRouteStub;
   let router: RouterStub;
@@ -222,6 +224,9 @@ describe('EPersonFormComponent', () => {
       findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: '',
     });
+    groupRegistryService = jasmine.createSpyObj('GroupRegistryService', {
+      startEditingNewGroup: jasmine.createSpy('startEditingNewGroup'),
+    });
 
     paginationService = new PaginationServiceStub();
     route = new ActivatedRouteStub();
@@ -237,6 +242,7 @@ describe('EPersonFormComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: EpeopleRegistryService, useValue: epeopleRegistryServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
+        { provide: GroupRegistryService, useValue: groupRegistryService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },

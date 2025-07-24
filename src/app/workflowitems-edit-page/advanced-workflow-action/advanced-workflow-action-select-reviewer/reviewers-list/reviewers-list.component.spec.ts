@@ -46,6 +46,7 @@ import {
   of,
 } from 'rxjs';
 
+import { GroupRegistryService } from '../../../../access-control/group-registry/group-registry.service';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
@@ -80,6 +81,7 @@ describe('ReviewersListComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let groupRegistryServiceStub: any;
   let activeGroup: Group;
   let epersonMembers: EPerson[];
   let epersonNonMembers: EPerson[];
@@ -111,13 +113,21 @@ describe('ReviewersListComponent', () => {
         // empty
       },
     };
+    groupRegistryServiceStub = {
+      getActiveGroup(): Observable<Group> {
+        return of(activeGroup);
+      },
+      cancelEditGroup(): void {
+        activeGroup = null;
+      },
+      editGroup(group: Group) {
+        activeGroup = group;
+      },
+    };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
-      getActiveGroup(): Observable<Group> {
-        return of(activeGroup);
-      },
       getEPersonMembers() {
         return this.epersonMembers;
       },
@@ -159,9 +169,6 @@ describe('ReviewersListComponent', () => {
         }
         return createNoContentRemoteDataObject$();
       },
-      editGroup() {
-        // empty
-      },
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
@@ -178,6 +185,7 @@ describe('ReviewersListComponent', () => {
       providers: [ReviewersListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
+        { provide: GroupRegistryService, useValue: groupRegistryServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },

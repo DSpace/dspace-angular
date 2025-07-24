@@ -45,6 +45,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { GroupRegistryService } from '../../group-registry.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -122,6 +123,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   groupBeingEdited: Group;
 
   constructor(public groupDataService: GroupDataService,
+              public groupRegistryService: GroupRegistryService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private formBuilder: UntypedFormBuilder,
@@ -136,7 +138,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.searchForm = this.formBuilder.group(({
       query: '',
     }));
-    this.subs.set(SubKey.ActiveGroup, this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
+    this.subs.set(SubKey.ActiveGroup, this.groupRegistryService.getActiveGroup().subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveSubGroups();
@@ -177,7 +179,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * @param subgroup  Group we want to delete from the subgroups of the group currently being edited
    */
   deleteSubgroupFromGroup(subgroup: Group) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+    this.groupRegistryService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
         this.showNotifications('deleteSubgroup', response, this.dsoNameService.getName(subgroup), activeGroup);
@@ -197,7 +199,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * @param subgroup  Subgroup to add to group currently being edited
    */
   addSubgroupToGroup(subgroup: Group) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+    this.groupRegistryService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         if (activeGroup.uuid !== subgroup.uuid) {
           const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);

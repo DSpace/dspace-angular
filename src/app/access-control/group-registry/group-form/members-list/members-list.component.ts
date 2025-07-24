@@ -58,6 +58,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
+import { GroupRegistryService } from '../../group-registry.service';
 
 // todo: optimize imports
 
@@ -183,6 +184,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   constructor(
     protected groupDataService: GroupDataService,
+    protected groupRegistryService: GroupRegistryService,
     public ePersonDataService: EPersonDataService,
     protected translateService: TranslateService,
     protected notificationsService: NotificationsService,
@@ -198,7 +200,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.searchForm = this.formBuilder.group(({
       query: '',
     }));
-    this.subs.set(SubKey.ActiveGroup, this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
+    this.subs.set(SubKey.ActiveGroup, this.groupRegistryService.getActiveGroup().subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveMembers(this.config.currentPage);
@@ -282,7 +284,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param eperson   EPerson we want to delete as member from group that is currently being edited
    */
   deleteMemberFromGroup(eperson: EPerson) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+    this.groupRegistryService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteMemberFromGroup(activeGroup, eperson);
         this.showNotifications('deleteMember', response, this.dsoNameService.getName(eperson), activeGroup);
@@ -302,7 +304,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param eperson   EPerson we want to add as member to group that is currently being edited
    */
   addMemberToGroup(eperson: EPerson) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+    this.groupRegistryService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.addMemberToGroup(activeGroup, eperson);
         this.showNotifications('addMember', response, this.dsoNameService.getName(eperson), activeGroup);

@@ -2,11 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import { createMockStore } from '@ngrx/store/testing';
+import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
   TranslateModule,
@@ -17,10 +13,6 @@ import {
 } from 'fast-json-patch';
 import { of } from 'rxjs';
 
-import {
-  GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction,
-} from '../../access-control/group-registry/group-registry.actions';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -41,7 +33,6 @@ import {
 } from '../../shared/testing/utils.test';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
-import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { FindListOptions } from '../data/find-list-options.model';
 import {
@@ -55,7 +46,6 @@ import { GroupDataService } from './group-data.service';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;
-  let store: Store<CoreState>;
   let requestService: RequestService;
 
   let restEndpointURL;
@@ -98,16 +88,13 @@ describe('GroupDataService', () => {
       new DummyChangeAnalyzer() as any,
       null,
       null,
-      store,
     );
   }
 
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(groups));
-    store = createMockStore({});
     service = initTestService();
-    spyOn(store, 'dispatch');
     spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
   });
 
@@ -264,20 +251,6 @@ describe('GroupDataService', () => {
       expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock._links.self.href);
       expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
-    });
-  });
-
-  describe('editGroup', () => {
-    it('should dispatch a EDIT_GROUP action with the group to start editing', () => {
-      service.editGroup(GroupMock);
-      expect(store.dispatch).toHaveBeenCalledWith(new GroupRegistryEditGroupAction(GroupMock));
-    });
-  });
-
-  describe('cancelEditGroup', () => {
-    it('should dispatch a CANCEL_EDIT_GROUP action', () => {
-      service.cancelEditGroup();
-      expect(store.dispatch).toHaveBeenCalledWith(new GroupRegistryCancelGroupAction());
     });
   });
 });

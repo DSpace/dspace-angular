@@ -63,6 +63,7 @@ import {
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { GroupRegistryService } from '../../group-registry.service';
 import { SubgroupsListComponent } from './subgroups-list.component';
 
 describe('SubgroupsListComponent', () => {
@@ -72,6 +73,7 @@ describe('SubgroupsListComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let groupRegistryServiceStub: any;
   let activeGroup: Group;
   let subgroups: Group[];
   let groupNonMembers: Group[];
@@ -103,13 +105,15 @@ describe('SubgroupsListComponent', () => {
     subgroups = [GroupMock2];
     groupNonMembers = [GroupMock];
     ePersonDataServiceStub = {};
+    groupRegistryServiceStub = {
+      getActiveGroup(): Observable<Group> {
+        return of(activeGroup);
+      },
+    };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
       subgroups: subgroups,
       groupNonMembers: groupNonMembers,
-      getActiveGroup(): Observable<Group> {
-        return of(this.activeGroup);
-      },
       getSubgroups(): Group {
         return this.subgroups;
       },
@@ -182,6 +186,7 @@ describe('SubgroupsListComponent', () => {
         SubgroupsListComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
+        { provide: GroupRegistryService, useValue: groupRegistryServiceStub },
         {
           provide: NotificationsService,
           useValue: new NotificationsServiceStub(),

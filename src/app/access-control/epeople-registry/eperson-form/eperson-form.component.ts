@@ -72,6 +72,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
+import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
@@ -242,6 +243,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     public epersonService: EPersonDataService,
     public epeopleRegistryService: EpeopleRegistryService,
     public groupsDataService: GroupDataService,
+    public groupRegistryService: GroupRegistryService,
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,

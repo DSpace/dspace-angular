@@ -66,6 +66,7 @@ import { GroupMock } from '../../../../shared/testing/group-mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { GroupRegistryService } from '../../group-registry.service';
 import { MembersListComponent } from './members-list.component';
 
 // todo: optimize imports
@@ -77,6 +78,7 @@ describe('MembersListComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let groupRegistryServiceStub: any;
   let activeGroup;
   let epersonMembers: EPerson[];
   let epersonNonMembers: EPerson[];
@@ -108,13 +110,16 @@ describe('MembersListComponent', () => {
         // empty
       },
     };
+    groupRegistryServiceStub = {
+      getActiveGroup(): Observable<Group> {
+        return of(activeGroup);
+      },
+    };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
-      getActiveGroup(): Observable<Group> {
-        return of(activeGroup);
-      },
+
       getEPersonMembers() {
         return this.epersonMembers;
       },
@@ -165,6 +170,7 @@ describe('MembersListComponent', () => {
       providers: [MembersListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
+        { provide: GroupRegistryService, useValue: groupRegistryServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },

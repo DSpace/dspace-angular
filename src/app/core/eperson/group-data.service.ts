@@ -1,10 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import {
   Observable,
@@ -13,12 +8,6 @@ import {
 import { take } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
-import {
-  GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction,
-} from '../../access-control/group-registry/group-registry.actions';
-import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
-import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
@@ -62,9 +51,6 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 
-const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
-const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
-
 /**
  * Provides methods to retrieve eperson group resources from the REST API & Group related CRUD actions.
  */
@@ -87,7 +73,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     protected comparator: DSOChangeAnalyzer<Group>,
     protected notificationsService: NotificationsService,
     protected nameService: DSONameService,
-    protected store: Store<any>,
   ) {
     super('groups', requestService, rdbService, objectCache, halService);
 
@@ -230,27 +215,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     ));
   }
 
-  /**
-   * Method to retrieve the group that is currently being edited
-   */
-  public getActiveGroup(): Observable<Group> {
-    return this.store.pipe(select(editGroupSelector));
-  }
 
-  /**
-   * Method to cancel editing a group, dispatches a cancel group action
-   */
-  public cancelEditGroup() {
-    this.store.dispatch(new GroupRegistryCancelGroupAction());
-  }
-
-  /**
-   * Method to set the group being edited, dispatches an edit group action
-   * @param group The group to edit
-   */
-  public editGroup(group: Group) {
-    this.store.dispatch(new GroupRegistryEditGroupAction(group));
-  }
 
   /**
    * Method that clears a cached groups request
@@ -273,21 +238,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
   }
 
   /**
-   * Change which group is being edited and return the link for the edit page of the new group being edited
-   * @param newGroup New group to edit
-   */
-  public startEditingNewGroup(newGroup: Group): string {
-    this.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
-      if (newGroup === activeGroup) {
-        this.cancelEditGroup();
-      } else {
-        this.editGroup(newGroup);
-      }
-    });
-    return this.getGroupEditPageRouterLinkWithID(newGroup.id);
-  }
-
-  /**
    * Get Edit page of group
    * @param group Group we want edit page for
    */
@@ -295,13 +245,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     return getGroupEditRoute(group.id);
   }
 
-  /**
-   * Get Edit page of group
-   * @param groupID Group ID we want edit page for
-   */
-  public getGroupEditPageRouterLinkWithID(groupID: string): string {
-    return getGroupEditRoute(groupID);
-  }
 
   /**
    * Extract optional UUID from a string
