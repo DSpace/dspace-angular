@@ -13,12 +13,18 @@ import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.dir
 @Component({
   selector: 'ds-themed-email-request-copy',
   // styleUrls: ['./email-request-copy.component.scss'],
-  styleUrls: [],
+  styleUrls: ['../../../../../app/request-copy/email-request-copy/email-request-copy.component.scss'],
   // templateUrl: './email-request-copy.component.html',
-  templateUrl: './../../../../../app/request-copy/email-request-copy/email-request-copy.component.html',
+  templateUrl: '../../../../../app/request-copy/email-request-copy/email-request-copy.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, TranslateModule, BtnDisabledDirective, AsyncPipe, NgbDropdownModule],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDropdownModule,
+    NgClass,
+    TranslateModule,
+  ],
 })
-export class EmailRequestCopyComponent
-  extends BaseComponent {
+export class EmailRequestCopyComponent extends BaseComponent {
 }

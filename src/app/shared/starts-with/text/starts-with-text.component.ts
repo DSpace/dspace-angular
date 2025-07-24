@@ -16,7 +16,11 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
   styleUrls: ['./starts-with-text.component.scss'],
   templateUrl: './starts-with-text.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class StartsWithTextComponent extends StartsWithAbstractComponent {
 

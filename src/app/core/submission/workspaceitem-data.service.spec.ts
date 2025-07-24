@@ -9,10 +9,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -55,7 +52,7 @@ describe('WorkspaceitemDataService test', () => {
   const item = Object.assign(new Item(), {
     id: '1234-1234',
     uuid: '1234-1234',
-    bundles: observableOf({}),
+    bundles: of({}),
     metadata: {
       'dc.title': [
         {
@@ -84,7 +81,7 @@ describe('WorkspaceitemDataService test', () => {
     },
   });
   const itemRD = createSuccessfulRemoteDataObject(item);
-  const wsi = Object.assign(new WorkspaceItem(), { item: observableOf(itemRD), id: '1234', uuid: '1234' });
+  const wsi = Object.assign(new WorkspaceItem(), { item: of(itemRD), id: '1234', uuid: '1234' });
   const wsiRD = createSuccessfulRemoteDataObject(wsi);
 
   const endpointURL = `https://rest.api/rest/api/submission/workspaceitems`;
@@ -126,7 +123,7 @@ describe('WorkspaceitemDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: observableOf(endpointURL),
+        getEndpoint: of(endpointURL),
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -136,8 +133,8 @@ describe('WorkspaceitemDataService test', () => {
         generateRequestId: requestUUID,
         send: true,
         removeByHrefSubstring: {},
-        getByHref: observableOf(responseCacheEntry),
-        getByUUID: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
+        getByUUID: of(responseCacheEntry),
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {

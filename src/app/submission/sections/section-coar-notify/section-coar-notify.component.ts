@@ -58,10 +58,10 @@ import { LdnPattern } from './submission-coar-notify.config';
   standalone: true,
   imports: [
     AsyncPipe,
-    TranslateModule,
+    InfiniteScrollModule,
     NgbDropdownModule,
     NgClass,
-    InfiniteScrollModule,
+    TranslateModule,
   ],
   providers: [NgbDropdown],
 })

@@ -19,7 +19,10 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
   styleUrls: ['./community-admin-search-result-grid-element.component.scss'],
   templateUrl: './community-admin-search-result-grid-element.component.html',
   standalone: true,
-  imports: [CommunitySearchResultGridElementComponent, RouterLink],
+  imports: [
+    CommunitySearchResultGridElementComponent,
+    RouterLink,
+  ],
 })
 /**
  * The component for displaying a list element for a community search result on the admin search page

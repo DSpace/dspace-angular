@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -6,10 +6,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -24,11 +24,16 @@ import { SubmissionService } from '../../submission.service';
  * This component represents submission form footer bar.
  */
 @Component({
-  selector: 'ds-submission-form-footer',
+  selector: 'ds-base-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html',
   standalone: true,
-  imports: [CommonModule, BrowserOnlyPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    TranslatePipe,
+  ],
 })
 export class SubmissionFormFooterComponent implements OnChanges {
 
@@ -60,7 +65,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
    * A boolean representing if submission form is valid or not
    * @type {Observable<boolean>}
    */
-  public submissionIsInvalid: Observable<boolean> = observableOf(true);
+  public submissionIsInvalid: Observable<boolean> = of(true);
 
   /**
    * A boolean representing if submission form has unsaved modifications
@@ -90,7 +95,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
       this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
-      this.showDepositAndDiscard = observableOf(this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem);
+      this.showDepositAndDiscard = of(this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem);
       this.hasUnsavedModification = this.submissionService.hasUnsavedModification();
     }
   }

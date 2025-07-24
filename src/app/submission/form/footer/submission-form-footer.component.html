@@ -1,6 +1,6 @@
 @if (!!submissionId) {
-  <div class="row">
-    <div class="col">
+  <div class="d-flex flex-row gap-1 justify-content-between">
+    <div class="flex-grow-0">
       @if ((showDepositAndDiscard | async)) {
         <button
           type="button"
@@ -13,7 +13,7 @@
         </button>
       }
     </div>
-    <div class="col text-end d-flex justify-content-end align-items-center">
+    <div class="text-end d-flex justify-content-end align-items-center">
       @if ((hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true) {
         <span>
           <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}

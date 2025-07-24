@@ -17,10 +17,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -170,7 +167,7 @@ describe('OrcidPageComponent test suite', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.createComponent(OrcidPageComponent);
     comp = fixture.componentInstance;
-    authService.isAuthenticated.and.returnValue(observableOf(true));
+    authService.isAuthenticated.and.returnValue(of(true));
   }));
 
   describe('whn has no query param', () => {

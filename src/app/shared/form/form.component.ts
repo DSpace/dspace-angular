@@ -61,12 +61,12 @@ import { FormService } from './form.service';
   styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
   imports: [
-    DsDynamicFormComponent,
-    ReactiveFormsModule,
-    TranslateModule,
-    DynamicFormsCoreModule,
     AsyncPipe,
     BtnDisabledDirective,
+    DsDynamicFormComponent,
+    DynamicFormsCoreModule,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -232,7 +232,7 @@ export class FormComponent implements OnDestroy, OnInit {
               }
 
               if (field) {
-                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel, fieldIndex);
                 this.formService.addErrorToField(field, model, error.message);
                 this.changeDetectorRef.detectChanges();
 
@@ -255,7 +255,7 @@ export class FormComponent implements OnDestroy, OnInit {
               }
 
               if (field) {
-                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel, fieldIndex);
                 this.formService.removeErrorFromField(field, model, error.message);
               }
             });

@@ -17,7 +17,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   SortDirection,
@@ -87,7 +87,7 @@ describe('CollectionItemMapperComponent', () => {
     },
   });
   const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -109,11 +109,11 @@ describe('CollectionItemMapperComponent', () => {
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
-    findListByHref: () => observableOf(emptyList),
+    findListByHref: () => of(emptyList),
   };
   const activatedRouteStub = {
     parent: {
-      data: observableOf({
+      data: of({
         dso: mockCollectionRD,
       }),
     },
@@ -124,42 +124,42 @@ describe('CollectionItemMapperComponent', () => {
     },
   };
   const translateServiceStub = {
-    get: () => observableOf('test-message of collection ' + mockCollection.name),
+    get: () => of('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter(),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => observableOf(emptyList),
+    search: () => of(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   const collectionDataServiceStub = {
-    getMappedItems: () => observableOf(emptyList),
+    getMappedItems: () => of(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearMappedItemsRequests: () => {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const routeServiceStub = {
     getRouteParameterValue: () => {
-      return observableOf('');
+      return of('');
     },
     getQueryParameterValue: () => {
-      return observableOf('');
+      return of('');
     },
     getQueryParamsWithPrefix: () => {
-      return observableOf('');
+      return of('');
     },
   };
   const fixedFilterServiceStub = {
     getQueryByFilterName: () => {
-      return observableOf('');
+      return of('');
     },
   };
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {

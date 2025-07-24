@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgComponentOutlet,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ErrorComponent } from 'src/app/shared/error/error.component';
@@ -29,7 +25,16 @@ import { StartsWithLoaderComponent } from '../../../../../app/shared/starts-with
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgClass, NgComponentOutlet, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    StartsWithLoaderComponent,
+    ThemedLoadingComponent,
+    ThemedResultsBackButtonComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class BrowseByComponent extends BaseComponent {
 }

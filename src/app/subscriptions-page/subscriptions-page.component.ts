@@ -45,7 +45,15 @@ import { VarDirective } from '../shared/utils/var.directive';
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss'],
   standalone: true,
-  imports: [ThemedLoadingComponent, VarDirective, PaginationComponent, SubscriptionViewComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    PaginationComponent,
+    SubscriptionViewComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * List and allow to manage all the active subscription for the current user

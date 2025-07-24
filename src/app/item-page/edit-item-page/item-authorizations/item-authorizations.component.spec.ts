@@ -12,7 +12,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
@@ -83,7 +83,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
   });
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: createSuccessfulRemoteDataObject(item),
     }),
   };
@@ -169,17 +169,9 @@ describe('ItemAuthorizationsComponent test suite', () => {
       }));
     });
 
-    it('should get the item UUID', () => {
-
-      expect(comp.getItemUUID()).toBeObservable(cold('(a|)', {
-        a: item.id,
-      }));
-
-    });
-
     it('should get the item\'s bundle', () => {
 
-      expect(comp.getItemBundles()).toBeObservable(cold('a', {
+      expect(comp.bundles$).toBeObservable(cold('a', {
         a: bundles,
       }));
 

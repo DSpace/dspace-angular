@@ -2,7 +2,7 @@ import { InjectionToken } from '@angular/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   zip as observableZip,
 } from 'rxjs';
 import {
@@ -60,7 +60,7 @@ export const relationsToItems = (thisId: string): (source: Observable<Relationsh
     source.pipe(
       mergeMap((relationships: Relationship[]) => {
         if (relationships.length === 0) {
-          return observableOf([]);
+          return of([]);
         }
         return observableZip(
           ...relationships.map((rel: Relationship) => observableCombineLatest([rel.leftItem, rel.rightItem])),

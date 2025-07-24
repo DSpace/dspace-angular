@@ -12,7 +12,9 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   styleUrls: ['./collection-list-element.component.scss'],
   templateUrl: './collection-list-element.component.html',
   standalone: true,
-  imports: [RouterLink],
+  imports: [
+    RouterLink,
+  ],
 })
 /**
  * Component representing list element for a collection

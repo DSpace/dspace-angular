@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
@@ -94,7 +94,7 @@ export class EndpointMockingRestService extends DspaceRestService {
    *    an Observable<RawRestResponse> containing the mock response
    */
   private toMockResponse$(mockData: any): Observable<RawRestResponse> {
-    return observableOf({
+    return of({
       payload: mockData,
       headers: new HttpHeaders(),
       statusCode: 200,

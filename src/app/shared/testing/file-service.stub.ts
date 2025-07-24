@@ -1,7 +1,7 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 export class FileServiceStub {
   retrieveFileDownloadLink() {
-    return observableOf(null);
+    return of(null);
   }
 }

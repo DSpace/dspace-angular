@@ -14,13 +14,14 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createTestComponent } from '../../testing/utils.test';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
@@ -63,6 +64,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
     searchTopEntries: jasmine.createSpy('searchTopEntries'),
     getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
     clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests'),
+    findVocabularyById: createSuccessfulRemoteDataObject$({ preloadLevel: 2 }),
   });
 
   beforeEach(waitForAsync(() => {
@@ -83,8 +85,8 @@ describe('VocabularyTreeviewComponent test suite', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then(() => {
-      vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
-      vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
+      vocabularyTreeviewServiceStub.getData.and.returnValue(of([]));
+      vocabularyTreeviewServiceStub.isLoading.and.returnValue(of(false));
     });
   }));
 
@@ -100,7 +102,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
-      vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
+      vocabularyTreeviewServiceStub.getData.and.returnValue(of([]));
     });
 
     afterEach(() => {
@@ -237,7 +239,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([
+      vocabularyTreeviewServiceStub.getData.and.returnValue(of([
         {
           'item': {
             'id': 'srsc:SCB11',
@@ -285,7 +287,9 @@ describe('VocabularyTreeviewComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [CdkTreeModule],
+  imports: [
+    CdkTreeModule,
+  ],
 })
 class TestComponent {
 

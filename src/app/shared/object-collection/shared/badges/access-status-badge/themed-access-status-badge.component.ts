@@ -15,7 +15,9 @@ import { AccessStatusBadgeComponent } from './access-status-badge.component';
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [AccessStatusBadgeComponent],
+  imports: [
+    AccessStatusBadgeComponent,
+  ],
 })
 export class ThemedAccessStatusBadgeComponent extends ThemedComponent<AccessStatusBadgeComponent> {
   @Input() object: DSpaceObject;

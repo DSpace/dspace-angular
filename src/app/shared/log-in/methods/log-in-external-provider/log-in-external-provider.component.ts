@@ -30,7 +30,9 @@ import { isEmpty } from '../../../empty.util';
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class LogInExternalProviderComponent implements OnInit {
 

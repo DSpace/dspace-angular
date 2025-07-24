@@ -83,13 +83,13 @@ export interface ProcessOverviewTableEntry {
   templateUrl: './process-overview-table.component.html',
   standalone: true,
   imports: [
-    NgClass,
-    NgbCollapseModule,
     AsyncPipe,
-    TranslateModule,
+    NgbCollapseModule,
+    NgClass,
     PaginationComponent,
     RouterLink,
     ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
 })

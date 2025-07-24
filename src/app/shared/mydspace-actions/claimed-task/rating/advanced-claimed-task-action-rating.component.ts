@@ -26,7 +26,10 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   templateUrl: './advanced-claimed-task-action-rating.component.html',
   styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, TranslateModule],
+  imports: [
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 

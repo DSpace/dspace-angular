@@ -23,7 +23,11 @@ import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
   styleUrls: ['./log-out.component.scss'],
   animations: [fadeOut],
   standalone: true,
-  imports: [AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    TranslateModule,
+  ],
 })
 export class LogOutComponent implements OnInit {
   /**

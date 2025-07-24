@@ -13,7 +13,9 @@ import { ThumbnailComponent } from './thumbnail.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ThumbnailComponent],
+  imports: [
+    ThumbnailComponent,
+  ],
 })
 export class ThemedThumbnailComponent extends ThemedComponent<ThumbnailComponent> {
 

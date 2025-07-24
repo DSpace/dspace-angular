@@ -22,7 +22,7 @@ import {
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -68,15 +68,15 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
   styleUrls: ['./dso-edit-metadata-authority-field.component.scss'],
   standalone: true,
   imports: [
-    DsDynamicScrollableDropdownComponent,
-    DsDynamicOneboxComponent,
-    AuthorityConfidenceStateDirective,
-    NgbTooltipModule,
     AsyncPipe,
-    TranslateModule,
-    FormsModule,
-    NgClass,
+    AuthorityConfidenceStateDirective,
     DebounceDirective,
+    DsDynamicOneboxComponent,
+    DsDynamicScrollableDropdownComponent,
+    FormsModule,
+    NgbTooltipModule,
+    NgClass,
+    TranslateModule,
   ],
 })
 export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetadataValueFieldComponent implements OnInit, OnChanges {
@@ -248,7 +248,7 @@ export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetad
       getFirstCompletedRemoteData(),
       switchMap((rd) => {
         if (rd.hasSucceeded) {
-          return observableOf(rd).pipe(
+          return of(rd).pipe(
             metadataFieldsToString(),
             take(1),
             map((fields: string[]) => fields.indexOf(this.mdField) > -1),

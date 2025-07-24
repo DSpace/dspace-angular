@@ -22,9 +22,9 @@ import { ReviewAccountInfoComponent } from './review-account-info/review-account
   templateUrl: './external-login-review-account-info-page.component.html',
   styleUrls: ['./external-login-review-account-info-page.component.scss'],
   imports: [
-    ReviewAccountInfoComponent,
-    AsyncPipe,
     AlertComponent,
+    AsyncPipe,
+    ReviewAccountInfoComponent,
   ],
   standalone: true,
 })

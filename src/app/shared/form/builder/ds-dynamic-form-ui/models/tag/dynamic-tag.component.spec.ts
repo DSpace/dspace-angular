@@ -29,7 +29,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -167,7 +167,7 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should search when 3+ characters typed', fakeAsync(() => {
         spyOn((tagComp as any).vocabularyService, 'getVocabularyEntriesByValue').and.callThrough();
 
-        tagComp.search(observableOf('test')).subscribe(() => {
+        tagComp.search(of('test')).subscribe(() => {
           expect((tagComp as any).vocabularyService.getVocabularyEntriesByValue).toHaveBeenCalled();
         });
       }));

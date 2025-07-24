@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -55,6 +55,7 @@ import {
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -257,6 +258,33 @@ export class AuthService {
   }
 
   /**
+   * Returns the authenticated user id from the store
+   * @returns {User}
+   */
+  public getAuthenticatedUserIdFromStore(): Observable<string> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+    );
+  }
+
+  /**
+   * Returns an observable which emits the currently authenticated user from the store,
+   * or null if the user is not authenticated.
+   */
+  public getAuthenticatedUserFromStoreIfAuthenticated(): Observable<EPerson> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+      switchMap((id: string) => {
+        if (hasValue(id)) {
+          return this.epersonService.findById(id).pipe(getFirstSucceededRemoteDataPayload());
+        } else {
+          return of(null);
+        }
+      }),
+    );
+  }
+
+  /**
    * Checks if token is present into browser storage and is valid.
    */
   public checkAuthenticationToken() {
@@ -337,7 +365,7 @@ export class AuthService {
     if (isNotEmpty(status.authMethods)) {
       authMethods = status.authMethods;
     }
-    return observableOf(authMethods);
+    return of(authMethods);
   }
 
   /**
@@ -656,7 +684,7 @@ export class AuthService {
    */
   getShortlivedToken(): Observable<string> {
     return this.isAuthenticated().pipe(
-      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null)),
+      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : of(null)),
     );
   }
 

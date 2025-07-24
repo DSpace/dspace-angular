@@ -71,12 +71,12 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     fadeInOut,
   ],
   imports: [
-    NgbNavModule,
-    CollectionSelectComponent,
-    ThemedSearchFormComponent,
     AsyncPipe,
-    TranslateModule,
     BrowserOnlyPipe,
+    CollectionSelectComponent,
+    NgbNavModule,
+    ThemedSearchFormComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

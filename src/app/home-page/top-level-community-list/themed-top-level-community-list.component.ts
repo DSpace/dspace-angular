@@ -8,7 +8,9 @@ import { TopLevelCommunityListComponent } from './top-level-community-list.compo
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [TopLevelCommunityListComponent],
+  imports: [
+    TopLevelCommunityListComponent,
+  ],
 })
 export class ThemedTopLevelCommunityListComponent extends ThemedComponent<TopLevelCommunityListComponent> {
   protected inAndOutputNames: (keyof TopLevelCommunityListComponent & keyof this)[];

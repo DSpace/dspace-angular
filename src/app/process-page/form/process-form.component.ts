@@ -40,7 +40,14 @@ import { ScriptsSelectComponent } from './scripts-select/scripts-select.componen
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ScriptsSelectComponent, ProcessParametersComponent, RouterLink, ScriptHelpComponent, TranslateModule],
+  imports: [
+    FormsModule,
+    ProcessParametersComponent,
+    RouterLink,
+    ScriptHelpComponent,
+    ScriptsSelectComponent,
+    TranslateModule,
+  ],
 })
 export class ProcessFormComponent implements OnInit {
   /**

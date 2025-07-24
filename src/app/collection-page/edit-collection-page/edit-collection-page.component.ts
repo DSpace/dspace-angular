@@ -23,11 +23,11 @@ import { getCollectionPageRoute } from '../collection-page-routing-paths';
   templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
   styleUrls: ['./edit-collection-page.component.scss'],
   imports: [
-    RouterLink,
-    TranslateModule,
-    NgClass,
-    RouterOutlet,
     AsyncPipe,
+    NgClass,
+    RouterLink,
+    RouterOutlet,
+    TranslateModule,
   ],
   standalone: true,
 })

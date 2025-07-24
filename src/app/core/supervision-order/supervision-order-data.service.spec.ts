@@ -3,7 +3,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -101,8 +101,8 @@ describe('SupervisionOrderService', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
+      getByHref: of(responseCacheEntry),
+      getByUUID: of(responseCacheEntry),
       setStaleByHrefSubstring: {},
     });
     rdbService = jasmine.createSpyObj('rdbService', {
@@ -148,12 +148,12 @@ describe('SupervisionOrderService', () => {
 
     spyOn(service, 'findById').and.callThrough();
     spyOn(service, 'findByHref').and.callThrough();
-    spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
+    spyOn(service, 'invalidateByHref').and.returnValue(of(true));
     spyOn((service as any).createData, 'create').and.callThrough();
     spyOn((service as any).deleteData, 'delete').and.callThrough();
     spyOn((service as any).patchData, 'update').and.callThrough();
     spyOn((service as any).searchData, 'searchBy').and.callThrough();
-    spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(observableOf(requestURL));
+    spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(of(requestURL));
   });
 
   describe('create', () => {

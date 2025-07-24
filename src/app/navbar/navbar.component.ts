@@ -41,7 +41,14 @@ import { ThemeService } from '../shared/theme-support/theme.service';
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav],
   standalone: true,
-  imports: [NgbDropdownModule, NgClass, ThemedUserMenuComponent, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbDropdownModule,
+    NgClass,
+    NgComponentOutlet,
+    ThemedUserMenuComponent,
+    TranslateModule,
+  ],
 })
 export class NavbarComponent extends MenuComponent implements OnInit {
   /**

@@ -18,14 +18,13 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
   standalone: true,
   imports: [
     CommonModule,
-    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
     MetadataFieldWrapperComponent,
+    ThemedFileDownloadLinkComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe,
     VarDirective,
   ],
 })
 export class FileSectionComponent extends BaseComponent {
-
 }
