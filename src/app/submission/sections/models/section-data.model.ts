@@ -48,6 +48,11 @@ export interface SectionDataObject {
   sectionType: SectionsType;
 
   /**
+   * The type this section extends
+   */
+  extendsSectionType: SectionsType;
+
+  /**
    * Eventually additional fields
    */
   [propName: string]: any;
