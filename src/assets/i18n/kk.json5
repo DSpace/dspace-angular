@@ -2732,7 +2732,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Біз сіздің жеке ақпаратыңызды келесі мақсаттарда жинаймыз және өңдейміз: <strong>Аутентификация, Параметрлері, Растау және Статистикалар</strong>. <br/> Көбірек білу үшін, біздің  {privacyPolicy} оқуыңызды өтінеміз.",
+  "cookies.consent.content-notice.description": "Біз сіздің жеке ақпаратыңызды келесі мақсаттарда жинаймыз және өңдейміз: Аутентификация, Параметрлері, Растау және Статистикалар. Көбірек білу үшін, біздің  {privacyPolicy} оқуыңызды өтінеміз.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Баптау",

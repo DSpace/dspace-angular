@@ -2751,7 +2751,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "আমরা নিম্নলিখিত উদ্দেশ্যে আপনার ব্যক্তিগত তথ্য সংগ্রহ এবং প্রক্রিয়া করি: <strong>প্রমাণিকরণ, পছন্দ, স্বীকৃতি এবং পরিসংখ্যান</strong>। <br/> আরও জানতে, অনুগ্রহ করে আমাদের {privacyPolicy} পড়ুন.",
+  "cookies.consent.content-notice.description": "আমরা নিম্নলিখিত উদ্দেশ্যে আপনার ব্যক্তিগত তথ্য সংগ্রহ এবং প্রক্রিয়া করি: প্রমাণিকরণ, পছন্দ, স্বীকৃতি এবং পরিসংখ্যান।  আরও জানতে, অনুগ্রহ করে আমাদের {privacyPolicy} পড়ুন.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "কাস্টমাইজ করুন",
