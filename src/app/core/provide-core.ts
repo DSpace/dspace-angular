@@ -2,11 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { makeEnvironmentProviders } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
-import {
-  MOCK_RESPONSE_MAP,
-  ResponseMapMock,
-} from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { NotifyRequestsStatus } from './coar-notify/models/notify-requests-status.model';
@@ -21,6 +16,11 @@ import { Itemfilter } from './data/admin-ldn-services/ldn-services-model/ldn-ser
 import { LdnService } from './data/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { Root } from './data/root.model';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
+import { EndpointMockingRestService } from './dspace-rest/endpoint-mocking-rest.service';
+import {
+  MOCK_RESPONSE_MAP,
+  ResponseMapMock,
+} from './dspace-rest/mocks/response-map.mock';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
 import { MetadataField } from './metadata/metadata-field.model';
