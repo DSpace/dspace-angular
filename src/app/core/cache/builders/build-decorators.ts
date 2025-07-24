@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
+import { DATA_SERVICE_MAP } from '../../../../decorator-registries/data-service-registry';
 import {
   hasNoValue,
   hasValue,
@@ -28,7 +29,6 @@ const resolvedLinkKey = Symbol('resolvedLink');
 
 const resolvedLinkMap = new Map();
 const typeMap = new Map();
-const dataServiceMap = new Map();
 const linkMap = new Map();
 
 /**
@@ -58,16 +58,6 @@ export function getClassForType(type: string | ResourceType) {
  */
 export function dataService(resourceType: ResourceType): any {
   return (target: any) => {
-    if (hasNoValue(resourceType)) {
-      throw new Error(`Invalid @dataService annotation on ${target}, resourceType needs to be defined`);
-    }
-    const existingDataservice = dataServiceMap.get(resourceType.value);
-
-    if (hasValue(existingDataservice)) {
-      throw new Error(`Multiple dataservices for ${resourceType.value}: ${existingDataservice} and ${target}`);
-    }
-
-    dataServiceMap.set(resourceType.value, target);
   };
 }
 
@@ -77,7 +67,11 @@ export function dataService(resourceType: ResourceType): any {
  * @param resourceType the resource type you want the matching dataservice for
  */
 export function getDataServiceFor<T extends CacheableObject>(resourceType: ResourceType) {
-  return dataServiceMap.get(resourceType.value);
+  if (DATA_SERVICE_MAP.has(resourceType.value)) {
+    return DATA_SERVICE_MAP.get(resourceType.value)();
+  } else {
+    return undefined;
+  }
 }
 
 /**

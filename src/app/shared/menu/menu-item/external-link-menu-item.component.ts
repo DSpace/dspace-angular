@@ -8,6 +8,8 @@ import { RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { isNotEmpty } from '../../empty.util';
+import { rendersMenuItemForType } from '../menu-item.decorator';
+import { MenuItemType } from '../menu-item-type.model';
 import { ExternalLinkMenuItemModel } from './models/external-link.model';
 
 /**
@@ -24,6 +26,7 @@ import { ExternalLinkMenuItemModel } from './models/external-link.model';
     TranslateModule,
   ],
 })
+@rendersMenuItemForType(MenuItemType.EXTERNAL)
 export class ExternalLinkMenuItemComponent implements OnInit {
   item: ExternalLinkMenuItemModel;
 

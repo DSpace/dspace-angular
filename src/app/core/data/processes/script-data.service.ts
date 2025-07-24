@@ -8,8 +8,10 @@ import {
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { Script } from '../../../process-page/scripts/script.model';
+import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 import { hasValue } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
@@ -33,6 +35,7 @@ export const BATCH_IMPORT_SCRIPT_NAME = 'import';
 export const BATCH_EXPORT_SCRIPT_NAME = 'export';
 
 @Injectable({ providedIn: 'root' })
+@dataService(SCRIPT)
 export class ScriptDataService extends IdentifiableDataService<Script> implements FindAllData<Script> {
   private findAllData: FindAllDataImpl<Script>;
 

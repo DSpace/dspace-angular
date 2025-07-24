@@ -11,6 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { hasValue } from '../../empty.util';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
+import { renderStartsWithFor } from '../starts-with-decorator';
+import { StartsWithType } from '../starts-with-type';
 
 /**
  * A switchable component rendering StartsWith options for the type "Date".
@@ -27,6 +29,7 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
     TranslateModule,
   ],
 })
+@renderStartsWithFor(StartsWithType.date)
 export class StartsWithDateComponent extends StartsWithAbstractComponent implements OnInit {
 
   /**

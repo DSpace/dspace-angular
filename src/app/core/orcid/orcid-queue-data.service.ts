@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -21,11 +22,13 @@ import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { OrcidQueue } from './model/orcid-queue.model';
+import { ORCID_QUEUE } from './model/orcid-queue.resource-type';
 
 /**
  * A service that provides methods to make REST requests with Orcid Queue endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(ORCID_QUEUE)
 export class OrcidQueueDataService extends IdentifiableDataService<OrcidQueue> {
   private searchData: SearchData<OrcidQueue>;
   private deleteData: DeleteData<OrcidQueue>;

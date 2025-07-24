@@ -4,6 +4,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
+import { editMetadataValueFieldComponent } from '../dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field.decorator';
 
 /**
  * The component used to gather input for plain-text metadata fields
@@ -19,5 +21,6 @@ import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit
     TranslateModule,
   ],
 })
+@editMetadataValueFieldComponent(EditMetadataValueFieldType.PLAIN_TEXT)
 export class DsoEditMetadataTextFieldComponent extends AbstractDsoEditMetadataValueFieldComponent {
 }

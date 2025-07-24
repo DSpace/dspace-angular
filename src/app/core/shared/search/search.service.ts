@@ -4,6 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  from,
   Observable,
 } from 'rxjs';
 import {
@@ -234,17 +235,19 @@ export class SearchService {
               getFirstCompletedRemoteData(),
               getRemoteDataPayload(),
               hasValueOperator(),
-              map((indexableObject: DSpaceObject) => {
+              switchMap((indexableObject: DSpaceObject) => {
                 // determine the constructor of the search result (ItemSearchResult,
                 // CollectionSearchResult, etc) based on the kind of the indeaxbleObject it
                 // contains. Recreate the result with that constructor
                 const constructor: GenericConstructor<ListableObject> = indexableObject.constructor as GenericConstructor<ListableObject>;
-                const resultConstructor = getSearchResultFor(constructor);
-
-                // Attach the payload directly to the indexableObject property on the result
-                return Object.assign(new resultConstructor(), result, {
-                  indexableObject,
-                }) as SearchResult<T>;
+                return from(getSearchResultFor(constructor)).pipe(
+                  map((resultConstructor: GenericConstructor<ListableObject>) => {
+                    // Attach the payload directly to the indexableObject property on the result
+                    return Object.assign(new resultConstructor(), result, {
+                      indexableObject,
+                    }) as SearchResult<T>;
+                  }),
+                );
               }),
             ),
           );

@@ -54,6 +54,7 @@ import {
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -63,6 +64,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
+import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
@@ -124,6 +126,7 @@ const compareItemsByUUID = (itemCheck: Item) =>
  * The service handling all relationship requests
  */
 @Injectable({ providedIn: 'root' })
+@dataService(RELATIONSHIP)
 export class RelationshipDataService extends IdentifiableDataService<Relationship> implements SearchData<Relationship> {
   private searchData: SearchData<Relationship>;
   private putData: PutData<Relationship>;

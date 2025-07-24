@@ -6,8 +6,8 @@ import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator'
 
 describe('TabulatableObject decorator function', () => {
 
-  it('should return the matching class', () => {
-    const component = getTabulatableObjectsComponent([AdminNotifySearchResult], ViewMode.Table, Context.CoarNotify);
+  it('should return the matching class', async () => {
+    const component = await getTabulatableObjectsComponent([AdminNotifySearchResult], ViewMode.Table, Context.CoarNotify);
     expect(component).toEqual(AdminNotifySearchResultComponent);
   });
 });

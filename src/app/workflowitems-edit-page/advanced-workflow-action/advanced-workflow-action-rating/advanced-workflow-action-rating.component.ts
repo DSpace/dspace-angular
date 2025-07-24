@@ -18,11 +18,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
+import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
-
-export const ADVANCED_WORKFLOW_TASK_OPTION_RATING = 'submit_score';
-export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
+import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 
 /**
  * The page on which reviewers can rate submitted items.
@@ -43,6 +43,7 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
   ],
   standalone: true,
 })
+@rendersAdvancedWorkflowTaskOption(AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_RATING)
 export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActionComponent implements OnInit {
 
   ratingForm: UntypedFormGroup;
@@ -72,7 +73,7 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
    */
   createBody(): any {
     const body = {
-      [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
+      [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
       score: this.ratingForm.get('rating').value,
     };
     if (this.ratingForm.get('review').value !== '') {
@@ -83,7 +84,7 @@ export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActio
   }
 
   getType(): string {
-    return ADVANCED_WORKFLOW_ACTION_RATING;
+    return AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_RATING;
   }
 
   getAdvancedInfo(workflowAction: WorkflowAction | null): RatingAdvancedWorkflowInfo | null {

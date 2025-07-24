@@ -15,20 +15,16 @@ import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
 import { MenuService } from '../../../menu/menu.service';
 import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
 import { MenuServiceStub } from '../../../testing/menu-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { DsoEditMenuSectionComponent } from './dso-edit-menu-section.component';
 
-function initAsync(dummySectionText: {
-  visible: boolean;
-  icon: string;
-  active: boolean;
-  model: { disabled: boolean; text: string; type: MenuItemType };
-  id: string
-}, menuService: MenuServiceStub) {
+function initAsync(menuService: MenuServiceStub) {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -37,11 +33,11 @@ function initAsync(dummySectionText: {
         TestComponent,
       ],
       providers: [
-        { provide: 'sectionDataProvider', useValue: dummySectionText },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
     }).compileComponents();
   }));
@@ -90,13 +86,15 @@ describe('DsoEditMenuSectionComponent', () => {
   };
 
   describe('text model', () => {
-    initAsync(dummySectionText, menuService);
+    initAsync(menuService);
 
     beforeEach(() => {
       spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = dummySectionText;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
@@ -117,12 +115,14 @@ describe('DsoEditMenuSectionComponent', () => {
     });
   });
   describe('on click model', () => {
-    initAsync(dummySectionClick, menuService);
+    initAsync(menuService);
     beforeEach(() => {
       spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = dummySectionClick;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
@@ -160,12 +160,14 @@ describe('DsoEditMenuSectionComponent', () => {
   });
 
   describe('when the section model in a non disabled link', () => {
-    initAsync(dummySectionLink, menuService);
+    initAsync(menuService);
     beforeEach(() => {
       spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = dummySectionLink;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -20,11 +21,13 @@ import { RequestService } from '../../data/request.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';
 import { Suggestion } from './models/suggestion.model';
+import { SUGGESTION } from './models/suggestion-objects.resource-type';
 
 /**
  * The service handling all Suggestion Target REST requests.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SUGGESTION)
 export class SuggestionDataService extends IdentifiableDataService<Suggestion>  {
 
   protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';

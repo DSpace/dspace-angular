@@ -1,10 +1,16 @@
 /* eslint-disable max-classes-per-file */
+import { Component } from '@angular/core';
+
 import { environment } from '../../../../../environments/environment';
 import { Context } from '../../../../core/shared/context.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
+  DEFAULT_CONTEXT,
+  DEFAULT_THEME,
   DEFAULT_VIEW_MODE,
   getListableObjectComponent,
+  getMatch,
   listableObjectComponent,
 } from './listable-object.decorator';
 
@@ -14,6 +20,7 @@ describe('ListableObject decorator function', () => {
   const type1 = 'TestType';
   const type2 = 'TestType2';
   const type3 = 'TestType3';
+  const type4 = 'TestType4';
   const typeAncestor = 'TestTypeAncestor';
   const typeUnthemed = 'TestTypeUnthemed';
   const typeLowPriority = 'TypeLowPriority';
@@ -34,6 +41,12 @@ describe('ListableObject decorator function', () => {
   }
 
   class Test3List {
+  }
+
+  class Test4Custom {
+  }
+
+  class Test1Custom {
   }
 
   class Test3DetailedSubmission {
@@ -60,30 +73,76 @@ describe('ListableObject decorator function', () => {
   class TestHighPriorityComponent {
   }
 
+  let listableObjectComponentRegistry: Map<string, Map<ViewMode, Map<Context, Map<string, () => Promise<GenericConstructor<Component>>>>>>;
+
   /* eslint-enable max-classes-per-file */
 
   beforeEach(() => {
-    listableObjectComponent(type1, ViewMode.ListElement)(Test1List);
-    listableObjectComponent(type1, ViewMode.GridElement)(Test1Grid);
+    listableObjectComponentRegistry = new Map();
 
-    listableObjectComponent(type2, ViewMode.ListElement)(Test2List);
-    listableObjectComponent(type2, ViewMode.ListElement, Context.Workspace)(Test2ListSubmission);
+    listableObjectComponentRegistry.set(type1, new Map());
+    listableObjectComponentRegistry.get(type1).set(ViewMode.ListElement, new Map());
+    listableObjectComponentRegistry.get(type1).get(ViewMode.ListElement).set(DEFAULT_CONTEXT, new Map());
+    listableObjectComponentRegistry.get(type1).get(ViewMode.ListElement).get(DEFAULT_CONTEXT).set(DEFAULT_THEME, () => Promise.resolve(Test1List));
+    listableObjectComponentRegistry.get(type1).set(ViewMode.GridElement, new Map());
+    listableObjectComponentRegistry.get(type1).get(ViewMode.GridElement).set(DEFAULT_CONTEXT, new Map());
+    listableObjectComponentRegistry.get(type1).get(ViewMode.GridElement).get(DEFAULT_CONTEXT).set(DEFAULT_THEME, () => Promise.resolve(Test1Grid));
 
-    listableObjectComponent(type3, ViewMode.ListElement)(Test3List);
-    listableObjectComponent(type3, ViewMode.DetailedListElement, Context.Workspace)(Test3DetailedSubmission);
+    listableObjectComponentRegistry.set(type2, new Map());
+    listableObjectComponentRegistry.get(type2).set(ViewMode.ListElement, new Map());
+    listableObjectComponentRegistry.get(type2).get(ViewMode.ListElement).set(DEFAULT_CONTEXT, new Map());
+    listableObjectComponentRegistry.get(type2).get(ViewMode.ListElement).get(DEFAULT_CONTEXT).set(DEFAULT_THEME, () => Promise.resolve(Test2List));
+    listableObjectComponentRegistry.get(type2).get(ViewMode.ListElement).set(Context.Workspace, new Map());
+    listableObjectComponentRegistry.get(type2).get(ViewMode.ListElement).get(Context.Workspace).set(DEFAULT_THEME, () => Promise.resolve(Test2ListSubmission));
+
+    listableObjectComponentRegistry.set(type3, new Map());
+    listableObjectComponentRegistry.get(type3).set(ViewMode.ListElement, new Map());
+    listableObjectComponentRegistry.get(type3).get(ViewMode.ListElement).set(DEFAULT_CONTEXT, new Map());
+    listableObjectComponentRegistry.get(type3).get(ViewMode.ListElement).get(DEFAULT_CONTEXT).set(DEFAULT_THEME, () => Promise.resolve(Test3List));
+    listableObjectComponentRegistry.get(type3).set(ViewMode.DetailedListElement, new Map());
+    listableObjectComponentRegistry.get(type3).get(ViewMode.DetailedListElement).set(Context.Workspace, new Map());
+    listableObjectComponentRegistry.get(type3).get(ViewMode.DetailedListElement).get(Context.Workspace).set(DEFAULT_THEME, () => Promise.resolve(Test3DetailedSubmission));
 
     // Register a metadata representation in the 'ancestor' theme
-    listableObjectComponent(typeAncestor, ViewMode.ListElement, Context.Any, 'ancestor')(TestAncestorComponent);
-    listableObjectComponent(typeUnthemed, ViewMode.ListElement, Context.Any)(TestUnthemedComponent);
+    listableObjectComponentRegistry.set(typeAncestor, new Map());
+    listableObjectComponentRegistry.get(typeAncestor).set(ViewMode.ListElement, new Map());
+    listableObjectComponentRegistry.get(typeAncestor).get(ViewMode.ListElement).set(Context.Any, new Map());
+    listableObjectComponentRegistry.get(typeAncestor).get(ViewMode.ListElement).get(Context.Any).set('ancestor', () => Promise.resolve(TestAncestorComponent));
+    listableObjectComponentRegistry.set(typeUnthemed, new Map());
+    listableObjectComponentRegistry.get(typeUnthemed).set(ViewMode.ListElement, new Map());
+    listableObjectComponentRegistry.get(typeUnthemed).get(ViewMode.ListElement).set(Context.Any, new Map());
+    listableObjectComponentRegistry.get(typeUnthemed).get(ViewMode.ListElement).get(Context.Any).set(DEFAULT_THEME, () => Promise.resolve(TestUnthemedComponent));
 
     // Register component with different priorities for expected parameters:
     // ViewMode.DetailedListElement, Context.Search, 'custom'
-    listableObjectComponent(typeLowPriority, DEFAULT_VIEW_MODE, undefined, undefined)(TestDefaultLowPriorityComponent);
-    listableObjectComponent(typeLowPriority, DEFAULT_VIEW_MODE, Context.Search, 'custom')(TestLowPriorityComponent);
-    listableObjectComponent(typeLowPriority2, DEFAULT_VIEW_MODE, undefined, undefined)(TestDefaultLowPriorityComponent);
-    listableObjectComponent(typeMidPriority, ViewMode.DetailedListElement, undefined, undefined)(TestDefaultMidPriorityComponent);
-    listableObjectComponent(typeMidPriority, ViewMode.DetailedListElement, undefined, 'custom')(TestMidPriorityComponent);
-    listableObjectComponent(typeHighPriority, ViewMode.DetailedListElement, Context.Search, undefined)(TestHighPriorityComponent);
+    listableObjectComponentRegistry.set(typeLowPriority, new Map());
+    listableObjectComponentRegistry.get(typeLowPriority).set(DEFAULT_VIEW_MODE, new Map());
+    listableObjectComponentRegistry.get(typeLowPriority).get(DEFAULT_VIEW_MODE).set(DEFAULT_CONTEXT, new Map());
+    listableObjectComponentRegistry.get(typeLowPriority).get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT).set(DEFAULT_THEME, () => Promise.resolve(TestDefaultLowPriorityComponent));
+    listableObjectComponentRegistry.get(typeLowPriority).get(DEFAULT_VIEW_MODE).set(Context.Search, new Map());
+    listableObjectComponentRegistry.get(typeLowPriority).get(DEFAULT_VIEW_MODE).get(Context.Search).set('custom', () => Promise.resolve(TestLowPriorityComponent));
+    listableObjectComponentRegistry.set(typeLowPriority2, new Map());
+    listableObjectComponentRegistry.get(typeLowPriority2).set(DEFAULT_VIEW_MODE, new Map());
+    listableObjectComponentRegistry.get(typeLowPriority2).get(DEFAULT_VIEW_MODE).set(DEFAULT_CONTEXT, new Map());
+    listableObjectComponentRegistry.get(typeLowPriority2).get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT).set(DEFAULT_THEME, () => Promise.resolve(TestDefaultLowPriorityComponent));
+    listableObjectComponentRegistry.set(typeMidPriority, new Map());
+    listableObjectComponentRegistry.get(typeMidPriority).set(ViewMode.DetailedListElement, new Map());
+    listableObjectComponentRegistry.get(typeMidPriority).get(ViewMode.DetailedListElement).set(DEFAULT_CONTEXT, new Map());
+    listableObjectComponentRegistry.get(typeMidPriority).get(ViewMode.DetailedListElement).get(DEFAULT_CONTEXT).set(DEFAULT_THEME, () => Promise.resolve(TestDefaultMidPriorityComponent));
+    listableObjectComponentRegistry.get(typeMidPriority).get(ViewMode.DetailedListElement).get(DEFAULT_CONTEXT).set('custom', () => Promise.resolve(TestMidPriorityComponent));
+    listableObjectComponentRegistry.set(typeHighPriority, new Map());
+    listableObjectComponentRegistry.get(typeHighPriority).set(ViewMode.DetailedListElement, new Map());
+    listableObjectComponentRegistry.get(typeHighPriority).get(ViewMode.DetailedListElement).set(Context.Search, new Map());
+    listableObjectComponentRegistry.get(typeHighPriority).get(ViewMode.DetailedListElement).get(Context.Search).set(DEFAULT_THEME, () => Promise.resolve(TestHighPriorityComponent));
+
+    // Register component who doesn't have a fallback route at each level
+    listableObjectComponentRegistry.set(type4, new Map());
+    listableObjectComponentRegistry.get(type4).set('CUSTOM_VIEW_MODE' as ViewMode, new Map());
+    listableObjectComponentRegistry.get(type4).get('CUSTOM_VIEW_MODE' as ViewMode).set(Context.Search, new Map());
+    listableObjectComponentRegistry.get(type4).get('CUSTOM_VIEW_MODE' as ViewMode).get(Context.Search).set(DEFAULT_THEME, () => Promise.resolve(Test4Custom));
+    listableObjectComponentRegistry.get(type1).set('CUSTOM_VIEW_MODE' as ViewMode, new Map());
+    listableObjectComponentRegistry.get(type1).get('CUSTOM_VIEW_MODE' as ViewMode).set(Context.ItemPage, new Map());
+    listableObjectComponentRegistry.get(type1).get('CUSTOM_VIEW_MODE' as ViewMode).get(Context.ItemPage).set(DEFAULT_THEME, () => Promise.resolve(Test1Custom));
 
     ogEnvironmentThemes = environment.themes;
   });
@@ -102,32 +161,41 @@ describe('ListableObject decorator function', () => {
     expect(listDecorator).not.toEqual(gridDecorator);
   });
 
+  describe('getMatch', () => {
+    it('should fallback to the default type when no exact match exists for that route', async () => {
+      const match = getMatch(listableObjectComponentRegistry, [type4, 'CUSTOM_VIEW_MODE' as ViewMode, Context.ItemPage, DEFAULT_THEME], [type1, DEFAULT_VIEW_MODE, DEFAULT_CONTEXT, DEFAULT_THEME]);
+
+      expect(match).not.toBeNull();
+      expect((await match.match()).name).toEqual(Test1Custom.name);
+    });
+  });
+
   describe('If there\'s an exact match', () => {
-    it('should return the matching class', () => {
-      const component = getListableObjectComponent([type3], ViewMode.DetailedListElement, Context.Workspace);
+    it('should return the matching class', async () => {
+      const component = await getListableObjectComponent([type3], ViewMode.DetailedListElement, Context.Workspace, undefined, listableObjectComponentRegistry);
       expect(component).toEqual(Test3DetailedSubmission);
 
-      const component2 = getListableObjectComponent([type3, type2], ViewMode.ListElement, Context.Workspace);
+      const component2 = await getListableObjectComponent([type3, type2], ViewMode.ListElement, Context.Workspace, undefined, listableObjectComponentRegistry);
       expect(component2).toEqual(Test2ListSubmission);
     });
   });
 
   describe('If there isn\'t an exact match', () => {
     describe('If there is a match for one of the entity types and the view mode', () => {
-      it('should return the class with the matching entity type and view mode and default context', () => {
-        const component = getListableObjectComponent([type3], ViewMode.ListElement, Context.Workspace);
+      it('should return the class with the matching entity type and view mode and default context', async () => {
+        const component = await getListableObjectComponent([type3], ViewMode.ListElement, Context.Workspace, undefined, listableObjectComponentRegistry);
         expect(component).toEqual(Test3List);
 
-        const component2 = getListableObjectComponent([type3, type1], ViewMode.GridElement, Context.Workspace);
+        const component2 = await getListableObjectComponent([type3, type1], ViewMode.GridElement, Context.Workspace, undefined, listableObjectComponentRegistry);
         expect(component2).toEqual(Test1Grid);
       });
     });
     describe('If there isn\'t a match for the representation type', () => {
-      it('should return the class with the matching entity type and the default view mode and default context', () => {
-        const component = getListableObjectComponent([type1], ViewMode.DetailedListElement);
+      it('should return the class with the matching entity type and the default view mode and default context', async () => {
+        const component = await getListableObjectComponent([type1], ViewMode.DetailedListElement, undefined, undefined, listableObjectComponentRegistry);
         expect(component).toEqual(Test1List);
 
-        const component2 = getListableObjectComponent([type2, type1], ViewMode.DetailedListElement);
+        const component2 = await getListableObjectComponent([type2, type1], ViewMode.DetailedListElement, undefined, undefined, listableObjectComponentRegistry);
         expect(component2).toEqual(Test2List);
       });
     });
@@ -153,13 +221,13 @@ describe('ListableObject decorator function', () => {
         ];
       });
 
-      it('should return component from the first ancestor theme that matches its objectType', () => {
-        const component = getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'requested');
+      it('should return component from the first ancestor theme that matches its objectType', async () => {
+        const component = await getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'requested', listableObjectComponentRegistry);
         expect(component).toEqual(TestAncestorComponent);
       });
 
-      it('should return default component if none of the ancestor themes match its objectType', () => {
-        const component = getListableObjectComponent([typeUnthemed], ViewMode.ListElement, Context.Any, 'requested');
+      it('should return default component if none of the ancestor themes match its objectType', async () => {
+        const component = await getListableObjectComponent([typeUnthemed], ViewMode.ListElement, Context.Any, 'requested', listableObjectComponentRegistry);
         expect(component).toEqual(TestUnthemedComponent);
       });
     });
@@ -176,7 +244,7 @@ describe('ListableObject decorator function', () => {
 
       it('should throw an error', () => {
         expect(() => {
-          getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'extension-cycle');
+          getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'extension-cycle', listableObjectComponentRegistry);
         }).toThrowError(
           'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1',
         );
@@ -194,32 +262,32 @@ describe('ListableObject decorator function', () => {
     });
 
     describe('If a component with default ViewMode contains specific context and/or theme', () => {
-      it('requesting a specific ViewMode should return the one with the requested context and/or theme', () => {
-        const component = getListableObjectComponent([typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+      it('requesting a specific ViewMode should return the one with the requested context and/or theme', async () => {
+        const component = await getListableObjectComponent([typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom', listableObjectComponentRegistry);
         expect(component).toEqual(TestLowPriorityComponent);
       });
     });
 
     describe('If a component with default Context contains specific ViewMode and/or theme', () => {
-      it('requesting a specific Context should return the one with the requested view-mode and/or theme', () => {
-        const component = getListableObjectComponent([typeMidPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+      it('requesting a specific Context should return the one with the requested view-mode and/or theme', async () => {
+        const component = await getListableObjectComponent([typeMidPriority], ViewMode.DetailedListElement, Context.Search, 'custom', listableObjectComponentRegistry);
         expect(component).toEqual(TestMidPriorityComponent);
       });
     });
 
     describe('If multiple components exist, each containing a different default value for one of the requested parameters', () => {
-      it('the component with the latest default value in the list should be returned', () => {
-        let component = getListableObjectComponent([typeMidPriority, typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+      it('the component with the latest default value in the list should be returned', async () => {
+        let component = await getListableObjectComponent([typeMidPriority, typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom', listableObjectComponentRegistry);
         expect(component).toEqual(TestMidPriorityComponent);
 
-        component = getListableObjectComponent([typeLowPriority, typeMidPriority, typeHighPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+        component = await getListableObjectComponent([typeLowPriority, typeMidPriority, typeHighPriority], ViewMode.DetailedListElement, Context.Search, 'custom', listableObjectComponentRegistry);
         expect(component).toEqual(TestHighPriorityComponent);
       });
     });
 
     describe('If two components exist for two different types, both configured for the same view-mode, but one for a specific context and/or theme', () => {
-      it('requesting a component for that specific context and/or theme while providing both types should return the most relevant one', () => {
-        const component = getListableObjectComponent([typeLowPriority2, typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom');
+      it('requesting a component for that specific context and/or theme while providing both types should return the most relevant one', async () => {
+        const component = await getListableObjectComponent([typeLowPriority2, typeLowPriority], ViewMode.DetailedListElement, Context.Search, 'custom', listableObjectComponentRegistry);
         expect(component).toEqual(TestLowPriorityComponent);
       });
     });

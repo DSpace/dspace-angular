@@ -19,12 +19,14 @@ import {
 } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
@@ -59,6 +61,7 @@ const selectedBitstreamFormatSelector = createSelector(
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(BITSTREAM_FORMAT)
 export class BitstreamFormatDataService extends IdentifiableDataService<BitstreamFormat> implements FindAllData<BitstreamFormat>, DeleteData<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';

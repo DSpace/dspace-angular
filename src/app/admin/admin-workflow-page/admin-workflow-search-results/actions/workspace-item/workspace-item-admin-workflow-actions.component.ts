@@ -185,9 +185,9 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
           );
         }
       }),
-    ).subscribe((result: boolean) => {
+    ).subscribe(async (result: boolean) => {
       if (result) {
-        this.delete.emit(this.convertReloadedObject());
+        this.delete.emit(await this.convertReloadedObject());
       }
     });
   }
@@ -201,16 +201,16 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
       backdrop: 'static',
     });
     supervisionModal.componentInstance.itemUUID = this.item.uuid;
-    supervisionModal.componentInstance.create.subscribe(() => {
-      this.create.emit(this.convertReloadedObject());
+    supervisionModal.componentInstance.create.subscribe(async () => {
+      this.create.emit(await this.convertReloadedObject());
     });
   }
 
   /**
    * Convert the reloadedObject to the Type required by this dso.
    */
-  private convertReloadedObject(): DSpaceObject {
-    const constructor = getSearchResultFor((this.wsi as any).constructor);
+  private async convertReloadedObject(): Promise<DSpaceObject> {
+    const constructor = await getSearchResultFor((this.wsi as any).constructor);
     return Object.assign(new constructor(), this.wsi, {
       indexableObject: this.wsi,
     });

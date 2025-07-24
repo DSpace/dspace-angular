@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { dataService } from '../../../core/cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import {
@@ -15,12 +16,14 @@ import { RequestService } from '../../../core/data/request.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { LDN_SERVICE_CONSTRAINT_FILTERS } from '../ldn-services-model/ldn-service.resource-type';
 import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(LDN_SERVICE_CONSTRAINT_FILTERS)
 export class LdnItemfiltersService extends IdentifiableDataService<Itemfilter> implements FindAllData<Itemfilter> {
   private findAllData: FindAllDataImpl<Itemfilter>;
 

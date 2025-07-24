@@ -2,7 +2,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
+import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
@@ -17,6 +19,8 @@ import { MetadataRepresentationListElementComponent } from '../metadata-represen
  * A component for displaying MetadataRepresentation objects in the form of plain text
  * It will simply use the value retrieved from MetadataRepresentation.getValue() to display as plain text
  */
+@metadataRepresentationComponent('Publication', MetadataRepresentationType.PlainText)
+@metadataRepresentationComponent('Publication', MetadataRepresentationType.AuthorityControlled)
 export class PlainTextMetadataListElementComponent extends MetadataRepresentationListElementComponent {
   /**
    * Get the appropriate query parameters for this browse link, depending on whether the browse definition

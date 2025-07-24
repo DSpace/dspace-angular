@@ -12,7 +12,7 @@ import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.m
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedTaskType } from '../claimed-task-type';
 import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
 
 @Component({
@@ -27,7 +27,7 @@ import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorat
  * Component for loading a ClaimedTaskAction component depending on the "option" input
  * Passes on the ClaimedTask to the component and subscribes to the processCompleted output
  */
-export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderComponent<ClaimedTaskActionsAbstractComponent> {
+export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderComponent<Component> {
   /**
    * The item object that belonging to the ClaimedTask object
    */
@@ -42,7 +42,7 @@ export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderCo
    * The name of the option to render
    * Passed on to the decorator to fetch the relevant component for this option
    */
-  @Input() option: string;
+  @Input() option: ClaimedTaskType;
 
   /**
    * The workflowitem object that belonging to the ClaimedTask object
@@ -68,8 +68,8 @@ export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderCo
     'processCompleted',
   ];
 
-  public getComponent(): GenericConstructor<ClaimedTaskActionsAbstractComponent> {
-    return getComponentByWorkflowTaskOption(this.option);
+  public getComponent(): Promise<GenericConstructor<Component>> {
+    return getComponentByWorkflowTaskOption(this.option, this.themeService.getThemeName());
   }
 
 }

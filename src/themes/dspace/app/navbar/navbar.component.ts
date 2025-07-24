@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgComponentOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NavbarComponent as BaseComponent } from '../../../../app/navbar/navbar.component';
 import { slideMobileNav } from '../../../../app/shared/animations/slide';
 import { ThemedUserMenuComponent } from '../../../../app/shared/auth-nav-menu/user-menu/themed-user-menu.component';
+import { MenuComponentLoaderComponent } from '../../../../app/shared/menu/menu-component-loader/menu-component-loader.component';
 
 /**
  * Component representing the public navbar
@@ -22,9 +22,9 @@ import { ThemedUserMenuComponent } from '../../../../app/shared/auth-nav-menu/us
   standalone: true,
   imports: [
     AsyncPipe,
+    MenuComponentLoaderComponent,
     NgbDropdownModule,
     NgClass,
-    NgComponentOutlet,
     ThemedUserMenuComponent,
     TranslateModule,
   ],
