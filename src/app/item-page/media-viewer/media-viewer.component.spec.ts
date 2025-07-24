@@ -16,6 +16,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { Bitstream } from '@core/shared/bitstream.model';
 import { FileService } from '@core/shared/file.service';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -27,7 +28,6 @@ import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';

@@ -5,12 +5,12 @@ import { RemoteData } from '@core/data/remote-data';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
 import { NoContent } from '@core/shared/NoContent.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
 import { createPaginatedList } from './utils.test';
 

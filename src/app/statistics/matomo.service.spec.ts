@@ -14,6 +14,10 @@ import {
 } from '@core/services/window.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   MatomoInitializerService,
   MatomoTracker,
 } from 'ngx-matomo-client';
@@ -22,10 +26,6 @@ import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { OrejimeService } from '../shared/cookies/orejime.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import {
   MATOMO_ENABLED,
   MATOMO_SITE_ID,

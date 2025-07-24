@@ -20,7 +20,6 @@ import {
   isEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
   followLink,
   FollowLinkConfig,
@@ -58,6 +57,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { ResearcherProfile } from './model/researcher-profile.model';
 
 /**

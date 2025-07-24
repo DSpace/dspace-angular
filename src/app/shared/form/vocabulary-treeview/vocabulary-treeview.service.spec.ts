@@ -8,6 +8,7 @@ import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary
 import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -27,7 +28,6 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import {
   LOAD_MORE_NODE,

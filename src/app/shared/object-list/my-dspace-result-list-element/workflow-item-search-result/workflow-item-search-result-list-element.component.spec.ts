@@ -17,6 +17,7 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -28,7 +29,6 @@ import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 

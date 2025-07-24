@@ -12,15 +12,15 @@ import { CommunityDataService } from '@core/data/community-data.service';
 import { RequestService } from '@core/data/request.service';
 import { RouteService } from '@core/services/route.service';
 import { Community } from '@core/shared/community.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 

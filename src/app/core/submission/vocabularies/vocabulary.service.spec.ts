@@ -9,10 +9,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -25,6 +21,10 @@ import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { PageInfo } from '../../shared/page-info.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../utilities/remote-data.utils';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';

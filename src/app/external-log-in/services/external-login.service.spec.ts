@@ -9,6 +9,10 @@ import { EpersonRegistrationService } from '@core/data/eperson-registration.serv
 import { RemoteData } from '@core/data/remote-data';
 import { NoContent } from '@core/shared/NoContent.model';
 import { Registration } from '@core/shared/registration.model';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -17,10 +21,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ExternalLoginService } from './external-login.service';
 

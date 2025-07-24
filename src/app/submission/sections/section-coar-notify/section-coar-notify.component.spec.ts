@@ -12,11 +12,11 @@ import {
 import { CoarNotifyConfigDataService } from '@core/data/coar-notify-config-data.service';
 import { LdnServicesService } from '@core/data/ldn-services-data.service';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';

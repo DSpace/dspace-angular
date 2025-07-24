@@ -15,6 +15,7 @@ import { MetadataValue } from '@core/shared/metadata.models';
 import { DEBOUNCE_TIME_OPERATOR } from '@core/shared/operators';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,7 +32,6 @@ import { last } from 'rxjs/operators';
 
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import {
   AddRelationshipAction,
   RelationshipActionTypes,

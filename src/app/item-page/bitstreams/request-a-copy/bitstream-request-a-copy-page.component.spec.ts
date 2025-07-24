@@ -29,6 +29,11 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
 import { ItemRequest } from '@core/shared/item-request.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -38,11 +43,6 @@ import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';

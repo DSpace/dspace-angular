@@ -6,12 +6,12 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../../environments/environment';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { EndpointMapRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { HALEndpointService } from './hal-endpoint.service';
 
 

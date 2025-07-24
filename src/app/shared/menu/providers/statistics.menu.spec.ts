@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { StatisticsMenuProvider } from './statistics.menu';

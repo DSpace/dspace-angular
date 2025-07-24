@@ -15,11 +15,11 @@ import {
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { Community } from '@core/shared/community.model';
 import { MetadataValue } from '@core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';

@@ -16,14 +16,14 @@ import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
 import {
   EPersonMock,

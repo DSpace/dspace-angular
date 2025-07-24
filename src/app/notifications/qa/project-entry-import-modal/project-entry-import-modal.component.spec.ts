@@ -14,6 +14,7 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -28,7 +29,6 @@ import {
 import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';

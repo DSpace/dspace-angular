@@ -3,8 +3,8 @@ import { Collection } from '@core/shared/collection.model';
 import { COLLECTION } from '@core/shared/collection.resource-type';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { DSpaceObjectPageMenuProvider } from './dso.menu';
 
 describe('DSpaceObjectPageMenuProvider', () => {

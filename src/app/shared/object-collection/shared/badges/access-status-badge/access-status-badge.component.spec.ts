@@ -9,13 +9,13 @@ import { LinkService } from '@core/cache/builders/link.service';
 import { AccessStatusObject } from '@core/shared/access-status.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { getMockLinkService } from 'src/app/shared/mocks/link-service.mock';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
 

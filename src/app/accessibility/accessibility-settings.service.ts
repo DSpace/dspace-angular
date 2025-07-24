@@ -8,6 +8,7 @@ import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { CookieService } from '@core/services/cookie.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,
@@ -31,7 +32,6 @@ import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 /**
  * Name of the cookie used to store the settings locally

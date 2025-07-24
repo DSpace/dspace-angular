@@ -14,15 +14,15 @@ import { IdentifierDataService } from '@core/data/identifier-data.service';
 import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Item } from '@core/shared/item.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { ItemStatusComponent } from './item-status.component';
 

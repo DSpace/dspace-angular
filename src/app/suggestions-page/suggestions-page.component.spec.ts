@@ -14,6 +14,7 @@ import {
 import { AuthService } from '@core/auth/auth.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,
@@ -38,7 +39,6 @@ import {
 } from '../shared/mocks/suggestion.mock';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';

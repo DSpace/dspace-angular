@@ -12,10 +12,10 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { PersonSearchResultGridElementComponent } from '../search-result-grid-elements/person/person-search-result-grid-element.component';

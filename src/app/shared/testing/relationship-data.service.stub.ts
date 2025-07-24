@@ -8,12 +8,12 @@ import { Relationship } from '@core/shared/item-relationships/relationship.model
 import { MetadataValue } from '@core/shared/metadata.models';
 import { MetadataRepresentation } from '@core/shared/metadata-representation/metadata-representation.model';
 import { NoContent } from '@core/shared/NoContent.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
 
 /**

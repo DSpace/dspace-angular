@@ -24,7 +24,7 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 import { SuggestionTargetDataService } from './suggestion-target-data.service';
 

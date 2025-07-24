@@ -16,7 +16,6 @@ import { of } from 'rxjs';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,
@@ -42,6 +41,7 @@ import {
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { GroupDataService } from './group-data.service';
 
 describe('GroupDataService', () => {

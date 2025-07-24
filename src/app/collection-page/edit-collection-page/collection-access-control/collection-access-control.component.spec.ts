@@ -4,10 +4,10 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Community } from '@core/shared/community.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CollectionAccessControlComponent } from './collection-access-control.component';
 
 describe('CollectionAccessControlComponent', () => {

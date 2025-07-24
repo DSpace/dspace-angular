@@ -13,6 +13,10 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -20,10 +24,6 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import { AppState } from '../app.reducer';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import { StoreMock } from '../shared/testing/store.mock';
 import {
   CommunityListService,

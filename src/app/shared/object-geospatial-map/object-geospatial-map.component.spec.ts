@@ -9,6 +9,7 @@ import {
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -21,7 +22,6 @@ import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-det
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ObjectGeospatialMapComponent } from './object-geospatial-map.component';
 
 describe('ObjectGeospatialMapComponent', () => {

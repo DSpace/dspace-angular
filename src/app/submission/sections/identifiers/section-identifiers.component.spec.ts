@@ -27,6 +27,7 @@ import { Item } from '@core/shared/item.model';
 import { License } from '@core/shared/license.model';
 import { WorkspaceitemSectionIdentifiersObject } from '@core/submission/models/workspaceitem-section-identifiers.model';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -41,7 +42,6 @@ import {
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';

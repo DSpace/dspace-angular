@@ -16,6 +16,7 @@ import { ListableModule } from '@core/shared/listable.module';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -27,7 +28,6 @@ import { NotificationsService } from '../../../../../shared/notifications/notifi
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 import {
   supervisionOrderPaginatedListRD,

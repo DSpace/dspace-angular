@@ -21,6 +21,7 @@ import { EpersonRegistrationService } from '@core/data/eperson-registration.serv
 import { GoogleRecaptchaService } from '@core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '@core/services/cookie.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -28,7 +29,6 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import {

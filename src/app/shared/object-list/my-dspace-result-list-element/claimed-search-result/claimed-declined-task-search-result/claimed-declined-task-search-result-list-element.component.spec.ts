@@ -13,6 +13,7 @@ import { LinkService } from '@core/cache/builders/link.service';
 import { Item } from '@core/shared/item.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -23,7 +24,6 @@ import { getMockLinkService } from '../../../../mocks/link-service.mock';
 import { mockTruncatableService } from '../../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ClaimedDeclinedTaskTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-task-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';

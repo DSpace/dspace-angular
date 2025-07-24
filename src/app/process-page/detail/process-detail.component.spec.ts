@@ -24,6 +24,10 @@ import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { Bitstream } from '@core/shared/bitstream.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -32,10 +36,6 @@ import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';

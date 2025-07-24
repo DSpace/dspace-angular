@@ -8,6 +8,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@core/data/item-data.service';
 import { Item } from '@core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -17,7 +18,6 @@ import {
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
 
 describe('itemPageEditAuthorizationsGuard', () => {

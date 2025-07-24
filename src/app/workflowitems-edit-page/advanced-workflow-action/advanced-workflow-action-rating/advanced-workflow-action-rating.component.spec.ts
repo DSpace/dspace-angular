@@ -21,15 +21,15 @@ import { WorkflowItemDataService } from '@core/submission/workflowitem-data.serv
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
 import { RatingAdvancedWorkflowInfo } from '@core/tasks/models/rating-advanced-workflow-info.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
 import { LocationStub } from '../../../shared/testing/location.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

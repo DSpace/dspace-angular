@@ -5,10 +5,6 @@ import {
   of,
 } from 'rxjs';
 import { ItemMock } from 'src/app/shared/mocks/item.mock';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from 'src/app/shared/remote-data.utils';
 
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -23,6 +19,10 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../utilities/remote-data.utils';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testSearchDataImplementation } from './base/search-data.spec';

@@ -20,6 +20,7 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -31,7 +32,6 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import {

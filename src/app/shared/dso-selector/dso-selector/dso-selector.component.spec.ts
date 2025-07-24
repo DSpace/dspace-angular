@@ -14,16 +14,16 @@ import {
 import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { hasValue } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { createPaginatedList } from '../../testing/utils.test';
 import { DSOSelectorComponent } from './dso-selector.component';

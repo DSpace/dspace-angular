@@ -15,6 +15,7 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { NativeWindowService } from '@core/services/window.service';
 import { Registration } from '@core/shared/registration.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -33,7 +34,6 @@ import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-r
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';

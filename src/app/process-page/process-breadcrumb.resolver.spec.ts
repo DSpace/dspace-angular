@@ -1,6 +1,6 @@
 import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { processBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { Process } from './processes/process.model';
 

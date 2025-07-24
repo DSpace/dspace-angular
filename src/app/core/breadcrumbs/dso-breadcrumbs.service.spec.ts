@@ -8,15 +8,15 @@ import { of } from 'rxjs';
 import { getDSORoute } from '../../app-routing-paths';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getMockLinkService } from '../../shared/mocks/link-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { LinkService } from '../cache/builders/link.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';
 

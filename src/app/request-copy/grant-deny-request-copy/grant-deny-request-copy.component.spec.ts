@@ -17,14 +17,14 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { Item } from '@core/shared/item.model';
 import { ItemRequest } from '@core/shared/item-request.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   getRequestCopyDenyRoute,

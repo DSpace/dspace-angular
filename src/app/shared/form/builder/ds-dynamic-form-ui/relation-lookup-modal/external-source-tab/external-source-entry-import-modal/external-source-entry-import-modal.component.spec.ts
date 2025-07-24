@@ -11,6 +11,7 @@ import { LookupRelationService } from '@core/data/lookup-relation.service';
 import { Collection } from '@core/shared/collection.model';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Item } from '@core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbActiveModal,
   NgbModule,
@@ -20,7 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';

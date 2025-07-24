@@ -24,6 +24,10 @@ import {
   ContentSourceHarvestType,
 } from '@core/shared/content-source.model';
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   DynamicFormControlModel,
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
@@ -39,10 +43,6 @@ import {
 } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { CollectionSourceComponent } from './collection-source.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';

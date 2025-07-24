@@ -22,6 +22,7 @@ import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-pa
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
@@ -51,7 +52,6 @@ import {
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

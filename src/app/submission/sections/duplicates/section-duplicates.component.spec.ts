@@ -28,6 +28,7 @@ import { DUPLICATE } from '@core/shared/duplicate-data/duplicate.resource-type';
 import { License } from '@core/shared/license.model';
 import { MetadataValue } from '@core/shared/metadata.models';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -44,7 +45,6 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';

@@ -15,14 +15,14 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { RemoteData } from '@core/data/remote-data';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { FileService } from '@core/shared/file.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../shared/remote-data.utils';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { VarDirective } from '../shared/utils/var.directive';

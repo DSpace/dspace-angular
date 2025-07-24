@@ -26,6 +26,10 @@ import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-suppo
 import { Item } from '@core/shared/item.model';
 import { MetadataValueFilter } from '@core/shared/metadata.models';
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   DynamicFormControlModel,
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
@@ -40,10 +44,6 @@ import {
 } from '../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

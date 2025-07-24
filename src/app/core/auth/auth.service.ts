@@ -33,7 +33,6 @@ import {
   isNotUndefined,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { CoreState } from '../core-state.model';
 import {
@@ -59,6 +58,7 @@ import {
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,

@@ -18,6 +18,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { authReducer } from '@core/auth/auth.reducer';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { Item } from '@core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   Store,
   StoreModule,
@@ -37,7 +38,6 @@ import {
   storeModuleConfig,
 } from '../../app.reducer';
 import { getMockThemeService } from '../mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';

@@ -7,7 +7,6 @@ import {
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -15,6 +14,7 @@ import { CoreState } from '../core-state.model';
 import { Bundle } from '../shared/bundle.model';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { BundleDataService } from './bundle-data.service';
 import { ChangeAnalyzer } from './change-analyzer';

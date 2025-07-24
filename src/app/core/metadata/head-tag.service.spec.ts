@@ -25,10 +25,6 @@ import {
   MockBitstream3,
 } from '../../shared/mocks/item.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
@@ -40,6 +36,10 @@ import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { Item } from '../shared/item.model';
 import { MetadataValue } from '../shared/metadata.models';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { HeadTagService } from './head-tag.service';
 import {
   AddMetaTagAction,

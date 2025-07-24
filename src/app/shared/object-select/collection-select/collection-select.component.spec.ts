@@ -14,12 +14,12 @@ import { LinkHeadService } from '@core/services/link-head.service';
 import { Collection } from '@core/shared/collection.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../host-window.service';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';

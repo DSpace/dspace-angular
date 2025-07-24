@@ -15,15 +15,15 @@ import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { Registration } from '@core/shared/registration.model';
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   Observable,
   of,
 } from 'rxjs';
 
 import { RouterMock } from '../../shared/mocks/router.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ReviewAccountGuard } from './review-account.guard';
 
 describe('ReviewAccountGuard', () => {

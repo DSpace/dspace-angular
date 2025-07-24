@@ -10,10 +10,10 @@ import { LinkService } from '@core/cache/builders/link.service';
 import { ChildHALResource } from '@core/shared/child-hal-resource.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { HALResource } from '@core/shared/hal-resource.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { VarDirective } from '../../utils/var.directive';

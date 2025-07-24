@@ -19,13 +19,13 @@ import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { ClaimedTaskSearchResultDetailElementComponent } from './claimed-task-search-result-detail-element.component';

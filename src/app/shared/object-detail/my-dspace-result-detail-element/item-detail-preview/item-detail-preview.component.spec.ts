@@ -25,6 +25,7 @@ import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { UUIDService } from '@core/shared/uuid.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
 import {
@@ -37,7 +38,6 @@ import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../testing/utils.test';

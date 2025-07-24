@@ -14,11 +14,6 @@ import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
 import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
-  createFailedRemoteDataObject,
-  createPendingRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../../shared/remote-data.utils';
-import {
   followLink,
   FollowLinkConfig,
 } from '../../../shared/utils/follow-link-config.model';
@@ -35,6 +30,11 @@ import { Item } from '../../shared/item.model';
 import { ITEM } from '../../shared/item.resource-type';
 import { PageInfo } from '../../shared/page-info.model';
 import { UnCacheableObject } from '../../shared/uncacheable-object.model';
+import {
+  createFailedRemoteDataObject,
+  createPendingRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../utilities/remote-data.utils';
 import { ObjectCacheService } from '../object-cache.service';
 import { LinkService } from './link.service';
 import { RemoteDataBuildService } from './remote-data-build.service';

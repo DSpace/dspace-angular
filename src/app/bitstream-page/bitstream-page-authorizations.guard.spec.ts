@@ -8,12 +8,12 @@ import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { Bitstream } from '@core/shared/bitstream.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 
 describe('bitstreamPageAuthorizationsGuard', () => {

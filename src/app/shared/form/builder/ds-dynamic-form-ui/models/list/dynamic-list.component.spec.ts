@@ -21,6 +21,7 @@ import { ConfigurationProperty } from '@core/shared/configuration-property.model
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlLayout,
@@ -30,7 +31,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,

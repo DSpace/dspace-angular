@@ -12,6 +12,7 @@ import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { RouteService } from '@core/services/route.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbCollapse,
   NgbModal,
@@ -26,7 +27,6 @@ import { take } from 'rxjs/operators';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

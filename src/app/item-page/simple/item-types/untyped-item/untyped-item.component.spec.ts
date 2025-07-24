@@ -33,6 +33,7 @@ import { MetadataMap } from '@core/shared/metadata.models';
 import { SearchService } from '@core/shared/search/search.service';
 import { UUIDService } from '@core/shared/uuid.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -51,7 +52,6 @@ import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

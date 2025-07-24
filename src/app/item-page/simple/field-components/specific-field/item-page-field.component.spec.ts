@@ -17,6 +17,7 @@ import {
   MetadataMap,
   MetadataValue,
 } from '@core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -25,7 +26,6 @@ import {
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

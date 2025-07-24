@@ -18,6 +18,7 @@ import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -28,7 +29,6 @@ import { getMockRequestService } from '../../mocks/request.service.mock';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';

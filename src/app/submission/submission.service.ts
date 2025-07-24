@@ -15,6 +15,10 @@ import { SubmissionJsonPatchOperationsService } from '@core/submission/submissio
 import { SubmissionRestService } from '@core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '@core/utilities/remote-data.utils';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -46,10 +50,6 @@ import {
   isNotUndefined,
 } from '../shared/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-} from '../shared/remote-data.utils';
 import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {

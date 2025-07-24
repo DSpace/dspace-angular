@@ -3,16 +3,16 @@ import { of } from 'rxjs';
 import { hasValueOperator } from '../../shared/empty.util';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { RequestService } from './request.service';
 

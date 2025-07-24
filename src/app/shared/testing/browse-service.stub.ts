@@ -8,12 +8,11 @@ import { FlatBrowseDefinition } from '@core/shared/flat-browse-definition.model'
 import { HierarchicalBrowseDefinition } from '@core/shared/hierarchical-browse-definition.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   EMPTY,
   Observable,
 } from 'rxjs';
-
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 const mockData = [
   Object.assign(new FlatBrowseDefinition(), {

@@ -19,8 +19,8 @@ import {
   qualityAssuranceTopicObjectMorePid,
 } from '../../../../shared/mocks/notifications.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
+import { createSuccessfulRemoteDataObject } from '../../../utilities/remote-data.utils';
 import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
 
 describe('QualityAssuranceTopicDataService', () => {

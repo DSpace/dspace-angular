@@ -10,6 +10,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -23,7 +24,6 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { routeServiceStub } from '../../../../testing/route-service.stub';
 import { RouterStub } from '../../../../testing/router.stub';

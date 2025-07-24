@@ -11,6 +11,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -19,7 +20,6 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 

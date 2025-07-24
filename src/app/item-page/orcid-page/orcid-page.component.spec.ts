@@ -22,6 +22,11 @@ import { ResearcherProfile } from '@core/profile/model/researcher-profile.model'
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
 import { Item } from '@core/shared/item.model';
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -31,11 +36,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';

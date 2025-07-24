@@ -12,6 +12,7 @@ import { By } from '@angular/platform-browser';
 import { LinkService } from '@core/cache/builders/link.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { PoolTask } from '@core/tasks/models/pool-task-object.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -21,7 +22,6 @@ import { of } from 'rxjs';
 
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { EPersonMock } from '../../../testing/eperson.mock';
 import { ItemSubmitterComponent } from './item-submitter.component';
 

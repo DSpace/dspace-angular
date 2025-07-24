@@ -21,6 +21,10 @@ import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-
 import { Collection } from '@core/shared/collection.model';
 import { License } from '@core/shared/license.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -54,10 +58,6 @@ import {
   mockSubmissionObject,
 } from '../../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

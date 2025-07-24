@@ -16,6 +16,7 @@ import { RequestService } from '@core/data/request.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bundle } from '@core/shared/bundle.model';
 import { Item } from '@core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of,
@@ -23,7 +24,6 @@ import {
 } from 'rxjs';
 
 import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';

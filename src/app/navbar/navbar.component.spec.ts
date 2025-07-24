@@ -21,6 +21,10 @@ import { HierarchicalBrowseDefinition } from '@core/shared/hierarchical-browse-d
 import { Item } from '@core/shared/item.model';
 import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -36,10 +40,6 @@ import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import { EPersonMock } from '../shared/testing/eperson.mock';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';

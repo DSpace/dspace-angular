@@ -16,6 +16,7 @@ import { RouteService } from '@core/services/route.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -25,7 +26,6 @@ import { of } from 'rxjs';
 
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { LocationStub } from '../../shared/testing/location.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

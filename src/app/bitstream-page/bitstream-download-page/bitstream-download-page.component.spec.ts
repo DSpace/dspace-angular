@@ -21,11 +21,11 @@ import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { ServerResponseService } from '@core/services/server-response.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { FileService } from '@core/shared/file.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getForbiddenRoute } from '../../app-routing-paths';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { MatomoService } from '../../statistics/matomo.service';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 

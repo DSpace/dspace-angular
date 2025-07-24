@@ -18,6 +18,11 @@ import { ExternalSourceDataService } from '@core/data/external-source-data.servi
 import { RouteService } from '@core/services/route.service';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -31,11 +36,6 @@ import { getMockExternalSourceService } from '../../shared/mocks/external-source
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';

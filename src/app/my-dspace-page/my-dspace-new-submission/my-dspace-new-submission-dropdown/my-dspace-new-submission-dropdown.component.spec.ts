@@ -15,11 +15,11 @@ import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { ResourceType } from '@core/shared/resource-type';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
   createPaginatedList,
   createTestComponent,

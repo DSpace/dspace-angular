@@ -5,11 +5,11 @@ import {
 } from '@angular/router';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { Registration } from '@core/shared/registration.model';
-
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '@core/utilities/remote-data.utils';
+
 import { RegistrationDataResolver } from './registration-data.resolver';
 
 describe('RegistrationDataResolver', () => {

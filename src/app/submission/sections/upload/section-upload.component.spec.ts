@@ -21,6 +21,7 @@ import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.mod
 import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
 import { Collection } from '@core/shared/collection.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
@@ -39,7 +40,6 @@ import {
   mockUploadFilesData,
 } from '../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';

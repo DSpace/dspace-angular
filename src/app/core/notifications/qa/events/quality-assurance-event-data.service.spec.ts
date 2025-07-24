@@ -23,8 +23,8 @@ import {
   qualityAssuranceEventObjectMissingProjectFound,
 } from '../../../../shared/mocks/notifications.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
+import { createSuccessfulRemoteDataObject } from '../../../utilities/remote-data.utils';
 import { QualityAssuranceEventDataService } from './quality-assurance-event-data.service';
 
 describe('QualityAssuranceEventDataService', () => {

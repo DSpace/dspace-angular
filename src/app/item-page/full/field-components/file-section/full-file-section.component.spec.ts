@@ -10,6 +10,7 @@ import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
@@ -25,7 +26,6 @@ import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

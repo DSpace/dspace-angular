@@ -13,13 +13,13 @@ import { LinkService } from '@core/cache/builders/link.service';
 import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { WorkflowItemSearchResultDetailElementComponent } from './workflow-item-search-result-detail-element.component';
 

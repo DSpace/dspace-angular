@@ -1,6 +1,6 @@
 import { Group } from '@core/eperson/models/group.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
 export const GroupMock2: Group = Object.assign(new Group(), {

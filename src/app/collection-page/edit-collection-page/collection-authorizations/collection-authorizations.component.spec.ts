@@ -11,10 +11,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Collection } from '@core/shared/collection.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations.component';
 

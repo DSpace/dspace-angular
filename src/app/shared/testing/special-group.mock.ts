@@ -5,12 +5,12 @@ import {
 import { RemoteData } from '@core/data/remote-data';
 import { Group } from '@core/eperson/models/group.model';
 import { PageInfo } from '@core/shared/page-info.model';
-import { Observable } from 'rxjs';
-
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
+} from '@core/utilities/remote-data.utils';
+import { Observable } from 'rxjs';
+
 import { EPersonMock } from './eperson.mock';
 
 export const SpecialGroupMock2: Group = Object.assign(new Group(), {

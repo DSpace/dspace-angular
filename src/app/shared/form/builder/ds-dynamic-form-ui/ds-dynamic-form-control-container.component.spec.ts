@@ -22,6 +22,7 @@ import { Item } from '@core/shared/item.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -69,7 +70,6 @@ import {
 import { environment } from '../../../../../environments/environment';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';

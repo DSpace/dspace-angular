@@ -13,12 +13,12 @@ import { Item } from '@core/shared/item.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';

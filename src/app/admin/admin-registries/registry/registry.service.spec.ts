@@ -9,6 +9,10 @@ import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -20,10 +24,6 @@ import {
 
 import { storeModuleConfig } from '../../../app.reducer';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { StoreMock } from '../../../shared/testing/store.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

@@ -4,13 +4,13 @@ import { Item } from '@core/shared/item.model';
 import { MetadataMap } from '@core/shared/metadata.models';
 import { PageInfo } from '@core/shared/page-info.model';
 import { Version } from '@core/shared/version.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   EMPTY,
   of,
 } from 'rxjs';
 
 import { createRelationshipsObservable } from '../../../item-page/simple/item-types/shared/item.component.spec';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { DsoVersioningModalService } from './dso-versioning-modal.service';
 
 describe('DsoVersioningModalService', () => {

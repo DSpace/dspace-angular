@@ -22,6 +22,11 @@ import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   NgbActiveModal,
   NgbModal,
   NgbModalModule,
@@ -36,11 +41,6 @@ import { ProcessParameter } from '../../../../process-page/processes/process-par
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';

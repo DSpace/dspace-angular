@@ -7,12 +7,12 @@ import { AuthService } from '@core/auth/auth.service';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Registration } from '@core/shared/registration.model';
-import { of } from 'rxjs';
-
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-} from '../shared/remote-data.utils';
+} from '@core/utilities/remote-data.utils';
+import { of } from 'rxjs';
+
 import { registrationGuard } from './registration.guard';
 
 describe('registrationGuard', () => {

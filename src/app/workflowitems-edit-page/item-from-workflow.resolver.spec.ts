@@ -1,7 +1,7 @@
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { itemFromWorkflowResolver } from './item-from-workflow.resolver';
 
 describe('itemFromWorkflowResolver', () => {

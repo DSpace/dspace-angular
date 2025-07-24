@@ -15,6 +15,10 @@ import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { NativeWindowService } from '@core/services/window.service';
 import { Item } from '@core/shared/item.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -27,10 +31,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidAuthComponent } from './orcid-auth.component';

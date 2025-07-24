@@ -19,6 +19,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '@core/shared/operators';
+import { createFailedRemoteDataObjectFromError$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,
@@ -41,7 +42,6 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-sync-setting',

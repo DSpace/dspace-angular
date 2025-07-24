@@ -3,11 +3,11 @@ import { of } from 'rxjs';
 
 import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import { MockBitstream1 } from '../../shared/mocks/item.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemRequest } from '../shared/item-request.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { ConfigurationDataService } from './configuration-data.service';
 import { AuthorizationDataService } from './feature-authorization/authorization-data.service';
 import { FeatureID } from './feature-authorization/feature-id';

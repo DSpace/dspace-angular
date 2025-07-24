@@ -18,6 +18,7 @@ import {
 } from '@core/data/paginated-list.model';
 import { ExternalSource } from '@core/shared/external-source.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
@@ -30,7 +31,6 @@ import {
   externalSourceOrcid,
   getMockExternalSourceService,
 } from '../../../shared/mocks/external-source.service.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {

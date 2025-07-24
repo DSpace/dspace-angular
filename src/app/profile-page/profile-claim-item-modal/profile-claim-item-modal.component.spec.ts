@@ -10,6 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { Item } from '@core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -17,7 +18,6 @@ import { of } from 'rxjs';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';

@@ -22,6 +22,10 @@ import { Item } from '@core/shared/item.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '@core/submission/submission-duplicate-data.service';
 import { PoolTask } from '@core/tasks/models/pool-task-object.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -30,10 +34,6 @@ import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

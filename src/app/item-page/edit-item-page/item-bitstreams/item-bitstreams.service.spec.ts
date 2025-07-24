@@ -11,6 +11,11 @@ import { RequestService } from '@core/data/request.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { Bundle } from '@core/shared/bundle.model';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -19,11 +24,6 @@ import { getLiveRegionServiceStub } from '../../../shared/live-region/live-regio
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import {

@@ -12,13 +12,13 @@ import { SUBMISSION_CC_LICENSE } from '@core/submission/models/submission-cc-lic
 import { SubmissionCcLicence } from '@core/submission/models/submission-cc-license.model';
 import { SubmissionCcLicenseDataService } from '@core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '@core/submission/submission-cc-license-url-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';

@@ -2,6 +2,10 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
 import {
+  createNoContentRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '@core/utilities/remote-data.utils';
+import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
@@ -9,10 +13,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
-import {
-  createNoContentRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ProfileClaimService } from './profile-claim.service';
 

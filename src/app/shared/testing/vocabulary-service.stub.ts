@@ -7,12 +7,11 @@ import { PageInfo } from '@core/shared/page-info.model';
 import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
-
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export class VocabularyServiceStub {
 

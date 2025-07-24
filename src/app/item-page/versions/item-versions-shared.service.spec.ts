@@ -6,13 +6,13 @@ import { VersionHistoryDataService } from '@core/data/version-history-data.servi
 import { Version } from '@core/shared/version.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
-import { TranslateService } from '@ngx-translate/core';
-
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
+} from '@core/utilities/remote-data.utils';
+import { TranslateService } from '@ngx-translate/core';
+
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 
 describe('ItemVersionsSharedService', () => {

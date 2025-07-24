@@ -6,11 +6,6 @@ import { environment } from '../../../environments/environment.test';
 import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -24,6 +19,11 @@ import { RelationshipType } from '../shared/item-relationships/relationship-type
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
 import { PageInfo } from '../shared/page-info.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { FindListOptions } from './find-list-options.model';
 import { ItemDataService } from './item-data.service';

@@ -7,12 +7,11 @@ import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { NoContent } from '@core/shared/NoContent.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   Subscription,
 } from 'rxjs';
-
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 /**
  * Stub class of {@link EditItemRelationshipsService}

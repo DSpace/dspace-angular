@@ -23,6 +23,10 @@ import { LinkHeadService } from '@core/services/link-head.service';
 import { ServerResponseService } from '@core/services/server-response.service';
 import { Item } from '@core/shared/item.model';
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -36,10 +40,6 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';

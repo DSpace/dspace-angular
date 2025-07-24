@@ -14,6 +14,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -22,7 +23,6 @@ import {
 } from 'rxjs';
 
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../testing/utils.test';
 import { FollowLinkConfig } from '../../utils/follow-link-config.model';

@@ -10,10 +10,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { ResearcherProfile } from '../profile/model/researcher-profile.model';
@@ -21,6 +17,10 @@ import { ResearcherProfileDataService } from '../profile/researcher-profile-data
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { OrcidAuthService } from './orcid-auth.service';
 
 describe('OrcidAuthService', () => {

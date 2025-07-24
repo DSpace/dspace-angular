@@ -5,9 +5,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { NativeWindowService } from '@core/services/window.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { GoogleRecaptchaComponent } from './google-recaptcha.component';
 
 describe('GoogleRecaptchaComponent', () => {

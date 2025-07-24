@@ -12,15 +12,15 @@ import { EpersonRegistrationService } from '@core/data/eperson-registration.serv
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { Registration } from '@core/shared/registration.model';
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
+import {
   Observable,
   of,
 } from 'rxjs';
 
 import { RouterMock } from '../../shared/mocks/router.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { registrationTokenGuard } from './registration-token-guard';
 
 describe('RegistrationTokenGuard',

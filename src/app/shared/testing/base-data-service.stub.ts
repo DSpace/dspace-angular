@@ -1,11 +1,11 @@
 import { CacheableObject } from '@core/cache/cacheable-object.model';
 import { RemoteData } from '@core/data/remote-data';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
 
 /**

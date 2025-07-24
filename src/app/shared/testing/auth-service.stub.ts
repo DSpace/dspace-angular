@@ -4,13 +4,13 @@ import { AuthMethodType } from '@core/auth/models/auth.method-type';
 import { AuthStatus } from '@core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
 import { hasValue } from '../empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
 export const authMethodsMock: AuthMethod[] = [

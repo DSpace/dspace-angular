@@ -20,6 +20,7 @@ import { SubscriptionsDataService } from '@core/data/subscriptions-data.service'
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbActiveModal,
   NgbModalModule,
@@ -32,7 +33,6 @@ import {
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import {
   subscriptionMock,
   subscriptionMock2,

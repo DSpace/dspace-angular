@@ -22,7 +22,6 @@ import {
 import { REQUEST } from '../../../express.tokens';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
 import { authMethodsMock } from '../../shared/testing/auth-service.stub';
@@ -47,6 +46,7 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services/window.service';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   SetUserAsIdleAction,
   UnsetUserAsIdleAction,

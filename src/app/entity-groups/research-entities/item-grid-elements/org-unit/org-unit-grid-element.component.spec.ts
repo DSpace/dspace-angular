@@ -16,13 +16,13 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';

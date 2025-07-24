@@ -14,6 +14,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Item } from '@core/shared/item.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -25,7 +26,6 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { VarDirective } from '../../../../../utils/var.directive';

@@ -1,10 +1,10 @@
 import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
-import { first } from 'rxjs/operators';
-
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
+} from '@core/utilities/remote-data.utils';
+import { first } from 'rxjs/operators';
+
 import { RouterStub } from '../shared/testing/router.stub';
 import { browseByGuard } from './browse-by-guard';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';

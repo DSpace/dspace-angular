@@ -14,11 +14,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { hasNoValue } from '../../shared/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
@@ -27,6 +22,11 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { Collection } from '../shared/collection.model';
 import { ContentSource } from '../shared/content-source.model';
 import { PageInfo } from '../shared/page-info.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';

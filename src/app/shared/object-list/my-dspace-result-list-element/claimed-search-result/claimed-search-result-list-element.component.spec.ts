@@ -23,6 +23,10 @@ import { SearchService } from '@core/shared/search/search.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '@core/submission/submission-duplicate-data.service';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -35,10 +39,6 @@ import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../testing/utils.test';

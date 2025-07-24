@@ -15,11 +15,11 @@ import {
   MetadataMap,
   MetadataValue,
 } from '@core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 

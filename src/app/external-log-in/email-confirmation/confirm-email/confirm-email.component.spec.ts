@@ -19,6 +19,7 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { NativeWindowService } from '@core/services/window.service';
 import { Registration } from '@core/shared/registration.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -32,7 +33,6 @@ import {
 } from '../../../shared/mocks/mock-native-window-ref';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { ConfirmEmailComponent } from './confirm-email.component';
 

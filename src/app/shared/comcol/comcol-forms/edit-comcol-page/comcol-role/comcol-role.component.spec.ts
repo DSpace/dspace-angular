@@ -13,16 +13,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RequestService } from '@core/data/request.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolRoleComponent } from './comcol-role.component';
 

@@ -2,13 +2,13 @@ import { AuthStatus } from '@core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
 import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
 import { isNotEmpty } from '../empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
 export class AuthRequestServiceStub {

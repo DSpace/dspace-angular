@@ -17,7 +17,6 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -30,6 +29,7 @@ import { HALLink } from '../shared/hal-link.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   CreateData,
   CreateDataImpl,

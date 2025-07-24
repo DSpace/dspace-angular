@@ -1,12 +1,12 @@
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
-import { hot } from 'jasmine-marbles';
-
-import { isNotEmpty } from '../../shared/empty.util';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
+} from '@core/utilities/remote-data.utils';
+import { hot } from 'jasmine-marbles';
+
+import { isNotEmpty } from '../../shared/empty.util';
 import { findSuccessfulAccordingTo } from './edit-item-operators';
 
 describe('findSuccessfulAccordingTo', () => {

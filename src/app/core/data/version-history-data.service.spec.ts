@@ -5,7 +5,6 @@ import {
 import { of } from 'rxjs';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -14,6 +13,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { Item } from '../shared/item.model';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { RequestService } from './request.service';
 import { VersionDataService } from './version-data.service';
 import { VersionHistoryDataService } from './version-history-data.service';

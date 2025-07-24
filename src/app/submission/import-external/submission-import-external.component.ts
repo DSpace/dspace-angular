@@ -21,6 +21,7 @@ import { NONE_ENTITY_TYPE } from '@core/shared/item-relationships/item-type.reso
 import { getFinishedRemoteData } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModalRef,
@@ -49,7 +50,6 @@ import {
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import {

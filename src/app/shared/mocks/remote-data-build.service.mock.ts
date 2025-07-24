@@ -6,6 +6,7 @@ import {
 import { RemoteData } from '@core/data/remote-data';
 import { RequestEntry } from '@core/data/request-entry.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -13,7 +14,6 @@ import {
 } from 'rxjs/operators';
 
 import { hasValue } from '../empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>, buildList$?: Observable<RemoteData<PaginatedList<any>>>): RemoteDataBuildService {
   return {

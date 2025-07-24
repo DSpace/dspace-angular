@@ -23,6 +23,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -39,7 +40,6 @@ import {
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../shared/empty.util';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 /**
  * Interface for the selected external source element.

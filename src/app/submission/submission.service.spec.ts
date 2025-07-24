@@ -20,6 +20,7 @@ import { SearchService } from '@core/shared/search/search.service';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '@core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { createFailedRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -49,7 +50,6 @@ import {
 } from '../shared/mocks/submission.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
 import { SectionScope } from './objects/section-visibility.model';

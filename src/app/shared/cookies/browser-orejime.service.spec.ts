@@ -7,6 +7,10 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { CookieService } from '@core/services/cookie.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { MetadataValue } from '@core/shared/metadata.models';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@core/utilities/remote-data.utils';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
@@ -16,10 +20,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../../environments/environment';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import {
   BrowserOrejimeService,
   COOKIE_MDFIELD,

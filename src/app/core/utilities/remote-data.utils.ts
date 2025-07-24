@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestEntryState } from '@core/data/request-entry-state.model';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
+import { RemoteData } from '../data/remote-data';
+import { RequestEntryState } from '../data/request-entry-state.model';
 
 /**
  * A fixed timestamp to use in tests

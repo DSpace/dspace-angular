@@ -5,9 +5,9 @@ import {
 } from '@angular/router';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { MetadataValueFilter } from '@core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { AuthServiceStub } from '../shared/testing/auth-service.stub';
 import { itemPageResolver } from './item-page.resolver';
 

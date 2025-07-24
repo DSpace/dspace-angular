@@ -40,6 +40,7 @@ import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { UUIDService } from '@core/shared/uuid.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -58,7 +59,6 @@ import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock'
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import {
   GroupMock,

@@ -7,6 +7,7 @@ import { FindListOptions } from '@core/data/find-list-options.model';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
@@ -15,7 +16,6 @@ import {
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
 } from '../../../shared/mocks/notifications.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {

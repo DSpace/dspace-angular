@@ -6,11 +6,11 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { CreateData } from './base/create-data';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { DeleteData } from './base/delete-data';

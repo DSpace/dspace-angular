@@ -14,6 +14,7 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -23,7 +24,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MockElementRef } from '../testing/element-ref.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { CollectionDropdownComponent } from './collection-dropdown.component';

@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -19,7 +20,6 @@ import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
 import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';

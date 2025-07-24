@@ -13,12 +13,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Community } from '@core/shared/community.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { createFailedRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ErrorComponent } from '../../error/error.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { createFailedRemoteDataObject } from '../../remote-data.utils';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';

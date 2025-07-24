@@ -10,12 +10,12 @@ import {
 import { PaginationService } from '@core/pagination/pagination.service';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';

@@ -20,10 +20,6 @@ import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import {
   EPersonMock,
   EPersonMock2,
   EPersonMockWithNoName,
@@ -50,6 +46,10 @@ import {
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
 

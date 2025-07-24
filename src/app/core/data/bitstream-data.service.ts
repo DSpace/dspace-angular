@@ -18,7 +18,6 @@ import {
 
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
   followLink,
   FollowLinkConfig,
@@ -36,6 +35,7 @@ import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { sendRequest } from '../shared/request.operators';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   DeleteData,
   DeleteDataImpl,

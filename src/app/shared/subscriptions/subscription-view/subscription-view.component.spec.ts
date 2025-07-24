@@ -19,6 +19,7 @@ import { SubscriptionsDataService } from '@core/data/subscriptions-data.service'
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
 import { Subscription } from '@core/shared/subscription.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -31,7 +32,6 @@ import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 // Import utils
 import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import {
   findByEPersonAndDsoResEmpty,

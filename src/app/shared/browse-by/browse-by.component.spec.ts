@@ -27,6 +27,7 @@ import { ITEM } from '@core/shared/item.resource-type';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -45,7 +46,6 @@ import { ListableObjectComponentLoaderComponent } from '../object-collection/sha
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { routeServiceStub } from '../testing/route-service.stub';

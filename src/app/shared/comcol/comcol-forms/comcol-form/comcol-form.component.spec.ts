@@ -16,6 +16,7 @@ import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { RequestService } from '@core/data/request.service';
 import { RestRequestMethod } from '@core/data/rest-request-method';
 import { Community } from '@core/shared/community.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -29,7 +30,6 @@ import { hasValue } from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { VarDirective } from '../../../utils/var.directive';

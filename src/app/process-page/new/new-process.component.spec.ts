@@ -12,6 +12,7 @@ import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RequestService } from '@core/data/request.service';
 import { Script } from '@core/shared/scripts/script.model';
 import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -20,7 +21,6 @@ import { of } from 'rxjs';
 
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

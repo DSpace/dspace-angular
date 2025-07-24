@@ -8,13 +8,12 @@ import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { FlatBrowseDefinition } from '@core/shared/flat-browse-definition.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   EMPTY,
   Observable,
   of,
 } from 'rxjs';
-
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [

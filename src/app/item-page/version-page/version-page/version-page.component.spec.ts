@@ -10,12 +10,12 @@ import { AuthService } from '@core/auth/auth.service';
 import { VersionDataService } from '@core/data/version-data.service';
 import { Item } from '@core/shared/item.model';
 import { Version } from '@core/shared/version.model';
-import { of } from 'rxjs';
-
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
+} from '@core/utilities/remote-data.utils';
+import { of } from 'rxjs';
+
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';

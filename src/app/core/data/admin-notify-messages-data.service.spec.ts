@@ -19,7 +19,7 @@ import { take } from 'rxjs/operators';
 
 import { mockAdminNotifyMessages } from '../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component.spec';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { AdminNotifyMessagesDataService } from './admin-notify-messages-data.service';
 
 describe('AdminNotifyMessagesDataService test', () => {
