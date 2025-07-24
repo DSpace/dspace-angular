@@ -6,6 +6,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { LinkService } from '@core/cache/builders/link.service';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { Process } from '@core/processes/process.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { Script } from '@core/shared/scripts/script.model';
 import { Observable } from 'rxjs';
@@ -18,7 +19,6 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';
-import { Process } from '../processes/process.model';
 
 /**
  * Component to create a new script

@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { Process } from '@core/processes/process.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
   createFailedRemoteDataObject$,
@@ -24,7 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
-import { Process } from '../process-page/processes/process.model';
 import { HandleService } from '../shared/handle.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';

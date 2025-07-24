@@ -1,8 +1,8 @@
 import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { Process } from '@core/processes/process.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 
 import { processBreadcrumbResolver } from './process-breadcrumb.resolver';
-import { Process } from './processes/process.model';
 
 describe('processBreadcrumbResolver', () => {
   describe('resolve', () => {

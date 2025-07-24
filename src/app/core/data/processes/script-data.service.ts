@@ -6,12 +6,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { Process } from '../../../process-page/processes/process.model';
-import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { hasValue } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { Process } from '../../processes/process.model';
+import { ProcessParameter } from '../../processes/process-parameter.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';

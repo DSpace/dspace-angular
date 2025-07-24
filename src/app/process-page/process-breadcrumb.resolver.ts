@@ -6,6 +6,7 @@ import {
 } from '@angular/router';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { Process } from '@core/processes/process.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,7 +14,6 @@ import { map } from 'rxjs/operators';
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
-import { Process } from './processes/process.model';
 
 /**
  * Method for resolving a process based on the parameters in the current route

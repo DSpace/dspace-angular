@@ -23,6 +23,8 @@ import { RemoteData } from '@core/data/remote-data';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { Process } from '@core/processes/process.model';
+import { ProcessStatus } from '@core/processes/process-status.model';
 import { RouteService } from '@core/services/route.service';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
 import {
@@ -57,8 +59,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { Process } from '../../processes/process.model';
-import { ProcessStatus } from '../../processes/process-status.model';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import {
   ProcessOverviewService,

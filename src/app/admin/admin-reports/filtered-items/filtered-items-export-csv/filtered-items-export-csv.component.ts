@@ -10,6 +10,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { Process } from '@core/processes/process.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -23,7 +24,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { Process } from '../../../../process-page/processes/process.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';

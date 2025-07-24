@@ -12,6 +12,7 @@ import { CollectionDataService } from '@core/data/collection-data.service';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RequestService } from '@core/data/request.service';
+import { Process } from '@core/processes/process.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Collection } from '@core/shared/collection.model';
 import { ContentSource } from '@core/shared/content-source.model';
@@ -22,7 +23,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { Process } from '../../../../process-page/processes/process.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';

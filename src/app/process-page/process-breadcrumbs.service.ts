@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BreadcrumbsProviderService } from '@core/breadcrumbs/breadcrumbsProviderService';
+import { Process } from '@core/processes/process.model';
 import {
   Observable,
   of,
@@ -7,7 +8,6 @@ import {
 
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
 import { hasValue } from '../shared/empty.util';
-import { Process } from './processes/process.model';
 
 /**
  * Service to calculate process breadcrumbs for a single part of the route

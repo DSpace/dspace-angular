@@ -18,6 +18,7 @@ import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '@core/data/processes/script-data.service';
+import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { Item } from '@core/shared/item.model';
@@ -37,7 +38,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { makeEnvironmentProviders } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { Process } from '../process-page/processes/process.model';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
 import {
   MOCK_RESPONSE_MAP,
@@ -33,6 +32,7 @@ import { SuggestionSource } from './notifications/suggestions/models/suggestion-
 import { SuggestionTarget } from './notifications/suggestions/models/suggestion-target.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
+import { Process } from './processes/process.model';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { ResourcePolicy } from './resource-policy/models/resource-policy.model';
 import { AccessStatusObject } from './shared/access-status.model';

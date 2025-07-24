@@ -11,10 +11,10 @@ import {
   FormsModule,
   NgForm,
 } from '@angular/forms';
+import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ProcessParameter } from '../../../processes/process-parameter.model';
 import { controlContainerFactory } from '../../process-form-factory';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 

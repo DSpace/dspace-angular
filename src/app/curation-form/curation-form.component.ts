@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { Process } from '@core/processes/process.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
   getFirstCompletedRemoteData,
@@ -32,7 +33,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
-import { Process } from '../process-page/processes/process.model';
 import {
   hasValue,
   isEmpty,

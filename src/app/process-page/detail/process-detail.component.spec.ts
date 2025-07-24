@@ -23,6 +23,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { Process } from '@core/processes/process.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import {
   createFailedRemoteDataObject$,
@@ -44,7 +45,6 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import { Process } from '../processes/process.model';
 import { ProcessDetailComponent } from './process-detail.component';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 
