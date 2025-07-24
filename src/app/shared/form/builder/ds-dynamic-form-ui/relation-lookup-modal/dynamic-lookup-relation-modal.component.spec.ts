@@ -9,11 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
 import { LookupRelationService } from '@core/data/lookup-relation.service';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { Collection } from '@core/shared/collection.model';
 import { ExternalSource } from '@core/shared/external-source.model';
 import { Item } from '@core/shared/item.model';
@@ -41,6 +40,7 @@ import { PaginatedSearchOptions } from '../../../../search/models/paginated-sear
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import { NameVariantService } from './name-variant.service';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
@@ -124,8 +124,9 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
+      imports: [TranslateModule.forRoot(), NgbModule, DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
       providers: [
+        provideRouter(([])),
         {
           provide: SearchConfigurationService, useValue: {
             paginatedSearchOptions: of(pSearchOptions),
@@ -137,7 +138,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           provide: SelectableListService, useValue: selectableListService,
         },
         {
-          provide: RelationshipDataService, useValue: { getNameVariant: () => of(nameVariant) },
+          provide: NameVariantService, useValue: { getNameVariant: () => of(nameVariant) },
         },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {

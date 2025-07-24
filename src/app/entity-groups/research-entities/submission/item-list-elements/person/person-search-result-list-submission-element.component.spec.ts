@@ -19,7 +19,6 @@ import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.servic
 import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
@@ -233,7 +232,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: mockNameVariantService },
+        { provide: NameVariantService, useValue: mockNameVariantService },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },

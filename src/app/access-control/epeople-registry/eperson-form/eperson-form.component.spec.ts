@@ -64,6 +64,7 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
+import { EpeopleRegistryService } from '../epeople-registry.service';
 import { EPersonFormComponent } from './eperson-form.component';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
@@ -74,12 +75,14 @@ describe('EPersonFormComponent', () => {
 
   let mockEPeople;
   let ePersonDataServiceStub: any;
+  let epeopleRegistryServiceStub: any;
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
   let epersonRegistrationService: EpersonRegistrationService;
   let route: ActivatedRouteStub;
   let router: RouterStub;
+  let activeEPerson = null;
 
   let paginationService;
 
@@ -87,12 +90,14 @@ describe('EPersonFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
+    epeopleRegistryServiceStub = {
+      getActiveEPerson(): Observable<EPerson> {
+        return of(activeEPerson);
+      },
+    };
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
-      getActiveEPerson(): Observable<EPerson> {
-        return of(this.activeEPerson);
-      },
       searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (scope === 'email') {
           const result = this.allEpeople.find((ePerson: EPerson) => {
@@ -122,10 +127,10 @@ describe('EPersonFormComponent', () => {
         return createSuccessfulRemoteDataObject$(ePerson);
       },
       editEPerson(ePerson: EPerson) {
-        this.activeEPerson = ePerson;
+        activeEPerson = ePerson;
       },
       cancelEditEPerson() {
-        this.activeEPerson = null;
+        activeEPerson = null;
       },
       clearEPersonRequests(): void {
         // empty
@@ -230,6 +235,7 @@ describe('EPersonFormComponent', () => {
       ],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
+        { provide: EpeopleRegistryService, useValue: epeopleRegistryServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -389,7 +395,7 @@ describe('EPersonFormComponent', () => {
     });
     describe('without active EPerson', () => {
       beforeEach(() => {
-        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(of(undefined));
+        spyOn(epeopleRegistryServiceStub, 'getActiveEPerson').and.returnValue(of(undefined));
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -429,7 +435,7 @@ describe('EPersonFormComponent', () => {
             },
           },
         });
-        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(of(expectedWithId));
+        spyOn(epeopleRegistryServiceStub, 'getActiveEPerson').and.returnValue(of(expectedWithId));
         component.ngOnInit();
         component.onSubmit();
         fixture.detectChanges();
@@ -486,7 +492,7 @@ describe('EPersonFormComponent', () => {
       eperson = EPersonMock;
       component.epersonInitial = eperson;
       component.canDelete$ = of(true);
-      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(of(eperson));
+      spyOn(component.epeopleRegistryService, 'getActiveEPerson').and.returnValue(of(eperson));
       modalService = (component as any).modalService;
       spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: of(true) }) }));
       component.ngOnInit();

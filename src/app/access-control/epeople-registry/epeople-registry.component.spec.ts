@@ -71,13 +71,16 @@ describe('EPeopleRegistryComponent', () => {
   let authorizationService: AuthorizationDataService;
   let modalService: NgbModal;
   let paginationService: PaginationServiceStub;
+  let activeEPerson = null;
 
   beforeEach(waitForAsync(async () => {
     jasmine.getEnv().allowRespy(true);
     mockEPeople = [EPersonMock, EPersonMock2];
-    epeopleRegistryServiceStub = jasmine.createSpyObj('', {
-      getActiveEPerson: of(null),
-    });
+    epeopleRegistryServiceStub = {
+      getActiveEPerson(): Observable<EPerson> {
+        return of(activeEPerson);
+      },
+    };
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
@@ -134,10 +137,10 @@ describe('EPeopleRegistryComponent', () => {
         return of(true);
       },
       editEPerson(ePerson: EPerson) {
-        this.activeEPerson = ePerson;
+        activeEPerson = ePerson;
       },
       cancelEditEPerson() {
-        this.activeEPerson = null;
+        activeEPerson = null;
       },
       clearEPersonRequests(): void {
         // empty
