@@ -14,7 +14,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { Item } from 'src/app/core/shared/item.model';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
@@ -47,7 +47,7 @@ describe('ObjectAuditOverviewComponent', () => {
     audits = [ AuditMock ];
     auditService = jasmine.createSpyObj('auditService', {
       findByObject: createSuccessfulRemoteDataObject$(createPaginatedList(audits)),
-      getEpersonName: observableOf('Eperson Name'),
+      getEpersonName: of('Eperson Name'),
       auditHasDetails: false,
     });
     itemService = jasmine.createSpyObj('ItemService', { findById: createSuccessfulRemoteDataObject$(new Item()) });
@@ -55,7 +55,7 @@ describe('ObjectAuditOverviewComponent', () => {
       { findOwningCollectionFor: createSuccessfulRemoteDataObject$(createPaginatedList([{ id : 'collectionId' }])) },
     );
     activatedRoute = new MockActivatedRoute({ objectId: '1234' });
-    activatedRoute.paramMap = observableOf({
+    activatedRoute.paramMap = of({
       get: () => '1234',
     });
   }

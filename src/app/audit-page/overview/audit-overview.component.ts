@@ -34,8 +34,8 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
   templateUrl: './audit-overview.component.html',
   imports: [
     AsyncPipe,
-    TranslateModule,
     AuditTableComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

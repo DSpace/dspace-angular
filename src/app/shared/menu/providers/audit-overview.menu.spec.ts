@@ -7,7 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
@@ -35,7 +35,7 @@ describe('AuditOverviewMenuProvider', () => {
 
   beforeEach(() => {
     spyOn(authorizationServiceStub, 'isAuthorized').and.returnValue(
-      observableOf(true),
+      of(true),
     );
 
     TestBed.configureTestingModule({

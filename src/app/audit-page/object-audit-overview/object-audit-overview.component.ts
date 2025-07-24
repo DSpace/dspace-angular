@@ -50,9 +50,9 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
   templateUrl: './object-audit-overview.component.html',
   imports: [
     AsyncPipe,
-    TranslateModule,
     AuditTableComponent,
     RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })
