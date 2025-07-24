@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { makeEnvironmentProviders } from '@angular/core';
-import { Script } from '@core/shared/scripts/script.model';
 
 import { environment } from '../../environments/environment';
-import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { Process } from '../process-page/processes/process.model';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
 import {
@@ -12,6 +10,7 @@ import {
 } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
+import { NotifyRequestsStatus } from './coar-notify/models/notify-requests-status.model';
 import { SubmissionCoarNotifyModel } from './coar-notify/models/submission-coar-notify.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
@@ -61,6 +60,7 @@ import { ItemRequest } from './shared/item-request.model';
 import { License } from './shared/license.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { Registration } from './shared/registration.model';
+import { Script } from './shared/scripts/script.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
 import { Site } from './shared/site.model';
 import { Subscription } from './shared/subscription.model';

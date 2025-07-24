@@ -5,20 +5,20 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { RequestEntryState } from '../data/request-entry-state.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../utilities/remote-data.utils';
+import { NotifyRequestsStatus } from './models/notify-requests-status.model';
 import { NotifyRequestsStatusDataService } from './notify-services-status-data.service';
-import { RemoteData } from './remote-data';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
-import { RequestEntryState } from './request-entry-state.model';
 
 describe('NotifyRequestsStatusDataService test', () => {
   let scheduler: TestScheduler;

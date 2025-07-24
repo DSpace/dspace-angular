@@ -131,7 +131,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [LDN_SERVICE.value, () => import('./data/ldn-services-data.service').then(m => m.LdnServicesService)],
   [ADMIN_NOTIFY_MESSAGE.value, () => import('./data/admin-notify-messages-data.service').then(m => m.AdminNotifyMessagesDataService)],
   [SUBMISSION_FORMS_TYPE.value, () => import('./config/submission-forms-config-data.service').then(m => m.SubmissionFormsConfigDataService)],
-  [NOTIFYREQUEST.value, () => import('./data/notify-services-status-data.service').then(m => m.NotifyRequestsStatusDataService)],
+  [NOTIFYREQUEST.value, () => import('./coar-notify/notify-services-status-data.service').then(m => m.NotifyRequestsStatusDataService)],
   [QUALITY_ASSURANCE_EVENT_OBJECT.value, () => import('./notifications/qa/events/quality-assurance-event-data.service').then(m => m.QualityAssuranceEventDataService)],
   [QUALITY_ASSURANCE_SOURCE_OBJECT.value, () => import('./notifications/qa/source/quality-assurance-source-data.service').then(m => m.QualityAssuranceSourceDataService)],
   [QUALITY_ASSURANCE_TOPIC_OBJECT.value, () => import('./notifications/qa/topics/quality-assurance-topic-data.service').then(m => m.QualityAssuranceTopicDataService)],
