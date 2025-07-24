@@ -8,7 +8,6 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { RegistryService } from '@core/registry/registry.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -18,6 +17,7 @@ import { FormComponent } from '../../../../shared/form/form.component';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { RegistryServiceStub } from '../../../../shared/testing/registry.service.stub';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
+import { RegistryService } from '../../registry/registry.service';
 import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 
 describe('MetadataSchemaFormComponent', () => {

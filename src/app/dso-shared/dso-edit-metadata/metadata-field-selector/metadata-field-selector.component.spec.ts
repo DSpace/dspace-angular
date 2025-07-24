@@ -12,9 +12,9 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { RegistryService } from '@core/registry/registry.service';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

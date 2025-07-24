@@ -16,7 +16,6 @@ import { RemoteData } from '@core/data/remote-data';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
 import { PaginationService } from '@core/pagination/pagination.service';
-import { RegistryService } from '@core/registry/registry.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
@@ -45,6 +44,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { RegistryService } from '../registry/registry.service';
 import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 
 @Component({

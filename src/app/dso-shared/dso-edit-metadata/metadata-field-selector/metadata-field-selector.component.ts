@@ -23,7 +23,6 @@ import {
   SortOptions,
 } from '@core/cache/models/sort-options.model';
 import { FindListOptions } from '@core/data/find-list-options.model';
-import { RegistryService } from '@core/registry/registry.service';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -50,6 +49,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

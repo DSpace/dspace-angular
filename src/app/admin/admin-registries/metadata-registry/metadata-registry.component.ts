@@ -12,7 +12,6 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
 import { PaginationService } from '@core/pagination/pagination.service';
-import { RegistryService } from '@core/registry/registry.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
@@ -36,6 +35,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { RegistryService } from '../registry/registry.service';
 import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
 
 @Component({

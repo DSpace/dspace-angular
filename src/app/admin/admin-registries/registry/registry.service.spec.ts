@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { FindListOptions } from '@core/data/find-list-options.model';
+import { MetadataFieldDataService } from '@core/data/metadata-field-data.service';
+import { MetadataSchemaDataService } from '@core/data/metadata-schema-data.service';
+import { RemoteData } from '@core/data/remote-data';
+import { MetadataField } from '@core/metadata/metadata-field.model';
+import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { NoContent } from '@core/shared/NoContent.model';
 import {
   Store,
   StoreModule,
@@ -11,6 +18,15 @@ import {
   of,
 } from 'rxjs';
 
+import { storeModuleConfig } from '../../../app.reducer';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { StoreMock } from '../../../shared/testing/store.mock';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -22,23 +38,7 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
-} from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { storeModuleConfig } from '../../app.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { StoreMock } from '../../shared/testing/store.mock';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { FindListOptions } from '../data/find-list-options.model';
-import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
-import { RemoteData } from '../data/remote-data';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { NoContent } from '../shared/NoContent.model';
+} from '../metadata-registry/metadata-registry.actions';
 import { RegistryService } from './registry.service';
 
 @Component({

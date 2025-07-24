@@ -15,7 +15,6 @@ import { GroupDataService } from '@core/eperson/group-data.service';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
 import { PaginationService } from '@core/pagination/pagination.service';
-import { RegistryService } from '@core/registry/registry.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -35,6 +34,7 @@ import { SearchConfigurationServiceStub } from '../../../shared/testing/search-c
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { RegistryService } from '../registry/registry.service';
 import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 import { MetadataSchemaComponent } from './metadata-schema.component';
 

@@ -15,7 +15,6 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { ItemDataService } from '@core/data/item-data.service';
-import { RegistryService } from '@core/registry/registry.service';
 import { ConfidenceType } from '@core/shared/confidence-type';
 import {
   getFirstCompletedRemoteData,
@@ -40,6 +39,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { RegistryService } from '../../../../admin/admin-registries/registry/registry.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { DsDynamicOneboxComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
