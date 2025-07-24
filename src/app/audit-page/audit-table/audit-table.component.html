@@ -75,56 +75,15 @@
             </tr>
             @if (audit.hasDetails) {
               <tr [(ngbCollapse)]="audit.isCollapsed" [id]="audit.id" [ngClass]="{'border-top-0': !audit.isCollapsed}" class="w-100 nested-row">
-                <td colspan="4" class="border-top-0">
-                  <div class="w-100">
-                    <div class="d-flex flex-column mw-100 w-100">
-                      @if (audit.metadataField) {
-                        <div class="d-flex mb-1">
-                          <small class="font-weight-bold me-2" >{{"audit.detail.metadata.field" | translate}}</small>
-                          <small>{{ audit.metadataField | dsStringReplace: "_":"." }}</small>
-                        </div>
-                      }
-                      @if (audit.value) {
-                        <div class="d-flex mb-1">
-                          <small class="font-weight-bold me-2">{{"audit.detail.metadata.value" | translate}}</small>
-                          <small class="content dont-break-out preserve-line-breaks">
-                            {{ audit.value }}
-                          </small>
-                        </div>
-                      }
-                      @if (audit.authority) {
-                        <div class="d-flex mb-1">
-                          <small class="font-weight-bold me-2">{{"audit.detail.metadata.authority" | translate}}</small>
-                          <small>{{ audit.authority }}</small>
-                        </div>
-                      }
-                      @if (audit.confidence !== null) {
-                        <div class="d-flex mb-1">
-                          <small class="font-weight-bold me-2">{{"audit.detail.metadata.confidence" | translate}}</small>
-                          <small>{{ audit.confidence }}</small>
-                        </div>
-                      }
-                      @if (audit.place !== null) {
-                        <div class="d-flex mb-1">
-                          <small class="font-weight-bold me-2">{{"audit.detail.metadata.place" | translate}}</small>
-                          <small>{{ audit.place }}</small>
-                        </div>
-                      }
-                      @if (audit.action) {
-                        <div class="d-flex mb-1">
-                          <small class="font-weight-bold me-2">{{"audit.detail.metadata.action" | translate}}</small>
-                          <small>{{ audit.action }}</small>
-                        </div>
-                      }
-                      @if (audit.checksum) {
-                        <div class="d-flex">
-                          <small class="font-weight-bold me-2">{{"audit.detail.metadata.checksum" | translate}}</small>
-                          <small>{{ audit.checksum }}</small>
-                        </div>
-                      }
-                    </div>
-                  </div>
-                </td>
+                @if (isOverviewPage) {
+                  <td colspan="7" class="border-top-0">
+                    <ng-container *ngTemplateOutlet="auditInto; context: { audit }"></ng-container>
+                  </td>
+                } @else {
+                  <td colspan="4" class="border-top-0">
+                    <ng-container *ngTemplateOutlet="auditInto; context: { audit }"></ng-container>
+                  </td>
+                }
               </tr>
             }
           }
@@ -134,3 +93,53 @@
   </ds-pagination>
 }
 
+<ng-template #auditInto let-audit=audit>
+  <div class="w-100">
+    <div class="d-flex flex-column mw-100 w-100">
+      @if (audit.metadataField) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2" >{{"audit.detail.metadata.field" | translate}}</small>
+          <small>{{ audit.metadataField | dsStringReplace: "_":"." }}</small>
+        </div>
+      }
+      @if (audit.value) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.value" | translate}}</small>
+          <small class="content dont-break-out preserve-line-breaks">
+            {{ audit.value }}
+          </small>
+        </div>
+      }
+      @if (audit.authority) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.authority" | translate}}</small>
+          <small>{{ audit.authority }}</small>
+        </div>
+      }
+      @if (audit.confidence !== null) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.confidence" | translate}}</small>
+          <small>{{ audit.confidence }}</small>
+        </div>
+      }
+      @if (audit.place !== null) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.place" | translate}}</small>
+          <small>{{ audit.place }}</small>
+        </div>
+      }
+      @if (audit.action) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.action" | translate}}</small>
+          <small>{{ audit.action }}</small>
+        </div>
+      }
+      @if (audit.checksum) {
+        <div class="d-flex">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.checksum" | translate}}</small>
+          <small>{{ audit.checksum }}</small>
+        </div>
+      }
+    </div>
+  </div>
+</ng-template>

@@ -57,6 +57,7 @@ export const AuditMock: Audit = Object.assign(new Audit(), {
   subjectType: 'ITEM',
   subjectUUID: '3a74fe2c-d353-4e33-9887-d50184662dd4',
   timeStamp: '2020-11-13T10:41:06.223+0000',
+  epersonName: AuditEPersonMock.name,
   type: 'auditevent',
   _embedded: {
     eperson: AuditEPersonMock,

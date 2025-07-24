@@ -1,13 +1,8 @@
-import {
-  AsyncPipe,
-  DatePipe,
-  JsonPipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   forkJoin,
@@ -23,16 +18,12 @@ import {
 import { AuditDataService } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { AuditTableComponent } from '../audit-table/audit-table.component';
 
 /**
@@ -42,13 +33,8 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
   selector: 'ds-audit-overview',
   templateUrl: './audit-overview.component.html',
   imports: [
-    PaginationComponent,
     AsyncPipe,
     TranslateModule,
-    RouterLink,
-    VarDirective,
-    DatePipe,
-    JsonPipe,
     AuditTableComponent,
   ],
   standalone: true,
@@ -90,7 +76,6 @@ export class AuditOverviewComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
   constructor(protected auditService: AuditDataService,
-              protected authorizationService: AuthorizationDataService,
               protected paginationService: PaginationService) {
   }
 
@@ -134,11 +119,6 @@ export class AuditOverviewComponent implements OnInit {
         );
       }),
     );
-  }
-
-
-  isCurrentUserAdmin(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined);
   }
 
 }

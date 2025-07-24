@@ -1,9 +1,7 @@
-import {
-  AsyncPipe,
-  DatePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -17,13 +15,13 @@ import {
   combineLatest,
   forkJoin,
   Observable,
+  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
   mergeMap,
   switchMap,
-  take,
 } from 'rxjs/operators';
 
 import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
@@ -32,24 +30,17 @@ import {
   AuditDataService,
 } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { AuditTableComponent } from '../audit-table/audit-table.component';
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -58,17 +49,14 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
   selector: 'ds-object-audit-overview',
   templateUrl: './object-audit-overview.component.html',
   imports: [
-    PaginationComponent,
     AsyncPipe,
     TranslateModule,
-    VarDirective,
-    RouterLink,
-    DatePipe,
     AuditTableComponent,
+    RouterLink,
   ],
   standalone: true,
 })
-export class ObjectAuditOverviewComponent implements OnInit {
+export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
 
   /**
    * The object extracted from the route.
@@ -108,22 +96,20 @@ export class ObjectAuditOverviewComponent implements OnInit {
 
   dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
 
-  constructor(protected authService: AuthService,
-              protected route: ActivatedRoute,
+  sub: Subscription;
+
+  constructor(protected route: ActivatedRoute,
               protected router: Router,
               protected auditService: AuditDataService,
               protected itemService: ItemDataService,
-              protected authorizationService: AuthorizationDataService,
               protected paginationService: PaginationService,
               protected collectionDataService: CollectionDataService,
-              public dsoNameService: DSONameService,
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      mergeMap((paramMap: ParamMap) => this.itemService.findById(paramMap.get('objectId'))),
+    this.sub = this.route.paramMap.pipe(
+      switchMap((paramMap: ParamMap) => this.itemService.findById(paramMap.get('objectId'))),
       getFirstCompletedRemoteData(),
-      redirectOn4xx(this.router, this.authService),
     ).subscribe((rd) => {
       this.object = rd.payload;
       this.owningCollection$ = this.collectionDataService.findOwningCollectionFor(
@@ -137,6 +123,12 @@ export class ObjectAuditOverviewComponent implements OnInit {
       );
       this.setAudits();
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   /**
@@ -187,19 +179,6 @@ export class ObjectAuditOverviewComponent implements OnInit {
           ))),
         );
       }),
-    );
-  }
-
-  isCurrentUserAdmin(): Observable<boolean> {
-    return combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
-      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-    ]).pipe(
-      map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
-        return isCollectionAdmin || isCommunityAdmin || isSiteAdmin;
-      }),
-      take(1),
     );
   }
 }

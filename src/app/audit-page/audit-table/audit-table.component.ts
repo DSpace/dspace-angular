@@ -2,6 +2,7 @@ import {
   AsyncPipe,
   DatePipe,
   NgClass,
+  NgTemplateOutlet,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -35,6 +36,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
     StringReplacePipe,
     NgClass,
     NgbCollapseModule,
+    NgTemplateOutlet,
   ],
   standalone: true,
 })
