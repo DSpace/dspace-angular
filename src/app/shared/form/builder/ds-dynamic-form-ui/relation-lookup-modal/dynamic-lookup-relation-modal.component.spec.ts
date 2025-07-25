@@ -32,7 +32,10 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../config/app-config.interface';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
@@ -151,6 +154,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
         NgbActiveModal,
         provideMockStore(),
       ],

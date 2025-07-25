@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import {
   Observable,
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { SubmissionService } from '../../submission/submission.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
@@ -25,6 +31,8 @@ import { WorkspaceitemDataService } from './workspaceitem-data.service';
   providedIn: 'root',
 })
 export class SubmissionObjectDataService {
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
+
   constructor(
     private workspaceitemDataService: WorkspaceitemDataService,
     private workflowItemDataService: WorkflowItemDataService,
@@ -65,7 +73,7 @@ export class SubmissionObjectDataService {
         const now = new Date().getTime();
         return of(new RemoteData(
           now,
-          environment.cache.msToLive.default,
+          this.appConfig.cache.msToLive.default,
           now,
           RequestEntryState.Error,
           'The request could not be sent. Unable to determine the type of submission object',

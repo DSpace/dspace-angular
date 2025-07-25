@@ -14,6 +14,7 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
@@ -75,7 +76,11 @@ describe('ServerSyncBufferEffects', () => {
           },
         },
         { provide: Store, useClass: StoreMock },
-        // other providers
+        { provide: APP_CONFIG, useValue: { cache: {  autoSync: {
+          defaultTime: 0,
+          maxBufferSize: 100,
+          timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any, // time in seconds
+        } } } },
       ],
     });
 

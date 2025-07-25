@@ -39,7 +39,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../config/app-config.interface';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -151,6 +154,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         { provide: Store, useValue: provideMockStore() },
         { provide: RequestService, useValue: requestService },
         { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
+        { provide: APP_CONFIG, useValue: {   rest: { baseUrl: 'https://rest.com/server' } } },
       ],
     })
       .compileComponents();

@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { environment } from '../../../environments/environment';
+
 import {
   hasNoValue,
   hasValue,
@@ -47,6 +47,9 @@ export abstract class BaseResponseParsingService {
   protected abstract toCache: boolean;
   protected shouldDirectlyAttachEmbeds = false;
   protected serializerConstructor: GenericConstructor<Serializer<any>> = DSpaceSerializer;
+  protected defaultResponseMsToLive: number;
+
+
 
   protected process<ObjectDomain>(data: any, request: RestRequest, alternativeURL?: string): any {
     if (isNotEmpty(data)) {
@@ -155,7 +158,7 @@ export abstract class BaseResponseParsingService {
       return;
     }
 
-    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, alternativeURL);
+    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.defaultResponseMsToLive, request.uuid, alternativeURL);
   }
 
   processPageInfo(payload: any): PageInfo {

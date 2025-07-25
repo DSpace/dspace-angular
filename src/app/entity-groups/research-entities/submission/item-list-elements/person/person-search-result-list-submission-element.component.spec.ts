@@ -59,11 +59,21 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true,
   },
+  cache: {
+    msToLive: {
+      default: 15 * 60 * 1000,
+    },
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
     showThumbnails: false,
+  },
+  cache: {
+    msToLive: {
+      default: 15 * 60 * 1000,
+    },
   },
 };
 

@@ -5,6 +5,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { endUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';
 
@@ -26,6 +27,11 @@ describe('endUserAgreementCookieGuard', () => {
       providers: [
         { provide: Router, useValue: router },
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
+        { provide: APP_CONFIG, useValue: {
+          info: {
+            enableEndUserAgreement: true,
+          },
+        } },
       ],
     });
   });

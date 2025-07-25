@@ -5,7 +5,6 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { AppConfig } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment.test';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -37,6 +36,11 @@ describe('DsoRedirectService', () => {
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const objectCache = {} as ObjectCacheService;
+  const environment = {
+    ui: {
+      nameSpace: '/angular-dspace',
+    },
+  } as AppConfig;
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -63,6 +67,7 @@ describe('DsoRedirectService', () => {
     redirectService = jasmine.createSpyObj('redirectService', {
       redirect: {},
     });
+
 
     service = new DsoRedirectService(
       environment as AppConfig,

@@ -27,6 +27,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
@@ -98,6 +99,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: BitstreamFormatDataService, useValue: {} },
         { provide: XSRFService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: 15 * 60 * 1000  } } },
         provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],

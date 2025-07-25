@@ -27,6 +27,7 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -102,6 +103,7 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: XSRFService, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: 15 * 60 * 1000 } } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunitySearchResultGridElementComponent, {

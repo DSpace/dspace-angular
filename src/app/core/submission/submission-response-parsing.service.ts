@@ -1,6 +1,13 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { deepClone } from 'fast-json-patch';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import {
   isEmpty,
   isNotEmpty,
@@ -93,8 +100,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
 
   constructor(protected objectCache: ObjectCacheService,
               protected dsoParser: DSOResponseParsingService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
+    this.defaultResponseMsToLive = this.appConfig?.cache.msToLive.default;
   }
 
   /**

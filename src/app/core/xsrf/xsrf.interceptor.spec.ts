@@ -11,6 +11,7 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { RequestError } from '../data/request-error.model';
@@ -40,22 +41,28 @@ describe(`XsrfInterceptor`, () => {
   beforeEach(() => {
     const tokenExtractor = new HttpXsrfTokenExtractorMock(testToken);
     cookieService = new CookieServiceMock();
-    const interceptor = new XsrfInterceptor(tokenExtractor,cookieService as any);
 
     TestBed.configureTestingModule({
       imports: [],
       providers: [
         DspaceRestService,
+        { provide: HttpXsrfTokenExtractor, useClass: HttpXsrfTokenExtractorMock },
+        { provide: CookieService, useValue: cookieService },
+        { provide: APP_CONFIG, useValue: { rest: { baseUrl: 'https://rest.com/server' } } },
         {
           provide: HTTP_INTERCEPTORS,
-          useValue: interceptor,
+          useFactory: (extractor: HttpXsrfTokenExtractor, cookieSvc: CookieService) =>
+            new XsrfInterceptor(extractor, cookieSvc),
+          deps: [HttpXsrfTokenExtractor, CookieService],
           multi: true,
         },
-        { provide: HttpXsrfTokenExtractor, useValue: tokenExtractor },
-        { provide: CookieService, useValue: cookieService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
+    });
+
+    TestBed.overrideProvider(HttpXsrfTokenExtractor, {
+      useFactory: () => new HttpXsrfTokenExtractorMock(testToken),
     });
 
     service = TestBed.get(DspaceRestService);

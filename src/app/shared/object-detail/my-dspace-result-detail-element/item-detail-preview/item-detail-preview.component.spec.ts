@@ -34,6 +34,7 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
@@ -128,6 +129,7 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemDetailPreviewComponent, {

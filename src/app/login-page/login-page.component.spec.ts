@@ -12,7 +12,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../config/app-config.interface';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';
@@ -42,6 +45,7 @@ describe('LoginPageComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache : { msToLive: { default: 15 * 60 * 1000 } } } },
         provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],

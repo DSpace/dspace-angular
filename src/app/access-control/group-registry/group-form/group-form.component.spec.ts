@@ -51,6 +51,7 @@ import {
   of,
 } from 'rxjs';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -268,6 +269,7 @@ describe('GroupFormComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: APP_CONFIG, useValue: { cache : { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

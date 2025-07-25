@@ -11,7 +11,7 @@ import {
   of,
 } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
 
 export declare type HasAcceptedGuardParamFn = () => Observable<boolean>;
@@ -24,7 +24,7 @@ export const endUserAgreementGuard = (
 ): CanActivateFn => {
   return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> => {
     const router = inject(Router);
-    if (!environment.info.enableEndUserAgreement) {
+    if (!inject(APP_CONFIG).info.enableEndUserAgreement) {
       return of(true);
     }
     return hasAccepted().pipe(

@@ -28,7 +28,10 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
@@ -94,6 +97,7 @@ describe('UserMenuComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,

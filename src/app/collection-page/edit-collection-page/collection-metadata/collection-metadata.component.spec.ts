@@ -27,7 +27,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../config/app-config.interface';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
@@ -88,6 +91,7 @@ describe('CollectionMetadataComponent', () => {
         { provide: CommunityDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

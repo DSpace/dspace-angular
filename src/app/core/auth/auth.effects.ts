@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
   NgZone,
   Type,
@@ -31,8 +32,11 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
-import { environment } from '../../../environments/environment';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
 import { StoreActionTypes } from '../../store.actions';
@@ -95,7 +99,7 @@ export function errorToAuthAction$<T extends AuthErrorActionsWithErrorPayload>(a
 
 @Injectable()
 export class AuthEffects {
-
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
   /**
    * Authenticate user.
    * @method authenticate
@@ -303,7 +307,7 @@ export class AuthEffects {
     // in, and start a new timer
     switchMap(() =>
       // Start a timer outside of Angular's zone
-      timer(environment.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler)),
+      timer(this.appConfig.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler)),
     ),
     // Re-enter the zone to dispatch the action
     observeOn(new EnterZoneScheduler(this.zone, queueScheduler)),

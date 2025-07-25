@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import {
   Inject,
+  inject,
   Injectable,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,8 +16,11 @@ import {
   take,
 } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { LangConfig } from '../../../config/lang-config.interface';
-import { environment } from '../../../environments/environment';
 import {
   isEmpty,
   isNotEmpty,
@@ -45,7 +49,7 @@ export enum LANG_ORIGIN {
  */
 @Injectable()
 export class LocaleService {
-
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
   /**
    * Eperson language metadata
    */
@@ -69,12 +73,12 @@ export class LocaleService {
   getCurrentLanguageCode(): string {
     // Attempt to get the language from a cookie
     let lang = this.getLanguageCodeFromCookie();
-    if (isEmpty(lang) || environment.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
+    if (isEmpty(lang) || this.appConfig.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
       // Attempt to get the browser language from the user
       if (this.translate.getLangs().includes(this.translate.getBrowserLang())) {
         lang = this.translate.getBrowserLang();
       } else {
-        lang = environment.defaultLanguage;
+        lang = this.appConfig.defaultLanguage;
       }
     }
     return lang;

@@ -7,6 +7,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -32,6 +33,47 @@ describe('LocaleService test suite', () => {
   let authService;
   let routeService;
   let document;
+  const languages = [{
+    code: 'en',
+    label: 'English',
+    active: true,
+  }, {
+    code: 'de',
+    label: 'Deutsch',
+    active: true,
+  }, {
+    code: 'cs',
+    label: 'Čeština',
+    active: true,
+  }, {
+    code: 'nl',
+    label: 'Nederlands',
+    active: true,
+  }, {
+    code: 'pt',
+    label: 'Português',
+    active: true,
+  }, {
+    code: 'fr',
+    label: 'Français',
+    active: true,
+  }, {
+    code: 'lv',
+    label: 'Latviešu',
+    active: true,
+  }, {
+    code: 'bn',
+    label: 'বাংলা',
+    active: true,
+  }, {
+    code: 'el',
+    label: 'Ελληνικά',
+    active: true,
+  }, {
+    code: 'disabled',
+    label: 'Disabled',
+    active: false,
+  }];
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
@@ -52,9 +94,11 @@ describe('LocaleService test suite', () => {
       ],
       providers: [
         { provide: CookieService, useValue: new CookieServiceMock() },
-        { provide: AuthService, userValue: authService },
+        { provide: AuthService, useValue: authService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Document, useValue: document },
+        { provide: APP_CONFIG, useValue: { languages, defaultLanguage: 'en' } },
+        LocaleService,
       ],
     });
   }));
@@ -65,7 +109,7 @@ describe('LocaleService test suite', () => {
     routeService = TestBed.inject(RouteService);
     window = new NativeWindowRef();
     document = { documentElement: { lang: 'en' } };
-    service = new LocaleService(window, cookieService, translateService, authService, routeService, document);
+    service = TestBed.inject(LocaleService);
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');

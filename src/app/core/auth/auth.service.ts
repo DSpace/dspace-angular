@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import {
   Inject,
+  inject,
   Injectable,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,7 +23,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import {
   hasNoValue,
   hasValue,
@@ -107,6 +111,8 @@ export class AuthService {
    * Timer to track time until token refresh
    */
   private tokenRefreshTimer;
+
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
@@ -407,7 +413,6 @@ export class AuthService {
     let token: AuthTokenInfo;
     this.store.pipe(take(1), select(getAuthenticationToken))
       .subscribe((authTokenInfo: AuthTokenInfo) => {
-        // Retrieve authentication token info and check if is valid
         token = authTokenInfo || null;
       });
     return token;
@@ -435,7 +440,7 @@ export class AuthService {
       if (!currentlyRefreshingToken) {
         token = authTokenInfo || null;
         if (token !== undefined && token !== null) {
-          let timeLeftBeforeRefresh = token.expires - new Date().getTime() - environment.auth.rest.timeLeftBeforeTokenRefresh;
+          let timeLeftBeforeRefresh = token.expires - new Date().getTime() - this.appConfig.auth.rest.timeLeftBeforeTokenRefresh;
           if (timeLeftBeforeRefresh < 0) {
             timeLeftBeforeRefresh = 0;
           }

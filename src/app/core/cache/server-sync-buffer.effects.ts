@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import {
   Actions,
   createEffect,
@@ -25,7 +28,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import {
   hasValue,
   isNotEmpty,
@@ -53,7 +59,7 @@ import {
 
 @Injectable()
 export class ServerSyncBufferEffects {
-
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
   /**
    * When an ADDToSSBAction is dispatched
    * Set a time out (configurable per method type)
@@ -64,7 +70,7 @@ export class ServerSyncBufferEffects {
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
-        const autoSyncConfig = environment.cache.autoSync;
+        const autoSyncConfig = this.appConfig.cache.autoSync;
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return of(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),

@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -10,6 +13,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import {
   hasValue,
   isEmpty,
@@ -26,6 +33,7 @@ import { getFirstCompletedRemoteData } from './operators';
 
 @Injectable({ providedIn: 'root' })
 export class HALEndpointService {
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   constructor(
     private requestService: RequestService,
@@ -34,7 +42,7 @@ export class HALEndpointService {
   }
 
   public getRootHref(): string {
-    return new RESTURLCombiner().toString();
+    return new RESTURLCombiner(this.appConfig.rest.baseUrl).toString();
   }
 
   protected getRootEndpointMap(): Observable<EndpointMap> {

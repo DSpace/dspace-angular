@@ -53,6 +53,7 @@ import {
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -186,6 +187,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
             provide: BrowseDefinitionDataService,
             useValue: BrowseDefinitionDataServiceStub,
           },
+          { provide: APP_CONFIG, useValue: environment },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })

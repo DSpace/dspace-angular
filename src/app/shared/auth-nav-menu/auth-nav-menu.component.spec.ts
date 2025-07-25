@@ -26,7 +26,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
@@ -104,6 +107,7 @@ describe('AuthNavMenuComponent', () => {
           { provide: AuthService, useValue: authService },
           { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
           { provide: XSRFService, useValue: {} },
+          { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA,

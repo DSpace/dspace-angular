@@ -1,5 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import {
   createSelector,
   MemoizedSelector,
@@ -22,6 +25,7 @@ import {
   tap,
   toArray,
 } from 'rxjs/operators';
+import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import {
   hasNoValue,
@@ -122,37 +126,7 @@ const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] =>
   return result;
 };
 
-/**
- * Check whether a cached entry exists and isn't stale
- *
- * @param entry
- *    the entry to check
- * @return boolean
- *    false if the entry has no value, or its time to live has exceeded,
- *    true otherwise
- */
-const isValid = (entry: RequestEntry): boolean => {
-  if (hasNoValue(entry)) {
-    // undefined entries are invalid
-    return false;
-  } else {
-    if (isLoading(entry.state)) {
-      // entries that are still loading are always valid
-      return true;
-    } else {
-      if (isStale(entry.state)) {
-        // entries that are stale are always invalid
-        return false;
-      } else {
-        // check whether it should be stale
-        const timeOutdated = entry.response.timeCompleted + entry.request.responseMsToLive;
-        const now = new Date().getTime();
-        const isOutDated = now > timeOutdated;
-        return !isOutDated;
-      }
-    }
-  }
-};
+
 
 /**
  * A service to interact with the request state in the store
@@ -162,11 +136,44 @@ const isValid = (entry: RequestEntry): boolean => {
 })
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
+  private defaultResponseMsToLive = inject(APP_CONFIG).cache.msToLive.default;
+
 
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>) {
   }
+  /**
+   * Check whether a cached entry exists and isn't stale
+   *
+   * @param entry
+   *    the entry to check
+   * @return boolean
+   *    false if the entry has no value, or its time to live has exceeded,
+   *    true otherwise
+   */
+  isValid = (entry: RequestEntry): boolean => {
+    if (hasNoValue(entry)) {
+      // undefined entries are invalid
+      return false;
+    } else {
+      if (isLoading(entry.state)) {
+        // entries that are still loading are always valid
+        return true;
+      } else {
+        if (isStale(entry.state)) {
+          // entries that are stale are always invalid
+          return false;
+        } else {
+          // check whether it should be stale
+          const timeOutdated = entry.response.timeCompleted + (entry.request.responseMsToLive ?? this.defaultResponseMsToLive);
+          const now = new Date().getTime();
+          const isOutDated = now > timeOutdated;
+          return !isOutDated;
+        }
+      }
+    }
+  };
 
   generateRequestId(): string {
     return `client/${this.uuidService.generate()}`;
@@ -237,7 +244,7 @@ export class RequestService {
     return (source: Observable<RequestEntry>): Observable<RequestEntry> => {
       return source.pipe(
         tap((entry: RequestEntry) => {
-          if (hasValue(entry) && hasValue(entry.request) && !isStale(entry.state) && !isValid(entry)) {
+          if (hasValue(entry) && hasValue(entry.request) && !isStale(entry.state) && !this.isValid(entry)) {
             asapScheduler.schedule(() => this.store.dispatch(new RequestStaleAction(entry.request.uuid)));
           }
         }),
@@ -511,7 +518,7 @@ export class RequestService {
    */
   hasByHref$(href: string, checkValidity = true): Observable<boolean> {
     return this.getByHref(href).pipe(
-      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry)),
+      map((requestEntry: RequestEntry) => checkValidity ? this.isValid(requestEntry) : hasValue(requestEntry)),
     );
   }
 
@@ -548,7 +555,7 @@ export class RequestService {
    */
   hasByUUID$(uuid: string, checkValidity = true): Observable<boolean> {
     return this.getByUUID(uuid).pipe(
-      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry)),
+      map((requestEntry: RequestEntry) => checkValidity ? this.isValid(requestEntry) : hasValue(requestEntry)),
     );
   }
 

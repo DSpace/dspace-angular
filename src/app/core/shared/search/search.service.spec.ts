@@ -5,7 +5,6 @@ import { Angulartics2 } from 'angulartics2';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { environment } from '../../../../environments/environment.test';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { FacetValues } from '../../../shared/search/models/facet-values.model';
@@ -53,8 +52,14 @@ describe('SearchService', () => {
   let msToLive: number;
   let remoteDataTimestamp: number;
 
+  const envConfig = {
+    rest: {
+      baseUrl: 'https://rest.com/server',
+    },
+  };
+
   beforeEach(() => {
-    halService = new HALEndpointServiceStub(environment.rest.baseUrl);
+    halService = new HALEndpointServiceStub(envConfig.rest.baseUrl);
     paginationService = new PaginationServiceStub();
     remoteDataBuildService = getMockRemoteDataBuildService();
     requestService = getMockRequestService();
@@ -240,7 +245,7 @@ describe('SearchService', () => {
 
       service.search(new PaginatedSearchOptions({})).subscribe();
 
-      expect(remoteDataBuildService.buildFromHref).toHaveBeenCalledWith(environment.rest.baseUrl + '/discover/search/objects');
+      expect(remoteDataBuildService.buildFromHref).toHaveBeenCalledWith(envConfig.rest.baseUrl + '/discover/search/objects');
     });
   });
 
@@ -258,7 +263,7 @@ describe('SearchService', () => {
       filterConfig = new SearchFilterConfig();
       filterConfig._links = {
         self: {
-          href: environment.rest.baseUrl,
+          href: envConfig.rest.baseUrl,
         },
       };
     });
@@ -335,7 +340,7 @@ describe('SearchService', () => {
 
       service.getFacetValuesFor(filterConfig, 1, undefined, 'filter&Query');
 
-      expect((service as any).request).toHaveBeenCalledWith(anything(), environment.rest.baseUrl + '?page=0&size=5&prefix=filter%26Query');
+      expect((service as any).request).toHaveBeenCalledWith(anything(), envConfig.rest.baseUrl + '?page=0&size=5&prefix=filter%26Query');
     });
   });
 });

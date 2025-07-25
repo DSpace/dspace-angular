@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { makeEnvironmentProviders } from '@angular/core';
+import {
+  inject,
+  makeEnvironmentProviders,
+} from '@angular/core';
+import { APP_CONFIG } from 'src/config/app-config.interface';
 
-import { environment } from '../../environments/environment';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { NotifyRequestsStatus } from './coar-notify/models/notify-requests-status.model';
@@ -97,7 +100,7 @@ export const provideCore = () => {
  * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
  */
 export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => {
-  if (environment.production) {
+  if (inject(APP_CONFIG).production) {
     return new DspaceRestService(http);
   } else {
     return new EndpointMockingRestService(mocks, http);

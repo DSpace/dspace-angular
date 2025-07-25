@@ -32,7 +32,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
 import { StoreMock } from '../testing/store.mock';
 import { createTestComponent } from '../testing/utils.test';
@@ -178,6 +181,10 @@ describe('FormComponent test suite', () => {
         FormService,
         { provide: Store, useClass: StoreMock },
         { provide: XSRFService, useValue: {} },
+        { provide: APP_CONFIG, useValue: {
+          cache: { msToLive: { default: 15 * 60 * 1000 } },
+          rest: { baseUrl: 'https://rest.com/server' },
+        } },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

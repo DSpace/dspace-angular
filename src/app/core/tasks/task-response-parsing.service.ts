@@ -1,5 +1,12 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
@@ -20,8 +27,12 @@ export class TaskResponseParsingService extends BaseResponseParsingService imple
    *
    * @param {ObjectCacheService} objectCache
    */
-  constructor(protected objectCache: ObjectCacheService) {
+  constructor(
+    protected objectCache: ObjectCacheService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
     super();
+    this.defaultResponseMsToLive = this.appConfig?.cache.msToLive.default;
   }
 
   /**

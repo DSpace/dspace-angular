@@ -1,8 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment.test';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -137,6 +139,8 @@ describe('NameVariantService', () => {
     } as RequestEntry);
   };
 
+  const envConfig = { item: { showAccessStatuses: false } } as AppConfig;
+
   beforeEach(() => {
     requestService = getMockRequestService(getRequestEntry$(true));
 
@@ -149,7 +153,7 @@ describe('NameVariantService', () => {
         { provide: ItemDataService, useValue: itemService },
         { provide: RequestService, useValue: requestService },
         { provide: PAGINATED_RELATIONS_TO_ITEMS_OPERATOR, useValue: jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v) },
-        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_CONFIG, useValue: envConfig },
         RelationshipDataService,
       ],
     });
@@ -157,7 +161,7 @@ describe('NameVariantService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, environment);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, envConfig);
 
     testSearchDataImplementation(initService);
   });

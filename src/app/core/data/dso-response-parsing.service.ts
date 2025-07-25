@@ -1,5 +1,12 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import {
   hasNoValue,
   hasValue,
@@ -25,6 +32,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
 
   constructor(
     protected objectCache: ObjectCacheService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
   }

@@ -22,6 +22,7 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import {
   authMethodsMock,
   AuthServiceStub,
@@ -102,8 +103,8 @@ describe('AuthEffects', () => {
         provideMockStore({ initialState }),
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: AuthService, useValue: authServiceStub },
+        { provide: APP_CONFIG, useValue: {} },
         provideMockActions(() => actions),
-        // other providers
       ],
     });
 

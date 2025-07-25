@@ -1,3 +1,7 @@
+import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
@@ -5,6 +9,7 @@ import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-de
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 
+@Injectable()
 class TestService extends BrowseResponseParsingService {
   constructor(protected objectCache: ObjectCacheService) {
     super(objectCache);
@@ -21,7 +26,14 @@ describe('BrowseResponseParsingService', () => {
 
 
   beforeEach(() => {
-    service = new TestService(getMockObjectCacheService());
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ObjectCacheService, useValue: getMockObjectCacheService() },
+        { provide: APP_CONFIG, useValue: { rest: { baseUrl: 'https://rest.com/server' } } },
+        TestService,
+      ],
+    });
+    service = TestBed.inject(TestService);
   });
 
   describe('', () => {

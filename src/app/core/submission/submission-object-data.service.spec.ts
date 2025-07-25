@@ -1,3 +1,6 @@
+import { TestBed } from '@angular/core/testing';
+
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { SubmissionService } from '../../submission/submission.service';
 import { RemoteData } from '../data/remote-data';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -28,6 +31,17 @@ describe('SubmissionObjectDataService', () => {
     halService = jasmine.createSpyObj('HALEndpointService', {
       getEndpoint: '/workspaceItem',
     });
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: WorkspaceitemDataService, useValue: workspaceitemDataService },
+        { provide: WorkflowItemDataService, useValue: workflowItemDataService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: SubmissionService, useValue: submissionService },
+        { provide: APP_CONFIG, useValue: { cache : { msToLive: { default : 15 * 60 * 1000 } } } },
+        SubmissionObjectDataService,
+      ],
+    });
   });
 
   describe('findById', () => {
@@ -35,7 +49,8 @@ describe('SubmissionObjectDataService', () => {
       submissionService = jasmine.createSpyObj('SubmissionService', {
         getSubmissionScope: {},
       });
-      service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, submissionService, halService);
+      TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
+      service = TestBed.inject(SubmissionObjectDataService);
       service.findById(submissionId);
       expect(submissionService.getSubmissionScope).toHaveBeenCalled();
     });
@@ -45,7 +60,8 @@ describe('SubmissionObjectDataService', () => {
         submissionService = jasmine.createSpyObj('SubmissionService', {
           getSubmissionScope: SubmissionScopeType.WorkspaceItem,
         });
-        service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, submissionService, halService);
+        TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
+        service = TestBed.inject(SubmissionObjectDataService);
       });
 
       it('should forward the result of WorkspaceitemDataService.findByIdAndIDType()', () => {
@@ -60,7 +76,8 @@ describe('SubmissionObjectDataService', () => {
         submissionService = jasmine.createSpyObj('SubmissionService', {
           getSubmissionScope: SubmissionScopeType.WorkflowItem,
         });
-        service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, submissionService, halService);
+        TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
+        service = TestBed.inject(SubmissionObjectDataService);
       });
 
       it('should forward the result of WorkflowItemDataService.findByIdAndIDType()', () => {
@@ -75,7 +92,8 @@ describe('SubmissionObjectDataService', () => {
         submissionService = jasmine.createSpyObj('SubmissionService', {
           getSubmissionScope: 'Something else',
         });
-        service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, submissionService, halService);
+        TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
+        service = TestBed.inject(SubmissionObjectDataService);
       });
 
       it('shouldn\'t call any data service methods', () => {

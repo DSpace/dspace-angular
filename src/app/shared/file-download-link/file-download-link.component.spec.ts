@@ -21,7 +21,10 @@ import {
   getTestScheduler,
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from 'src/config/app-config.interface';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
@@ -85,6 +88,7 @@ describe('FileDownloadLinkComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Store, useValue: storeMock },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
     })
       .overrideComponent(FileDownloadLinkComponent, {

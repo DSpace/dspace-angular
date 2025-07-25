@@ -7,7 +7,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment.test';
+import { AppConfig } from '../../../../config/app-config.interface';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
@@ -82,6 +82,16 @@ describe('SearchConfigurationService', () => {
       }));
     },
   };
+
+  const envConfig = {
+    search: {
+      advancedFilters: {
+        enabled: false,
+        filter: ['title', 'author', 'subject', 'entityType'],
+      },
+    },
+  } as AppConfig;
+
   beforeEach(() => {
     paginationService = new PaginationServiceStub(Object.assign(new PaginationComponentOptions(), {
       id: defaults.pagination.id,
@@ -89,7 +99,7 @@ describe('SearchConfigurationService', () => {
       pageSize: 20,
     }));
 
-    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb, environment);
+    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb, envConfig);
   });
 
   describe('when the scope is called', () => {
