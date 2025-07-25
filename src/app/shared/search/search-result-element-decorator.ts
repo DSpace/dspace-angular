@@ -1,5 +1,5 @@
-import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
+import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';

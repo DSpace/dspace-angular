@@ -9,21 +9,21 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
+import { CreateData } from '../data/base/create-data';
+import { testCreateDataImplementation } from '../data/base/create-data.spec';
+import { DeleteData } from '../data/base/delete-data';
+import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
+import { FindAllData } from '../data/base/find-all-data';
+import { testFindAllDataImplementation } from '../data/base/find-all-data.spec';
+import { PatchData } from '../data/base/patch-data';
+import { testPatchDataImplementation } from '../data/base/patch-data.spec';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { RequestEntryState } from '../data/request-entry-state.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { CreateData } from './base/create-data';
-import { testCreateDataImplementation } from './base/create-data.spec';
-import { DeleteData } from './base/delete-data';
-import { testDeleteDataImplementation } from './base/delete-data.spec';
-import { FindAllData } from './base/find-all-data';
-import { testFindAllDataImplementation } from './base/find-all-data.spec';
-import { PatchData } from './base/patch-data';
-import { testPatchDataImplementation } from './base/patch-data.spec';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
-import { RemoteData } from './remote-data';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
-import { RequestEntryState } from './request-entry-state.model';
 
 describe('CoarNotifyConfigDataService test', () => {
   let scheduler: TestScheduler;

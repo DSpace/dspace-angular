@@ -7,12 +7,12 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { CoarNotifyConfigDataService } from '@core/coar-notify/coar-notify-config-data.service';
 import { LdnPattern } from '@core/coar-notify/models/submission-coar-notify.model';
 import {
   LdnService,
   LdnServiceByPattern,
 } from '@core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { CoarNotifyConfigDataService } from '@core/data/coar-notify-config-data.service';
 import { LdnServicesService } from '@core/data/ldn-services-data.service';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';

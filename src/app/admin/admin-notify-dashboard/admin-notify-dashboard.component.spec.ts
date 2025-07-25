@@ -4,8 +4,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
+import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';

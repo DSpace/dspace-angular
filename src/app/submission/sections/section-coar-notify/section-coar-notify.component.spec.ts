@@ -3,13 +3,13 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { CoarNotifyConfigDataService } from '@core/coar-notify/coar-notify-config-data.service';
 import { SubmissionCoarNotifyModel } from '@core/coar-notify/models/submission-coar-notify.model';
 import { NotifyServicePattern } from '@core/data/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
 import {
   LdnService,
   LdnServiceByPattern,
 } from '@core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { CoarNotifyConfigDataService } from '@core/data/coar-notify-config-data.service';
 import { LdnServicesService } from '@core/data/ldn-services-data.service';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';

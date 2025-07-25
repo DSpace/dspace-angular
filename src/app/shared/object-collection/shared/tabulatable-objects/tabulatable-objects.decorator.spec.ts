@@ -1,4 +1,4 @@
-import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
+import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
 import { Context } from '@core/shared/context.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 

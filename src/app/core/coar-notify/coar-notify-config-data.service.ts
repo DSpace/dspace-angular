@@ -11,35 +11,35 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { SubmissionCoarNotifyModel } from '../coar-notify/models/submission-coar-notify.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NoContent } from '../shared/NoContent.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
 import {
   CreateData,
   CreateDataImpl,
-} from './base/create-data';
+} from '../data/base/create-data';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './base/delete-data';
+} from '../data/base/delete-data';
 import {
   FindAllData,
   FindAllDataImpl,
-} from './base/find-all-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+} from '../data/base/find-all-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import {
   PatchData,
   PatchDataImpl,
-} from './base/patch-data';
-import { ChangeAnalyzer } from './change-analyzer';
-import { FindListOptions } from './find-list-options.model';
-import { PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { MultipartPostRequest } from './request.models';
-import { RequestService } from './request.service';
-import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
+} from '../data/base/patch-data';
+import { ChangeAnalyzer } from '../data/change-analyzer';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { MultipartPostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RestRequest } from '../data/rest-request.model';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { SubmissionCoarNotifyModel } from './models/submission-coar-notify.model';
 
 
 /**

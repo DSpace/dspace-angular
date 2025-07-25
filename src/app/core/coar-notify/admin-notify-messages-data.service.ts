@@ -1,18 +1,4 @@
 import { Injectable } from '@angular/core';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
-import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { LdnServicesService } from '@core/data/ldn-services-data.service';
-import { PostRequest } from '@core/data/request.models';
-import { RequestService } from '@core/data/request.service';
-import { RestRequest } from '@core/data/rest-request.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-} from '@core/shared/operators';
 import {
   BehaviorSubject,
   from,
@@ -28,6 +14,20 @@ import {
 } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { ItemDataService } from '../data/item-data.service';
+import { LdnServicesService } from '../data/ldn-services-data.service';
+import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RestRequest } from '../data/rest-request.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '../shared/operators';
+import { AdminNotifyMessage } from './models/admin-notify-message.model';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.

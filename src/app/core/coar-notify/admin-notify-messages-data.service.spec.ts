@@ -1,14 +1,3 @@
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { RestResponse } from '@core/cache/response.models';
-import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
-import { ItemDataService } from '@core/data/item-data.service';
-import { LdnServicesService } from '@core/data/ldn-services-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { RequestEntry } from '@core/data/request-entry.model';
-import { RequestEntryState } from '@core/data/request-entry-state.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { deepClone } from 'fast-json-patch';
 import { cold } from 'jasmine-marbles';
 import {
@@ -19,8 +8,19 @@ import { take } from 'rxjs/operators';
 
 import { mockAdminNotifyMessages } from '../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component.spec';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { ItemDataService } from '../data/item-data.service';
+import { LdnServicesService } from '../data/ldn-services-data.service';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { RequestEntryState } from '../data/request-entry-state.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { AdminNotifyMessagesDataService } from './admin-notify-messages-data.service';
+import { AdminNotifyMessage } from './models/admin-notify-message.model';
 
 describe('AdminNotifyMessagesDataService test', () => {
   let service: AdminNotifyMessagesDataService;

@@ -9,9 +9,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AdminNotifyMessage } from '@core/data/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@core/data/admin-notify-message-search-result.model';
-import { AdminNotifyMessagesDataService } from '@core/data/admin-notify-messages-data.service';
+import { AdminNotifyMessagesDataService } from '@core/coar-notify/admin-notify-messages-data.service';
+import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
