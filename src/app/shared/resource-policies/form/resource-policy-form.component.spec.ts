@@ -19,6 +19,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isNotEmptyOperator } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
@@ -45,7 +46,6 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { isNotEmptyOperator } from '../../../../config/utils/empty.util';
 import { SubmissionService } from '../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {

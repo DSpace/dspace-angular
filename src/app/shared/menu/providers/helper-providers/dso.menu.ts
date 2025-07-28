@@ -9,6 +9,10 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import {
@@ -16,10 +20,6 @@ import {
   of,
 } from 'rxjs';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../../config/utils/empty.util';
 import { AbstractRouteContextMenuProvider } from './route-context.menu';
 
 /**

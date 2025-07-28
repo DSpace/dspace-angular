@@ -20,6 +20,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
@@ -49,7 +50,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   DSONameServiceMock,

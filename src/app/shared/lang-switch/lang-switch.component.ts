@@ -4,6 +4,7 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
+import { LangConfig } from '@config/lang-config.interface';
 import { LocaleService } from '@core/locale/locale.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -11,7 +12,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 
 @Component({

@@ -6,6 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
@@ -19,7 +20,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';

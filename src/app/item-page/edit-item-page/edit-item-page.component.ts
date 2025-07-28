@@ -17,6 +17,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,7 +29,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import {
   fadeIn,
   fadeInOut,

@@ -1,10 +1,10 @@
+import { hasValue } from '@config/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,
   of,
 } from 'rxjs';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestParam } from '../../cache/models/request-param.model';

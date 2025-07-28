@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -21,8 +22,6 @@ import {
   map,
   mergeMap,
 } from 'rxjs/operators';
-
-import { isNotEmpty } from '../../../../../config/utils/empty.util';
 
 /**
  * This component represents a badge with collection information.

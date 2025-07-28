@@ -2,9 +2,9 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
+import { hasNoValue } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 
-import { hasNoValue } from '../../../config/utils/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

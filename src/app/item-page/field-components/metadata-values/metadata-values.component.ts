@@ -10,16 +10,16 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import { hasValue } from '@config/utils/empty.util';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { MetadataValue } from '@core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '@core/shared/value-list-browse-definition.resource-type';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import { hasValue } from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';

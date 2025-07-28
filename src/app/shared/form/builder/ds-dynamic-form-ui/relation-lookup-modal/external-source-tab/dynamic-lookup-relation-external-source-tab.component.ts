@@ -9,6 +9,10 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@config/utils/empty.util';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -36,10 +40,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,

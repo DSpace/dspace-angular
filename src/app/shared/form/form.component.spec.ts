@@ -15,6 +15,10 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -32,10 +36,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
 import { StoreMock } from '../testing/store.mock';
 import { createTestComponent } from '../testing/utils.test';

@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -23,12 +29,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data/rest-request-method';

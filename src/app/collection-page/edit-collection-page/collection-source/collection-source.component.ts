@@ -12,6 +12,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
@@ -54,11 +59,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormComponent } from '../../../shared/form/form.component';

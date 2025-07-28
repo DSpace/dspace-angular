@@ -10,6 +10,10 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '@core/shared/metadata.models';
@@ -31,10 +35,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../../config/utils/empty.util';
 import { AppState } from '../../../../../app.reducer';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';

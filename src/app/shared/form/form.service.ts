@@ -6,6 +6,10 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  isEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
+import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -22,10 +26,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  isEmpty,
-  isNotUndefined,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
 import { FormBuilderService } from './builder/form-builder.service';

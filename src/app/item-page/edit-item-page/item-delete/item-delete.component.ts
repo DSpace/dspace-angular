@@ -11,6 +11,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { LinkService } from '@core/cache/builders/link.service';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -53,10 +57,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

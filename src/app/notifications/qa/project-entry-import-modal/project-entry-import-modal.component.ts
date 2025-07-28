@@ -8,6 +8,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import {
@@ -26,10 +30,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

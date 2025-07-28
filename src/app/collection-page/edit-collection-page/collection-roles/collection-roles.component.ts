@@ -4,6 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { HALLink } from '@core/shared/hal-link.model';
@@ -17,7 +18,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 
 /**

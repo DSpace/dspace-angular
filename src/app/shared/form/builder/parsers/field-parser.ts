@@ -2,6 +2,12 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import {
@@ -13,12 +19,6 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../../../../config/utils/empty.util';
 import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
 import { VisibilityType } from '../../../../submission/sections/visibility-type';
 import { isNgbDateStruct } from '../../../date.util';

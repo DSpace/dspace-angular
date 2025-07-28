@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   MemoizedSelector,
   select,
   Store,
@@ -10,10 +14,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import {
   AppState,
   keySelector,

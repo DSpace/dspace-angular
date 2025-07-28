@@ -4,6 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { VersionHistoryDataService } from '@core/data/version-history-data.service';
 import { Item } from '@core/shared/item.model';
@@ -26,10 +30,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { getItemPageRoute } from '../../item-page-routing-paths';

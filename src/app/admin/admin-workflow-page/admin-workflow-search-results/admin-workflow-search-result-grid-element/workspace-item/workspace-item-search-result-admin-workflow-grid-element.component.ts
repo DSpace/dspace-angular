@@ -7,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
@@ -38,7 +39,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../../config/utils/empty.util';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   getListableObjectComponent,

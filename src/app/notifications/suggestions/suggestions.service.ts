@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import { SuggestionConfig } from '@config/suggestion-config.interfaces';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -35,12 +41,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionConfig } from '../../../config/suggestion-config.interfaces';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { getSuggestionPageRoute } from '../../suggestions-page/suggestions-page-routing-paths';
 

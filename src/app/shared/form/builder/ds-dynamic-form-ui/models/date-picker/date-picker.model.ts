@@ -1,3 +1,7 @@
+import {
+  isEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { MetadataValue } from '@core/shared/metadata.models';
 import {
   DynamicDateControlModel,
@@ -11,11 +15,6 @@ import {
   BehaviorSubject,
   Subject,
 } from 'rxjs';
-
-import {
-  isEmpty,
-  isNotUndefined,
-} from '../../../../../../../config/utils/empty.util';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 

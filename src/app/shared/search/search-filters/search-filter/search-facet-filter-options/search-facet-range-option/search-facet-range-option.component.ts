@@ -10,6 +10,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
@@ -20,7 +21,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../../../config/utils/empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';

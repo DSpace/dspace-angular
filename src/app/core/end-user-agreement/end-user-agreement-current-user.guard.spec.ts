@@ -4,14 +4,14 @@ import {
   UrlTree,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
   Observable,
   of,
 } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 

@@ -15,6 +15,10 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
@@ -43,10 +47,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { MatomoService } from '../../statistics/matomo.service';
 
 @Component({

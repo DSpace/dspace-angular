@@ -5,6 +5,10 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   AddAuthenticationMessageAction,
   AuthenticatedAction,
   AuthenticationSuccessAction,
@@ -23,10 +27,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import { AppState } from '../app.reducer';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 

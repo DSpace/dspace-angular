@@ -8,6 +8,7 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -59,7 +60,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';

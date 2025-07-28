@@ -6,6 +6,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import {
   LinkDefinition,
@@ -17,8 +18,6 @@ import {
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-
-import { isNotEmpty } from '../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-home-coar',

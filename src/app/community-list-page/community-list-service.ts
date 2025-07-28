@@ -3,6 +3,10 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
@@ -39,10 +43,6 @@ import {
 } from 'src/config/app-config.interface';
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import { AppState } from '../app.reducer';
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';

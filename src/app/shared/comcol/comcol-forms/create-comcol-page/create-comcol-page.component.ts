@@ -3,6 +3,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { ComColDataService } from '@core/data/comcol-data.service';
@@ -27,11 +32,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../../../config/utils/empty.util';
 import { getHomePageRoute } from '../../../../app-routing-paths';
 import { NotificationsService } from '../../../notifications/notifications.service';
 

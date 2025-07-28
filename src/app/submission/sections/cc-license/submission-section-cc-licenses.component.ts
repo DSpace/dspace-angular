@@ -8,6 +8,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
@@ -45,11 +50,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

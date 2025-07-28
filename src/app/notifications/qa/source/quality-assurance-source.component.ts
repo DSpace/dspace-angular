@@ -13,6 +13,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { PaginationService } from '@core/pagination/pagination.service';
@@ -27,7 +28,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

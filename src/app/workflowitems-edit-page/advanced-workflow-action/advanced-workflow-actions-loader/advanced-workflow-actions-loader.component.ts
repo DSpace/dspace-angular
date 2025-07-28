@@ -4,11 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { AbstractComponentLoaderComponent } from 'src/app/shared/abstract-component-loader/abstract-component-loader.component';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { getAdvancedComponentByWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 

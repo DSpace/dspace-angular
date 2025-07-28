@@ -14,6 +14,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -42,10 +46,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

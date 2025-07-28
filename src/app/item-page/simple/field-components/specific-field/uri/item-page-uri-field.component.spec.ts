@@ -7,6 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseService } from '@core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import {
@@ -14,7 +15,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';

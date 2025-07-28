@@ -12,6 +12,7 @@ import {
   DomSanitizer,
   SafeHtml,
 } from '@angular/platform-browser';
+import { isEmpty } from '@config/utils/empty.util';
 import { MathService } from '@core/shared/math.service';
 import { Subject } from 'rxjs';
 import {
@@ -20,7 +21,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { isEmpty } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;

@@ -4,6 +4,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   BehaviorSubject,
@@ -15,10 +19,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../config/utils/empty.util';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';
 import { getComponentForMenuItemType } from '../menu-item.decorator';

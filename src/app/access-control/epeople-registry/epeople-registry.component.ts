@@ -15,6 +15,7 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -51,7 +52,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

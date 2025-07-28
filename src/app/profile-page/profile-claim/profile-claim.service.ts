@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -11,10 +15,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 

@@ -12,6 +12,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -28,7 +29,6 @@ import {
 } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';

@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -23,7 +24,6 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

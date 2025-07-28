@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   buildPaginatedList,
   PaginatedList,
 } from '@core/data/paginated-list.model';
@@ -12,10 +16,6 @@ import {
 } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import {
   AppState,
   keySelector,

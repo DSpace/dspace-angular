@@ -3,9 +3,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { Item } from '@core/shared/item.model';
 
-import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 

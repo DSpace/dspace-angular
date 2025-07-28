@@ -14,6 +14,7 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { ItemDataService } from '@core/data/item-data.service';
 import { ConfidenceType } from '@core/shared/confidence-type';
 import { followLink } from '@core/shared/follow-link-config.model';
@@ -40,7 +41,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { RegistryService } from '../../../../admin/admin-registries/registry/registry.service';
 import { DsDynamicOneboxComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {

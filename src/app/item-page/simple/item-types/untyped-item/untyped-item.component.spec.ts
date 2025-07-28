@@ -12,6 +12,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -45,7 +46,6 @@ import {
 } from 'rxjs';
 import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

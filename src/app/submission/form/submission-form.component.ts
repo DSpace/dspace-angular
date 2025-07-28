@@ -7,6 +7,11 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
 import { SubmissionSectionModel } from '@core/config/models/config-submission-section.model';
@@ -29,11 +34,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SectionVisibility } from '../objects/section-visibility.model';

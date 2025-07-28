@@ -7,6 +7,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -20,10 +24,6 @@ import {
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../config/app-config.interface';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';

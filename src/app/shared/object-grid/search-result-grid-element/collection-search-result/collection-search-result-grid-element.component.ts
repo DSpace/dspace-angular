@@ -4,6 +4,10 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
@@ -12,10 +16,6 @@ import { followLink } from '@core/shared/follow-link-config.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../../config/utils/empty.util';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';

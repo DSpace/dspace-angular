@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
@@ -38,11 +43,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import {
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { FormState } from '../../shared/form/form.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

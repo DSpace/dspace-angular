@@ -8,6 +8,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
@@ -42,10 +46,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ErrorComponent } from '../shared/error/error.component';

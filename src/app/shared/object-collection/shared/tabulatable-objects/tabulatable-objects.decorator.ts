@@ -1,12 +1,12 @@
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
 import { Context } from '@core/shared/context.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { ViewMode } from '@core/shared/view-mode.model';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../../config/utils/empty.util';
 import { AdminNotifySearchResultComponent } from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
 import { TabulatableResultListElementsComponent } from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { ListableObject } from '../listable-object.model';

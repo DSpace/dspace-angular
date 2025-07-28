@@ -12,6 +12,10 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
+import {
   authReducer,
   AuthState,
 } from '@core/auth/auth.reducer';
@@ -26,10 +30,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
 import { ActivatedRouteStub } from '../testing/active-router.stub';

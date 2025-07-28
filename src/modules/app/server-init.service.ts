@@ -10,6 +10,16 @@ import {
   Injectable,
   TransferState,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '@config/app-config.interface';
+import { BuildConfig } from '@config/build-config.interface';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { LocaleService } from '@core/locale/locale.service';
 import { HeadTagService } from '@core/metadata/head-tag.service';
 import { Store } from '@ngrx/store';
@@ -25,16 +35,6 @@ import { MenuService } from '../../app/shared/menu/menu.service';
 import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
-import {
-  APP_CONFIG,
-  APP_CONFIG_STATE,
-  AppConfig,
-} from '../../config/app-config.interface';
-import { BuildConfig } from '../../config/build-config.interface';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 
 /**

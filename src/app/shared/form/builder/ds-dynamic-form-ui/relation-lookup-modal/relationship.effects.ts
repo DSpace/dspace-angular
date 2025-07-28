@@ -3,6 +3,11 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '@config/utils/empty.util';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { ServerSyncBufferActionTypes } from '@core/cache/server-sync-buffer.actions';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
@@ -43,11 +48,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-} from '../../../../../../config/utils/empty.util';
 import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionState } from '../../../../../submission/submission.reducers';
 import { NotificationsService } from '../../../../notifications/notifications.service';

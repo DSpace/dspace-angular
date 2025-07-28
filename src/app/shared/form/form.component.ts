@@ -15,6 +15,12 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNull,
+} from '@config/utils/empty.util';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -36,12 +42,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNull,
-} from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';

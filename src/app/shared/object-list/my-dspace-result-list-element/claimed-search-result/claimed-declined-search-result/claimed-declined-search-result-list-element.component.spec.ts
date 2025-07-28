@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { Context } from '@core/shared/context.model';
@@ -18,7 +19,6 @@ import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.ut
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../../mocks/link-service.mock';

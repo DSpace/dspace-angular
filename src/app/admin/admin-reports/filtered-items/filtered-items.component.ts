@@ -11,6 +11,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { isEmpty } from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -41,7 +42,6 @@ import {
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { environment } from 'src/environments/environment';
 
-import { isEmpty } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
 import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv/filtered-items-export-csv.component';

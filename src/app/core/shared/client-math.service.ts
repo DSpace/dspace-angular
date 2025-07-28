@@ -5,15 +5,15 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
   BehaviorSubject,
   Observable,
   Subject,
 } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import {
   NativeWindowRef,
   NativeWindowService,

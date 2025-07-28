@@ -17,6 +17,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -36,7 +37,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../shared/error/error.component';

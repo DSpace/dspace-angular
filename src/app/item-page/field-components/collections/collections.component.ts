@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
@@ -33,7 +34,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

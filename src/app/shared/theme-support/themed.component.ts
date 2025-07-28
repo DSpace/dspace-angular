@@ -11,6 +11,11 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   BehaviorSubject,
@@ -27,11 +32,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeService } from './theme.service';
 

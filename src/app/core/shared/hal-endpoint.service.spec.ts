@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import {
   combineLatest as observableCombineLatest,
   of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';

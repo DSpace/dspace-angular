@@ -1,3 +1,7 @@
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { MetadataValue } from '@core/shared/metadata.models';
 import {
   DynamicFormControlLayout,
@@ -8,10 +12,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../../../../../config/utils/empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';

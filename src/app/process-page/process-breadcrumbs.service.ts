@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { BreadcrumbsProviderService } from '@core/breadcrumbs/breadcrumbsProviderService';
 import { Process } from '@core/processes/process.model';
 import {
@@ -6,7 +7,6 @@ import {
   of,
 } from 'rxjs';
 
-import { hasValue } from '../../config/utils/empty.util';
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
 
 /**

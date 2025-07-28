@@ -1,3 +1,4 @@
+import { hasValue } from '@config/utils/empty.util';
 import { RetrieveAuthMethodsAction } from '@core/auth/auth.actions';
 import { AuthMethod } from '@core/auth/models/auth.method';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
@@ -10,7 +11,6 @@ import {
   of,
 } from 'rxjs';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { EPersonMock } from './eperson.mock';
 
 export const authMethodsMock: AuthMethod[] = [

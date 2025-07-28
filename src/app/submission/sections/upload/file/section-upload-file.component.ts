@@ -8,6 +8,10 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
@@ -25,10 +29,6 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotUndefined,
-} from '../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';

@@ -12,6 +12,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { hasValue } from '@config/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -20,7 +21,6 @@ import {
 } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { RequestCopyEmail } from './request-copy-email.model';
 

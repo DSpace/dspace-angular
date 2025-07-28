@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import {
   SortDirection,
@@ -12,8 +13,6 @@ import { QualityAssuranceTopicDataService } from '@core/notifications/qa/topics/
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { hasValue } from '../../../../config/utils/empty.util';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.

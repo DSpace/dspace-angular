@@ -8,6 +8,10 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
+import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,
   DynamicFormService,
@@ -23,10 +27,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';

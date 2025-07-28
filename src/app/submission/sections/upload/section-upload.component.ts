@@ -4,6 +4,12 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AccessConditionOption } from '@core/config/models/config-access-condition-option.model';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
@@ -35,12 +41,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined,
-} from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';

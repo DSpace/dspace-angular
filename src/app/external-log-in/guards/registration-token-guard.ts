@@ -5,6 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { RemoteData } from '@core/data/remote-data';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -14,8 +15,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-
-import { hasValue } from '../../../config/utils/empty.util';
 
 /**
  * Determines if a user can activate a route based on the registration token.

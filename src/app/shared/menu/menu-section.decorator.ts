@@ -1,4 +1,5 @@
-import { hasValue } from '../../../config/utils/empty.util';
+import { hasValue } from '@config/utils/empty.util';
+
 import { AdminSidebarSectionComponent } from '../../admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from '../../admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { ThemedExpandableNavbarSectionComponent } from '../../navbar/expandable-navbar-section/themed-expandable-navbar-section.component';

@@ -8,6 +8,10 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
@@ -44,10 +48,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../../config/utils/empty.util';
 import { AppState } from '../../../../../app.reducer';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';

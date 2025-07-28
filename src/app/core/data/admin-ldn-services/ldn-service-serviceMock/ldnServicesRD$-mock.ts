@@ -1,9 +1,9 @@
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
 import { PaginatedList } from '../../paginated-list.model';
 import { RemoteData } from '../../remote-data';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';

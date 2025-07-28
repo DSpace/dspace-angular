@@ -3,15 +3,15 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import { isNotEmpty } from '@config/utils/empty.util';
+import {
   Request,
   Response,
 } from 'express';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import {
   REQUEST,
   RESPONSE,

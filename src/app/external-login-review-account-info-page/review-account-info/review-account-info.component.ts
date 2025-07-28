@@ -8,6 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
 import { RemoteData } from '@core/data/remote-data';
@@ -37,7 +38,6 @@ import {
   tap,
 } from 'rxjs';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';

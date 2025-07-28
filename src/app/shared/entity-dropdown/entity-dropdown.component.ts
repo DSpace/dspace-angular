@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -29,7 +30,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({

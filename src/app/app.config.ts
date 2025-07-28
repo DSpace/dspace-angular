@@ -16,6 +16,11 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import { StoreDevModules } from '@config/store/devtools';
 import { AuthInterceptor } from '@core/auth/auth.interceptor';
 import { DspaceRestInterceptor } from '@core/dspace-rest/dspace-rest.interceptor';
 import { LocaleInterceptor } from '@core/locale/locale.interceptor';
@@ -42,11 +47,6 @@ import {
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { NgxMaskModule } from 'ngx-mask';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../config/app-config.interface';
-import { StoreDevModules } from '../config/store/devtools';
 import { environment } from '../environments/environment';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { appEffects } from './app.effects';

@@ -3,13 +3,13 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CaptionInfo } from './caption-info';
 import { languageHelper } from './language-helper';

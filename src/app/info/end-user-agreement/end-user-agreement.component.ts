@@ -7,6 +7,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { LogOutAction } from '@core/auth/auth.actions';
 import { AuthService } from '@core/auth/auth.service';
 import { EndUserAgreementService } from '@core/end-user-agreement/end-user-agreement.service';
@@ -22,7 +23,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { AppState } from '../../app.reducer';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

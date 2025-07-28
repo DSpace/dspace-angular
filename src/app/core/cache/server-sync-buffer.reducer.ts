@@ -1,7 +1,8 @@
 import {
   hasNoValue,
   hasValue,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+
 import { RestRequestMethod } from '../data/rest-request-method';
 import {
   AddToSSBAction,

@@ -6,12 +6,12 @@ import {
 } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';

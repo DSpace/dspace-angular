@@ -13,6 +13,10 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   buildPaginatedList,
   PaginatedList,
 } from '@core/data/paginated-list.model';
@@ -44,10 +48,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../../../config/utils/empty.util';
 import { environment } from '../../../../../../../environments/environment';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';

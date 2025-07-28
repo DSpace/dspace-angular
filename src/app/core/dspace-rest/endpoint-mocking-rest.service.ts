@@ -6,12 +6,12 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { isEmpty } from '@config/utils/empty.util';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { isEmpty } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { RestRequestMethod } from '../data/rest-request-method';
 import {

@@ -7,6 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { OrcidHistory } from '@core/orcid/model/orcid-history.model';
@@ -35,7 +36,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

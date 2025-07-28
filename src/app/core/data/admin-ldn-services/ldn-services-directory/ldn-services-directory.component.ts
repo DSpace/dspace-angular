@@ -12,6 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { LdnServicesService } from '@core/data/ldn-services-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -30,7 +31,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';

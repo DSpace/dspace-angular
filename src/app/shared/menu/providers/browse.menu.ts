@@ -10,6 +10,10 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
 import { BrowseService } from '@core/browse/browse.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -21,10 +25,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';

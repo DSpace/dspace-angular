@@ -18,6 +18,10 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -41,10 +45,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';

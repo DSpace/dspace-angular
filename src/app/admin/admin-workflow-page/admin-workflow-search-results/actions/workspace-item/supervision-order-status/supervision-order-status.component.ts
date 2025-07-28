@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Group } from '@core/eperson/models/group.model';
@@ -25,7 +26,6 @@ import {
   reduce,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../../../../config/utils/empty.util';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 
 export interface SupervisionOrderListEntry {

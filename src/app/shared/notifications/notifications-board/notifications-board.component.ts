@@ -8,6 +8,11 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
+import { INotificationBoardOptions } from '@config/notifications-config.interfaces';
+import {
+  hasNoValue,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
 import {
   select,
   Store,
@@ -21,11 +26,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import {
-  hasNoValue,
-  isNotEmptyOperator,
-} from '../../../../config/utils/empty.util';
 import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
 import { AppState } from '../../../app.reducer';
 import { LiveRegionService } from '../../live-region/live-region.service';

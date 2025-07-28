@@ -14,6 +14,14 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
@@ -26,14 +34,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';

@@ -10,11 +10,11 @@ import {
   Provider,
   Type,
 } from '@angular/core';
-
 import {
   hasValue,
   isNotEmpty,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+
 import { MenuID } from './menu-id.model';
 import {
   AbstractMenuProvider,

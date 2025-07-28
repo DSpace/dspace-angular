@@ -9,6 +9,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
+import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
@@ -28,10 +32,6 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../config/utils/empty.util';
 import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import {

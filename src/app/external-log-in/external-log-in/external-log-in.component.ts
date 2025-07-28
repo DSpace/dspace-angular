@@ -10,6 +10,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthMethodsService } from '@core/auth/auth-methods.service';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
@@ -26,10 +30,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../../config/utils/empty.util';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';

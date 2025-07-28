@@ -14,6 +14,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
@@ -26,10 +30,6 @@ import {
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';

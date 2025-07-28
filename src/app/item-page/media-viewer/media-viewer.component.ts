@@ -7,6 +7,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MediaViewerConfig } from '@config/media-viewer-config.interface';
+import { hasValue } from '@config/utils/empty.util';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -28,8 +30,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
-import { hasValue } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';

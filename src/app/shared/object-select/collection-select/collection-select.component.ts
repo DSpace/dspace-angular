@@ -8,6 +8,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  hasValueOperator,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
@@ -17,10 +21,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import {
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ErrorComponent } from '../../error/error.component';

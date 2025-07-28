@@ -7,9 +7,9 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 
-import { hasValue } from '../../config/utils/empty.util';
 import { ContextHelpService } from './context-help.service';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { PlacementDir } from './context-help-wrapper/placement-dir.model';

@@ -5,14 +5,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { isEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
-
-import { isEmpty } from '../../../../config/utils/empty.util';
 
 /**
  * Method for resolving an item based on the parameters in the current route

@@ -1,8 +1,8 @@
 import { request } from 'http';
 import { request as https_request } from 'https';
 
-import { AppConfig } from '../src/config/app-config.interface';
-import { buildAppConfig } from '../src/config/config.server';
+import { AppConfig } from '@config/app-config.interface';
+import { buildAppConfig } from '@config/config.server';
 
 const appConfig: AppConfig = buildAppConfig();
 

@@ -10,6 +10,7 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { Context } from '@core/shared/context.model';
 import { HierarchicalBrowseDefinition } from '@core/shared/hierarchical-browse-definition.model';
@@ -26,7 +27,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 

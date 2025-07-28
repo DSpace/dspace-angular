@@ -9,6 +9,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -30,7 +31,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import {
   fadeIn,
   fadeInOut,

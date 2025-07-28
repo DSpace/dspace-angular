@@ -2,6 +2,10 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+} from '@config/utils/empty.util';
 import { CookieService } from '@core/services/cookie.service';
 import {
   NativeWindowRef,
@@ -14,10 +18,6 @@ import {
 } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../config/utils/empty.util';
 import { AppState } from '../app.reducer';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import {

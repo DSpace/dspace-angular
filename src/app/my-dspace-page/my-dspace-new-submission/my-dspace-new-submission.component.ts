@@ -9,6 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
@@ -17,7 +18,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';

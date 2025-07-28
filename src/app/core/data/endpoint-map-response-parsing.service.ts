@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ParsedResponse } from '../cache/response.models';

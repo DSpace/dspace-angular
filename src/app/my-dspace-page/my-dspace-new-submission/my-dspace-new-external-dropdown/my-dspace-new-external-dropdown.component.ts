@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -24,7 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';

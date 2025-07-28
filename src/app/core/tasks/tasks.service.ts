@@ -1,4 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -9,10 +13,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';

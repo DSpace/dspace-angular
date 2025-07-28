@@ -12,6 +12,7 @@ import {
   By,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { INotificationBoardOptions } from '@config/notifications-config.interfaces';
 import {
   Store,
   StoreModule,
@@ -19,7 +20,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
 import { getAccessibilitySettingsServiceStub } from '../../../accessibility/accessibility-settings.service.stub';
 import { AppState } from '../../../app.reducer';

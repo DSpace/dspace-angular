@@ -1,9 +1,8 @@
+import { hasValue } from '@config/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
-
-import { hasValue } from '../../config/utils/empty.util';
 
 /**
  * Export a function to return a subset of the state by key

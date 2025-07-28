@@ -14,6 +14,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { hasValue } from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
@@ -34,7 +35,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {

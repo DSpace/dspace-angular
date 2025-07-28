@@ -1,10 +1,10 @@
+import { AppConfig } from '@config/app-config.interface';
 import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AppConfig } from '../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HardRedirectService } from '../services/hard-redirect.service';

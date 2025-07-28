@@ -12,6 +12,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import {
+  hasValue,
+  isEmpty,
+} from '@config/utils/empty.util';
 import { CacheableObject } from '@core/cache/cacheable-object.model';
 import { FindAllDataImpl } from '@core/data/base/find-all-data';
 import {
@@ -47,10 +51,6 @@ import {
 } from 'rxjs/operators';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';

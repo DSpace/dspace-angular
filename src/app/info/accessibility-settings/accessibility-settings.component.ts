@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { isEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import {
   TranslateModule,
@@ -22,7 +23,6 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { isEmpty } from '../../../config/utils/empty.util';
 import {
   AccessibilitySetting,
   AccessibilitySettingsFormValues,

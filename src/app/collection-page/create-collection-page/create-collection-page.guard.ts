@@ -5,6 +5,10 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Community } from '@core/shared/community.model';
@@ -17,11 +21,6 @@ import {
   map,
   tap,
 } from 'rxjs/operators';
-
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../config/utils/empty.util';
 
 /**
  * True when either a parent ID query parameter has been provided and the parent ID resolves to a valid parent community

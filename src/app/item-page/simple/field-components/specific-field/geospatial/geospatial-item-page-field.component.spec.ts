@@ -7,6 +7,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { ITEM } from '@core/shared/item.resource-type';
 import { Store } from '@ngrx/store';
@@ -16,10 +20,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';

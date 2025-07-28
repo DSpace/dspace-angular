@@ -15,6 +15,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseService } from '@core/browse/browse.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -27,7 +28,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';

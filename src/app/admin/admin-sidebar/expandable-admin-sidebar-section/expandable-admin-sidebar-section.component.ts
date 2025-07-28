@@ -10,6 +10,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
@@ -17,7 +18,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { bgColor } from '../../../shared/animations/bgColor';
 import { rotate } from '../../../shared/animations/rotate';
 import { slide } from '../../../shared/animations/slide';

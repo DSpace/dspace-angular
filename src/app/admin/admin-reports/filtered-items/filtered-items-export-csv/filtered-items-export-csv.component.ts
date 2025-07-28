@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
@@ -23,7 +24,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';

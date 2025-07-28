@@ -7,6 +7,10 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isEmpty,
+} from '@config/utils/empty.util';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
 import {
@@ -19,10 +23,6 @@ import {
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../../config/utils/empty.util';
 import { environment } from '../../../../../environments/environment';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';

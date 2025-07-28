@@ -1,4 +1,4 @@
-import { Config } from '../../../config/config.interface';
+import { Config } from '@config/config.interface';
 
 /**
  * Configuration interface used by the LiveRegionService

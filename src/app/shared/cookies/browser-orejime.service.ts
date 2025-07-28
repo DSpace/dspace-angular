@@ -3,6 +3,11 @@ import {
   Injectable,
   InjectionToken,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
@@ -29,11 +34,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import { OrejimeService } from './orejime.service';

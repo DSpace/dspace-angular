@@ -4,6 +4,10 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import {
@@ -34,10 +38,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';

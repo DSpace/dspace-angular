@@ -11,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -21,7 +22,6 @@ import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.ut
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';

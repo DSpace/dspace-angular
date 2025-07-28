@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';

@@ -2,10 +2,10 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { getDSORoute } from '../../app-routing-paths';
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';

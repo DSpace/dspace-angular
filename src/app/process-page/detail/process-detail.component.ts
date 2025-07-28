@@ -17,6 +17,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
@@ -58,7 +59,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

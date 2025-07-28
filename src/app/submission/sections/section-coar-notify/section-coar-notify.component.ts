@@ -7,6 +7,11 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { LdnPattern } from '@core/coar-notify/models/submission-coar-notify.model';
 import { CoarNotifyConfigDataService } from '@core/config/coar-notify-config-data.service';
 import {
@@ -38,11 +43,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';

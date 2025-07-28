@@ -10,6 +10,7 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { isNotUndefined } from '@config/utils/empty.util';
 import {
   AuthService,
   LOGIN_ROUTE,
@@ -37,7 +38,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { isNotUndefined } from '../../../config/utils/empty.util';
 import {
   AppState,
   routerStateSelector,

@@ -18,6 +18,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { GroupDataService } from '@core/eperson/group-data.service';
@@ -32,10 +36,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import {
   dateToString,

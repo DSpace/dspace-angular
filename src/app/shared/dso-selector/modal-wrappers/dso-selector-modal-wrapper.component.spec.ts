@@ -14,6 +14,7 @@ import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
 import { Item } from '@core/shared/item.model';
@@ -23,7 +24,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

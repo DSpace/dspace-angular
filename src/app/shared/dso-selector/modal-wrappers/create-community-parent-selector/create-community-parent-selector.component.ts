@@ -8,6 +8,7 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -20,7 +21,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { environment } from '../../../../../environments/environment';
 import {
   COMMUNITY_PARENT_PARAMETER,

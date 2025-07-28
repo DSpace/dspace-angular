@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,
@@ -14,7 +15,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';

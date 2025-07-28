@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import {
   NativeWindowRef,
@@ -14,8 +15,6 @@ import {
 } from '@core/services/window.service';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { Observable } from 'rxjs';
-
-import { isNotEmpty } from '../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-google-recaptcha',

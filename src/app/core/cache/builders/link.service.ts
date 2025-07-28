@@ -3,6 +3,11 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { LazyDataServicesMap } from '@core/data-services-map';
 import {
   EMPTY,
@@ -13,11 +18,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';

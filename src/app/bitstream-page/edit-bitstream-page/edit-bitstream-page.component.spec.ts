@@ -16,6 +16,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
@@ -36,7 +37,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import {
   INotification,

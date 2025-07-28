@@ -3,6 +3,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import {
   SortDirection,
   SortOptions,
@@ -13,7 +14,6 @@ import { SearchConfigurationService } from '@core/shared/search/search-configura
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';

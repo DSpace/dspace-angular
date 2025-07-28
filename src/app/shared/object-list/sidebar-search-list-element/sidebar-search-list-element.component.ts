@@ -6,6 +6,10 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -23,10 +27,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';

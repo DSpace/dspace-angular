@@ -13,6 +13,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
@@ -31,10 +35,6 @@ import {
   switchMap,
 } from 'rxjs';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';

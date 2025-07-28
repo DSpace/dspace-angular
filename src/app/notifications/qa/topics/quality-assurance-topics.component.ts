@@ -13,6 +13,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { QualityAssuranceTopicObject } from '@core/notifications/qa/models/quality-assurance-topic.model';
@@ -34,7 +35,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';

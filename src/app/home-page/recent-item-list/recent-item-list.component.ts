@@ -13,6 +13,10 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
@@ -32,10 +36,6 @@ import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import {
   fadeIn,

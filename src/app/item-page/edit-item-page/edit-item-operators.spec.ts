@@ -1,3 +1,4 @@
+import { isNotEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
 import {
@@ -6,7 +7,6 @@ import {
 } from '@core/utilities/remote-data.utils';
 import { hot } from 'jasmine-marbles';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { findSuccessfulAccordingTo } from './edit-item-operators';
 
 describe('findSuccessfulAccordingTo', () => {

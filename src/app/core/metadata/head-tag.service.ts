@@ -13,6 +13,15 @@ import {
   Router,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   createSelector,
   select,
   Store,
@@ -34,15 +43,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';

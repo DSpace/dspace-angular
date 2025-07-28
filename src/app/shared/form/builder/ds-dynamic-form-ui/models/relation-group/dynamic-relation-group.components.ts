@@ -14,6 +14,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -43,12 +49,6 @@ import {
   scan,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../../../config/utils/empty.util';
 import { environment } from '../../../../../../../environments/environment';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';

@@ -1,10 +1,10 @@
+import { hasValue } from '@config/utils/empty.util';
 import {
   autoserialize,
   autoserializeAs,
   deserialize,
 } from 'cerialize';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { HALLink } from './hal-link.model';
 import { HALResource } from './hal-resource.model';
 

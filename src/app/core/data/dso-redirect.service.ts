@@ -10,14 +10,14 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { hasValue } from '../../../config/utils/empty.util';
+} from '@config/app-config.interface';
+import { hasValue } from '@config/utils/empty.util';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import { getDSORoute } from '../../app-routing-paths';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

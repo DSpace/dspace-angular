@@ -21,6 +21,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -51,7 +52,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

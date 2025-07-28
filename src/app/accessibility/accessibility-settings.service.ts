@@ -3,6 +3,15 @@ import {
   Injectable,
   Optional,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
@@ -21,15 +30,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 

@@ -7,6 +7,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { RemoteData } from '@core/data/remote-data';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
@@ -19,10 +23,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';

@@ -18,6 +18,7 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -50,7 +51,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

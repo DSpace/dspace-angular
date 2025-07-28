@@ -5,6 +5,10 @@
  *
  * http://www.dspace.org/license/
  */
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -13,10 +17,6 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '../../../../config/utils/empty.util';
 import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getClassForType } from '../../cache/builders/build-decorators';

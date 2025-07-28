@@ -20,6 +20,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
@@ -38,7 +39,6 @@ import {
   of,
 } from 'rxjs';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import {
   EPersonListActionConfig,
   MembersListComponent,

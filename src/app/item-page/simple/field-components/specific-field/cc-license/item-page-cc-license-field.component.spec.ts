@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Item } from '@core/shared/item.model';
@@ -23,7 +24,6 @@ import {
 import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';

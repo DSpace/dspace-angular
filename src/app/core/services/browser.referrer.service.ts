@@ -3,10 +3,10 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { hasNoValue } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasNoValue } from '../../../config/utils/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { HardRedirectService } from './hard-redirect.service';
 import { ReferrerService } from './referrer.service';

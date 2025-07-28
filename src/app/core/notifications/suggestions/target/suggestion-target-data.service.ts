@@ -18,12 +18,12 @@ import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../shared/follow-link-config.model';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 
 @Injectable({ providedIn: 'root' })

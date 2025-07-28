@@ -1,4 +1,4 @@
-import { isEmpty } from '../../../config/utils/empty.util';
+import { isEmpty } from '@config/utils/empty.util';
 
 /**
  * Serializer to create convert the 'all' value supported by the server to an empty string and vice versa.

@@ -16,6 +16,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -49,7 +50,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { NotificationsService } from '../../notifications/notifications.service';

@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { RemoteData } from '@core/data/remote-data';
 import { EPerson } from '@core/eperson/models/eperson.model';
@@ -31,7 +32,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

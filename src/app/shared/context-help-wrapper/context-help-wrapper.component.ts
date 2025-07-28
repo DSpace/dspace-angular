@@ -11,6 +11,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { hasValueOperator } from '@config/utils/empty.util';
 import {
   NgbTooltip,
   NgbTooltipModule,
@@ -29,7 +30,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { hasValueOperator } from '../../../config/utils/empty.util';
 import { ContextHelp } from '../context-help.model';
 import { ContextHelpService } from '../context-help.service';
 import { PlacementDir } from './placement-dir.model';

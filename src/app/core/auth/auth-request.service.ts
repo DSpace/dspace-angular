@@ -1,3 +1,4 @@
+import { isNotEmpty } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -8,7 +9,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import {

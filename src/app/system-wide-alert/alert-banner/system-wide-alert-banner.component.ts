@@ -9,6 +9,10 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
@@ -27,10 +31,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**

@@ -13,6 +13,12 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import { FilterVocabularyConfig } from '@config/filter-vocabulary-config';
+import { hasValue } from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchService } from '@core/shared/search/search.service';
@@ -36,12 +42,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../../config/app-config.interface';
-import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
-import { hasValue } from '../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';

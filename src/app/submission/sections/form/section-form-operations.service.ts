@@ -1,4 +1,12 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isUndefined,
+} from '@config/utils/empty.util';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
@@ -15,14 +23,6 @@ import { deepClone } from 'fast-json-patch';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-  isUndefined,
-} from '../../../../config/utils/empty.util';
 import {
   dateToString,
   isNgbDateStruct,

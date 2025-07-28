@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -7,10 +11,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '../../../config/utils/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

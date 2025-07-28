@@ -14,6 +14,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BundleDataService } from '@core/data/bundle-data.service';
@@ -48,10 +52,6 @@ import {
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

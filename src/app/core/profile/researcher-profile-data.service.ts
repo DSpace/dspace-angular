@@ -2,6 +2,10 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+} from '@config/utils/empty.util';
+import {
   Operation,
   ReplaceOperation,
 } from 'fast-json-patch';
@@ -15,10 +19,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';

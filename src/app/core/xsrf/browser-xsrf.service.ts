@@ -3,12 +3,12 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
-import { take } from 'rxjs/operators';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
+} from '@config/app-config.interface';
+import { take } from 'rxjs/operators';
+
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { XSRFService } from './xsrf.service';
 

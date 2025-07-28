@@ -8,6 +8,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import {
   NotifyRequestsStatus,
   NotifyStatuses,
@@ -24,7 +25,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({

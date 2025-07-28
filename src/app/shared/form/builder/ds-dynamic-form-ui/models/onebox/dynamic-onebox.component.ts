@@ -17,6 +17,12 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@config/utils/empty.util';
+import {
   buildPaginatedList,
   PaginatedList,
 } from '@core/data/paginated-list.model';
@@ -57,12 +63,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';

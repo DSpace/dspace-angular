@@ -1,13 +1,13 @@
+import {
+  isEmpty,
+  isNull,
+} from '@config/utils/empty.util';
 import { FormRowModel } from '@core/config/models/config-submission-form.model';
 import {
   DynamicFormControlLayout,
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import {
-  isEmpty,
-  isNull,
-} from '../../../../../../../config/utils/empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../ds-dynamic-form-constants';
 import {
   DsDynamicInputModel,

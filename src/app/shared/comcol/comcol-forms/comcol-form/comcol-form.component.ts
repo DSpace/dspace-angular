@@ -12,6 +12,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { ComColDataService } from '@core/data/comcol-data.service';
@@ -55,10 +59,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../config/utils/empty.util';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';

@@ -5,6 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { SubmissionRestService } from '@core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +16,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { SubmissionService } from '../../submission.service';

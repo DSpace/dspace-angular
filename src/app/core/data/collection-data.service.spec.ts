@@ -2,6 +2,7 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
+import { hasNoValue } from '@config/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   cold,
@@ -11,7 +12,6 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { hasNoValue } from '../../../config/utils/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';

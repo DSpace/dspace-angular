@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { getDefaultThemeConfig } from '@config/config.util';
+import { hasValue } from '@config/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -7,8 +9,6 @@ import {
 } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 
-import { getDefaultThemeConfig } from '../../../config/config.util';
-import { hasValue } from '../../../config/utils/empty.util';
 import { SetThemeAction } from './theme.actions';
 import { BASE_THEME_NAME } from './theme.constants';
 

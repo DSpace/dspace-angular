@@ -7,6 +7,10 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { Context } from '@core/shared/context.model';
@@ -17,10 +21,6 @@ import { ViewMode } from '@core/shared/view-mode.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { BehaviorSubject } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';

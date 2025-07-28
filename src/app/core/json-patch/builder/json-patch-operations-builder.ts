@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-
 import {
   hasNoValue,
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+import { Store } from '@ngrx/store';
+
 import {
   dateToISOFormat,
   dateToString,

@@ -3,9 +3,9 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { Observable } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { endUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';
 

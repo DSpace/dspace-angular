@@ -14,6 +14,15 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '@config/app-config.interface';
+import { BuildConfig } from '@config/build-config.interface';
+import { extendEnvironmentWithAppConfig } from '@config/config.util';
+import { DefaultAppConfig } from '@config/default-app-config';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { coreSelector } from '@core/core.selectors';
 import { RequestService } from '@core/data/request.service';
@@ -50,15 +59,6 @@ import {
   StoreAction,
   StoreActionTypes,
 } from '../../app/store.actions';
-import {
-  APP_CONFIG,
-  APP_CONFIG_STATE,
-  AppConfig,
-} from '../../config/app-config.interface';
-import { BuildConfig } from '../../config/build-config.interface';
-import { extendEnvironmentWithAppConfig } from '../../config/config.util';
-import { DefaultAppConfig } from '../../config/default-app-config';
-import { isNotEmpty } from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 
 /**

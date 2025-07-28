@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import {
   Store,
   StoreModule,
@@ -23,7 +24,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import {

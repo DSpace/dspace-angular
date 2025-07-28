@@ -8,6 +8,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { RoleService } from '@core/roles/role.service';
 import { RoleType } from '@core/roles/role-types';
 import {
@@ -20,8 +21,6 @@ import {
   first,
   map,
 } from 'rxjs/operators';
-
-import { hasValue } from '../../../config/utils/empty.util';
 
 @Directive({
   selector: '[dsShowOnlyForRole],[dsShowExceptForRole]',

@@ -13,6 +13,10 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BundleDataService } from '@core/data/bundle-data.service';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
@@ -50,10 +54,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';

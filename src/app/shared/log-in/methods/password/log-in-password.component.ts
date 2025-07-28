@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction,
@@ -41,7 +42,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import {
   getForgotPasswordRoute,
   getRegisterRoute,

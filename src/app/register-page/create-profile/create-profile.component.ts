@@ -14,6 +14,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { LangConfig } from '@config/lang-config.interface';
+import { isEmpty } from '@config/utils/empty.util';
 import { AuthenticateAction } from '@core/auth/auth.actions';
 import { CoreState } from '@core/core-state.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -36,8 +38,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LangConfig } from '../../../config/lang-config.interface';
-import { isEmpty } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';

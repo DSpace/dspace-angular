@@ -16,6 +16,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -36,11 +41,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';

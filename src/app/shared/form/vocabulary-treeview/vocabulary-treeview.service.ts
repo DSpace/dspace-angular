@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import {
   getFirstSucceededRemoteDataPayload,
@@ -22,10 +26,6 @@ import {
   scan,
 } from 'rxjs/operators';
 
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import {
   LOAD_MORE_NODE,
   LOAD_MORE_ROOT_NODE,

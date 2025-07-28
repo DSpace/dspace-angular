@@ -4,6 +4,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { DSOBreadcrumbsService } from '@core/breadcrumbs/dso-breadcrumbs.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { Collection } from '@core/shared/collection.model';
@@ -15,7 +16,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../config/utils/empty.util';
 import { getDSORoute } from '../app-routing-paths';
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
 

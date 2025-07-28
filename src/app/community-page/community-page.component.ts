@@ -10,6 +10,7 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -27,7 +28,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../config/utils/empty.util';
 import { fadeInOut } from '../shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';

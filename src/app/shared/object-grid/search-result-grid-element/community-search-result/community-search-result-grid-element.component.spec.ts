@@ -10,6 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
@@ -27,7 +28,6 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';

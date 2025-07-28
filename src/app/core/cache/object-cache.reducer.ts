@@ -1,13 +1,13 @@
 /* eslint-disable max-classes-per-file */
 import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   applyPatch,
   Operation,
 } from 'fast-json-patch';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { CacheEntry } from './cache-entry';
 import { CacheableObject } from './cacheable-object.model';
 import {

@@ -4,6 +4,16 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
+import {
   combineLatest as observableCombineLatest,
   Observable,
   of,
@@ -19,16 +29,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../config/utils/empty.util';
 import {
   compareArraysUsingIds,
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,

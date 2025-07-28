@@ -4,15 +4,15 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   APP_CONFIG,
   AppConfig,
 } from 'src/config/app-config.interface';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';

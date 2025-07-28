@@ -16,6 +16,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RestResponse } from '@core/cache/response.models';
@@ -39,10 +43,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../config/app-config.interface';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

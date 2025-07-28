@@ -16,6 +16,10 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { SearchService } from '@core/shared/search/search.service';
@@ -36,10 +40,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { currentPath } from '../../../../utils/route.utils';

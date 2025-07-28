@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import {
   SortDirection,
@@ -13,7 +14,6 @@ import { Process } from '@core/processes/process.model';
 import { ProcessStatus } from '@core/processes/process-status.model';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
 /**

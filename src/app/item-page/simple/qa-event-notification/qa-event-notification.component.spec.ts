@@ -5,6 +5,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { RequestService } from '@core/data/request.service';
@@ -17,7 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';

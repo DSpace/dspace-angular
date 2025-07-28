@@ -2,6 +2,10 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
@@ -20,10 +24,6 @@ import {
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

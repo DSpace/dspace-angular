@@ -9,6 +9,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ItemRequestDataService } from '@core/data/item-request-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -31,7 +32,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

@@ -1,3 +1,4 @@
+import { hasValue } from '@config/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   AsyncSubject,
@@ -13,7 +14,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';

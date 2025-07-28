@@ -11,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -26,7 +27,6 @@ import { PaginationServiceStub } from '../../../../shared/testing/pagination-ser
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
 import { LdnServicesService } from '../../ldn-services-data.service';
 import { PaginatedList } from '../../paginated-list.model';
 import { RemoteData } from '../../remote-data';

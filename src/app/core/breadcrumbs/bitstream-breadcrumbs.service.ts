@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   Observable,
   of,
 } from 'rxjs';
@@ -8,10 +12,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { getDSORoute } from '../../app-routing-paths';
 import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';

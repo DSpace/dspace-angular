@@ -4,15 +4,15 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../../config/utils/empty.util';
 import { RemoteData } from '../../remote-data';
 import { FeatureID } from '../feature-id';
 import {

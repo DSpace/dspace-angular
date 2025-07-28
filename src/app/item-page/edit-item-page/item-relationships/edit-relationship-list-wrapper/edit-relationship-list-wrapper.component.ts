@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
@@ -16,7 +17,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
 

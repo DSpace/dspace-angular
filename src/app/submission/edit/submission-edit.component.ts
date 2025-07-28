@@ -9,6 +9,12 @@ import {
   ParamMap,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '@config/utils/empty.util';
 import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -29,12 +35,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmptyOperator,
-  isNotNull,
-} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';

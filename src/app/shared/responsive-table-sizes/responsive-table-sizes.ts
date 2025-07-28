@@ -1,4 +1,5 @@
-import { hasValue } from '../../../config/utils/empty.util';
+import { hasValue } from '@config/utils/empty.util';
+
 import { ResponsiveColumnSizes } from './responsive-column-sizes';
 
 /**

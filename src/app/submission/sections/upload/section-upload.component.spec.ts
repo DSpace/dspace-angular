@@ -10,6 +10,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { SubmissionUploadsModel } from '@core/config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
 import { SubmissionUploadsConfigDataService } from '@core/config/submission-uploads-config-data.service';
@@ -26,7 +27,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
 import {

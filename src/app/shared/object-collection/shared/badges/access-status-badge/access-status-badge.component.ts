@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { LinkService } from '@core/cache/builders/link.service';
 import { AccessStatusObject } from '@core/shared/access-status.model';
 import { Bitstream } from '@core/shared/bitstream.model';
@@ -22,8 +23,6 @@ import {
   map,
 } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-
-import { hasValue } from '../../../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-base-access-status-badge',

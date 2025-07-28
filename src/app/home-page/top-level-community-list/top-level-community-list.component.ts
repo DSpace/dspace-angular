@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -27,7 +28,6 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

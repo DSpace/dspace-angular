@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -24,7 +25,6 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { fadeIn } from '../../../../shared/animations/fade';
 import { ErrorComponent } from '../../../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';

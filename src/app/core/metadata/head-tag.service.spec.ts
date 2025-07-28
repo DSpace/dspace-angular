@@ -10,6 +10,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { AppConfig } from '@config/app-config.interface';
 import { createMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -17,7 +18,6 @@ import {
   of,
 } from 'rxjs';
 
-import { AppConfig } from '../../../config/app-config.interface';
 import {
   ItemMock,
   MockBitstream1,

@@ -1,7 +1,7 @@
+import { ThemeConfig } from '@config/theme.config';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { of } from 'rxjs';
 
-import { ThemeConfig } from '../../../config/theme.config';
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 
 export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]): ThemeService {

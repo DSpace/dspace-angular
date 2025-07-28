@@ -15,6 +15,7 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
@@ -47,7 +48,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 /**

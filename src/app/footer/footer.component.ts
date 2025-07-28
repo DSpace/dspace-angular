@@ -9,6 +9,11 @@ import {
   Optional,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import { hasValue } from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -18,11 +23,6 @@ import {
   of,
 } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../config/app-config.interface';
-import { hasValue } from '../../config/utils/empty.util';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 
 @Component({

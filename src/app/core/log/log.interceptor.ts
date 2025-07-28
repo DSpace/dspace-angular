@@ -6,13 +6,13 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
 import {
   hasValue,
   isEmpty,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
 import { OrejimeService } from '../../shared/cookies/orejime.service';
 import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';

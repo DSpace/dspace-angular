@@ -7,6 +7,11 @@
  */
 
 import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
+import {
   AsyncSubject,
   from as observableFrom,
   Observable,
@@ -23,11 +28,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../../config/utils/empty.util';
 import {
   getLinkDefinition,
   LinkDefinition,

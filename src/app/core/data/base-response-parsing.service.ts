@@ -4,7 +4,8 @@ import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';

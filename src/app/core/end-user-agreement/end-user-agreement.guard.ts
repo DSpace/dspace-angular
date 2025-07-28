@@ -6,12 +6,12 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
 
 export declare type HasAcceptedGuardParamFn = () => Observable<boolean>;

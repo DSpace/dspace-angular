@@ -9,6 +9,10 @@ import {
   SimpleChanges,
   WritableSignal,
 } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -19,10 +23,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 

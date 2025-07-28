@@ -5,6 +5,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { isEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -18,7 +19,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { isEmpty } from '../../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-actions';
 

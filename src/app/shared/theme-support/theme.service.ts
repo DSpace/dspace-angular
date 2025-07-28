@@ -9,6 +9,16 @@ import {
   ResolveEnd,
   Router,
 } from '@angular/router';
+import { getDefaultThemeConfig } from '@config/config.util';
+import {
+  HeadTagConfig,
+  ThemeConfig,
+} from '@config/theme.config';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { LinkService } from '@core/cache/builders/link.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -44,16 +54,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { getDefaultThemeConfig } from '../../../config/config.util';
-import {
-  HeadTagConfig,
-  ThemeConfig,
-} from '../../../config/theme.config';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import {
   NO_OP_ACTION_TYPE,

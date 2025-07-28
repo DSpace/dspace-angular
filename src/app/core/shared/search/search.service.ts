@@ -1,5 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { Angulartics2 } from 'angulartics2';
 import {
   BehaviorSubject,
@@ -15,11 +20,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';

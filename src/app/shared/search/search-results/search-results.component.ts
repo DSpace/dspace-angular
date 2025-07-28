@@ -6,6 +6,10 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -21,10 +25,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import {
   fadeIn,
   fadeInOut,

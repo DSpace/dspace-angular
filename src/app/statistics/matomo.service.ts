@@ -4,6 +4,7 @@ import {
   Injectable,
   runInInjectionContext,
 } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { NativeWindowService } from '@core/services/window.service';
@@ -24,7 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 

@@ -3,6 +3,7 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { isEmpty } from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
@@ -11,7 +12,6 @@ import {
 } from 'angulartics2';
 import { combineLatest } from 'rxjs';
 
-import { isEmpty } from '../../config/utils/empty.util';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 

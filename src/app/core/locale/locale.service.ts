@@ -4,6 +4,15 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import { LangConfig } from '@config/lang-config.interface';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -16,15 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import { LangConfig } from '../../../config/lang-config.interface';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { RouteService } from '../services/route.service';

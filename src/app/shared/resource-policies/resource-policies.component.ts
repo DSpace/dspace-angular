@@ -10,6 +10,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RequestService } from '@core/data/request.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
@@ -38,11 +43,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { NotificationsService } from '../notifications/notifications.service';
 import {

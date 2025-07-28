@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -7,7 +8,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { AppState } from '../../app.reducer';
 import {
   ObjectSelectionDeselectAction,

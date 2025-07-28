@@ -5,6 +5,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@config/utils/empty.util';
 import { AccessesConditionOption } from '@core/config/models/config-accesses-conditions-options.model';
 import { SubmissionAccessesConfigDataService } from '@core/config/submission-accesses-config-data.service';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
@@ -41,11 +46,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../config/utils/empty.util';
 import { dateToISOFormat } from '../../../shared/date.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';

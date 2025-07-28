@@ -18,6 +18,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isEmpty } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -33,7 +34,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { isEmpty } from '../../../config/utils/empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';

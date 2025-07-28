@@ -6,6 +6,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -39,7 +40,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { NotificationsService } from '../../../notifications/notifications.service';

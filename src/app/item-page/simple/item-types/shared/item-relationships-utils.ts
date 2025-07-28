@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
@@ -16,8 +17,6 @@ import {
   mergeMap,
   switchMap,
 } from 'rxjs/operators';
-
-import { hasValue } from '../../../../../config/utils/empty.util';
 
 export const PAGINATED_RELATIONS_TO_ITEMS_OPERATOR = new InjectionToken<(thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>>('paginatedRelationsToItems', {
   providedIn: 'root',

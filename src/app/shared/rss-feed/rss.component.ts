@@ -14,6 +14,10 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isUndefined,
+} from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -33,10 +37,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isUndefined,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { SearchFilter } from '../search/models/search-filter.model';
 

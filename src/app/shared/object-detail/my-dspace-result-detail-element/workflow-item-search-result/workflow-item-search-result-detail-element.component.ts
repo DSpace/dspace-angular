@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { isNotUndefined } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -13,7 +14,6 @@ import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { isNotUndefined } from '../../../../../config/utils/empty.util';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';

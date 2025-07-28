@@ -1,4 +1,5 @@
-import { AppConfig } from '../../../config/app-config.interface';
+import { AppConfig } from '@config/app-config.interface';
+
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { FilteredDiscoveryQueryResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';

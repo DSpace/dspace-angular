@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { RequestService } from '@core/data/request.service';
 import { RestRequest } from '@core/data/rest-request.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -8,10 +12,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import { SearchOptions } from '../shared/search/models/search-options.model';
 import { TrackRequest } from './track-request.model';
 

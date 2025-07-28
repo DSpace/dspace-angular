@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '@config/utils/empty.util';
 import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
@@ -15,7 +16,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';

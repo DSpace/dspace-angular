@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import { hasValue } from '../../../../config/utils/empty.util';
+import { hasValue } from '@config/utils/empty.util';
+
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListAction,

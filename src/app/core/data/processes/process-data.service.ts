@@ -4,6 +4,7 @@ import {
   InjectionToken,
   NgZone,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import {
   Observable,
   Subscription,
@@ -15,7 +16,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';

@@ -12,6 +12,7 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { AuthRequestService } from '@core/auth/auth-request.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
@@ -40,7 +41,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { REQUEST } from '../../../../../express.tokens';
 import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';

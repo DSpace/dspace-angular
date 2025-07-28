@@ -11,6 +11,7 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { ItemTemplateDataService } from '@core/data/item-template-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -35,7 +36,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../shared/utils/var.directive';

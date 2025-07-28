@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { WorkspaceitemSectionDataType } from '@core/submission/models/workspaceitem-sections.model';
@@ -26,12 +32,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../config/utils/empty.util';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';

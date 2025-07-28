@@ -9,6 +9,7 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -61,7 +62,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

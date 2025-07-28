@@ -8,6 +8,11 @@
 /* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -19,11 +24,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { BrowseService } from '../browse/browse.service';

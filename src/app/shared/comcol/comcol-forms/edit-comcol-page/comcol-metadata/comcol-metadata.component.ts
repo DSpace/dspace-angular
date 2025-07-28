@@ -6,6 +6,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isEmpty } from '@config/utils/empty.util';
 import { ComColDataService } from '@core/data/comcol-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
@@ -23,7 +24,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isEmpty } from '../../../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({

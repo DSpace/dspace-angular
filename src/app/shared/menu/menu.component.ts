@@ -6,6 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
@@ -19,10 +23,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '../../../config/utils/empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';

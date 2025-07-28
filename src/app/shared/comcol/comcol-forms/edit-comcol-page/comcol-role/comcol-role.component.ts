@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
@@ -35,10 +39,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../../../config/utils/empty.util';
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
 import { AlertComponent } from '../../../../alert/alert.component';
 import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';

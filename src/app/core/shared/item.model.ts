@@ -1,3 +1,4 @@
+import { isEmpty } from '@config/utils/empty.util';
 import { AccessStatusObject } from '@core/shared/access-status.model';
 import { ACCESS_STATUS } from '@core/shared/access-status.resource-type';
 import {
@@ -9,7 +10,6 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { isEmpty } from '../../../config/utils/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import {
   link,

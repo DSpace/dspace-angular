@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { MetadataFieldDataService } from '@core/data/metadata-field-data.service';
@@ -26,11 +31,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmptyOperator,
-} from '../../../../config/utils/empty.util';
 import { AppState } from '../../../app.reducer';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {

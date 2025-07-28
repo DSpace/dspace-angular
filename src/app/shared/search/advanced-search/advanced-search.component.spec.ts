@@ -3,12 +3,12 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment.test';
 import { RouterStub } from '../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';

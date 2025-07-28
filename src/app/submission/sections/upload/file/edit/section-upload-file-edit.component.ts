@@ -7,6 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@config/utils/empty.util';
 import { AccessConditionOption } from '@core/config/models/config-access-condition-option.model';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
@@ -38,12 +44,6 @@ import {
 } from 'rxjs/operators';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';

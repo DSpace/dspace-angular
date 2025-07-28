@@ -4,6 +4,12 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -19,12 +25,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import {
   AppState,
   keySelector,

@@ -1,12 +1,12 @@
-import groupBy from 'lodash/groupBy';
-import sortBy from 'lodash/sortBy';
-
 import {
   isEmpty,
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+import groupBy from 'lodash/groupBy';
+import sortBy from 'lodash/sortBy';
+
 import {
   MetadataMapInterface,
   MetadataValue,

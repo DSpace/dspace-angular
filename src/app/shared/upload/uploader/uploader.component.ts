@@ -12,6 +12,11 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '@config/utils/empty.util';
 import { DragService } from '@core/drag.service';
 import { CookieService } from '@core/services/cookie.service';
 import {
@@ -27,11 +32,6 @@ import {
 } from 'ng2-file-upload';
 import { of } from 'rxjs';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isUndefined,
-} from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';

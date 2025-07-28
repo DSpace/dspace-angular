@@ -1,6 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { ErrorResponse } from '@core/cache/response.models';
 import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -43,11 +48,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotUndefined,
-} from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SectionScope } from './objects/section-visibility.model';

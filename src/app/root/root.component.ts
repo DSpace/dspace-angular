@@ -12,6 +12,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import { ThemeConfig } from '@config/theme.config';
 import { getPageInternalServerErrorRoute } from '@core/router/routing-paths';
 import {
   NativeWindowRef,
@@ -32,7 +33,6 @@ import {
 } from 'rxjs/operators';
 import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
-import { ThemeConfig } from '../../config/theme.config';
 import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';

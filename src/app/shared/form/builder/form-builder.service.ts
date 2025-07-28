@@ -7,6 +7,15 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { VIRTUAL_METADATA_PREFIX } from '@core/shared/metadata.models';
@@ -32,15 +41,6 @@ import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-} from '../../../../config/utils/empty.util';
 import {
   dateToString,
   isNgbDateStruct,

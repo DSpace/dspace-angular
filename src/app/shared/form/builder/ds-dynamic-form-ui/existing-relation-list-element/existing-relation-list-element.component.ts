@@ -9,6 +9,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { Item } from '@core/shared/item.model';
 import {
   getAllSucceededRemoteData,
@@ -23,10 +27,6 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../../config/utils/empty.util';
 import { AppState } from '../../../../../app.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';

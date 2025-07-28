@@ -16,6 +16,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+} from '@config/utils/empty.util';
+import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
@@ -42,10 +46,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';

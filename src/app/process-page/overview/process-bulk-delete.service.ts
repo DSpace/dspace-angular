@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Process } from '@core/processes/process.model';
@@ -15,7 +16,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({

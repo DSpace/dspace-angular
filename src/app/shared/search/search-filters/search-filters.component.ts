@@ -9,6 +9,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
 import { RemoteData } from '@core/data/remote-data';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
@@ -25,10 +29,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { currentPath } from '../../utils/route.utils';
 import { AppliedFilter } from '../models/applied-filter.model';

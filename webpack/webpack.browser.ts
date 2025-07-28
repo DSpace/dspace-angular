@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { buildAppConfig } from '../src/config/config.server';
+import { buildAppConfig } from '@config/config.server';
 import { commonExports } from './webpack.common';
 
 const CompressionPlugin = require('compression-webpack-plugin');

@@ -1,3 +1,4 @@
+import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthStatus } from '@core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
 import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
@@ -8,7 +9,6 @@ import {
   of,
 } from 'rxjs';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import { EPersonMock } from './eperson.mock';
 
 export class AuthRequestServiceStub {

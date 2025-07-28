@@ -13,6 +13,8 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
@@ -52,8 +54,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { environment } from '../../../../../environments/environment';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

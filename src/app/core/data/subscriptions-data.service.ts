@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
@@ -33,10 +37,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../shared/follow-link-config.model';
 

@@ -4,6 +4,11 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
@@ -13,11 +18,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { isNumeric } from '../../shared/numeric.util';
 import { difference } from '../../shared/object.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';

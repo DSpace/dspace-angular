@@ -10,6 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
@@ -20,7 +21,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

@@ -3,6 +3,7 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -16,7 +17,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { itemPagePrivateGuard } from './item-page-private.guard';
 

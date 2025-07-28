@@ -14,6 +14,14 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BrowseService } from '@core/browse/browse.service';
 import {
@@ -36,14 +44,6 @@ import {
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { isValidDate } from '../../shared/date.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

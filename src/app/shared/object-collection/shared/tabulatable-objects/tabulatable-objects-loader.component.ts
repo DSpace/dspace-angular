@@ -11,6 +11,11 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { Context } from '@core/shared/context.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
@@ -23,11 +28,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../../../config/utils/empty.util';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';

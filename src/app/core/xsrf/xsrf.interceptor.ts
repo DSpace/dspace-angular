@@ -12,6 +12,10 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
   Observable,
   throwError,
 } from 'rxjs';
@@ -20,10 +24,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { CookieService } from '../services/cookie.service';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import {

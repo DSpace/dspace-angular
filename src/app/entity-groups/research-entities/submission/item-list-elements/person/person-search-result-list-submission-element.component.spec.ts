@@ -11,6 +11,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -34,7 +35,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { REQUEST } from '../../../../../../express.tokens';
 import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';

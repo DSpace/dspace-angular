@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  hasNoValue,
+  isEmpty,
+} from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
@@ -11,11 +15,6 @@ import {
   map,
   take,
 } from 'rxjs/operators';
-
-import {
-  hasNoValue,
-  isEmpty,
-} from '../../config/utils/empty.util';
 
 export const CANONICAL_PREFIX_KEY = 'handle.canonical.prefix';
 

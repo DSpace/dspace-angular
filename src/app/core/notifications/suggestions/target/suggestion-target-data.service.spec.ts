@@ -15,6 +15,7 @@ import { RequestService } from '@core/data/request.service';
 import { RequestEntry } from '@core/data/request-entry.model';
 import { RequestEntryState } from '@core/data/request-entry-state.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import {
   cold,
@@ -24,7 +25,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 import { SuggestionTargetDataService } from './suggestion-target-data.service';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 
-import { isNotEmpty } from '../../../config/utils/empty.util';
 import {
   RestResponse,
   TokenResponse,

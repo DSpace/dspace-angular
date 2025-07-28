@@ -17,6 +17,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { isNotEmpty } from '@config/utils/empty.util';
 import {
   Observable,
   of,
@@ -26,7 +27,6 @@ import {
   first,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../config/utils/empty.util';
 import {
   fadeInEnter,
   fadeInState,

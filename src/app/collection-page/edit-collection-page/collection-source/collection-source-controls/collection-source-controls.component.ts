@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
@@ -37,7 +38,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../../shared/utils/var.directive';

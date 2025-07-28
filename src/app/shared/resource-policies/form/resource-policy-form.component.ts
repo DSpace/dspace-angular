@@ -9,6 +9,12 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
@@ -43,12 +49,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,

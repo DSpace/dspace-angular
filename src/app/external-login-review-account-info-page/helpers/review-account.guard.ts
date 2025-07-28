@@ -5,6 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
@@ -18,8 +19,6 @@ import {
   of,
   tap,
 } from 'rxjs';
-
-import { hasValue } from '../../../config/utils/empty.util';
 
 /**
  * Determines if a user can activate a route based on the registration token.z

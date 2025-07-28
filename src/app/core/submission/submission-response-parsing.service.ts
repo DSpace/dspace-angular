@@ -2,17 +2,17 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { deepClone } from 'fast-json-patch';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
+} from '@config/app-config.interface';
 import {
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+import { deepClone } from 'fast-json-patch';
+
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';

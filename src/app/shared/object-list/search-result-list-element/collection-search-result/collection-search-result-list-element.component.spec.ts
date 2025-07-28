@@ -10,11 +10,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { Collection } from '@core/shared/collection.model';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';

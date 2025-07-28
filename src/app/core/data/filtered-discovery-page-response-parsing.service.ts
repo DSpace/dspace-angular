@@ -2,11 +2,11 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
+} from '@config/app-config.interface';
+
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {
   FilteredDiscoveryQueryResponse,

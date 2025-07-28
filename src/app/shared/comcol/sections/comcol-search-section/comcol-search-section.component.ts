@@ -8,6 +8,11 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import { hasValue } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
@@ -15,11 +20,6 @@ import { SearchConfigurationService } from '@core/shared/search/search-configura
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 

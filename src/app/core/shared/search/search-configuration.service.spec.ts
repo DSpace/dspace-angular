@@ -1,5 +1,6 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { Params } from '@angular/router';
+import { AppConfig } from '@config/app-config.interface';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -7,7 +8,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppConfig } from '../../../../config/app-config.interface';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';

@@ -12,6 +12,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
@@ -36,10 +40,6 @@ import {
   take,
 } from 'rxjs';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ExternalLoginService } from '../../services/external-login.service';
 

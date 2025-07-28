@@ -20,6 +20,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
@@ -33,7 +34,6 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../../../../config/app-config.interface';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,

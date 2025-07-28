@@ -12,6 +12,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { FindAllDataImpl } from '@core/data/base/find-all-data';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
@@ -58,12 +64,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';

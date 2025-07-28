@@ -13,6 +13,11 @@ import {
   TransferState,
   Type,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  AppConfig,
+} from '@config/app-config.interface';
 import { CheckAuthenticationTokenAction } from '@core/auth/auth.actions';
 import { isAuthenticationBlocking } from '@core/auth/selectors';
 import { LAZY_DATA_SERVICES } from '@core/data-services-map';
@@ -31,11 +36,6 @@ import {
   find,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-  AppConfig,
-} from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';

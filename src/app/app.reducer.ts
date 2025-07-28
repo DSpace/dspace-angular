@@ -1,3 +1,4 @@
+import { hasValue } from '@config/utils/empty.util';
 import {
   routerReducer,
   RouterReducerState,
@@ -8,7 +9,6 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { hasValue } from '../config/utils/empty.util';
 import {
   ePeopleRegistryReducer,
   EPeopleRegistryState,

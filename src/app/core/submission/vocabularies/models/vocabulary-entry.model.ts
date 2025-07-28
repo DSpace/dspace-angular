@@ -1,3 +1,4 @@
+import { isNotEmpty } from '@config/utils/empty.util';
 import { typedObject } from '@core/cache/builders/build-decorators';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { HALLink } from '@core/shared/hal-link.model';
@@ -7,7 +8,6 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';

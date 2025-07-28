@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthMethodsService } from '@core/auth/auth-methods.service';
 import { AuthMethod } from '@core/auth/models/auth.method';
@@ -21,7 +22,6 @@ import {
 } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorator';

@@ -2,6 +2,7 @@ import {
   fakeAsync,
   flush,
 } from '@angular/core/testing';
+import { AppConfig } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
@@ -12,7 +13,6 @@ import {
 } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { AppConfig } from '../../config/app-config.interface';
 import { OrejimeServiceStub } from '../shared/cookies/orejime.service.stub';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { AuthServiceStub } from '../shared/testing/auth-service.stub';

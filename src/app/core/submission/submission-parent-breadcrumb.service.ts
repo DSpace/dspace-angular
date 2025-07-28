@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isEmpty,
+} from '@config/utils/empty.util';
+import {
   combineLatest,
   Observable,
   of,
   switchMap,
 } from 'rxjs';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../../config/utils/empty.util';
 import { getDSORoute } from '../../app-routing-paths';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { SubmissionService } from '../../submission/submission.service';

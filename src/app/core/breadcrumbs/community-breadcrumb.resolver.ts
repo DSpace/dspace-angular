@@ -4,9 +4,9 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
 import { CommunityDataService } from '../data/community-data.service';

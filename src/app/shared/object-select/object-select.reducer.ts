@@ -1,4 +1,5 @@
-import { isEmpty } from '../../../config/utils/empty.util';
+import { isEmpty } from '@config/utils/empty.util';
+
 import {
   ObjectSelectionAction,
   ObjectSelectionActionTypes,

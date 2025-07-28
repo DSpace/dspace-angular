@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { Script } from '@core/shared/scripts/script.model';
 import { Observable } from 'rxjs';
 import {
@@ -6,7 +7,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Process } from '../../processes/process.model';

@@ -8,6 +8,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Item } from '@core/shared/item.model';
@@ -23,8 +24,6 @@ import {
 } from 'rxjs';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { parseCcCode } from 'src/app/shared/utils/license.utils';
-
-import { hasValue } from '../../../../../../config/utils/empty.util';
 
 
 @Component({

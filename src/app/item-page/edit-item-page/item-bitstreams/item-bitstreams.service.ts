@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BundleDataService } from '@core/data/bundle-data.service';
@@ -30,10 +34,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../config/utils/empty.util';
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

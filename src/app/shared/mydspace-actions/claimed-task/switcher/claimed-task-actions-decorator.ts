@@ -1,4 +1,5 @@
-import { hasNoValue } from '../../../../../config/utils/empty.util';
+import { hasNoValue } from '@config/utils/empty.util';
+
 import {
   ADVANCED_WORKFLOW_ACTION_RATING,
   ADVANCED_WORKFLOW_TASK_OPTION_RATING,

@@ -9,6 +9,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -35,7 +36,6 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { fadeInOut } from '../animations/fade';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';

@@ -3,6 +3,15 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
+import {
   Actions,
   createEffect,
   ofType,
@@ -28,15 +37,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../config/utils/empty.util';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';

@@ -2,15 +2,15 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
+} from '@config/app-config.interface';
 import {
   hasNoValue,
   hasValue,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {
   DSOSuccessResponse,

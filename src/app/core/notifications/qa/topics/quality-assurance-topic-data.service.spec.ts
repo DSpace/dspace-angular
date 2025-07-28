@@ -7,6 +7,7 @@ import { RequestService } from '@core/data/request.service';
 import { RequestEntry } from '@core/data/request-entry.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { PageInfo } from '@core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   cold,
   getTestScheduler,
@@ -20,7 +21,6 @@ import {
 } from '../../../../shared/mocks/notifications.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
-import { createSuccessfulRemoteDataObject } from '../../../utilities/remote-data.utils';
 import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
 
 describe('QualityAssuranceTopicDataService', () => {

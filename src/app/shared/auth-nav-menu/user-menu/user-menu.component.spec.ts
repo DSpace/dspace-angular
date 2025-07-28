@@ -11,6 +11,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
+import {
   authReducer,
   AuthState,
 } from '@core/auth/auth.reducer';
@@ -28,10 +32,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';

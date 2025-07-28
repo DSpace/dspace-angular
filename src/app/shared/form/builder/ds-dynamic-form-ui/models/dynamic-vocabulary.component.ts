@@ -5,6 +5,7 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { PageInfo } from '@core/shared/page-info.model';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
@@ -19,7 +20,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../../../config/utils/empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 

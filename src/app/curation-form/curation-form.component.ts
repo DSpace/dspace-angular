@@ -13,6 +13,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -32,11 +37,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';

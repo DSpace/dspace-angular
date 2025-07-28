@@ -8,9 +8,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { DragClickDirective } from '../../utils/drag-click.directive';
 import { TruncatableService } from '../truncatable.service';
 

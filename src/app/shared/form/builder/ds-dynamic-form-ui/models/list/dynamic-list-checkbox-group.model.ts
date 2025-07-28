@@ -1,3 +1,4 @@
+import { hasValue } from '@config/utils/empty.util';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import {
@@ -8,8 +9,6 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
-
-import { hasValue } from '../../../../../../../config/utils/empty.util';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {
   vocabularyOptions: VocabularyOptions;

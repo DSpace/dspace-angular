@@ -1,3 +1,4 @@
+import { hasValue } from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import {
   buildPaginatedList,
@@ -12,8 +13,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
-import { hasValue } from '../../../config/utils/empty.util';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>, buildList$?: Observable<RemoteData<PaginatedList<any>>>): RemoteDataBuildService {
   return {

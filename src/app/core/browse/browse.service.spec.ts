@@ -2,6 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { HrefOnlyDataService } from '@core/data/href-only-data.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
@@ -17,7 +18,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';

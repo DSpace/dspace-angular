@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import {
   createSelector,
   select,
@@ -14,7 +15,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../config/utils/empty.util';
 import { AppState } from '../app.reducer';
 import { CSSVariableService } from './sass-helper/css-variable.service';
 import { HostWindowState } from './search/host-window.reducer';

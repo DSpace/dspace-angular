@@ -17,6 +17,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
@@ -37,7 +38,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { controlContainerFactory } from '../process-form-factory';
 

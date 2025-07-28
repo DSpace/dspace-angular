@@ -7,6 +7,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import {
   Store,
   StoreModule,
@@ -22,7 +23,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { REQUEST } from '../../../express.tokens';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

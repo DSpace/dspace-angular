@@ -4,6 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { hasNoValue } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Registration } from '@core/shared/registration.model';
 import {
@@ -13,7 +14,6 @@ import {
   tap,
 } from 'rxjs';
 
-import { hasNoValue } from '../../config/utils/empty.util';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';

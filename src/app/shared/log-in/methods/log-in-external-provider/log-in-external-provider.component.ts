@@ -3,6 +3,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { isEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthMethod } from '@core/auth/models/auth.method';
 import {
@@ -22,8 +23,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-
-import { isEmpty } from '../../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-log-in-external-provider',

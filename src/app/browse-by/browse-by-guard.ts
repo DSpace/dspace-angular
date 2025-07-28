@@ -6,6 +6,10 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@config/utils/empty.util';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
@@ -20,11 +24,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
-import {
-  hasNoValue,
-  hasValue,
-} from '../../config/utils/empty.util';
 
 export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

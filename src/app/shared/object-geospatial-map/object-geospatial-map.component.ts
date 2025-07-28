@@ -7,13 +7,13 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { fadeIn } from '../animations/fade';
 import { GeospatialMapComponent } from '../geospatial-map/geospatial-map.component';

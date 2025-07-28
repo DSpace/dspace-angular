@@ -16,6 +16,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -60,11 +65,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';

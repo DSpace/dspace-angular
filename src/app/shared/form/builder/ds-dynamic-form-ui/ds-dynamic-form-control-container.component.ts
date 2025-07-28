@@ -30,6 +30,16 @@ import {
   UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -94,16 +104,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../../../config/utils/empty.util';
 import { AppState } from '../../../../app.reducer';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';

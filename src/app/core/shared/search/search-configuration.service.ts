@@ -8,6 +8,16 @@ import {
   Params,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@config/utils/empty.util';
+import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   merge as observableMerge,
@@ -21,16 +31,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../../config/utils/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 import { FilterType } from '../../../shared/search/models/filter-type.model';

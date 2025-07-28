@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import {
   MetadataMap,
   MetadataValue,
@@ -12,7 +13,6 @@ import { Metadata } from '@core/shared/metadata.utils';
 import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../../../../../config/utils/empty.util';
 import { FileSizePipe } from '../../../../../shared/utils/file-size-pipe';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';

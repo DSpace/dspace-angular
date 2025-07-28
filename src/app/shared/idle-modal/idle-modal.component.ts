@@ -4,13 +4,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { LogOutAction } from '@core/auth/auth.actions';
 import { AuthService } from '@core/auth/auth.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
 

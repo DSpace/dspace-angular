@@ -3,7 +3,8 @@ import {
   isNotEmpty,
   isNotUndefined,
   isNull,
-} from '../../../config/utils/empty.util';
+} from '@config/utils/empty.util';
+
 import {
   JsonPatchOperationModel,
   JsonPatchOperationType,

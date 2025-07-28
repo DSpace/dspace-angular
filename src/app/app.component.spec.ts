@@ -10,6 +10,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { authReducer } from '@core/auth/auth.reducer';
 import { AuthService } from '@core/auth/auth.service';
 import { LocaleService } from '@core/locale/locale.service';
@@ -29,7 +30,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';

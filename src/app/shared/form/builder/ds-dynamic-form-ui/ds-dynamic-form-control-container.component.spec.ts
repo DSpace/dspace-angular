@@ -17,6 +17,10 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { Item } from '@core/shared/item.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
@@ -63,10 +67,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';

@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { LookupRelationService } from '@core/data/lookup-relation.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
@@ -30,7 +31,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';

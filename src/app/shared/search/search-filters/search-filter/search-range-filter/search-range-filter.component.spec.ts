@@ -10,6 +10,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { RouteService } from '@core/services/route.service';
+import { PageInfo } from '@core/shared/page-info.model';
+import { SearchService } from '@core/shared/search/search.service';
+import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -17,12 +23,6 @@ import {
   of,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RouteService } from '../../../../../core/services/route.service';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { routeServiceStub } from '../../../../testing/route-service.stub';

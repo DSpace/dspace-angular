@@ -16,6 +16,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseService } from '@core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '@core/browse/browse-entry-search-options.model';
 import { SortDirection } from '@core/cache/models/sort-options.model';
@@ -47,7 +48,6 @@ import { SelectableListService } from 'src/app/shared/object-list/selectable-lis
 import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';

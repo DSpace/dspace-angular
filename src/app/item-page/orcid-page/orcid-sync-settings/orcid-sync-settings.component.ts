@@ -11,6 +11,7 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { hasValue } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
@@ -38,7 +39,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

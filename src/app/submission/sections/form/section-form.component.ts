@@ -5,6 +5,12 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '@config/utils/empty.util';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { ConfigObject } from '@core/config/models/config.model';
 import { FormRowModel } from '@core/config/models/config-submission-form.model';
@@ -46,12 +52,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isUndefined,
-} from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';

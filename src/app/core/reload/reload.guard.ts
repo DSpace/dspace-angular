@@ -6,12 +6,12 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { isNotEmpty } from '../../../config/utils/empty.util';
+} from '@config/app-config.interface';
+import { isNotEmpty } from '@config/utils/empty.util';
+
 import { HOME_PAGE_PATH } from '../../app-routing-paths';
 
 /**

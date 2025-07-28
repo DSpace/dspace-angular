@@ -3,6 +3,10 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+} from '@config/utils/empty.util';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionSherpaPoliciesObject } from '@core/submission/models/workspaceitem-section-sherpa-policies.model';
@@ -15,10 +19,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';

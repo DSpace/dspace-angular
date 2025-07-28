@@ -12,6 +12,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { RequestService } from '@core/data/request.service';
@@ -28,7 +29,6 @@ import { hot } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';

@@ -4,6 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Community } from '@core/shared/community.model';
@@ -15,7 +16,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 /**

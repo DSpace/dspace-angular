@@ -6,6 +6,19 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@config/utils/empty.util';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -23,19 +36,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core-state.model';
 import {

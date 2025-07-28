@@ -10,6 +10,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '@config/app-config.interface';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
 import { LookupRelationService } from '@core/data/lookup-relation.service';
@@ -32,10 +36,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../../config/app-config.interface';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';

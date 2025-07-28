@@ -1,4 +1,5 @@
-import { hasNoValue } from '../../../../config/utils/empty.util';
+import { hasNoValue } from '@config/utils/empty.util';
+
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListAction,

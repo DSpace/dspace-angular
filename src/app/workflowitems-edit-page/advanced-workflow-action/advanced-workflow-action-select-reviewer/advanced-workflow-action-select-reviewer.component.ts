@@ -13,6 +13,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { hasValue } from '@config/utils/empty.util';
 import { RequestService } from '@core/data/request.service';
 import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
@@ -27,7 +28,6 @@ import {
 } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { hasValue } from '../../../../config/utils/empty.util';
 import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

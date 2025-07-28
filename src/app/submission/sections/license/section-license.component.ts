@@ -6,6 +6,12 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
@@ -35,12 +41,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../../../config/utils/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';

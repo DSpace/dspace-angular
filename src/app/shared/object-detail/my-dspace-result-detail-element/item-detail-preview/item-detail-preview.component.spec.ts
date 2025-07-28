@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -35,7 +36,6 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';

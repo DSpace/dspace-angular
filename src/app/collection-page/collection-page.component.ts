@@ -9,6 +9,10 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { SortOptions } from '@core/cache/models/sort-options.model';
@@ -28,10 +32,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../config/utils/empty.util';
 import {
   fadeIn,
   fadeInOut,

@@ -1,6 +1,6 @@
+import { isEmpty } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 
-import { isEmpty } from '../../../../config/utils/empty.util';
 import {
   INotificationOptions,
   NotificationOptions,

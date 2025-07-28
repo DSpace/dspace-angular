@@ -10,6 +10,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { isEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { RouteService } from '@core/services/route.service';
@@ -31,7 +32,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isEmpty } from '../../config/utils/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 
 /**

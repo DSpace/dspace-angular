@@ -10,6 +10,11 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { wktToGeoJSON } from '@terraformer/wkt';
 import {
@@ -17,11 +22,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { FacetValue } from '../search/models/facet-value.model';
 import { FacetValues } from '../search/models/facet-values.model';

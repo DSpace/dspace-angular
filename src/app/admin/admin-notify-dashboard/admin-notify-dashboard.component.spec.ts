@@ -4,6 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@config/app-config.interface';
 import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-message.model';
 import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
@@ -12,7 +13,6 @@ import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.u
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';

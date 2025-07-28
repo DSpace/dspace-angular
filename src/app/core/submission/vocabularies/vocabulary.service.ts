@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@config/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -6,7 +7,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { FindListOptions } from '../../data/find-list-options.model';
 import { PaginatedList } from '../../data/paginated-list.model';

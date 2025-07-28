@@ -3,6 +3,13 @@ import {
   Injector,
 } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@config/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -18,13 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../../../../config/utils/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { coreSelector } from '../../core.selectors';
 import { CoreState } from '../../core-state.model';

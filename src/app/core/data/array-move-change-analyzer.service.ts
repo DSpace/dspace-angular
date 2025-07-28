@@ -1,8 +1,7 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { MoveOperation } from 'fast-json-patch';
-
-import { hasValue } from '../../../config/utils/empty.util';
 
 /**
  * A class to determine move operations between two arrays

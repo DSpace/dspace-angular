@@ -3,6 +3,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { hasValue } from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -33,6 +34,7 @@ import {
 } from '@core/data/request.models';
 import { RequestService } from '@core/data/request.service';
 import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import { ReplaceOperation } from 'fast-json-patch';
@@ -43,10 +45,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../config/utils/empty.util';
 import { QualityAssuranceEventData } from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../shared/follow-link-config.model';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
 
 /**
