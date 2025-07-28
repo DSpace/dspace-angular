@@ -3,8 +3,8 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { CoarNotifyConfigDataService } from '@core/coar-notify/coar-notify-config-data.service';
 import { SubmissionCoarNotifyModel } from '@core/coar-notify/models/submission-coar-notify.model';
+import { CoarNotifyConfigDataService } from '@core/config/coar-notify-config-data.service';
 import { NotifyServicePattern } from '@core/data/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
 import {
   LdnService,

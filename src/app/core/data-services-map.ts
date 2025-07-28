@@ -126,7 +126,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [FEATURE.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
   [DSPACE_OBJECT.value, () => import('./data/dspace-object-data.service').then(m => m.DSpaceObjectDataService)],
   [BITSTREAM_FORMAT.value, () => import('./data/bitstream-format-data.service').then(m => m.BitstreamFormatDataService)],
-  [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('./coar-notify/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
+  [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('./config/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
   [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('./data/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
   [LDN_SERVICE.value, () => import('./data/ldn-services-data.service').then(m => m.LdnServicesService)],
   [ADMIN_NOTIFY_MESSAGE.value, () => import('./coar-notify/admin-notify-messages-data.service').then(m => m.AdminNotifyMessagesDataService)],

@@ -7,8 +7,8 @@ import {
   Component,
   Inject,
 } from '@angular/core';
-import { CoarNotifyConfigDataService } from '@core/coar-notify/coar-notify-config-data.service';
 import { LdnPattern } from '@core/coar-notify/models/submission-coar-notify.model';
+import { CoarNotifyConfigDataService } from '@core/config/coar-notify-config-data.service';
 import {
   LdnService,
   LdnServiceByPattern,

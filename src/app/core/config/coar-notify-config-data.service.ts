@@ -11,6 +11,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { SubmissionCoarNotifyModel } from '../coar-notify/models/submission-coar-notify.model';
 import {
   CreateData,
   CreateDataImpl,
@@ -39,7 +40,6 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { SubmissionCoarNotifyModel } from './models/submission-coar-notify.model';
 
 
 /**
@@ -68,7 +68,6 @@ export class CoarNotifyConfigDataService extends IdentifiableDataService<Submiss
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
   }
 
-
   create(object: SubmissionCoarNotifyModel, ...params: RequestParam[]): Observable<RemoteData<SubmissionCoarNotifyModel>> {
     return this.createData.create(object, ...params);
   }
@@ -92,7 +91,6 @@ export class CoarNotifyConfigDataService extends IdentifiableDataService<Submiss
   findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<SubmissionCoarNotifyModel>[]): Observable<RemoteData<PaginatedList<SubmissionCoarNotifyModel>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
-
 
   public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.delete(objectId, copyVirtualMetadata);
