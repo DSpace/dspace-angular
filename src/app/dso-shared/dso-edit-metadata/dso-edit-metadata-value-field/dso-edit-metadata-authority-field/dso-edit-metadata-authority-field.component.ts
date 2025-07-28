@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { ItemDataService } from '@core/data/item-data.service';
 import { ConfidenceType } from '@core/shared/confidence-type';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   metadataFieldsToString,
@@ -39,8 +40,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { RegistryService } from '../../../../admin/admin-registries/registry/registry.service';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { DsDynamicOneboxComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
   DsDynamicOneboxModelConfig,
@@ -55,7 +56,6 @@ import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/mo
 import { AuthorityConfidenceStateDirective } from '../../../../shared/form/directives/authority-confidence-state.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service';
 

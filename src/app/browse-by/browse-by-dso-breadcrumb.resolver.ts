@@ -15,9 +15,9 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { hasValue } from '../../config/utils/empty.util';
 import { getDSORoute } from '../app-routing-paths';
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { hasValue } from '../shared/empty.util';
 
 /**
  * Method for resolving a breadcrumb config object

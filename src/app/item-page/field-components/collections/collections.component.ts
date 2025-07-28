@@ -33,7 +33,7 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

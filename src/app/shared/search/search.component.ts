@@ -24,6 +24,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { RouteService } from '@core/services/route.service';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { SearchService } from '@core/shared/search/search.service';
@@ -52,25 +53,24 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { followLink } from '../utils/follow-link-config.model';
 import { currentPath } from '../utils/route.utils';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';

@@ -30,11 +30,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import {
   hasNoValue,
   hasValue,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

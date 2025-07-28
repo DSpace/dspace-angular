@@ -31,7 +31,7 @@ import {
   isEmpty,
   isNotEmpty,
   isNotUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';

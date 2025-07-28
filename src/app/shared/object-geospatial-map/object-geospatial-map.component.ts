@@ -13,9 +13,9 @@ import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { fadeIn } from '../animations/fade';
-import { hasValue } from '../empty.util';
 import { GeospatialMapComponent } from '../geospatial-map/geospatial-map.component';
 import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-detail.model';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';

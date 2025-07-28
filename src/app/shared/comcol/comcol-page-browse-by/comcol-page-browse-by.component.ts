@@ -38,9 +38,9 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
-import { isNotEmpty } from '../../empty.util';
 
 export interface ComColPageNavOption {
   id: string;

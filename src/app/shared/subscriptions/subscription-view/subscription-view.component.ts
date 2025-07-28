@@ -18,9 +18,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { getDSORoute } from 'src/app/app-routing-paths';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../empty.util';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
 

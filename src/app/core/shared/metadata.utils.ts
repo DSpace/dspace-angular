@@ -6,7 +6,7 @@ import {
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import {
   MetadataMapInterface,
   MetadataValue,

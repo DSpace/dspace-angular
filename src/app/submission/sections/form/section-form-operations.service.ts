@@ -16,17 +16,17 @@ import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
 import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../../shared/date.util';
-import {
   hasValue,
   isNotEmpty,
   isNotNull,
   isNotUndefined,
   isNull,
   isUndefined,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '../../../shared/date.util';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';

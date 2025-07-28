@@ -17,8 +17,8 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { hasValue } from '../../../config/utils/empty.util';
 import { getDSORoute } from '../../app-routing-paths';
-import { hasValue } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HardRedirectService } from '../services/hard-redirect.service';

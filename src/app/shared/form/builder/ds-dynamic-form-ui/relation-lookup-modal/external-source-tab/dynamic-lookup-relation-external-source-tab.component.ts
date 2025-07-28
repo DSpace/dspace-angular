@@ -36,15 +36,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import {
+  hasValue,
+  hasValueOperator,
+} from '../../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
 } from '../../../../../animations/fade';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../../../empty.util';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';

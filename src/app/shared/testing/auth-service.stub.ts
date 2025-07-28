@@ -10,7 +10,7 @@ import {
   of,
 } from 'rxjs';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { EPersonMock } from './eperson.mock';
 
 export const authMethodsMock: AuthMethod[] = [

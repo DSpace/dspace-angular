@@ -39,7 +39,7 @@ import {
 import {
   hasNoValue,
   hasValue,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ExternalLoginService } from '../../services/external-login.service';
 

@@ -8,7 +8,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { hasValue } from '../../../../empty.util';
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';

@@ -24,7 +24,7 @@ import {
   Observable,
 } from 'rxjs';
 
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({

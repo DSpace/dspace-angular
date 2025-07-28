@@ -20,7 +20,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../../../empty.util';
+import { hasValue } from '../../../../../../../config/utils/empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';

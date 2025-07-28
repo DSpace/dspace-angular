@@ -25,13 +25,13 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../config/app-config.interface';
-import { environment } from '../../environments/environment';
-import { OrejimeService } from '../shared/cookies/orejime.service';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
+import { environment } from '../../environments/environment';
+import { OrejimeService } from '../shared/cookies/orejime.service';
 
 /**
  * Name of the cookie used to store the settings locally

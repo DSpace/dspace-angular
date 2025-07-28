@@ -20,8 +20,8 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
+import { isEmpty } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
-import { isEmpty } from '../empty.util';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;
 type LazyMarkdownIt = ReturnType<typeof markdownItLoader>;

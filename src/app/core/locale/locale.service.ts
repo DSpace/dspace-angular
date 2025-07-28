@@ -24,7 +24,7 @@ import { LangConfig } from '../../../config/lang-config.interface';
 import {
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { RouteService } from '../services/route.service';

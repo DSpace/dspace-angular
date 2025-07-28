@@ -14,7 +14,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { GenericConstructor } from '../shared/generic-constructor';

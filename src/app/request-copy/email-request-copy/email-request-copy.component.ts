@@ -20,8 +20,8 @@ import {
 } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { hasValue } from '../../shared/empty.util';
 import { RequestCopyEmail } from './request-copy-email.model';
 
 @Component({

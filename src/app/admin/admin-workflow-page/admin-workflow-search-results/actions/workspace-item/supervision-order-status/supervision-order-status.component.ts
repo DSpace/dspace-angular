@@ -25,7 +25,7 @@ import {
   reduce,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../../../shared/empty.util';
+import { isNotEmpty } from '../../../../../../../config/utils/empty.util';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 
 export interface SupervisionOrderListEntry {

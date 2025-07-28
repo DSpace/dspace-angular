@@ -57,13 +57,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '../../../../../empty.util';
+} from '../../../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';

@@ -37,8 +37,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 

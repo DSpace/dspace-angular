@@ -36,6 +36,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { MetadataService } from '@core/metadata/metadata.service';
 import { Collection } from '@core/shared/collection.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import {
@@ -97,20 +98,19 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
-import { AppState } from '../../../../app.reducer';
-import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
-import { SubmissionService } from '../../../../submission/submission.service';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
   isNotUndefined,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { AppState } from '../../../../app.reducer';
+import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
+import { SubmissionService } from '../../../../submission/submission.service';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';

@@ -58,13 +58,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import {
   hasValue,
   hasValueOperator,
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';

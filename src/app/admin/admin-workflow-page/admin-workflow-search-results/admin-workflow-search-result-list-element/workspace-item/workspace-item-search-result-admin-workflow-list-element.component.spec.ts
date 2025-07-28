@@ -11,6 +11,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
@@ -35,7 +36,6 @@ import {
 } from '../../../../../shared/testing/supervision-order.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkspaceItemSearchResultAdminWorkflowListElementComponent } from './workspace-item-search-result-admin-workflow-list-element.component';
 
 describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {

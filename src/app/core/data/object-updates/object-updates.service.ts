@@ -24,7 +24,7 @@ import {
   hasValueOperator,
   isEmpty,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { coreSelector } from '../../core.selectors';
 import { CoreState } from '../../core-state.model';

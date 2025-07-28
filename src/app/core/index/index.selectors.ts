@@ -6,7 +6,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { URLCombiner } from '../url-combiner/url-combiner';

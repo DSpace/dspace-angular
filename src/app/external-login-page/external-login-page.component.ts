@@ -15,10 +15,10 @@ import {
   tap,
 } from 'rxjs';
 
+import { hasNoValue } from '../../config/utils/empty.util';
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { hasNoValue } from '../shared/empty.util';
 import { AuthMethodTypeComponent } from '../shared/log-in/methods/auth-methods.type';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../shared/log-in/methods/log-in.methods-decorator';
 

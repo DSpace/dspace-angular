@@ -27,12 +27,12 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getHomePageRoute } from '../../../../app-routing-paths';
 import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { getHomePageRoute } from '../../../../app-routing-paths';
 import { NotificationsService } from '../../../notifications/notifications.service';
 
 /**

@@ -47,13 +47,13 @@ import {
 } from 'rxjs/operators';
 
 import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../config/utils/empty.util';
+import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';

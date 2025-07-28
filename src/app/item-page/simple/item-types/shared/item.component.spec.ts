@@ -53,9 +53,9 @@ import {
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { environment } from '../../../../../environments/environment';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';

@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { isEmpty } from '../../empty.util';
+import { isEmpty } from '../../../../config/utils/empty.util';
 
 
 /**

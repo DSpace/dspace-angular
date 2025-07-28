@@ -34,11 +34,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../shared/empty.util';
+} from '../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 

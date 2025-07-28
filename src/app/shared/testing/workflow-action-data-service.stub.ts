@@ -1,5 +1,6 @@
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { RemoteData } from '@core/data/remote-data';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import {
@@ -7,7 +8,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
 import { IdentifiableDataServiceStub } from './identifiable-data-service.stub';
 
 /**

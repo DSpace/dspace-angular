@@ -20,6 +20,7 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { Group } from '@core/eperson/models/group.model';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteData,
@@ -41,18 +42,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
-import { AlertComponent } from '../shared/alert/alert.component';
 import {
   hasValue,
   isNotEmpty,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';

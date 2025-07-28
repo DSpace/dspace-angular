@@ -12,6 +12,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { ChildHALResource } from '@core/shared/child-hal-resource.model';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -25,11 +26,10 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
-import { followLink } from '../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 
 @Component({

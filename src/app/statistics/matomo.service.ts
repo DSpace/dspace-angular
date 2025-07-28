@@ -24,9 +24,9 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 import { OrejimeService } from '../shared/cookies/orejime.service';
-import { isNotEmpty } from '../shared/empty.util';
 
 export const MATOMO_TRACKER_URL = 'matomo.tracker.url';
 export const MATOMO_SITE_ID = 'matomo.request.siteid';

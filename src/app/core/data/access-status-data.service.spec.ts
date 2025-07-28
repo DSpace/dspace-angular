@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 
-import { hasNoValue } from '../../shared/empty.util';
+import { hasNoValue } from '../../../config/utils/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

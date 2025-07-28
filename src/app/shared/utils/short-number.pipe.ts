@@ -3,7 +3,7 @@ import {
   PipeTransform,
 } from '@angular/core';
 
-import { isEmpty } from '../empty.util';
+import { isEmpty } from '../../../config/utils/empty.util';
 
 
 @Pipe({

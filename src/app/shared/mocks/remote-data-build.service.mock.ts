@@ -13,7 +13,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>, buildList$?: Observable<RemoteData<PaginatedList<any>>>): RemoteDataBuildService {
   return {

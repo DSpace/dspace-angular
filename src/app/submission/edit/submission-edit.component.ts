@@ -34,7 +34,7 @@ import {
   isEmpty,
   isNotEmptyOperator,
   isNotNull,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';

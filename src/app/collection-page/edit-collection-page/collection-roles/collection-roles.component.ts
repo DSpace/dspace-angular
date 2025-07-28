@@ -17,8 +17,8 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a collection's roles

@@ -23,8 +23,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
 import { OptionVO } from '../option-vo.model';

@@ -18,7 +18,7 @@ import {
 import {
   hasNoValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { RequestError } from '../data/request-error.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';

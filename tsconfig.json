@@ -42,7 +42,7 @@
     "useDefineForClassFields": false,
     "useUnknownInCatchVariables": true,
     "paths": {
-      "@core/*": ["src/app/core/*"]
+      "@core/*": ["src/app/core/*"],
     }
   },
   "angularCompilerOptions": {

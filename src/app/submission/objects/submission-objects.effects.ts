@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RemoteData } from '@core/data/remote-data';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { SubmissionObject } from '@core/submission/models/submission-object.model';
@@ -37,15 +38,14 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
 import {
   isEmpty,
   isNotEmpty,
   isNotUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
 import { FormState } from '../../shared/form/form.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { SectionsService } from '../sections/sections.service';
 import { SectionsType } from '../sections/sections-type';
 import { SubmissionState } from '../submission.reducers';

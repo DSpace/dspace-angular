@@ -29,8 +29,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageLinksToFollow } from '../../item.resolver';

@@ -26,7 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 
-import { hasValue } from '../../../empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';

@@ -37,10 +37,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { LangConfig } from '../../../config/lang-config.interface';
+import { isEmpty } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**

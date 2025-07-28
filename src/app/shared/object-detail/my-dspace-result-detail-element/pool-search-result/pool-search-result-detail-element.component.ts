@@ -9,6 +9,7 @@ import { LinkService } from '@core/cache/builders/link.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Context } from '@core/shared/context.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -27,11 +28,10 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 

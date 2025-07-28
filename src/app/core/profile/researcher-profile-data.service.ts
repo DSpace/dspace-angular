@@ -18,12 +18,8 @@ import {
 import {
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -53,6 +49,10 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';

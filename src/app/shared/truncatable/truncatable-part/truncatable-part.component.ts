@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { DragClickDirective } from '../../utils/drag-click.directive';
 import { TruncatableService } from '../truncatable.service';
 

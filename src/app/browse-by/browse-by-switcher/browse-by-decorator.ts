@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Context } from '@core/shared/context.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 
-import { hasNoValue } from '../../shared/empty.util';
+import { hasNoValue } from '../../../config/utils/empty.util';
 import {
   DEFAULT_THEME,
   resolveTheme,

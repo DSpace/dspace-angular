@@ -8,6 +8,7 @@ import {
 import { LinkService } from '@core/cache/builders/link.service';
 import { AccessStatusObject } from '@core/shared/access-status.model';
 import { Bitstream } from '@core/shared/bitstream.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,10 +21,9 @@ import {
   catchError,
   map,
 } from 'rxjs/operators';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { environment } from 'src/environments/environment';
 
-import { hasValue } from '../../../../empty.util';
+import { hasValue } from '../../../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-base-access-status-badge',

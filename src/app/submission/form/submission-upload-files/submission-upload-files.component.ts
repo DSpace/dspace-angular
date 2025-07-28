@@ -23,7 +23,7 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';

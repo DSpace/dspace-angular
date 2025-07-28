@@ -13,8 +13,8 @@ import { GenericConstructor } from '@core/shared/generic-constructor';
 import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { hasValue } from '../../../../../shared/empty.util';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   getListableObjectComponent,

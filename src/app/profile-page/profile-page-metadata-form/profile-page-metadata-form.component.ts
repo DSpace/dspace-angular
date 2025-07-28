@@ -21,11 +21,11 @@ import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { LangConfig } from '../../../config/lang-config.interface';
-import { environment } from '../../../environments/environment';
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

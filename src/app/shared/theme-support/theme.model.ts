@@ -19,12 +19,12 @@ import {
   ThemeConfig,
   UUIDThemeConfig,
 } from '../../../config/theme.config';
-import { getDSORoute } from '../../app-routing-paths';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { getDSORoute } from '../../app-routing-paths';
 import { HandleService } from '../handle.service';
 
 export class Theme {

@@ -15,7 +15,7 @@ import {
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-google-recaptcha',

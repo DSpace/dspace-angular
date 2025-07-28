@@ -15,8 +15,8 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a community's curation tasks

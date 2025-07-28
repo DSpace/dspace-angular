@@ -35,9 +35,8 @@ import {
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { CoreState } from '../core-state.model';
 import {
   buildPaginatedList,
@@ -55,6 +54,7 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services/window.service';
+import { followLink } from '../shared/follow-link-config.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,

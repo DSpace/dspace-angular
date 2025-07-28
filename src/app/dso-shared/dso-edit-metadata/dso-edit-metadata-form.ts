@@ -18,7 +18,7 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 
 /**
  * Enumeration for the type of change occurring on a metadata value

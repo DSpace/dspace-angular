@@ -2,7 +2,7 @@ import {
   hasNoValue,
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
 
 const excludedFromEquals = new Map();

@@ -15,6 +15,7 @@ import { GroupDataService } from '@core/eperson/group-data.service';
 import { Group } from '@core/eperson/models/group.model';
 import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
 import { Collection } from '@core/shared/collection.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -34,15 +35,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '../../../shared/empty.util';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+} from '../../../../config/utils/empty.util';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';

@@ -29,7 +29,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({

@@ -25,7 +25,7 @@ import {
 import {
   isEmpty,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
 import {
   LOAD_MORE_NODE,
   LOAD_MORE_ROOT_NODE,

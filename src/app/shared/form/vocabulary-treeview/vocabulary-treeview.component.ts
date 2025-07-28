@@ -36,14 +36,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AlertComponent } from '../../alert/alert.component';
-import { AlertType } from '../../alert/alert-type';
-import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { AlertComponent } from '../../alert/alert.component';
+import { AlertType } from '../../alert/alert-type';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';

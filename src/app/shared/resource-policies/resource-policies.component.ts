@@ -16,6 +16,7 @@ import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { getAllSucceededRemoteData } from '@core/shared/operators';
 import {
   TranslateModule,
@@ -37,14 +38,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { NotificationsService } from '../notifications/notifications.service';
-import { followLink } from '../utils/follow-link-config.model';
 import {
   ResourcePolicyCheckboxEntry,
   ResourcePolicyEntryComponent,

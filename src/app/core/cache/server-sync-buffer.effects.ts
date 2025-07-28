@@ -36,7 +36,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';

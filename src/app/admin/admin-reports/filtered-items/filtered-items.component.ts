@@ -38,10 +38,10 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { isEmpty } from 'src/app/shared/empty.util';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { environment } from 'src/environments/environment';
 
+import { isEmpty } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
 import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv/filtered-items-export-csv.component';

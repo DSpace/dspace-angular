@@ -30,7 +30,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 import { FilterType } from '../../../shared/search/models/filter-type.model';

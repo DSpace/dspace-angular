@@ -41,12 +41,12 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { fadeIn } from '../../shared/animations/fade';
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';

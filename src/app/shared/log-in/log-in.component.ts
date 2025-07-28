@@ -21,7 +21,7 @@ import {
 } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorator';

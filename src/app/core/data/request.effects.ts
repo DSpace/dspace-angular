@@ -19,7 +19,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { StoreActionTypes } from '../../store.actions';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { ParsedResponse } from '../cache/response.models';

@@ -11,7 +11,7 @@ import { Group } from '@core/eperson/models/group.model';
 import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 
-import { isEmpty } from '../../../../shared/empty.util';
+import { isEmpty } from '../../../../../config/utils/empty.util';
 
 /**
  * This component represents a badge that describe an access condition

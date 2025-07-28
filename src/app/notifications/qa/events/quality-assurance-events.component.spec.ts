@@ -21,6 +21,7 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '@core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import {
   createNoContentRemoteDataObject$,
@@ -55,7 +56,6 @@ import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 

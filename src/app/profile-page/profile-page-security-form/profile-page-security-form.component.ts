@@ -21,12 +21,12 @@ import {
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
-import { AlertComponent } from '../../shared/alert/alert.component';
 import {
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 

@@ -7,7 +7,7 @@ import {
 import { RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../empty.util';
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { ExternalLinkMenuItemModel } from './models/external-link.model';
 
 /**

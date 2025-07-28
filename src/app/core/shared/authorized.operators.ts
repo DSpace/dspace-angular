@@ -4,6 +4,10 @@ import {
   UrlTree,
 } from '@angular/router';
 import {
+  getForbiddenRoute,
+  getPageNotFoundRoute,
+} from '@core/router/routing-paths';
+import {
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
@@ -13,10 +17,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import {
-  getForbiddenRoute,
-  getPageNotFoundRoute,
-} from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 import { AuthService } from '../auth/auth.service';
 import { RemoteData } from '../data/remote-data';

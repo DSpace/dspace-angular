@@ -1,7 +1,7 @@
 import { Item } from '@core/shared/item.model';
 import { URLCombiner } from '@core/url-combiner/url-combiner';
 
-import { isNotEmpty } from '../shared/empty.util';
+import { isNotEmpty } from '../../config/utils/empty.util';
 
 export const ITEM_MODULE_PATH = 'items';
 

@@ -9,7 +9,7 @@ import {
 import {
   hasValue,
   hasValueOperator,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { ResponseState } from '../data/response-state.model';

@@ -12,6 +12,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { ItemRequest } from '@core/shared/item-request.model';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
@@ -28,10 +29,9 @@ import {
 } from 'rxjs/operators';
 
 import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
+import { hasValue } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';

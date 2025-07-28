@@ -37,7 +37,7 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Injectable({

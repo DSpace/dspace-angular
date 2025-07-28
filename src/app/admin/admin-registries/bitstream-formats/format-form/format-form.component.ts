@@ -19,11 +19,11 @@ import {
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
 
-import { environment } from '../../../../../environments/environment';
 import {
   hasValue,
   isEmpty,
-} from '../../../../shared/empty.util';
+} from '../../../../../config/utils/empty.util';
+import { environment } from '../../../../../environments/environment';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 

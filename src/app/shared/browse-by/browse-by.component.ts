@@ -30,11 +30,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import {
   fadeIn,
   fadeInOut,
 } from '../animations/fade';
-import { hasValue } from '../empty.util';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../object-collection/object-collection.component';

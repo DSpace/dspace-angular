@@ -11,7 +11,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { isUndefined } from '../../../shared/empty.util';
+import { isUndefined } from '../../../../config/utils/empty.util';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,

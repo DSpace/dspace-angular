@@ -23,11 +23,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AppState } from '../app.reducer';
 import {
   hasValue,
   isNotEmpty,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
+import { AppState } from '../app.reducer';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 
 /**

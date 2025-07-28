@@ -9,7 +9,7 @@ import { ViewMode } from '@core/shared/view-mode.model';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../../empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-search-results-skeleton',

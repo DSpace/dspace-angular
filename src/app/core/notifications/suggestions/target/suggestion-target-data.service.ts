@@ -23,7 +23,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../../shared/follow-link-config.model';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 
 @Injectable({ providedIn: 'root' })

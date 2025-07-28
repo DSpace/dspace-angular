@@ -9,8 +9,8 @@ import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { CaptionInfo } from './caption-info';
 import { languageHelper } from './language-helper';
 

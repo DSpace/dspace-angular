@@ -43,10 +43,10 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { QualityAssuranceEventData } from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
-import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../../shared/follow-link-config.model';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
 
 /**

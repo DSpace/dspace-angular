@@ -21,7 +21,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 @Directive({
   selector: '[dsShowOnlyForRole],[dsShowExceptForRole]',

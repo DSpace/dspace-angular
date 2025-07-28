@@ -6,8 +6,8 @@ import { i18nBreadcrumbResolver } from '@core/breadcrumbs/i18n-breadcrumb.resolv
 import { notifyInfoGuard } from '@core/coar-notify/notify-info/notify-info.guard';
 import { feedbackGuard } from '@core/feedback/feedback.guard';
 
+import { hasValue } from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
-import { hasValue } from '../shared/empty.util';
 import { AccessibilitySettingsComponent } from './accessibility-settings/accessibility-settings.component';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';

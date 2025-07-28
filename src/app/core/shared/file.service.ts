@@ -8,7 +8,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { AuthService } from '../auth/auth.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import {

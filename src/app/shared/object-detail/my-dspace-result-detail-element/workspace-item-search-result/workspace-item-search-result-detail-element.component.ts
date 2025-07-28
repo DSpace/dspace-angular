@@ -6,17 +6,17 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Context } from '@core/shared/context.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { isNotUndefined } from '../../../empty.util';
+import { isNotUndefined } from '../../../../../config/utils/empty.util';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 

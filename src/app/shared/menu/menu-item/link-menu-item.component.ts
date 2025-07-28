@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../empty.util';
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { LinkMenuItemModel } from './models/link.model';
 
 /**

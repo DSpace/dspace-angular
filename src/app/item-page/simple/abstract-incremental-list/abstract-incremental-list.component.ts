@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-abstract-incremental-list',

@@ -37,11 +37,11 @@ import {
   tap,
 } from 'rxjs';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 

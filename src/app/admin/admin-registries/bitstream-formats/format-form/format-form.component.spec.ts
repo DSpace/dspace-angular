@@ -21,7 +21,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isEmpty } from '../../../../shared/empty.util';
+import { isEmpty } from '../../../../../config/utils/empty.util';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormatFormComponent } from './format-form.component';

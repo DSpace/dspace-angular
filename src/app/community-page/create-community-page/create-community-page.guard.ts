@@ -21,7 +21,7 @@ import {
 import {
   hasNoValue,
   hasValue,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 
 /**
  * True when either NO parent ID query parameter has been provided, or the parent ID resolves to a valid parent community

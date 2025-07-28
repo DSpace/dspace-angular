@@ -23,12 +23,12 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { AppState } from '../../../../../app.reducer';
-import { SubmissionService } from '../../../../../submission/submission.service';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
+import { AppState } from '../../../../../app.reducer';
+import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';

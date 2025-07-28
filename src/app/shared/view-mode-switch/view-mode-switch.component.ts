@@ -18,11 +18,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
 import {
   isEmpty,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 

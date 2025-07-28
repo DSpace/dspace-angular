@@ -9,6 +9,10 @@ import { RemoteData } from '@core/data/remote-data';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { Bundle } from '@core/shared/bundle.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
@@ -19,11 +23,6 @@ import {
   mergeMap,
   switchMap,
 } from 'rxjs/operators';
-
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 
 @Injectable({ providedIn: 'root' })
 export class MiradorViewerService {

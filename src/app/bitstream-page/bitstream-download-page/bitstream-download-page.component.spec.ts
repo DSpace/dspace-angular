@@ -17,6 +17,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { SignpostingDataService } from '@core/data/signposting-data.service';
+import { getForbiddenRoute } from '@core/router/routing-paths';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { ServerResponseService } from '@core/services/server-response.service';
 import { Bitstream } from '@core/shared/bitstream.model';
@@ -25,7 +26,6 @@ import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.ut
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
 import { MatomoService } from '../../statistics/matomo.service';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 

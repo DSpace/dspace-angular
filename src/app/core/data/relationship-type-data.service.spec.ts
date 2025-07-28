@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 
-import { hasValueOperator } from '../../shared/empty.util';
+import { hasValueOperator } from '../../../config/utils/empty.util';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';

@@ -25,11 +25,11 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotUndefined,
-} from '../../../../shared/empty.util';
+} from '../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
 import { SubmissionService } from '../../../submission.service';

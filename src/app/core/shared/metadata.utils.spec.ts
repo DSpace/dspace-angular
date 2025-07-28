@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { isUndefined } from '../../shared/empty.util';
+import { isUndefined } from '../../../config/utils/empty.util';
 import {
   MetadataMap,
   MetadataValue,

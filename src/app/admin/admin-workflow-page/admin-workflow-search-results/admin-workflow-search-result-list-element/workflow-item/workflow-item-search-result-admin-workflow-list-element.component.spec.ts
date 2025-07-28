@@ -10,6 +10,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
@@ -28,7 +29,6 @@ import { CollectionElementLinkType } from '../../../../../shared/object-collecti
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {

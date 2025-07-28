@@ -19,7 +19,7 @@ import {
   tap,
 } from 'rxjs';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 /**
  * Determines if a user can activate a route based on the registration token.z

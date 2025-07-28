@@ -18,7 +18,7 @@ import { Script } from '@core/shared/scripts/script.model';
 import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { controlContainerFactory } from '../process-form-factory';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 

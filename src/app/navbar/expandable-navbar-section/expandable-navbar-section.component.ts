@@ -18,8 +18,8 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { slide } from '../../shared/animations/slide';
-import { isNotEmpty } from '../../shared/empty.util';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';

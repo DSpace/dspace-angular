@@ -17,6 +17,7 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
@@ -52,14 +53,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';

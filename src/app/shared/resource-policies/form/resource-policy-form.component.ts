@@ -43,17 +43,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '../../date.util';
 import {
   hasValue,
   hasValueOperator,
   isEmpty,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '../../date.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';

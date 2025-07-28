@@ -11,6 +11,11 @@ import { siteRegisterGuard } from '@core/data/feature-authorization/feature-auth
 import { endUserAgreementCurrentUserGuard } from '@core/end-user-agreement/end-user-agreement-current-user.guard';
 import { reloadGuard } from '@core/reload/reload.guard';
 import { forgotPasswordCheckGuard } from '@core/rest-property/forgot-password-check-guard.guard';
+import {
+  ERROR_PAGE,
+  FORBIDDEN_PATH,
+  INTERNAL_SERVER_ERROR,
+} from '@core/router/routing-paths';
 import { ServerCheckGuard } from '@core/server-check/server-check.guard';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
@@ -18,12 +23,9 @@ import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
-  ERROR_PAGE,
-  FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
   INFO_MODULE_PATH,
-  INTERNAL_SERVER_ERROR,
   LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,

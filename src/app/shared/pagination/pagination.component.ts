@@ -42,11 +42,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   hasValueOperator,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { RSSComponent } from '../rss-feed/rss.component';

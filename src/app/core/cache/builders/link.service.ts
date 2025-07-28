@@ -17,12 +17,12 @@ import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+} from '../../../../config/utils/empty.util';
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 import { lazyDataService } from '../../lazy-data-service';
+import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import {

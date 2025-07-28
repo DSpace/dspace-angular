@@ -9,6 +9,7 @@ import {
 import { AuthService } from '@core/auth/auth.service';
 import { RemoteData } from '@core/data/remote-data';
 import { VersionDataService } from '@core/data/version-data.service';
+import { getPageNotFoundRoute } from '@core/router/routing-paths';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
 import { Item } from '@core/shared/item.model';
 import {
@@ -22,7 +23,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getPageNotFoundRoute } from '../../../app-routing-paths';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

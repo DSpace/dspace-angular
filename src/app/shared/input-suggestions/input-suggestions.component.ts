@@ -24,7 +24,7 @@ import { BehaviorSubject } from 'rxjs';
 import {
   hasValue,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
 import { ClickOutsideDirective } from '../utils/click-outside.directive';
 import { DebounceDirective } from '../utils/debounce.directive';
 

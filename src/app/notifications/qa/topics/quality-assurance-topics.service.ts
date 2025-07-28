@@ -13,7 +13,7 @@ import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.

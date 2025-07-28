@@ -1,4 +1,4 @@
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { BrowseDefinition } from '../../browse-definition.model';
 import { MetadataValue } from '../../metadata.models';
 import {

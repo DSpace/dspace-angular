@@ -2,7 +2,7 @@ import { Inject } from '@angular/core';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,

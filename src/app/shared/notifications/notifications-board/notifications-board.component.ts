@@ -22,12 +22,12 @@ import {
 import { take } from 'rxjs/operators';
 
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
-import { AppState } from '../../../app.reducer';
 import {
   hasNoValue,
   isNotEmptyOperator,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
+import { AppState } from '../../../app.reducer';
 import { LiveRegionService } from '../../live-region/live-region.service';
 import { INotification } from '../models/notification.model';
 import { NotificationComponent } from '../notification/notification.component';

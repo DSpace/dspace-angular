@@ -47,11 +47,11 @@ import {
 } from 'rxjs/operators';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
-} from '../../../../../empty.util';
+} from '../../../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';

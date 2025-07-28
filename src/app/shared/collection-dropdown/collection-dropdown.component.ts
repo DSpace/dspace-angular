@@ -22,6 +22,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -46,9 +47,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { followLink } from '../utils/follow-link-config.model';
 
 /**
  * An interface to represent a collection entry

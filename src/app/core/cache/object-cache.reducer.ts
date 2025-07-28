@@ -7,7 +7,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { CacheEntry } from './cache-entry';
 import { CacheableObject } from './cacheable-object.model';
 import {

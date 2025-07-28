@@ -19,7 +19,7 @@ import {
   hasValue,
   hasValueOperator,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
@@ -29,7 +29,6 @@ import { SearchFilterConfig } from '../../../shared/search/models/search-filter-
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { BaseDataService } from '../../data/base/base-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
@@ -44,6 +43,7 @@ import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { DSpaceObject } from '../dspace-object.model';
+import { FollowLinkConfig } from '../follow-link-config.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import {

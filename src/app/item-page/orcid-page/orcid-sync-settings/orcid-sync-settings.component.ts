@@ -38,9 +38,9 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({

@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   hasValue,
   isEmpty,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-base-type-badge',

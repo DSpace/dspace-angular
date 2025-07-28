@@ -19,7 +19,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../empty.util';
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';

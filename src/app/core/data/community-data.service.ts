@@ -7,12 +7,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';

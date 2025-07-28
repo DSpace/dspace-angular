@@ -19,9 +19,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import { Subscription } from 'rxjs';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { hasValue } from '../../empty.util';
 import { currentPath } from '../../utils/route.utils';
 import { SearchConfigurationOption } from './search-configuration-option.model';
 

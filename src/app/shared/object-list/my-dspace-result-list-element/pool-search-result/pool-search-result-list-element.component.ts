@@ -17,6 +17,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Context } from '@core/shared/context.model';
 import { Duplicate } from '@core/shared/duplicate-data/duplicate.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -43,12 +44,11 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';

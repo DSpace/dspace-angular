@@ -19,7 +19,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../../empty.util';
+import { isNotEmpty } from '../../../../../../config/utils/empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 

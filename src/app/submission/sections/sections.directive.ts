@@ -16,7 +16,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotNull,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { SubmissionSectionError } from '../objects/submission-section-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';

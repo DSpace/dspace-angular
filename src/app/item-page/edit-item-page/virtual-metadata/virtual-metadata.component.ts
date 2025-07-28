@@ -26,7 +26,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 

@@ -2,7 +2,7 @@
  * Represents the state of all lists containing name variants in the store
  */
 
-import { hasValue } from '../../../../empty.util';
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import {
   NameVariantAction,
   NameVariantActionTypes,

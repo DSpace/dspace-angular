@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 import {
   hasNoValue,
   isNotEmpty,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';

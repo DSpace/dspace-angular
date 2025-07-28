@@ -26,6 +26,7 @@ import {
   first,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import {
   fadeInEnter,
   fadeInState,
@@ -68,7 +69,6 @@ import {
   scaleLeave,
   scaleOutState,
 } from '../../animations/scale';
-import { isNotEmpty } from '../../empty.util';
 import { INotification } from '../models/notification.model';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { NotificationsService } from '../notifications.service';

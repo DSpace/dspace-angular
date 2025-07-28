@@ -29,9 +29,9 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
+import { hasValueOperator } from '../../../config/utils/empty.util';
 import { ContextHelp } from '../context-help.model';
 import { ContextHelpService } from '../context-help.service';
-import { hasValueOperator } from '../empty.util';
 import { PlacementDir } from './placement-dir.model';
 
 type ParsedContent = ({href?: string, text: string})[];

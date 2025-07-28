@@ -16,7 +16,7 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
 

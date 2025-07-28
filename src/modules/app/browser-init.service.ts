@@ -40,7 +40,6 @@ import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
-import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
@@ -59,6 +58,7 @@ import {
 import { BuildConfig } from '../../config/build-config.interface';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { DefaultAppConfig } from '../../config/default-app-config';
+import { isNotEmpty } from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 
 /**

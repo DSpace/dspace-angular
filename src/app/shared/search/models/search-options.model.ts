@@ -5,7 +5,7 @@ import { URLCombiner } from '@core/url-combiner/url-combiner';
 import {
   hasValue,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
 import { SearchFilter } from './search-filter.model';
 
 /**

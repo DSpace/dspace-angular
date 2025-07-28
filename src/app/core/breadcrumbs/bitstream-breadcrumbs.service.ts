@@ -8,13 +8,13 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { getDSORoute } from '../../app-routing-paths';
+import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { LinkService } from '../cache/builders/link.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { RemoteData } from '../data/remote-data';

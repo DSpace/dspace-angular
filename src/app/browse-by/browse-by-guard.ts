@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,11 +21,10 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 import {
   hasNoValue,
   hasValue,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
 
 export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

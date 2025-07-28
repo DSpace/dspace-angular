@@ -33,10 +33,6 @@ import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
 import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../date.util';
-import {
   hasNoValue,
   hasValue,
   isEmpty,
@@ -44,7 +40,11 @@ import {
   isNotNull,
   isNotUndefined,
   isNull,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {
   CONCAT_GROUP_SUFFIX,

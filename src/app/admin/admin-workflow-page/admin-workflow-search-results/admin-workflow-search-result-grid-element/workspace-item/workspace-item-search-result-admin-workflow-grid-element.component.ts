@@ -14,6 +14,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { Item } from '@core/shared/item.model';
 import {
@@ -37,8 +38,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { hasValue } from '../../../../../shared/empty.util';
 import {
   getListableObjectComponent,
   listableObjectComponent,
@@ -47,7 +48,6 @@ import { WorkspaceItemSearchResult } from '../../../../../shared/object-collecti
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)

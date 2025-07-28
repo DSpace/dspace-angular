@@ -43,12 +43,12 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
 import {
   hasValue,
   isEmpty,
   isNotUndefined,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
+import { environment } from '../../environments/environment';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';

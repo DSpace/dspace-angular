@@ -18,7 +18,7 @@ import { FindListOptions } from '@core/data/find-list-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';

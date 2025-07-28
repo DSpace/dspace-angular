@@ -44,7 +44,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../../empty.util';
+} from '../../../../../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';

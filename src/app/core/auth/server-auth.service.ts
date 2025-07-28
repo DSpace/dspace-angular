@@ -11,13 +11,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
+  hasValue,
+  isNotEmpty,
+} from '../../../config/utils/empty.util';
+import {
   REQUEST,
   RESPONSE,
 } from '../../../express.tokens';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';

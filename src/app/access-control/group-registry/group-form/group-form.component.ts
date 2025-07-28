@@ -28,6 +28,7 @@ import { Group } from '@core/eperson/models/group.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getAllCompletedRemoteData,
@@ -59,6 +60,11 @@ import {
   take,
 } from 'rxjs/operators';
 
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
@@ -66,15 +72,9 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getGroupEditRoute,
   getGroupsRoute,

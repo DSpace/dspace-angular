@@ -27,9 +27,9 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

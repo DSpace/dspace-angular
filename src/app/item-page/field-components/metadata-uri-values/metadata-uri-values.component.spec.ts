@@ -16,8 +16,8 @@ import {
 } from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 

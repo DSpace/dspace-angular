@@ -7,7 +7,7 @@ import {
 import {
   isEmpty,
   isNull,
-} from '../../../../../empty.util';
+} from '../../../../../../../config/utils/empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../ds-dynamic-form-constants';
 import {
   DsDynamicInputModel,

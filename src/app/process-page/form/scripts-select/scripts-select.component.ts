@@ -37,7 +37,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { controlContainerFactory } from '../process-form-factory';
 

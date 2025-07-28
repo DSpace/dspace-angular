@@ -24,6 +24,7 @@ import {
   SourceQualityAssuranceEventMessageObject,
 } from '@core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { Metadata } from '@core/shared/metadata.utils';
 import { NoContent } from '@core/shared/NoContent.model';
@@ -58,17 +59,16 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   ProjectEntryImportModalComponent,
   QualityAssuranceEventData,

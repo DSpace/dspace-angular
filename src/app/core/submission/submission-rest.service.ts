@@ -16,7 +16,7 @@ import {
   hasValue,
   hasValueOperator,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';

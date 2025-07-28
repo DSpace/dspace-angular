@@ -9,7 +9,7 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty } from '../../../config/utils/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import {
   link,

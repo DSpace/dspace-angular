@@ -20,7 +20,7 @@ import {
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';

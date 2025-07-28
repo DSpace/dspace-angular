@@ -40,12 +40,12 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
-import { isValidDate } from '../../shared/date.util';
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
+import { isValidDate } from '../../shared/date.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';

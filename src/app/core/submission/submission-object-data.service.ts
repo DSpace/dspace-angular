@@ -12,11 +12,11 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { SubmissionService } from '../../submission/submission.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { SubmissionObject } from './models/submission-object.model';
 import { SubmissionScopeType } from './submission-scope-type';

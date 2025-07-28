@@ -19,8 +19,8 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { environment } from '../../../../environments/environment';
-import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';

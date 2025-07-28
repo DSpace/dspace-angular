@@ -5,7 +5,7 @@ import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,

@@ -26,12 +26,12 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';

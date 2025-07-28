@@ -36,9 +36,9 @@ import {
 import {
   isNotEmpty,
   isNotEmptyOperator,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { followLink } from '../shared/follow-link-config.model';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.

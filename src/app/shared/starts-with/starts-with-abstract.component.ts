@@ -15,7 +15,7 @@ import {
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Subscription } from 'rxjs';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { StartsWithType } from './starts-with-type';
 
 /**

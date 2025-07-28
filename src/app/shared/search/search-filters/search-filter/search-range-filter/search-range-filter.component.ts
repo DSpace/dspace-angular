@@ -27,8 +27,8 @@ import {
 } from 'rxjs/operators';
 import { yearFromString } from 'src/app/shared/date.util';
 
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../empty.util';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import {
   facetLoad,

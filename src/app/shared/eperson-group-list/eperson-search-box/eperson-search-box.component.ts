@@ -11,7 +11,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { isNotNull } from '../../empty.util';
+import { isNotNull } from '../../../../config/utils/empty.util';
 import { SearchEvent } from '../eperson-group-list-event-type';
 
 /**

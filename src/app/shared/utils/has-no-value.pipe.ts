@@ -3,7 +3,7 @@ import {
   PipeTransform,
 } from '@angular/core';
 
-import { hasNoValue } from '../empty.util';
+import { hasNoValue } from '../../../config/utils/empty.util';
 
 /**
  * Returns true if the passed value is null or undefined.

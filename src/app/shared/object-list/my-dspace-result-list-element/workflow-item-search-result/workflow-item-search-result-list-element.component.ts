@@ -10,6 +10,7 @@ import {
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { Context } from '@core/shared/context.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -28,7 +29,6 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**

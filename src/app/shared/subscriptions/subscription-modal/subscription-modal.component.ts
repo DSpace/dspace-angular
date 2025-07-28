@@ -49,9 +49,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { isNotEmpty } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 

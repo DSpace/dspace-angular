@@ -15,7 +15,7 @@ import {
 import {
   hasNoValue,
   isEmpty,
-} from './empty.util';
+} from '../../config/utils/empty.util';
 
 export const CANONICAL_PREFIX_KEY = 'handle.canonical.prefix';
 

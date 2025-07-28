@@ -13,11 +13,10 @@ import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { INotification } from '../../shared/notifications/models/notification.model';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -26,6 +25,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {

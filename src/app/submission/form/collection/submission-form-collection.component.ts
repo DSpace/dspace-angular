@@ -34,13 +34,13 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
 import { SectionsType } from '../../sections/sections-type';
 import { SubmissionService } from '../../submission.service';

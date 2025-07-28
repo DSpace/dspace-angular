@@ -28,11 +28,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
 
 @Component({

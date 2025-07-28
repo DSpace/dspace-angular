@@ -16,8 +16,8 @@ import {
   Observable,
 } from 'rxjs';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { getDSORoute } from '../../../app-routing-paths';
-import { hasValue } from '../../empty.util';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';

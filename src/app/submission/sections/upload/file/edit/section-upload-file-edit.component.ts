@@ -38,14 +38,14 @@ import {
 } from 'rxjs/operators';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
-import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
-import { dateToISOFormat } from '../../../../../shared/date.util';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
   isNotNull,
-} from '../../../../../shared/empty.util';
+} from '../../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
+import { dateToISOFormat } from '../../../../../shared/date.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';

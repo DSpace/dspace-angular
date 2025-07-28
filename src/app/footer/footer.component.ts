@@ -22,8 +22,8 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../config/app-config.interface';
+import { hasValue } from '../../config/utils/empty.util';
 import { OrejimeService } from '../shared/cookies/orejime.service';
-import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-base-footer',

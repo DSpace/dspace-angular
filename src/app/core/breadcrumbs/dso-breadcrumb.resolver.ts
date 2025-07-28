@@ -5,12 +5,12 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { getDSORoute } from '../../app-routing-paths';
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { hasValue } from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,

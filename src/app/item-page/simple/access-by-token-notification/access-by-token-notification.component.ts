@@ -10,13 +10,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../config/utils/empty.util';
+import {
   dateToString,
   stringToNgbDateStruct,
 } from '../../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({

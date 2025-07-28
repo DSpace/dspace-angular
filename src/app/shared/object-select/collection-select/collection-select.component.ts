@@ -17,12 +17,12 @@ import {
   Observable,
 } from 'rxjs';
 
-import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValueOperator,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ErrorComponent } from '../../error/error.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { PaginationComponent } from '../../pagination/pagination.component';

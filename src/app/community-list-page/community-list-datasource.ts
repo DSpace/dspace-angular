@@ -10,7 +10,7 @@ import {
 } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { hasValue } from '../shared/empty.util';
+import { hasValue } from '../../config/utils/empty.util';
 import { CommunityListService } from './community-list-service';
 import { FlatNode } from './flat-node.model';
 

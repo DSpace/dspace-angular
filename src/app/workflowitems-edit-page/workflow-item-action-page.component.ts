@@ -31,7 +31,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isEmpty } from '../shared/empty.util';
+import { isEmpty } from '../../config/utils/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 
 /**

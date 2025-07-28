@@ -41,8 +41,8 @@ import {
   AppConfig,
 } from '../../../../../../config/app-config.interface';
 import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { addOperatorToFilterValue } from '../../../search.utils';

@@ -13,6 +13,7 @@ import {
 } from '@core/data/paginated-list.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Bundle } from '@core/shared/bundle.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import {
   getFirstSucceededRemoteDataPayload,
@@ -35,14 +36,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 /**
  * Interface for a bundle's bitstream map entry

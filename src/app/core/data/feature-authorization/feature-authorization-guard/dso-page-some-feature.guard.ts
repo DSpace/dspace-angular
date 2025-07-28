@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 import {
   hasNoValue,
   hasValue,
-} from '../../../../shared/empty.util';
+} from '../../../../../config/utils/empty.util';
 import { RemoteData } from '../../remote-data';
 import { FeatureID } from '../feature-id';
 import {

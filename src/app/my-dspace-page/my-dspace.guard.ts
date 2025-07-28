@@ -12,7 +12,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { isEmpty } from '../shared/empty.util';
+import { isEmpty } from '../../config/utils/empty.util';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { MYDSPACE_ROUTE } from './my-dspace-page.component';

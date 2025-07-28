@@ -1,4 +1,4 @@
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';

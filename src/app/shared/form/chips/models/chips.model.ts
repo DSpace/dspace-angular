@@ -8,7 +8,7 @@ import { MetadataIconConfig } from '../../../../../config/submission-config.inte
 import {
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 import { ChipsItem } from './chips-item.model';

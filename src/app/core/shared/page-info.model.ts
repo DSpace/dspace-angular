@@ -4,7 +4,7 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { HALLink } from './hal-link.model';
 import { HALResource } from './hal-resource.model';
 

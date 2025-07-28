@@ -28,7 +28,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotNull,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { CoreState } from '../core-state.model';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
 import { AuthService } from './auth.service';

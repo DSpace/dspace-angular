@@ -19,6 +19,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { Group } from '@core/eperson/models/group.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getAllCompletedRemoteData,
@@ -44,7 +45,6 @@ import { ContextHelpDirective } from '../../../../shared/context-help.directive'
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { GroupRegistryService } from '../../group-registry.service';
 
 /**

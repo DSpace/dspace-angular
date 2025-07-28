@@ -15,7 +15,7 @@ import {
 import {
   isEmpty,
   isNotUndefined,
-} from '../../../../../empty.util';
+} from '../../../../../../../config/utils/empty.util';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 

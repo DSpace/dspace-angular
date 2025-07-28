@@ -7,8 +7,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { AppState } from '../../app.reducer';
-import { hasValue } from '../empty.util';
 import {
   ObjectSelectionDeselectAction,
   ObjectSelectionInitialDeselectAction,

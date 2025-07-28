@@ -31,12 +31,12 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { slide } from '../../../animations/slide';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { slide } from '../../../animations/slide';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { FacetValues } from '../../models/facet-values.model';

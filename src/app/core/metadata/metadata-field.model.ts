@@ -4,7 +4,7 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import {
   link,

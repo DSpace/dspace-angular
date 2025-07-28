@@ -5,7 +5,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 
 /**
  * Directive to set focus on an element when it is rendered

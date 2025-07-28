@@ -18,7 +18,7 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-home-coar',

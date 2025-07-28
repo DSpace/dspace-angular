@@ -23,7 +23,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 
-import { hasValue } from '../../empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

@@ -33,7 +33,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SectionVisibility } from '../objects/section-visibility.model';

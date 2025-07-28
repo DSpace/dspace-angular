@@ -44,11 +44,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { environment } from '../../../../../../../environments/environment';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../../empty.util';
+} from '../../../../../../../config/utils/empty.util';
+import { environment } from '../../../../../../../environments/environment';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';

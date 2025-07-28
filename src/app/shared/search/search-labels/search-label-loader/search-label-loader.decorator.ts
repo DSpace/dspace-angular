@@ -3,7 +3,7 @@ import {
   Type,
 } from '@angular/core';
 
-import { hasNoValue } from '../../../empty.util';
+import { hasNoValue } from '../../../../../config/utils/empty.util';
 import { DEFAULT_THEME } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchLabelComponent } from '../search-label/search-label.component';
 import { SearchLabelRangeComponent } from '../search-label-range/search-label-range.component';

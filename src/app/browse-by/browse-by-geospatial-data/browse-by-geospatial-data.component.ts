@@ -30,8 +30,8 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
-import { hasValue } from '../../shared/empty.util';
 import { GeospatialMapComponent } from '../../shared/geospatial-map/geospatial-map.component';
 import { FacetValues } from '../../shared/search/models/facet-values.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';

@@ -22,7 +22,6 @@ import { getMockRequestService } from '../../../shared/mocks/request.service.moc
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   link,
   typedObject,
@@ -32,6 +31,7 @@ import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { BITSTREAM } from '../../shared/bitstream.resource-type';
 import { COLLECTION } from '../../shared/collection.resource-type';
+import { followLink } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';

@@ -26,11 +26,11 @@ import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
 import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
-import { environment } from '../../../../environments/environment';
 import {
   isNotEmpty,
   isNull,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { environment } from '../../../../environments/environment';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 /**

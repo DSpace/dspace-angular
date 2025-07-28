@@ -10,6 +10,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { ListableModule } from '@core/shared/listable.module';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -28,7 +29,6 @@ import { ItemGridElementComponent } from '../../../../../shared/object-grid/item
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './workflow-item-search-result-admin-workflow-grid-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {

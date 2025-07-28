@@ -20,6 +20,7 @@ import { RequestService } from '@core/data/request.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   MetadataMap,
   MetadataValue,
@@ -54,16 +55,15 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 

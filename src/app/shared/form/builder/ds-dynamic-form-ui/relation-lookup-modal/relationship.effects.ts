@@ -10,6 +10,7 @@ import { RelationshipTypeDataService } from '@core/data/relationship-type-data.s
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { JsonPatchOperationsActionTypes } from '@core/json-patch/json-patch-operations.actions';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
@@ -42,16 +43,15 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
-import { SubmissionState } from '../../../../../submission/submission.reducers';
 import {
   hasNoValue,
   hasValue,
   hasValueOperator,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
+import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
+import { SubmissionState } from '../../../../../submission/submission.reducers';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { followLink } from '../../../../utils/follow-link-config.model';
 import {
   AddRelationshipAction,
   RelationshipAction,

@@ -31,13 +31,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AppState } from '../../../../../app.reducer';
-import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
-import { SubmissionService } from '../../../../../submission/submission.service';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
+import { AppState } from '../../../../../app.reducer';
+import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
+import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';

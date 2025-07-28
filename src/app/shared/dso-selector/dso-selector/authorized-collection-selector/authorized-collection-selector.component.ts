@@ -20,6 +20,7 @@ import {
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { SearchService } from '@core/shared/search/search.service';
 import {
@@ -30,14 +31,13 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../../empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({

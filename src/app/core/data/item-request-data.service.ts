@@ -8,18 +8,18 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+} from '../../../config/utils/empty.util';
+import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemRequest } from '../shared/item-request.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';

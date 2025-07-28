@@ -41,13 +41,13 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import {
   getForgotPasswordRoute,
   getRegisterRoute,
 } from '../../../../app-routing-paths';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { isNotEmpty } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 
 /**

@@ -20,12 +20,12 @@ import {
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 
-import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import {
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
+import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 

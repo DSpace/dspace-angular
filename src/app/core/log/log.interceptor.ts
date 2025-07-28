@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
-import { OrejimeService } from '../../shared/cookies/orejime.service';
-import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';
 import {
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
+import { OrejimeService } from '../../shared/cookies/orejime.service';
+import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';
 
 /**
  * Log Interceptor intercepting Http Requests & Responses to

@@ -19,7 +19,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { FacetValue } from '../../../shared/search/models/facet-value.model';

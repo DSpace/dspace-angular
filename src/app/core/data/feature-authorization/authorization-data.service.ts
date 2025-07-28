@@ -13,15 +13,15 @@ import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
+} from '../../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Authorization } from '../../shared/authorization.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { BaseDataService } from '../base/base-data.service';

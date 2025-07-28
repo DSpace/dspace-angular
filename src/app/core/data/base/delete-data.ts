@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
 import {
   hasNoValue,
   hasValue,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';

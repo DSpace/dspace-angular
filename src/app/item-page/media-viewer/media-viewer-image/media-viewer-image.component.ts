@@ -15,7 +15,7 @@ import {
 } from '@kolkov/ngx-gallery';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 
 /**
  * This component render an image gallery for the image viewer

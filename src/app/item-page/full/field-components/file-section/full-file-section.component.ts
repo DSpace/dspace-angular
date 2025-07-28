@@ -12,6 +12,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import {
   TranslateModule,
@@ -30,14 +31,13 @@ import {
 import {
   hasValue,
   isEmpty,
-} from '../../../../shared/empty.util';
+} from '../../../../../config/utils/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';

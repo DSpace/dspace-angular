@@ -15,12 +15,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { REQUEST } from '../../../express.tokens';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { REQUEST } from '../../../express.tokens';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { RouteService } from '../services/route.service';

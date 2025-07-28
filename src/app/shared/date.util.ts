@@ -3,7 +3,7 @@ import { isValid } from 'date-fns';
 import { formatInTimeZone }  from 'date-fns-tz';
 import isObject from 'lodash/isObject';
 
-import { hasNoValue } from './empty.util';
+import { hasNoValue } from '../../config/utils/empty.util';
 
 /**
  * Returns true if the passed value is a NgbDateStruct.

@@ -23,6 +23,7 @@ import {
   SortOptions,
 } from '@core/cache/models/sort-options.model';
 import { FindListOptions } from '@core/data/find-list-options.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -49,12 +50,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-metadata-field-selector',

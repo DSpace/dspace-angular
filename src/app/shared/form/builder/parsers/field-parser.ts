@@ -13,15 +13,15 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from '../../../../submission/sections/visibility-type';
-import { isNgbDateStruct } from '../../../date.util';
 import {
   hasValue,
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
+import { isNgbDateStruct } from '../../../date.util';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

@@ -15,6 +15,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { Collection } from '@core/shared/collection.model';
 import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import {
   getAllSucceededRemoteDataPayload,
@@ -37,7 +38,6 @@ import {
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getItemEditRoute,
   getItemPageRoute,

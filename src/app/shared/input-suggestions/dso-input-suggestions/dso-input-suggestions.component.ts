@@ -16,7 +16,7 @@ import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';

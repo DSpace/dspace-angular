@@ -36,9 +36,9 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { hasValue } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';

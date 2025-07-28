@@ -11,7 +11,7 @@ import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 
 /**
  * Component representing the edit page for communities and collections

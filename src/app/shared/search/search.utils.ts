@@ -1,4 +1,4 @@
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { FacetValue } from './models/facet-value.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 

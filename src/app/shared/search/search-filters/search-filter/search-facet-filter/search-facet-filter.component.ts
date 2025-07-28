@@ -36,11 +36,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasNoValue,
   hasValue,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { currentPath } from '../../../../utils/route.utils';
 import { AppliedFilter } from '../../../models/applied-filter.model';

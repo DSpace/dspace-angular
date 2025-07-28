@@ -1,7 +1,7 @@
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { HALResource } from '@core/shared/hal-resource.model';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 /**
  * A class to send the retrieval of a {@link HALLink}

@@ -10,8 +10,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
-} from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+} from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -30,6 +29,7 @@ import { RemoteData } from '../data/remote-data';
 import { BrowseDefinitionRestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 /**

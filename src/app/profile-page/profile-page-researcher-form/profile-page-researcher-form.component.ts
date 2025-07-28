@@ -10,6 +10,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
@@ -30,11 +31,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';

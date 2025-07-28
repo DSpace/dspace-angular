@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-identifier-data',

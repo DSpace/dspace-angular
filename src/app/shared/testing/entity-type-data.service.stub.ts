@@ -1,11 +1,11 @@
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Observable } from 'rxjs';
 
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
 import { createPaginatedList } from './utils.test';
 
 /**

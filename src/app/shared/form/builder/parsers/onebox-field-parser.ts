@@ -3,8 +3,8 @@ import {
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { environment } from '../../../../../environments/environment';
-import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

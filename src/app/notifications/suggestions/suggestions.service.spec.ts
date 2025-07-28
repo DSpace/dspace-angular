@@ -8,6 +8,7 @@ import { SuggestionDataService } from '@core/notifications/suggestions/suggestio
 import { SuggestionTargetDataService } from '@core/notifications/suggestions/target/suggestion-target-data.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { ResourceType } from '@core/shared/resource-type';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
@@ -16,7 +17,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

@@ -14,7 +14,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
 import { MenuID } from './menu-id.model';
 import {
   AbstractMenuProvider,

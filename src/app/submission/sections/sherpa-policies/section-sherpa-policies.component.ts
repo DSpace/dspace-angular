@@ -15,12 +15,12 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   isEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';

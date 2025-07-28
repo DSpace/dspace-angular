@@ -27,9 +27,9 @@ import {
 } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';

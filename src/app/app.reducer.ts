@@ -8,6 +8,7 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
+import { hasValue } from '../config/utils/empty.util';
 import {
   ePeopleRegistryReducer,
   EPeopleRegistryState,
@@ -33,7 +34,6 @@ import {
   contextHelpReducer,
   ContextHelpState,
 } from './shared/context-help.reducer';
-import { hasValue } from './shared/empty.util';
 import {
   NameVariantListsState,
   nameVariantReducer,

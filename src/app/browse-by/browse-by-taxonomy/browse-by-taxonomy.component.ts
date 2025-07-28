@@ -26,7 +26,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 

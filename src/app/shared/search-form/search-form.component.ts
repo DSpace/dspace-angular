@@ -27,7 +27,7 @@ import { take } from 'rxjs/operators';
 import {
   hasValue,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';

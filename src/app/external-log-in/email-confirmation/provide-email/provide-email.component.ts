@@ -13,7 +13,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { ExternalLoginService } from '../../services/external-login.service';
 
 @Component({

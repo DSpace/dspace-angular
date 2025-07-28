@@ -33,11 +33,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
 import {
   hasValue,
   isUndefined,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
 import { SearchFilter } from '../search/models/search-filter.model';
 
 /**

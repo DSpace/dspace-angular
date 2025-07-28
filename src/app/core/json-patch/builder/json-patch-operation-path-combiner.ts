@@ -1,4 +1,4 @@
-import { isNotUndefined } from '../../../shared/empty.util';
+import { isNotUndefined } from '../../../../config/utils/empty.util';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 
 /**

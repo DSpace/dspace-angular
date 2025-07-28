@@ -20,16 +20,16 @@ import {
 } from 'rxjs/operators';
 
 import {
-  AppState,
-  keySelector,
-} from '../../app.reducer';
-import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import {
   hasNoValue,
   hasValue,
   hasValueOperator,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import {
+  AppState,
+  keySelector,
+} from '../../app.reducer';
+import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

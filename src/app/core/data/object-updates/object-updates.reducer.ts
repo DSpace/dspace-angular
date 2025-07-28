@@ -1,7 +1,7 @@
 import {
   hasNoValue,
   hasValue,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { Item } from '../../shared/item.model';
 import { Relationship } from '../../shared/item-relationships/relationship.model';

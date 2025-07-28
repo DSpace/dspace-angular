@@ -37,7 +37,7 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
 import { StoreActionTypes } from '../../store.actions';
 import { CoreState } from '../core-state.model';

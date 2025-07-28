@@ -13,7 +13,7 @@ import { Process } from '@core/processes/process.model';
 import { ProcessStatus } from '@core/processes/process-status.model';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
 /**

@@ -3,7 +3,7 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { hasValue } from './empty.util';
+import { hasValue } from '../../config/utils/empty.util';
 
 /**
  * Export a function to return a subset of the state by key

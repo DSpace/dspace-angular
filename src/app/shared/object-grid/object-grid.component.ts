@@ -28,11 +28,11 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import { fadeIn } from '../animations/fade';
 import {
   hasNoValue,
   hasValue,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import {
   HostWindowService,

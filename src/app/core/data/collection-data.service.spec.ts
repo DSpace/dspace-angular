@@ -11,7 +11,7 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { hasNoValue } from '../../shared/empty.util';
+import { hasNoValue } from '../../../config/utils/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';

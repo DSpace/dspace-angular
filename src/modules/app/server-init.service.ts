@@ -21,10 +21,6 @@ import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
@@ -35,6 +31,10 @@ import {
   AppConfig,
 } from '../../config/app-config.interface';
 import { BuildConfig } from '../../config/build-config.interface';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../config/utils/empty.util';
 import { environment } from '../../environments/environment';
 
 /**

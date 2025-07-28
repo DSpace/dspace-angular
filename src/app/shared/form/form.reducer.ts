@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import {
   FormAction,
   FormActionTypes,

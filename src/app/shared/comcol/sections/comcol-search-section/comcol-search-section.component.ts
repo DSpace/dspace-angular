@@ -19,8 +19,8 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../empty.util';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 
 /**

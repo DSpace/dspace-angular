@@ -20,8 +20,8 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { isEmpty } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { isEmpty } from '../../empty.util';
 
 @Component({
   selector: 'ds-number-picker',

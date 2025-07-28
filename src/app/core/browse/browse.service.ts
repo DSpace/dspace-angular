@@ -18,11 +18,7 @@ import {
   hasValueOperator,
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
+} from '../../../config/utils/empty.util';
 import { SortDirection } from '../cache/models/sort-options.model';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -31,6 +27,10 @@ import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {

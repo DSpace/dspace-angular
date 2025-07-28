@@ -12,6 +12,7 @@ import { LinkService } from '@core/cache/builders/link.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Context } from '@core/shared/context.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { Item } from '@core/shared/item.model';
 import {
@@ -24,8 +25,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { hasValue } from '../../../../../shared/empty.util';
 import {
   getListableObjectComponent,
   listableObjectComponent,
@@ -34,7 +35,6 @@ import { WorkflowItemSearchResult } from '../../../../../shared/object-collectio
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)

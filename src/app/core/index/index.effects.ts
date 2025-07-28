@@ -15,7 +15,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import {
   AddToObjectCacheAction,

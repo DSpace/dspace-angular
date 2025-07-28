@@ -22,7 +22,7 @@ import {
 import {
   hasValue,
   isNotEmptyOperator,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';

@@ -28,11 +28,11 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import {
   hasValue,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilter } from '../models/search-filter.model';

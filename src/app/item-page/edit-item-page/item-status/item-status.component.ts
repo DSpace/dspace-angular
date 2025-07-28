@@ -44,11 +44,11 @@ import {
   toArray,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import { hasValue } from '../../../shared/empty.util';
 import {
   getItemEditRoute,
   getItemPageRoute,

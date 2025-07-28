@@ -18,6 +18,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { VersionDataService } from '@core/data/version-data.service';
 import { VersionHistoryDataService } from '@core/data/version-history-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import {
   getAllSucceededRemoteData,
@@ -44,18 +45,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { AlertType } from '../../shared/alert/alert-type';
-import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasValue,
   hasValueOperator,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 interface VersionsDTO {

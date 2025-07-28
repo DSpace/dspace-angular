@@ -17,12 +17,12 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
 import { FacetValue } from '../search/models/facet-value.model';
 import { FacetValues } from '../search/models/facet-values.model';
 import { GeospatialMapDetail } from './models/geospatial-map-detail.model';

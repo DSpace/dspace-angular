@@ -24,7 +24,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { AddUrlToHistoryAction } from '../history/history.actions';

@@ -6,13 +6,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { getPageInternalServerErrorRoute } from '@core/router/routing-paths';
 import { Observable } from 'rxjs';
 import {
   map,
   take,
 } from 'rxjs/operators';
 
-import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
 import { RootDataService } from '../data/root-data.service';
 
 /**

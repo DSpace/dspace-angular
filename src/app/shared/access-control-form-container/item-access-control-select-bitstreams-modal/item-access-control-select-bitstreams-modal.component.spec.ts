@@ -13,6 +13,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +26,6 @@ import {
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../testing/utils.test';
-import { FollowLinkConfig } from '../../utils/follow-link-config.model';
 import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
 
 describe('ItemAccessControlSelectBitstreamsModalComponent', () => {

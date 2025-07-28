@@ -8,7 +8,7 @@ import {
   of,
 } from 'rxjs';
 
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { EPersonMock } from './eperson.mock';
 
 export class AuthRequestServiceStub {

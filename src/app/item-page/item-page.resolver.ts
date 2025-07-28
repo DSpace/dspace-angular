@@ -16,8 +16,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { hasValue } from '../../config/utils/empty.util';
 import { AppState } from '../app.reducer';
-import { hasValue } from '../shared/empty.util';
 import { getItemPageLinksToFollow } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
 

@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 export class HALEndpointServiceStub {
 

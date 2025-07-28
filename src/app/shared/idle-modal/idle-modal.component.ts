@@ -10,9 +10,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import { hasValue } from '../empty.util';
 
 @Component({
   selector: 'ds-idle-modal',

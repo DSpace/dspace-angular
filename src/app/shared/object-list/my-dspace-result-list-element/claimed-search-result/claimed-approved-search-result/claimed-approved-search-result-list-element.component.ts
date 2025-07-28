@@ -8,6 +8,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Context } from '@core/shared/context.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
@@ -22,7 +23,6 @@ import { ClaimedApprovedTaskSearchResult } from '../../../../object-collection/s
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { followLink } from '../../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../../utils/var.directive';
 import { SearchResultListElementComponent } from '../../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-item-list-preview.component';

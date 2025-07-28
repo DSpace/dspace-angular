@@ -4,7 +4,7 @@ import {
   Selector,
 } from '@ngrx/store';
 
-import { hasValue } from '../shared/empty.util';
+import { hasValue } from '../../config/utils/empty.util';
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import {

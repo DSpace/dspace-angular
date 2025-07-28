@@ -18,6 +18,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
 import { RequestService } from '@core/data/request.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
 import {
@@ -43,7 +44,6 @@ import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relationships-utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';

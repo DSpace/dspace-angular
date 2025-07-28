@@ -17,10 +17,10 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { bgColor } from '../../../shared/animations/bgColor';
 import { rotate } from '../../../shared/animations/rotate';
 import { slide } from '../../../shared/animations/slide';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';

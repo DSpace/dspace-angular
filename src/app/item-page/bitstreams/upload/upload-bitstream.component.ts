@@ -38,13 +38,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
-import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { environment } from '../../../../environments/environment';
+import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';

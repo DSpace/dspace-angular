@@ -12,6 +12,7 @@ import { SuggestionDataService } from '@core/notifications/suggestions/suggestio
 import { SuggestionTargetDataService } from '@core/notifications/suggestions/target/suggestion-target-data.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getFinishedRemoteData,
@@ -35,13 +36,12 @@ import {
 } from 'rxjs/operators';
 
 import { SuggestionConfig } from '../../../config/suggestion-config.interfaces';
-import { environment } from '../../../environments/environment';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
 import { getSuggestionPageRoute } from '../../suggestions-page/suggestions-page-routing-paths';
 
 /**

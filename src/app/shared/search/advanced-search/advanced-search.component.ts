@@ -30,11 +30,11 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
-import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
 import { FilterType } from '../models/filter-type.model';

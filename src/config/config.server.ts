@@ -12,12 +12,12 @@ import {
 import { load } from 'js-yaml';
 import { join } from 'path';
 
-import { isNotEmpty } from '../app/shared/empty.util';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
+import { isNotEmpty } from './utils/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 

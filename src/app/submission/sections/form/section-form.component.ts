@@ -13,6 +13,7 @@ import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
@@ -45,13 +46,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
   isUndefined,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { environment } from '../../../../environments/environment';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -59,7 +60,6 @@ import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { difference } from '../../../shared/object.util';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionService } from '../../submission.service';

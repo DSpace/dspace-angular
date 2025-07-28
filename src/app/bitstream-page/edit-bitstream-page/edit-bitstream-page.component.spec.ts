@@ -36,8 +36,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
-import { hasValue } from '../../shared/empty.util';
 import {
   INotification,
   Notification,

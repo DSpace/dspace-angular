@@ -13,9 +13,9 @@ import {
   tap,
 } from 'rxjs';
 
+import { hasNoValue } from '../../config/utils/empty.util';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { hasNoValue } from '../shared/empty.util';
 import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
 
 @Component({

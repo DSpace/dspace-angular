@@ -4,12 +4,12 @@ import { GenericConstructor } from '@core/shared/generic-constructor';
 import { ViewMode } from '@core/shared/view-mode.model';
 
 import { ThemeConfig } from '../../../../../config/theme.config';
-import { environment } from '../../../../../environments/environment';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { environment } from '../../../../../environments/environment';
 import { ListableObject } from '../listable-object.model';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;

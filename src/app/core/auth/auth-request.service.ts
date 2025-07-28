@@ -8,8 +8,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import {
@@ -19,6 +18,7 @@ import {
 import { RequestService } from '../data/request.service';
 import { RestRequest } from '../data/rest-request.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';

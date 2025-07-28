@@ -22,6 +22,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
@@ -49,18 +50,17 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',

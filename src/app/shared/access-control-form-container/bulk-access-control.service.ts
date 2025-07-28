@@ -9,8 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { isNotEmpty } from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { AccessControlFormState } from './access-control-form-container-intial-state';
 

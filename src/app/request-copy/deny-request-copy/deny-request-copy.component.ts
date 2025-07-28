@@ -33,7 +33,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';

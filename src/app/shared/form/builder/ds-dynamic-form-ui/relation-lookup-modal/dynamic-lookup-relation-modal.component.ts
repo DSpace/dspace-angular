@@ -17,6 +17,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { ExternalSource } from '@core/shared/external-source.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
 import {
@@ -43,20 +44,19 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AppState } from '../../../../../app.reducer';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
+import { AppState } from '../../../../../app.reducer';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../search/models/search-result.model';
-import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import { NameVariantService } from './name-variant.service';

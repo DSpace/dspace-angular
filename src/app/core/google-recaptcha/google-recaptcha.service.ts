@@ -19,7 +19,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
 import { CookieService } from '../services/cookie.service';

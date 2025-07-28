@@ -6,8 +6,8 @@ import {
   of,
 } from 'rxjs';
 
+import { hasValue } from '../../config/utils/empty.util';
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
-import { hasValue } from '../shared/empty.util';
 
 /**
  * Service to calculate process breadcrumbs for a single part of the route

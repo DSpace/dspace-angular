@@ -8,7 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-base-loading',

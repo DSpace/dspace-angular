@@ -11,8 +11,8 @@ import {
   of,
 } from 'rxjs';
 
+import { isEmpty } from '../../../config/utils/empty.util';
 import { environment } from '../../../environments/environment';
-import { isEmpty } from '../../shared/empty.util';
 import { RestRequestMethod } from '../data/rest-request-method';
 import {
   DspaceRestService,

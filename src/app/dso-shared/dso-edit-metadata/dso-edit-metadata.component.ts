@@ -40,14 +40,14 @@ import {
 } from 'rxjs/operators';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { AlertType } from '../../shared/alert/alert-type';
-import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';

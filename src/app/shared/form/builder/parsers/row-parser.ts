@@ -10,11 +10,11 @@ import {
 } from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
 import {
   isEmpty,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';

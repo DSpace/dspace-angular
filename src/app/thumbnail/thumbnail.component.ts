@@ -22,7 +22,7 @@ import { switchMap } from 'rxjs/operators';
 import {
   hasNoValue,
   hasValue,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 

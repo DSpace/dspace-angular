@@ -32,12 +32,12 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
+import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 

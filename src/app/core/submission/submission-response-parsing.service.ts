@@ -12,7 +12,7 @@ import {
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';

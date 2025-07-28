@@ -17,7 +17,7 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { isNumeric } from '../../shared/numeric.util';
 import { difference } from '../../shared/object.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';

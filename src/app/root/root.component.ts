@@ -12,6 +12,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import { getPageInternalServerErrorRoute } from '@core/router/routing-paths';
 import {
   NativeWindowRef,
   NativeWindowService,
@@ -34,7 +35,6 @@ import { INotificationBoardOptions } from 'src/config/notifications-config.inter
 import { ThemeConfig } from '../../config/theme.config';
 import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
-import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';

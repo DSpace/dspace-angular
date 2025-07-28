@@ -42,7 +42,7 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';

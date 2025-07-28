@@ -31,7 +31,7 @@ import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeService } from './theme.service';
 

@@ -19,11 +19,7 @@ import {
   isEmpty,
   isNotEmpty,
   isUndefined,
-} from '../../../shared/empty.util';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
+} from '../../../../config/utils/empty.util';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { RemoteData } from '../../data/remote-data';
@@ -36,6 +32,10 @@ import {
 } from '../../data/request-entry-state.model';
 import { ResponseState } from '../../data/response-state.model';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';

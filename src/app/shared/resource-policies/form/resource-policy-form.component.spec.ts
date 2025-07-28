@@ -45,13 +45,13 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
+import { isNotEmptyOperator } from '../../../../config/utils/empty.util';
 import { SubmissionService } from '../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
 } from '../../date.util';
-import { isNotEmptyOperator } from '../../empty.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';

@@ -5,7 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 

@@ -8,19 +8,19 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { Collection } from '@core/shared/collection.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import {
   hasNoValue,
   hasValue,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 
 @Component({

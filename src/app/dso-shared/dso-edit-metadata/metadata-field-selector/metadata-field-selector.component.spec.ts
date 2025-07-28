@@ -12,6 +12,7 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -21,7 +22,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
 

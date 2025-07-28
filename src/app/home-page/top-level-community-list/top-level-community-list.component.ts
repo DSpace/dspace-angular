@@ -27,8 +27,8 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { fadeInOut } from '../../shared/animations/fade';
-import { hasValue } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';

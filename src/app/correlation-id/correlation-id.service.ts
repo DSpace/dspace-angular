@@ -14,16 +14,16 @@ import {
 } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
+import {
+  hasValue,
+  isEmpty,
+} from '../../config/utils/empty.util';
 import { AppState } from '../app.reducer';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,
   CORRELATION_ID_OREJIME_KEY,
 } from '../shared/cookies/orejime-configuration';
-import {
-  hasValue,
-  isEmpty,
-} from '../shared/empty.util';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { correlationIdSelector } from './correlation-id.selector';
 

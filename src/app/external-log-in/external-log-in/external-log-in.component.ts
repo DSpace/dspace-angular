@@ -26,12 +26,12 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { AlertType } from '../../shared/alert/alert-type';
 import {
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
 import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
 import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import {

@@ -4,7 +4,7 @@ import {
 } from '@angular/router';
 import { URLCombiner } from '@core/url-combiner/url-combiner';
 
-import { hasValue } from '../empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 /**
  * Util function to retrieve the current path (without query parameters) the user is on

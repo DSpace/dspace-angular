@@ -19,7 +19,7 @@ import {
 import {
   hasNoValue,
   hasValue,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 import { AbstractRouteContextMenuProvider } from './route-context.menu';
 
 /**

@@ -9,14 +9,14 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { getDSORoute } from '../../app-routing-paths';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { hasValue } from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { LinkService } from '../cache/builders/link.service';
 import { RemoteData } from '../data/remote-data';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { followLink } from '../shared/follow-link-config.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';
 

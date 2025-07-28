@@ -32,15 +32,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../config/utils/empty.util';
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import {
   dateToString,
   stringToNgbDateStruct,
 } from '../../date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {

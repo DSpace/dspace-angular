@@ -21,9 +21,10 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { hasValue } from 'src/app/shared/empty.util';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { parseCcCode } from 'src/app/shared/utils/license.utils';
+
+import { hasValue } from '../../../../../../config/utils/empty.util';
 
 
 @Component({

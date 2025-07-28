@@ -29,13 +29,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
+import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import { OrejimeService } from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,

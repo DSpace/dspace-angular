@@ -11,7 +11,7 @@ import {
   isNotNull,
   isNull,
   isUndefined,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import {
   ChangeSubmissionCollectionAction,
   CleanDuplicateDetectionAction,

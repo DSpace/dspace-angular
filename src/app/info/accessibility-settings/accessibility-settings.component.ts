@@ -22,6 +22,7 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
+import { isEmpty } from '../../../config/utils/empty.util';
 import {
   AccessibilitySetting,
   AccessibilitySettingsFormValues,
@@ -30,7 +31,6 @@ import {
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { OrejimeService } from '../../shared/cookies/orejime.service';
-import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**

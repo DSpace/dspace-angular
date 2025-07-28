@@ -13,13 +13,13 @@ import {
 import { Observable } from 'rxjs';
 
 import {
+  hasValue,
+  isNotEmpty,
+} from '../../../config/utils/empty.util';
+import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { KeyValuePair } from '../key-value-pair.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {

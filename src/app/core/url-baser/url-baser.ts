@@ -1,4 +1,4 @@
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty } from '../../../config/utils/empty.util';
 
 /**
  * Extracts the base URL

@@ -10,7 +10,7 @@ import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Registration } from '@core/shared/registration.model';
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../../config/utils/empty.util';
 
 @Injectable({
   providedIn: 'root',

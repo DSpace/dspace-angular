@@ -7,7 +7,7 @@ import {
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../../../empty.util';
+import { hasValue } from '../../../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-base-status-badge',

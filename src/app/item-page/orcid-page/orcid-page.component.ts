@@ -36,9 +36,9 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { isNotEmpty } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';

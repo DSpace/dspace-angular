@@ -22,13 +22,13 @@ import {
 } from 'rxjs';
 
 import {
+  hasNoValue,
+  isNotEmpty,
+} from '../../../../config/utils/empty.util';
+import {
   fadeIn,
   fadeInOut,
 } from '../../animations/fade';
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { ErrorComponent } from '../../error/error.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';

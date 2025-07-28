@@ -20,11 +20,11 @@ import { MenuID } from 'src/app/shared/menu/menu-id.model';
 import { MenuSection } from 'src/app/shared/menu/menu-section.model';
 import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 
-import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { MenuService } from '../../../menu/menu.service';
 
 /**

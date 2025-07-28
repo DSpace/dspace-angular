@@ -15,9 +15,9 @@ import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { followLink } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import {
   createFailedRemoteDataObject,

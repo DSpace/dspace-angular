@@ -11,13 +11,13 @@ import {
 } from 'rxjs/operators';
 
 import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../config/utils/empty.util';
+import {
   AppState,
   keySelector,
 } from '../../../app.reducer';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListDeselectAction,

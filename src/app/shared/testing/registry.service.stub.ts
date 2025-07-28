@@ -4,6 +4,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
@@ -11,7 +12,6 @@ import {
   of,
 } from 'rxjs';
 
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
 import { createPaginatedList } from './utils.test';
 
 /**

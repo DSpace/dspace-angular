@@ -23,6 +23,7 @@ import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Collection } from '@core/shared/collection.model';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
@@ -63,13 +64,13 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
-import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
   hasValueOperator,
   isNotEmpty,
-} from '../../../../shared/empty.util';
+} from '../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
@@ -78,7 +79,6 @@ import { ItemSearchResult } from '../../../../shared/object-collection/shared/it
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';

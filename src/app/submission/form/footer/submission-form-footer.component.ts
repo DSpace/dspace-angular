@@ -15,8 +15,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { SubmissionService } from '../../submission.service';
 

@@ -6,7 +6,7 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { hasValue } from '../../../../empty.util';
+import { hasValue } from '../../../../../../config/utils/empty.util';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {

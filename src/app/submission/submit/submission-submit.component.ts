@@ -31,7 +31,7 @@ import {
   isEmpty,
   isNotEmptyOperator,
   isNotNull,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
 

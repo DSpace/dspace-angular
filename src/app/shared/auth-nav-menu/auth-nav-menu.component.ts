@@ -37,6 +37,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { isNotUndefined } from '../../../config/utils/empty.util';
 import {
   AppState,
   routerStateSelector,
@@ -45,7 +46,6 @@ import {
   fadeInOut,
   fadeOut,
 } from '../animations/fade';
-import { isNotUndefined } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';

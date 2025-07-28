@@ -35,6 +35,7 @@ import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -61,7 +62,6 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';

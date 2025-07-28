@@ -25,6 +25,7 @@ import { RequestService } from '@core/data/request.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Bundle } from '@core/shared/bundle.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import {
   getAllSucceededRemoteData,
@@ -49,18 +50,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
-} from '../../../../shared/empty.util';
+} from '../../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import {
   BitstreamTableEntry,

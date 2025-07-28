@@ -7,7 +7,7 @@ import {
   filter,
 } from 'rxjs/operators';
 
-import { isNotUndefined } from '../../../shared/empty.util';
+import { isNotUndefined } from '../../../../config/utils/empty.util';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { SubmissionState } from '../../submission.reducers';
 

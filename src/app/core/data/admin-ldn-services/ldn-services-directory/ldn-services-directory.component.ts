@@ -30,7 +30,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';

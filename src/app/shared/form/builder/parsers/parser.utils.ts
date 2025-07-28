@@ -6,7 +6,7 @@ import {
 import {
   isNull,
   isUndefined,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 
 export function setLayout(model: any, controlLayout: string, controlLayoutConfig: string, style: string) {
   if (isNull(model.layout)) {

@@ -9,7 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../../shared/empty.util';
+} from '../../../../../../config/utils/empty.util';
 import { GeospatialMapComponent } from '../../../../../shared/geospatial-map/geospatial-map.component';
 import { MetadataFieldWrapperComponent } from '../../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';

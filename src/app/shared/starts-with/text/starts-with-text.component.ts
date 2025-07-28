@@ -5,7 +5,7 @@ import {
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 
 /**

@@ -8,14 +8,14 @@ import {
 } from '@angular/router';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { hasNoValue } from '../shared/empty.util';
+import { hasNoValue } from '../../config/utils/empty.util';
 
 /**
  * Redirects to a bitstream based on the handle of the item, and the sequence id or the filename of the

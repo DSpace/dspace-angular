@@ -45,12 +45,12 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';

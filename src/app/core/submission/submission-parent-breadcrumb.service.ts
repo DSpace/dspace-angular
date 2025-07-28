@@ -6,12 +6,12 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import {
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
+import { getDSORoute } from '../../app-routing-paths';
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { SubmissionService } from '../../submission/submission.service';
 import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
 import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';

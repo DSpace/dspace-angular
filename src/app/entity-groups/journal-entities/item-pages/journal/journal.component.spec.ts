@@ -44,6 +44,7 @@ import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '../../../../../config/app-config.interface';
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { MetadataValuesComponent } from '../../../../item-page/field-components/metadata-values/metadata-values.component';
 import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
@@ -52,7 +53,6 @@ import { ThemedMetadataRepresentationListComponent } from '../../../../item-page
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';

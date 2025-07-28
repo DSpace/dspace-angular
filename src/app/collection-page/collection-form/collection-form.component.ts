@@ -30,11 +30,11 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
 import {
   hasNoValue,
   isNotNull,
-} from 'src/app/shared/empty.util';
-
+} from '../../../config/utils/empty.util';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';

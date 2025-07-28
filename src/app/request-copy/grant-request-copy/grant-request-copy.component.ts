@@ -31,8 +31,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';

@@ -8,7 +8,7 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { hasValue } from '../../../../../empty.util';
+import { hasValue } from '../../../../../../../config/utils/empty.util';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   vocabularyOptions: VocabularyOptions;

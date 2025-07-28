@@ -21,7 +21,7 @@ import {
   hasNoValue,
   hasValue,
   isUndefined,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 
 @Injectable({

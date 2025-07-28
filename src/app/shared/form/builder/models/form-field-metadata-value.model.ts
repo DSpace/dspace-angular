@@ -9,7 +9,7 @@ import {
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '../../../empty.util';
+} from '../../../../../config/utils/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface OtherInformation {

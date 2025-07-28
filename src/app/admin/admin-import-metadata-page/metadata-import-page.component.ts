@@ -15,8 +15,8 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 

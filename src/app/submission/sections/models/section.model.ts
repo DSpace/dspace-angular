@@ -16,7 +16,7 @@ import {
 import {
   hasValue,
   isNotUndefined,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from './section-data.model';
 

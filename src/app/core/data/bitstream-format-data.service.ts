@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
   tap,
 } from 'rxjs/operators';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

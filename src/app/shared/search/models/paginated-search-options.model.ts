@@ -2,7 +2,7 @@ import { SortOptions } from '@core/cache/models/sort-options.model';
 import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 
-import { isNotEmpty } from '../../empty.util';
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { SearchFilter } from './search-filter.model';
 import { SearchOptions } from './search-options.model';

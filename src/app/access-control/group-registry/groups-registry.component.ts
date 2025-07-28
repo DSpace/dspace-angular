@@ -27,6 +27,7 @@ import { GroupDtoModel } from '@core/eperson/models/group-dto.model';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { RouteService } from '@core/services/route.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
@@ -60,14 +61,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-groups-registry',

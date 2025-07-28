@@ -12,7 +12,7 @@ import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { AuthService } from '../../auth/auth.service';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';

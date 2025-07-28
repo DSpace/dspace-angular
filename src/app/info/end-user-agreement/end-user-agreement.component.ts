@@ -22,9 +22,9 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { AppState } from '../../app.reducer';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 

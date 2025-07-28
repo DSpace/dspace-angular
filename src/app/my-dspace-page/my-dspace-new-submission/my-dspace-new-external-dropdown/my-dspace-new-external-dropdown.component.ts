@@ -24,8 +24,8 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../../../config/utils/empty.util';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 

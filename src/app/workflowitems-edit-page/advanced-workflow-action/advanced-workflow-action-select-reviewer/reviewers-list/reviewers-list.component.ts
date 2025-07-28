@@ -38,6 +38,7 @@ import {
   of,
 } from 'rxjs';
 
+import { hasValue } from '../../../../../config/utils/empty.util';
 import {
   EPersonListActionConfig,
   MembersListComponent,
@@ -45,7 +46,6 @@ import {
 import { GroupRegistryService } from '../../../../access-control/group-registry/group-registry.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 

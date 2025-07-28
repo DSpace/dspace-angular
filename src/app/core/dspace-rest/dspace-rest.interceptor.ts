@@ -16,7 +16,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty } from '../../../config/utils/empty.util';
 
 @Injectable()
 /**

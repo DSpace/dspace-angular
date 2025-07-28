@@ -30,8 +30,8 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { hasValue } from '../../../../../../../config/utils/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MetadatumViewModel } from '@core/shared/metadata.models';
 import { Operation } from 'fast-json-patch';
 
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import { FieldChangeType } from '../field-change-type.model';
 import { FieldUpdates } from '../field-updates.model';
 import { MetadataPatchAddOperation } from './operations/metadata/metadata-patch-add-operation.model';

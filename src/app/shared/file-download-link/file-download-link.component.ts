@@ -30,14 +30,14 @@ import {
 import { map } from 'rxjs/operators';
 
 import {
+  hasValue,
+  isNotEmpty,
+} from '../../../config/utils/empty.util';
+import {
   getBitstreamDownloadRoute,
   getBitstreamDownloadWithAccessTokenRoute,
   getBitstreamRequestACopyRoute,
 } from '../../app-routing-paths';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
 @Component({

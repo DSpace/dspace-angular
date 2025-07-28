@@ -3,6 +3,7 @@ import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '@core/shared/metadata.models';
@@ -13,8 +14,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
 
 /**
  * Stub class of {@link RelationshipDataService}

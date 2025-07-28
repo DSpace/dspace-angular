@@ -35,13 +35,13 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { AlertComponent } from '../../../../alert/alert.component';
-import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
 import {
   hasNoValue,
   hasValue,
-} from '../../../../empty.util';
+} from '../../../../../../config/utils/empty.util';
+import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
+import { AlertComponent } from '../../../../alert/alert.component';
+import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';

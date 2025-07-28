@@ -25,7 +25,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty } from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';

@@ -38,13 +38,12 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+} from '../../../config/utils/empty.util';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
@@ -60,6 +59,7 @@ import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { followLink } from '../shared/follow-link-config.model';
 import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,

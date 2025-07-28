@@ -7,7 +7,7 @@
  */
 import { Observable } from 'rxjs';
 
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue } from '../../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';

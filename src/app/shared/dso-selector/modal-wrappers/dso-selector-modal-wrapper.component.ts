@@ -18,7 +18,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   hasValue,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
 
 export enum SelectorActionType {
   CREATE = 'create',

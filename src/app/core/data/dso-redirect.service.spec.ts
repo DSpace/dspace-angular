@@ -5,10 +5,10 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { AppConfig } from '../../../config/app-config.interface';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';

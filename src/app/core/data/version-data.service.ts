@@ -9,10 +9,10 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { isNotEmpty } from '../../../config/utils/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { Version } from '../shared/version.model';

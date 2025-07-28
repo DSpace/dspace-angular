@@ -18,7 +18,7 @@ import {
 import {
   hasNoValue,
   hasValue,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';
 import { getComponentForMenuItemType } from '../menu-item.decorator';

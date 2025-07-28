@@ -29,7 +29,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   isEmpty,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';

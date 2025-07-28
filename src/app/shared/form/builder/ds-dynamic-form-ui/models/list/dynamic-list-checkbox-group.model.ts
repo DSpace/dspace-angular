@@ -9,7 +9,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { hasValue } from '../../../../../empty.util';
+import { hasValue } from '../../../../../../../config/utils/empty.util';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {
   vocabularyOptions: VocabularyOptions;

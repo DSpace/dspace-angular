@@ -1,6 +1,6 @@
 import { Context } from '@core/shared/context.model';
 
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../../config/utils/empty.util';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,

@@ -23,6 +23,7 @@ import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { RemoteData } from '@core/data/remote-data';
 import { SignpostingDataService } from '@core/data/signposting-data.service';
 import { SignpostingLink } from '@core/data/signposting-links.model';
+import { getForbiddenRoute } from '@core/router/routing-paths';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { ServerResponseService } from '@core/services/server-response.service';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
@@ -42,11 +43,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { MatomoService } from '../../statistics/matomo.service';
 
 @Component({

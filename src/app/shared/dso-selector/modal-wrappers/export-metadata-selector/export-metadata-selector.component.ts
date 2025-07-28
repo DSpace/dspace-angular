@@ -39,9 +39,9 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../../config/utils/empty.util';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {

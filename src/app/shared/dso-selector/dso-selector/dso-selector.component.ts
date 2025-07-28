@@ -59,7 +59,7 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { NotificationType } from '../../notifications/models/notification-type';

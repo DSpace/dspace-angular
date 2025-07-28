@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 import {
   hasValue,
   isNotEmpty,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 

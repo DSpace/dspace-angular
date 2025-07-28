@@ -26,12 +26,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   hasValueOperator,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

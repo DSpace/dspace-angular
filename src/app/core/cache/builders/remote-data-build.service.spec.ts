@@ -14,10 +14,6 @@ import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
 import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
-import {
   buildPaginatedList,
   PaginatedList,
 } from '../../data/paginated-list.model';
@@ -25,6 +21,10 @@ import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
 import { RequestEntryState } from '../../data/request-entry-state.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/follow-link-config.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { Item } from '../../shared/item.model';
 import { ITEM } from '../../shared/item.resource-type';

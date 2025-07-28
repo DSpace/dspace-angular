@@ -20,8 +20,8 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../../config/utils/empty.util';
 import { fromTopEnter } from '../../../shared/animations/fromTop';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { SuggestionsService } from '../suggestions.service';
 import { SuggestionTargetsStateService } from '../targets/suggestion-targets.state.service';
 

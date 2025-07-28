@@ -23,7 +23,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
-} from '../../shared/empty.util';
+} from '../../../config/utils/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { BrowseService } from '../browse/browse.service';

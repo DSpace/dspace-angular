@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { isEmpty } from '../../../empty.util';
+import { isEmpty } from '../../../../../config/utils/empty.util';
 
 @Component({
   selector: 'ds-log-in-external-provider',

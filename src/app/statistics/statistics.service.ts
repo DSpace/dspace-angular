@@ -11,7 +11,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '../shared/empty.util';
+} from '../../config/utils/empty.util';
 import { SearchOptions } from '../shared/search/models/search-options.model';
 import { TrackRequest } from './track-request.model';
 

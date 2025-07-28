@@ -13,6 +13,7 @@ import {
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
+import { followLink } from '@core/shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
@@ -38,14 +39,13 @@ import {
 } from 'src/config/app-config.interface';
 import { v4 as uuidv4 } from 'uuid';
 
-import { AppState } from '../app.reducer';
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
 import {
   hasValue,
   isNotEmpty,
-} from '../shared/empty.util';
-import { followLink } from '../shared/utils/follow-link-config.model';
+} from '../../config/utils/empty.util';
+import { AppState } from '../app.reducer';
+import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { FlatNode } from './flat-node.model';

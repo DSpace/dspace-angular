@@ -27,12 +27,12 @@ import {
 } from 'ng2-file-upload';
 import { of } from 'rxjs';
 
-import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
   isUndefined,
-} from '../../empty.util';
+} from '../../../../config/utils/empty.util';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';
 

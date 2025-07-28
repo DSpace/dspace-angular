@@ -8,7 +8,7 @@ import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../../../../shared/empty.util';
+import { isNotEmpty } from '../../../../../../config/utils/empty.util';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';

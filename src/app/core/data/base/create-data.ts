@@ -16,7 +16,7 @@ import {
 import {
   hasValue,
   isNotEmptyOperator,
-} from '../../../shared/empty.util';
+} from '../../../../config/utils/empty.util';
 import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getClassForType } from '../../cache/builders/build-decorators';

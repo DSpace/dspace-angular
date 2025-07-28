@@ -22,12 +22,12 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { AppState } from '../../app.reducer';
 import {
   isEmpty,
   isNotUndefined,
-} from '../empty.util';
+} from '../../../config/utils/empty.util';
+import { environment } from '../../../environments/environment';
+import { AppState } from '../../app.reducer';
 import { FormBuilderService } from './builder/form-builder.service';
 import {
   FormAddError,

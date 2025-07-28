@@ -24,21 +24,17 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import {
-  compareArraysUsingIds,
-  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
-  relationsToItems,
-} from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import {
   hasValue,
   hasValueOperator,
   isNotEmpty,
   isNotEmptyOperator,
-} from '../../shared/empty.util';
-import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+} from '../../../config/utils/empty.util';
 import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
+  compareArraysUsingIds,
+  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
+  relationsToItems,
+} from '../../item-page/simple/item-types/shared/item-relationships-utils';
+import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -46,6 +42,10 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { MetadataService } from '../metadata/metadata.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
