@@ -8,10 +8,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
@@ -22,6 +18,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

@@ -9,8 +9,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';

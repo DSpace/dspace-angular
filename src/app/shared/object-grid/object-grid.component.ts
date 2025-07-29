@@ -9,10 +9,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
-import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
@@ -21,6 +17,10 @@ import { RemoteData } from '@core/data/remote-data';
 import { Context } from '@core/shared/context.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

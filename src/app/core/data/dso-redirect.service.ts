@@ -14,7 +14,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import { hasValue } from '@config/utils/empty.util';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

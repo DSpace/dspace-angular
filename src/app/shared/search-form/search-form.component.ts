@@ -8,10 +8,6 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
@@ -25,6 +21,10 @@ import {
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 

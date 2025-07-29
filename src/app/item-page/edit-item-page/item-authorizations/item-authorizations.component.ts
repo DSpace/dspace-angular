@@ -5,10 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import {
@@ -25,6 +21,10 @@ import {
 } from '@core/shared/operators';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 import {
   BehaviorSubject,

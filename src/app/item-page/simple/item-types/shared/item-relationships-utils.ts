@@ -1,10 +1,10 @@
 import { InjectionToken } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

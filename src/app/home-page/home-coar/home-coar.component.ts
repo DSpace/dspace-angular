@@ -6,13 +6,13 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import {
   LinkDefinition,
   LinkHeadService,
 } from '@core/services/link-head.service';
 import { ServerResponseService } from '@core/services/server-response.service';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   of,
   Subscription,

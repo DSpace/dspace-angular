@@ -16,7 +16,6 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -36,6 +35,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import {
   BehaviorSubject,

@@ -12,7 +12,7 @@ import {
   hasValueOperator,
   isNotEmpty,
   isNotEmptyOperator,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

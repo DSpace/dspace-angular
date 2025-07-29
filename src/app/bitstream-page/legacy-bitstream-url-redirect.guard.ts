@@ -6,13 +6,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { hasNoValue } from '@config/utils/empty.util';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { hasNoValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

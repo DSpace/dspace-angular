@@ -9,7 +9,6 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -45,6 +44,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

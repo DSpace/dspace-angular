@@ -5,11 +5,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '@config/utils/empty.util';
 import { AccessesConditionOption } from '@core/config/models/config-accesses-conditions-options.model';
 import { SubmissionAccessesConfigDataService } from '@core/config/submission-accesses-config-data.service';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
@@ -33,6 +28,12 @@ import {
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { TranslateService } from '@ngx-translate/core';
+import { dateToISOFormat } from '@shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,
@@ -46,7 +47,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { dateToISOFormat } from '../../../shared/date.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';

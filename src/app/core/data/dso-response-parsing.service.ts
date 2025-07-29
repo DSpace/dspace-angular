@@ -9,7 +9,7 @@ import {
 import {
   hasNoValue,
   hasValue,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {

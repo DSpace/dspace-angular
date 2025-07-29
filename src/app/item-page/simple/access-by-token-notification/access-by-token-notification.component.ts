@@ -4,19 +4,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { ItemRequest } from '@core/shared/item-request.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import {
   dateToString,
   stringToNgbDateStruct,
-} from '../../../shared/date.util';
+} from '@shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({

@@ -43,7 +43,8 @@
     "useUnknownInCatchVariables": true,
     "paths": {
       "@core/*": ["src/app/core/*"],
-      "@config/*": ["src/config/*"]
+      "@config/*": ["src/config/*"],
+      "@shared/utils/*": ["src/app/utils/*"]
     }
   },
   "angularCompilerOptions": {

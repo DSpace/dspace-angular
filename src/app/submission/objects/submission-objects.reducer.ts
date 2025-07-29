@@ -1,3 +1,4 @@
+import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
 import {
   hasValue,
   isEmpty,
@@ -5,8 +6,7 @@ import {
   isNotNull,
   isNull,
   isUndefined,
-} from '@config/utils/empty.util';
-import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
+} from '@shared/utils/empty.util';
 import differenceWith from 'lodash/differenceWith';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';

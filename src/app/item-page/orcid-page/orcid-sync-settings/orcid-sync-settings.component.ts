@@ -11,7 +11,6 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
-import { hasValue } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
@@ -25,6 +24,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   BehaviorSubject,

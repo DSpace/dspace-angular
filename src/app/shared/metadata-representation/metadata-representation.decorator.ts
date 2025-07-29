@@ -1,11 +1,11 @@
 import { InjectionToken } from '@angular/core';
-import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
 import { Context } from '@core/shared/context.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { MetadataRepresentationType } from '@core/shared/metadata-representation/metadata-representation.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 
 import { OrgUnitItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
 import { PersonItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/person/person-item-metadata-list-element.component';

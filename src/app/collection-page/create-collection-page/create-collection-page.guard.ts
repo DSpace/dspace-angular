@@ -5,14 +5,14 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Community } from '@core/shared/community.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   of,

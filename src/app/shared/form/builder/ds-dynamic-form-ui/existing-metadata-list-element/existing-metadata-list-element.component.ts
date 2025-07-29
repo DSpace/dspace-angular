@@ -10,10 +10,6 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '@core/shared/metadata.models';
@@ -26,6 +22,10 @@ import {
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Subscription,

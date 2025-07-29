@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BundleDataService } from '@core/data/bundle-data.service';
@@ -21,6 +17,10 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 import { MoveOperation } from 'fast-json-patch';
 import {
   BehaviorSubject,

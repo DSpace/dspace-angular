@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { RequestService } from '@core/data/request.service';
 import { RestRequest } from '@core/data/rest-request.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   map,
   take,

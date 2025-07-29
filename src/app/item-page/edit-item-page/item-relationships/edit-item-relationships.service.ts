@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
@@ -23,6 +22,7 @@ import {
 } from '@core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

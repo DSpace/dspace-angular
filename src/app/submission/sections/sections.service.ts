@@ -1,10 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { WorkspaceitemSectionDataType } from '@core/submission/models/workspaceitem-sections.model';
@@ -17,6 +11,12 @@ import {
   ScrollToConfigOptions,
   ScrollToService,
 } from '@nicky-lenaers/ngx-scroll-to';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';

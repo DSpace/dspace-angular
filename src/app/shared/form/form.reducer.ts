@@ -1,4 +1,4 @@
-import { hasValue } from '@config/utils/empty.util';
+import { hasValue } from '@shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 

@@ -2,8 +2,8 @@ import {
   CollectionViewer,
   DataSource,
 } from '@angular/cdk/collections';
-import { hasValue } from '@config/utils/empty.util';
 import { FindListOptions } from '@core/data/find-list-options.model';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

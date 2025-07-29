@@ -12,10 +12,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -33,6 +29,10 @@ import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '@core/submission/submission-duplicate-data.service';
 import { PoolTask } from '@core/tasks/models/pool-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

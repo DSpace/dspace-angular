@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { Script } from '@core/shared/scripts/script.model';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,

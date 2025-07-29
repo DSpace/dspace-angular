@@ -12,11 +12,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
@@ -47,6 +42,11 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   Observable,

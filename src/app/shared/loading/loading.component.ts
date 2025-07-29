@@ -5,8 +5,8 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 
 @Component({

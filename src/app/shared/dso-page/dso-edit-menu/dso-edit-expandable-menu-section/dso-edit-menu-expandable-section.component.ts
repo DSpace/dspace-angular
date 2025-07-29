@@ -10,14 +10,14 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
-import {
   NgbDropdownModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuID } from 'src/app/shared/menu/menu-id.model';

@@ -18,7 +18,6 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
-import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -34,6 +33,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,

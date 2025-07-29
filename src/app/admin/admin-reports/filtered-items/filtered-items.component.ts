@@ -11,7 +11,6 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { isEmpty } from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -34,6 +33,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   map,

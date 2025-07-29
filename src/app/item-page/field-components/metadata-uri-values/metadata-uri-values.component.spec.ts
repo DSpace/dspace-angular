@@ -10,12 +10,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@config/app-config.interface';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { MetadataValue } from '@core/shared/metadata.models';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 
 import { environment } from '../../../../environments/environment';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';

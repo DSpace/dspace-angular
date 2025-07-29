@@ -21,10 +21,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
@@ -45,6 +41,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

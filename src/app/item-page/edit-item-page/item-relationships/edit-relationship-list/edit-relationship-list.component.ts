@@ -15,12 +15,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
@@ -50,6 +44,12 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

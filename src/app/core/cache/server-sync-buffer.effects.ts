@@ -6,11 +6,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import {
   Actions,
@@ -24,6 +19,11 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,

@@ -11,7 +11,6 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { ItemTemplateDataService } from '@core/data/item-template-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -27,6 +26,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   combineLatest as combineLatestObservable,
   Observable,

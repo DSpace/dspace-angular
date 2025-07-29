@@ -9,10 +9,6 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@config/utils/empty.util';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -30,6 +26,10 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

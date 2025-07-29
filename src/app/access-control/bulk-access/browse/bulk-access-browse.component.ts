@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -19,6 +18,7 @@ import {
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {
   BehaviorSubject,

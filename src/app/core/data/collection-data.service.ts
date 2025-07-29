@@ -1,11 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
-} from '@config/utils/empty.util';
-import { TranslateService } from '@ngx-translate/core';
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,

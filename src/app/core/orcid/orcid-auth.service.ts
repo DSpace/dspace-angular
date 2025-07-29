@@ -3,7 +3,7 @@ import {
   Injectable,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   AddOperation,
   RemoveOperation,

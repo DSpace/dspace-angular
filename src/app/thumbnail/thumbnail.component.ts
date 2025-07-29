@@ -9,10 +9,6 @@ import {
   SimpleChanges,
   WritableSignal,
 } from '@angular/core';
-import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -20,6 +16,10 @@ import { RemoteData } from '@core/data/remote-data';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { FileService } from '@core/shared/file.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 

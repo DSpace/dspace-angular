@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -12,10 +9,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { ComColDataService } from '@core/data/comcol-data.service';
@@ -45,6 +38,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { FileUploader } from 'ng2-file-upload';
 import {
@@ -78,7 +75,6 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
     AsyncPipe,
     ComcolPageLogoComponent,
     FormComponent,
-    NgClass,
     TranslateModule,
     UploaderComponent,
     VarDirective,

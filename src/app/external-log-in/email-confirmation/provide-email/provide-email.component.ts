@@ -10,8 +10,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { hasValue } from '@config/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 
 import { ExternalLoginService } from '../../services/external-login.service';

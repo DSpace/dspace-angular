@@ -5,7 +5,6 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { Bitstream } from '@core/shared/bitstream.model';
@@ -15,6 +14,7 @@ import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -26,7 +26,6 @@ import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
-import { VarDirective } from '../../../utils/var.directive';
 import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-field/themed-item-detail-preview-field.component';
 
 /**
@@ -48,7 +47,6 @@ import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-fie
     ThemedItemPageTitleFieldComponent,
     ThemedThumbnailComponent,
     TranslateModule,
-    VarDirective,
   ],
 })
 export class ItemDetailPreviewComponent implements OnChanges {

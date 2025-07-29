@@ -6,12 +6,6 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
@@ -27,6 +21,12 @@ import {
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

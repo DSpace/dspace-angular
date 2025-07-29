@@ -15,10 +15,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
@@ -40,6 +36,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   from as observableFrom,

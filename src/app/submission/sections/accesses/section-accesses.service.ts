@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { isNotUndefined } from '@config/utils/empty.util';
 import { WorkspaceitemSectionAccessesObject } from '@core/submission/models/workspaceitem-section-accesses.model';
 import { Store } from '@ngrx/store';
+import { isNotUndefined } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,

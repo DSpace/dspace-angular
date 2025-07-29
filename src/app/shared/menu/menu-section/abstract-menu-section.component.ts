@@ -4,11 +4,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   hasNoValue,
   hasValue,
-} from '@config/utils/empty.util';
-import { GenericConstructor } from '@core/shared/generic-constructor';
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

@@ -7,7 +7,6 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
@@ -23,6 +22,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   map,
   Observable,

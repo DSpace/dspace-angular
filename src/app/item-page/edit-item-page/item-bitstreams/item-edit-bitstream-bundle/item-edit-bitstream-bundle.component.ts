@@ -13,10 +13,6 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BundleDataService } from '@core/data/bundle-data.service';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
@@ -40,6 +36,10 @@ import {
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

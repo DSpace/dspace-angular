@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgClass,
 } from '@angular/common';
 import {
   Component,
@@ -10,10 +9,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -37,6 +32,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,
@@ -80,7 +79,6 @@ interface VersionDTO {
     DatePipe,
     FormsModule,
     ItemVersionsRowElementVersionComponent,
-    NgClass,
     PaginationComponent,
     TranslateModule,
   ],

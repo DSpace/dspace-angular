@@ -3,15 +3,15 @@ import {
   Component,
   Inject,
 } from '@angular/core';
-import {
-  hasValue,
-  isEmpty,
-} from '@config/utils/empty.util';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionSherpaPoliciesObject } from '@core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

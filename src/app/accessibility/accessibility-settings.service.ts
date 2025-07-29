@@ -7,11 +7,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { CookieService } from '@core/cookies/cookie.service';
 import { OrejimeService } from '@core/cookies/orejime.service';
@@ -19,6 +14,11 @@ import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,

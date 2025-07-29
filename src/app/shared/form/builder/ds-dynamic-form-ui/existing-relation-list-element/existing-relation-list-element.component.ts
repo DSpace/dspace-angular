@@ -9,10 +9,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { Item } from '@core/shared/item.model';
 import {
   getAllSucceededRemoteData,
@@ -20,6 +16,10 @@ import {
 } from '@core/shared/operators';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { Store } from '@ngrx/store';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

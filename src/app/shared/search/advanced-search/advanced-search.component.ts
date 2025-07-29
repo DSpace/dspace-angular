@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -18,15 +15,15 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { FilterConfig } from '@core/shared/search/search-filters/search-config.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   of,
@@ -53,7 +50,6 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
     BtnDisabledDirective,
     FilterInputSuggestionsComponent,
     FormsModule,
-    KeyValuePipe,
     TranslateModule,
   ],
 })

@@ -2,8 +2,8 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { hasNoValue } from '@config/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
+import { hasNoValue } from '@shared/utils/empty.util';
 import {
   cold,
   getTestScheduler,

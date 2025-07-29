@@ -18,10 +18,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { GroupDataService } from '@core/eperson/group-data.service';
@@ -33,14 +29,18 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '@shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
-import {
-  dateToString,
-  stringToNgbDateStruct,
-} from '../../date.util';
 import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {

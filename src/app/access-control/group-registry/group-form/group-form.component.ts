@@ -16,11 +16,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -52,6 +47,11 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,

@@ -8,7 +8,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
 import { RemoteData } from '@core/data/remote-data';
@@ -25,6 +24,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   combineLatest,

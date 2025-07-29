@@ -1,8 +1,9 @@
-import { hasNoValue } from '@config/utils/empty.util';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { isValid } from 'date-fns';
 import { formatInTimeZone }  from 'date-fns-tz';
 import isObject from 'lodash/isObject';
+
+import { hasNoValue } from './empty.util';
 
 /**
  * Returns true if the passed value is a NgbDateStruct.

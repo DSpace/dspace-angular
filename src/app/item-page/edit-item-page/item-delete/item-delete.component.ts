@@ -11,10 +11,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { LinkService } from '@core/cache/builders/link.service';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -41,6 +37,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

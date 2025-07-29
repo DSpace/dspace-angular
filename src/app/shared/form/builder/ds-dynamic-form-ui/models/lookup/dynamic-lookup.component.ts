@@ -16,11 +16,6 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
-import {
   buildPaginatedList,
   PaginatedList,
 } from '@core/data/paginated-list.model';
@@ -39,6 +34,11 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   of,

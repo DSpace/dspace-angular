@@ -4,12 +4,6 @@ import {
   Component,
   Inject,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AccessConditionOption } from '@core/config/models/config-access-condition-option.model';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
@@ -25,6 +19,12 @@ import { followLink } from '@core/shared/follow-link-config.model';
 import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

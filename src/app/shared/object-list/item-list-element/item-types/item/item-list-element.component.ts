@@ -2,9 +2,9 @@ import {
   Component,
   OnChanges,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { hasValue } from '@shared/utils/empty.util';
 
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';

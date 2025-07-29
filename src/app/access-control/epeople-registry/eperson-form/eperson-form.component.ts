@@ -13,7 +13,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
@@ -47,6 +46,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

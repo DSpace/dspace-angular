@@ -17,7 +17,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
@@ -28,6 +27,7 @@ import {
 import { Script } from '@core/shared/scripts/script.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,

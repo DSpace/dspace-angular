@@ -9,7 +9,6 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
-import { isEmpty } from '@config/utils/empty.util';
 import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { LazyDataServicesMap } from '@core/data-services-map';
@@ -17,6 +16,7 @@ import { lazyDataService } from '@core/lazy-data-service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { ResourceType } from '@core/shared/resource-type';
+import { isEmpty } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 

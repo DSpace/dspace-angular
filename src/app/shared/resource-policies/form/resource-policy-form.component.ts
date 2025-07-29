@@ -9,12 +9,6 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
@@ -37,6 +31,16 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '@shared/utils/date.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
+import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
@@ -50,10 +54,6 @@ import {
 } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '../../date.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';

@@ -12,7 +12,6 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -28,6 +27,7 @@ import {
   getFirstCompletedRemoteData,
 } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

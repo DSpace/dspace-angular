@@ -22,12 +22,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -44,6 +38,12 @@ import { ViewMode } from '@core/shared/view-mode.model';
 import { SubmissionObject } from '@core/submission/models/submission-object.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,

@@ -13,7 +13,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { QualityAssuranceTopicObject } from '@core/notifications/qa/models/quality-assurance-topic.model';
@@ -24,6 +23,7 @@ import {
   getRemoteDataPayload,
 } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

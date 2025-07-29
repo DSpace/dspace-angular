@@ -14,10 +14,6 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
-import {
-  hasValue,
-  isUndefined,
-} from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -30,6 +26,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  isUndefined,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   filter,

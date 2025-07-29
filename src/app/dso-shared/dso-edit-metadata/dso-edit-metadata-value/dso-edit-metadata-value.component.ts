@@ -17,7 +17,6 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { MetadataService } from '@core/metadata/metadata.service';
@@ -32,6 +31,7 @@ import {
 import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   EMPTY,
   Observable,

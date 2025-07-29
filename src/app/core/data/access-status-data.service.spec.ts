@@ -2,7 +2,7 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { hasNoValue } from '@config/utils/empty.util';
+import { hasNoValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';

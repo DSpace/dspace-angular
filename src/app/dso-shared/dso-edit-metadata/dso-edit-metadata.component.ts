@@ -14,11 +14,6 @@ import {
   Data,
 } from '@angular/router';
 import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { ArrayMoveChangeAnalyzer } from '@core/data/array-move-change-analyzer.service';
 import { RemoteData } from '@core/data/remote-data';
 import { UpdateDataService } from '@core/data/update-data.service';
@@ -32,6 +27,11 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

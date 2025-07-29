@@ -13,10 +13,10 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import { Subscription } from 'rxjs';
 

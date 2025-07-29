@@ -5,7 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -14,6 +13,7 @@ import { followLink } from '@core/shared/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   EMPTY,
   Observable,

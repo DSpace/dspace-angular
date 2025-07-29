@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import {
   SortDirection,
@@ -11,6 +10,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { QualityAssuranceTopicObject } from '@core/notifications/qa/models/quality-assurance-topic.model';
 import { QualityAssuranceTopicDataService } from '@core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

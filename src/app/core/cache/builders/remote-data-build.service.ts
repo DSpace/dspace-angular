@@ -5,7 +5,7 @@ import {
   isEmpty,
   isNotEmpty,
   isUndefined,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import {
   AsyncSubject,
   combineLatest as observableCombineLatest,

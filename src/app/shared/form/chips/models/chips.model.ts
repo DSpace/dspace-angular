@@ -1,9 +1,9 @@
 import { MetadataIconConfig } from '@config/submission-config.interface';
+import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+} from '@shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';

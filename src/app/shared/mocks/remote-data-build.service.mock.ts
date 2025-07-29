@@ -1,4 +1,3 @@
-import { hasValue } from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import {
   buildPaginatedList,
@@ -8,6 +7,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { RequestEntry } from '@core/data/request-entry.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,

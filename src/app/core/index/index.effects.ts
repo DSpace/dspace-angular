@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import {
   Actions,
@@ -10,6 +9,7 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   filter,
   map,

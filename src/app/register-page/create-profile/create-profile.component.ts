@@ -15,7 +15,6 @@ import {
   Router,
 } from '@angular/router';
 import { LangConfig } from '@config/lang-config.interface';
-import { isEmpty } from '@config/utils/empty.util';
 import { AuthenticateAction } from '@core/auth/auth.actions';
 import { CoreState } from '@core/core-state.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -35,6 +34,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -10,13 +10,13 @@ import {
 } from '@angular/core';
 import { INotificationBoardOptions } from '@config/notifications-config.interfaces';
 import {
-  hasNoValue,
-  isNotEmptyOperator,
-} from '@config/utils/empty.util';
-import {
   select,
   Store,
 } from '@ngrx/store';
+import {
+  hasNoValue,
+  isNotEmptyOperator,
+} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 import differenceWith from 'lodash/differenceWith';
 import {

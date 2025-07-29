@@ -4,7 +4,7 @@ import {
   hasValue,
   hasValueOperator,
   isNotEmpty,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   interval,

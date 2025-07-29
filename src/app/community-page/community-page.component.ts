@@ -10,7 +10,6 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
@@ -21,6 +20,7 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { Community } from '@core/shared/community.model';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,

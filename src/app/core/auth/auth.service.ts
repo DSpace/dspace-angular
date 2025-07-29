@@ -10,6 +10,11 @@ import {
   AppConfig,
 } from '@config/app-config.interface';
 import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import {
   hasNoValue,
   hasValue,
   hasValueOperator,
@@ -17,12 +22,7 @@ import {
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-} from '@config/utils/empty.util';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+} from '@shared/utils/empty.util';
 import { CookieAttributes } from 'js-cookie';
 import {
   Observable,

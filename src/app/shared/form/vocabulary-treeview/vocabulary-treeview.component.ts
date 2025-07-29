@@ -16,11 +16,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -31,6 +26,11 @@ import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabula
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

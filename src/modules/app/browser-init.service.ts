@@ -22,7 +22,6 @@ import {
 import { BuildConfig } from '@config/build-config.interface';
 import { extendEnvironmentWithAppConfig } from '@config/config.util';
 import { DefaultAppConfig } from '@config/default-app-config';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { OrejimeService } from '@core/cookies/orejime.service';
 import { coreSelector } from '@core/core.selectors';
@@ -34,6 +33,7 @@ import { HeadTagService } from '@core/metadata/head-tag.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   firstValueFrom,
   lastValueFrom,

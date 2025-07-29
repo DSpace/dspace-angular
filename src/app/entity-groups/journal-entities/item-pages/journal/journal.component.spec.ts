@@ -15,7 +15,6 @@ import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '@config/app-config.interface';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -43,6 +42,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { MetadataValuesComponent } from '../../../../item-page/field-components/metadata-values/metadata-values.component';

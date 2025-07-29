@@ -5,12 +5,6 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isUndefined,
-} from '@config/utils/empty.util';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { ConfigObject } from '@core/config/models/config.model';
 import { FormRowModel } from '@core/config/models/config-submission-form.model';
@@ -35,6 +29,13 @@ import {
   DynamicFormControlModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '@shared/utils/empty.util';
+import { difference } from '@shared/utils/object.util';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import {
@@ -59,7 +60,6 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { difference } from '../../../shared/object.util';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionService } from '../../submission.service';

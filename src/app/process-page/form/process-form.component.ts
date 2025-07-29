@@ -13,7 +13,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Process } from '@core/processes/process.model';
@@ -25,6 +24,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';

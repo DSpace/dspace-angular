@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   Inject,
@@ -14,11 +11,11 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import { hasValue } from '@config/utils/empty.util';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { MetadataValue } from '@core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '@core/shared/value-list-browse-definition.resource-type';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 
 import { environment } from '../../../../environments/environment';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -35,7 +32,6 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   templateUrl: './metadata-values.component.html',
   standalone: true,
   imports: [
-    AsyncPipe,
     MarkdownDirective,
     MetadataFieldWrapperComponent,
     NgTemplateOutlet,

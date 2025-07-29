@@ -18,10 +18,6 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -35,6 +31,10 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import findKey from 'lodash/findKey';
 import {
   BehaviorSubject,

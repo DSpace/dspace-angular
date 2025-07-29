@@ -1,9 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
@@ -28,6 +24,10 @@ import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { sendRequest } from '@core/shared/request.operators';
 import { Subscription } from '@core/shared/subscription.model';
 import { Store } from '@ngrx/store';
+import {
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,

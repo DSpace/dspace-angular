@@ -9,7 +9,6 @@ import {
   Data,
   Router,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { ItemDataService } from '@core/data/item-data.service';
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
@@ -18,6 +17,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
 import { getAllSucceededRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

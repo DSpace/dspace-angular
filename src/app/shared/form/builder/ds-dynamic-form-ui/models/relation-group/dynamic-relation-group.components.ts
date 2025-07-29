@@ -14,12 +14,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -34,6 +28,13 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@shared/utils/empty.util';
+import { hasOnlyEmptyProperties } from '@shared/utils/object.util';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import {
@@ -53,7 +54,6 @@ import { environment } from '../../../../../../../environments/environment';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
-import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { ChipsItem } from '../../../../chips/models/chips-item.model';

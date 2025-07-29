@@ -11,12 +11,12 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { GenericConstructor } from '@core/shared/generic-constructor';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { GenericConstructor } from '@core/shared/generic-constructor';
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

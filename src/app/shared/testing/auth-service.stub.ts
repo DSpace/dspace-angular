@@ -1,4 +1,3 @@
-import { hasValue } from '@config/utils/empty.util';
 import { RetrieveAuthMethodsAction } from '@core/auth/auth.actions';
 import { AuthMethod } from '@core/auth/models/auth.method';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
@@ -6,6 +5,7 @@ import { AuthStatus } from '@core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

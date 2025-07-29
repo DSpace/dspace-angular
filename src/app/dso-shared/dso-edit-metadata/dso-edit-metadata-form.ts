@@ -1,10 +1,4 @@
 /* eslint-disable max-classes-per-file */
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { ArrayMoveChangeAnalyzer } from '@core/data/array-move-change-analyzer.service';
 import { MetadataPatchAddOperation } from '@core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
 import { MetadataPatchMoveOperation } from '@core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
@@ -14,6 +8,12 @@ import {
   MetadataMap,
   MetadataValue,
 } from '@core/shared/metadata.models';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   MoveOperation,
   Operation,

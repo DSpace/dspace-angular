@@ -14,7 +14,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -27,6 +26,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

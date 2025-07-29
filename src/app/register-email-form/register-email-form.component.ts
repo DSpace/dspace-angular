@@ -17,7 +17,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { CookieService } from '@core/cookies/cookie.service';
 import { OrejimeService } from '@core/cookies/orejime.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
@@ -37,6 +36,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

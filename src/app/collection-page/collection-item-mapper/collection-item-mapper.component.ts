@@ -10,7 +10,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
@@ -39,6 +38,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

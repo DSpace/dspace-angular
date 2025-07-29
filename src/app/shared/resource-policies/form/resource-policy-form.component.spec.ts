@@ -19,7 +19,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { isNotEmptyOperator } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
@@ -35,6 +34,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '@shared/utils/date.util';
+import { isNotEmptyOperator } from '@shared/utils/empty.util';
 import { getTestScheduler } from 'jasmine-marbles';
 import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
@@ -48,10 +52,6 @@ import { environment } from 'src/environments/environment.test';
 
 import { SubmissionService } from '../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '../../date.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';

@@ -5,12 +5,12 @@ import {
   Optional,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import {
   hasValue,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

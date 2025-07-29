@@ -5,15 +5,15 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '@core/submission/submission-response-parsing.service';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   of,

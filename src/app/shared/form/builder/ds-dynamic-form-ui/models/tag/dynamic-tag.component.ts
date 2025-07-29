@@ -13,10 +13,6 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
-import {
   buildPaginatedList,
   PaginatedList,
 } from '@core/data/paginated-list.model';
@@ -33,6 +29,10 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,

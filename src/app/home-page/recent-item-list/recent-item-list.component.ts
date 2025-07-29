@@ -34,6 +34,7 @@ import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { setPlaceHolderAttributes } from '@shared/utils/object-list-utils';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
@@ -46,7 +47,6 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({

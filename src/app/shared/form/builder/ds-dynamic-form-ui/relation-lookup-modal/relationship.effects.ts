@@ -3,11 +3,6 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-} from '@config/utils/empty.util';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { ServerSyncBufferActionTypes } from '@core/cache/server-sync-buffer.actions';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
@@ -33,6 +28,11 @@ import {
 } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

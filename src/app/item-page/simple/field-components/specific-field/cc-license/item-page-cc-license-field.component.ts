@@ -8,7 +8,6 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Item } from '@core/shared/item.model';
@@ -17,13 +16,14 @@ import {
   getRemoteDataPayload,
 } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
+import { parseCcCode } from '@shared/utils/license.utils';
 import {
   map,
   Observable,
   of,
 } from 'rxjs';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { parseCcCode } from 'src/app/shared/utils/license.utils';
 
 
 @Component({

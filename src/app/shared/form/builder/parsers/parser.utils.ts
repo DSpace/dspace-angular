@@ -1,11 +1,11 @@
 import {
-  isNull,
-  isUndefined,
-} from '@config/utils/empty.util';
-import {
   DynamicFormControlLayout,
   DynamicFormControlLayoutConfig,
 } from '@ng-dynamic-forms/core';
+import {
+  isNull,
+  isUndefined,
+} from '@shared/utils/empty.util';
 
 export function setLayout(model: any, controlLayout: string, controlLayoutConfig: string, style: string) {
   if (isNull(model.layout)) {

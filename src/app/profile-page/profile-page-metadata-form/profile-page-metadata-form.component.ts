@@ -6,10 +6,6 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { LangConfig } from '@config/lang-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import {
@@ -23,6 +19,10 @@ import {
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { environment } from '../../../environments/environment';

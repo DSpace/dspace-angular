@@ -1,4 +1,4 @@
-import { hasValueOperator } from '@config/utils/empty.util';
+import { hasValueOperator } from '@shared/utils/empty.util';
 import { of } from 'rxjs';
 
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';

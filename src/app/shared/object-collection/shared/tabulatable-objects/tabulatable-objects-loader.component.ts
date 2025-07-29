@@ -11,15 +11,15 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { Context } from '@core/shared/context.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
 import { ViewMode } from '@core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

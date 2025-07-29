@@ -7,7 +7,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -20,6 +19,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';

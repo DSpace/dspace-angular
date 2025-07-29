@@ -1,11 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  hasValue,
-  isEmpty,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { ErrorResponse } from '@core/cache/response.models';
 import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -30,6 +25,11 @@ import {
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   of,

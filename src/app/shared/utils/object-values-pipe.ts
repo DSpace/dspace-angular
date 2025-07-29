@@ -2,7 +2,7 @@ import {
   Pipe,
   PipeTransform,
 } from '@angular/core';
-import { isNotEmpty } from '@config/utils/empty.util';
+import { isNotEmpty } from '@shared/utils/empty.util';
 
 @Pipe({
   name: 'dsObjectValues',

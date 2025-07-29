@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isNotEmpty } from '@config/utils/empty.util';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,

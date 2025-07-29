@@ -4,10 +4,6 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import {
@@ -26,6 +22,10 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

@@ -9,7 +9,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ItemRequestDataService } from '@core/data/item-request-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -25,6 +24,7 @@ import {
   TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,

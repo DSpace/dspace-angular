@@ -41,7 +41,7 @@ import { enableProdMode } from '@angular/core';
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue } from './src/config/utils/empty.util';
+import { hasValue } from '@shared/utils/empty.util';
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 import bootstrap from './src/main.server';
 import { buildAppConfig } from './src/config/config.server';

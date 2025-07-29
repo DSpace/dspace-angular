@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { SearchService } from '@core/shared/search/search.service';
 import { createNoContentRemoteDataObject } from '@core/utilities/remote-data.utils';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   of,

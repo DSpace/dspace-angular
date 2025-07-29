@@ -2,7 +2,8 @@ import {
   AbstractControl,
   ValidatorFn,
 } from '@angular/forms';
-import { isNotEmpty } from '@config/utils/empty.util';
+
+import { isNotEmpty } from './empty.util';
 
 /**
  * Returns a validator function to check if the control's value is in a given list

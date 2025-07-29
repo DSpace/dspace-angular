@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmptyOperator,
-} from '@config/utils/empty.util';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { MetadataFieldDataService } from '@core/data/metadata-field-data.service';
@@ -21,6 +16,11 @@ import {
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmptyOperator,
+} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

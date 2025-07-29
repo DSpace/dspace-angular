@@ -7,11 +7,6 @@ import {
   Component,
   Inject,
 } from '@angular/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { LdnPattern } from '@core/coar-notify/models/submission-coar-notify.model';
 import { CoarNotifyConfigDataService } from '@core/config/coar-notify-config-data.service';
 import {
@@ -31,6 +26,11 @@ import {
   NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,

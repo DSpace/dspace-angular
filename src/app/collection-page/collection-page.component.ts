@@ -9,10 +9,6 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { SortOptions } from '@core/cache/models/sort-options.model';
@@ -24,6 +20,10 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { Collection } from '@core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,

@@ -11,10 +11,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -26,6 +22,10 @@ import { SubmissionObject } from '@core/submission/models/submission-object.mode
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

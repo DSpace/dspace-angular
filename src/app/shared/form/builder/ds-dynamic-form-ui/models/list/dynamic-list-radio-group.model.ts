@@ -1,4 +1,3 @@
-import { hasValue } from '@config/utils/empty.util';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import {
@@ -8,6 +7,7 @@ import {
   DynamicRadioGroupModelConfig,
   serializable,
 } from '@ng-dynamic-forms/core';
+import { hasValue } from '@shared/utils/empty.util';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   vocabularyOptions: VocabularyOptions;

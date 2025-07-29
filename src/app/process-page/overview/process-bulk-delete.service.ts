@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Process } from '@core/processes/process.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   count,

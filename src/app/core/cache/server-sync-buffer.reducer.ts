@@ -1,7 +1,7 @@
 import {
   hasNoValue,
   hasValue,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 
 import { RestRequestMethod } from '../data/rest-request-method';
 import {

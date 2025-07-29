@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
@@ -24,6 +19,11 @@ import {
 } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
 import union from 'lodash/union';

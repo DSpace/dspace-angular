@@ -3,7 +3,6 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
@@ -37,6 +36,7 @@ import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
 import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { NoContent } from '@core/shared/NoContent.model';
+import { hasValue } from '@shared/utils/empty.util';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {

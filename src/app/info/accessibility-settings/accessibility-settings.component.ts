@@ -5,13 +5,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { isEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { OrejimeService } from '@core/cookies/orejime.service';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,

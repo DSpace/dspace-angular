@@ -12,13 +12,13 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { SearchService } from '@core/shared/search/search.service';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 

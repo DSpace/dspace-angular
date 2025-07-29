@@ -5,10 +5,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
-import {
   AddAuthenticationMessageAction,
   AuthenticatedAction,
   AuthenticationSuccessAction,
@@ -18,6 +14,10 @@ import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '@core/auth/selectors';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Subscription,

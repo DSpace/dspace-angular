@@ -12,12 +12,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { FindAllDataImpl } from '@core/data/base/find-all-data';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
@@ -48,6 +42,12 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,

@@ -7,7 +7,7 @@ import {
 import {
   hasValue,
   isNotUndefined,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

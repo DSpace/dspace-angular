@@ -7,7 +7,6 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { OrcidHistory } from '@core/orcid/model/orcid-history.model';
@@ -23,6 +22,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

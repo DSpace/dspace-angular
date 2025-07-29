@@ -8,8 +8,8 @@ import {
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { isNotNull } from '@config/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
+import { isNotNull } from '@shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 
 import { SearchEvent } from '../eperson-group-list-event-type';

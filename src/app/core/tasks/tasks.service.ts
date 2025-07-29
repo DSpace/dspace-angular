@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import {
   hasValue,
   isNotEmpty,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,

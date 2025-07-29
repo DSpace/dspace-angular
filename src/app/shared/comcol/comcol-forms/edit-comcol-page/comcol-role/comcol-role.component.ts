@@ -5,10 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
@@ -27,6 +23,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

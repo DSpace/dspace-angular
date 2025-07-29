@@ -1,5 +1,5 @@
 import { Params } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
+import { isNotEmpty } from '@shared/utils/empty.util';
 
 import {
   AddParameterAction,

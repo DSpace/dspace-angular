@@ -5,13 +5,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { RemoteData } from '@core/data/remote-data';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { Registration } from '@core/shared/registration.model';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   catchError,
   mergeMap,

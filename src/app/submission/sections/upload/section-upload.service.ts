@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { isUndefined } from '@config/utils/empty.util';
 import { JsonPatchOperationPathObject } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
 import { Store } from '@ngrx/store';
+import { isUndefined } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,

@@ -1,3 +1,4 @@
+import { hasNoValue } from '@shared/utils/empty.util';
 import { all } from 'deepmerge';
 
 import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';
@@ -7,7 +8,6 @@ import {
   NamedThemeConfig,
   ThemeConfig,
 } from './theme.config';
-import { hasNoValue } from './utils/empty.util';
 
 /**
  * Extend Angular environment with app config.

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { getDefaultThemeConfig } from '@config/config.util';
-import { hasValue } from '@config/utils/empty.util';
 import {
   Actions,
   createEffect,
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
+import { hasValue } from '@shared/utils/empty.util';
 import { map } from 'rxjs/operators';
 
 import { SetThemeAction } from './theme.actions';

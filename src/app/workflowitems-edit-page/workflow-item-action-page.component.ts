@@ -10,7 +10,6 @@ import {
   Params,
   Router,
 } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { RouteService } from '@core/services/route.service';
@@ -22,6 +21,7 @@ import {
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

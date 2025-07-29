@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  DatePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -11,13 +8,12 @@ import {
 import {
   ActivatedRoute,
   Router,
-  RouterLink,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,
@@ -30,8 +26,6 @@ import {
 
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
 import {
@@ -50,11 +44,7 @@ import {
   imports: [
     AlertComponent,
     AsyncPipe,
-    DatePipe,
-    PaginationComponent,
-    RouterLink,
     SourceListComponent,
-    ThemedLoadingComponent,
     TranslateModule,
   ],
 })

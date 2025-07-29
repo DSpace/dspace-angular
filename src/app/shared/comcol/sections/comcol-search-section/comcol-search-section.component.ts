@@ -12,11 +12,11 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import { hasValue } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

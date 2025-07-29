@@ -9,7 +9,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
@@ -17,6 +16,7 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 import { take } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

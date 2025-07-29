@@ -11,7 +11,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { isEmpty } from '@config/utils/empty.util';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +20,7 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 
 import { FormComponent } from '../../../../shared/form/form.component';
 import { RouterStub } from '../../../../shared/testing/router.stub';

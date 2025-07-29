@@ -4,7 +4,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -15,6 +14,7 @@ import {
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

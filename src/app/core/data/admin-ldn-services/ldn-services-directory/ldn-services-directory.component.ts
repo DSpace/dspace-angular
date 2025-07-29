@@ -12,7 +12,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { LdnServicesService } from '@core/data/ldn-services-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -21,6 +20,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   Observable,

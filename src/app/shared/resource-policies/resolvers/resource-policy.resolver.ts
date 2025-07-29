@@ -5,12 +5,12 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { isEmpty } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 /**

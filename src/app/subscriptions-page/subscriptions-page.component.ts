@@ -4,7 +4,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import {
   buildPaginatedList,
@@ -18,6 +17,7 @@ import { getAllCompletedRemoteData } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
 import { Subscription } from '@core/shared/subscription.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatestWith,

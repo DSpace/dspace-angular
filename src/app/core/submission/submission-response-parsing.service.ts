@@ -10,7 +10,7 @@ import {
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import { deepClone } from 'fast-json-patch';
 
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';

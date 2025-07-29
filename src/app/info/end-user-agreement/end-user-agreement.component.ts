@@ -7,7 +7,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { LogOutAction } from '@core/auth/auth.actions';
 import { AuthService } from '@core/auth/auth.service';
 import { EndUserAgreementService } from '@core/end-user-agreement/end-user-agreement.service';
@@ -16,6 +15,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import { of } from 'rxjs';
 import {
   map,

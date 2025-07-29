@@ -14,10 +14,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
@@ -35,6 +31,10 @@ import { ItemRequest } from '@core/shared/item-request.model';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

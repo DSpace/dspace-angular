@@ -3,10 +3,6 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
@@ -27,6 +23,10 @@ import {
   createSelector,
   Store,
 } from '@ngrx/store';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

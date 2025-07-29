@@ -7,10 +7,10 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Metadata } from '@core/shared/metadata.utils';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';

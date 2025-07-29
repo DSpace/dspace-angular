@@ -1,7 +1,3 @@
-import {
-  isEmpty,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { MetadataValue } from '@core/shared/metadata.models';
 import {
   DynamicDateControlModel,
@@ -11,6 +7,10 @@ import {
   DynamicFormControlRelation,
   serializable,
 } from '@ng-dynamic-forms/core';
+import {
+  isEmpty,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Subject,

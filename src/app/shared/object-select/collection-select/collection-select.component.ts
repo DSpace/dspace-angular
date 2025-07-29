@@ -8,14 +8,14 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import {
-  hasValueOperator,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValueOperator,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   map,
   Observable,

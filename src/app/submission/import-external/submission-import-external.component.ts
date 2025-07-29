@@ -8,10 +8,6 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
 import {
   buildPaginatedList,
@@ -31,6 +27,10 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

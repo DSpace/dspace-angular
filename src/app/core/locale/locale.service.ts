@@ -9,11 +9,11 @@ import {
   AppConfig,
 } from '@config/app-config.interface';
 import { LangConfig } from '@config/lang-config.interface';
+import { TranslateService } from '@ngx-translate/core';
 import {
   isEmpty,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { TranslateService } from '@ngx-translate/core';
+} from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

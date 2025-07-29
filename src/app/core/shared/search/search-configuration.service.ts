@@ -16,7 +16,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

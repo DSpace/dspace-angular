@@ -3,11 +3,11 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { isEmpty } from '@config/utils/empty.util';
 import { OrejimeService } from '@core/cookies/orejime.service';
 import { GOOGLE_ANALYTICS_OREJIME_KEY } from '@core/cookies/orejime-configuration';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { isEmpty } from '@shared/utils/empty.util';
 import {
   Angulartics2GoogleAnalytics,
   Angulartics2GoogleGlobalSiteTag,

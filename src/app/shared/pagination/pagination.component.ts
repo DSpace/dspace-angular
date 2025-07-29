@@ -16,10 +16,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  hasValue,
-  hasValueOperator,
-} from '@config/utils/empty.util';
-import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
@@ -34,6 +30,10 @@ import {
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@shared/utils/empty.util';
 import {
   Observable,
   of,

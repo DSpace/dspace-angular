@@ -8,10 +8,6 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
-import {
-  hasNoValue,
-  isNotNull,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { CollectionDataService } from '@core/data/collection-data.service';
@@ -33,6 +29,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  isNotNull,
+} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';

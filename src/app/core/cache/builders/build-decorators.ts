@@ -2,7 +2,7 @@ import { InjectionToken } from '@angular/core';
 import {
   hasNoValue,
   hasValue,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';

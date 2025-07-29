@@ -10,7 +10,6 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
-import { isNotUndefined } from '@config/utils/empty.util';
 import {
   AuthService,
   LOGIN_ROUTE,
@@ -28,6 +27,7 @@ import {
   Store,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { isNotUndefined } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

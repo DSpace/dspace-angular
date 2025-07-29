@@ -7,7 +7,9 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
+import { isNumeric } from '@shared/utils/numeric.util';
+import { difference } from '@shared/utils/object.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -18,8 +20,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isNumeric } from '../../shared/numeric.util';
-import { difference } from '../../shared/object.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   SortDirection,

@@ -1,9 +1,9 @@
-import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthStatus } from '@core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
 import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

@@ -10,12 +10,12 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { TranslateService } from '@ngx-translate/core';
+} from '@shared/utils/empty.util';
 import { wktToGeoJSON } from '@terraformer/wkt';
 import {
   Observable,

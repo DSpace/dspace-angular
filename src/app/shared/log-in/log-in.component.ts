@@ -5,7 +5,6 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthMethodsService } from '@core/auth/auth-methods.service';
 import { AuthMethod } from '@core/auth/models/auth.method';
@@ -20,6 +19,7 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';

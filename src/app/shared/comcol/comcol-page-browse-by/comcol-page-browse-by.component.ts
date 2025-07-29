@@ -18,13 +18,13 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { BrowseService } from '@core/browse/browse.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

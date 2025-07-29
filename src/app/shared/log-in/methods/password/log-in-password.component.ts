@@ -12,7 +12,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction,
@@ -32,6 +31,7 @@ import {
   Store,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

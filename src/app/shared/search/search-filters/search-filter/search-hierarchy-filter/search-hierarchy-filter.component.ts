@@ -18,7 +18,6 @@ import {
   AppConfig,
 } from '@config/app-config.interface';
 import { FilterVocabularyConfig } from '@config/filter-vocabulary-config';
-import { hasValue } from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchService } from '@core/shared/search/search.service';
@@ -31,6 +30,7 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   from,
   Observable,

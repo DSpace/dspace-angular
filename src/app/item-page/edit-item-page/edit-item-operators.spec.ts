@@ -1,10 +1,10 @@
-import { isNotEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Item } from '@core/shared/item.model';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
 } from '@core/utilities/remote-data.utils';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import { hot } from 'jasmine-marbles';
 
 import { findSuccessfulAccordingTo } from './edit-item-operators';

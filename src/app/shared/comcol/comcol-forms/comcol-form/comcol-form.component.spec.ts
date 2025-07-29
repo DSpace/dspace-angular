@@ -11,7 +11,6 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { RequestService } from '@core/data/request.service';
@@ -24,6 +23,7 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 

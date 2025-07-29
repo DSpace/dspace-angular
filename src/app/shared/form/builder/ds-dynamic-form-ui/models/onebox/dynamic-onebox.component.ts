@@ -17,12 +17,6 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '@config/utils/empty.util';
-import {
   buildPaginatedList,
   PaginatedList,
 } from '@core/data/paginated-list.model';
@@ -46,6 +40,12 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@shared/utils/empty.util';
+import {
   Observable,
   of,
   Subject,
@@ -63,7 +63,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
@@ -82,7 +81,6 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   imports: [
     AsyncPipe,
     AuthorityConfidenceStateDirective,
-    BtnDisabledDirective,
     FormsModule,
     NgbTypeaheadModule,
     NgTemplateOutlet,

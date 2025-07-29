@@ -14,7 +14,6 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_CONFIG } from '@config/app-config.interface';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
@@ -49,6 +48,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

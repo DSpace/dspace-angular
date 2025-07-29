@@ -5,7 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import { hasValue } from '@config/utils/empty.util';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';

@@ -1,3 +1,4 @@
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   blue,
   bold,
@@ -17,7 +18,6 @@ import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
-import { isNotEmpty } from './utils/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 

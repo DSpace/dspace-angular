@@ -1,12 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-  isUndefined,
-} from '@config/utils/empty.util';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
@@ -19,14 +11,22 @@ import {
   DynamicFormControlModel,
   isDynamicFormControlEvent,
 } from '@ng-dynamic-forms/core';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '@shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isUndefined,
+} from '@shared/utils/empty.util';
 import { deepClone } from 'fast-json-patch';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
-import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../../shared/date.util';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';

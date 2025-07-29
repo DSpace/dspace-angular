@@ -4,9 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
 import { GenericConstructor } from '@core/shared/generic-constructor';
+import { hasValue } from '@shared/utils/empty.util';
 import { AbstractComponentLoaderComponent } from 'src/app/shared/abstract-component-loader/abstract-component-loader.component';
 
 import { getAdvancedComponentByWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';

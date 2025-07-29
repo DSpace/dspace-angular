@@ -7,7 +7,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '@core/data/item-data.service';
@@ -25,6 +24,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

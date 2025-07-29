@@ -7,7 +7,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
@@ -28,6 +27,7 @@ import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

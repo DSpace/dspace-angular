@@ -10,7 +10,6 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { Context } from '@core/shared/context.model';
 import { HierarchicalBrowseDefinition } from '@core/shared/hierarchical-browse-definition.model';
@@ -20,6 +19,7 @@ import {
   TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

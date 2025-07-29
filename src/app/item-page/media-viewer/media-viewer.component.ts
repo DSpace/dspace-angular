@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MediaViewerConfig } from '@config/media-viewer-config.interface';
-import { hasValue } from '@config/utils/empty.util';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -20,6 +19,7 @@ import { ItemRequest } from '@core/shared/item-request.model';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

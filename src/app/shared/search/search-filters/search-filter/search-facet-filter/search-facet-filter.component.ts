@@ -16,15 +16,15 @@ import {
   Params,
   Router,
 } from '@angular/router';
-import {
-  hasNoValue,
-  hasValue,
-} from '@config/utils/empty.util';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

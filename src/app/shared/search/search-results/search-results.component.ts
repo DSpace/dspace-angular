@@ -6,10 +6,6 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { SortOptions } from '@core/cache/models/sort-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
@@ -19,6 +15,10 @@ import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
   BehaviorSubject,

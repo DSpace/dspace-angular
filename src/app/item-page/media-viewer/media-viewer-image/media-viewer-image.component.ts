@@ -5,7 +5,6 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
 import {
@@ -14,6 +13,7 @@ import {
   NgxGalleryModule,
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 /**

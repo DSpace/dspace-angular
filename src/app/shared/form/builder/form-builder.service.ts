@@ -7,15 +7,6 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-} from '@config/utils/empty.util';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { VIRTUAL_METADATA_PREFIX } from '@core/shared/metadata.models';
@@ -37,14 +28,23 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '@shared/utils/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+} from '@shared/utils/empty.util';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
-import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {
   CONCAT_GROUP_SUFFIX,

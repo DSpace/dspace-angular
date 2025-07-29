@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {
   hasValue,
   isEmpty,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import {
   Operation,
   ReplaceOperation,

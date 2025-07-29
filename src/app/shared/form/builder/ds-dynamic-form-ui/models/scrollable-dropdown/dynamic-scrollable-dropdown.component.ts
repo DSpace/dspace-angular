@@ -12,10 +12,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import {
-  hasValue,
-  isEmpty,
-} from '@config/utils/empty.util';
 import { CacheableObject } from '@core/cache/cacheable-object.model';
 import { FindAllDataImpl } from '@core/data/base/find-all-data';
 import {
@@ -37,7 +33,11 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  hasValue,
+  isEmpty,
+} from '@shared/utils/empty.util';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import {
   Observable,
   of,
@@ -51,7 +51,6 @@ import {
 } from 'rxjs/operators';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
@@ -66,8 +65,7 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
   templateUrl: './dynamic-scrollable-dropdown.component.html',
   imports: [
     AsyncPipe,
-    BtnDisabledDirective,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     NgbDropdownModule,
     TranslateModule,
   ],

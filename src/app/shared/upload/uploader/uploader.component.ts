@@ -12,11 +12,6 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-  isUndefined,
-} from '@config/utils/empty.util';
 import { CookieService } from '@core/cookies/cookie.service';
 import { DragService } from '@core/drag.service';
 import {
@@ -25,6 +20,11 @@ import {
   XSRF_RESPONSE_HEADER,
 } from '@core/xsrf/xsrf.constants';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '@shared/utils/empty.util';
 import uniqueId from 'lodash/uniqueId';
 import {
   FileUploader,

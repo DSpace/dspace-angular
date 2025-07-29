@@ -18,7 +18,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -28,6 +27,8 @@ import { RemoteData } from '@core/data/remote-data';
 import { Context } from '@core/shared/context.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { isEmpty } from '@shared/utils/empty.util';
+import { setPlaceHolderAttributes } from '@shared/utils/object-list-utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -40,7 +41,6 @@ import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { setPlaceHolderAttributes } from '../utils/object-list-utils';
 import { CollectionElementLinkType } from './collection-element-link.type';
 import { ListableObject } from './shared/listable-object.model';
 

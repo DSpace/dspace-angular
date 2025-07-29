@@ -4,7 +4,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { hasNoValue } from '@config/utils/empty.util';
+import { hasNoValue } from '@shared/utils/empty.util';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { currentPathFromSnapshot } from '../../shared/utils/route.utils';

@@ -1,10 +1,10 @@
 import { Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { TranslateService } from '@ngx-translate/core';
+} from '@shared/utils/empty.util';
 
 import {
   CONCAT_FIRST_INPUT_SUFFIX,

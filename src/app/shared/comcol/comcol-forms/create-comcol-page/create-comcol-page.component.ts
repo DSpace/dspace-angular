@@ -3,11 +3,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { ComColDataService } from '@core/data/comcol-data.service';
@@ -20,6 +15,11 @@ import { Community } from '@core/shared/community.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { ResourceType } from '@core/shared/resource-type';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

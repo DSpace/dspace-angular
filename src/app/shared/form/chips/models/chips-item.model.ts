@@ -1,8 +1,8 @@
+import { ConfidenceType } from '@core/shared/confidence-type';
 import {
   hasValue,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { ConfidenceType } from '@core/shared/confidence-type';
+} from '@shared/utils/empty.util';
 import isObject from 'lodash/isObject';
 import uniqueId from 'lodash/uniqueId';
 

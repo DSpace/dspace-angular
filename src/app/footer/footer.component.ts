@@ -13,12 +13,12 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import { hasValue } from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
 import { OrejimeService } from '@core/cookies/orejime.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

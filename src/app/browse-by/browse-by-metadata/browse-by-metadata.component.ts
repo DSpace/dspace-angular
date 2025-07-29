@@ -21,10 +21,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BrowseService } from '@core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '@core/browse/browse-entry-search-options.model';
@@ -41,6 +37,10 @@ import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

@@ -3,12 +3,12 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { TranslateService } from '@ngx-translate/core';
+} from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

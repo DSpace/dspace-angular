@@ -4,11 +4,11 @@ import {
   Injector,
 } from '@angular/core';
 import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
+import { LazyDataServicesMap } from '@core/data-services-map';
 import {
   hasValue,
   isNotEmpty,
-} from '@config/utils/empty.util';
-import { LazyDataServicesMap } from '@core/data-services-map';
+} from '@shared/utils/empty.util';
 import {
   EMPTY,
   Observable,

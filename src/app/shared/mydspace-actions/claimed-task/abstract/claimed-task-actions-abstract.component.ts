@@ -5,7 +5,6 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -16,6 +15,7 @@ import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { CLAIMED_TASK } from '@core/tasks/models/claimed-task-object.resource-type';
 import { TranslateService } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 

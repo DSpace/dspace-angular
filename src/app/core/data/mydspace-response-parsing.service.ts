@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
+import { hasValue } from '@shared/utils/empty.util';
 
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ParsedResponse } from '../cache/response.models';

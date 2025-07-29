@@ -11,13 +11,13 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { hasValueOperator } from '@config/utils/empty.util';
 import {
   NgbTooltip,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
+import { hasValueOperator } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

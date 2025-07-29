@@ -15,10 +15,6 @@ import {
   Params,
   Router,
 } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
@@ -35,6 +31,10 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { FileService } from '@core/shared/file.service';
 import { getRemoteDataPayload } from '@core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

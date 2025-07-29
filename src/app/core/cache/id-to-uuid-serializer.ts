@@ -1,4 +1,4 @@
-import { hasValue } from '@config/utils/empty.util';
+import { hasValue } from '@shared/utils/empty.util';
 
 /**
  * Serializer to create unique fake UUID's from id's that might otherwise be the same across multiple object types

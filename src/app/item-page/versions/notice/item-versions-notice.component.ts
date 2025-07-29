@@ -4,10 +4,6 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { VersionHistoryDataService } from '@core/data/version-history-data.service';
 import { Item } from '@core/shared/item.model';
@@ -19,6 +15,10 @@ import {
 import { Version } from '@core/shared/version.model';
 import { VersionHistory } from '@core/shared/version-history.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@shared/utils/empty.util';
 import {
   EMPTY,
   Observable,

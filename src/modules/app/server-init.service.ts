@@ -16,15 +16,15 @@ import {
   AppConfig,
 } from '@config/app-config.interface';
 import { BuildConfig } from '@config/build-config.interface';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { LocaleService } from '@core/locale/locale.service';
 import { HeadTagService } from '@core/metadata/head-tag.service';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { lastValueFrom } from 'rxjs';
 import { take } from 'rxjs/operators';
 

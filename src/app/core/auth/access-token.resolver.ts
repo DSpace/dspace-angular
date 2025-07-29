@@ -3,8 +3,8 @@ import {
   ResolveFn,
   Router,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { getForbiddenRoute } from '@core/router/routing-paths';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,

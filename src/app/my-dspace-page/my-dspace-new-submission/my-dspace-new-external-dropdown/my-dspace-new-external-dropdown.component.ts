@@ -5,7 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
@@ -13,6 +12,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

@@ -7,11 +7,6 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
 import { SubmissionSectionModel } from '@core/config/models/config-submission-section.model';
@@ -21,6 +16,11 @@ import { Item } from '@core/shared/item.model';
 import { SubmissionObject } from '@core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@core/submission/models/workspaceitem-sections.model';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,

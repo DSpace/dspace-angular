@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SuggestionConfig } from '@config/suggestion-config.interfaces';
 import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
-import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
@@ -29,6 +24,11 @@ import {
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   forkJoin,
   Observable,

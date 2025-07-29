@@ -2,12 +2,6 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '@config/utils/empty.util';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import {
@@ -17,11 +11,17 @@ import {
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
+import { isNgbDateStruct } from '@shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@shared/utils/empty.util';
 import uniqueId from 'lodash/uniqueId';
 
 import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
 import { VisibilityType } from '../../../../submission/sections/visibility-type';
-import { isNgbDateStruct } from '../../../date.util';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

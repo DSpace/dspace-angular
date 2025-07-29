@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { ItemDataService } from '@core/data/item-data.service';
 import { Collection } from '@core/shared/collection.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -8,6 +7,7 @@ import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

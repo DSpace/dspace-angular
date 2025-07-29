@@ -4,11 +4,11 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { hasValue } from '@config/utils/empty.util';
 import { IdentifierDataService } from '@core/data/identifier-data.service';
 import { IdentifierData } from '@core/shared/identifiers-data/identifier-data.model';
 import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

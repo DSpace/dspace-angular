@@ -6,7 +6,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { isEmpty } from '@config/utils/empty.util';
 import { ComColDataService } from '@core/data/comcol-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
@@ -18,6 +17,7 @@ import {
 } from '@core/shared/operators';
 import { ResourceType } from '@core/shared/resource-type';
 import { TranslateService } from '@ngx-translate/core';
+import { isEmpty } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,

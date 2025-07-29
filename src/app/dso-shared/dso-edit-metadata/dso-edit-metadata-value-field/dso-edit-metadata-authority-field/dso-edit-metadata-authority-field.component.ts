@@ -14,7 +14,6 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { ItemDataService } from '@core/data/item-data.service';
 import { ConfidenceType } from '@core/shared/confidence-type';
 import { followLink } from '@core/shared/follow-link-config.model';
@@ -29,6 +28,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

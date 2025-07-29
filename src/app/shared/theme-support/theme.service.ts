@@ -14,11 +14,6 @@ import {
   HeadTagConfig,
   ThemeConfig,
 } from '@config/theme.config';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { LinkService } from '@core/cache/builders/link.service';
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -40,6 +35,11 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   concatMap,

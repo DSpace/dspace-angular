@@ -9,15 +9,15 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@config/utils/empty.util';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@shared/utils/empty.util';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import {
   BehaviorSubject,

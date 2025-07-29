@@ -4,9 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { hasNoValue } from '@config/utils/empty.util';
 import { RemoteData } from '@core/data/remote-data';
 import { Registration } from '@core/shared/registration.model';
+import { hasNoValue } from '@shared/utils/empty.util';
 import {
   first,
   map,

@@ -2,7 +2,7 @@ import {
   hasNoValue,
   hasValue,
   isUndefined,
-} from '@config/utils/empty.util';
+} from '@shared/utils/empty.util';
 import {
   autoserialize,
   autoserializeAs,

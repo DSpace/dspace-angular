@@ -8,7 +8,6 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import {
   SortDirection,
   SortOptions,
@@ -19,6 +18,7 @@ import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';

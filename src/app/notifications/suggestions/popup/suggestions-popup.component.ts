@@ -6,9 +6,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { isNotEmpty } from '@config/utils/empty.util';
 import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

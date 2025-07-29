@@ -15,12 +15,6 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNull,
-} from '@config/utils/empty.util';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -31,6 +25,12 @@ import {
   DynamicFormsCoreModule,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNull,
+} from '@shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import {
   Observable,

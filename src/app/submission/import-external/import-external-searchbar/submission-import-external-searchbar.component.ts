@@ -9,7 +9,6 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { hasValue } from '@config/utils/empty.util';
 import { RequestParam } from '@core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
 import { FindListOptions } from '@core/data/find-list-options.model';
@@ -27,6 +26,7 @@ import { PageInfo } from '@core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,

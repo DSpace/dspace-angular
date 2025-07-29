@@ -9,12 +9,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { hasValue } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { hasValue } from '@shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
