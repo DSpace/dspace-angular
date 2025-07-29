@@ -4,9 +4,8 @@
  */
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { type } from '@core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
-
-import { type } from '../../../../ngrx/type';
 
 export const RelationshipActionTypes = {
   ADD_RELATIONSHIP: type('dspace/relationship/ADD_RELATIONSHIP'),

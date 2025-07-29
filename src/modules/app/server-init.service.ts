@@ -20,6 +20,7 @@ import {
   isEmpty,
   isNotEmpty,
 } from '@config/utils/empty.util';
+import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { LocaleService } from '@core/locale/locale.service';
 import { HeadTagService } from '@core/metadata/head-tag.service';
 import { Store } from '@ngrx/store';
@@ -29,7 +30,6 @@ import { take } from 'rxjs/operators';
 
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';

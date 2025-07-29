@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { coreReducers } from '@core/core.reducers';
+import { CoreState } from '@core/core-state.model';
 import { UUIDService } from '@core/shared/uuid.service';
 import {
   Store,
@@ -7,13 +9,8 @@ import {
 import { MockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
-import {
-  appReducers,
-  AppState,
-  storeModuleConfig,
-} from '../app.reducer';
-import { CORRELATION_ID_COOKIE } from '../shared/cookies/orejime-configuration';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
+import { CORRELATION_ID_COOKIE } from '../../shared/cookies/orejime-configuration';
+import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { CorrelationIdService } from './correlation-id.service';
 
@@ -24,10 +21,17 @@ describe('CorrelationIdService', () => {
   let uuidService;
   let store;
 
+  const mockStoreModuleConfig = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(appReducers, storeModuleConfig),
+        StoreModule.forRoot(coreReducers, mockStoreModuleConfig),
       ],
     }).compileComponents();
   });
@@ -35,7 +39,7 @@ describe('CorrelationIdService', () => {
   beforeEach(() => {
     cookieService = new CookieServiceMock();
     uuidService = new UUIDService();
-    store = TestBed.inject(Store) as MockStore<AppState>;
+    store = TestBed.inject(Store) as MockStore<CoreState>;
     const mockOrejimeService = {
       getSavedPreferences: () => of({ CORRELATION_ID_OREJIME_KEY: true }),
       initialize: jasmine.createSpy('initialize'),

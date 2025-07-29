@@ -2,6 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
@@ -10,7 +11,6 @@ import {
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { AddToObjectCacheAction } from '../cache/object-cache.actions';
 import { Item } from '../shared/item.model';
 import { AddToIndexAction } from './index.actions';

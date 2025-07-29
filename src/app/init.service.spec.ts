@@ -14,6 +14,7 @@ import {
 } from '@angular/router';
 import { authReducer } from '@core/auth/auth.reducer';
 import { AuthService } from '@core/auth/auth.service';
+import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { LocaleService } from '@core/locale/locale.service';
 import { RouteService } from '@core/services/route.service';
 import {
@@ -32,7 +33,6 @@ import { AppComponent } from './app.component';
 import { getMockLocaleService } from './app.component.spec';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { InitService } from './init.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MockActivatedRoute } from './shared/mocks/active-router.mock';

@@ -1,9 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { type } from '@core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
-
-import { type } from '../../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

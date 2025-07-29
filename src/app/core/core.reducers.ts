@@ -1,3 +1,4 @@
+import { correlationIdReducer } from '@core/correlation-id/correlation-id.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
 import { authReducer } from './auth/auth.reducer';
@@ -23,4 +24,5 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'json/patch': jsonPatchOperationsReducer,
   'metaTag': metaTagReducer,
   'route': routeReducer,
+  'correlationId': correlationIdReducer,
 };

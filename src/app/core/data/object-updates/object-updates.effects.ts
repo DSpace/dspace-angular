@@ -3,6 +3,7 @@ import {
   hasNoValue,
   hasValue,
 } from '@config/utils/empty.util';
+import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import {
   Actions,
   createEffect,
@@ -23,7 +24,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import {
   NotificationsActions,

@@ -9,14 +9,11 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { coreReducers } from '@core/core.reducers';
+import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 
-import {
-  appReducers,
-  storeModuleConfig,
-} from '../../app.reducer';
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
 import { OrejimeService } from '../../shared/cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,
@@ -48,10 +45,15 @@ describe('LogInterceptor', () => {
 
   const mockOrejimeService = jasmine.createSpyObj('OrejimeService', ['getSavedPreferences']);
 
-
+  const mockStoreModuleConfig = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(appReducers, storeModuleConfig)],
+      imports: [StoreModule.forRoot(coreReducers, mockStoreModuleConfig)],
       providers: [
         DspaceRestService,
         // LogInterceptor,

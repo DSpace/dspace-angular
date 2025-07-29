@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
+import { type } from '@core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 
-import { type } from '../../shared/ngrx/type';
 import { CacheableObject } from './cacheable-object.model';
 
 /**

@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from '@config/app-config.interface';
+import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,
@@ -17,7 +18,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { StoreMock } from '../../shared/testing/store.mock';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';

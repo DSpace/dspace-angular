@@ -2,6 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import {
@@ -14,7 +15,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 import {
   INotification,
   Notification,

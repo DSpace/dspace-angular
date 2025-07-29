@@ -25,6 +25,7 @@ import { DefaultAppConfig } from '@config/default-app-config';
 import { isNotEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
 import { coreSelector } from '@core/core.selectors';
+import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { RequestService } from '@core/data/request.service';
 import { RootDataService } from '@core/data/root-data.service';
 import { LocaleService } from '@core/locale/locale.service';
@@ -46,7 +47,6 @@ import {
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MenuService } from '../../app/shared/menu/menu.service';

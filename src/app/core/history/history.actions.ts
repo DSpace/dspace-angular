@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import { type } from '@core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
-
-import { type } from '../../shared/ngrx/type';
 
 export const HistoryActionTypes = {
   ADD_TO_HISTORY: type('dspace/history/ADD_TO_HISTORY'),

@@ -17,6 +17,7 @@ import { COMMUNITY } from '@core/shared/community.resource-type';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
+import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -29,7 +30,6 @@ import { hot } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { RouterMock } from '../mocks/router.mock';
-import { NoOpAction } from '../ngrx/no-op.action';
 import { ConfigurationDataServiceStub } from '../testing/configuration-data.service.stub';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from './theme.model';

@@ -29,7 +29,6 @@ import {
   CommunityListReducer,
   CommunityListState,
 } from './community-list-page/community-list.reducer';
-import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
 import {
   contextHelpReducer,
   ContextHelpState,
@@ -99,7 +98,6 @@ export interface AppState {
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
-  correlationId: string;
   contextHelp: ContextHelpState;
   bitstreamFormats: BitstreamFormatRegistryState;
 }
@@ -122,7 +120,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
-  correlationId: correlationIdReducer,
   contextHelp: contextHelpReducer,
   bitstreamFormats: bitstreamFormatReducer,
 };

@@ -20,6 +20,7 @@ import {
 } from '@config/app-config.interface';
 import { CheckAuthenticationTokenAction } from '@core/auth/auth.actions';
 import { isAuthenticationBlocking } from '@core/auth/selectors';
+import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { LAZY_DATA_SERVICES } from '@core/data-services-map';
 import { LocaleService } from '@core/locale/locale.service';
 import { HeadTagService } from '@core/metadata/head-tag.service';
@@ -39,7 +40,6 @@ import {
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuProviderService } from './shared/menu/menu-provider.service';

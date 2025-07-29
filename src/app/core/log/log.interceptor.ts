@@ -10,10 +10,10 @@ import {
   hasValue,
   isEmpty,
 } from '@config/utils/empty.util';
+import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
 import { OrejimeService } from '../../shared/cookies/orejime.service';
 import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';
 

@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
 import { Item } from '@core/shared/item.model';
+import { type } from '@core/shared/ngrx/type';
 import { SubmissionObject } from '@core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
 import {
@@ -9,7 +10,6 @@ import {
 } from '@core/submission/models/workspaceitem-sections.model';
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
 import { SectionsType } from '../sections/sections-type';
 import {
   SectionScope,

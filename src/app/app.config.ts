@@ -31,6 +31,7 @@ import {
 } from '@core/provide-core';
 import { ClientCookieService } from '@core/services/client-cookie.service';
 import { ListableModule } from '@core/shared/listable.module';
+import { DSpaceRouterStateSerializer } from '@core/shared/ngrx/dspace-router-state-serializer';
 import { XsrfInterceptor } from '@core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
@@ -74,7 +75,6 @@ import {
   ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP,
   WORKFLOW_TASK_OPTION_DECORATOR_MAP,
 } from './shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 import { STARTS_WITH_DECORATOR_MAP } from './shared/starts-with/starts-with-decorator';
 
 export function getConfig() {

@@ -6,6 +6,7 @@ import {
   hasValue,
   isEmpty,
 } from '@config/utils/empty.util';
+import { CoreState } from '@core/core-state.model';
 import { CookieService } from '@core/services/cookie.service';
 import {
   NativeWindowRef,
@@ -18,12 +19,11 @@ import {
 } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
-import { AppState } from '../app.reducer';
-import { OrejimeService } from '../shared/cookies/orejime.service';
+import { OrejimeService } from '../../shared/cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,
   CORRELATION_ID_OREJIME_KEY,
-} from '../shared/cookies/orejime-configuration';
+} from '../../shared/cookies/orejime-configuration';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { correlationIdSelector } from './correlation-id.selector';
 
@@ -38,7 +38,7 @@ export class CorrelationIdService {
   constructor(
     protected cookieService: CookieService,
     protected uuidService: UUIDService,
-    protected store: Store<AppState>,
+    protected store: Store<CoreState>,
     protected orejimeService: OrejimeService,
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
   ) {

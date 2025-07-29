@@ -26,6 +26,10 @@ import { distinctNext } from '@core/shared/distinct-next';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { followLink } from '@core/shared/follow-link-config.model';
 import {
+  NO_OP_ACTION_TYPE,
+  NoOpAction,
+} from '@core/shared/ngrx/no-op.action';
+import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
@@ -55,10 +59,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  NO_OP_ACTION_TYPE,
-  NoOpAction,
-} from '../ngrx/no-op.action';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 import {
   SetThemeAction,

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '@config/utils/empty.util';
+import { NoOpAction } from '@core/shared/ngrx/no-op.action';
 import {
   Actions,
   createEffect,
@@ -16,7 +17,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import {
   AddToObjectCacheAction,
   ObjectCacheActionTypes,

@@ -23,4 +23,5 @@ export interface CoreState {
     'json/patch': JsonPatchOperationsState;
     'metaTag': MetaTagState;
     'route': RouteState;
+  'correlationId': string;
 }
