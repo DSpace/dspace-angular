@@ -8,17 +8,6 @@ import {
   isEmpty,
   isNotEmpty,
 } from '@config/utils/empty.util';
-import { AuthService } from '@core/auth/auth.service';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { CAPTCHA_NAME } from '@core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '@core/services/cookie.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@core/services/window.service';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
@@ -36,6 +25,17 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { MATOMO_ENABLED } from '../../statistics/matomo.service';
+import { AuthService } from '../auth/auth.service';
+import { ConfigurationDataService } from '../data/configuration-data.service';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { EPerson } from '../eperson/models/eperson.model';
+import { CAPTCHA_NAME } from '../google-recaptcha/google-recaptcha.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { CookieService } from './cookie.service';
 import { OrejimeService } from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,

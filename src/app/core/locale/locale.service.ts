@@ -26,7 +26,7 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import {
   NativeWindowRef,

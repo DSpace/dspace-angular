@@ -1,16 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { RestResponse } from '@core/cache/response.models';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { CookieService } from '@core/services/cookie.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
@@ -19,11 +7,23 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../../environments/environment';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { AuthService } from '../auth/auth.service';
+import { RestResponse } from '../cache/response.models';
+import { ConfigurationDataService } from '../data/configuration-data.service';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { EPerson } from '../eperson/models/eperson.model';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { MetadataValue } from '../shared/metadata.models';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import {
   BrowserOrejimeService,
   COOKIE_MDFIELD,
 } from './browser-orejime.service';
+import { CookieService } from './cookie.service';
 import { ANONYMOUS_STORAGE_NAME_OREJIME } from './orejime-configuration';
 
 describe('BrowserOrejimeService', () => {

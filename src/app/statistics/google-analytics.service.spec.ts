@@ -1,3 +1,5 @@
+import { OrejimeService } from '@core/cookies/orejime.service';
+import { GOOGLE_ANALYTICS_OREJIME_KEY } from '@core/cookies/orejime-configuration';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
@@ -10,8 +12,6 @@ import {
 } from 'angulartics2';
 import { of } from 'rxjs';
 
-import { OrejimeService } from '../shared/cookies/orejime.service';
-import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 import { GoogleAnalyticsService } from './google-analytics.service';
 
 describe('GoogleAnalyticsService', () => {

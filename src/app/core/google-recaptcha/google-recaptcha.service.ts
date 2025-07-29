@@ -20,9 +20,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { CookieService } from '../cookies/cookie.service';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
-import { CookieService } from '../services/cookie.service';
 import {
   NativeWindowRef,
   NativeWindowService,

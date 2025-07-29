@@ -14,16 +14,16 @@ import { CorrelationIdService } from '@core/correlation-id/correlation-id.servic
 import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 
-import { OrejimeService } from '../../shared/cookies/orejime.service';
+import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { CookieService } from '../cookies/cookie.service';
+import { OrejimeService } from '../cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,
   CORRELATION_ID_OREJIME_KEY,
-} from '../../shared/cookies/orejime-configuration';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { RouterStub } from '../../shared/testing/router.stub';
+} from '../cookies/orejime-configuration';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { CookieService } from '../services/cookie.service';
 import { UUIDService } from '../shared/uuid.service';
 import { LogInterceptor } from './log.interceptor';
 

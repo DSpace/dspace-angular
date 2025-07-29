@@ -5,6 +5,7 @@ import {
   runInInjectionContext,
 } from '@angular/core';
 import { isNotEmpty } from '@config/utils/empty.util';
+import { OrejimeService } from '@core/cookies/orejime.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { NativeWindowService } from '@core/services/window.service';
@@ -26,7 +27,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { OrejimeService } from '../shared/cookies/orejime.service';
 
 export const MATOMO_TRACKER_URL = 'matomo.tracker.url';
 export const MATOMO_SITE_ID = 'matomo.request.siteid';

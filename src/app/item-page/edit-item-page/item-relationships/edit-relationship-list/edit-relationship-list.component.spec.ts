@@ -15,6 +15,7 @@ import {
 import { APP_CONFIG } from '@config/app-config.interface';
 import { AuthRequestService } from '@core/auth/auth-request.service';
 import { LinkService } from '@core/cache/builders/link.service';
+import { CookieService } from '@core/cookies/cookie.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
@@ -22,7 +23,6 @@ import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
-import { CookieService } from '@core/services/cookie.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';

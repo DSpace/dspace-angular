@@ -13,7 +13,7 @@ import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import { NativeWindowRef } from '../services/window.service';
 import {

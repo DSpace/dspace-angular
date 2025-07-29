@@ -4,6 +4,8 @@ import {
   Injectable,
 } from '@angular/core';
 import { isEmpty } from '@config/utils/empty.util';
+import { OrejimeService } from '@core/cookies/orejime.service';
+import { GOOGLE_ANALYTICS_OREJIME_KEY } from '@core/cookies/orejime-configuration';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
@@ -11,9 +13,6 @@ import {
   Angulartics2GoogleGlobalSiteTag,
 } from 'angulartics2';
 import { combineLatest } from 'rxjs';
-
-import { OrejimeService } from '../shared/cookies/orejime.service';
-import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 
 /**
  * Set up Google Analytics on the client side.

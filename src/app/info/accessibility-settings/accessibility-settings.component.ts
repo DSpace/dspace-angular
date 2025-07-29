@@ -7,6 +7,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { isEmpty } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
+import { OrejimeService } from '@core/cookies/orejime.service';
 import {
   TranslateModule,
   TranslateService,
@@ -30,7 +31,6 @@ import {
 } from '../../accessibility/accessibility-settings.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../shared/context-help.directive';
-import { OrejimeService } from '../../shared/cookies/orejime.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**

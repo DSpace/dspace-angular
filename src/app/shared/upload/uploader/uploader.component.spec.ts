@@ -11,8 +11,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { CookieService } from '@core/cookies/cookie.service';
 import { DragService } from '@core/drag.service';
-import { CookieService } from '@core/services/cookie.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 

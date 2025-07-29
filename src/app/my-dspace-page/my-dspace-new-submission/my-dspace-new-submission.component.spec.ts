@@ -12,9 +12,9 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@core/auth/auth.service';
+import { CookieService } from '@core/cookies/cookie.service';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { DragService } from '@core/drag.service';
-import { CookieService } from '@core/services/cookie.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import {
   NgbModal,

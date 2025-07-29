@@ -14,8 +14,8 @@ import { CorrelationIdService } from '@core/correlation-id/correlation-id.servic
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { OrejimeService } from '../../shared/cookies/orejime.service';
-import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';
+import { OrejimeService } from '../cookies/orejime.service';
+import { CORRELATION_ID_OREJIME_KEY } from '../cookies/orejime-configuration';
 
 /**
  * Log Interceptor intercepting Http Requests & Responses to

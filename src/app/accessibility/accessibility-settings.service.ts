@@ -13,9 +13,10 @@ import {
   isNotEmpty,
 } from '@config/utils/empty.util';
 import { AuthService } from '@core/auth/auth.service';
+import { CookieService } from '@core/cookies/cookie.service';
+import { OrejimeService } from '@core/cookies/orejime.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
-import { CookieService } from '@core/services/cookie.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import cloneDeep from 'lodash/cloneDeep';
@@ -31,7 +32,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { OrejimeService } from '../shared/cookies/orejime.service';
 
 /**
  * Name of the cookie used to store the settings locally

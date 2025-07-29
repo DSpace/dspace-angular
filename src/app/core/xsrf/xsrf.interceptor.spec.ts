@@ -14,10 +14,10 @@ import { APP_CONFIG } from '@config/app-config.interface';
 
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
+import { CookieService } from '../cookies/cookie.service';
 import { RequestError } from '../data/request-error.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { CookieService } from '../services/cookie.service';
 import { XsrfInterceptor } from './xsrf.interceptor';
 
 describe(`XsrfInterceptor`, () => {

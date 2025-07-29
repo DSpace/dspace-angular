@@ -22,6 +22,7 @@ import {
 } from '@config/app-config.interface';
 import { StoreDevModules } from '@config/store/devtools';
 import { AuthInterceptor } from '@core/auth/auth.interceptor';
+import { ClientCookieService } from '@core/cookies/client-cookie.service';
 import { DspaceRestInterceptor } from '@core/dspace-rest/dspace-rest.interceptor';
 import { LocaleInterceptor } from '@core/locale/locale.interceptor';
 import { LogInterceptor } from '@core/log/log.interceptor';
@@ -29,7 +30,6 @@ import {
   models,
   provideCore,
 } from '@core/provide-core';
-import { ClientCookieService } from '@core/services/client-cookie.service';
 import { ListableModule } from '@core/shared/listable.module';
 import { DSpaceRouterStateSerializer } from '@core/shared/ngrx/dspace-router-state-serializer';
 import { XsrfInterceptor } from '@core/xsrf/xsrf.interceptor';

@@ -17,8 +17,8 @@ import {
   isNotEmpty,
   isUndefined,
 } from '@config/utils/empty.util';
+import { CookieService } from '@core/cookies/cookie.service';
 import { DragService } from '@core/drag.service';
-import { CookieService } from '@core/services/cookie.service';
 import {
   XSRF_COOKIE,
   XSRF_REQUEST_HEADER,

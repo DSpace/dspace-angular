@@ -15,6 +15,7 @@ import {
 } from '@config/app-config.interface';
 import { hasValue } from '@config/utils/empty.util';
 import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
+import { OrejimeService } from '@core/cookies/orejime.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,8 +23,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-
-import { OrejimeService } from '../shared/cookies/orejime.service';
 
 @Component({
   selector: 'ds-base-footer',

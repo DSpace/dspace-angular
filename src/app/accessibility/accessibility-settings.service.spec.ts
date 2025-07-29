@@ -4,16 +4,16 @@ import {
 } from '@angular/core/testing';
 import { AppConfig } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
+import { CookieService } from '@core/cookies/cookie.service';
+import { OrejimeServiceStub } from '@core/cookies/orejime.service.stub';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
-import { CookieService } from '@core/services/cookie.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { OrejimeServiceStub } from '../shared/cookies/orejime.service.stub';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { AuthServiceStub } from '../shared/testing/auth-service.stub';
 import {

@@ -11,8 +11,8 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../cookies/cookie.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { CookieService } from '../services/cookie.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';

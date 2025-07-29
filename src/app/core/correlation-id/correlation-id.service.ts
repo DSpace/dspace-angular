@@ -7,7 +7,6 @@ import {
   isEmpty,
 } from '@config/utils/empty.util';
 import { CoreState } from '@core/core-state.model';
-import { CookieService } from '@core/services/cookie.service';
 import {
   NativeWindowRef,
   NativeWindowService,
@@ -19,11 +18,12 @@ import {
 } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
-import { OrejimeService } from '../../shared/cookies/orejime.service';
+import { CookieService } from '../cookies/cookie.service';
+import { OrejimeService } from '../cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,
   CORRELATION_ID_OREJIME_KEY,
-} from '../../shared/cookies/orejime-configuration';
+} from '../cookies/orejime-configuration';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { correlationIdSelector } from './correlation-id.selector';
 

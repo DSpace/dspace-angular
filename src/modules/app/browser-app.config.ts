@@ -19,6 +19,10 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthRequestService } from '@core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '@core/auth/browser-auth-request.service';
+import { BrowserOrejimeService } from '@core/cookies/browser-orejime.service';
+import { ClientCookieService } from '@core/cookies/client-cookie.service';
+import { CookieService } from '@core/cookies/cookie.service';
+import { OrejimeService } from '@core/cookies/orejime.service';
 import { coreEffects } from '@core/core.effects';
 import { coreReducers } from '@core/core.reducers';
 import { CoreState } from '@core/core-state.model';
@@ -29,8 +33,6 @@ import {
   locationProvider,
   LocationToken,
 } from '@core/services/browser-hard-redirect.service';
-import { ClientCookieService } from '@core/services/client-cookie.service';
-import { CookieService } from '@core/services/cookie.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { ReferrerService } from '@core/services/referrer.service';
 import { ClientMathService } from '@core/shared/client-math.service';
@@ -60,8 +62,6 @@ import {
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
-import { BrowserOrejimeService } from '../../app/shared/cookies/browser-orejime.service';
-import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';

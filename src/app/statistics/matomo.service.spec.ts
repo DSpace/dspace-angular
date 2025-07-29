@@ -7,6 +7,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { OrejimeService } from '@core/cookies/orejime.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import {
   NativeWindowRef,
@@ -25,7 +26,6 @@ import { MatomoTestingModule } from 'ngx-matomo-client/testing';
 import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { OrejimeService } from '../shared/cookies/orejime.service';
 import {
   MATOMO_ENABLED,
   MATOMO_SITE_ID,

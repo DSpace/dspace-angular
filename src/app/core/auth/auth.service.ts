@@ -37,6 +37,7 @@ import {
 } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CookieService } from '../cookies/cookie.service';
 import { CoreState } from '../core-state.model';
 import {
   buildPaginatedList,
@@ -47,7 +48,6 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { Group } from '../eperson/models/group.model';
-import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
 import {

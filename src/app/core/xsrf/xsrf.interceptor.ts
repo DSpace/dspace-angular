@@ -24,7 +24,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import {
   XSRF_COOKIE,

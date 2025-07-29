@@ -18,6 +18,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isNotEmpty } from '@config/utils/empty.util';
+import { CookieService } from '@core/cookies/cookie.service';
+import { OrejimeService } from '@core/cookies/orejime.service';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { RemoteData } from '@core/data/remote-data';
@@ -25,7 +27,6 @@ import {
   CAPTCHA_NAME,
   GoogleRecaptchaService,
 } from '@core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '@core/services/cookie.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
   getAllSucceededRemoteDataPayload,
@@ -53,7 +54,6 @@ import {
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
-import { OrejimeService } from '../shared/cookies/orejime.service';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 

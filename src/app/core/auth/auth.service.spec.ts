@@ -38,12 +38,12 @@ import {
   SpecialGroupDataMock$,
 } from '../../shared/testing/special-group.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ClientCookieService } from '../cookies/client-cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
-import { ClientCookieService } from '../services/client-cookie.service';
-import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
 import {
