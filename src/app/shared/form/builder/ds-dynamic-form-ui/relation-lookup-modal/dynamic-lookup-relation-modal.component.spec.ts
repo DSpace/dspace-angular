@@ -20,6 +20,7 @@ import { LookupRelationService } from '@core/data/lookup-relation.service';
 import { Collection } from '@core/shared/collection.model';
 import { ExternalSource } from '@core/shared/external-source.model';
 import { Item } from '@core/shared/item.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
@@ -39,7 +40,6 @@ import {
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';

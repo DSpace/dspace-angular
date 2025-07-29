@@ -22,6 +22,7 @@ import { Collection } from '@core/shared/collection.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { SearchService } from '@core/shared/search/search.service';
 import {
   TranslateModule,
@@ -37,7 +38,6 @@ import { ThemedLoadingComponent } from '../../../loading/themed-loading.componen
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchResult } from '../../../search/models/search-result.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({

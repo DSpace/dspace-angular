@@ -1,4 +1,4 @@
-import { ResourceType } from '@core/shared/resource-type';
+import { ResourceType } from '../../resource-type';
 
 /**
  * The resource type for FacetValues

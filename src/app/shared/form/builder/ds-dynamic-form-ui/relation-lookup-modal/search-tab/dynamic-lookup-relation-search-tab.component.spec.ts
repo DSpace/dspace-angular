@@ -11,6 +11,8 @@ import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Item } from '@core/shared/item.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchObjects } from '@core/shared/search/models/search-objects.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
@@ -19,8 +21,6 @@ import { of } from 'rxjs';
 
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
-import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { relatedRelationships } from '../../../../../testing/related-relationships.mock';

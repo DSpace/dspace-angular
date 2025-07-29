@@ -31,6 +31,7 @@ import {
   getAllSucceededRemoteData,
   paginatedListToArray,
 } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import {
   NgbDropdownModule,
   NgbTooltipModule,
@@ -59,7 +60,6 @@ import { PaginationComponent } from '../../../../shared/pagination/pagination.co
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import {

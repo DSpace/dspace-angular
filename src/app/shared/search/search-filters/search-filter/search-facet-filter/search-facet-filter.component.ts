@@ -18,6 +18,11 @@ import {
 } from '@angular/router';
 import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
+import { FacetValue } from '@core/shared/search/models/facet-value.model';
+import { FacetValues } from '@core/shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@core/shared/search/models/search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
@@ -43,11 +48,6 @@ import {
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { currentPath } from '../../../../utils/route.utils';
-import { AppliedFilter } from '../../../models/applied-filter.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { FacetValues } from '../../../models/facet-values.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SearchOptions } from '../../../models/search-options.model';
 
 /**
  * The operators the {@link AppliedFilter} should have in order to be shown in the facets

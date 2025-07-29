@@ -32,6 +32,8 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { ViewMode } from '@core/shared/view-mode.model';
 import {
@@ -69,8 +71,6 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ListableNotificationObject } from '../../object-list/listable-notification-object/listable-notification-object.model';
 import { LISTABLE_NOTIFICATION_OBJECT } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
-import { SearchResult } from '../../search/models/search-result.model';
 
 @Component({
   selector: 'ds-dso-selector',

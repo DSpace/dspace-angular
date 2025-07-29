@@ -13,6 +13,7 @@ import { ChildHALResource } from '@core/shared/child-hal-resource.model';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { followLink } from '@core/shared/follow-link-config.model';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   hasValue,
@@ -27,7 +28,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';

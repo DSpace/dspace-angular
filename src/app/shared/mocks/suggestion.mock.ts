@@ -1,9 +1,9 @@
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { SearchResult } from '../search/models/search-result.model';
 import { createPaginatedList } from '../testing/utils.test';
 
 // REST Mock ---------------------------------------------------------------------

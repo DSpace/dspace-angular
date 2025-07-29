@@ -18,6 +18,8 @@ import { PaginationService } from '@core/pagination/pagination.service';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { Collection } from '@core/shared/collection.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@core/shared/search/models/search-filter.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -30,8 +32,6 @@ import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RouterMock } from '../mocks/router.mock';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SearchFilter } from '../search/models/search-filter.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { createPaginatedList } from '../testing/utils.test';

@@ -1,4 +1,6 @@
 import { Params } from '@angular/router';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchOptions } from '@core/shared/search/models/search-options.model';
 import {
   FilterConfig,
   SearchConfig,
@@ -8,9 +10,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SearchOptions } from '../search/models/search-options.model';
 
 /**
  * Stub class of {@link SearchConfigurationService}

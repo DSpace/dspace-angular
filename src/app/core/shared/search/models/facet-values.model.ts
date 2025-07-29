@@ -1,16 +1,16 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
   autoserialize,
   autoserializeAs,
   inheritSerialization,
 } from 'cerialize';
 
+import { typedObject } from '../../../cache/builders/build-decorators';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { FACET_VALUES } from '../types/facet-values.resource-type';
 import { FacetValue } from './facet-value.model';
 import { FilterType } from './filter-type.model';
 import { SearchQueryResponse } from './search-query-response.model';
-import { FACET_VALUES } from './types/facet-values.resource-type';
 
 @typedObject
 @inheritSerialization(PaginatedList)

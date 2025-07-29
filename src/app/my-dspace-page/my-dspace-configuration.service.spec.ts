@@ -3,6 +3,8 @@ import {
   SortOptions,
 } from '@core/cache/models/sort-options.model';
 import { Context } from '@core/shared/context.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@core/shared/search/models/search-filter.model';
 import {
   cold,
   hot,
@@ -13,8 +15,6 @@ import { environment } from '../../environments/environment.test';
 import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '../shared/search/models/search-filter.model';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';

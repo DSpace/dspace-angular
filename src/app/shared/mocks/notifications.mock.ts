@@ -6,14 +6,13 @@ import { QualityAssuranceTopicDataService } from '@core/notifications/qa/topics/
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
 import { ResourceType } from '@core/shared/resource-type';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
-
-import { SearchResult } from '../search/models/search-result.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

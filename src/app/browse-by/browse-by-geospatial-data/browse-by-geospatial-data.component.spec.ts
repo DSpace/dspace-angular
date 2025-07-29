@@ -7,6 +7,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { FacetValue } from '@core/shared/search/models/facet-value.model';
+import { FilterType } from '@core/shared/search/models/filter-type.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
@@ -15,10 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { FacetValue } from '../../shared/search/models/facet-value.model';
-import { FilterType } from '../../shared/search/models/filter-type.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '../../shared/search/models/search-filter-config.model';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
 import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data.component';
 

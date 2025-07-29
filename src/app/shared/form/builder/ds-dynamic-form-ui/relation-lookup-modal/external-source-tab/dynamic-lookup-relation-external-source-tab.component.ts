@@ -20,6 +20,7 @@ import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   NgbModal,
@@ -52,7 +53,6 @@ import { ListableObject } from '../../../../../object-collection/shared/listable
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';

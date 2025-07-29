@@ -10,6 +10,8 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FacetValue } from '@core/shared/search/models/facet-value.model';
+import { FacetValues } from '@core/shared/search/models/facet-values.model';
 import { TranslateService } from '@ngx-translate/core';
 import {
   hasValue,
@@ -23,8 +25,6 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { FacetValue } from '../search/models/facet-value.model';
-import { FacetValues } from '../search/models/facet-values.model';
 import { GeospatialMapDetail } from './models/geospatial-map-detail.model';
 
 @Component({

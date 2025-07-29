@@ -14,6 +14,10 @@ import {
   Output,
 } from '@angular/core';
 import { RemoteData } from '@core/data/remote-data';
+import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
+import { FacetValues } from '@core/shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@core/shared/search/models/search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
@@ -38,10 +42,6 @@ import {
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
-import { AppliedFilter } from '../../models/applied-filter.model';
-import { FacetValues } from '../../models/facet-values.model';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
-import { SearchOptions } from '../../models/search-options.model';
 import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 

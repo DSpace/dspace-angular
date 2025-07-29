@@ -9,6 +9,8 @@ import { ConfigurationDataService } from '@core/data/configuration-data.service'
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { Process } from '@core/processes/process.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@core/shared/search/models/search-filter.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -20,8 +22,6 @@ import { of } from 'rxjs';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchFilter } from '../models/search-filter.model';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 
 describe('SearchExportCsvComponent', () => {

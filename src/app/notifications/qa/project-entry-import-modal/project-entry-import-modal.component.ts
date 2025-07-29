@@ -17,6 +17,8 @@ import {
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -37,8 +39,6 @@ import { CollectionElementLinkType } from '../../../shared/object-collection/col
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 
 /**

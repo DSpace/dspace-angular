@@ -54,6 +54,7 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '@core/shared/operators';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { SubmissionObject } from '@core/submission/models/submission-object.model';
 import { SUBMISSION_LINKS_TO_FOLLOW } from '@core/submission/resolver/submission-links-to-follow';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
@@ -110,7 +111,6 @@ import { SubmissionService } from '../../../../submission/submission.service';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../search/models/search-result.model';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';

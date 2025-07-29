@@ -17,6 +17,7 @@ import { ExternalSource } from '@core/shared/external-source.model';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   createFailedRemoteDataObject$,
@@ -35,7 +36,6 @@ import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.co
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../testing/utils.test';

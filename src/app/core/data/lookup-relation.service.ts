@@ -15,8 +15,6 @@ import {
 
 import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { SearchResult } from '../../shared/search/models/search-result.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
@@ -25,6 +23,8 @@ import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
+import { SearchResult } from '../shared/search/models/search-result.model';
 import { SearchService } from '../shared/search/search.service';
 import { ExternalSourceDataService } from './external-source-data.service';
 import { PaginatedList } from './paginated-list.model';

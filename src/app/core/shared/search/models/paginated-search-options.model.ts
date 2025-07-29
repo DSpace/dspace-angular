@@ -1,9 +1,9 @@
-import { SortOptions } from '@core/cache/models/sort-options.model';
-import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
-import { ViewMode } from '@core/shared/view-mode.model';
 import { isNotEmpty } from '@shared/utils/empty.util';
 
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { SortOptions } from '../../../cache/models/sort-options.model';
+import { DSpaceObjectType } from '../../dspace-object-type.model';
+import { ViewMode } from '../../view-mode.model';
 import { SearchFilter } from './search-filter.model';
 import { SearchOptions } from './search-options.model';
 

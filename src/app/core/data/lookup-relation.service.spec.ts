@@ -5,12 +5,12 @@ import {
 } from 'rxjs/operators';
 
 import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { SearchResult } from '../../shared/search/models/search-result.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSource } from '../shared/external-source.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
+import { SearchResult } from '../shared/search/models/search-result.model';
 import { SearchService } from '../shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { ExternalSourceDataService } from './external-source-data.service';

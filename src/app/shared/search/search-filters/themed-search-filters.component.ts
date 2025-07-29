@@ -3,10 +3,10 @@ import {
   Input,
 } from '@angular/core';
 import { RemoteData } from '@core/data/remote-data';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { Observable } from 'rxjs';
 
 import { ThemedComponent } from '../../theme-support/themed.component';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchFiltersComponent } from './search-filters.component';
 
 /**

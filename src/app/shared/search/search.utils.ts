@@ -1,7 +1,6 @@
+import { FacetValue } from '@core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { isNotEmpty } from '@shared/utils/empty.util';
-
-import { FacetValue } from './models/facet-value.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
 
 /**
  * Get a facet's value by matching its parameter in the search href, this will include the operator of the facet value

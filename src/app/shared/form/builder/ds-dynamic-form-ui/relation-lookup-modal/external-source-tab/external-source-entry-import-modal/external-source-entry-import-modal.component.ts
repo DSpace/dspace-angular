@@ -18,6 +18,8 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import {
   NgbActiveModal,
   NgbModal,
@@ -42,8 +44,6 @@ import { ItemSearchResult } from '../../../../../../object-collection/shared/ite
 import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
-import { SearchResult } from '../../../../../../search/models/search-result.model';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 

@@ -26,6 +26,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { Version } from '@core/shared/version.model';
 import { VersionHistory } from '@core/shared/version-history.model';
 import {
@@ -54,7 +55,6 @@ import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 interface VersionsDTO {

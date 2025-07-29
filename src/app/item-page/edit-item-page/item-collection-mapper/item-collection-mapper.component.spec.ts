@@ -22,6 +22,7 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
@@ -44,7 +45,6 @@ import { CollectionSelectComponent } from '../../../shared/object-select/collect
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

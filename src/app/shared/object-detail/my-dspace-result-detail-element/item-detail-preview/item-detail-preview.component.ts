@@ -13,6 +13,7 @@ import { FileService } from '@core/shared/file.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from '@core/shared/operators';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
@@ -24,7 +25,6 @@ import { fadeInOut } from '../../../animations/fade';
 import { MetadataFieldWrapperComponent } from '../../../metadata-field-wrapper/metadata-field-wrapper.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
-import { SearchResult } from '../../../search/models/search-result.model';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-field/themed-item-detail-preview-field.component';
 

@@ -4,10 +4,10 @@ import {
 } from '@angular/core';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Metadata } from '@core/shared/metadata.utils';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { hasValue } from '@shared/utils/empty.util';
 
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { SearchResult } from '../../search/models/search-result.model';
 
 /**
  * Component representing Search Results with ViewMode.DetailedElement

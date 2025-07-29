@@ -15,6 +15,9 @@ import {
   Router,
 } from '@angular/router';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { FacetValue } from '@core/shared/search/models/facet-value.model';
+import { FilterType } from '@core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
@@ -31,9 +34,6 @@ import { SearchConfigurationServiceStub } from '../../../../../testing/search-co
 import { SearchFilterServiceStub } from '../../../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { FilterType } from '../../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchFacetOptionComponent } from './search-facet-option.component';
 
 describe('SearchFacetOptionComponent', () => {

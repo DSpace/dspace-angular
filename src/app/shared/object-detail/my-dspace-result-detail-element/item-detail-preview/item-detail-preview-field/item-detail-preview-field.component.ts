@@ -5,10 +5,10 @@ import {
 } from '@angular/core';
 import { Item } from '@core/shared/item.model';
 import { Metadata } from '@core/shared/metadata.utils';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
-import { SearchResult } from '../../../../search/models/search-result.model';
 
 /**
  * This component show values for the given item metadata

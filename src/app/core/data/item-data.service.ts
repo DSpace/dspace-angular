@@ -25,7 +25,6 @@ import {
 } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -40,6 +39,7 @@ import { Item } from '../shared/item.model';
 import { MetadataMap } from '../shared/metadata.models';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import {
   CreateData,

@@ -30,6 +30,7 @@ import {
 } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { toDSpaceObjectListRD } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -46,7 +47,6 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({

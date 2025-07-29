@@ -31,6 +31,7 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
@@ -58,7 +59,6 @@ import {
 } from '../../shared/animations/fade';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 

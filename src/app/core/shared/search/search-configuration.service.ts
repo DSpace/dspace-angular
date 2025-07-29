@@ -32,12 +32,6 @@ import {
 } from 'rxjs/operators';
 
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
-import { FilterType } from '../../../shared/search/models/filter-type.model';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '../../../shared/search/models/search-filter.model';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -62,6 +56,12 @@ import {
   getFirstSucceededRemoteData,
 } from '../operators';
 import { ViewMode } from '../view-mode.model';
+import { FacetConfigResponse } from './models/facet-config-response.model';
+import { FilterType } from './models/filter-type.model';
+import { PaginatedSearchOptions } from './models/paginated-search-options.model';
+import { SearchFilter } from './models/search-filter.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchOptions } from './models/search-options.model';
 import {
   FilterConfig,
   SearchConfig,

@@ -15,6 +15,8 @@ import { RemoteData } from '@core/data/remote-data';
 import { Process } from '@core/processes/process.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@core/shared/search/models/search-filter.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -34,8 +36,6 @@ import {
 
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchFilter } from '../models/search-filter.model';
 
 @Component({
   selector: 'ds-search-export-csv',

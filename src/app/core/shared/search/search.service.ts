@@ -22,12 +22,6 @@ import {
 
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
-import { FacetValues } from '../../../shared/search/models/facet-values.model';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SearchObjects } from '../../../shared/search/models/search-objects.model';
-import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { BaseDataService } from '../../data/base/base-data.service';
@@ -51,6 +45,12 @@ import {
   getRemoteDataPayload,
 } from '../operators';
 import { ViewMode } from '../view-mode.model';
+import { AppliedFilter } from './models/applied-filter.model';
+import { FacetValues } from './models/facet-values.model';
+import { PaginatedSearchOptions } from './models/paginated-search-options.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchResult } from './models/search-result.model';
 import { SearchConfigurationService } from './search-configuration.service';
 
 /**

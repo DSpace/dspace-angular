@@ -4,9 +4,9 @@ import {
 } from '@angular/core';
 import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 
-import { SearchResult } from '../../../search/models/search-result.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 

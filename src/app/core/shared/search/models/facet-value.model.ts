@@ -1,10 +1,11 @@
-import { HALLink } from '@core/shared/hal-link.model';
-import { HALResource } from '@core/shared/hal-resource.model';
 import {
   autoserialize,
   autoserializeAs,
   deserialize,
 } from 'cerialize';
+
+import { HALLink } from '../../hal-link.model';
+import { HALResource } from '../../hal-resource.model';
 
 /**
  * Class representing possible values for a certain filter

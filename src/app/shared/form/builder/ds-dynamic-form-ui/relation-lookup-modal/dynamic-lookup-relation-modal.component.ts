@@ -24,6 +24,7 @@ import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '@core/shared/operators';
+import { SearchResult } from '@core/shared/search/models/search-result.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   NgbActiveModal,
@@ -56,7 +57,6 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../../search/models/search-result.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import { NameVariantService } from './name-variant.service';

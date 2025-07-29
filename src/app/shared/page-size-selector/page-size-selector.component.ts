@@ -10,6 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { Observable } from 'rxjs';
 import {
@@ -19,7 +20,6 @@ import {
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
 
 @Component({

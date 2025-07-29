@@ -5,9 +5,9 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { FilterType } from '../../../../shared/search/models/filter-type.model';
 import { HALLink } from '../../hal-link.model';
 import { ResourceType } from '../../resource-type';
+import { FilterType } from '../models/filter-type.model';
 import { SEARCH_CONFIG } from './search-config.resource-type';
 
 /**

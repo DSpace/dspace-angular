@@ -5,10 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { GenericConstructor } from '@core/shared/generic-constructor';
+import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
 
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { AppliedFilter } from '../../models/applied-filter.model';
 import { getSearchLabelByOperator } from './search-label-loader.decorator';
 
 @Component({

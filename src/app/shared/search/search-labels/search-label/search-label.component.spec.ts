@@ -14,6 +14,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
@@ -26,7 +27,6 @@ import { SearchConfigurationServiceStub } from '../../../testing/search-configur
 import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
-import { AppliedFilter } from '../../models/applied-filter.model';
 import { addOperatorToFilterValue } from '../../search.utils';
 import { SearchLabelComponent } from './search-label.component';
 

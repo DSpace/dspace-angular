@@ -1,15 +1,15 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { excludeFromEquals } from '@core/utilities/equals.decorators';
 import {
   autoserializeAs,
   inheritSerialization,
 } from 'cerialize';
 
+import { typedObject } from '../../../cache/builders/build-decorators';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { DSpaceObject } from '../../dspace-object.model';
+import { SEARCH_OBJECTS } from '../types/search-objects.resource-type';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchResult } from './search-result.model';
-import { SEARCH_OBJECTS } from './types/search-objects.resource-type';
 
 /**
  * Class representing the response returned by the server when performing a search request

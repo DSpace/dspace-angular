@@ -28,6 +28,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '@core/shared/operators';
+import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import {
   TranslateModule,
   TranslateService,
@@ -57,7 +58,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';

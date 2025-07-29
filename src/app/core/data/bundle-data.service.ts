@@ -8,7 +8,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
@@ -16,6 +15,7 @@ import { Bundle } from '../shared/bundle.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PatchData,

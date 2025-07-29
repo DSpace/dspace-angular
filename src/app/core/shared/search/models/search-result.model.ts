@@ -1,20 +1,20 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { HALLink } from '@core/shared/hal-link.model';
-import { HALResource } from '@core/shared/hal-resource.model';
-import { MetadataMap } from '@core/shared/metadata.models';
-import {
-  excludeFromEquals,
-  fieldsForEquals,
-} from '@core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { SEARCH_RESULT } from './types/search-result.resource-type';
+import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
+import { typedObject } from '../../../cache/builders/build-decorators';
+import {
+  excludeFromEquals,
+  fieldsForEquals,
+} from '../../../utilities/equals.decorators';
+import { DSpaceObject } from '../../dspace-object.model';
+import { GenericConstructor } from '../../generic-constructor';
+import { HALLink } from '../../hal-link.model';
+import { HALResource } from '../../hal-resource.model';
+import { MetadataMap } from '../../metadata.models';
+import { SEARCH_RESULT } from '../types/search-result.resource-type';
 
 /**
  * Represents a search result object of a certain (<T>) DSpaceObject

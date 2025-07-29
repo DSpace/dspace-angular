@@ -3,13 +3,13 @@ import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import {
   Observable,
   of,
 } from 'rxjs';
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 
 /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
 /**

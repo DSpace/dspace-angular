@@ -21,6 +21,7 @@ import { GroupDataService } from '@core/eperson/group-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { SearchFilter } from '@core/shared/search/models/search-filter.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import {
   TranslateModule,
@@ -38,7 +39,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { SearchFilter } from '../search/models/search-filter.model';
 
 /**
  * The Rss feed button component.

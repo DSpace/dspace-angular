@@ -15,6 +15,8 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
+import { FilterType } from '@core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
@@ -34,8 +36,6 @@ import { take } from 'rxjs/operators';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
-import { FilterType } from '../models/filter-type.model';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
 
 /**
  * This component represents the advanced search in the search sidebar.

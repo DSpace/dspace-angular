@@ -9,6 +9,10 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
+import { FacetValues } from '@core/shared/search/models/facet-values.model';
+import { FilterType } from '@core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { SequenceService } from '@core/shared/sequence.service';
@@ -24,10 +28,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-conf
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { AppliedFilter } from '../../models/applied-filter.model';
-import { FacetValues } from '../../models/facet-values.model';
-import { FilterType } from '../../models/filter-type.model';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchFilterComponent } from './search-filter.component';
 
