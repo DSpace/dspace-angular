@@ -151,6 +151,13 @@ updates:
         - "zone.js"
         update-types:
         - "patch"
+      # Restrict typescript updates to patch level because that's what our package.json says
+      typescript:
+        applies-to: version-updates
+        patterns:
+        - "typescript"
+        update-types:
+        - "patch"
     ignore:
       # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
       - dependency-name: "*"
@@ -237,6 +244,13 @@ updates:
         applies-to: version-updates
         patterns:
         - "zone.js"
+        update-types:
+        - "patch"
+      # Restrict typescript updates to patch level because that's what our package.json says
+      typescript:
+        applies-to: version-updates
+        patterns:
+        - "typescript"
         update-types:
         - "patch"
     ignore:
@@ -326,6 +340,13 @@ updates:
         - "zone.js"
         update-types:
         - "patch"
+      # Restrict typescript updates to patch level because that's what our package.json says
+      typescript:
+        applies-to: version-updates
+        patterns:
+        - "typescript"
+        update-types:
+        - "patch"
     ignore:
       # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
       - dependency-name: "*"
@@ -403,6 +424,13 @@ updates:
         applies-to: version-updates
         patterns:
         - "zone.js"
+        update-types:
+        - "patch"
+      # Restrict typescript updates to patch level because that's what our package.json says
+      typescript:
+        applies-to: version-updates
+        patterns:
+        - "typescript"
         update-types:
         - "patch"
     ignore:
