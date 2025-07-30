@@ -9,7 +9,6 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authReducer } from '@core/auth/auth.reducer';
 import { AuthService } from '@core/auth/auth.service';
-import { AuthMethodsService } from '@core/auth/auth-methods.service';
 import { AuthMethod } from '@core/auth/models/auth.method';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
 import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
@@ -26,6 +25,7 @@ import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
+import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';

@@ -1,4 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { authReducer } from '@core/auth/auth.reducer';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
 import {
   Store,
   StoreModule,
@@ -8,12 +11,9 @@ import {
   provideMockStore,
 } from '@ngrx/store/testing';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
-import { authReducer } from './auth.reducer';
+import { storeModuleConfig } from '../../../app.reducer';
+import { AuthMethodTypeComponent } from '../methods/auth-methods.type';
 import { AuthMethodsService } from './auth-methods.service';
-import { AuthMethod } from './models/auth.method';
-import { AuthMethodType } from './models/auth.method-type';
 
 describe('AuthMethodsService', () => {
   let service: AuthMethodsService;

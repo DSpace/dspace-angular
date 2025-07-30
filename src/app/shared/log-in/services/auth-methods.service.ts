@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { AuthMethod } from '@core/auth/models/auth.method';
+import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { getAuthenticationMethods } from '@core/auth/selectors';
+import { CoreState } from '@core/core-state.model';
 import {
   select,
   Store,
@@ -7,12 +11,8 @@ import uniqBy from 'lodash/uniqBy';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
-import { rendersAuthMethodType } from '../../shared/log-in/methods/log-in.methods-decorator.utils';
-import { CoreState } from '../core-state.model';
-import { AuthMethod } from './models/auth.method';
-import { AuthMethodType } from './models/auth.method-type';
-import { getAuthenticationMethods } from './selectors';
+import { AuthMethodTypeComponent } from '../methods/auth-methods.type';
+import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils';
 
 @Injectable({
   providedIn: 'root',

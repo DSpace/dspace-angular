@@ -44,11 +44,9 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relationships-utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
-import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
 import { EditRelationshipListWrapperComponent } from './edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
 
 @Component({
