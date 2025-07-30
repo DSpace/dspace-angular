@@ -638,4 +638,6 @@ export class DefaultAppConfig implements AppConfig {
   accessibility: AccessibilitySettingsConfig = {
     cookieExpirationDuration: 7,
   };
+
+  enableAuditLogsOverview = true;
 }
