@@ -111,7 +111,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
 
     this.halService.getEndpoint(this.versionsEndpoint).pipe(
       take(1),
-      map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${summary}` : `${endpointUrl}`),
+      map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${encodeURIComponent(summary)}` : `${endpointUrl}`),
       find((href: string) => hasValue(href)),
     ).subscribe((href) => {
       const request = new PostRequest(requestId, href, itemHref, requestOptions);
