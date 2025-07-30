@@ -919,211 +919,160 @@
   // "admin.reports.items.preset.hasNoIdentifierUri": "Has No dc.identifier.uri",
   "admin.reports.items.preset.hasNoIdentifierUri": "ندارد dc.identifier.uri",
 
-  // "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
+    // "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
+  "admin.reports.items.preset.hasCompoundSubject": "دارای موضوع مرکب است",
 
   // "admin.reports.items.preset.hasCompoundAuthor": "Has compound dc.contributor.author",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasCompoundAuthor": "Has compound dc.contributor.author",
+  "admin.reports.items.preset.hasCompoundAuthor": "دارای dc.contributor.author مرکب است",
 
   // "admin.reports.items.preset.hasCompoundCreator": "Has compound dc.creator",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasCompoundCreator": "Has compound dc.creator",
+  "admin.reports.items.preset.hasCompoundCreator": "دارای dc.creator مرکب است",
 
   // "admin.reports.items.preset.hasUrlInDescription": "Has URL in dc.description",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasUrlInDescription": "Has URL in dc.description",
+  "admin.reports.items.preset.hasUrlInDescription": "دارای URL در dc.description است",
 
   // "admin.reports.items.preset.hasFullTextInProvenance": "Has full text in dc.description.provenance",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasFullTextInProvenance": "Has full text in dc.description.provenance",
+  "admin.reports.items.preset.hasFullTextInProvenance": "دارای متن کامل در dc.description.provenance است",
 
   // "admin.reports.items.preset.hasNonFullTextInProvenance": "Has non-full text in dc.description.provenance",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasNonFullTextInProvenance": "Has non-full text in dc.description.provenance",
+  "admin.reports.items.preset.hasNonFullTextInProvenance": "متن کامل در dc.description.provenance وجود ندارد",
 
   // "admin.reports.items.preset.hasEmptyMetadata": "Has empty metadata",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasEmptyMetadata": "Has empty metadata",
+  "admin.reports.items.preset.hasEmptyMetadata": "ابرداده خالی دارد",
 
   // "admin.reports.items.preset.hasUnbreakingDataInDescription": "Has unbreaking metadata in description",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasUnbreakingDataInDescription": "Has unbreaking metadata in description",
+  "admin.reports.items.preset.hasUnbreakingDataInDescription": "دارای ابرداده‌ بی‌نقص در توصیف است",
 
   // "admin.reports.items.preset.hasXmlEntityInMetadata": "Has XML entity in metadata",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasXmlEntityInMetadata": "Has XML entity in metadata",
+  "admin.reports.items.preset.hasXmlEntityInMetadata": "دارای موجودیت XML در ابرداده است",
 
   // "admin.reports.items.preset.hasNonAsciiCharInMetadata": "Has non-ascii character in metadata",
-  // TODO New key - Add a translation
-  "admin.reports.items.preset.hasNonAsciiCharInMetadata": "Has non-ascii character in metadata",
+  "admin.reports.items.preset.hasNonAsciiCharInMetadata": "دارای کاراکتر غیر اسکی در ابراداده است",
 
   // "admin.reports.items.number": "No.",
-  // TODO New key - Add a translation
-  "admin.reports.items.number": "No.",
+  "admin.reports.items.number": "شماره.",
 
   // "admin.reports.items.id": "UUID",
-  // TODO New key - Add a translation
   "admin.reports.items.id": "UUID",
 
   // "admin.reports.items.collection": "Collection",
-  // TODO New key - Add a translation
-  "admin.reports.items.collection": "Collection",
+  "admin.reports.items.collection": "مجموعه",
 
   // "admin.reports.items.handle": "URI",
-  // TODO New key - Add a translation
   "admin.reports.items.handle": "URI",
 
   // "admin.reports.items.title": "Title",
-  // TODO New key - Add a translation
-  "admin.reports.items.title": "Title",
+  "admin.reports.items.title": "عنوان",
 
 
   // "admin.reports.commons.filters": "Filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters": "Filters",
+  "admin.reports.commons.filters": "فیلترها",
 
   // "admin.reports.commons.additional-data": "Additional data to return",
-  // TODO New key - Add a translation
-  "admin.reports.commons.additional-data": "Additional data to return",
+  "admin.reports.commons.additional-data": "داده اضافی برای برگشت",
 
   // "admin.reports.commons.previous-page": "Prev Page",
-  // TODO New key - Add a translation
-  "admin.reports.commons.previous-page": "Prev Page",
+  "admin.reports.commons.previous-page": "صفحه قبلی",
 
   // "admin.reports.commons.next-page": "Next Page",
-  // TODO New key - Add a translation
-  "admin.reports.commons.next-page": "Next Page",
+  "admin.reports.commons.next-page": "صفحه بعدی",
 
   // "admin.reports.commons.page": "Page",
-  // TODO New key - Add a translation
-  "admin.reports.commons.page": "Page",
+  "admin.reports.commons.page": "صفحه",
 
   // "admin.reports.commons.of": "of",
-  // TODO New key - Add a translation
-  "admin.reports.commons.of": "of",
+  "admin.reports.commons.of": "از",
 
   // "admin.reports.commons.export": "Export for Metadata Update",
-  // TODO New key - Add a translation
-  "admin.reports.commons.export": "Export for Metadata Update",
+  "admin.reports.commons.export": "خروجی برای روزآمدسازی ابرداده",
 
   // "admin.reports.commons.filters.deselect_all": "Deselect all filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.deselect_all": "Deselect all filters",
+  "admin.reports.commons.filters.deselect_all": "لغو انتخاب همه فیلترها",
 
   // "admin.reports.commons.filters.select_all": "Select all filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.select_all": "Select all filters",
+  "admin.reports.commons.filters.select_all": "انتخاب همه فیلترها",
 
   // "admin.reports.commons.filters.matches_all": "Matches all specified filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.matches_all": "Matches all specified filters",
+  "admin.reports.commons.filters.matches_all": "منطبق با همه فیلترهای مشخص شده",
 
 
   // "admin.reports.commons.filters.property": "Item Property Filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.property": "Item Property Filters",
+  "admin.reports.commons.filters.property": "فیلترهای ویژگی آیتم",
 
   // "admin.reports.commons.filters.property.is_item": "Is Item - always true",
-  // TODO New key - Add a translation
   "admin.reports.commons.filters.property.is_item": "Is Item - always true",
 
   // "admin.reports.commons.filters.property.is_withdrawn": "Withdrawn Items",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.property.is_withdrawn": "Withdrawn Items",
+  "admin.reports.commons.filters.property.is_withdrawn": "آیتمهای پس گرفته شده",
 
   // "admin.reports.commons.filters.property.is_not_withdrawn": "Available Items - Not Withdrawn",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.property.is_not_withdrawn": "Available Items - Not Withdrawn",
+  "admin.reports.commons.filters.property.is_not_withdrawn": "آیتمهای موجود- پس گرفته نشده",
 
   // "admin.reports.commons.filters.property.is_discoverable": "Discoverable Items - Not Private",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.property.is_discoverable": "Discoverable Items - Not Private",
+  "admin.reports.commons.filters.property.is_discoverable": "آیتمهای قابل جستجو- غیرخصوصی",
 
   // "admin.reports.commons.filters.property.is_not_discoverable": "Not Discoverable - Private Item",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.property.is_not_discoverable": "Not Discoverable - Private Item",
+  "admin.reports.commons.filters.property.is_not_discoverable": "غیرقابل جستجو- آیتم خصوصی",
 
   // "admin.reports.commons.filters.bitstream": "Basic Bitstream Filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream": "Basic Bitstream Filters",
+  "admin.reports.commons.filters.bitstream": "فیلترهای پایه فایل",
 
   // "admin.reports.commons.filters.bitstream.has_multiple_originals": "Item has Multiple Original Bitstreams",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream.has_multiple_originals": "Item has Multiple Original Bitstreams",
+  "admin.reports.commons.filters.bitstream.has_multiple_originals": "آیتم دارای چندین فایل اصلی است",
 
   // "admin.reports.commons.filters.bitstream.has_no_originals": "Item has No Original Bitstreams",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream.has_no_originals": "Item has No Original Bitstreams",
+  "admin.reports.commons.filters.bitstream.has_no_originals": "آیتم دارای فایل اصلی نیست",
 
   // "admin.reports.commons.filters.bitstream.has_one_original": "Item has One Original Bitstream",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream.has_one_original": "Item has One Original Bitstream",
+  "admin.reports.commons.filters.bitstream.has_one_original": "آیتم یک فایل اصلی دارد",
 
   // "admin.reports.commons.filters.bitstream_mime": "Bitstream Filters by MIME Type",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime": "Bitstream Filters by MIME Type",
+  "admin.reports.commons.filters.bitstream_mime": "فیلترهای فایل با نوع MIME",
 
   // "admin.reports.commons.filters.bitstream_mime.has_doc_original": "Item has a Doc Original Bitstream (PDF, Office, Text, HTML, XML, etc)",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_doc_original": "Item has a Doc Original Bitstream (PDF, Office, Text, HTML, XML, etc)",
+  "admin.reports.commons.filters.bitstream_mime.has_doc_original": "آیتم دارای یک فایل داک اصلی است(PDF, Office, Text, HTML, XML, غیره)",
 
   // "admin.reports.commons.filters.bitstream_mime.has_image_original": "Item has an Image Original Bitstream",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_image_original": "Item has an Image Original Bitstream",
+  "admin.reports.commons.filters.bitstream_mime.has_image_original": "آیتم دارای یک فایل اصلی تصویری است",
 
   // "admin.reports.commons.filters.bitstream_mime.has_unsupp_type": "Has Other Bitstream Types (not Doc or Image)",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_unsupp_type": "Has Other Bitstream Types (not Doc or Image)",
+  "admin.reports.commons.filters.bitstream_mime.has_unsupp_type": "آیا دارای نوع دیگری از فایل است(نه تصویر یا داک)",
 
   // "admin.reports.commons.filters.bitstream_mime.has_mixed_original": "Item has multiple types of Original Bitstreams (Doc, Image, Other)",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_mixed_original": "Item has multiple types of Original Bitstreams (Doc, Image, Other)",
+  "admin.reports.commons.filters.bitstream_mime.has_mixed_original": "آیتم دارای چندین نوع فایل اصلی است(داک، تصویر، سایر)",
 
   // "admin.reports.commons.filters.bitstream_mime.has_pdf_original": "Item has a PDF Original Bitstream",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_pdf_original": "Item has a PDF Original Bitstream",
+  "admin.reports.commons.filters.bitstream_mime.has_pdf_original": "آیتم دارای فایل اصلی پی دی اف است",
 
   // "admin.reports.commons.filters.bitstream_mime.has_jpg_original": "Item has JPG Original Bitstream",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_jpg_original": "Item has JPG Original Bitstream",
+  "admin.reports.commons.filters.bitstream_mime.has_jpg_original": "آیتم دارای فایل اصلی جی پی جی است",
 
   // "admin.reports.commons.filters.bitstream_mime.has_small_pdf": "Has unusually small PDF",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_small_pdf": "Has unusually small PDF",
+  "admin.reports.commons.filters.bitstream_mime.has_small_pdf": "آیا دارای پی دی اف کوچک نامعمول است",
 
   // "admin.reports.commons.filters.bitstream_mime.has_large_pdf": "Has unusually large PDF",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_large_pdf": "Has unusually large PDF",
+  "admin.reports.commons.filters.bitstream_mime.has_large_pdf": "آیا دارای پی دی اف بزرگ نامعمول است",
 
   // "admin.reports.commons.filters.bitstream_mime.has_doc_without_text": "Has document bitstream without TEXT item",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bitstream_mime.has_doc_without_text": "Has document bitstream without TEXT item",
+  "admin.reports.commons.filters.bitstream_mime.has_doc_without_text": "آیا فایل سند بدون آیتم متنی است",
 
   // "admin.reports.commons.filters.mime": "Supported MIME Type Filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.mime": "Supported MIME Type Filters",
+  "admin.reports.commons.filters.mime": "فیلترهای نوع MIME پشتیبانی شده",
 
   // "admin.reports.commons.filters.mime.has_only_supp_image_type": "Item Image Bitstreams are Supported",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.mime.has_only_supp_image_type": "Item Image Bitstreams are Supported",
+  "admin.reports.commons.filters.mime.has_only_supp_image_type": "فایلهای تصویری آیتم پشتیبانی میشود",
 
   // "admin.reports.commons.filters.mime.has_unsupp_image_type": "Item has Image Bitstream that is Unsupported",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.mime.has_unsupp_image_type": "Item has Image Bitstream that is Unsupported",
+  "admin.reports.commons.filters.mime.has_unsupp_image_type": "آیتم دارای فایل تصویری است که پشتیبانی نمی شود",
 
   // "admin.reports.commons.filters.mime.has_only_supp_doc_type": "Item Document Bitstreams are Supported",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.mime.has_only_supp_doc_type": "Item Document Bitstreams are Supported",
+  "admin.reports.commons.filters.mime.has_only_supp_doc_type": "فایلهای سند آیتم پشتیبانی میشود",
 
   // "admin.reports.commons.filters.mime.has_unsupp_doc_type": "Item has Document Bitstream that is Unsupported",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.mime.has_unsupp_doc_type": "Item has Document Bitstream that is Unsupported",
+  "admin.reports.commons.filters.mime.has_unsupp_doc_type": "آیتم دارای فایل سند است که پشتیبانی نمیشود",
 
   // "admin.reports.commons.filters.bundle": "Bitstream Bundle Filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle": "Bitstream Bundle Filters",
+  "admin.reports.commons.filters.bundle": "فیلترهای بسته فایلها",
 
   // "admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
   // TODO New key - Add a translation
