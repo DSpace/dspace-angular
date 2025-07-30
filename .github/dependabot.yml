@@ -11,8 +11,9 @@ updates:
   # So, only this first section can include "applies-to: security-updates"
   - package-ecosystem: "npm"
     directory: "/"
+    # Monthly dependency updates (NOTE: "schedule" doesn't apply to security updates)
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       time: "05:00"
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
@@ -169,7 +170,7 @@ updates:
     directory: "/"
     target-branch: dspace-9_x
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       time: "05:00"
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
@@ -264,7 +265,7 @@ updates:
     directory: "/"
     target-branch: dspace-8_x
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       time: "05:00"
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
@@ -358,7 +359,7 @@ updates:
     directory: "/"
     target-branch: dspace-7_x
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       time: "05:00"
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
