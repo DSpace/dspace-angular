@@ -18,7 +18,6 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { Context } from '../../../../core/shared/context.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ListableModule } from '../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
@@ -75,7 +74,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         ListableObjectComponentLoaderComponent,
-        ListableModule,
         ItemListElementComponent,
         DynamicComponentLoaderDirective,
       ],

@@ -45,6 +45,8 @@ import { SubmissionSectionError } from '../../objects/submission-section-error.m
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { LdnPattern } from './submission-coar-notify.config';
 
@@ -65,6 +67,7 @@ import { LdnPattern } from './submission-coar-notify.config';
   ],
   providers: [NgbDropdown],
 })
+@renderSectionFor(SectionsType.CoarNotify)
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
   hasSectionData = false;

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { SystemWideAlert } from '../../system-wide-alert/system-wide-alert.model';
+import { SYSTEMWIDEALERT } from '../../system-wide-alert/system-wide-alert.resource-type';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -34,6 +36,7 @@ import { RequestService } from './request.service';
  * Dataservice representing a system-wide alert
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SYSTEMWIDEALERT)
 export class SystemWideAlertDataService extends IdentifiableDataService<SystemWideAlert> implements FindAllData<SystemWideAlert>, CreateData<SystemWideAlert>, PutData<SystemWideAlert>, SearchData<SystemWideAlert> {
   private findAllData: FindAllDataImpl<SystemWideAlert>;
   private createData: CreateDataImpl<SystemWideAlert>;

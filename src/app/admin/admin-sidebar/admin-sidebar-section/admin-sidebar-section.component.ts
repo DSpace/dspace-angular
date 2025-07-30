@@ -1,8 +1,8 @@
 import { NgClass } from '@angular/common';
 import {
   Component,
-  Inject,
   Injector,
+  OnChanges,
   OnInit,
 } from '@angular/core';
 import {
@@ -14,9 +14,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { isEmpty } from '../../../shared/empty.util';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
-import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { AbstractMenuSectionComponent } from '../../../shared/menu/menu-section/abstract-menu-section.component';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
@@ -35,13 +36,13 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
   ],
 
 })
-export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent implements OnInit {
+@rendersSectionForMenu(MenuID.ADMIN, false)
+export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent implements OnInit, OnChanges {
 
   /**
    * This section resides in the Admin Sidebar
    */
   menuID: MenuID = MenuID.ADMIN;
-  itemModel;
 
   /**
    * Boolean to indicate whether this section is disabled
@@ -49,13 +50,16 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
   isDisabled: boolean;
 
   constructor(
-    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
+    protected themeService: ThemeService,
     protected router: Router,
   ) {
-    super(menuService, injector);
-    this.itemModel = section.model as LinkMenuItemModel;
+    super(
+      menuService,
+      injector,
+      themeService,
+    );
   }
 
   ngOnInit(): void {

@@ -16,7 +16,6 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
@@ -59,7 +58,6 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
-          ListableModule,
           ItemAdminSearchResultGridElementComponent,
         ],
         providers: [

@@ -31,12 +31,12 @@ import {
   APP_DATA_SERVICES_MAP,
   AppConfig,
 } from '../config/app-config.interface';
+import { DATA_SERVICE_MAP } from '../decorator-registries/data-service-registry';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { LocaleService } from './core/locale/locale.service';
 import { HeadTagService } from './core/metadata/head-tag.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
@@ -114,7 +114,7 @@ export abstract class InitService {
       },
       {
         provide: APP_DATA_SERVICES_MAP,
-        useValue: LAZY_DATA_SERVICES,
+        useValue: DATA_SERVICE_MAP,
       },
       {
         provide: DYNAMIC_FORM_CONTROL_MAP_FN,

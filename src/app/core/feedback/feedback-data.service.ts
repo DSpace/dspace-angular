@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -19,11 +20,13 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { Feedback } from './models/feedback.model';
+import { FEEDBACK } from './models/feedback.resource-type';
 
 /**
  * Service for checking and managing the feedback
  */
 @Injectable({ providedIn: 'root' })
+@dataService(FEEDBACK)
 export class FeedbackDataService extends IdentifiableDataService<Feedback> implements CreateData<Feedback> {
   private createData: CreateDataImpl<Feedback>;
 

@@ -1,5 +1,6 @@
 import { globalCSSImports, projectRoot, getFileHashes, calculateFileHash } from './helpers';
 import { EnvironmentPlugin } from 'webpack';
+import { GenerateDecoratorRegistriesPlugin } from './plugins/generate-decorator-registries.plugin';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
@@ -75,6 +76,7 @@ const SCSS_LOADERS = [
 
 export const commonExports = {
   plugins: [
+    new GenerateDecoratorRegistriesPlugin(),
     new EnvironmentPlugin({
       languageHashes: getFileHashes(path.join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
     }),

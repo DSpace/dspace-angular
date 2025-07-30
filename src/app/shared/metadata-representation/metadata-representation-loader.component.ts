@@ -11,6 +11,7 @@ import {
   MetadataRepresentationType,
 } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
 import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { ThemeService } from '../theme-support/theme.service';
 import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
@@ -19,6 +20,9 @@ import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representa
   selector: 'ds-metadata-representation-loader',
   templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
   standalone: true,
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context
@@ -44,12 +48,12 @@ export class MetadataRepresentationLoaderComponent extends AbstractComponentLoad
 
   constructor(
     protected themeService: ThemeService,
-    @Inject(METADATA_REPRESENTATION_COMPONENT_FACTORY) private getMetadataRepresentationComponent: (entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>,
+    @Inject(METADATA_REPRESENTATION_COMPONENT_FACTORY) private getMetadataRepresentationComponent: (entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => Promise<GenericConstructor<any>>,
   ) {
     super(themeService);
   }
 
-  public getComponent(): GenericConstructor<MetadataRepresentationListElementComponent> {
+  public getComponent(): Promise<GenericConstructor<MetadataRepresentationListElementComponent>> {
     return this.getMetadataRepresentationComponent(this.mdRepresentation.itemType, this.mdRepresentation.representationType, this.context, this.themeService.getThemeName());
   }
 

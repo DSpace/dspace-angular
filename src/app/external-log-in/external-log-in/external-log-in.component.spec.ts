@@ -19,14 +19,14 @@ import { of } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
 import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
-import { AuthMethodsService } from '../../core/auth/auth-methods.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { Registration } from '../../core/shared/registration.model';
-import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
 import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
@@ -36,8 +36,6 @@ describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
   let fixture: ComponentFixture<ExternalLogInComponent>;
   let modalService: NgbModal = jasmine.createSpyObj('modalService', ['open']);
-  let authServiceStub: jasmine.SpyObj<AuthService>;
-  let authMethodsServiceStub: jasmine.SpyObj<AuthMethodsService>;
   let mockAuthMethodsArray: AuthMethod[] = [
     { id: 'password', authMethodType: AuthMethodType.Password, position: 2 } as AuthMethod,
     { id: 'shibboleth', authMethodType: AuthMethodType.Shibboleth, position: 1 } as AuthMethod,
@@ -80,9 +78,6 @@ describe('ExternalLogInComponent', () => {
   };
 
   beforeEach(async () => {
-    authServiceStub = jasmine.createSpyObj('AuthService', ['getAuthenticationMethods']);
-    authMethodsServiceStub = jasmine.createSpyObj('AuthMethodsService', ['getAuthMethods']);
-
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -99,6 +94,7 @@ describe('ExternalLogInComponent', () => {
         { provide: NgbModal, useValue: modalService },
         FormBuilder,
         provideMockStore({ initialState }),
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
     })
       .overrideComponent(ExternalLogInComponent, {
@@ -113,13 +109,6 @@ describe('ExternalLogInComponent', () => {
     component = fixture.componentInstance;
     component.registrationData = Object.assign(new Registration(), registrationDataMock);
     component.registrationType = registrationDataMock.registrationType;
-
-    let mockAuthMethods = new Map<AuthMethodType, AuthMethodTypeComponent>();
-    mockAuthMethods.set(AuthMethodType.Password, {} as AuthMethodTypeComponent);
-    mockAuthMethods.set(AuthMethodType.Shibboleth, {} as AuthMethodTypeComponent);
-    mockAuthMethods.set(AuthMethodType.Oidc, {} as AuthMethodTypeComponent);
-    mockAuthMethods.set(AuthMethodType.Ip, {} as AuthMethodTypeComponent);
-    component.authMethods = mockAuthMethods;
     fixture.detectChanges();
   });
 

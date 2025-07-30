@@ -25,6 +25,7 @@ import {
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -66,8 +67,7 @@ import {
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
-
-// todo: optimize imports
+import { EPERSON } from './models/eperson.resource-type';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -76,6 +76,7 @@ export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, 
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
  */
 @Injectable({ providedIn: 'root' })
+@dataService(EPERSON)
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';

@@ -30,6 +30,8 @@ import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-title',
@@ -46,6 +48,7 @@ import {
 /**
  * Component for browsing items by title (dc.title)
  */
+@rendersBrowseBy(BrowseByDataType.Title)
 export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {

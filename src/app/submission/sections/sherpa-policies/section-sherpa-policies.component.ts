@@ -26,6 +26,8 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
@@ -49,6 +51,7 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
   ],
   standalone: true,
 })
+@renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 
   /**

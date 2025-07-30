@@ -6,6 +6,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { dataService } from '../../../core/cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -41,6 +42,7 @@ import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { LdnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
+import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 
 /**
@@ -55,6 +57,7 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
  * @implements {CreateData<LdnService>}
  */
 @Injectable({ providedIn: 'root' })
+@dataService(LDN_SERVICE)
 export class LdnServicesService extends IdentifiableDataService<LdnService> implements FindAllData<LdnService>, DeleteData<LdnService>, PatchData<LdnService>, CreateData<LdnService> {
   createData: CreateDataImpl<LdnService>;
   private findAllData: FindAllDataImpl<LdnService>;

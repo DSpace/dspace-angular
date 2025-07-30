@@ -4,7 +4,7 @@
 
 export enum Context {
   /** Default context */
-  Any = 'undefined',
+  Any = '*',
 
   /** General item page context */
   ItemPage = 'itemPage',

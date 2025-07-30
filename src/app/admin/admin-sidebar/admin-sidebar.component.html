@@ -26,9 +26,11 @@
     <div class="sidebar-full-width-container" id="sidebar-top-level-items-container">
       <div class="sidebar-full-width-container" id="sidebar-top-level-items" role="menubar"
         [attr.aria-label]="'menu.header.admin.description' |translate">
-        @for (section of (sections | async); track section) {
-          <ng-container
-          *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+        @for (sectionDTO of (sectionDTOs$ | async); track sectionDTO) {
+          <ds-menu-component-loader [menuID]="menuID"
+                                    [expandable]="sectionDTO.hasSubSections || sectionDTO.menuSection.alwaysRenderExpandable"
+                                    [section]="sectionDTO.menuSection">
+          </ds-menu-component-loader>
         }
       </div>
     </div>

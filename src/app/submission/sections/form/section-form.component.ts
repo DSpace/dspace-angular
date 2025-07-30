@@ -66,6 +66,8 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
 import { SectionFormOperationsService } from './section-form-operations.service';
 
 /**
@@ -81,6 +83,7 @@ import { SectionFormOperationsService } from './section-form-operations.service'
   ],
   standalone: true,
 })
+@renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 
   /**

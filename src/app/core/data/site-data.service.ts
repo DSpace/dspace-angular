@@ -3,11 +3,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
+import { SITE } from '../shared/site.resource-type';
 import { BaseDataService } from './base/base-data.service';
 import {
   FindAllData,
@@ -22,6 +24,7 @@ import { RequestService } from './request.service';
  * Service responsible for handling requests related to the Site object
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SITE)
 export class SiteDataService extends BaseDataService<Site> implements FindAllData<Site> {
   private findAllData: FindAllData<Site>;
 

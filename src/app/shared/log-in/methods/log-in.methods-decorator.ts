@@ -1,24 +1,29 @@
+import { Component } from '@angular/core';
+
+import { RENDER_AUTH_METHOD_FOR_MAP } from '../../../../decorator-registries/render-auth-method-for-registry';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { AuthMethodTypeComponent } from './auth-methods.type';
-import { LogInExternalProviderComponent } from './log-in-external-provider/log-in-external-provider.component';
-import { LogInPasswordComponent } from './password/log-in-password.component';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { hasValue } from '../../empty.util';
+import {
+  DEFAULT_THEME,
+  getMatch,
+} from '../../object-collection/shared/listable-object/listable-object.decorator';
 
-export const AUTH_METHOD_FOR_DECORATOR_MAP = new Map<AuthMethodType, AuthMethodTypeComponent>([
-  [AuthMethodType.Password, LogInPasswordComponent],
-  [AuthMethodType.Shibboleth, LogInExternalProviderComponent],
-  [AuthMethodType.Oidc, LogInExternalProviderComponent],
-  [AuthMethodType.Orcid, LogInExternalProviderComponent],
-  [AuthMethodType.Saml, LogInExternalProviderComponent],
-]);
+export const DEFAULT_METHOD_TYPE = AuthMethodType.Password;
 
-/**
- * @deprecated
- */
 export function renderAuthMethodFor(authMethodType: AuthMethodType) {
   return function decorator(objectElement: any) {
-    if (!objectElement) {
-      return;
-    }
-    AUTH_METHOD_FOR_DECORATOR_MAP.set(authMethodType, objectElement);
   };
+}
+
+/**
+ * Retrieves the component matching the given {@link AuthMethodType}
+ *
+ * @param authMethodType The given {@link AuthMethodType}
+ * @param theme The theme to retrieve the component for
+ * @param registry The registry to search through. Defaults to RENDER_AUTH_METHOD_FOR_MAP, but other components can override this.
+ */
+export function getAuthMethodFor(authMethodType: AuthMethodType, theme: string, registry = RENDER_AUTH_METHOD_FOR_MAP): Promise<GenericConstructor<Component>> {
+  const match = getMatch(registry, [authMethodType, theme], [DEFAULT_METHOD_TYPE, DEFAULT_THEME]);
+  return hasValue(match) ? match.match() : undefined;
 }

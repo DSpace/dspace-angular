@@ -25,6 +25,7 @@ import { WorkflowItemDataService } from '../../../core/submission/workflowitem-d
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -39,10 +40,7 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import {
-  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
-  AdvancedWorkflowActionRatingComponent,
-} from './advanced-workflow-action-rating.component';
+import { AdvancedWorkflowActionRatingComponent } from './advanced-workflow-action-rating.component';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -139,7 +137,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         component.performAction();
 
         expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-          [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
+          [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
           review: 'Good job!',
           score: 4,
         });
@@ -178,7 +176,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         component.performAction();
 
         expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-          [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
+          [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
           review: 'Good job!',
           score: 4,
         });
@@ -196,7 +194,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         component.performAction();
 
         expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-          [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
+          [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
           score: 4,
         });
         expect(notificationService.success).toHaveBeenCalled();
