@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
@@ -45,7 +46,6 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { FormState } from '../../shared/form/form.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionsService } from '../sections/sections.service';
 import { SectionsType } from '../sections/sections-type';
 import { SubmissionState } from '../submission.reducers';

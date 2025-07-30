@@ -7,6 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
@@ -24,7 +25,6 @@ import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-downloa
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';

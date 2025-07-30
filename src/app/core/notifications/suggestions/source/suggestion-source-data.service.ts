@@ -18,7 +18,7 @@ import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { SuggestionSource } from '../models/suggestion-source.model';
 
 /**

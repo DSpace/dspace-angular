@@ -18,7 +18,6 @@ import { of } from 'rxjs';
 
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   EPersonMock,
   EPersonMock2,
@@ -44,6 +43,7 @@ import {
   PostRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {

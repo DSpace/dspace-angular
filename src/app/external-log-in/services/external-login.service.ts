@@ -5,6 +5,7 @@ import { getAuthenticationMethods } from '@core/auth/selectors';
 import { CoreState } from '@core/core-state.model';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import {
@@ -17,8 +18,6 @@ import {
   map,
   Observable,
 } from 'rxjs';
-
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({
   providedIn: 'root',

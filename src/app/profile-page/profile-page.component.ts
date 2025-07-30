@@ -18,6 +18,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { Group } from '@core/eperson/models/group.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { followLink } from '@core/shared/follow-link-config.model';
@@ -50,7 +51,6 @@ import { SuggestionsNotificationComponent } from '../notifications/suggestions/n
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../shared/utils/var.directive';

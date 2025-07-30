@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { Script } from '@core/shared/scripts/script.model';
 import {
@@ -22,7 +23,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
 import { OptionVO } from '../option-vo.model';

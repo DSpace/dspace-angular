@@ -13,6 +13,7 @@ import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { NONE_ENTITY_TYPE } from '@core/shared/item-relationships/item-type.resource-type';
@@ -38,7 +39,6 @@ import { Observable } from 'rxjs';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

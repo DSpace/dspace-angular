@@ -15,6 +15,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { RequestService } from '@core/data/request.service';
 import { RestRequestMethod } from '@core/data/rest-request-method';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Community } from '@core/shared/community.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
@@ -29,7 +30,6 @@ import { of } from 'rxjs';
 
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { VarDirective } from '../../../utils/var.directive';

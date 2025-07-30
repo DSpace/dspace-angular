@@ -9,6 +9,11 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { INotificationBoardOptions } from '@config/notifications-config.interfaces';
+import { CoreState } from '@core/core-state.model';
+import { INotification } from '@core/notification-system/models/notification.model';
+import { NotificationsState } from '@core/notification-system/notifications.reducers';
+import { NotificationsService } from '@core/notification-system/notifications.service';
+import { notificationsStateSelector } from '@core/notification-system/selectors';
 import {
   select,
   Store,
@@ -26,14 +31,9 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
-import { AppState } from '../../../app.reducer';
-import { LiveRegionService } from '../../live-region/live-region.service';
-import { INotification } from '../models/notification.model';
+import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
+import { LiveRegionService } from '../../shared/live-region/live-region.service';
 import { NotificationComponent } from '../notification/notification.component';
-import { NotificationsState } from '../notifications.reducers';
-import { NotificationsService } from '../notifications.service';
-import { notificationsStateSelector } from '../selectors';
 
 @Component({
   selector: 'ds-notifications-board',
@@ -72,7 +72,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
   constructor(
     protected service: NotificationsService,
-    protected store: Store<AppState>,
+    protected store: Store<CoreState>,
     protected cdr: ChangeDetectorRef,
     protected liveRegionService: LiveRegionService,
     protected accessibilitySettingsService: AccessibilitySettingsService,

@@ -18,6 +18,8 @@ import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { INotification } from '@core/notification-system/models/notification.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import {
   ContentSource,
@@ -63,8 +65,6 @@ import { environment } from '../../../../environments/environment';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { INotification } from '../../../shared/notifications/models/notification.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 

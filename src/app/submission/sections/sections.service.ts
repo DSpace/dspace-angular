@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { WorkspaceitemSectionDataType } from '@core/submission/models/workspaceitem-sections.model';
 import { normalizeSectionData } from '@core/submission/submission-response-parsing.service';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
@@ -35,7 +36,6 @@ import {
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,

@@ -6,11 +6,11 @@ import {
 } from 'fast-json-patch';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bundle } from '../shared/bundle.model';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';

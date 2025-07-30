@@ -28,6 +28,7 @@ import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { VersionDataService } from '@core/data/version-data.service';
 import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
@@ -52,7 +53,6 @@ import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

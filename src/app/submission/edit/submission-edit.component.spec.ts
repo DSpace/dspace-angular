@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
 import { ItemDataService } from '@core/data/item-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
@@ -23,7 +24,6 @@ import { of } from 'rxjs';
 
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

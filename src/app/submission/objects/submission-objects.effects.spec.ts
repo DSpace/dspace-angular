@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { SubmissionSectionModel } from '@core/config/models/config-submission-section.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Item } from '@core/shared/item.model';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
@@ -44,7 +45,6 @@ import {
   mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
 import { StoreMock } from '../../shared/testing/store.mock';

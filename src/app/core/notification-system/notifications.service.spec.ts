@@ -14,10 +14,11 @@ import {
 import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { NotificationComponent } from '../../notification-system/notification/notification.component';
+import { NotificationsBoardComponent } from '../../notification-system/notifications-board/notifications-board.component';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
-import { NotificationComponent } from './notification/notification.component';
 import {
   NewNotificationAction,
   RemoveAllNotificationsAction,
@@ -25,7 +26,6 @@ import {
 } from './notifications.actions';
 import { notificationsReducer } from './notifications.reducers';
 import { NotificationsService } from './notifications.service';
-import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {

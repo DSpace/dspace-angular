@@ -13,6 +13,7 @@ import {
   Router,
 } from '@angular/router';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { NoContent } from '@core/shared/NoContent.model';
@@ -35,7 +36,6 @@ import {
 } from 'rxjs';
 
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-workspaceitems-delete-page',

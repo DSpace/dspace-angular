@@ -43,8 +43,8 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { IpV4Validator } from '../../../../shared/utils/ipV4.validator';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { FindListOptions } from '../../find-list-options.model';
 import { LdnItemfiltersService } from '../../ldn-itemfilters-data.service';
 import { LdnServicesService } from '../../ldn-services-data.service';

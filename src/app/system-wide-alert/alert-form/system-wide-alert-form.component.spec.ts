@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
 import {
   createFailedRemoteDataObject$,
@@ -19,7 +20,6 @@ import {
 } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';

@@ -13,6 +13,7 @@ import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
 import { RemoteData } from '@core/data/remote-data';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import {
   NativeWindowRef,
@@ -42,7 +43,6 @@ import { ExternalLoginService } from '../../external-log-in/services/external-lo
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 
 export interface ReviewAccountInfoData {

@@ -16,6 +16,7 @@ import { ConfigurationDataService } from '@core/data/configuration-data.service'
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
   createFailedRemoteDataObject$,
@@ -37,7 +38,6 @@ import { storeModuleConfig } from '../app.reducer';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import {
   EmptySpecialGroupDataMock$,

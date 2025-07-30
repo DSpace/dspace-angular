@@ -9,6 +9,7 @@ import {
 } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
 import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
@@ -19,7 +20,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 
 /**

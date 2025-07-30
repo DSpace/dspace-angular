@@ -18,6 +18,7 @@ import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '@core/data/processes/script-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
@@ -40,7 +41,6 @@ import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';

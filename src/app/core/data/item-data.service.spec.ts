@@ -9,12 +9,12 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';

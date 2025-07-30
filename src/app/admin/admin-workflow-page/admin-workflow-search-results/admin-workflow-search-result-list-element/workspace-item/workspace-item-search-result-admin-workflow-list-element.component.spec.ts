@@ -11,6 +11,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
@@ -26,7 +27,6 @@ import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';

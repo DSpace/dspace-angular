@@ -44,10 +44,6 @@ import {
 import { menusReducer } from './shared/menu/menu.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import {
-  notificationsReducer,
-  NotificationsState,
-} from './shared/notifications/notifications.reducers';
-import {
   selectableListReducer,
   SelectableListsState,
 } from './shared/object-list/selectable-list/selectable-list.reducer';
@@ -85,7 +81,6 @@ export interface AppState {
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
-  notifications: NotificationsState;
   sidebar: SidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
@@ -107,7 +102,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,
-  notifications: notificationsReducer,
   sidebar: sidebarReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,

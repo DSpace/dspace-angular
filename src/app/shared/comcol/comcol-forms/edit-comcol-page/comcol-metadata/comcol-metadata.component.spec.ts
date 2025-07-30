@@ -11,6 +11,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ComColDataService } from '@core/data/comcol-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Community } from '@core/shared/community.model';
 import {
   createFailedRemoteDataObject$,
@@ -20,7 +21,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '../../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 

@@ -17,6 +17,7 @@ import {
   Router,
 } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
@@ -36,7 +37,6 @@ import {
 
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LocationStub } from '../shared/testing/location.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';

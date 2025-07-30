@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@core/auth/auth.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
 import { followLink } from '@core/shared/follow-link-config.model';
@@ -19,7 +20,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';

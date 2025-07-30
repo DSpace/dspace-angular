@@ -23,6 +23,7 @@ import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { ProcessStatus } from '@core/processes/process-status.model';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
@@ -62,7 +63,6 @@ import {
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

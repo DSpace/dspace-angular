@@ -15,6 +15,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { ItemDataService } from '@core/data/item-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ConfidenceType } from '@core/shared/confidence-type';
 import { followLink } from '@core/shared/follow-link-config.model';
 import {
@@ -54,7 +55,6 @@ import {
 } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { AuthorityConfidenceStateDirective } from '../../../../shared/form/directives/authority-confidence-state.directive';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service';

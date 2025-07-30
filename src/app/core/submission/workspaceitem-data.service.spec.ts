@@ -14,7 +14,6 @@ import { map } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -29,6 +28,7 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';

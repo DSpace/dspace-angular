@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { ItemDataService } from '@core/data/item-data.service';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { ConfidenceType } from '@core/shared/confidence-type';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -21,7 +22,6 @@ import { RegistryService } from '../../../../admin/admin-registries/registry/reg
 import { DynamicOneboxModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DsDynamicScrollableDropdownComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { VocabularyServiceStub } from '../../../../shared/testing/vocabulary-service.stub';
 import { DsoEditMetadataValue } from '../../dso-edit-metadata-form';

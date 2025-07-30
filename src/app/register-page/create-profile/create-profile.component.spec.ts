@@ -23,6 +23,7 @@ import {
 } from '@core/end-user-agreement/end-user-agreement.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Registration } from '@core/shared/registration.model';
 import {
   createFailedRemoteDataObject$,
@@ -34,7 +35,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { CreateProfileComponent } from './create-profile.component';

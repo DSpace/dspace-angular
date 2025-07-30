@@ -15,6 +15,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { ArrayMoveChangeAnalyzer } from '@core/data/array-move-change-analyzer.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
@@ -24,7 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TestDataService } from '../../shared/testing/test-data-service.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';

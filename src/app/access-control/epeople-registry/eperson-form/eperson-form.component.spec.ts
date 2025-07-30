@@ -34,6 +34,7 @@ import { RequestService } from '@core/data/request.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -50,7 +51,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';

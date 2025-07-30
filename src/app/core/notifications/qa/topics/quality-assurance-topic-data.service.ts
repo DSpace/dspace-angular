@@ -18,7 +18,7 @@ import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Observable } from 'rxjs';
 
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { QualityAssuranceTopicObject } from '../models/quality-assurance-topic.model';
 
 /**

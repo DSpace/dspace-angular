@@ -16,6 +16,7 @@ import {
 import { RequestService } from '@core/data/request.service';
 import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
@@ -30,7 +31,6 @@ import { Subscription } from 'rxjs';
 
 import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
 

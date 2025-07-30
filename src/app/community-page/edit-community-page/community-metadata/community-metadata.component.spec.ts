@@ -8,10 +8,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommunityDataService } from '@core/data/community-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 import { CommunityMetadataComponent } from './community-metadata.component';

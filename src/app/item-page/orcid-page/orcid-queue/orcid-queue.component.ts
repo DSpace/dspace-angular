@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { OrcidHistory } from '@core/orcid/model/orcid-history.model';
 import { OrcidQueue } from '@core/orcid/model/orcid-queue.model';
 import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
@@ -39,7 +40,6 @@ import {
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 

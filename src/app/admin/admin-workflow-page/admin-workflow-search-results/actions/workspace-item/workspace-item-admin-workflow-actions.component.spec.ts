@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestEntryState } from '@core/data/request-entry-state.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
@@ -19,7 +20,6 @@ import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 import { supervisionOrderEntryMock } from '../../../../../shared/testing/supervision-order.mock';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';

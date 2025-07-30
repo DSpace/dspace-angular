@@ -5,6 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
@@ -12,7 +13,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ThemeService } from '../../../theme-support/theme.service';

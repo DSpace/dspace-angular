@@ -21,6 +21,7 @@ import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Collection } from '@core/shared/collection.model';
 import { Duplicate } from '@core/shared/duplicate-data/duplicate.model';
@@ -44,7 +45,6 @@ import {
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
 import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';

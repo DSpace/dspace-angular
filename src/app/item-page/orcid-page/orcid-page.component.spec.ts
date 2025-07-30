@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@core/auth/auth.service';
 import { ItemDataService } from '@core/data/item-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { OrcidHistoryDataService } from '@core/orcid/orcid-history-data.service';
 import { OrcidQueueDataService } from '@core/orcid/orcid-queue-data.service';
@@ -35,7 +36,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';

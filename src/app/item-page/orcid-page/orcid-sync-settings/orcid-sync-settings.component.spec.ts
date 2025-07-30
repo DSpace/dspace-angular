@@ -16,6 +16,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
 import { Item } from '@core/shared/item.model';
@@ -33,7 +34,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';

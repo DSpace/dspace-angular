@@ -13,6 +13,12 @@ import {
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { INotificationBoardOptions } from '@config/notifications-config.interfaces';
+import { CoreState } from '@core/core-state.model';
+import { Notification } from '@core/notification-system/models/notification.model';
+import { NotificationOptions } from '@core/notification-system/models/notification-options.model';
+import { NotificationType } from '@core/notification-system/models/notification-type';
+import { notificationsReducer } from '@core/notification-system/notifications.reducers';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import {
   Store,
   StoreModule,
@@ -20,18 +26,12 @@ import {
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
-import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
-import { getAccessibilitySettingsServiceStub } from '../../../accessibility/accessibility-settings.service.stub';
-import { AppState } from '../../../app.reducer';
-import { LiveRegionService } from '../../live-region/live-region.service';
-import { LiveRegionServiceStub } from '../../live-region/live-region.service.stub';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { Notification } from '../models/notification.model';
-import { NotificationOptions } from '../models/notification-options.model';
-import { NotificationType } from '../models/notification-type';
+import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
+import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
+import { LiveRegionService } from '../../shared/live-region/live-region.service';
+import { LiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { NotificationComponent } from '../notification/notification.component';
-import { notificationsReducer } from '../notifications.reducers';
-import { NotificationsService } from '../notifications.service';
 import { NotificationsBoardComponent } from './notifications-board.component';
 
 export const bools = { f: false, t: true };
@@ -65,7 +65,7 @@ describe('NotificationsBoardComponent', () => {
     }).compileComponents();  // compile template and css
   }));
 
-  beforeEach(inject([NotificationsService, Store], (service: NotificationsService, store: Store<AppState>) => {
+  beforeEach(inject([NotificationsService, Store], (service: NotificationsService, store: Store<CoreState>) => {
     store
       .subscribe((state) => {
         const notifications = [

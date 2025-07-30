@@ -4,10 +4,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-
-import { NotificationsService } from '../notifications/notifications.service';
 
 /**
  * Abstract Component that is able to track changes made in the inheriting component using the ObjectUpdateService

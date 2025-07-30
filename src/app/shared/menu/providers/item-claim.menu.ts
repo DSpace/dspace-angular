@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
@@ -20,7 +21,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NotificationsService } from '../../notifications/notifications.service';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';

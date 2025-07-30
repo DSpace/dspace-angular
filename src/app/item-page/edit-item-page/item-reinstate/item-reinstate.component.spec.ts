@@ -13,6 +13,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemDataService } from '@core/data/item-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import {
   createSuccessfulRemoteDataObject,
@@ -22,7 +23,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemReinstateComponent } from './item-reinstate.component';

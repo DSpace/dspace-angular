@@ -15,6 +15,7 @@ import {
   Router,
 } from '@angular/router';
 import { LinkService } from '@core/cache/builders/link.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ActionType } from '@core/resource-policy/models/action-type.model';
 import { PolicyType } from '@core/resource-policy/models/policy-type.model';
 import { RESOURCE_POLICY } from '@core/resource-policy/models/resource-policy.resource-type';
@@ -33,7 +34,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { GroupMock } from '../../testing/group-mock';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';

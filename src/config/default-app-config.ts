@@ -1,8 +1,9 @@
+import { NotificationAnimationsType } from '@core/notification-system/models/notification-animations-type';
+
 import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';

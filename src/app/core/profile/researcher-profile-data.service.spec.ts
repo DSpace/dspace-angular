@@ -12,7 +12,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -26,6 +25,7 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

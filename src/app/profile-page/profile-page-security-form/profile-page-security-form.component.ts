@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -28,7 +29,6 @@ import { map } from 'rxjs/operators';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-security-form',

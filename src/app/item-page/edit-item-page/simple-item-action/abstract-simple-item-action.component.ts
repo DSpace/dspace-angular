@@ -10,6 +10,7 @@ import {
 } from '@angular/router';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import {
@@ -22,7 +23,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditRoute,
   getItemPageRoute,

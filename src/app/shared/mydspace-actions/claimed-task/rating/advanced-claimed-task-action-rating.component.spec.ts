@@ -10,6 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SearchService } from '@core/shared/search/search.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
@@ -18,7 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';

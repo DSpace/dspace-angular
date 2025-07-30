@@ -12,6 +12,7 @@ import {
 } from '@angular/router';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { Item } from '@core/shared/item.model';
 import {
@@ -31,8 +32,6 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-
-import { NotificationsService } from '../shared/notifications/notifications.service';
 
 /**
  * Abstract component representing a page to perform an action on a workflow item

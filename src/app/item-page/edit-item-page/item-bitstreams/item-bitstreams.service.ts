@@ -8,6 +8,7 @@ import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { Bundle } from '@core/shared/bundle.model';
@@ -36,7 +37,6 @@ import {
 
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';

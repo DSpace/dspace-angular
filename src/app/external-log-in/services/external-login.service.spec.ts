@@ -7,6 +7,7 @@ import {
 import { Router } from '@angular/router';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import { Registration } from '@core/shared/registration.model';
 import {
@@ -20,7 +21,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ExternalLoginService } from './external-login.service';
 

@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { ComColDataService } from '@core/data/comcol-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
@@ -23,8 +24,6 @@ import {
   map,
   take,
 } from 'rxjs/operators';
-
-import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({
   selector: 'ds-comcol-metadata',

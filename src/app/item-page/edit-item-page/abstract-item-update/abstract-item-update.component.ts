@@ -14,6 +14,7 @@ import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { getAllSucceededRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,7 +32,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageLinksToFollow } from '../../item.resolver';
 import { getItemPageRoute } from '../../item-page-routing-paths';

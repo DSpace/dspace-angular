@@ -12,6 +12,7 @@ import {
 import { AuthService } from '@core/auth/auth.service';
 import { ItemRequestDataService } from '@core/data/item-request-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
 import { ItemRequest } from '@core/shared/item-request.model';
@@ -34,7 +35,6 @@ import {
 
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';

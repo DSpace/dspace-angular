@@ -29,6 +29,7 @@ import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ItemRequestDataService } from '@core/data/item-request-data.service';
 import { ProofOfWorkCaptchaDataService } from '@core/data/proof-of-work-captcha-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { getForbiddenRoute } from '@core/router/routing-paths';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
@@ -60,7 +61,6 @@ import {
 
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { AltchaCaptchaComponent } from './altcha-captcha.component';
 

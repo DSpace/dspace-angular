@@ -18,6 +18,7 @@ import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { License } from '@core/shared/license.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
@@ -57,7 +58,6 @@ import {
   mockSubmissionId,
   mockSubmissionObject,
 } from '../../../shared/mocks/submission.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

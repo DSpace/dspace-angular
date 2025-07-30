@@ -11,6 +11,7 @@ import { historyReducer } from './history/history.reducer';
 import { indexReducer } from './index/index.reducer';
 import { jsonPatchOperationsReducer } from './json-patch/json-patch-operations.reducer';
 import { metaTagReducer } from './metadata/meta-tag.reducer';
+import { notificationsReducer } from './notification-system/notifications.reducers';
 import { routeReducer } from './services/route.reducer';
 
 export const coreReducers: ActionReducerMap<CoreState> = {
@@ -25,4 +26,5 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'metaTag': metaTagReducer,
   'route': routeReducer,
   'correlationId': correlationIdReducer,
+  'notifications': notificationsReducer,
 };

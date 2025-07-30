@@ -15,6 +15,7 @@ import {
 import { AuthService } from '@core/auth/auth.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import {
   NativeWindowRef,
@@ -40,7 +41,6 @@ import {
   take,
 } from 'rxjs';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ExternalLoginService } from '../../services/external-login.service';
 
 @Component({

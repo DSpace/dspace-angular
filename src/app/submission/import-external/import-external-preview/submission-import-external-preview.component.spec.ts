@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Metadata } from '@core/shared/metadata.utils';
 import {
@@ -21,7 +22,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

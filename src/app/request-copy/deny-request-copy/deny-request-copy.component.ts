@@ -13,6 +13,7 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { ItemRequestDataService } from '@core/data/item-request-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
 import { Item } from '@core/shared/item.model';
 import { ItemRequest } from '@core/shared/item-request.model';
@@ -35,7 +36,6 @@ import {
 } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';

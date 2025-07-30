@@ -19,7 +19,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
@@ -27,6 +26,7 @@ import { PaginationServiceStub } from '../../../../shared/testing/pagination-ser
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { LdnServicesService } from '../../ldn-services-data.service';
 import { PaginatedList } from '../../paginated-list.model';
 import { RemoteData } from '../../remote-data';

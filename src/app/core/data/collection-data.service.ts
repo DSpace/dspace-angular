@@ -14,14 +14,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { INotification } from '../../shared/notifications/models/notification.model';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { INotification } from '../notification-system/models/notification.model';
+import { NotificationOptions } from '../notification-system/models/notification-options.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';

@@ -21,6 +21,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { ItemDataService } from '@core/data/item-data.service';
 import { VersionDataService } from '@core/data/version-data.service';
 import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { Version } from '@core/shared/version.model';
 import { VersionHistory } from '@core/shared/version-history.model';
@@ -33,7 +34,6 @@ import {
   of,
 } from 'rxjs';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

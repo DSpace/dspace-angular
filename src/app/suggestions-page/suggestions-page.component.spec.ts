@@ -12,6 +12,7 @@ import {
   Router,
 } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
@@ -38,7 +39,6 @@ import {
   getMockSuggestionsService,
 } from '../shared/mocks/suggestion.mock';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';

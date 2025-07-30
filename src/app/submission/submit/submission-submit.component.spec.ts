@@ -13,6 +13,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemDataService } from '@core/data/item-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateModule,
@@ -22,7 +23,6 @@ import { of } from 'rxjs';
 
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';

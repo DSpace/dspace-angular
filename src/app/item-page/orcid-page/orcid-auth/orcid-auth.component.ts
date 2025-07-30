@@ -10,6 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import {
@@ -33,7 +34,6 @@ import { map } from 'rxjs/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-orcid-auth',

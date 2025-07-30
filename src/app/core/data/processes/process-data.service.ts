@@ -16,9 +16,9 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { NotificationsService } from '../../notification-system/notifications.service';
 import { Process } from '../../processes/process.model';
 import { ProcessStatus } from '../../processes/process-status.model';
 import { Bitstream } from '../../shared/bitstream.model';

@@ -11,6 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateModule,
@@ -21,7 +22,6 @@ import { of } from 'rxjs';
 
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.component';
 

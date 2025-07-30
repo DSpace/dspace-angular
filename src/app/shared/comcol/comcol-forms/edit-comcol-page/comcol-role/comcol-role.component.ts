@@ -10,6 +10,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { Group } from '@core/eperson/models/group.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { HALLink } from '@core/shared/hal-link.model';
@@ -43,7 +44,6 @@ import { getGroupEditRoute } from '../../../../../access-control/access-control-
 import { AlertComponent } from '../../../../alert/alert.component';
 import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { NotificationsService } from '../../../../notifications/notifications.service';
 import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';
 import { VarDirective } from '../../../../utils/var.directive';
 

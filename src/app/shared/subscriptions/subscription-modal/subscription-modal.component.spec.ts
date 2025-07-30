@@ -18,6 +18,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
@@ -32,7 +33,6 @@ import {
 
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
 import {
   subscriptionMock,
   subscriptionMock2,

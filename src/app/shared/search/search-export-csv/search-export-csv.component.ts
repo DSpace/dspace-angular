@@ -12,6 +12,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -35,7 +36,6 @@ import {
 } from 'rxjs/operators';
 
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { NotificationsService } from '../../notifications/notifications.service';
 
 @Component({
   selector: 'ds-search-export-csv',

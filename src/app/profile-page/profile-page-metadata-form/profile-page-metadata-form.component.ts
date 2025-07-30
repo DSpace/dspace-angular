@@ -8,6 +8,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { LangConfig } from '@config/lang-config.interface';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
@@ -28,7 +29,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import { environment } from '../../../environments/environment';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-profile-page-metadata-form',

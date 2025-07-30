@@ -14,6 +14,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
@@ -38,7 +39,6 @@ import {
 } from 'rxjs';
 
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**

@@ -18,6 +18,7 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
@@ -34,7 +35,6 @@ import {
 } from 'rxjs';
 
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';

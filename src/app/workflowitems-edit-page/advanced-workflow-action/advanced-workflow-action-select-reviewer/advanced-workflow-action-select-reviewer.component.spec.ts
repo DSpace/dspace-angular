@@ -10,6 +10,7 @@ import {
 } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
 import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { Item } from '@core/shared/item.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
@@ -23,7 +24,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
 import {
   EPersonMock,

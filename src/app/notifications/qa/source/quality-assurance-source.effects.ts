@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PaginatedList } from '@core/data/paginated-list.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
 import {
@@ -18,7 +19,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   AddSourceAction,
   QualityAssuranceSourceActionTypes,

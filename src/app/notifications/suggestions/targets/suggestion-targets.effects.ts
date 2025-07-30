@@ -6,6 +6,7 @@ import {
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -24,7 +25,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,

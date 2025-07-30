@@ -8,6 +8,7 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { LookupRelationService } from '@core/data/lookup-relation.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Context } from '@core/shared/context.model';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Item } from '@core/shared/item.model';
@@ -38,7 +39,6 @@ import {
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
-import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';

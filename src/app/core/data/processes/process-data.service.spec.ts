@@ -17,9 +17,9 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { NotificationsService } from '../../notification-system/notifications.service';
 import { Process } from '../../processes/process.model';
 import { ProcessStatus } from '../../processes/process-status.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';

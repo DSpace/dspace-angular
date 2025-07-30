@@ -16,6 +16,8 @@ import {
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
+// Import utils
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
 import { Subscription } from '@core/shared/subscription.model';
@@ -30,8 +32,6 @@ import { of } from 'rxjs';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 // Import mocks
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-// Import utils
-import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import {
   findByEPersonAndDsoResEmpty,

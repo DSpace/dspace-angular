@@ -11,6 +11,7 @@ import {
 import { IdentifierDataService } from '@core/data/identifier-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Identifier } from '@core/shared/identifiers-data/identifier.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteData } from '@core/shared/operators';
@@ -25,7 +26,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';

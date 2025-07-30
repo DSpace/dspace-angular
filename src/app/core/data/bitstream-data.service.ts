@@ -17,11 +17,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';

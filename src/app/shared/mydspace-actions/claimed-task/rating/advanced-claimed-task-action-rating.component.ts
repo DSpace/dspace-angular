@@ -7,6 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SearchService } from '@core/shared/search/search.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -15,7 +16,6 @@ import {
 } from '@ngx-translate/core';
 
 import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 
 /**

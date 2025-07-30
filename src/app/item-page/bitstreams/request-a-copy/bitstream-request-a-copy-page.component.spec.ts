@@ -29,6 +29,7 @@ import { ItemRequestDataService } from '@core/data/item-request-data.service';
 import { RequestService } from '@core/data/request.service';
 import { RequestEntry } from '@core/data/request-entry.model';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
@@ -45,7 +46,6 @@ import { of } from 'rxjs';
 
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';

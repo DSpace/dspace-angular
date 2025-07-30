@@ -11,6 +11,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { NativeWindowService } from '@core/services/window.service';
@@ -30,7 +31,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidAuthComponent } from './orcid-auth.component';

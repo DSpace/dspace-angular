@@ -17,6 +17,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { INotification } from '@core/notification-system/models/notification.model';
+import { NotificationAnimationsStatus } from '@core/notification-system/models/notification-animations-type';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   Observable,
@@ -32,46 +35,43 @@ import {
   fadeInState,
   fadeOutLeave,
   fadeOutState,
-} from '../../animations/fade';
+} from '../../shared/animations/fade';
 import {
   fromBottomEnter,
   fromBottomInState,
   fromBottomLeave,
   fromBottomOutState,
-} from '../../animations/fromBottom';
+} from '../../shared/animations/fromBottom';
 import {
   fromLeftEnter,
   fromLeftInState,
   fromLeftLeave,
   fromLeftOutState,
-} from '../../animations/fromLeft';
+} from '../../shared/animations/fromLeft';
 import {
   fromRightEnter,
   fromRightInState,
   fromRightLeave,
   fromRightOutState,
-} from '../../animations/fromRight';
+} from '../../shared/animations/fromRight';
 import {
   fromTopEnter,
   fromTopInState,
   fromTopLeave,
   fromTopOutState,
-} from '../../animations/fromTop';
+} from '../../shared/animations/fromTop';
 import {
   rotateEnter,
   rotateInState,
   rotateLeave,
   rotateOutState,
-} from '../../animations/rotate';
+} from '../../shared/animations/rotate';
 import {
   scaleEnter,
   scaleInState,
   scaleLeave,
   scaleOutState,
-} from '../../animations/scale';
-import { INotification } from '../models/notification.model';
-import { NotificationAnimationsStatus } from '../models/notification-animations-type';
-import { NotificationsService } from '../notifications.service';
+} from '../../shared/animations/scale';
 
 @Component({
   selector: 'ds-notification',

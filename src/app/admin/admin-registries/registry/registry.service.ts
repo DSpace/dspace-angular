@@ -7,6 +7,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
@@ -32,7 +33,6 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../app.reducer';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,

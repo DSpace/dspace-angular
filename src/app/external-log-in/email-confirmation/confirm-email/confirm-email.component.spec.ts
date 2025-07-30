@@ -16,6 +16,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { NativeWindowService } from '@core/services/window.service';
 import { Registration } from '@core/shared/registration.model';
@@ -32,7 +33,6 @@ import {
   NativeWindowMockFactory,
 } from '../../../shared/mocks/mock-native-window-ref';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { ConfirmEmailComponent } from './confirm-email.component';
 

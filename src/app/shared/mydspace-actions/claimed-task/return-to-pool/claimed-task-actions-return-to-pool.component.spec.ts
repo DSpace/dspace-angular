@@ -12,6 +12,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SearchService } from '@core/shared/search/search.service';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
@@ -26,7 +27,6 @@ import { of } from 'rxjs';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';

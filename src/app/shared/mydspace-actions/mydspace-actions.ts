@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { NotificationOptions } from '@core/notification-system/models/notification-options.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '@core/shared/operators';
 import { ResourceType } from '@core/shared/resource-type';
@@ -23,8 +25,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { NotificationOptions } from '../notifications/models/notification-options.model';
-import { NotificationsService } from '../notifications/notifications.service';
 import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';
 
 export interface MyDSpaceActionsResult {

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
@@ -35,7 +36,6 @@ import {
 
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';

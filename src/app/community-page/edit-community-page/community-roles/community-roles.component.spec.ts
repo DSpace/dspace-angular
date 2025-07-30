@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RequestService } from '@core/data/request.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Community } from '@core/shared/community.model';
 import {
   createSuccessfulRemoteDataObject,
@@ -22,7 +23,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommunityRolesComponent } from './community-roles.component';
 

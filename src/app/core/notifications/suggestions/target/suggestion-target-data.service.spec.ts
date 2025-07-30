@@ -24,7 +24,7 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 import { SuggestionTargetDataService } from './suggestion-target-data.service';
 

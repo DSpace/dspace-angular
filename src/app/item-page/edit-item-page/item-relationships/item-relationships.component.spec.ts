@@ -21,6 +21,12 @@ import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.s
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
 import { RequestService } from '@core/data/request.service';
+import {
+  INotification,
+  Notification,
+} from '@core/notification-system/models/notification.model';
+import { NotificationType } from '@core/notification-system/models/notification-type';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
@@ -37,12 +43,6 @@ import {
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import {
-  INotification,
-  Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 import { RouterStub } from '../../../shared/testing/router.stub';

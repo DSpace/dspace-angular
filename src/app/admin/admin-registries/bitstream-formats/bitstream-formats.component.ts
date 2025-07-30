@@ -9,6 +9,7 @@ import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.ser
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { NoContent } from '@core/shared/NoContent.model';
@@ -26,7 +27,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormatService } from './bitstream-format.service';

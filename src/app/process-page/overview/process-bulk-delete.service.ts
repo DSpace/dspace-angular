@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,8 +16,6 @@ import {
   filter,
   tap,
 } from 'rxjs/operators';
-
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({
   providedIn: 'root',

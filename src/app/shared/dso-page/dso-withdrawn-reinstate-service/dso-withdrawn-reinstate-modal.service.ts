@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '@core/notifications/qa/models/quality-assurance-event.model';
 import { Item } from '@core/shared/item.model';
@@ -12,7 +13,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/item-withdrawn-reinstate-modal.component';
-import { NotificationsService } from '../../notifications/notifications.service';
 
 export const REQUEST_WITHDRAWN = 'REQUEST/WITHDRAWN';
 export const REQUEST_REINSTATE = 'REQUEST/REINSTATE';

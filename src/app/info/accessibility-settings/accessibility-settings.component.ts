@@ -7,6 +7,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@core/auth/auth.service';
 import { OrejimeService } from '@core/cookies/orejime.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import {
   TranslateModule,
   TranslateService,
@@ -31,7 +32,6 @@ import {
 } from '../../accessibility/accessibility-settings.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../shared/context-help.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component providing the form where users can update accessibility settings.

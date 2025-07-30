@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
@@ -26,7 +27,6 @@ import { of } from 'rxjs';
 
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { CurationFormComponent } from './curation-form.component';

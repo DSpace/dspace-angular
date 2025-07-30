@@ -7,6 +7,7 @@ import { MetadataSchemaDataService } from '@core/data/metadata-schema-data.servi
 import { RemoteData } from '@core/data/remote-data';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   createNoContentRemoteDataObject$,
@@ -23,7 +24,6 @@ import {
 } from 'rxjs';
 
 import { storeModuleConfig } from '../../../app.reducer';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { StoreMock } from '../../../shared/testing/store.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

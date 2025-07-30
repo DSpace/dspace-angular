@@ -10,6 +10,7 @@ import { LinkService } from '@core/cache/builders/link.service';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Script } from '@core/shared/scripts/script.model';
 import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
@@ -21,7 +22,6 @@ import {
 import { of } from 'rxjs';
 
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

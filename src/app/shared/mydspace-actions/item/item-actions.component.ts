@@ -10,6 +10,7 @@ import {
 } from '@angular/router';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +20,6 @@ import {
 } from '@ngx-translate/core';
 
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**

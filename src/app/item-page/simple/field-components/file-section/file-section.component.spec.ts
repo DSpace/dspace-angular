@@ -12,6 +12,7 @@ import {
   APP_DATA_SERVICES_MAP,
 } from '@config/app-config.interface';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
@@ -28,7 +29,6 @@ import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

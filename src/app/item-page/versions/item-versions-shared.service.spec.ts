@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
 import { VersionDataService } from '@core/data/version-data.service';
 import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Version } from '@core/shared/version.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
@@ -12,7 +13,6 @@ import {
 } from '@core/utilities/remote-data.utils';
 import { TranslateService } from '@ngx-translate/core';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 
 describe('ItemVersionsSharedService', () => {

@@ -21,6 +21,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
@@ -52,7 +53,6 @@ import {
 
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 
 @Component({

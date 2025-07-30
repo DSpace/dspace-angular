@@ -14,6 +14,11 @@ import {
   By,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Notification } from '@core/notification-system/models/notification.model';
+import { NotificationOptions } from '@core/notification-system/models/notification-options.model';
+import { NotificationType } from '@core/notification-system/models/notification-type';
+import { notificationsReducer } from '@core/notification-system/notifications.reducers';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import {
   Store,
   StoreModule,
@@ -25,13 +30,8 @@ import {
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { storeModuleConfig } from '../../../app.reducer';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { Notification } from '../models/notification.model';
-import { NotificationOptions } from '../models/notification-options.model';
-import { NotificationType } from '../models/notification-type';
-import { notificationsReducer } from '../notifications.reducers';
-import { NotificationsService } from '../notifications.service';
+import { storeModuleConfig } from '../../app.reducer';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationComponent } from './notification.component';
 
 describe('NotificationComponent', () => {

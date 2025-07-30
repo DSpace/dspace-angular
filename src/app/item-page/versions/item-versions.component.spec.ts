@@ -28,6 +28,7 @@ import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@core/data/item-data.service';
 import { VersionDataService } from '@core/data/version-data.service';
 import { VersionHistoryDataService } from '@core/data/version-history-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Item } from '@core/shared/item.model';
 import { Version } from '@core/shared/version.model';
@@ -43,7 +44,6 @@ import {
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

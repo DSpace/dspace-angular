@@ -12,6 +12,7 @@ import { CoreState } from '@core/core-state.model';
 import { RemoteData } from '@core/data/remote-data';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -27,7 +28,6 @@ import { map } from 'rxjs/operators';
 
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({

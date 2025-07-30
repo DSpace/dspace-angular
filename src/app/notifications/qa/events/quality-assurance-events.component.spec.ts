@@ -18,6 +18,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '@core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '@core/pagination/pagination.service';
@@ -50,7 +51,6 @@ import {
   qualityAssuranceEventObjectMissingProjectNotFound,
 } from '../../../shared/mocks/notifications.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

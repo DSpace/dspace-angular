@@ -7,10 +7,10 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Version } from '../shared/version.model';

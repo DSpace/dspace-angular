@@ -15,6 +15,7 @@ import {
 } from '@angular/router';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -26,7 +27,6 @@ import {
 } from '@ngx-translate/core';
 import { isEmpty } from '@shared/utils/empty.util';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptHelpComponent } from './script-help/script-help.component';

@@ -1,8 +1,7 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
 import { RestRequestMethod } from '@core/data/rest-request-method';
+import { NotificationAnimationsType } from '@core/notification-system/models/notification-animations-type';
 import { BuildConfig } from 'src/config/build-config.interface';
-
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 
 export const environment: BuildConfig = {
   production: false,

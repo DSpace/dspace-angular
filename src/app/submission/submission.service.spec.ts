@@ -14,6 +14,7 @@ import { ErrorResponse } from '@core/cache/response.models';
 import { RequestService } from '@core/data/request.service';
 import { RequestError } from '@core/data/request-error.model';
 import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
@@ -49,7 +50,6 @@ import {
   mockSubmissionRestResponse,
 } from '../shared/mocks/submission.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
 import { SectionScope } from './objects/section-visibility.model';

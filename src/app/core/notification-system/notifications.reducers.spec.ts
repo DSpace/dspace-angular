@@ -4,11 +4,12 @@ import { StoreModule } from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
 
 import { storeModuleConfig } from '../../app.reducer';
+import { NotificationComponent } from '../../notification-system/notification/notification.component';
+import { NotificationsBoardComponent } from '../../notification-system/notifications-board/notifications-board.component';
 import { Notification } from './models/notification.model';
 import { NotificationAnimationsType } from './models/notification-animations-type';
 import { NotificationOptions } from './models/notification-options.model';
 import { NotificationType } from './models/notification-type';
-import { NotificationComponent } from './notification/notification.component';
 import {
   NewNotificationAction,
   RemoveAllNotificationsAction,
@@ -16,7 +17,6 @@ import {
 } from './notifications.actions';
 import { notificationsReducer } from './notifications.reducers';
 import { NotificationsService } from './notifications.service';
-import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 
 describe('Notifications reducer', () => {
 

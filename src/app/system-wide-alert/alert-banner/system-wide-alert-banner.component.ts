@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
 import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,8 +31,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert

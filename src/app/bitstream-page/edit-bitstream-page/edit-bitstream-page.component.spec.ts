@@ -20,6 +20,12 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
 import { PrimaryBitstreamService } from '@core/data/primary-bitstream.service';
+import {
+  INotification,
+  Notification,
+} from '@core/notification-system/models/notification.model';
+import { NotificationType } from '@core/notification-system/models/notification-type';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
@@ -38,12 +44,6 @@ import { hasValue } from '@shared/utils/empty.util';
 import { of } from 'rxjs';
 
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
-import {
-  INotification,
-  Notification,
-} from '../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

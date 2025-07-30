@@ -12,6 +12,7 @@ import {
 import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import { getAllSucceededRemoteData } from '@core/shared/operators';
@@ -35,7 +36,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';

@@ -18,6 +18,7 @@ import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
 import { PrimaryBitstreamService } from '@core/data/primary-bitstream.service';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BITSTREAM_FORMAT } from '@core/shared/bitstream-format.resource-type';
@@ -72,7 +73,6 @@ import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-for
 import { DynamicScrollableDropdownModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormComponent } from '../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';

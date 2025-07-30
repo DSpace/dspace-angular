@@ -23,6 +23,7 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import {
@@ -36,7 +37,6 @@ import { of } from 'rxjs';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';

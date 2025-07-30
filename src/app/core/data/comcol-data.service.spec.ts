@@ -8,10 +8,10 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

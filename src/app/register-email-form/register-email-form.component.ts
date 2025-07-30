@@ -26,6 +26,7 @@ import {
   CAPTCHA_NAME,
   GoogleRecaptchaService,
 } from '@core/google-recaptcha/google-recaptcha.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
   getAllSucceededRemoteDataPayload,
@@ -55,7 +56,6 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';

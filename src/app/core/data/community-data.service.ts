@@ -8,9 +8,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Community } from '../shared/community.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

@@ -46,7 +46,7 @@ import {
 } from 'rxjs/operators';
 
 import { QualityAssuranceEventData } from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
 
 /**

@@ -10,11 +10,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '@core/data/collection-data.service';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DeleteCollectionPageComponent } from './delete-collection-page.component';
 
 describe('DeleteCollectionPageComponent', () => {

@@ -8,7 +8,6 @@ import {
 import { take } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -42,6 +41,7 @@ import {
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';

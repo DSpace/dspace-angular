@@ -1,4 +1,4 @@
-import { NotificationOptions } from '../notifications/models/notification-options.model';
+import { NotificationOptions } from '@core/notification-system/models/notification-options.model';
 
 export class NotificationsServiceStub {
 

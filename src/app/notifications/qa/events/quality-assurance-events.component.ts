@@ -18,6 +18,7 @@ import { FindListOptions } from '@core/data/find-list-options.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
 import {
   QualityAssuranceEventObject,
@@ -65,7 +66,6 @@ import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

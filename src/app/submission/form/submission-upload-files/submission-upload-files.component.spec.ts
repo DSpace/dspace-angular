@@ -9,6 +9,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { Store } from '@ngrx/store';
 import {
@@ -31,7 +32,6 @@ import {
   mockUploadResponse2ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';

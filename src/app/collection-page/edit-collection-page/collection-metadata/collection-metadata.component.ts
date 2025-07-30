@@ -15,6 +15,7 @@ import { CollectionDataService } from '@core/data/collection-data.service';
 import { ItemTemplateDataService } from '@core/data/item-template-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import { NoContent } from '@core/shared/NoContent.model';
@@ -37,7 +38,6 @@ import {
 } from 'rxjs/operators';
 
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { CollectionFormComponent } from '../../collection-form/collection-form.component';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';

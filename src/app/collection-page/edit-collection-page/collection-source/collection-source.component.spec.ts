@@ -18,6 +18,12 @@ import { CollectionDataService } from '@core/data/collection-data.service';
 import { FieldUpdate } from '@core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { RequestService } from '@core/data/request.service';
+import {
+  INotification,
+  Notification,
+} from '@core/notification-system/models/notification.model';
+import { NotificationType } from '@core/notification-system/models/notification-type';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import {
   ContentSource,
@@ -37,12 +43,6 @@ import { of } from 'rxjs';
 
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import {
-  INotification,
-  Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { CollectionSourceComponent } from './collection-source.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';

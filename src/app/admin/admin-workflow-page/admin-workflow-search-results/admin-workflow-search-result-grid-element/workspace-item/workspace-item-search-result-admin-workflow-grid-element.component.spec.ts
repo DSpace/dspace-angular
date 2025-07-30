@@ -10,6 +10,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { LinkService } from '@core/cache/builders/link.service';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
@@ -25,7 +26,6 @@ import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';

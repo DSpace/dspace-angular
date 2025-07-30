@@ -24,6 +24,7 @@ import {
 } from '@core/end-user-agreement/end-user-agreement.service';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -41,7 +42,6 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token

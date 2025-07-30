@@ -20,6 +20,7 @@ import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.ser
 import { CommunityDataService } from '@core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Community } from '@core/shared/community.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { UUIDService } from '@core/shared/uuid.service';
@@ -30,7 +31,6 @@ import { of } from 'rxjs';
 
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { StoreMock } from '../../../testing/store.mock';

@@ -36,7 +36,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CookieService } from '../cookies/cookie.service';
 import { CoreState } from '../core-state.model';
 import {
@@ -48,6 +47,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { Group } from '../eperson/models/group.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
 import {

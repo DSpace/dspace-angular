@@ -2,6 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
 import {
   Store,
@@ -32,7 +33,6 @@ import {
 } from '../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { SectionScope } from '../objects/section-visibility.model';

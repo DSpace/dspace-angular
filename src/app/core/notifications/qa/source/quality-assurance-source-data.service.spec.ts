@@ -19,8 +19,8 @@ import {
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
 } from '../../../../shared/mocks/notifications.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { QualityAssuranceSourceDataService } from './quality-assurance-source-data.service';
 
 describe('QualityAssuranceSourceDataService', () => {

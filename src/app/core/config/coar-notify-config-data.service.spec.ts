@@ -5,7 +5,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
@@ -21,6 +20,7 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';

@@ -7,9 +7,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

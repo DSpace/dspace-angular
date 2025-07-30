@@ -13,7 +13,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
@@ -22,6 +21,7 @@ import { LdnServicesService } from '../data/ldn-services-data.service';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequest } from '../data/rest-request.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   getAllSucceededRemoteDataPayload,

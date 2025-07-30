@@ -15,6 +15,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { CookieService } from '@core/cookies/cookie.service';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { DragService } from '@core/drag.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import {
   NgbModal,
@@ -31,7 +32,6 @@ import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';

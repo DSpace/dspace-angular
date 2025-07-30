@@ -14,6 +14,7 @@ import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { ComColDataService } from '@core/data/comcol-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
@@ -58,7 +59,6 @@ import {
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { FormComponent } from '../../../form/form.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
 import { VarDirective } from '../../../utils/var.directive';

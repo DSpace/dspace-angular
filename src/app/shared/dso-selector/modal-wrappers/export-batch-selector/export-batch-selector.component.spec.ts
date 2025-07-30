@@ -18,6 +18,7 @@ import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '@core/data/processes/script-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
@@ -40,7 +41,6 @@ import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';

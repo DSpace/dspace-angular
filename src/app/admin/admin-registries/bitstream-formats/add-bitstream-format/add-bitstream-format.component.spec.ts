@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
 import {
@@ -22,7 +23,6 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormatFormComponent } from '../format-form/format-form.component';

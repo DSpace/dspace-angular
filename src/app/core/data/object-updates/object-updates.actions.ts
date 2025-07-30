@@ -2,7 +2,7 @@
 import { type } from '@core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
 
-import { INotification } from '../../../shared/notifications/models/notification.model';
+import { INotification } from '../../notification-system/models/notification.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { FieldChangeType } from './field-change-type.model';
 import { Identifiable } from './identifiable.model';

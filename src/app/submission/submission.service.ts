@@ -6,6 +6,7 @@ import { SubmissionDefinitionsModel } from '@core/config/models/config-submissio
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
@@ -49,7 +50,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {

@@ -37,7 +37,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { followLink } from '../shared/follow-link-config.model';
 
 /**

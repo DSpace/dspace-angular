@@ -14,6 +14,7 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
@@ -23,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';

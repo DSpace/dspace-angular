@@ -19,6 +19,7 @@ import { FormRowModel } from '@core/config/models/config-submission-form.model';
 import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
 import { RequestService } from '@core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
@@ -51,7 +52,6 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

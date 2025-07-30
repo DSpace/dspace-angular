@@ -19,7 +19,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -49,6 +48,7 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import {
   followLink,
   FollowLinkConfig,

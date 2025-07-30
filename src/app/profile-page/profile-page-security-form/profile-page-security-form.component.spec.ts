@@ -10,13 +10,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RestResponse } from '@core/cache/response.models';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
 

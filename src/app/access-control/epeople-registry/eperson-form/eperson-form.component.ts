@@ -25,6 +25,7 @@ import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { Group } from '@core/eperson/models/group.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
@@ -67,7 +68,6 @@ import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/c
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';

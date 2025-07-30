@@ -19,6 +19,12 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
 import { RequestService } from '@core/data/request.service';
+import {
+  INotification,
+  Notification,
+} from '@core/notification-system/models/notification.model';
+import { NotificationType } from '@core/notification-system/models/notification-type';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Bundle } from '@core/shared/bundle.model';
 import { Item } from '@core/shared/item.model';
@@ -32,12 +38,6 @@ import { of } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import {
-  INotification,
-  Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

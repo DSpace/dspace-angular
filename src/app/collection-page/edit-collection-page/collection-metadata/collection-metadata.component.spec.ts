@@ -21,6 +21,7 @@ import { CollectionDataService } from '@core/data/collection-data.service';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { ItemTemplateDataService } from '@core/data/item-template-data.service';
 import { RequestService } from '@core/data/request.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import {
@@ -32,7 +33,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 

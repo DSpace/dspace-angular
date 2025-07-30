@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemDataService } from '@core/data/item-data.service';
 import { LookupRelationService } from '@core/data/lookup-relation.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Item } from '@core/shared/item.model';
@@ -18,7 +19,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';

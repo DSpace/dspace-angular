@@ -23,6 +23,7 @@ import {
   SortOptions,
 } from '@core/cache/models/sort-options.model';
 import { FindListOptions } from '@core/data/find-list-options.model';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { followLink } from '@core/shared/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
@@ -53,7 +54,6 @@ import {
 
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
 
 @Component({

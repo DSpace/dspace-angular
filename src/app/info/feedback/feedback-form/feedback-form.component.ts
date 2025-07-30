@@ -15,6 +15,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { RemoteData } from '@core/data/remote-data';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { FeedbackDataService } from '@core/feedback/feedback-data.service';
+import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import {
   NativeWindowRef,
@@ -32,7 +33,6 @@ import { take } from 'rxjs/operators';
 import { getHomePageRoute } from '../../../app-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-feedback-form',
