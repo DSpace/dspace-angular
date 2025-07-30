@@ -919,7 +919,7 @@
   // "admin.reports.items.preset.hasNoIdentifierUri": "Has No dc.identifier.uri",
   "admin.reports.items.preset.hasNoIdentifierUri": "ندارد dc.identifier.uri",
 
-    // "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
+  // "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
   "admin.reports.items.preset.hasCompoundSubject": "دارای موضوع مرکب است",
 
   // "admin.reports.items.preset.hasCompoundAuthor": "Has compound dc.contributor.author",
@@ -963,7 +963,6 @@
 
   // "admin.reports.items.title": "Title",
   "admin.reports.items.title": "عنوان",
-
 
   // "admin.reports.commons.filters": "Filters",
   "admin.reports.commons.filters": "فیلترها",
