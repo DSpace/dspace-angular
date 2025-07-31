@@ -417,18 +417,39 @@ export class ItemDeleteComponent
    */
   performAction(): void {
     this.isDeleting$.next(true);
-    const parameterValues = [ Object.assign(new ProcessParameter(), { name: '-i', value: this.item.uuid }) ];
-    this.scriptDataService.invoke(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, [])
-      .pipe(getFirstCompletedRemoteData())
-      .subscribe((rd: RemoteData<Process>) => {
-        if (rd.hasSucceeded && rd.payload) {
-          this.notificationsService.success(this.translateService.get('item.edit.delete.success'));
-          this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
-        } else {
-          this.notificationsService.error(this.translateService.get('item.edit.delete.error'));
-          this.router.navigate([getItemEditRoute(this.item)]);
+    this.subs.push(this.typeDTOs$.pipe(
+      switchMap((types: RelationshipTypeDTO[]) =>
+        combineLatest(
+          types.map((type: RelationshipTypeDTO) => type.isSelected$),
+        ).pipe(
+          defaultIfEmpty([]),
+          map((selection: boolean[]) => types.filter(
+            (type: RelationshipTypeDTO, index: number) => selection[index],
+          )),
+          map((selectedDtoTypes: RelationshipTypeDTO[]) => selectedDtoTypes.map((typeDto: RelationshipTypeDTO) => typeDto.relationshipType.id)),
+        ),
+      ),
+      switchMap((types: string[]) => {
+        const parameterValues = [ Object.assign(new ProcessParameter(), { name: '-i', value: this.item.uuid }) ];
+        if (isNotEmpty(types)) {
+          parameterValues.push(Object.assign(new ProcessParameter(), { name: '-c', value: types.join(',') }));
         }
-      });
+        return this.scriptDataService.invoke(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
+      }),
+      getFirstCompletedRemoteData(),
+    ).subscribe((rd: RemoteData<Process>) => {
+      this.notify(rd);
+    }));
+  }
+
+  notify(rd: RemoteData<Process>) {
+    if (rd.hasSucceeded && rd.payload) {
+      this.notificationsService.success(this.translateService.get('item.edit.delete.success'));
+      this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
+    } else {
+      this.notificationsService.error(this.translateService.get('item.edit.delete.error'));
+      this.router.navigate([getItemEditRoute(this.item)]);
+    }
   }
 
   /**
