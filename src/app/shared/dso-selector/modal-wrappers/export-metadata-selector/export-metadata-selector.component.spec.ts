@@ -23,6 +23,8 @@ import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { Item } from '@core/shared/item.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -40,8 +42,6 @@ import {
 import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 

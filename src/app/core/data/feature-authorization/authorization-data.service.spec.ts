@@ -5,13 +5,13 @@ import {
   of,
 } from 'rxjs';
 
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
 import { Site } from '../../shared/site.model';
+import { getMockObjectCacheService } from '../../testing/object-cache.service.mock';
+import { createPaginatedList } from '../../testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,

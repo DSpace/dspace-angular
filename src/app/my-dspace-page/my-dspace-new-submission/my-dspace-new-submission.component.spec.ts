@@ -17,6 +17,15 @@ import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { DragService } from '@core/drag.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { CookieServiceMock } from '@core/testing/cookie.service.mock';
+import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { HttpXsrfTokenExtractorMock } from '@core/testing/http-xsrf-token-extractor.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockScrollToService } from '@core/testing/scroll-to-service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import {
   NgbModal,
   NgbModule,
@@ -28,15 +37,6 @@ import {
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { HostWindowService } from '../../shared/host-window.service';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createTestComponent } from '../../shared/testing/utils.test';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
 import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';

@@ -12,12 +12,12 @@ import {
 } from '@core/notification-system/models/notification.model';
 import { NotificationType } from '@core/notification-system/models/notification-type';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { RouterStub } from '@core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RouterStub } from '../testing/router.stub';
 import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {

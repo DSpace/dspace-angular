@@ -21,6 +21,13 @@ import { SearchService } from '@core/shared/search/search.service';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '@core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { MockActivatedRoute } from '@core/testing/active-router.mock';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterMock } from '@core/testing/router.mock';
+import { getMockSearchService } from '@core/testing/search-service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionRestServiceStub } from '@core/testing/submission-rest-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createFailedRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -41,17 +48,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { getMockRequestService } from '../shared/mocks/request.service.mock';
-import { RouterMock } from '../shared/mocks/router.mock';
-import { getMockSearchService } from '../shared/mocks/search-service.mock';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse,
-} from '../shared/mocks/submission.mock';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
 import { SectionScope } from './objects/section-visibility.model';
 import {
   CancelSubmissionFormAction,
@@ -67,6 +63,10 @@ import {
 } from './objects/submission-objects.actions';
 import { submissionReducers } from './submission.reducers';
 import { SubmissionService } from './submission.service';
+import {
+  mockSubmissionDefinition,
+  mockSubmissionRestResponse,
+} from './utils/submission.mock';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';

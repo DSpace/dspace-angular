@@ -9,10 +9,10 @@
 import { TestBed } from '@angular/core/testing';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { AuthorizationDataServiceStub } from '@core/testing/authorization-service.stub';
 import { of } from 'rxjs';
 
 import { PUBLICATION_CLAIMS_PATH } from '../../../admin/admin-notifications/admin-notifications-routing-paths';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';

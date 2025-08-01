@@ -10,15 +10,15 @@ import {
 import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseService } from '@core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
+import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '@core/testing/browse-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataUriValuesComponent } from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { ItemPageUriFieldComponent } from './item-page-uri-field.component';

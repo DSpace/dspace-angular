@@ -22,6 +22,10 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Collection } from '@core/shared/collection.model';
 import { License } from '@core/shared/license.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -50,19 +54,15 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
+import { SubmissionService } from '../../submission.service';
 import {
   mockLicenseParsedErrors,
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockSubmissionObject,
-} from '../../../shared/mocks/submission.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';

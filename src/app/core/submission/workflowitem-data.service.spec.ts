@@ -8,7 +8,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
@@ -20,6 +19,7 @@ import { NotificationsService } from '../notification-system/notifications.servi
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
+import { getMockHrefOnlyDataService } from '../testing/href-only-data.service.mock';
 import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkflowItemDataService } from './workflowitem-data.service';

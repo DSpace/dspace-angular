@@ -16,6 +16,12 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { NativeWindowService } from '@core/services/window.service';
 import { Registration } from '@core/shared/registration.model';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { EPersonMock } from '@core/testing/eperson.mock';
+import { NativeWindowMockFactory } from '@core/testing/mock-native-window-ref';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -30,12 +36,6 @@ import {
 } from 'rxjs';
 
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 import { ReviewAccountInfoComponent } from './review-account-info.component';
 

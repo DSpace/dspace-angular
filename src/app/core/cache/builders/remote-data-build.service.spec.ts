@@ -10,9 +10,6 @@ import {
 import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -30,6 +27,9 @@ import { Item } from '../../shared/item.model';
 import { ITEM } from '../../shared/item.resource-type';
 import { PageInfo } from '../../shared/page-info.model';
 import { UnCacheableObject } from '../../shared/uncacheable-object.model';
+import { getMockLinkService } from '../../testing/link-service.mock';
+import { getMockObjectCacheService } from '../../testing/object-cache.service.mock';
+import { getMockRequestService } from '../../testing/request.service.mock';
 import {
   createFailedRemoteDataObject,
   createPendingRemoteDataObject,

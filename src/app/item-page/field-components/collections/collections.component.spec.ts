@@ -20,15 +20,15 @@ import {
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { getMockRemoteDataBuildService } from '@core/testing/remote-data-build.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { CollectionsComponent } from './collections.component';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {

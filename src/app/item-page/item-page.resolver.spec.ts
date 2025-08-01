@@ -5,10 +5,10 @@ import {
 } from '@angular/router';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { MetadataValueFilter } from '@core/shared/metadata.models';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { first } from 'rxjs/operators';
 
-import { AuthServiceStub } from '../shared/testing/auth-service.stub';
 import { itemPageResolver } from './item-page.resolver';
 
 describe('itemPageResolver', () => {

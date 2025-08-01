@@ -11,6 +11,11 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { MockBitstreamFormat1 } from '@core/testing/item.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
@@ -23,12 +28,7 @@ import { environment } from 'src/environments/environment';
 
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';

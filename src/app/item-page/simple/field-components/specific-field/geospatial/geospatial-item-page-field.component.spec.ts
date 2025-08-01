@@ -13,6 +13,8 @@ import {
 } from '@config/app-config.interface';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
 import { ITEM } from '@core/shared/item.resource-type';
+import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { Store } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
 import {
@@ -21,8 +23,6 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { GeospatialItemPageFieldComponent } from './geospatial-item-page-field.component';
@@ -36,7 +36,7 @@ const mockLabel = 'Test location';
 const mockFields = [mockField];
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('../../../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('@core/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 describe('GeospatialItemPageFieldComponent', () => {
   beforeEach(waitForAsync(() => {

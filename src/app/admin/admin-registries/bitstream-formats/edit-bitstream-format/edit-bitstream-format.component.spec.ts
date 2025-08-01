@@ -15,6 +15,8 @@ import { RemoteData } from '@core/data/remote-data';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -24,8 +26,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormatFormComponent } from '../format-form/format-form.component';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 

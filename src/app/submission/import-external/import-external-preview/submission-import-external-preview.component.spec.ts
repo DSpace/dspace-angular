@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Metadata } from '@core/shared/metadata.utils';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import {
   NgbActiveModal,
   NgbModal,
@@ -22,10 +26,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';

@@ -1,8 +1,8 @@
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { createPaginatedList } from '../testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { ExternalSourceDataService } from './external-source-data.service';

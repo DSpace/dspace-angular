@@ -20,16 +20,16 @@ import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '@core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import { getMockSearchService } from '@core/testing/search-service.mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
 

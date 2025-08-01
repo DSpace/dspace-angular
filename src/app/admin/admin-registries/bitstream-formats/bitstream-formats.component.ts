@@ -11,6 +11,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
@@ -28,7 +29,6 @@ import {
 } from 'rxjs/operators';
 
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormatService } from './bitstream-format.service';
 
 /**

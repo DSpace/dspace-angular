@@ -12,6 +12,10 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Bitstream } from '@core/shared/bitstream.model';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { Bundle } from '@core/shared/bundle.model';
+import { BitstreamDataServiceStub } from '@core/testing/bitstream-data-service.stub';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
@@ -22,10 +26,6 @@ import { of } from 'rxjs';
 
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import {
   ItemBitstreamsService,
   SelectedBitstreamTableEntry,

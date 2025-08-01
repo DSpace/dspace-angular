@@ -13,22 +13,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SubmissionFormSectionAddComponent } from './submission-form-section-add.component';
 
 const mockAvailableSections: any = [

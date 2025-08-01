@@ -26,6 +26,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RelationshipDataService } from '@core/data/relationship-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Collection } from '@core/shared/collection.model';
 import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
@@ -78,7 +79,6 @@ import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loadin
 import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';

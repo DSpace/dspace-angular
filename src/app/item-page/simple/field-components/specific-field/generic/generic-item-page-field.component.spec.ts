@@ -11,16 +11,16 @@ import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseService } from '@core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '@core/testing/browse-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { GenericItemPageFieldComponent } from './generic-item-page-field.component';

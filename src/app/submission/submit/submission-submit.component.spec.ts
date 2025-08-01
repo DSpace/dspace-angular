@@ -14,6 +14,11 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemDataService } from '@core/data/item-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateModule,
@@ -21,13 +26,8 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../submission.service';
+import { mockSubmissionObject } from '../utils/submission.mock';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 
 describe('SubmissionSubmitComponent Component', () => {

@@ -22,6 +22,12 @@ import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { PoolTask } from '@core/tasks/models/pool-task-object.model';
 import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '@core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import { getMockSearchService } from '@core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -29,13 +35,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
 
 let mockDataService: PoolTaskDataService;

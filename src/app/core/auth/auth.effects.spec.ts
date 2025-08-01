@@ -23,14 +23,14 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
-import {
-  authMethodsMock,
-  AuthServiceStub,
-} from '../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { StoreActionTypes } from '../../store.actions';
 import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import {
+  authMethodsMock,
+  AuthServiceStub,
+} from '../testing/auth-service.stub';
+import { EPersonMock } from '../testing/eperson.mock';
 import {
   AuthActionTypes,
   AuthenticatedAction,

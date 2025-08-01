@@ -3,7 +3,9 @@ import {
   buildPaginatedList,
   PaginatedList,
 } from '@core/data/paginated-list.model';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { KeyValuePair } from '@core/utilities/key-value-pair.model';
 import {
   createSelector,
   MemoizedSelector,
@@ -20,8 +22,6 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import { KeyValuePair } from '../key-value-pair.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {
   AddAllCSSVariablesAction,
   AddCSSVariableAction,

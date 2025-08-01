@@ -11,18 +11,18 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '@core/pagination/pagination.service';
+import {
+  getMockNotificationsStateService,
+  qualityAssuranceSourceObjectMoreAbstract,
+  qualityAssuranceSourceObjectMorePid,
+} from '@core/testing/notifications.mock';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import {
-  getMockNotificationsStateService,
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
 import {
   SourceListComponent,

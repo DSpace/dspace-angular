@@ -13,6 +13,8 @@ import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
 import { ItemRequest } from '@core/shared/item-request.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { RouterLinkDirectiveStub } from '@core/testing/router-link-directive.stub';
 import { URLCombiner } from '@core/url-combiner/url-combiner';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,8 +30,6 @@ import {
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 
 describe('FileDownloadLinkComponent', () => {

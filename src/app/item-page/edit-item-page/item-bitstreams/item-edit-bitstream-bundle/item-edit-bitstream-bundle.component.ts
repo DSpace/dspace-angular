@@ -23,6 +23,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Bundle } from '@core/shared/bundle.model';
 import { followLink } from '@core/shared/follow-link-config.model';
@@ -57,7 +58,6 @@ import {
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';

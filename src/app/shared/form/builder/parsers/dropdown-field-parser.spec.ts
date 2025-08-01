@@ -1,4 +1,4 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
 
 import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldModel } from '../models/form-field.model';

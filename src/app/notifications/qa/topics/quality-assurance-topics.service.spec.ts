@@ -8,15 +8,15 @@ import { FindListOptions } from '@core/data/find-list-options.model';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { QualityAssuranceTopicDataService } from '@core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { PageInfo } from '@core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
-import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
-
 import {
   getMockQualityAssuranceTopicRestService,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
+} from '@core/testing/notifications.mock';
+import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 describe('QualityAssuranceTopicsService', () => {

@@ -20,6 +20,9 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
 import { Item } from '@core/shared/item.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -33,9 +36,6 @@ import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
 
 describe('OrcidSyncSettingsComponent test suite', () => {

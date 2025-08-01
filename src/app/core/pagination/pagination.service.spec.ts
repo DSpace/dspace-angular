@@ -1,13 +1,13 @@
 import { of } from 'rxjs';
 
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouterStub } from '../../shared/testing/router.stub';
 import {
   SortDirection,
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { RouterStub } from '../testing/router.stub';
 import { PaginationService } from './pagination.service';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 
 
 describe('PaginationService', () => {

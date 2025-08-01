@@ -26,6 +26,7 @@ import { Group } from '@core/eperson/models/group.model';
 import { GroupDtoModel } from '@core/eperson/models/group-dto.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { RouteService } from '@core/services/route.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { followLink } from '@core/shared/follow-link-config.model';
@@ -67,7 +68,6 @@ import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-groups-registry',

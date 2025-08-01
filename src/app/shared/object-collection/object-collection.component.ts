@@ -24,6 +24,7 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Context } from '@core/shared/context.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { ViewMode } from '@core/shared/view-mode.model';
@@ -40,7 +41,6 @@ import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-ge
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { CollectionElementLinkType } from './collection-element-link.type';
 import { ListableObject } from './shared/listable-object.model';
 

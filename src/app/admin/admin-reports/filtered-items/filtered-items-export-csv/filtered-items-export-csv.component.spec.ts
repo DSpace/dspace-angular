@@ -14,6 +14,7 @@ import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { Script } from '@core/shared/scripts/script.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -23,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
 import { OptionVO } from '../option-vo.model';
 import { QueryPredicate } from '../query-predicate.model';

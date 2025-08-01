@@ -21,6 +21,11 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import {
+  subscriptionMock,
+  subscriptionMock2,
+} from '@core/testing/subscriptions-data.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbActiveModal,
@@ -31,12 +36,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import {
-  subscriptionMock,
-  subscriptionMock2,
-} from '../../testing/subscriptions-data.mock';
+import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 

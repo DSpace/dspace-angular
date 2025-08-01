@@ -23,6 +23,9 @@ import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -34,11 +37,8 @@ import {
   of,
 } from 'rxjs';
 
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';

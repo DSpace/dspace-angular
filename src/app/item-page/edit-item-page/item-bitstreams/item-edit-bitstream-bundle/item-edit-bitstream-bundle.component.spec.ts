@@ -16,6 +16,9 @@ import { RequestService } from '@core/data/request.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { Bundle } from '@core/shared/bundle.model';
 import { Item } from '@core/shared/item.model';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -23,11 +26,8 @@ import {
   Subject,
 } from 'rxjs';
 
-import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import {
   BitstreamTableEntry,
   ItemBitstreamsService,

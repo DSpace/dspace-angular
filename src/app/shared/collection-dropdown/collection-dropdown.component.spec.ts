@@ -14,6 +14,8 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { MockElementRef } from '@core/testing/element-ref.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -22,9 +24,7 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { MockElementRef } from '../testing/element-ref.mock';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { CollectionDropdownComponent } from './collection-dropdown.component';
 

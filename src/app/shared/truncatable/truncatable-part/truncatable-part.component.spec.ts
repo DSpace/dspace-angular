@@ -13,6 +13,9 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '@core/services/window.service';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
@@ -20,9 +23,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
-import { getMockTranslateService } from '../../mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { TruncatableService } from '../truncatable.service';
 import { TruncatablePartComponent } from './truncatable-part.component';
 

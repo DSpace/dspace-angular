@@ -10,12 +10,12 @@ import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { Community } from '@core/shared/community.model';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
 import { CommunitySearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';

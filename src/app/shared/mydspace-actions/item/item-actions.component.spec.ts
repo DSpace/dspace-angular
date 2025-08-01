@@ -17,17 +17,17 @@ import { RequestService } from '@core/data/request.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import { getMockSearchService } from '@core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
 import { ItemActionsComponent } from './item-actions.component';
 
 let component: ItemActionsComponent;

@@ -20,6 +20,8 @@ import { FlatBrowseDefinition } from '@core/shared/flat-browse-definition.model'
 import { HierarchicalBrowseDefinition } from '@core/shared/hierarchical-browse-definition.model';
 import { Item } from '@core/shared/item.model';
 import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
+import { EPersonMock } from '@core/testing/eperson.mock';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -39,10 +41,8 @@ import {
 import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import { EPersonMock } from '../shared/testing/eperson.mock';
-import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
-import { MenuServiceStub } from '../shared/testing/menu-service.stub';
+import { MenuServiceStub } from '../shared/menu/menu-service.stub';
+import { getMockThemeService } from '../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { NavbarComponent } from './navbar.component';
 

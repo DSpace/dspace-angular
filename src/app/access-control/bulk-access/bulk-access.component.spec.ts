@@ -9,15 +9,15 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BulkAccessComponent } from './bulk-access.component';
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';

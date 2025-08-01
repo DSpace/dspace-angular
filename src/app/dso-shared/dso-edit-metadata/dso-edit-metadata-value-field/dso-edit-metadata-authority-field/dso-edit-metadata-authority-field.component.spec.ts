@@ -15,6 +15,8 @@ import { Item } from '@core/shared/item.model';
 import { MetadataValue } from '@core/shared/metadata.models';
 import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { createPaginatedList } from '@core/testing/utils.test';
+import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -22,8 +24,6 @@ import { RegistryService } from '../../../../admin/admin-registries/registry/reg
 import { DynamicOneboxModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DsDynamicScrollableDropdownComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { VocabularyServiceStub } from '../../../../shared/testing/vocabulary-service.stub';
 import { DsoEditMetadataValue } from '../../dso-edit-metadata-form';
 import { DsoEditMetadataAuthorityFieldComponent } from './dso-edit-metadata-authority-field.component';
 

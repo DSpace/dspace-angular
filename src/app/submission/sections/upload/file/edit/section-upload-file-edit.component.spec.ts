@@ -22,6 +22,10 @@ import {
 import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { getMockSectionUploadService } from '@core/testing/section-upload.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   NgbActiveModal,
@@ -46,8 +50,8 @@ import { FormBuilderService } from '../../../../../shared/form/builder/form-buil
 import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
+import { getMockFormService } from '../../../../../shared/form/testing/form-service.mock';
+import { SubmissionService } from '../../../../submission.service';
 import {
   mockFileFormData,
   mockSubmissionCollectionId,
@@ -56,11 +60,7 @@ import {
   mockUploadConfigResponse,
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
-} from '../../../../../shared/mocks/submission.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../shared/testing/utils.test';
-import { SubmissionService } from '../../../../submission.service';
+} from '../../../../utils/submission.mock';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';

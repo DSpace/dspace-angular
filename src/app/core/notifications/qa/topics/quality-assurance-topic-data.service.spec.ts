@@ -15,12 +15,12 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import {
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../../shared/mocks/notifications.mock';
-import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
-import { NotificationsService } from '../../../notification-system/notifications.service';
+} from '../../../testing/notifications.mock';
+import { ObjectCacheServiceStub } from '../../../testing/object-cache-service.stub';
 import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
 
 describe('QualityAssuranceTopicDataService', () => {

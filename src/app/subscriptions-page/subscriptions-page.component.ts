@@ -13,6 +13,7 @@ import { RemoteData } from '@core/data/remote-data';
 import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { getAllCompletedRemoteData } from '@core/shared/operators';
 import { PageInfo } from '@core/shared/page-info.model';
 import { Subscription } from '@core/shared/subscription.model';
@@ -36,7 +37,6 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { VarDirective } from '../shared/utils/var.directive';
 

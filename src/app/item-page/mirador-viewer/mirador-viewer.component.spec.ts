@@ -8,6 +8,8 @@ import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BundleDataService } from '@core/data/bundle-data.service';
 import { Item } from '@core/shared/item.model';
 import { MetadataMap } from '@core/shared/metadata.models';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -16,8 +18,6 @@ import {
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { MiradorViewerComponent } from './mirador-viewer.component';
 import { MiradorViewerService } from './mirador-viewer.service';

@@ -22,6 +22,7 @@ import {
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { PaginationRouteParams } from '@core/pagination/pagination-route-params.interface';
 import { ViewMode } from '@core/shared/view-mode.model';
 import {
@@ -51,7 +52,6 @@ import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { RSSComponent } from '../rss-feed/rss.component';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
-import { PaginationComponentOptions } from './pagination-component-options.model';
 
 interface PaginationDetails {
   range: string;

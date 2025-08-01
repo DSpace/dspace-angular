@@ -12,6 +12,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SubmissionRestService } from '@core/submission/submission-rest.service';
+import { SubmissionRestServiceStub } from '@core/testing/submission-rest-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import {
   NgbModal,
   NgbModule,
@@ -26,11 +29,8 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
+import { mockSubmissionId } from '../../utils/submission.mock';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();

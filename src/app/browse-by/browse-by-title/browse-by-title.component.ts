@@ -11,6 +11,7 @@ import {
   SortDirection,
   SortOptions,
 } from '@core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -25,7 +26,6 @@ import {
 import { environment } from '../../../environments/environment';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,

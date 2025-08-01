@@ -10,6 +10,8 @@ import { RemoteData } from '@core/data/remote-data';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { NoContent } from '@core/shared/NoContent.model';
 import { Registration } from '@core/shared/registration.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -20,8 +22,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ExternalLoginService } from './external-login.service';
 
 describe('ExternalLoginService', () => {

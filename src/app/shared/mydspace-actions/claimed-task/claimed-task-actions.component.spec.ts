@@ -22,6 +22,12 @@ import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { WorkflowAction } from '@core/tasks/models/workflow-action-object.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import { getMockSearchService } from '@core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -32,12 +38,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
 import { VarDirective } from '../../utils/var.directive';
 import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 

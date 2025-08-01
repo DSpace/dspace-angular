@@ -18,6 +18,8 @@ import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -27,8 +29,6 @@ import { of } from 'rxjs';
 
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { CurationFormComponent } from './curation-form.component';
 
 describe('CurationFormComponent', () => {

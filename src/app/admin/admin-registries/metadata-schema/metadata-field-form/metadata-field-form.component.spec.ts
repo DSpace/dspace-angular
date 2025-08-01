@@ -9,14 +9,14 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { RegistryServiceStub } from '@core/testing/registry.service.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { RegistryServiceStub } from '../../../../shared/testing/registry.service.stub';
+import { getMockFormBuilderService } from '../../../../shared/form/testing/form-builder-service.mock';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { RegistryService } from '../../registry/registry.service';
 import { MetadataFieldFormComponent } from './metadata-field-form.component';

@@ -22,6 +22,11 @@ import { PaginationService } from '@core/pagination/pagination.service';
 import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
 import { Item } from '@core/shared/item.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -35,11 +40,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {

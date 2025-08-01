@@ -12,13 +12,13 @@ import {
   Router,
 } from '@angular/router';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { RouterStub } from '../testing/router.stub';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { StartsWithLoaderComponent } from './starts-with-loader.component';
 import { StartsWithType } from './starts-with-type';

@@ -10,11 +10,11 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Context } from '@core/shared/context.model';
 
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { ObjectListComponent } from './object-list.component';
 

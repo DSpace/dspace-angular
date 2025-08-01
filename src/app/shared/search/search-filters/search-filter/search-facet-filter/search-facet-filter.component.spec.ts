@@ -18,6 +18,10 @@ import { FilterType } from '@core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { RouterStub } from '@core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '@core/testing/search-filter-service.stub';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -27,10 +31,6 @@ import {
 } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {

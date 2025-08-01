@@ -24,6 +24,7 @@ import { RequestService } from '@core/data/request.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -32,7 +33,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 

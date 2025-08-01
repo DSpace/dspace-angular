@@ -9,6 +9,7 @@ import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
@@ -21,7 +22,6 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';
 

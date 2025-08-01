@@ -29,6 +29,10 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { Bundle } from '@core/shared/bundle.model';
 import { Item } from '@core/shared/item.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { BitstreamDataServiceStub } from '@core/testing/bitstream-data-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -37,10 +41,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';

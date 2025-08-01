@@ -14,15 +14,15 @@ import { AuthMethod } from '@core/auth/models/auth.method';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { NativeWindowService } from '@core/services/window.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { NativeWindowMockFactory } from '@core/testing/mock-native-window-ref';
+import { RouterStub } from '@core/testing/router.stub';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
 import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {

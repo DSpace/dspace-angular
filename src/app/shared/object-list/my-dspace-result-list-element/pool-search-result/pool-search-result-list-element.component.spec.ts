@@ -23,18 +23,18 @@ import { Item } from '@core/shared/item.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '@core/submission/submission-duplicate-data.service';
 import { PoolTask } from '@core/tasks/models/pool-task-object.model';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@core/testing/link-service.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import { createPaginatedList } from '../../../testing/utils.test';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';

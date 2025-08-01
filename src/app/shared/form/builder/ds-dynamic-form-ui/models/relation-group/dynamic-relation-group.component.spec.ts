@@ -25,6 +25,8 @@ import { FormRowModel } from '@core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { createTestComponent } from '@core/testing/utils.test';
+import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   NgbModule,
@@ -44,8 +46,6 @@ import {
 import { environment } from 'src/environments/environment.test';
 
 import { SubmissionService } from '../../../../../../submission/submission.service';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';

@@ -12,6 +12,9 @@ import { By } from '@angular/platform-browser';
 import { LinkService } from '@core/cache/builders/link.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { PoolTask } from '@core/tasks/models/pool-task-object.model';
+import { EPersonMock } from '@core/testing/eperson.mock';
+import { getMockLinkService } from '@core/testing/link-service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -20,9 +23,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { EPersonMock } from '../../../testing/eperson.mock';
 import { ItemSubmitterComponent } from './item-submitter.component';
 
 let component: ItemSubmitterComponent;

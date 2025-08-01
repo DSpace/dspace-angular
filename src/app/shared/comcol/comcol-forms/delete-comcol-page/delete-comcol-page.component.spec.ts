@@ -14,6 +14,7 @@ import { ComColDataService } from '@core/data/comcol-data.service';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Community } from '@core/shared/community.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
@@ -25,7 +26,6 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
 describe('DeleteComColPageComponent', () => {

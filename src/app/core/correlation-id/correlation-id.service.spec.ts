@@ -9,8 +9,8 @@ import {
 import { MockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { CORRELATION_ID_COOKIE } from '../cookies/orejime-configuration';
+import { CookieServiceMock } from '../testing/cookie.service.mock';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { CorrelationIdService } from './correlation-id.service';
 

@@ -1,5 +1,5 @@
 // Load the implementations that should be tested
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgFor} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -26,6 +26,12 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
+import { MockActivatedRoute } from '@core/testing/active-router.mock';
+import { HostWindowServiceMock } from '@core/testing/host-window-service.mock';
+import { RouterMock } from '@core/testing/router.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -37,15 +43,9 @@ import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
-import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
-import { RouterMock } from '../mocks/router.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { RSSComponent } from '../rss-feed/rss.component';
-import { createTestComponent } from '../testing/utils.test';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
-import { PaginationComponentOptions } from './pagination-component-options.model';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));

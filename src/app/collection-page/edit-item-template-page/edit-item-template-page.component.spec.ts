@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ItemTemplateDataService } from '@core/data/item-template-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Collection } from '@core/shared/collection.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -18,8 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';

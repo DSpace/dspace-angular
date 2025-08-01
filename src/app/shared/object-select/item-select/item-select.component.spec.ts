@@ -11,22 +11,22 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Item } from '@core/shared/item.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '@core/testing/object-select-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { HostWindowService } from '../../host-window.service';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../testing/utils.test';
 import { ObjectSelectService } from '../object-select.service';
 import { ItemSelectComponent } from './item-select.component';
 

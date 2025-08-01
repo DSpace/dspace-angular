@@ -13,15 +13,15 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Item } from '@core/shared/item.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { supervisionOrderEntryMock } from '@core/testing/supervision-order.mock';
 import { URLCombiner } from '@core/url-combiner/url-combiner';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
-import { supervisionOrderEntryMock } from '../../../../../shared/testing/supervision-order.mock';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';

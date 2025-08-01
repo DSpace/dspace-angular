@@ -14,6 +14,7 @@ import { IdentifierDataService } from '@core/data/identifier-data.service';
 import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { Item } from '@core/shared/item.model';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -23,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { ItemStatusComponent } from './item-status.component';
 
 let mockIdentifierDataService: IdentifierDataService;

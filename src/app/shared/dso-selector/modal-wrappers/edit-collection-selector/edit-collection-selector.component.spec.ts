@@ -13,11 +13,11 @@ import {
 } from '@angular/router';
 import { Collection } from '@core/shared/collection.model';
 import { MetadataValue } from '@core/shared/metadata.models';
+import { RouterStub } from '@core/testing/router.stub';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RouterStub } from '../../../testing/router.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 

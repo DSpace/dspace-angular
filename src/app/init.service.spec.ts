@@ -17,6 +17,11 @@ import { AuthService } from '@core/auth/auth.service';
 import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
 import { LocaleService } from '@core/locale/locale.service';
 import { RouteService } from '@core/services/route.service';
+import { MockActivatedRoute } from '@core/testing/active-router.mock';
+import { AngularticsProviderMock } from '@core/testing/angulartics-provider.service.mock';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { RouterMock } from '@core/testing/router.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,
@@ -35,21 +40,15 @@ import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { InitService } from './init.service';
 import { MenuService } from './shared/menu/menu.service';
-import { MockActivatedRoute } from './shared/mocks/active-router.mock';
-import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
-import { AuthServiceMock } from './shared/mocks/auth.service.mock';
-import { RouterMock } from './shared/mocks/router.mock';
-import { getMockThemeService } from './shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
+import { getMockThemeService } from './shared/theme-support/test/theme-service.mock';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { HeadTagService } from '@core/metadata/head-tag.service';
+import { HeadTagServiceMock } from '@core/testing/head-tag-service.mock';
 import { getTestScheduler } from 'jasmine-marbles';
-
-import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
 
 let spy: SpyObj<any>;
 

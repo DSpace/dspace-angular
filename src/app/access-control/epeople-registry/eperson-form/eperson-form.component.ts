@@ -27,6 +27,7 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { Group } from '@core/eperson/models/group.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
@@ -69,7 +70,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 import { GroupRegistryService } from '../../group-registry/group-registry.service';

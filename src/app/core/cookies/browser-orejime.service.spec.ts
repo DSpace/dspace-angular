@@ -7,7 +7,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../../environments/environment';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { AuthService } from '../auth/auth.service';
 import { RestResponse } from '../cache/response.models';
 import { ConfigurationDataService } from '../data/configuration-data.service';
@@ -15,6 +14,7 @@ import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { MetadataValue } from '../shared/metadata.models';
+import { getMockTranslateService } from '../testing/translate.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,

@@ -18,6 +18,7 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -31,7 +32,6 @@ import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 import {

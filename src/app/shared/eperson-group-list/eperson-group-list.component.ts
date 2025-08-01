@@ -22,6 +22,7 @@ import { Group } from '@core/eperson/models/group.model';
 import { GROUP } from '@core/eperson/models/group.resource-type';
 import { lazyDataService } from '@core/lazy-data-service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import {
   getAllCompletedRemoteData,
@@ -38,7 +39,6 @@ import { switchMap } from 'rxjs/operators';
 
 import { fadeInOut } from '../animations/fade';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';

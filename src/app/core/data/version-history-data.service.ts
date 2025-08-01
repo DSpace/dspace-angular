@@ -17,10 +17,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {
   followLink,
   FollowLinkConfig,

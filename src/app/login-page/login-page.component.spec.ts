@@ -10,14 +10,14 @@ import {
   APP_DATA_SERVICES_MAP,
 } from '@config/app-config.interface';
 import { AuthService } from '@core/auth/auth.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';
 
 describe('LoginPageComponent', () => {

@@ -27,11 +27,16 @@ import {
 } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { RouteService } from '@core/services/route.service';
 import { BrowseEntry } from '@core/shared/browse-entry.model';
 import { Community } from '@core/shared/community.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -43,15 +48,10 @@ import {
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
-import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

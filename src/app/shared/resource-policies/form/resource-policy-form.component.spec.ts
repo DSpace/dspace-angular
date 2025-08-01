@@ -29,6 +29,12 @@ import { PolicyType } from '@core/resource-policy/models/policy-type.model';
 import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '@core/resource-policy/models/resource-policy.resource-type';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { EPersonMock } from '@core/testing/eperson.mock';
+import { GroupMock } from '@core/testing/group-mock';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterMock } from '@core/testing/router.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
@@ -58,13 +64,7 @@ import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
-import { getMockFormService } from '../../mocks/form-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RouterMock } from '../../mocks/router.mock';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { GroupMock } from '../../testing/group-mock';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { createTestComponent } from '../../testing/utils.test';
+import { getMockFormService } from '../../form/testing/form-service.mock';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,

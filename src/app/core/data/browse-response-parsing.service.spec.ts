@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from '@config/app-config.interface';
 
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
 import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
+import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 
 @Injectable()

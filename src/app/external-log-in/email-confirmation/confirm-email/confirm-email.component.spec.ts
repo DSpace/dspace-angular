@@ -20,6 +20,11 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { NativeWindowService } from '@core/services/window.service';
 import { Registration } from '@core/shared/registration.model';
+import {
+  MockWindow,
+  NativeWindowMockFactory,
+} from '@core/testing/mock-native-window-ref';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -28,11 +33,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  MockWindow,
-  NativeWindowMockFactory,
-} from '../../../shared/mocks/mock-native-window-ref';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { ConfirmEmailComponent } from './confirm-email.component';
 

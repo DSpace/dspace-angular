@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { isAuthenticated } from '@core/auth/selectors';
 import { BrowseService } from '@core/browse/browse.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { WidthCategory } from '@core/shared/host-window-type';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,
@@ -23,10 +24,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../app.reducer';
 import { slideMobileNav } from '../shared/animations/slide';
 import { ThemedUserMenuComponent } from '../shared/auth-nav-menu/user-menu/themed-user-menu.component';
-import {
-  HostWindowService,
-  WidthCategory,
-} from '../shared/host-window.service';
+import { HostWindowService } from '../shared/host-window.service';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';

@@ -18,22 +18,22 @@ import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@core/testing/link-service.mock';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import {
+  supervisionOrderPaginatedListRD,
+  supervisionOrderPaginatedListRD$,
+} from '@core/testing/supervision-order.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
-import {
-  supervisionOrderPaginatedListRD,
-  supervisionOrderPaginatedListRD$,
-} from '../../../../../shared/testing/supervision-order.mock';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { WorkspaceItemSearchResultAdminWorkflowListElementComponent } from './workspace-item-search-result-admin-workflow-list-element.component';

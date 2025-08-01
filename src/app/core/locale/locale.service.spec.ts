@@ -9,13 +9,13 @@ import {
 } from '@ngx-translate/core';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import { NativeWindowRef } from '../services/window.service';
+import { CookieServiceMock } from '../testing/cookie.service.mock';
+import { routeServiceStub } from '../testing/route-service.stub';
+import { TranslateLoaderMock } from '../testing/translate-loader.mock';
 import {
   LANG_COOKIE,
   LANG_ORIGIN,

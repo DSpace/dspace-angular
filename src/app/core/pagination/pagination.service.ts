@@ -20,13 +20,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   SortDirection,
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { RouteService } from '../services/route.service';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 import { PaginationRouteParams } from './pagination-route-params.interface';
 
 @Injectable({

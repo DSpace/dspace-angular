@@ -13,17 +13,17 @@ import { RouteService } from '@core/services/route.service';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
+import { ClaimedTaskDataServiceStub } from '@core/testing/claimed-task-data-service.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@core/testing/request-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { WorkflowActionDataServiceStub } from '@core/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '@core/testing/workflow-item-data-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 import { of } from 'rxjs';
 
 import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
-import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 import { AdvancedWorkflowActionComponent } from './advanced-workflow-action.component';
 

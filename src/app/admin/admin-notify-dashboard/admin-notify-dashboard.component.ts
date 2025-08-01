@@ -9,6 +9,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@config/app-config.interface';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
@@ -23,7 +24,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import {
   AdminNotifyMetricsBox,

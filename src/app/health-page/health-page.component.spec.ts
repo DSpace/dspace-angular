@@ -5,6 +5,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RawRestResponse } from '@core/dspace-rest/raw-rest-response.model';
+import {
+  HealthInfoResponseObj,
+  HealthResponseObj,
+} from '@core/testing/health-endpoint.mocks';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -12,11 +17,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  HealthInfoResponseObj,
-  HealthResponseObj,
-} from '../shared/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { HealthService } from './health.service';
 import { HealthPageComponent } from './health-page.component';
 

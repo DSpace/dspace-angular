@@ -18,6 +18,9 @@ import { RemoteData } from '@core/data/remote-data';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
+import { MockElementRef } from '@core/testing/element-ref.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -35,9 +38,6 @@ import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { MockElementRef } from '../../shared/testing/element-ref.mock';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { CollectionSelectorComponent } from './collection-selector.component';
 
 describe('CollectionSelectorComponent', () => {

@@ -11,6 +11,8 @@ import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.ser
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -21,10 +23,8 @@ import { of } from 'rxjs';
 
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../../shared/testing/router.stub';
+import { getMockFormBuilderService } from '../../../../shared/form/testing/form-builder-service.mock';
+import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
 import { FormatFormComponent } from '../format-form/format-form.component';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 

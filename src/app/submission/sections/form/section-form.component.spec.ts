@@ -23,6 +23,11 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   DynamicFormControlEvent,
@@ -42,23 +47,18 @@ import { FormFieldModel } from '../../../shared/form/builder/models/form-field.m
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import { getMockFormBuilderService } from '../../../shared/form/testing/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadResponse1ParsedErrors,
-} from '../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';

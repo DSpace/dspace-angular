@@ -14,6 +14,7 @@ import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
 } from '@core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
@@ -38,7 +39,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 
 /**

@@ -9,6 +9,9 @@ import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { NoContent } from '@core/shared/NoContent.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { StoreMock } from '@core/testing/store.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -24,9 +27,6 @@ import {
 } from 'rxjs';
 
 import { storeModuleConfig } from '../../../app.reducer';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { StoreMock } from '../../../shared/testing/store.mock';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,

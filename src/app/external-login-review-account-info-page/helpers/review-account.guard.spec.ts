@@ -14,6 +14,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { Registration } from '@core/shared/registration.model';
+import { RouterMock } from '@core/testing/router.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -23,7 +24,6 @@ import {
   of,
 } from 'rxjs';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { ReviewAccountGuard } from './review-account.guard';
 
 describe('ReviewAccountGuard', () => {

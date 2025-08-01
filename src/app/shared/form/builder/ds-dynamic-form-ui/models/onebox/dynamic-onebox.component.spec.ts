@@ -23,6 +23,12 @@ import { By } from '@angular/platform-browser';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@core/testing/utils.test';
+import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbModal,
@@ -39,12 +45,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';

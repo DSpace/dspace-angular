@@ -11,6 +11,10 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+import { SherpaDataResponse } from '@core/testing/section-sherpa-policies.service.mock';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import {
@@ -21,10 +25,6 @@ import { of } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';

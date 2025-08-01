@@ -13,15 +13,15 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { QaEventNotificationComponent } from './qa-event-notification.component';
 
 describe('QaEventNotificationComponent', () => {

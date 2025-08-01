@@ -17,6 +17,7 @@ import { SortOptions } from '@core/cache/models/sort-options.model';
 import { ItemDataService } from '@core/data/item-data.service';
 import { QualityAssuranceTopicObject } from '@core/notifications/qa/models/quality-assurance-topic.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Item } from '@core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
@@ -41,7 +42,6 @@ import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-not
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
 
 /**

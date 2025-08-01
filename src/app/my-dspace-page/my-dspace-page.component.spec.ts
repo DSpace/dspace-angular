@@ -16,9 +16,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
+import { getMockThemeService } from '../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import {
   MyDSpaceConfigurationService,

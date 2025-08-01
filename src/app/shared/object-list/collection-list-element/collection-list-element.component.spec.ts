@@ -11,9 +11,9 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { Collection } from '@core/shared/collection.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
 
-import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CollectionListElementComponent } from './collection-list-element.component';
 
 let collectionListElementComponent: CollectionListElementComponent;

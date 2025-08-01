@@ -23,6 +23,9 @@ import { SearchService } from '@core/shared/search/search.service';
 import { SearchFilterService } from '@core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { RouterStub } from '@core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
 import {
   NgbModal,
   NgbModule,
@@ -35,9 +38,6 @@ import {
 
 import { environment } from '../../../../../../environments/environment.test';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {

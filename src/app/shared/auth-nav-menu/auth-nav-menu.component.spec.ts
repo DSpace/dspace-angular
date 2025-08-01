@@ -21,6 +21,10 @@ import {
 } from '@core/auth/auth.reducer';
 import { AuthService } from '@core/auth/auth.service';
 import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { BrowserOnlyMockPipe } from '@core/testing/browser-only-mock.pipe';
+import { EPersonMock } from '@core/testing/eperson.mock';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -32,10 +36,6 @@ import { of } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
-import { EPersonMock } from '../testing/eperson.mock';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
 
 describe('AuthNavMenuComponent', () => {

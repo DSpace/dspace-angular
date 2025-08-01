@@ -17,6 +17,7 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Item } from '@core/shared/item.model';
 import { ItemRequest } from '@core/shared/item-request.model';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -28,8 +29,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';

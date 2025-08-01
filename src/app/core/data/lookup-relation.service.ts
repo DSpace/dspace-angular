@@ -14,7 +14,7 @@ import {
 } from 'rxjs/operators';
 
 import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';

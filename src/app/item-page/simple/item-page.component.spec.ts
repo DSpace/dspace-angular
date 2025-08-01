@@ -25,6 +25,9 @@ import {
 } from '@core/services/link-head.service';
 import { ServerResponseService } from '@core/services/server-response.service';
 import { Item } from '@core/shared/item.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -39,10 +42,7 @@ import { of } from 'rxjs';
 
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';

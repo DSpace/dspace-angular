@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,7 +16,6 @@ import { SubmissionService } from '../../../../../submission/submission.service'
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';

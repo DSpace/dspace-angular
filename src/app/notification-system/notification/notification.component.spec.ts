@@ -19,6 +19,7 @@ import { NotificationOptions } from '@core/notification-system/models/notificati
 import { NotificationType } from '@core/notification-system/models/notification-type';
 import { notificationsReducer } from '@core/notification-system/notifications.reducers';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,
@@ -31,7 +32,6 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationComponent } from './notification.component';
 
 describe('NotificationComponent', () => {

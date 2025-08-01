@@ -17,6 +17,11 @@ import { RouteService } from '@core/services/route.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { LocationStub } from '@core/testing/location.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -25,11 +30,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { LocationStub } from '../../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 describe('WorkspaceitemsDeletePageComponent', () => {

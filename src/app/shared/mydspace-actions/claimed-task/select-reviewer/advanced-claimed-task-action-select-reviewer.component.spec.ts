@@ -15,15 +15,15 @@ import { SearchService } from '@core/shared/search/search.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { ClaimedTaskDataServiceStub } from '@core/testing/claimed-task-data-service.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './advanced-claimed-task-action-select-reviewer.component';
 
 

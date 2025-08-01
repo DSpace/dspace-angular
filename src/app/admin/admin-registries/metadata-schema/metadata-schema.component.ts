@@ -17,6 +17,8 @@ import { MetadataField } from '@core/metadata/metadata-field.model';
 import { MetadataSchema } from '@core/metadata/metadata-schema.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { toFindListOptions } from '@core/pagination/pagination.utils';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
@@ -41,8 +43,6 @@ import {
 } from 'rxjs/operators';
 
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { RegistryService } from '../registry/registry.service';
 import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';

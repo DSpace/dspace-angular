@@ -18,6 +18,13 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { PaginationService } from '@core/pagination/pagination.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { RegistryServiceStub } from '@core/testing/registry.service.stub';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,13 +32,6 @@ import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RegistryServiceStub } from '../../../shared/testing/registry.service.stub';
-import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { RegistryService } from '../registry/registry.service';

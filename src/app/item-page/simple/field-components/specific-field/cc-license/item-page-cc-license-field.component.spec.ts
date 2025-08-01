@@ -16,16 +16,16 @@ import {
   MetadataMap,
   MetadataValue,
 } from '@core/shared/metadata.models';
+import { ConfigurationDataServiceStub } from '@core/testing/configuration-data.service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
 import { environment } from '../../../../../../environments/environment';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';
 
 

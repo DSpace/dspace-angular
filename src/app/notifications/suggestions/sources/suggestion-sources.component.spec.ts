@@ -17,6 +17,8 @@ import { SuggestionSource } from '@core/notifications/suggestions/models/suggest
 import { SuggestionSourceDataService } from '@core/notifications/suggestions/source/suggestion-source-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { PageInfo } from '@core/shared/page-info.model';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -25,8 +27,6 @@ import {
 import { Observable } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
 import { SourceListComponent } from '../../shared/source-list.component';
 import { SuggestionSourcesComponent } from './suggestion-sources.component';
 

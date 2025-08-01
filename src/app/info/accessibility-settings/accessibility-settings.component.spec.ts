@@ -8,14 +8,14 @@ import { AuthService } from '@core/auth/auth.service';
 import { OrejimeService } from '@core/cookies/orejime.service';
 import { OrejimeServiceStub } from '@core/cookies/orejime.service.stub';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ContextHelpDirective } from 'src/app/shared/context-help.directive';
 
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
 import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { AccessibilitySettingsComponent } from './accessibility-settings.component';
 
 

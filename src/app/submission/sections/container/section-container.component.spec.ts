@@ -10,18 +10,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';

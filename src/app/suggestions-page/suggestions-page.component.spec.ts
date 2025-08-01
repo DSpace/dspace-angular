@@ -15,6 +15,19 @@ import { AuthService } from '@core/auth/auth.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import {
+  mockSuggestionPublicationOne,
+  mockSuggestionPublicationTwo,
+} from '@core/testing/publication-claim.mock';
+import { mockSuggestionTargetsObjectOne } from '@core/testing/publication-claim-targets.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import {
+  getMockSuggestionNotificationsStateService,
+  getMockSuggestionsService,
+} from '@core/testing/suggestion.mock';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateModule,
@@ -29,19 +42,6 @@ import { SuggestionEvidencesComponent } from '../notifications/suggestions/list-
 import { SuggestionListElementComponent } from '../notifications/suggestions/list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../notifications/suggestions/suggestions.service';
 import { SuggestionTargetsStateService } from '../notifications/suggestions/targets/suggestion-targets.state.service';
-import {
-  mockSuggestionPublicationOne,
-  mockSuggestionPublicationTwo,
-} from '../shared/mocks/publication-claim.mock';
-import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
-import {
-  getMockSuggestionNotificationsStateService,
-  getMockSuggestionsService,
-} from '../shared/mocks/suggestion.mock';
-import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SuggestionsPageComponent } from './suggestions-page.component';

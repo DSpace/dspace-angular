@@ -31,7 +31,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -45,6 +44,7 @@ import { RemoteData } from '../../data/remote-data';
 import { GetRequest } from '../../data/request.models';
 import { RequestService } from '../../data/request.service';
 import { PaginationService } from '../../pagination/pagination.service';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { RouteService } from '../../services/route.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';

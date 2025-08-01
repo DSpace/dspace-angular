@@ -21,7 +21,6 @@ import {
 } from 'rxjs/operators';
 
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { BaseDataService } from '../../data/base/base-data.service';
@@ -34,6 +33,7 @@ import { RequestService } from '../../data/request.service';
 import { RestRequest } from '../../data/rest-request.model';
 import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
 import { PaginationService } from '../../pagination/pagination.service';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { RouteService } from '../../services/route.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { DSpaceObject } from '../dspace-object.model';

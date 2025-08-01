@@ -24,18 +24,6 @@ import {
 } from 'rxjs';
 
 import { REQUEST } from '../../../express.tokens';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
-import { authMethodsMock } from '../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import {
-  SpecialGroupDataMock,
-  SpecialGroupDataMock$,
-} from '../../shared/testing/special-group.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ClientCookieService } from '../cookies/client-cookie.service';
 import { CookieService } from '../cookies/cookie.service';
@@ -50,6 +38,18 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services/window.service';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { AuthRequestServiceStub } from '../testing/auth-request-service.stub';
+import { authMethodsMock } from '../testing/auth-service.stub';
+import { EPersonMock } from '../testing/eperson.mock';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { routeServiceStub } from '../testing/route-service.stub';
+import { RouterStub } from '../testing/router.stub';
+import {
+  SpecialGroupDataMock,
+  SpecialGroupDataMock$,
+} from '../testing/special-group.mock';
+import { getMockTranslateService } from '../testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   SetUserAsIdleAction,

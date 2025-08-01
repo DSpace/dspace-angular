@@ -11,12 +11,12 @@ import { ResearcherProfileDataService } from '@core/profile/researcher-profile-d
 import { followLink } from '@core/shared/follow-link-config.model';
 import { ResourceType } from '@core/shared/resource-type';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { mockSuggestionPublicationOne } from '@core/testing/publication-claim.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

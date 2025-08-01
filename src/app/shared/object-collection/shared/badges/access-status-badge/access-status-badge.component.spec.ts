@@ -10,9 +10,9 @@ import { AccessStatusObject } from '@core/shared/access-status.model';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
+import { getMockLinkService } from '@core/testing/link-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { getMockLinkService } from 'src/app/shared/mocks/link-service.mock';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 

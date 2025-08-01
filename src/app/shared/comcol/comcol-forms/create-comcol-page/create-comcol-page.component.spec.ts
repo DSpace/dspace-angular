@@ -13,6 +13,7 @@ import { RequestService } from '@core/data/request.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { Community } from '@core/shared/community.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -21,7 +22,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 
 describe('CreateComColPageComponent', () => {

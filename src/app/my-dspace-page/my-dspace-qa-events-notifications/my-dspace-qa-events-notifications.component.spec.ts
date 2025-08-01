@@ -4,8 +4,8 @@ import {
 } from '@angular/core/testing';
 import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications.component';
 

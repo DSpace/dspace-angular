@@ -8,16 +8,16 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import {
   SortDirection,
   SortOptions,
 } from '../../cache/models/sort-options.model';
 import { RemoteData } from '../../data/remote-data';
 import { RequestEntry } from '../../data/request-entry.model';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { getMockRequestService } from '../../testing/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { AppliedFilter } from './models/applied-filter.model';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';

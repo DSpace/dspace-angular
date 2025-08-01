@@ -24,16 +24,16 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Community } from '@core/shared/community.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { UUIDService } from '@core/shared/uuid.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { StoreMock } from '@core/testing/store.mock';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthServiceMock } from '../../../mocks/auth.service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { StoreMock } from '../../../testing/store.mock';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';

@@ -13,9 +13,9 @@ import {
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
+import { createTestComponent } from '@core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../testing/utils.test';
 import { SearchEvent } from '../eperson-group-list-event-type';
 import { GroupSearchBoxComponent } from './group-search-box.component';
 

@@ -19,6 +19,11 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import {
+  EmptySpecialGroupDataMock$,
+  SpecialGroupDataMock$,
+} from '@core/testing/special-group.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
+import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
@@ -39,11 +44,6 @@ import { SuggestionsNotificationComponent } from '../notifications/suggestions/n
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import {
-  EmptySpecialGroupDataMock$,
-  SpecialGroupDataMock$,
-} from '../shared/testing/special-group.mock';
-import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';

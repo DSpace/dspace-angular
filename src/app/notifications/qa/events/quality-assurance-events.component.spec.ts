@@ -22,8 +22,23 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '@core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { followLink } from '@core/shared/follow-link-config.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import {
+  getMockQualityAssuranceEventRestService,
+  ItemMockPid8,
+  ItemMockPid9,
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  qualityAssuranceEventObjectMissingProjectFound,
+  qualityAssuranceEventObjectMissingProjectNotFound,
+} from '@core/testing/notifications.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -41,21 +56,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  getMockQualityAssuranceEventRestService,
-  ItemMockPid8,
-  ItemMockPid9,
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound,
-} from '../../../shared/mocks/notifications.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 

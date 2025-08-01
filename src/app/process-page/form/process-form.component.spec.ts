@@ -15,16 +15,16 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Script } from '@core/shared/scripts/script.model';
 import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ProcessFormComponent } from './process-form.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 

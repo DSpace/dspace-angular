@@ -5,10 +5,10 @@ import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
 import { BrowserHardRedirectService } from '@core/services/browser-hard-redirect.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { Bitstream } from '@core/shared/bitstream.model';
+import { RouterStub } from '@core/testing/router.stub';
 import { cold } from 'jasmine-marbles';
 import { EMPTY } from 'rxjs';
 
-import { RouterStub } from '../shared/testing/router.stub';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 
 describe('legacyBitstreamURLRedirectGuard', () => {

@@ -15,12 +15,19 @@ import { ConfigurationDataService } from '@core/data/configuration-data.service'
 import { RemoteData } from '@core/data/remote-data';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { Collection } from '@core/shared/collection.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@core/shared/search/models/search-filter.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { MockActivatedRoute } from '@core/testing/active-router.mock';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -28,13 +35,6 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { RouterMock } from '../mocks/router.mock';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
 import { RSSComponent } from './rss.component';
 
 describe('RssComponent', () => {

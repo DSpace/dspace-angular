@@ -21,17 +21,17 @@ import { Community } from '@core/shared/community.model';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 

@@ -15,13 +15,13 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import {
   INotification,
   Notification,
 } from '../../notification-system/models/notification.model';
 import { NotificationType } from '../../notification-system/models/notification-type';
 import { NotificationsService } from '../../notification-system/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,

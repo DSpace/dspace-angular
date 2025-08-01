@@ -21,6 +21,7 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Suggestion } from '@core/notifications/suggestions/models/suggestion.model';
 import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { redirectOn4xx } from '@core/shared/authorized.operators';
 import {
   getFirstCompletedRemoteData,
@@ -55,7 +56,6 @@ import { SuggestionTargetsStateService } from '../notifications/suggestions/targ
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 

@@ -15,6 +15,8 @@ import { PaginationService } from '@core/pagination/pagination.service';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { Item } from '@core/shared/item.model';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,8 +26,6 @@ import {
 } from 'rxjs';
 
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { createPaginatedList } from '../../testing/utils.test';
 import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
 
 describe('ItemAccessControlSelectBitstreamsModalComponent', () => {

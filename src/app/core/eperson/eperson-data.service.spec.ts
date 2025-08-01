@@ -16,20 +16,6 @@ import {
 } from 'fast-json-patch';
 import { of } from 'rxjs';
 
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  EPersonMock,
-  EPersonMock2,
-  EPersonMockWithNoName,
-} from '../../shared/testing/eperson.mock';
-import { GroupMock } from '../../shared/testing/group-mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import {
-  createPaginatedList,
-  createRequestEntry$,
-} from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -46,6 +32,20 @@ import { RequestService } from '../data/request.service';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import {
+  EPersonMock,
+  EPersonMock2,
+  EPersonMockWithNoName,
+} from '../testing/eperson.mock';
+import { GroupMock } from '../testing/group-mock';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { getMockRemoteDataBuildServiceHrefMap } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../testing/utils.test';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,

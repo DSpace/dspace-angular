@@ -24,6 +24,7 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { CommunityDataService } from '@core/data/community-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { RouteService } from '@core/services/route.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
@@ -38,6 +39,7 @@ import {
   SearchConfig,
   SortConfig,
 } from '@core/shared/search/search-filters/search-config.model';
+import { SidebarServiceStub } from '@core/testing/sidebar-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -58,11 +60,9 @@ import { getCollectionPageRoute } from '../../collection-page/collection-page-ro
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { SearchComponent } from './search.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';

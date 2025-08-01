@@ -15,6 +15,11 @@ import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { EntityTypeDataServiceStub } from '@core/testing/entity-type-data.service.stub';
+import { ItemDataServiceStub } from '@core/testing/item-data.service.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { ObjectUpdatesServiceStub } from '@core/testing/object-updates.service.stub';
+import { RelationshipDataServiceStub } from '@core/testing/relationship-data.service.stub';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
@@ -24,11 +29,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { EntityTypeDataServiceStub } from '../../../shared/testing/entity-type-data.service.stub';
-import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { ObjectUpdatesServiceStub } from '../../../shared/testing/object-updates.service.stub';
-import { RelationshipDataServiceStub } from '../../../shared/testing/relationship-data.service.stub';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
 
 describe('EditItemRelationshipsService', () => {

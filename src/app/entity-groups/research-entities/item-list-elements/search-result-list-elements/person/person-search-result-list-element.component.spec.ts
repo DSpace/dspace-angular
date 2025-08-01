@@ -14,19 +14,19 @@ import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { Item } from '@core/shared/item.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

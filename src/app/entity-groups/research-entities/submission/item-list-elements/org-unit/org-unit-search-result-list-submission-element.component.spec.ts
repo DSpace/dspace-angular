@@ -25,6 +25,8 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Item } from '@core/shared/item.model';
 import { UUIDService } from '@core/shared/uuid.service';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -36,8 +38,6 @@ import {
 
 import { environment } from '../../../../../../environments/environment';
 import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

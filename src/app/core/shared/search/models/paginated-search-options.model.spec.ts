@@ -1,8 +1,8 @@
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import {
   SortDirection,
   SortOptions,
 } from '../../../cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { DSpaceObjectType } from '../../dspace-object-type.model';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchFilter } from './search-filter.model';

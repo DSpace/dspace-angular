@@ -19,6 +19,8 @@ import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '@config/app-config.interface';
+import { StoreMock } from '@core/testing/store.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -37,8 +39,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { StoreMock } from '../testing/store.mock';
-import { createTestComponent } from '../testing/utils.test';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';

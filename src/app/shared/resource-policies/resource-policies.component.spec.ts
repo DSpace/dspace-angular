@@ -33,6 +33,17 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { Bundle } from '@core/shared/bundle.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { EPersonMock } from '@core/testing/eperson.mock';
+import { GroupMock } from '@core/testing/group-mock';
+import { getMockLinkService } from '@core/testing/link-service.mock';
+import { getMockResourcePolicyService } from '@core/testing/mock-resource-policy-service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -46,17 +57,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockLinkService } from '../mocks/link-service.mock';
-import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { EPersonMock } from '../testing/eperson.mock';
-import { GroupMock } from '../testing/group-mock';
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
-import { RouterStub } from '../testing/router.stub';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '../testing/utils.test';
 import { HasValuePipe } from '../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
 import { ResourcePoliciesComponent } from './resource-policies.component';

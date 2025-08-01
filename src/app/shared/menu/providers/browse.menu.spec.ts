@@ -14,11 +14,11 @@ import {
 import { BrowseService } from '@core/browse/browse.service';
 import { ObjectCacheService } from '@core/cache/object-cache.service';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
+import { BrowseServiceStub } from '@core/testing/browse-service.stub';
+import { getMockObjectCacheService } from '@core/testing/object-cache.service.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 
-import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
-import { BrowseServiceStub } from '../../testing/browse-service.stub';
-import { createPaginatedList } from '../../testing/utils.test';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { BrowseMenuProvider } from './browse.menu';

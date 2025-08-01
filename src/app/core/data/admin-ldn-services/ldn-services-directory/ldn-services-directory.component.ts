@@ -32,10 +32,10 @@ import {
 } from 'rxjs/operators';
 
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { NotificationsService } from '../../../notification-system/notifications.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { FindListOptions } from '../../find-list-options.model';
 import { PaginatedList } from '../../paginated-list.model';
 import { RemoteData } from '../../remote-data';

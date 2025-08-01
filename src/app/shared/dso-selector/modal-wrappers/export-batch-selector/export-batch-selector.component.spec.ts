@@ -23,6 +23,9 @@ import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -40,9 +43,6 @@ import {
 import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents

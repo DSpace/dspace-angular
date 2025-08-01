@@ -12,6 +12,10 @@ import {
 import { AuthService } from '@core/auth/auth.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Item } from '@core/shared/item.model';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -21,6 +25,10 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
+import { SectionsService } from '../sections/sections.service';
+import { VisibilityType } from '../sections/visibility-type';
+import { SubmissionService } from '../submission.service';
 import {
   mockSectionsData,
   mockSectionsList,
@@ -30,15 +38,7 @@ import {
   mockSubmissionObjectNew,
   mockSubmissionSelfUrl,
   mockSubmissionState,
-} from '../../shared/mocks/submission.mock';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../shared/testing/utils.test';
-import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
-import { SectionsService } from '../sections/sections.service';
-import { VisibilityType } from '../sections/visibility-type';
-import { SubmissionService } from '../submission.service';
+} from '../utils/submission.mock';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';

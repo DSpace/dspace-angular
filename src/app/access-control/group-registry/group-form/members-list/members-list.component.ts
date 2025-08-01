@@ -29,6 +29,7 @@ import { EpersonDtoModel } from '@core/eperson/models/eperson-dto.model';
 import { Group } from '@core/eperson/models/group.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
@@ -56,7 +57,6 @@ import {
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
 import { GroupRegistryService } from '../../group-registry.service';
 

@@ -3,9 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { EntityTypeDataService } from '@core/data/entity-type-data.service';
+import { EntityTypeDataServiceStub } from '@core/testing/entity-type-data.service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { EntityTypeDataServiceStub } from '../../../../shared/testing/entity-type-data.service.stub';
 import { DsoEditMetadataEntityFieldComponent } from './dso-edit-metadata-entity-field.component';
 
 describe('DsoEditMetadataEntityFieldComponent', () => {

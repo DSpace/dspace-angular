@@ -5,6 +5,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Registration } from '@core/shared/registration.model';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
@@ -12,7 +13,6 @@ import {
 import { of } from 'rxjs';
 
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { ExternalLoginPageComponent } from './external-login-page.component';
 
 describe('ExternalLoginPageComponent', () => {

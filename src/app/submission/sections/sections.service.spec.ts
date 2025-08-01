@@ -4,6 +4,11 @@ import {
 } from '@angular/core/testing';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockScrollToService } from '@core/testing/scroll-to-service.mock';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,
@@ -23,18 +28,7 @@ import { of } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
-import { getMockFormService } from '../../shared/mocks/form-service.mock';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import {
-  mockSectionsData,
-  mockSectionsErrors,
-  mockSubmissionState,
-  mockSubmissionStateWithoutUpload,
-} from '../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { getMockFormService } from '../../shared/form/testing/form-service.mock';
 import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,
@@ -48,6 +42,12 @@ import { SubmissionSectionError } from '../objects/submission-section-error.mode
 import { submissionReducers } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import {
+  mockSectionsData,
+  mockSectionsErrors,
+  mockSubmissionState,
+  mockSubmissionStateWithoutUpload,
+} from '../utils/submission.mock';
 import { SectionsService } from './sections.service';
 import { SectionsType } from './sections-type';
 

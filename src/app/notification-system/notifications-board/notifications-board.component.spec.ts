@@ -19,6 +19,7 @@ import { NotificationOptions } from '@core/notification-system/models/notificati
 import { NotificationType } from '@core/notification-system/models/notification-type';
 import { notificationsReducer } from '@core/notification-system/notifications.reducers';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   Store,
   StoreModule,
@@ -30,7 +31,6 @@ import { AccessibilitySettingsService } from '../../accessibility/accessibility-
 import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
 import { LiveRegionService } from '../../shared/live-region/live-region.service';
 import { LiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { NotificationComponent } from '../notification/notification.component';
 import { NotificationsBoardComponent } from './notifications-board.component';
 

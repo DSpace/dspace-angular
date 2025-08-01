@@ -7,6 +7,13 @@ import { SubmissionAccessesConfigDataService } from '@core/config/submission-acc
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+import { getSectionAccessesService } from '@core/testing/section-accesses.service.mock';
+import {
+  getSubmissionAccessesConfigNotChangeDiscoverableService,
+  getSubmissionAccessesConfigService,
+} from '@core/testing/section-accesses-config.service.mock';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -31,23 +38,16 @@ import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/d
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
-import {
-  getSubmissionAccessesConfigNotChangeDiscoverableService,
-  getSubmissionAccessesConfigService,
-} from '../../../shared/mocks/section-accesses-config.service.mock';
-import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
+import { getMockFormBuilderService } from '../../../shared/form/testing/form-builder-service.mock';
 import {
   accessConditionChangeEvent,
   checkboxChangeEvent,
-} from '../../../shared/testing/form-event.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
+} from '../../../shared/form/testing/form-event.stub';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { SubmissionService } from '../../submission.service';
+import { mockAccessesFormData } from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';

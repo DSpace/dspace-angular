@@ -13,20 +13,20 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ItemDataService } from '@core/data/item-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import {
+  getMockNotificationsStateService,
+  qualityAssuranceTopicObjectMoreAbstract,
+  qualityAssuranceTopicObjectMorePid,
+} from '@core/testing/notifications.mock';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import {
-  getMockNotificationsStateService,
-  qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
 import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
 

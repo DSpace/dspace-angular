@@ -16,16 +16,16 @@ import { Feedback } from '@core/feedback/models/feedback.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
 import { NativeWindowService } from '@core/services/window.service';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { EPersonMock } from '@core/testing/eperson.mock';
+import { NativeWindowMockFactory } from '@core/testing/mock-native-window-ref';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { FeedbackFormComponent } from './feedback-form.component';
 
 

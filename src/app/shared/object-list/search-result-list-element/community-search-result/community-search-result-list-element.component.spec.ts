@@ -13,12 +13,12 @@ import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { Community } from '@core/shared/community.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
 import { of } from 'rxjs';
 
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';

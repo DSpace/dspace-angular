@@ -12,14 +12,14 @@ import { RequestService } from '@core/data/request.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { ItemRequest } from '@core/shared/item-request.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AccessByTokenNotificationComponent } from './access-by-token-notification.component';
 

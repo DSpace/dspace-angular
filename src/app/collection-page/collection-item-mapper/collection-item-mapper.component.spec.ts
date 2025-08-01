@@ -22,6 +22,7 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { RouteService } from '@core/services/route.service';
 import { Collection } from '@core/shared/collection.model';
@@ -29,6 +30,13 @@ import { ConfigurationProperty } from '@core/shared/configuration-property.model
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { ObjectSelectServiceStub } from '@core/testing/object-select-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -45,19 +53,11 @@ import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configurat
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '../../shared/testing/search-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

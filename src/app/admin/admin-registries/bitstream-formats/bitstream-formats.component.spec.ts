@@ -11,6 +11,9 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { PaginationService } from '@core/pagination/pagination.service';
 import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
@@ -23,9 +26,6 @@ import { hot } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { BitstreamFormatService } from './bitstream-format.service';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';

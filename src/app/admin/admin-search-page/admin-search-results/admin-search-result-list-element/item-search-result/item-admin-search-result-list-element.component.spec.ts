@@ -9,11 +9,11 @@ import { APP_CONFIG } from '@config/app-config.interface';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { Item } from '@core/shared/item.model';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

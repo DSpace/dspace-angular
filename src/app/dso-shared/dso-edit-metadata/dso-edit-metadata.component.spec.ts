@@ -20,12 +20,12 @@ import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
 import { MetadataValue } from '@core/shared/metadata.models';
+import { TestDataService } from '@core/testing/test-data-service.mock';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TestDataService } from '../../shared/testing/test-data-service.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
@@ -40,7 +40,7 @@ const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('@core/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 describe('DsoEditMetadataComponent', () => {

@@ -18,6 +18,10 @@ import {
   MetadataMap,
   MetadataValue,
 } from '@core/shared/metadata.models';
+import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '@core/testing/browse-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -25,10 +29,6 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';

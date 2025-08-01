@@ -6,12 +6,12 @@ import { Community } from '@core/shared/community.model';
 import { COMMUNITY } from '@core/shared/community.resource-type';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
+import { ConfigurationDataServiceStub } from '@core/testing/configuration-data.service.stub';
 
 import { getCollectionModuleRoute } from '../app/collection-page/collection-page-routing-paths';
 import { getCommunityModuleRoute } from '../app/community-page/community-page-routing-paths';
 import { getItemModuleRoute } from '../app/item-page/item-page-routing-paths';
 import { HandleService } from '../app/shared/handle.service';
-import { ConfigurationDataServiceStub } from '../app/shared/testing/configuration-data.service.stub';
 import {
   HandleTheme,
   RegExTheme,

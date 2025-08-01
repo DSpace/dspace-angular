@@ -18,17 +18,17 @@ import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '@core/tasks/pool-task-data.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import { getMockSearchService } from '@core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
 import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
 
 let component: ClaimedTaskActionsApproveComponent;

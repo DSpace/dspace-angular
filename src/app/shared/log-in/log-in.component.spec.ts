@@ -20,19 +20,19 @@ import { AuthService } from '@core/auth/auth.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
 import { NativeWindowService } from '@core/services/window.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import {
+  authMethodsMock,
+  AuthServiceStub,
+} from '@core/testing/auth-service.stub';
+import { NativeWindowMockFactory } from '@core/testing/mock-native-window-ref';
+import { createTestComponent } from '@core/testing/utils.test';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import {
-  authMethodsMock,
-  AuthServiceStub,
-} from '../testing/auth-service.stub';
-import { createTestComponent } from '../testing/utils.test';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { LogInComponent } from './log-in.component';
 

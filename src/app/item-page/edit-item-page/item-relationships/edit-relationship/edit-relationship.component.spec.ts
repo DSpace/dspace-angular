@@ -13,6 +13,7 @@ import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.s
 import { Item } from '@core/shared/item.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbModal,
@@ -21,9 +22,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 import { EditRelationshipComponent } from './edit-relationship.component';

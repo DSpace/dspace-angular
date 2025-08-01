@@ -18,6 +18,11 @@ import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-pa
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
+import { getMockSectionUploadService } from '@core/testing/section-upload.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import {
   NgbModal,
   NgbModule,
@@ -28,22 +33,17 @@ import { of } from 'rxjs';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
+import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { SubmissionService } from '../../../submission.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
   mockUploadFiles,
-} from '../../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../../shared/testing/utils.test';
-import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { SubmissionService } from '../../../submission.service';
+} from '../../../utils/submission.mock';
 import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';

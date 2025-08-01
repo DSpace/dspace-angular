@@ -12,11 +12,11 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { AuthServiceStub } from '../testing/auth-service.stub';
+import { RouterStub } from '../testing/router.stub';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 

@@ -12,9 +12,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createTestComponent } from '@core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../testing/utils.test';
 import { AlertComponent } from './alert.component';
 import { AlertType } from './alert-type';
 

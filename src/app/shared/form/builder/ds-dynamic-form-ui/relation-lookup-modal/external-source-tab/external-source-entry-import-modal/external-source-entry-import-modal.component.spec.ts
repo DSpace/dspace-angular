@@ -12,6 +12,7 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Collection } from '@core/shared/collection.model';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Item } from '@core/shared/item.model';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbActiveModal,
@@ -22,7 +23,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
-import { createPaginatedList } from '../../../../../../testing/utils.test';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 import {
   ExternalSourceEntryImportModalComponent,

@@ -18,6 +18,8 @@ import { AuthService } from '@core/auth/auth.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { Item } from '@core/shared/item.model';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { CSSVariableServiceStub } from '@core/testing/css-variable-service.stub';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   NgbModal,
@@ -27,11 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { MenuService } from '../../shared/menu/menu.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { MenuServiceStub } from '../../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { AdminSidebarComponent } from './admin-sidebar.component';
 

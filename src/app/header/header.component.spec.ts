@@ -9,6 +9,8 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { LocaleService } from '@core/locale/locale.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -18,9 +20,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
-import { MenuServiceStub } from '../shared/testing/menu-service.stub';
+import { MenuServiceStub } from '../shared/menu/menu-service.stub';
 import { ContextHelpToggleComponent } from './context-help-toggle/context-help-toggle.component';
 import { HeaderComponent } from './header.component';
 

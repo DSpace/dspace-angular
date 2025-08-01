@@ -20,6 +20,14 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '@core/services/window.service';
+import { MockActivatedRoute } from '@core/testing/active-router.mock';
+import { AngularticsProviderMock } from '@core/testing/angulartics-provider.service.mock';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { CSSVariableServiceStub } from '@core/testing/css-variable-service.stub';
+import { HeadTagServiceMock } from '@core/testing/head-tag-service.mock';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,
@@ -39,18 +47,10 @@ import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';
-import { MockActivatedRoute } from './shared/mocks/active-router.mock';
-import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
-import { AuthServiceMock } from './shared/mocks/auth.service.mock';
-import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
-import { RouterMock } from './shared/mocks/router.mock';
-import { getMockThemeService } from './shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
+import { MenuServiceStub } from './shared/menu/menu-service.stub';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
-import { CSSVariableServiceStub } from './shared/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from './shared/testing/host-window-service.stub';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
+import { getMockThemeService } from './shared/theme-support/test/theme-service.mock';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 

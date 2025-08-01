@@ -8,6 +8,8 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Bitstream } from '@core/shared/bitstream.model';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
+import { MockBitstreamFormat1 } from '@core/testing/item.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
@@ -15,8 +17,6 @@ import {
 import { of } from 'rxjs';
 
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';

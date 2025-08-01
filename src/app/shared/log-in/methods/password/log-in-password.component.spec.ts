@@ -17,6 +17,9 @@ import { AuthMethod } from '@core/auth/models/auth.method';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '@core/testing/authorization-service.stub';
 import {
   Store,
   StoreModule,
@@ -25,10 +28,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { LogInPasswordComponent } from './log-in-password.component';
 

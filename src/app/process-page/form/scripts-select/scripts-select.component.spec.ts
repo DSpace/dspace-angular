@@ -15,15 +15,15 @@ import {
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { Script } from '@core/shared/scripts/script.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {

@@ -12,6 +12,7 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Process } from '@core/processes/process.model';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@core/shared/search/models/search-filter.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -21,7 +22,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 
 describe('SearchExportCsvComponent', () => {

@@ -13,16 +13,16 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { Collection } from '@core/shared/collection.model';
 import { FileService } from '@core/shared/file.service';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '@core/testing/authorization-service.stub';
+import { FileServiceStub } from '@core/testing/file-service.stub';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
-import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
-import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionAdminSearchResultGridElementComponent } from './collection-admin-search-result-grid-element.component';

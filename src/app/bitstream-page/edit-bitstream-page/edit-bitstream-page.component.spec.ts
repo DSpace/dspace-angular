@@ -31,6 +31,7 @@ import { BitstreamFormat } from '@core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
 import { Item } from '@core/shared/item.model';
 import { MetadataValueFilter } from '@core/shared/metadata.models';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -44,7 +45,6 @@ import { hasValue } from '@shared/utils/empty.util';
 import { of } from 'rxjs';
 
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EditBitstreamPageComponent } from './edit-bitstream-page.component';

@@ -15,6 +15,7 @@ import { SubmissionFormsModel } from '@core/config/models/config-submission-form
 import { ConfigurationDataService } from '@core/data/configuration-data.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   DynamicCheckboxGroupModel,
@@ -39,7 +40,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { getMockTranslateService } from '../../mocks/translate.service.mock';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';

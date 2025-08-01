@@ -10,6 +10,7 @@ import {
   PaginatedList,
 } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
@@ -36,7 +37,6 @@ import { SelectableListItemControlComponent } from '../../../shared/object-colle
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 

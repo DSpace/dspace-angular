@@ -11,8 +11,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
@@ -31,6 +29,8 @@ import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
+import { RouterMock } from '../testing/router.mock';
+import { createPaginatedList } from '../testing/utils.test';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,

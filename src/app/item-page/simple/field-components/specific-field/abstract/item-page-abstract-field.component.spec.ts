@@ -11,15 +11,15 @@ import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@config/app-config.interface';
 import { BrowseService } from '@core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
+import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '@core/testing/browse-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
 
 let comp: ItemPageAbstractFieldComponent;

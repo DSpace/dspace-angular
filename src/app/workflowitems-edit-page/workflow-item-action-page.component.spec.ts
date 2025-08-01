@@ -21,6 +21,12 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { RouteService } from '@core/services/route.service';
 import { WorkflowItem } from '@core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { LocationStub } from '@core/testing/location.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@core/testing/request-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -36,12 +42,6 @@ import {
 } from 'rxjs';
 
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { LocationStub } from '../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../shared/testing/request-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from './workflow-item-action-page.component';
 

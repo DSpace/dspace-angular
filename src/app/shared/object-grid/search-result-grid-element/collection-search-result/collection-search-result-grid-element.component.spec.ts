@@ -24,14 +24,14 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Collection } from '@core/shared/collection.model';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { UUIDService } from '@core/shared/uuid.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';

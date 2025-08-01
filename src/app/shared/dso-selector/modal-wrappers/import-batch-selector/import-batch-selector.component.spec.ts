@@ -9,12 +9,12 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Collection } from '@core/shared/collection.model';
 import { Item } from '@core/shared/item.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
 

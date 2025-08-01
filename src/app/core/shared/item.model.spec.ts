@@ -1,4 +1,4 @@
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { createPaginatedList } from '../testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { Item } from './item.model';
 

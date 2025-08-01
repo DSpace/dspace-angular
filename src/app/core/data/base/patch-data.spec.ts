@@ -16,15 +16,15 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { followLink } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Item } from '../../shared/item.model';
+import { HALEndpointServiceStub } from '../../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../../testing/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { ChangeAnalyzer } from '../change-analyzer';
 import { FindListOptions } from '../find-list-options.model';

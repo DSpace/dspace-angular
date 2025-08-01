@@ -11,6 +11,12 @@ import {
 } from '@angular/core/testing';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -22,6 +28,9 @@ import {
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
+import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,
@@ -30,16 +39,7 @@ import {
   mockUploadResponse1ParsedErrors,
   mockUploadResponse2Errors,
   mockUploadResponse2ParsedErrors,
-} from '../../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
-import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SubmissionUploadFilesComponent } from './submission-upload-files.component';
 
 describe('SubmissionUploadFilesComponent Component', () => {

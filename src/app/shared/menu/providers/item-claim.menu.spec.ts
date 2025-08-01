@@ -4,11 +4,11 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { MenuService } from '../menu.service';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';

@@ -8,10 +8,10 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BrowseDefinition } from '@core/shared/browse-definition.model';
 import { GenericConstructor } from '@core/shared/generic-constructor';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
 
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';

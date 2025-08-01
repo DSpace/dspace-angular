@@ -4,10 +4,10 @@ import { ScriptDataService } from '@core/data/processes/script-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Process } from '@core/processes/process.model';
 import { ProcessParameter } from '@core/processes/process-parameter.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { BulkAccessControlService } from './bulk-access-control.service';
 
 describe('BulkAccessControlService', () => {

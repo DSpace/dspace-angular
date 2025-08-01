@@ -12,11 +12,11 @@ import { CommunityDataService } from '@core/data/community-data.service';
 import { RequestService } from '@core/data/request.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CommunityFormComponent } from '../community-form/community-form.component';
 import { CreateCommunityPageComponent } from './create-community-page.component';
 

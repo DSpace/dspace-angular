@@ -17,6 +17,8 @@ import { RequestService } from '@core/data/request.service';
 import { RestRequestMethod } from '@core/data/rest-request-method';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Community } from '@core/shared/community.model';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   DynamicFormControlModel,
@@ -29,8 +31,6 @@ import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 
 import { FormComponent } from '../../../form/form.component';
-import { AuthServiceMock } from '../../../mocks/auth.service.mock';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';

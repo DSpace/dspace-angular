@@ -13,13 +13,13 @@ import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-sea
 import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
 import { SearchService } from '@core/shared/search/search.service';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { SearchServiceStub } from '../../shared/testing/search-service.stub';
 import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data.component';
 
 // create route stub

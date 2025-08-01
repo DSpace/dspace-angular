@@ -10,13 +10,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Item } from '@core/shared/item.model';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 

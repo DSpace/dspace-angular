@@ -21,6 +21,8 @@ import { CoreState } from '@core/core-state.model';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Registration } from '@core/shared/registration.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -31,8 +33,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 

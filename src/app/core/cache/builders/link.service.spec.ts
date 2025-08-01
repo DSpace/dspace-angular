@@ -6,11 +6,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { TestDataService } from '../../../shared/testing/test-data-service.mock';
 import { followLink } from '../../shared/follow-link-config.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
+import { TestDataService } from '../../testing/test-data-service.mock';
 import {
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,
@@ -40,7 +40,7 @@ class TestModel implements HALResource {
 }
 
 const mockDataServiceMap: any = new Map([
-  [TEST_MODEL.value, () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [TEST_MODEL.value, () => import('../../testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 let testDataService: TestDataService;

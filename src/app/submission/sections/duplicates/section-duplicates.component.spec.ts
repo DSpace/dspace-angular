@@ -29,6 +29,11 @@ import { DUPLICATE } from '@core/shared/duplicate-data/duplicate.resource-type';
 import { License } from '@core/shared/license.model';
 import { MetadataValue } from '@core/shared/metadata.models';
 import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { defaultUUID } from '@core/testing/uuid.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -37,21 +42,16 @@ import { of } from 'rxjs';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { getMockFormBuilderService } from '../../../shared/form/testing/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';

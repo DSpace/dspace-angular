@@ -16,13 +16,13 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
+import { RouterStub } from '@core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';

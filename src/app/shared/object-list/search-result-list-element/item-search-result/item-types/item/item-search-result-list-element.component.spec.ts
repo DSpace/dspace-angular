@@ -14,18 +14,18 @@ import { AuthService } from '@core/auth/auth.service';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { Item } from '@core/shared/item.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
-} from '../../../../../mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
+} from '@core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
+import { getMockThemeService } from '../../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';

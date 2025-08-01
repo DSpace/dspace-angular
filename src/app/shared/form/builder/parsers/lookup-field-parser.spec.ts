@@ -1,4 +1,4 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
 
 import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { FormFieldModel } from '../models/form-field.model';

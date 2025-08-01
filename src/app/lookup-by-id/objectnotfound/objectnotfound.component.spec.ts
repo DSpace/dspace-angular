@@ -6,10 +6,10 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { ServerResponseService } from '@core/services/server-response.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ObjectNotFoundComponent } from './objectnotfound.component';
 
 describe('ObjectNotFoundComponent', () => {

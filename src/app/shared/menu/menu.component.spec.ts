@@ -37,7 +37,7 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
-import { getMockThemeService } from '../mocks/theme-service.mock';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';

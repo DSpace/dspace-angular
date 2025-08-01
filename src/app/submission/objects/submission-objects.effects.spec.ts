@@ -7,6 +7,13 @@ import { SubmissionJsonPatchOperationsService } from '@core/submission/submissio
 import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { StoreMock } from '@core/testing/store.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
+import { mockSubmissionObjectDataService } from '@core/testing/submission-oject-data-service.mock';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,
@@ -31,6 +38,9 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
+import { SectionsService } from '../sections/sections.service';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
 import {
   mockSectionsData,
   mockSectionsDataTwo,
@@ -43,17 +53,7 @@ import {
   mockSubmissionRestResponse,
   mockSubmissionSelfUrl,
   mockSubmissionState,
-} from '../../shared/mocks/submission.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
-import { StoreMock } from '../../shared/testing/store.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { SectionsService } from '../sections/sections.service';
-import { SubmissionService } from '../submission.service';
-import parseSectionErrors from '../utils/parseSectionErrors';
+} from '../utils/submission.mock';
 import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,

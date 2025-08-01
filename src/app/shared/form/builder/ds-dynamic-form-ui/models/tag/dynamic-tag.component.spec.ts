@@ -22,6 +22,12 @@ import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
 import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@core/testing/utils.test';
+import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
+import {
   NgbModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -34,12 +40,6 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicTagComponent } from './dynamic-tag.component';

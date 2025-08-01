@@ -34,6 +34,8 @@ import { ServerHardRedirectService } from '@core/services/server-hard-redirect.s
 import { ServerXhrService } from '@core/services/server-xhr.service';
 import { MathService } from '@core/shared/math.service';
 import { ServerMathService } from '@core/shared/server-math.service';
+import { AngularticsProviderMock } from '@core/testing/angulartics-provider.service.mock';
+import { Angulartics2Mock } from '@core/testing/angulartics2.service.mock';
 import { ServerXSRFService } from '@core/xsrf/server-xsrf.service';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { EffectsModule } from '@ngrx/effects';
@@ -55,8 +57,6 @@ import { MatomoTracker } from 'ngx-matomo-client';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
-import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
-import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { MockMatomoTracker } from '../../app/statistics/mock-matomo-tracker';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';

@@ -13,13 +13,13 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchService } from '@core/shared/search/search.service';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { SearchServiceStub } from '@core/testing/search-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({

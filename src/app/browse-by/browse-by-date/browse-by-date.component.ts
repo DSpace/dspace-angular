@@ -27,6 +27,7 @@ import {
 import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { isValidDate } from '@shared/utils/date.util';
@@ -47,7 +48,6 @@ import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-
 
 import { environment } from '../../../environments/environment';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import {
   BrowseByMetadataComponent,

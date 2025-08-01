@@ -16,6 +16,7 @@ import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
 import { Item } from '@core/shared/item.model';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -25,7 +26,6 @@ import { hasValue } from '@shared/utils/empty.util';
 
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createPaginatedList } from '../../testing/utils.test';
 import { DSOSelectorComponent } from './dso-selector.component';
 
 describe('DSOSelectorComponent', () => {

@@ -24,6 +24,15 @@ import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@core/testing/dynamic-form-mock-services';
+import {
+  createTestComponent,
+  hasClass,
+} from '@core/testing/utils.test';
+import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -34,15 +43,6 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import {
-  createTestComponent,
-  hasClass,
-} from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 

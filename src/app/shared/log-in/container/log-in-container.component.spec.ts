@@ -19,12 +19,12 @@ import { AuthMethod } from '@core/auth/models/auth.method';
 import { AuthMethodType } from '@core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '@core/services/hard-redirect.service';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '@core/testing/authorization-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthServiceStub } from '../../testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { createTestComponent } from '../../testing/utils.test';
 import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {

@@ -13,6 +13,7 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Collection } from '@core/shared/collection.model';
 import { Community } from '@core/shared/community.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { StoreMock } from '@core/testing/store.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -24,7 +25,6 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import { AppState } from '../app.reducer';
-import { StoreMock } from '../shared/testing/store.mock';
 import {
   CommunityListService,
   toFlatNode,

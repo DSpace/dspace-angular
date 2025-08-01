@@ -8,12 +8,12 @@ import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Subscription } from '@core/shared/subscription.model';
 import { Store } from '@ngrx/store';
 
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { NotificationsService } from '../notification-system/notifications.service';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { createPaginatedList } from '../testing/utils.test';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,

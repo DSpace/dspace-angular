@@ -9,12 +9,12 @@ import { By } from '@angular/platform-browser';
 import { ProcessParameter } from '@core/processes/process-parameter.model';
 import { Script } from '@core/shared/scripts/script.model';
 import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { ProcessParametersComponent } from './process-parameters.component';
 

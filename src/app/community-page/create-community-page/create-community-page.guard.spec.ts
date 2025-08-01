@@ -1,11 +1,11 @@
 import { Community } from '@core/shared/community.model';
+import { RouterMock } from '@core/testing/router.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
 import { first } from 'rxjs/operators';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { createCommunityPageGuard } from './create-community-page.guard';
 
 describe('createCommunityPageGuard', () => {

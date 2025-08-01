@@ -9,6 +9,7 @@ import { LookupRelationService } from '@core/data/lookup-relation.service';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Context } from '@core/shared/context.model';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { Item } from '@core/shared/item.model';
@@ -43,7 +44,6 @@ import { CollectionElementLinkType } from '../../../../../../object-collection/c
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 

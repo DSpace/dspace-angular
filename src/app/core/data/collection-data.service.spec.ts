@@ -12,16 +12,16 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Collection } from '../shared/collection.model';
 import { ContentSource } from '../shared/content-source.model';
 import { PageInfo } from '../shared/page-info.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { ObjectCacheServiceStub } from '../testing/object-cache-service.stub';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { getMockTranslateService } from '../testing/translate.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,

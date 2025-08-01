@@ -19,6 +19,8 @@ import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -37,8 +39,6 @@ import { ObjectCollectionComponent } from '../../../../../object-collection/obje
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../../testing/utils.test';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';

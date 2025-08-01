@@ -16,25 +16,25 @@ import { ItemDataService } from '@core/data/item-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
+import { mockSubmissionObject } from '../utils/submission.mock';
 import { SubmissionEditComponent } from './submission-edit.component';
 
 describe('SubmissionEditComponent Component', () => {

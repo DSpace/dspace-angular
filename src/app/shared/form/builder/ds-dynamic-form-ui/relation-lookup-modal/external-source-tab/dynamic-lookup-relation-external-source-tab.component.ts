@@ -13,6 +13,7 @@ import { ExternalSourceDataService } from '@core/data/external-source-data.servi
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Collection } from '@core/shared/collection.model';
 import { Context } from '@core/shared/context.model';
 import { ExternalSource } from '@core/shared/external-source.model';
@@ -52,7 +53,6 @@ import { ObjectCollectionComponent } from '../../../../../object-collection/obje
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';

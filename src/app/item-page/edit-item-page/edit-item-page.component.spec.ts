@@ -17,6 +17,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Item } from '@core/shared/item.model';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -27,7 +28,6 @@ import {
   of,
 } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { EditItemPageComponent } from './edit-item-page.component';
 
 describe('EditItemPageComponent', () => {

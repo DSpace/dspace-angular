@@ -19,6 +19,7 @@ import { ConfigurationDataService } from '@core/data/configuration-data.service'
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { RouteService } from '@core/services/route.service';
 import { BrowseEntry } from '@core/shared/browse-entry.model';
@@ -27,6 +28,12 @@ import { ITEM } from '@core/shared/item.resource-type';
 import { PageInfo } from '@core/shared/page-info.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { ViewMode } from '@core/shared/view-mode.model';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -36,8 +43,6 @@ import {
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../host-window.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import {
   DEFAULT_CONTEXT,
   listableObjectComponent,
@@ -45,12 +50,7 @@ import {
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { routeServiceStub } from '../testing/route-service.stub';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
 

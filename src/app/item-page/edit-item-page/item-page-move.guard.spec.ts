@@ -9,6 +9,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@core/data/item-data.service';
 import { Item } from '@core/shared/item.model';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,7 +18,6 @@ import {
   of,
 } from 'rxjs';
 
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { itemPageMoveGuard } from './item-page-move.guard';
 
 describe('itemPageMoveGuard', () => {

@@ -22,6 +22,14 @@ import { WorkflowItemDataService } from '@core/submission/workflowitem-data.serv
 import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
 import { RatingAdvancedWorkflowInfo } from '@core/tasks/models/rating-advanced-workflow-info.model';
+import { ClaimedTaskDataServiceStub } from '@core/testing/claimed-task-data-service.stub';
+import { LocationStub } from '@core/testing/location.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@core/testing/request-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { WorkflowActionDataServiceStub } from '@core/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '@core/testing/workflow-item-data-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -30,14 +38,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
-import { LocationStub } from '../../../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_RATING,

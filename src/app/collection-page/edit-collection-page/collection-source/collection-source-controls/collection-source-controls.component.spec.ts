@@ -18,6 +18,7 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { Collection } from '@core/shared/collection.model';
 import { ContentSource } from '@core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '@core/shared/content-source-set-serializer';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -25,7 +26,6 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { CollectionSourceControlsComponent } from './collection-source-controls.component';
 

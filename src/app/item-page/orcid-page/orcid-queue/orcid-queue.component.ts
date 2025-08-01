@@ -16,6 +16,7 @@ import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
 import { OrcidHistoryDataService } from '@core/orcid/orcid-history-data.service';
 import { OrcidQueueDataService } from '@core/orcid/orcid-queue-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Item } from '@core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@core/shared/operators';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -41,7 +42,6 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-orcid-queue',

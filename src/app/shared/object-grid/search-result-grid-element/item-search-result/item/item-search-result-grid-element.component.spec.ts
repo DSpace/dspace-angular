@@ -24,6 +24,7 @@ import { HALEndpointService } from '@core/shared/hal-endpoint.service';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { UUIDService } from '@core/shared/uuid.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -35,7 +36,6 @@ import {
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';

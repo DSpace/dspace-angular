@@ -34,10 +34,10 @@ import {
 import { PaginationService } from 'ngx-pagination';
 import { of } from 'rxjs';
 
-import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../../shared/testing/router.stub';
 import { NotificationsService } from '../../../notification-system/notifications.service';
+import { MockActivatedRoute } from '../../../testing/active-router.mock';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { RouterStub } from '../../../testing/router.stub';
 import { LdnItemfiltersService } from '../../ldn-itemfilters-data.service';
 import { LdnServicesService } from '../../ldn-services-data.service';
 import { LdnServiceFormComponent } from './ldn-service-form.component';

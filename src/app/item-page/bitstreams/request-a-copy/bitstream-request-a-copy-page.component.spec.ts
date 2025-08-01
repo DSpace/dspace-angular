@@ -34,6 +34,10 @@ import { Bitstream } from '@core/shared/bitstream.model';
 import { Item } from '@core/shared/item.model';
 import { ITEM } from '@core/shared/item.resource-type';
 import { ItemRequest } from '@core/shared/item-request.model';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { getMockRequestService } from '@core/testing/request.service.mock';
+import { RouterStub } from '@core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -44,14 +48,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('@core/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 describe('BitstreamRequestACopyPageComponent', () => {

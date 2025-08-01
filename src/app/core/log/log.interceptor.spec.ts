@@ -14,8 +14,6 @@ import { CorrelationIdService } from '@core/correlation-id/correlation-id.servic
 import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { RouterStub } from '../../shared/testing/router.stub';
 import { CookieService } from '../cookies/cookie.service';
 import { OrejimeService } from '../cookies/orejime.service';
 import {
@@ -25,6 +23,8 @@ import {
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { UUIDService } from '../shared/uuid.service';
+import { CookieServiceMock } from '../testing/cookie.service.mock';
+import { RouterStub } from '../testing/router.stub';
 import { LogInterceptor } from './log.interceptor';
 
 

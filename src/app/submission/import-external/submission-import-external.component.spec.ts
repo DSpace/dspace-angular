@@ -15,10 +15,20 @@ import {
   Router,
 } from '@angular/router';
 import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { RouteService } from '@core/services/route.service';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { getMockExternalSourceService } from '@core/testing/external-source.service.mock';
+import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '@core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -33,18 +43,8 @@ import { TestScheduler } from 'rxjs/testing';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '../../shared/testing/utils.test';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';

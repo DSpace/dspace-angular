@@ -24,6 +24,10 @@ import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-pa
 import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
 import { Collection } from '@core/shared/collection.model';
 import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -33,16 +37,12 @@ import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionId,
   mockSubmissionRestResponse,
-} from '../../../shared/mocks/submission.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 
 describe('SubmissionFormCollectionComponent Component', () => {

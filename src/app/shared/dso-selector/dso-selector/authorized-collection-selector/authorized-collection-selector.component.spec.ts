@@ -10,12 +10,12 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { Collection } from '@core/shared/collection.model';
 import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createPaginatedList } from '../../../testing/utils.test';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';
 

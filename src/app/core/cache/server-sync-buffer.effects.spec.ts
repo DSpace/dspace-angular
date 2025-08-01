@@ -17,11 +17,11 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { StoreMock } from '../../shared/testing/store.mock';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { StoreMock } from '../testing/store.mock';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheService } from './object-cache.service';
 import {

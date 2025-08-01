@@ -42,6 +42,23 @@ import { RouteService } from '@core/services/route.service';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '@core/testing/dso-name.service.mock';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '@core/testing/eperson.mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '@core/testing/group-mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -52,24 +69,7 @@ import {
 } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import {
-  DSONameServiceMock,
-  UNDEFINED_NAME,
-} from '../../shared/mocks/dso-name.service.mock';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import {
-  GroupMock,
-  GroupMock2,
-} from '../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { GroupsRegistryComponent } from './groups-registry.component';
 
 describe('GroupsRegistryComponent', () => {

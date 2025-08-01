@@ -13,12 +13,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { QueryParamsDirectiveStub } from '@core/testing/query-params-directive.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { RouterLinkDirectiveStub } from '@core/testing/router-link-directive.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
-import { RouterStub } from '../../testing/router.stub';
-import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
 import { LinkMenuItemComponent } from './link-menu-item.component';
 
 describe('LinkMenuItemComponent', () => {

@@ -18,13 +18,13 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import {
   qualityAssuranceEventObjectMissingPid,
   qualityAssuranceEventObjectMissingPid2,
   qualityAssuranceEventObjectMissingProjectFound,
-} from '../../../../shared/mocks/notifications.mock';
-import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
-import { NotificationsService } from '../../../notification-system/notifications.service';
+} from '../../../testing/notifications.mock';
+import { ObjectCacheServiceStub } from '../../../testing/object-cache-service.stub';
 import { QualityAssuranceEventDataService } from './quality-assurance-event-data.service';
 
 describe('QualityAssuranceEventDataService', () => {

@@ -22,6 +22,10 @@ import { HeadTagService } from '@core/metadata/head-tag.service';
 import { LinkHeadService } from '@core/services/link-head.service';
 import { ServerResponseService } from '@core/services/server-response.service';
 import { Item } from '@core/shared/item.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { HeadTagServiceMock } from '@core/testing/head-tag-service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -37,11 +41,7 @@ import {
 
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

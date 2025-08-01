@@ -27,6 +27,9 @@ import { Version } from '@core/shared/version.model';
 import { VersionHistory } from '@core/shared/version-history.model';
 import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -34,9 +37,6 @@ import {
   of,
 } from 'rxjs';
 
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ItemVersionsComponent } from '../item-versions.component';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version.component';
 

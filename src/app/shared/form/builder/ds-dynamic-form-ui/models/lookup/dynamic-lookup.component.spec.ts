@@ -22,6 +22,12 @@ import { By } from '@angular/platform-browser';
 import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@core/testing/utils.test';
+import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -34,12 +40,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';

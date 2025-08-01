@@ -11,6 +11,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@config/app-config.interface';
 import { MetadataValue } from '@core/shared/metadata.models';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
@@ -18,7 +19,6 @@ import {
 import { isNotEmpty } from '@shared/utils/empty.util';
 
 import { environment } from '../../../../environments/environment';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 
 let comp: MetadataUriValuesComponent;

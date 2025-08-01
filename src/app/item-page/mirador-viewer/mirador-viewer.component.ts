@@ -16,6 +16,7 @@ import {
 } from '@angular/platform-browser';
 import { BitstreamDataService } from '@core/data/bitstream-data.service';
 import { BundleDataService } from '@core/data/bundle-data.service';
+import { WidthCategory } from '@core/shared/host-window-type';
 import { Item } from '@core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -28,10 +29,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  HostWindowService,
-  WidthCategory,
-} from '../../shared/host-window.service';
+import { HostWindowService } from '../../shared/host-window.service';
 import { MiradorViewerService } from './mirador-viewer.service';
 
 @Component({

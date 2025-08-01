@@ -29,6 +29,7 @@ import {
   ContentSource,
   ContentSourceHarvestType,
 } from '@core/shared/content-source.model';
+import { RouterStub } from '@core/testing/router.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -43,7 +44,6 @@ import { of } from 'rxjs';
 
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { CollectionSourceComponent } from './collection-source.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 

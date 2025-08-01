@@ -14,6 +14,8 @@ import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { RequestService } from '@core/data/request.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -22,8 +24,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
-import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {

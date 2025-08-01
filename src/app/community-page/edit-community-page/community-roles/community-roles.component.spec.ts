@@ -15,6 +15,8 @@ import { RequestService } from '@core/data/request.service';
 import { GroupDataService } from '@core/eperson/group-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { Community } from '@core/shared/community.model';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -22,8 +24,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommunityRolesComponent } from './community-roles.component';
 
 describe('CommunityRolesComponent', () => {

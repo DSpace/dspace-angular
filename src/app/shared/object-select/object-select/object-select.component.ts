@@ -12,6 +12,7 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { FeatureID } from '@core/data/feature-authorization/feature-id';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import {
   Observable,
@@ -22,7 +23,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { ObjectSelectService } from '../object-select.service';
 
 /**

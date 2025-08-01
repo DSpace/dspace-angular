@@ -10,13 +10,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@config/app-config.interface';
 import { MetadataValue } from '@core/shared/metadata.models';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataValuesComponent } from './metadata-values.component';
 
 let comp: MetadataValuesComponent;

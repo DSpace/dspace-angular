@@ -22,13 +22,20 @@ import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.mod
 import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
 import { Collection } from '@core/shared/collection.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { getMockSectionUploadService } from '@core/testing/section-upload.service.mock';
+import { SectionsServiceStub } from '@core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
+import { createTestComponent } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
+import { SubmissionService } from '../../submission.service';
 import {
   mockGroup,
   mockSubmissionCollectionId,
@@ -38,14 +45,7 @@ import {
   mockUploadConfigResponseNotRequired,
   mockUploadFiles,
   mockUploadFilesData,
-} from '../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';

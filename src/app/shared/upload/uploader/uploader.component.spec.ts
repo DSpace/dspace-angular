@@ -13,12 +13,12 @@ import {
 } from '@angular/core/testing';
 import { CookieService } from '@core/cookies/cookie.service';
 import { DragService } from '@core/drag.service';
+import { CookieServiceMock } from '@core/testing/cookie.service.mock';
+import { HttpXsrfTokenExtractorMock } from '@core/testing/http-xsrf-token-extractor.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
-import { CookieServiceMock } from '../../mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
-import { createTestComponent } from '../../testing/utils.test';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 

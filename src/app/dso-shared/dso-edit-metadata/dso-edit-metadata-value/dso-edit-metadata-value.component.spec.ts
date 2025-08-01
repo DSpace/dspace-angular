@@ -16,12 +16,12 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '@core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@core/shared/metadata-representation/item/item-metadata-representation.model';
+import { DsoEditMetadataFieldServiceStub } from '@core/testing/dso-edit-metadata-field.service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { DsoEditMetadataFieldServiceStub } from '../../../shared/testing/dso-edit-metadata-field.service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,

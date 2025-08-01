@@ -4,11 +4,11 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Site } from '../shared/site.model';
+import { createPaginatedList } from '../testing/utils.test';
 import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
 import { FindListOptions } from './find-list-options.model';

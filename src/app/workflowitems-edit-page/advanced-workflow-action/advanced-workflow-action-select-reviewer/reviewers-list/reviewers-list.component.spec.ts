@@ -36,6 +36,17 @@ import { Group } from '@core/eperson/models/group.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { PageInfo } from '@core/shared/page-info.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '@core/testing/eperson.mock';
+import { GroupMock } from '@core/testing/group-mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
+import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -54,19 +65,8 @@ import {
 import { GroupRegistryService } from '../../../../access-control/group-registry/group-registry.service';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { getMockFormBuilderService } from '../../../../shared/form/testing/form-builder-service.mock';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../../../shared/testing/eperson.mock';
-import { GroupMock } from '../../../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { ReviewersListComponent } from './reviewers-list.component';
 
 // todo: optimize imports

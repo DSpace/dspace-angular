@@ -31,6 +31,10 @@ import { Item } from '@core/shared/item.model';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { Relationship } from '@core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { ItemDataServiceStub } from '@core/testing/item-data.service.stub';
+import { relationshipTypes } from '@core/testing/relationship-types.mock';
+import { RouterStub } from '@core/testing/router.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -42,11 +46,7 @@ import {
 } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
-import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 

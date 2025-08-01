@@ -16,6 +16,7 @@ import {
 } from '@core/cache/models/sort-options.model';
 import { RequestService } from '@core/data/request.service';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { RoleService } from '@core/roles/role.service';
 import { RouteService } from '@core/services/route.service';
 import { Context } from '@core/shared/context.model';
@@ -30,7 +31,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 

@@ -14,6 +14,7 @@ import {
   PaginatedList,
 } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { RouteService } from '@core/services/route.service';
 import { Context } from '@core/shared/context.model';
 import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
@@ -49,7 +50,6 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import {

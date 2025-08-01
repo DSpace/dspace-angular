@@ -15,15 +15,15 @@ import { EntityTypeDataService } from '@core/data/entity-type-data.service';
 import { ItemType } from '@core/shared/item-relationships/item-type.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { ResourceType } from '@core/shared/resource-type';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '../../../shared/testing/utils.test';
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {

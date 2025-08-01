@@ -15,13 +15,13 @@ import {
   SearchFilterToggleAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { SearchServiceStub } from '../../../shared/testing/search-service.stub';
 import {
   SortDirection,
   SortOptions,
 } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
+import { routeServiceStub } from '../../testing/route-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
 import { FilterType } from './models/filter-type.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchOptions } from './models/search-options.model';

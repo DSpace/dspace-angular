@@ -21,7 +21,6 @@ import {
 } from 'rxjs/operators';
 
 import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import {
   getFacetValueForType,
   stripOperatorFromFilterValue,
@@ -47,6 +46,7 @@ import {
 } from '../../cache/models/sort-options.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { RouteService } from '../../services/route.service';
 import { getFirstSucceededRemoteData } from '../operators';
 import { FacetValue } from './models/facet-value.model';

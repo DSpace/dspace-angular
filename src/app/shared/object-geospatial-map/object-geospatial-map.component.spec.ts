@@ -9,6 +9,7 @@ import {
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -19,7 +20,6 @@ import {
 } from '@ngx-translate/core';
 
 import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-detail.model';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectGeospatialMapComponent } from './object-geospatial-map.component';

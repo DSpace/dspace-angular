@@ -35,6 +35,11 @@ import { MetadataMap } from '@core/shared/metadata.models';
 import { SearchService } from '@core/shared/search/search.service';
 import { UUIDService } from '@core/shared/uuid.service';
 import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
+import { ConfigurationDataServiceStub } from '@core/testing/configuration-data.service.stub';
+import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import {
@@ -45,16 +50,11 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 
 import { environment } from '../../../../../environments/environment.test';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';

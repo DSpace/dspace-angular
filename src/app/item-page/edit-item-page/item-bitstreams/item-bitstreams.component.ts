@@ -23,6 +23,7 @@ import { PaginatedList } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { RequestService } from '@core/data/request.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Bundle } from '@core/shared/bundle.model';
 import { NoContent } from '@core/shared/NoContent.model';
 import {
@@ -56,7 +57,6 @@ import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

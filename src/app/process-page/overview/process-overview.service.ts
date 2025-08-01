@@ -9,12 +9,11 @@ import { FindListOptions } from '@core/data/find-list-options.model';
 import { PaginatedList } from '@core/data/paginated-list.model';
 import { ProcessDataService } from '@core/data/processes/process-data.service';
 import { RemoteData } from '@core/data/remote-data';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Process } from '@core/processes/process.model';
 import { ProcessStatus } from '@core/processes/process-status.model';
 import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
-
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
 /**
  * The sortable fields for processes

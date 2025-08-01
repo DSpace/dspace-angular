@@ -33,6 +33,13 @@ import { EPerson } from '@core/eperson/models/eperson.model';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { PageInfo } from '@core/shared/page-info.model';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '@core/testing/eperson.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { RouterMock } from '@core/testing/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbModal,
@@ -46,16 +53,9 @@ import {
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { getMockFormBuilderService } from '../../shared/form/testing/form-builder-service.mock';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 import { EpeopleRegistryService } from './epeople-registry.service';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';

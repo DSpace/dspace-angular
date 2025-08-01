@@ -10,14 +10,14 @@ import { By } from '@angular/platform-browser';
 import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { utcToZonedTime } from 'date-fns-tz';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
 
 

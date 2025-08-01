@@ -38,6 +38,16 @@ import { NotificationsService } from '@core/notification-system/notifications.se
 import { PaginationService } from '@core/pagination/pagination.service';
 import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '@core/testing/eperson.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -49,19 +59,9 @@ import {
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../shared/form/testing/form-builder-service.mock';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';

@@ -20,6 +20,14 @@ import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
 import { PaginationService } from '@core/pagination/pagination.service';
 import { PageInfo } from '@core/shared/page-info.model';
+import { MockActivatedRoute } from '@core/testing/active-router.mock';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import {
+  mockSubscriptionEperson,
+  subscriptionMock,
+  subscriptionMock2,
+} from '@core/testing/subscriptions-data.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -29,16 +37,8 @@ import { of } from 'rxjs';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import {
-  mockSubscriptionEperson,
-  subscriptionMock,
-  subscriptionMock2,
-} from '../shared/testing/subscriptions-data.mock';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 

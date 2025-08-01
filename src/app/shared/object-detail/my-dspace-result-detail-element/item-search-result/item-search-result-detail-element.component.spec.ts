@@ -11,9 +11,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DSONameService } from '@core/breadcrumbs/dso-name.service';
 import { Context } from '@core/shared/context.model';
 import { Item } from '@core/shared/item.model';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
 import { of } from 'rxjs';
 
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

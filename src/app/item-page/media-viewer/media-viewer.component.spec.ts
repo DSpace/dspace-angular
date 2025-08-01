@@ -16,6 +16,11 @@ import { AuthorizationDataService } from '@core/data/feature-authorization/autho
 import { Bitstream } from '@core/shared/bitstream.model';
 import { FileService } from '@core/shared/file.service';
 import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { MockBitstreamFormat1 } from '@core/testing/item.mock';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   TranslateLoader,
@@ -24,12 +29,7 @@ import {
 import { of } from 'rxjs';
 
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

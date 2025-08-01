@@ -13,6 +13,7 @@ import {
 } from '@core/data/paginated-list.model';
 import { RemoteData } from '@core/data/remote-data';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Context } from '@core/shared/context.model';
 import { DSpaceObject } from '@core/shared/dspace-object.model';
 import { PageInfo } from '@core/shared/page-info.model';
@@ -32,7 +33,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspac
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',

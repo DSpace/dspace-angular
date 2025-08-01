@@ -23,6 +23,7 @@ import { Item } from '@core/shared/item.model';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { XSRFService } from '@core/xsrf/xsrf.service';
 import {
@@ -40,7 +41,6 @@ import {
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createPaginatedList } from '../../../../testing/utils.test';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './name-variant.service';

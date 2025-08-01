@@ -15,10 +15,10 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { createTestComponent } from '@core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../testing/utils.test';
 import { NumberPickerComponent } from './number-picker.component';
 
 describe('NumberPickerComponent test suite', () => {

@@ -22,15 +22,15 @@ import { EpersonRegistrationService } from '@core/data/eperson-registration.serv
 import { GoogleRecaptchaService } from '@core/google-recaptcha/google-recaptcha.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { CookieServiceMock } from '@core/testing/cookie.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import {
   RegisterEmailFormComponent,
   TYPE_REQUEST_FORGOT,

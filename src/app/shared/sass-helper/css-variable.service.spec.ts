@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { PageInfo } from '@core/shared/page-info.model';
+import { KeyValuePair } from '@core/utilities/key-value-pair.model';
 import {
   MockStore,
   provideMockStore,
 } from '@ngrx/store/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { KeyValuePair } from '../key-value-pair.model';
 import { CSSVariableService } from './css-variable.service';
 
 describe('CSSVariableService', () => {

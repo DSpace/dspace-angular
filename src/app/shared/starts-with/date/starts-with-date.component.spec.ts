@@ -12,12 +12,12 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationService } from '@core/pagination/pagination.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { RouterStub } from '@core/testing/router.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { RouterStub } from '../../testing/router.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { StartsWithDateComponent } from './starts-with-date.component';
 

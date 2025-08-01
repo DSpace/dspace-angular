@@ -14,6 +14,10 @@ import { PaginationService } from '@core/pagination/pagination.service';
 import { Process } from '@core/processes/process.model';
 import { ProcessStatus } from '@core/processes/process-status.model';
 import { RouteService } from '@core/services/route.service';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { routeServiceStub } from '@core/testing/route-service.stub';
+import { createPaginatedList } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import {
   NgbCollapse,
@@ -27,11 +31,7 @@ import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { ProcessOverviewService } from '../process-overview.service';

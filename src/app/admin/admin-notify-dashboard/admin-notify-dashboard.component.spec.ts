@@ -9,12 +9,12 @@ import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-messag
 import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
 import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment.test';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 

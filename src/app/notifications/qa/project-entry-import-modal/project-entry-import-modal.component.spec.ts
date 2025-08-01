@@ -11,10 +11,19 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { buildPaginatedList } from '@core/data/paginated-list.model';
+import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
 import { Item } from '@core/shared/item.model';
 import { PageInfo } from '@core/shared/page-info.model';
 import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
 import { SearchService } from '@core/shared/search/search.service';
+import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import {
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  qualityAssuranceEventObjectMissingProjectFound,
+} from '@core/testing/notifications.mock';
+import { getMockSearchService } from '@core/testing/search-service.mock';
+import { createTestComponent } from '@core/testing/utils.test';
 import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,17 +31,8 @@ import { of } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import {
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-} from '../../../shared/mocks/notifications.mock';
-import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
   ImportType,
   ProjectEntryImportModalComponent,

@@ -11,6 +11,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
 import { Registration } from '@core/shared/registration.model';
+import { RouterMock } from '@core/testing/router.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -20,7 +21,6 @@ import {
   of,
 } from 'rxjs';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { registrationTokenGuard } from './registration-token-guard';
 
 describe('RegistrationTokenGuard',

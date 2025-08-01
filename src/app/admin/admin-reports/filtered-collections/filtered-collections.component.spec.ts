@@ -12,6 +12,7 @@ import {
 import { FormBuilder } from '@angular/forms';
 import { DspaceRestService } from '@core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '@core/dspace-rest/raw-rest-response.model';
+import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
 import {
   NgbAccordion,
   NgbAccordionModule,
@@ -21,7 +22,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 import { FilteredCollectionsComponent } from './filtered-collections.component';
 

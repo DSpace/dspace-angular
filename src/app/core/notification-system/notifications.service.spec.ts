@@ -16,7 +16,7 @@ import { of } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
 import { NotificationComponent } from '../../notification-system/notification/notification.component';
 import { NotificationsBoardComponent } from '../../notification-system/notifications-board/notifications-board.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../testing/translate-loader.mock';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import {

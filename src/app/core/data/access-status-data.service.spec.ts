@@ -5,12 +5,12 @@ import {
 import { hasNoValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Item } from '../shared/item.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { getMockRequestService } from '../testing/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { AccessStatusDataService } from './access-status-data.service';
 import { RemoteData } from './remote-data';

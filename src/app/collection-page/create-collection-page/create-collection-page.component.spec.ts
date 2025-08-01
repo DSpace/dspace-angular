@@ -14,12 +14,12 @@ import { CommunityDataService } from '@core/data/community-data.service';
 import { RequestService } from '@core/data/request.service';
 import { NotificationsService } from '@core/notification-system/notifications.service';
 import { RouteService } from '@core/services/route.service';
+import { AuthServiceMock } from '@core/testing/auth.service.mock';
+import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';
 import { CreateCollectionPageComponent } from './create-collection-page.component';
 

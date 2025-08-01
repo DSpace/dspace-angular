@@ -8,14 +8,14 @@ import { CookieService } from '@core/cookies/cookie.service';
 import { OrejimeServiceStub } from '@core/cookies/orejime.service.stub';
 import { EPersonDataService } from '@core/eperson/eperson-data.service';
 import { EPerson } from '@core/eperson/models/eperson.model';
+import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { CookieServiceMock } from '@core/testing/cookie.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '@core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
-import { AuthServiceStub } from '../shared/testing/auth-service.stub';
 import {
   ACCESSIBILITY_COOKIE,
   ACCESSIBILITY_SETTINGS_METADATA_KEY,
