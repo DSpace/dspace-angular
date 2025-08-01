@@ -13,8 +13,10 @@ import {
   StoreAction,
   StoreActionTypes,
 } from '../../store.actions';
+import { MenuServiceStub } from '../testing/menu-service.stub';
 import { ReinitMenuAction } from './menu.actions';
 import { MenuEffects } from './menu.effects';
+import { MenuService } from './menu.service';
 
 describe('MenuEffects', () => {
   let menuEffects: MenuEffects;
@@ -24,6 +26,7 @@ describe('MenuEffects', () => {
       providers: [
         MenuEffects,
         provideMockActions(() => actions),
+        { provide: MenuService, useValue: new MenuServiceStub() },
       ],
     });
   }));
