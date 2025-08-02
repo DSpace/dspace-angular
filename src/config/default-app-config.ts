@@ -49,10 +49,10 @@ export class DefaultAppConfig implements AppConfig {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
 
-    // The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+    // The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
-      max: 500, // limit each IP to 500 requests per windowMs
+      limit: 500, // limit each IP to 500 requests per windowMs
     },
 
     // Trust X-FORWARDED-* headers from proxies
