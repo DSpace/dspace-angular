@@ -35,6 +35,7 @@ import { createHttpTerminator } from 'http-terminator';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { rateLimit } from 'express-rate-limit';
 
 import { enableProdMode } from '@angular/core';
 
@@ -179,10 +180,13 @@ export function app() {
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
    */
   if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
-    const RateLimit = require('express-rate-limit');
-    const limiter = new RateLimit({
+    const limiter = rateLimit({
       windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
-      max: (environment.ui as UIServerConfig).rateLimiter.max,
+      limit: (environment.ui as UIServerConfig).rateLimiter.limit,
+      standardHeaders: true,
+      legacyHeaders: false,
+      // don't log ERR_ERL_PERMISSIVE_TRUST_PROXY if we are trusting proxies
+      validate: {trustProxy: !environment.ui.useProxies},
     });
     server.use(limiter);
   }
