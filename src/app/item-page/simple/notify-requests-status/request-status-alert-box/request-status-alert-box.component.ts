@@ -5,8 +5,8 @@ import {
   Input,
   type OnInit,
 } from '@angular/core';
-import { NotifyStatuses } from '@core/coar-notify/models/notify-requests-status.model';
-import { RequestStatusEnum } from '@core/coar-notify/models/notify-status.enum';
+import { NotifyStatuses } from '@dspace/core/coar-notify/models/notify-requests-status.model';
+import { RequestStatusEnum } from '@dspace/core/coar-notify/models/notify-status.enum';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';

@@ -13,12 +13,12 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import {
   hasValue,
   isNotEmpty,
   isNotNull,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Store } from '@ngrx/store';
 import {
   Observable,
   of,

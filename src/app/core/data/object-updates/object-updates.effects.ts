@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { NoOpAction } from '@core/shared/ngrx/no-op.action';
+import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
   ofType,
 } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import {
-  hasNoValue,
-  hasValue,
-} from '@shared/utils/empty.util';
 import {
   of,
   race as observableRace,

@@ -1,4 +1,4 @@
-import { NotificationAnimationsType } from '@core/notification-system/models/notification-animations-type';
+import { NotificationAnimationsType } from '@dspace/core/notification-system/models/notification-animations-type';
 
 import { Config } from './config.interface';
 

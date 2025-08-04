@@ -11,21 +11,21 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { CookieService } from '@core/cookies/cookie.service';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { DragService } from '@core/drag.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
-import { CookieServiceMock } from '@core/testing/cookie.service.mock';
-import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
-import { HttpXsrfTokenExtractorMock } from '@core/testing/http-xsrf-token-extractor.mock';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { getMockScrollToService } from '@core/testing/scroll-to-service.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createTestComponent } from '@core/testing/utils.test';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { DragService } from '@dspace/core/drag.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { HttpXsrfTokenExtractorMock } from '@dspace/core/testing/http-xsrf-token-extractor.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockScrollToService } from '@dspace/core/testing/scroll-to-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
   NgbModal,
   NgbModule,

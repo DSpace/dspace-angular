@@ -1,4 +1,4 @@
-import { hasNoValue } from '@shared/utils/empty.util';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 import { all } from 'deepmerge';
 
 import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';

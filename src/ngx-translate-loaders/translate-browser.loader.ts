@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { TransferState } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateLoader } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

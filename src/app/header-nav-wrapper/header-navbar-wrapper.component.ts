@@ -6,7 +6,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { WidthCategory } from '@core/shared/host-window-type';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
 import { Observable } from 'rxjs';
 
 import { ThemedHeaderComponent } from '../header/themed-header.component';

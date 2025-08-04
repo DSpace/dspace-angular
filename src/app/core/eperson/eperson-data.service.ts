@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   hasNoValue,
   hasValue,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {

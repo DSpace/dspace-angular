@@ -10,7 +10,7 @@ import { By } from '@angular/platform-browser';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
+} from '@dspace/config/app-config.interface';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,

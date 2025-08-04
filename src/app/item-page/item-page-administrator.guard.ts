@@ -1,6 +1,6 @@
 import { CanActivateFn } from '@angular/router';
-import { dsoPageSingleFeatureGuard } from '@core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { dsoPageSingleFeatureGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { of } from 'rxjs';
 
 import { itemPageResolver } from './item-page.resolver';

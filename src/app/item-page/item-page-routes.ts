@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
-import { accessTokenResolver } from '@core/auth/access-token.resolver';
-import { authenticatedGuard } from '@core/auth/authenticated.guard';
-import { itemBreadcrumbResolver } from '@core/breadcrumbs/item-breadcrumb.resolver';
+import { accessTokenResolver } from '@dspace/core/auth/access-token.resolver';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { itemBreadcrumbResolver } from '@dspace/core/breadcrumbs/item-breadcrumb.resolver';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { MenuRoute } from '../shared/menu/menu-route.model';

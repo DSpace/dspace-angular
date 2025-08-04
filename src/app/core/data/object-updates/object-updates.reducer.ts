@@ -1,7 +1,7 @@
 import {
   hasNoValue,
   hasValue,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { Item } from '../../shared/item.model';

@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MetadataValue } from '@core/shared/metadata.models';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 

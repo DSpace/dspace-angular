@@ -13,25 +13,25 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Process } from '@core/processes/process.model';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+} from '@dspace/core/shared/operators';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   Subscription,

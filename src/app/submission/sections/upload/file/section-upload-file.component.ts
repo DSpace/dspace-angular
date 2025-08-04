@@ -8,20 +8,20 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import {
+  hasValue,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

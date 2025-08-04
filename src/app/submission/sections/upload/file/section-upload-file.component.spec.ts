@@ -13,16 +13,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
-import { getMockSectionUploadService } from '@core/testing/section-upload.service.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { createTestComponent } from '@core/testing/utils.test';
+import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
   NgbModal,
   NgbModule,

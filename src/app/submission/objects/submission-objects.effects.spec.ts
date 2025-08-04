@@ -1,19 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-import { SubmissionSectionModel } from '@core/config/models/config-submission-section.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { Item } from '@core/shared/item.model';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { SectionsServiceStub } from '@core/testing/sections-service.stub';
-import { StoreMock } from '@core/testing/store.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
-import { mockSubmissionObjectDataService } from '@core/testing/submission-oject-data-service.mock';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { StoreMock } from '@dspace/core/testing/store.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { mockSubmissionObjectDataService } from '@dspace/core/testing/submission-oject-data-service.mock';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,

@@ -15,11 +15,15 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { PageInfo } from '@core/shared/page-info.model';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+} from '@dspace/core/data/paginated-list.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbTypeahead,
   NgbTypeaheadModule,
@@ -29,10 +33,6 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,

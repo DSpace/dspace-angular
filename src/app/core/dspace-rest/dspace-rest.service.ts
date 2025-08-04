@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import {
   hasNoValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   throwError as observableThrowError,

@@ -18,36 +18,36 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { SortOptions } from '@core/cache/models/sort-options.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationType } from '@core/notification-system/models/notification-type';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { ViewMode } from '@core/shared/view-mode.model';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+} from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,

@@ -12,16 +12,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { ResourceType } from '@core/shared/resource-type';
-import { RouterStub } from '@core/testing/router.stub';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
-} from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

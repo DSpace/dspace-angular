@@ -8,17 +8,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { IdentifierDataService } from '@core/data/identifier-data.service';
-import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { Item } from '@core/shared/item.model';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

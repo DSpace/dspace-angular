@@ -12,14 +12,14 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ItemDataService } from '@core/data/item-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,

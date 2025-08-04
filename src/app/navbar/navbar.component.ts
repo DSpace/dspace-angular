@@ -9,10 +9,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { isAuthenticated } from '@core/auth/selectors';
-import { BrowseService } from '@core/browse/browse.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { WidthCategory } from '@core/shared/host-window-type';
+import { isAuthenticated } from '@dspace/core/auth/selectors';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,

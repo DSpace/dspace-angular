@@ -1,4 +1,4 @@
-import { GroupMock } from '@core/testing/group-mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
 
 import {
   GroupRegistryCancelGroupAction,

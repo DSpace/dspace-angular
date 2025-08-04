@@ -3,9 +3,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Community } from '@core/shared/community.model';
-import { Context } from '@core/shared/context.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';

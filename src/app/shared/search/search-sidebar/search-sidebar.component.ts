@@ -10,14 +10,14 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { SortOptions } from '@core/cache/models/sort-options.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { FilterConfig } from '@core/shared/search/search-filters/search-config.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+} from '@dspace/config/app-config.interface';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,

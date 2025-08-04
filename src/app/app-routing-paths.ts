@@ -1,9 +1,9 @@
-import { Collection } from '@core/shared/collection.model';
-import { Community } from '@core/shared/community.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { URLCombiner } from '@core/url-combiner/url-combiner';
-import { hasValue } from '@shared/utils/empty.util';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';

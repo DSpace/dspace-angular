@@ -9,12 +9,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { FacetValue } from '@core/shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import {
   TranslateModule,
   TranslateService,

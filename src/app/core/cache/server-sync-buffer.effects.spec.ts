@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { NoOpAction } from '@core/shared/ngrx/no-op.action';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,

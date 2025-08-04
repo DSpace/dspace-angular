@@ -10,10 +10,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import {

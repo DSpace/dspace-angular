@@ -13,21 +13,21 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { Group } from '@core/eperson/models/group.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { NoContent } from '@core/shared/NoContent.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '@core/shared/operators';
-import { PageInfo } from '@core/shared/page-info.model';
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
 import {
   TranslateModule,
   TranslateService,

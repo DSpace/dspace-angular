@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { Item } from '@core/shared/item.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';

@@ -13,14 +13,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@core/data/processes/script-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ProcessParameter } from '@core/processes/process-parameter.model';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+} from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';

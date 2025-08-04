@@ -16,8 +16,8 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { MetadatumViewModel } from '@core/shared/metadata.models';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { MetadatumViewModel } from '@dspace/core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';

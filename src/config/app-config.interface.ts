@@ -2,7 +2,7 @@ import {
   InjectionToken,
   makeStateKey,
 } from '@angular/core';
-import { LazyDataServicesMap } from '@core/data-services-map';
+import { LazyDataServicesMap } from '@dspace/core/data-services-map';
 
 import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';

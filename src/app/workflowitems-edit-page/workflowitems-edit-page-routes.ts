@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { authenticatedGuard } from '@core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '@core/breadcrumbs/i18n-breadcrumb.resolver';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';

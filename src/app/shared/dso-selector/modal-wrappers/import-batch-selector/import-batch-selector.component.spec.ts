@@ -5,12 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { Item } from '@core/shared/item.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { SearchServiceStub } from '@core/testing/search-service.stub';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

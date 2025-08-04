@@ -14,8 +14,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ConfidenceType } from '@core/shared/confidence-type';
-import { createTestComponent } from '@core/testing/utils.test';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

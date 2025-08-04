@@ -18,25 +18,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@core/data/remote-data';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { Group } from '@core/eperson/models/group.model';
-import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/shared/operators';
 import {
   dateToString,
   stringToNgbDateStruct,
-} from '@shared/utils/date.util';
+} from '@dspace/shared/utils/date.util';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

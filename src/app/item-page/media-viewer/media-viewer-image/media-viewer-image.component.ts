@@ -5,15 +5,15 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
-import { AuthService } from '@core/auth/auth.service';
-import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgxGalleryAnimation,
   NgxGalleryImage,
   NgxGalleryModule,
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
-import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 /**

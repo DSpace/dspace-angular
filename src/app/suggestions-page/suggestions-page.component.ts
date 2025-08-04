@@ -9,26 +9,26 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Suggestion } from '@core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { redirectOn4xx } from '@core/shared/authorized.operators';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+} from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
   TranslateModule,
   TranslateService,

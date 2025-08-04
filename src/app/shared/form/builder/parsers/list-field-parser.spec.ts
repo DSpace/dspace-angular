@@ -1,4 +1,4 @@
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';

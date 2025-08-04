@@ -10,15 +10,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { FileService } from '@core/shared/file.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

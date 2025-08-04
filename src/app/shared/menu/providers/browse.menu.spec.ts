@@ -10,14 +10,14 @@ import { TestBed } from '@angular/core/testing';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { BrowseService } from '@core/browse/browse.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { BrowseDefinition } from '@core/shared/browse-definition.model';
-import { BrowseServiceStub } from '@core/testing/browse-service.stub';
-import { getMockObjectCacheService } from '@core/testing/object-cache.service.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/config/app-config.interface';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
+import { getMockObjectCacheService } from '@dspace/core/testing/object-cache.service.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';

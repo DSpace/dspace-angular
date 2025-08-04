@@ -11,25 +11,29 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { LinkService } from '@core/cache/builders/link.service';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { Relationship } from '@core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { NoContent } from '@core/shared/NoContent.model';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { ViewMode } from '@core/shared/view-mode.model';
+} from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -38,10 +42,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

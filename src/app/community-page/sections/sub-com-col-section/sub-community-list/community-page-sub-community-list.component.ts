@@ -9,15 +9,15 @@ import { ActivatedRoute } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { CommunityDataService } from '@core/data/community-data.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Community } from '@core/shared/community.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

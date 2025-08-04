@@ -8,25 +8,25 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
-} from '@core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,

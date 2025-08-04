@@ -2,14 +2,14 @@
 import {
   link,
   typedObject,
-} from '@core/cache/builders/build-decorators';
-import { CacheableObject } from '@core/cache/cacheable-object.model';
-import { RemoteData } from '@core/data/remote-data';
-import { HALLink } from '@core/shared/hal-link.model';
-import { Item } from '@core/shared/item.model';
-import { ITEM } from '@core/shared/item.resource-type';
-import { ResourceType } from '@core/shared/resource-type';
-import { excludeFromEquals } from '@core/utilities/equals.decorators';
+} from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   autoserializeAs,

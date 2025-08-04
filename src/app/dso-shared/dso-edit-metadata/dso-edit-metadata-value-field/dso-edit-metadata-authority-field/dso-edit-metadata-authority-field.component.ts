@@ -14,22 +14,22 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { ItemDataService } from '@core/data/item-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ConfidenceType } from '@core/shared/confidence-type';
-import { followLink } from '@core/shared/follow-link-config.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   metadataFieldsToString,
-} from '@core/shared/operators';
-import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+} from '@dspace/core/shared/operators';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

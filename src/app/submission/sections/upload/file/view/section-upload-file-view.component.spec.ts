@@ -9,8 +9,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Metadata } from '@core/shared/metadata.utils';
-import { createTestComponent } from '@core/testing/utils.test';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FormComponent } from '../../../../../shared/form/form.component';

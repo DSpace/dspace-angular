@@ -14,26 +14,26 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { SignpostingDataService } from '@core/data/signposting-data.service';
-import { SignpostingLink } from '@core/data/signposting-links.model';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
 import {
   LinkDefinition,
   LinkHeadService,
-} from '@core/services/link-head.service';
-import { ServerResponseService } from '@core/services/server-response.service';
-import { Item } from '@core/shared/item.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
+} from '@dspace/core/services/link-head.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

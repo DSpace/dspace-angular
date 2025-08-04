@@ -14,10 +14,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
+import { hasOnlyEmptyProperties } from '@dspace/shared/utils/object.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -28,13 +35,6 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '@shared/utils/empty.util';
-import { hasOnlyEmptyProperties } from '@shared/utils/object.util';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import {

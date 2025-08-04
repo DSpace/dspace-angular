@@ -2,8 +2,15 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { isNgbDateStruct } from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
@@ -11,13 +18,6 @@ import {
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { isNgbDateStruct } from '@shared/utils/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import uniqueId from 'lodash/uniqueId';
 
 import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';

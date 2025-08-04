@@ -7,9 +7,9 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { FlatBrowseDefinition } from '@core/shared/flat-browse-definition.model';
-import { NonHierarchicalBrowseDefinition } from '@core/shared/non-hierarchical-browse-definition';
-import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
+import { FlatBrowseDefinition } from '@dspace/core/shared/flat-browse-definition.model';
+import { NonHierarchicalBrowseDefinition } from '@dspace/core/shared/non-hierarchical-browse-definition';
+import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
 
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';

@@ -3,12 +3,12 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,

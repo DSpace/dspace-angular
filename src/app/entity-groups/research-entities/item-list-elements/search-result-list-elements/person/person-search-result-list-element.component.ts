@@ -11,9 +11,9 @@ import { RouterLink } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { ViewMode } from '@core/shared/view-mode.model';
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';

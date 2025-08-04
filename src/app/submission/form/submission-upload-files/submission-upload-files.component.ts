@@ -5,16 +5,16 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { normalizeSectionData } from '@core/submission/submission-response-parsing.service';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
   of,

@@ -6,20 +6,20 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { BitstreamFormat } from '@core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';

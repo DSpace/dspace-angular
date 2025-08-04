@@ -4,9 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouteService } from '@core/services/route.service';
-import { Item } from '@core/shared/item.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { Observable } from 'rxjs';
 import {
   map,

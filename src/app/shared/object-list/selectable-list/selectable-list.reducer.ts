@@ -1,4 +1,4 @@
-import { hasNoValue } from '@shared/utils/empty.util';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {

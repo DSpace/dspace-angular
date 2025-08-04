@@ -10,8 +10,8 @@ import { Params } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,

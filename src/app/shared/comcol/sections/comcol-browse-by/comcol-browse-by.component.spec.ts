@@ -9,9 +9,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { BrowseDefinition } from '@core/shared/browse-definition.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';

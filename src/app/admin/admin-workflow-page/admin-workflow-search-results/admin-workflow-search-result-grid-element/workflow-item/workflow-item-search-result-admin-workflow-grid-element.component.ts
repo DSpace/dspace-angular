@@ -7,22 +7,22 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { Context } from '@core/shared/context.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { Item } from '@core/shared/item.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+} from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 

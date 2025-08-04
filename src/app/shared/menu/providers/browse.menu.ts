@@ -13,12 +13,12 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { BrowseService } from '@core/browse/browse.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { BrowseDefinition } from '@core/shared/browse-definition.model';
-import { getFirstSucceededRemoteData } from '@core/shared/operators';
+} from '@dspace/config/app-config.interface';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import {
   Observable,
   of,

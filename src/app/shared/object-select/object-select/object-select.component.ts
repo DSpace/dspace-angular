@@ -6,14 +6,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { SortOptions } from '@core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   Observable,
   of,

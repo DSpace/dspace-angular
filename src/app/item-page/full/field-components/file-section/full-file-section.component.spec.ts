@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { MockBitstreamFormat1 } from '@core/testing/item.mock';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,

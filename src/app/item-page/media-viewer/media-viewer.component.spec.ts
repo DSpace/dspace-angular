@@ -10,18 +10,18 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { FileService } from '@core/shared/file.service';
-import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { MockBitstreamFormat1 } from '@core/testing/item.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

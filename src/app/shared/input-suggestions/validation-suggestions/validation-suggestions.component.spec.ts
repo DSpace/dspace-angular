@@ -15,8 +15,8 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MetadataFieldDataService } from '@core/data/metadata-field-data.service';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ValidationSuggestionsComponent } from './validation-suggestions.component';

@@ -10,13 +10,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
-import { SiteDataService } from '@core/data/site-data.service';
-import { Site } from '@core/shared/site.model';
-import { UsageReport } from '@core/statistics/models/usage-report.model';
-import { UsageReportDataService } from '@core/statistics/usage-report-data.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { SiteDataService } from '@dspace/core/data/site-data.service';
+import { Site } from '@dspace/core/shared/site.model';
+import { UsageReport } from '@dspace/core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '@dspace/core/statistics/usage-report-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

@@ -5,8 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { getMockThemeService } from '../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';

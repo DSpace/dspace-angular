@@ -9,16 +9,16 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
-import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import {
   BehaviorSubject,

@@ -9,14 +9,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 
 import { environment } from '../../../../environments/environment';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';

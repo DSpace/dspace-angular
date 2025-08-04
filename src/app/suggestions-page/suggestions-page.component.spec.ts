@@ -11,24 +11,24 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import {
   mockSuggestionPublicationOne,
   mockSuggestionPublicationTwo,
-} from '@core/testing/publication-claim.mock';
-import { mockSuggestionTargetsObjectOne } from '@core/testing/publication-claim-targets.mock';
-import { RouterStub } from '@core/testing/router.stub';
+} from '@dspace/core/testing/publication-claim.mock';
+import { mockSuggestionTargetsObjectOne } from '@dspace/core/testing/publication-claim-targets.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   getMockSuggestionNotificationsStateService,
   getMockSuggestionsService,
-} from '@core/testing/suggestion.mock';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/suggestion.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,

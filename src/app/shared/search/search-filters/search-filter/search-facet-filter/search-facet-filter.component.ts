@@ -16,20 +16,20 @@ import {
   Params,
   Router,
 } from '@angular/router';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
-import { FacetValue } from '@core/shared/search/models/facet-value.model';
-import { FacetValues } from '@core/shared/search/models/facet-values.model';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '@core/shared/search/models/search-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import {
   hasNoValue,
   hasValue,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

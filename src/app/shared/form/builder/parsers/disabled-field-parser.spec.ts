@@ -1,4 +1,4 @@
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DynamicDisabledModel } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
 import { FormFieldModel } from '../models/form-field.model';

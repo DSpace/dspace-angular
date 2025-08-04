@@ -16,9 +16,9 @@ import {
   RouterModule,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Item } from '@core/shared/item.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

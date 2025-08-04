@@ -1,4 +1,4 @@
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';

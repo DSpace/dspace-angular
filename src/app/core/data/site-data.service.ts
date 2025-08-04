@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -6,8 +6,8 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '@core/shared/authorized.operators';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '@dspace/core/shared/authorized.operators';
 import {
   combineLatest as observableCombineLatest,
   Observable,

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BitstreamFormatDataService } from '@core/data/bitstream-format-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { BitstreamFormat } from '@core/shared/bitstream-format.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,

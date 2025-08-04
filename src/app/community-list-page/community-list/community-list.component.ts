@@ -9,14 +9,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { FindListOptions } from '@core/data/find-list-options.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { isEmpty } from '@shared/utils/empty.util';
 import { take } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

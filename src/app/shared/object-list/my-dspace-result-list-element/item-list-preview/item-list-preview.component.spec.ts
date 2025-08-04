@@ -9,9 +9,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { Item } from '@core/shared/item.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { Item } from '@dspace/core/shared/item.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

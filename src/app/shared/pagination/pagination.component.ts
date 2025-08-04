@@ -18,23 +18,23 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { PaginationRouteParams } from '@core/pagination/pagination-route-params.interface';
-import { ViewMode } from '@core/shared/view-mode.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PaginationRouteParams } from '@dspace/core/pagination/pagination-route-params.interface';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdownModule,
   NgbPaginationModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@shared/utils/empty.util';
 import {
   Observable,
   of,

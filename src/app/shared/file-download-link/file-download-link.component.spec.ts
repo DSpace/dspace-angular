@@ -8,14 +8,14 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { Item } from '@core/shared/item.model';
-import { ItemRequest } from '@core/shared/item-request.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { RouterLinkDirectiveStub } from '@core/testing/router-link-directive.stub';
-import { URLCombiner } from '@core/url-combiner/url-combiner';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { RouterLinkDirectiveStub } from '@dspace/core/testing/router-link-directive.stub';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {

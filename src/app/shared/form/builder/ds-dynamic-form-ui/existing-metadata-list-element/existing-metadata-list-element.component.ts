@@ -10,22 +10,22 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { Item } from '@core/shared/item.model';
-import { Relationship } from '@core/shared/item-relationships/relationship.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '@core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataRepresentation } from '@core/shared/metadata-representation/metadata-representation.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
-import { Store } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/shared/operators';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,

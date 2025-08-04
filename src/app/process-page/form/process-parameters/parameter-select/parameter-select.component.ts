@@ -11,8 +11,8 @@ import {
   FormsModule,
   NgForm,
 } from '@angular/forms';
-import { ProcessParameter } from '@core/processes/process-parameter.model';
-import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { controlContainerFactory } from '../../process-form-factory';

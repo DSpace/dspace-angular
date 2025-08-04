@@ -12,13 +12,13 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { RemoteData } from '@core/data/remote-data';
-import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
+} from '@dspace/config/app-config.interface';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {

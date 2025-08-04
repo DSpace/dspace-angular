@@ -5,12 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { Item } from '@core/shared/item.model';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
-import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';

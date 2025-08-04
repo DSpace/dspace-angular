@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { AppConfig } from '@config/app-config.interface';
-import { DefaultAppConfig } from '@config/default-app-config';
+import { AppConfig } from '@dspace/config/app-config.interface';
+import { DefaultAppConfig } from '@dspace/config/default-app-config';
 
 import { reloadGuard } from './reload.guard';
 

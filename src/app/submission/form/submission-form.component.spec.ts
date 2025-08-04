@@ -9,13 +9,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { Item } from '@core/shared/item.model';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { createTestComponent } from '@core/testing/utils.test';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,

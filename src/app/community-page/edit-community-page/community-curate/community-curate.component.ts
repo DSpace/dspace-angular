@@ -4,11 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@core/data/remote-data';
-import { Community } from '@core/shared/community.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Community } from '@dspace/core/shared/community.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,

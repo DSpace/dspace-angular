@@ -12,13 +12,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDatepickerModule,
   NgbDateStruct,
@@ -28,10 +32,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   utcToZonedTime,
   zonedTimeToUtc,

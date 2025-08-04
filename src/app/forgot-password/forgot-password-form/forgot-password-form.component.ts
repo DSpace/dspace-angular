@@ -7,17 +7,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { AuthenticateAction } from '@core/auth/auth.actions';
-import { CoreState } from '@core/core-state.model';
-import { RemoteData } from '@core/data/remote-data';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
+import { AuthenticateAction } from '@dspace/core/auth/auth.actions';
+import { CoreState } from '@dspace/core/core-state.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { Registration } from '@core/shared/registration.model';
+} from '@dspace/core/shared/operators';
+import { Registration } from '@dspace/core/shared/registration.model';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,

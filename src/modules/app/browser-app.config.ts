@@ -16,29 +16,29 @@ import {
 } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthRequestService } from '@core/auth/auth-request.service';
-import { BrowserAuthRequestService } from '@core/auth/browser-auth-request.service';
-import { BrowserOrejimeService } from '@core/cookies/browser-orejime.service';
-import { ClientCookieService } from '@core/cookies/client-cookie.service';
-import { CookieService } from '@core/cookies/cookie.service';
-import { OrejimeService } from '@core/cookies/orejime.service';
-import { coreEffects } from '@core/core.effects';
-import { coreReducers } from '@core/core.reducers';
-import { CoreState } from '@core/core-state.model';
-import { LocaleService } from '@core/locale/locale.service';
-import { BrowserReferrerService } from '@core/services/browser.referrer.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
+import { BrowserAuthRequestService } from '@dspace/core/auth/browser-auth-request.service';
+import { BrowserOrejimeService } from '@dspace/core/cookies/browser-orejime.service';
+import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { coreEffects } from '@dspace/core/core.effects';
+import { coreReducers } from '@dspace/core/core.reducers';
+import { CoreState } from '@dspace/core/core-state.model';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { BrowserReferrerService } from '@dspace/core/services/browser.referrer.service';
 import {
   BrowserHardRedirectService,
   locationProvider,
   LocationToken,
-} from '@core/services/browser-hard-redirect.service';
-import { HardRedirectService } from '@core/services/hard-redirect.service';
-import { ReferrerService } from '@core/services/referrer.service';
-import { ClientMathService } from '@core/shared/client-math.service';
-import { MathService } from '@core/shared/math.service';
-import { BrowserXSRFService } from '@core/xsrf/browser-xsrf.service';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/core/services/browser-hard-redirect.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { ReferrerService } from '@dspace/core/services/referrer.service';
+import { ClientMathService } from '@dspace/core/shared/client-math.service';
+import { MathService } from '@dspace/core/shared/math.service';
+import { BrowserXSRFService } from '@dspace/core/xsrf/browser-xsrf.service';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,

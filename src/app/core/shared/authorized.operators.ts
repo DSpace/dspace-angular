@@ -6,7 +6,7 @@ import {
 import {
   getForbiddenRoute,
   getPageNotFoundRoute,
-} from '@core/router/routing-paths';
+} from '@dspace/core/router/routing-paths';
 import {
   combineLatest as observableCombineLatest,
   Observable,

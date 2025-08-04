@@ -5,9 +5,9 @@ import {
   Output,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Collection } from '@core/shared/collection.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {

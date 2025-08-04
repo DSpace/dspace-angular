@@ -1,4 +1,4 @@
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';

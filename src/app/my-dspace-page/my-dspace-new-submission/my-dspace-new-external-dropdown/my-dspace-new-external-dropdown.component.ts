@@ -5,14 +5,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

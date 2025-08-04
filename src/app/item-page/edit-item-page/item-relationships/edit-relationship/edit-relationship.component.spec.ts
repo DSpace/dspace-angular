@@ -8,13 +8,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { Item } from '@core/shared/item.model';
-import { Relationship } from '@core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModalRef,

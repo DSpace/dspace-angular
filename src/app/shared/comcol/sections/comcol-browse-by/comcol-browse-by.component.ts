@@ -7,7 +7,7 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
-import { BrowseDefinition } from '@core/shared/browse-definition.model';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

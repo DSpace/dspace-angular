@@ -9,17 +9,17 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Item } from '@core/shared/item.model';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { Store } from '@ngrx/store';
+} from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
   Observable,

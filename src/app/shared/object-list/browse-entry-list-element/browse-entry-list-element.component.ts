@@ -7,11 +7,11 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { RouteService } from '@core/services/route.service';
-import { BrowseEntry } from '@core/shared/browse-entry.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

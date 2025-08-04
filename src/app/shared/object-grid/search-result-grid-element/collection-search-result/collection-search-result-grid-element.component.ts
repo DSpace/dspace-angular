@@ -4,17 +4,17 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { Collection } from '@core/shared/collection.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   hasValue,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';

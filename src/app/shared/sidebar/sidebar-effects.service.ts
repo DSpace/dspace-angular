@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { URLBaser } from '@core/url-baser/url-baser';
+import { URLBaser } from '@dspace/core/url-baser/url-baser';
 import {
   Actions,
   createEffect,

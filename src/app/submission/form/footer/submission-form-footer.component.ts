@@ -5,11 +5,11 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { SubmissionRestService } from '@core/submission/submission-rest.service';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

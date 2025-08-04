@@ -18,22 +18,22 @@ import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '@config/app-config.interface';
-import { BuildConfig } from '@config/build-config.interface';
-import { extendEnvironmentWithAppConfig } from '@config/config.util';
-import { DefaultAppConfig } from '@config/default-app-config';
-import { AuthService } from '@core/auth/auth.service';
-import { OrejimeService } from '@core/cookies/orejime.service';
-import { coreSelector } from '@core/core.selectors';
-import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
-import { RequestService } from '@core/data/request.service';
-import { RootDataService } from '@core/data/root-data.service';
-import { LocaleService } from '@core/locale/locale.service';
-import { HeadTagService } from '@core/metadata/head-tag.service';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+} from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
+import { extendEnvironmentWithAppConfig } from '@dspace/config/config.util';
+import { DefaultAppConfig } from '@dspace/config/default-app-config';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { coreSelector } from '@dspace/core/core.selectors';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RootDataService } from '@dspace/core/data/root-data.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   firstValueFrom,
   lastValueFrom,

@@ -7,10 +7,10 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Observable } from 'rxjs';
 
 import { ListableObject } from '../object-collection/shared/listable-object.model';

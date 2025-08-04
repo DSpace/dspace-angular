@@ -16,7 +16,7 @@ import { By } from '@angular/platform-browser';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@core/testing/dynamic-form-mock-services';
+} from '@dspace/core/testing/dynamic-form-mock-services';
 import {
   DynamicFormLayoutService,
   DynamicFormValidationService,

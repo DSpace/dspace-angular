@@ -5,14 +5,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import {
   INotification,
   Notification,
-} from '@core/notification-system/models/notification.model';
-import { NotificationType } from '@core/notification-system/models/notification-type';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouterStub } from '@core/testing/router.stub';
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';

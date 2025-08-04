@@ -23,31 +23,31 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { RestResponse } from '@core/cache/response.models';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { Group } from '@core/eperson/models/group.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PageInfo } from '@core/shared/page-info.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
-import { EPersonMock2 } from '@core/testing/eperson.mock';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { EPersonMock2 } from '@dspace/core/testing/eperson.mock';
 import {
   GroupMock,
   GroupMock2,
-} from '@core/testing/group-mock';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { RouterMock } from '@core/testing/router.mock';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/group-mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

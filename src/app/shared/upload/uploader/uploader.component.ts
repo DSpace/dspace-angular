@@ -12,19 +12,19 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { CookieService } from '@core/cookies/cookie.service';
-import { DragService } from '@core/drag.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { DragService } from '@dspace/core/drag.service';
 import {
   XSRF_COOKIE,
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
-} from '@core/xsrf/xsrf.constants';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/xsrf/xsrf.constants';
 import {
   hasValue,
   isNotEmpty,
   isUndefined,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
   FileUploader,

@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 

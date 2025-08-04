@@ -7,9 +7,9 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
-import { isNumeric } from '@shared/utils/numeric.util';
-import { difference } from '@shared/utils/object.util';
+} from '@dspace/shared/utils/empty.util';
+import { isNumeric } from '@dspace/shared/utils/numeric.util';
+import { difference } from '@dspace/shared/utils/object.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

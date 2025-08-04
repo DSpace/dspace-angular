@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@shared/utils/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {

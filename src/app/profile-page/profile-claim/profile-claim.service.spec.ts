@@ -1,11 +1,11 @@
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { Item } from '@core/shared/item.model';
-import { SearchObjects } from '@core/shared/search/models/search-objects.model';
-import { SearchService } from '@core/shared/search/search.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
 import {
   createNoContentRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   cold,
   getTestScheduler,

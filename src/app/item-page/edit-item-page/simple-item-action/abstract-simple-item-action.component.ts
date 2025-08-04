@@ -8,11 +8,11 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { ItemDataService } from '@core/data/item-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Item } from '@core/shared/item.model';
-import { getFirstSucceededRemoteData } from '@core/shared/operators';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,

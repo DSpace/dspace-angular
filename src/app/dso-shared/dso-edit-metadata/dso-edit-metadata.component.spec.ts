@@ -13,14 +13,14 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
-import { ArrayMoveChangeAnalyzer } from '@core/data/array-move-change-analyzer.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { ITEM } from '@core/shared/item.resource-type';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { TestDataService } from '@core/testing/test-data-service.mock';
+import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
+import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { TestDataService } from '@dspace/core/testing/test-data-service.mock';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
@@ -40,7 +40,7 @@ const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('@core/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('@dspace/core/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 describe('DsoEditMetadataComponent', () => {

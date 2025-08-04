@@ -3,20 +3,20 @@ import {
   Route,
   RouterConfigOptions,
 } from '@angular/router';
-import { authBlockingGuard } from '@core/auth/auth-blocking.guard';
-import { authenticatedGuard } from '@core/auth/authenticated.guard';
-import { groupAdministratorGuard } from '@core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from '@core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { siteRegisterGuard } from '@core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { endUserAgreementCurrentUserGuard } from '@core/end-user-agreement/end-user-agreement-current-user.guard';
-import { reloadGuard } from '@core/reload/reload.guard';
-import { forgotPasswordCheckGuard } from '@core/rest-property/forgot-password-check-guard.guard';
+import { authBlockingGuard } from '@dspace/core/auth/auth-blocking.guard';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { groupAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { siteRegisterGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreement/end-user-agreement-current-user.guard';
+import { reloadGuard } from '@dspace/core/reload/reload.guard';
+import { forgotPasswordCheckGuard } from '@dspace/core/rest-property/forgot-password-check-guard.guard';
 import {
   ERROR_PAGE,
   FORBIDDEN_PATH,
   INTERNAL_SERVER_ERROR,
-} from '@core/router/routing-paths';
-import { ServerCheckGuard } from '@core/server-check/server-check.guard';
+} from '@dspace/core/router/routing-paths';
+import { ServerCheckGuard } from '@dspace/core/server-check/server-check.guard';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {

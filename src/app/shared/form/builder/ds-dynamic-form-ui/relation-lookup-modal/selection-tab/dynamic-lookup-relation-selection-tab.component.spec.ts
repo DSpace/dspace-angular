@@ -9,15 +9,15 @@ import { Router } from '@angular/router';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Item } from '@core/shared/item.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,

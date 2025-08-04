@@ -10,19 +10,19 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
-import { Item } from '@core/shared/item.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { createPaginatedList } from '@core/testing/utils.test';
+} from '@dspace/core/cache/models/sort-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';

@@ -20,13 +20,13 @@ import { By } from '@angular/platform-browser';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { Item } from '@core/shared/item.model';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+} from '@dspace/config/app-config.interface';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,

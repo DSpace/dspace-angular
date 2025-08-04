@@ -9,8 +9,8 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '@core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

@@ -8,7 +8,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { ThemeConfig } from '@config/theme.config';
+import { ThemeConfig } from '@dspace/config/theme.config';
 
 import { VarDirective } from '../utils/var.directive';
 import { TestComponent } from './test/test.component.spec';

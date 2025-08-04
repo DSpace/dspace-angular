@@ -14,10 +14,10 @@ import {
   DomSanitizer,
   SafeResourceUrl,
 } from '@angular/platform-browser';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { BundleDataService } from '@core/data/bundle-data.service';
-import { WidthCategory } from '@core/shared/host-window-type';
-import { Item } from '@core/shared/item.model';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
+import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,

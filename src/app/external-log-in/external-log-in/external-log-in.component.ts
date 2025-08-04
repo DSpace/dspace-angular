@@ -10,10 +10,14 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthMethodType } from '@core/auth/models/auth.method-type';
-import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
-import { Registration } from '@core/shared/registration.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { Registration } from '@dspace/core/shared/registration.model';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -22,10 +26,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  hasValue,
-  isEmpty,
-} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

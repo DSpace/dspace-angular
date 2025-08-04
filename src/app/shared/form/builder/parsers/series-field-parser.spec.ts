@@ -1,4 +1,4 @@
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldModel } from '../models/form-field.model';

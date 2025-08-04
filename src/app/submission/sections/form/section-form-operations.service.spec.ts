@@ -2,11 +2,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,

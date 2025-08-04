@@ -17,11 +17,11 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { Item } from '@core/shared/item.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Item } from '@dspace/core/shared/item.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

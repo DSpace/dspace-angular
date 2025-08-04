@@ -6,6 +6,10 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  isEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -14,10 +18,6 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  isEmpty,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import uniqueId from 'lodash/uniqueId';
 import { Observable } from 'rxjs';
 import {

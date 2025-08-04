@@ -2,16 +2,16 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
-import { SubmissionFieldScopeType } from '@core/submission/submission-field-scope-type';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { SubmissionFieldScopeType } from '@dspace/core/submission/submission-field-scope-type';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DynamicFormGroupModelConfig,
 } from '@ng-dynamic-forms/core';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import uniqueId from 'lodash/uniqueId';
 
 import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';

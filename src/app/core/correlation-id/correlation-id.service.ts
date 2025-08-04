@@ -2,20 +2,20 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { CoreState } from '@core/core-state.model';
+import { CoreState } from '@dspace/core/core-state.model';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
-import { UUIDService } from '@core/shared/uuid.service';
+} from '@dspace/core/services/window.service';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasValue,
-  isEmpty,
-} from '@shared/utils/empty.util';
 import { take } from 'rxjs/operators';
 
 import { CookieService } from '../cookies/cookie.service';

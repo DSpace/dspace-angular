@@ -5,8 +5,13 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { NoOpAction } from '@core/shared/ngrx/no-op.action';
+} from '@dspace/config/app-config.interface';
+import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -19,11 +24,6 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,

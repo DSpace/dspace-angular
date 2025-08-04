@@ -13,10 +13,10 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { isAuthenticationLoading } from '@core/auth/selectors';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { isAuthenticationLoading } from '@dspace/core/auth/selectors';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import {
   select,
   Store,

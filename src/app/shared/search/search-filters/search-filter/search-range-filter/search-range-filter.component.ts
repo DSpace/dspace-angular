@@ -10,17 +10,17 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { RouteService } from '@core/services/route.service';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
+import { yearFromString } from '@dspace/shared/utils/date.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { yearFromString } from '@shared/utils/date.util';
-import { hasValue } from '@shared/utils/empty.util';
 import { NouisliderComponent } from 'ng2-nouislider';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import {

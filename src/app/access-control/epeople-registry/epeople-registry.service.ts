@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EPerson } from '@core/eperson/models/eperson.model';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import {
   createSelector,
   select,

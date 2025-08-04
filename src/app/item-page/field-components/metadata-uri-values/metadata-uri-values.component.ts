@@ -3,7 +3,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { MetadataValue } from '@core/shared/metadata.models';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

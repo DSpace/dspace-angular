@@ -7,12 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BulkAccessConfigDataService } from '@core/config/bulk-access-config-data.service';
-import { BulkAccessConditionOptions } from '@core/config/models/bulk-access-condition-options.model';
-import { RemoteData } from '@core/data/remote-data';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { BulkAccessConfigDataService } from '@dspace/core/config/bulk-access-config-data.service';
+import { BulkAccessConditionOptions } from '@dspace/core/config/models/bulk-access-condition-options.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';

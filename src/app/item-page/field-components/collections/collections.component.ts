@@ -6,20 +6,20 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { Collection } from '@core/shared/collection.model';
-import { Item } from '@core/shared/item.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

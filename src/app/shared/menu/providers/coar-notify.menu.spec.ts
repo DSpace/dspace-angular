@@ -7,8 +7,8 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '@core/testing/authorization-service.stub';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import { of } from 'rxjs';
 
 import { LinkMenuItemModel } from '../menu-item/models/link.model';

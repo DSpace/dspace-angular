@@ -14,17 +14,17 @@ import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '@config/app-config.interface';
-import { BuildConfig } from '@config/build-config.interface';
-import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
-import { LocaleService } from '@core/locale/locale.service';
-import { HeadTagService } from '@core/metadata/head-tag.service';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+} from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
 import {
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { take } from 'rxjs/operators';
 

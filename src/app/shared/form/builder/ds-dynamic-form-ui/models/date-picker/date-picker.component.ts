@@ -16,13 +16,13 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';

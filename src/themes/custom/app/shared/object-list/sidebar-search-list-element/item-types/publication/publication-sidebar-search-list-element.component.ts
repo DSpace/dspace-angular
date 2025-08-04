@@ -3,8 +3,8 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ItemSearchResult } from '../../../../../../../../app/shared/object-collection/shared/item-search-result.model';

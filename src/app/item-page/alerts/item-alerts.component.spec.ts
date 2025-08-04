@@ -7,16 +7,16 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { Item } from '@core/shared/item.model';
-import { CorrectionTypeDataService } from '@core/submission/correctiontype-data.service';
-import { CorrectionType } from '@core/submission/models/correctiontype.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
+import { CorrectionType } from '@dspace/core/submission/models/correctiontype.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';

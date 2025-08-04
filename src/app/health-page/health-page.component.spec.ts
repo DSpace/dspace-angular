@@ -4,12 +4,12 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RawRestResponse } from '@core/dspace-rest/raw-rest-response.model';
+import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
 import {
   HealthInfoResponseObj,
   HealthResponseObj,
-} from '@core/testing/health-endpoint.mocks';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+} from '@dspace/core/testing/health-endpoint.mocks';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { WorkspaceitemSectionDataType } from '@core/submission/models/workspaceitem-sections.model';
-import { normalizeSectionData } from '@core/submission/submission-response-parsing.service';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { WorkspaceitemSectionDataType } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import { parseReviver } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,12 +18,6 @@ import {
   ScrollToConfigOptions,
   ScrollToService,
 } from '@nicky-lenaers/ngx-scroll-to';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';

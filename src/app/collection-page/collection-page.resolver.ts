@@ -4,15 +4,15 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { ResolvedAction } from '@core/resolving/resolver.actions';
-import { Collection } from '@core/shared/collection.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
+import { Collection } from '@dspace/core/shared/collection.model';
 import {
   followLink,
   FollowLinkConfig,
-} from '@core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+} from '@dspace/core/shared/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

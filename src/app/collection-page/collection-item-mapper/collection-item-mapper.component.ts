@@ -10,37 +10,37 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { ItemDataService } from '@core/data/item-data.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { NoContent } from '@core/shared/NoContent.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
   toDSpaceObjectListRD,
-} from '@core/shared/operators';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+} from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

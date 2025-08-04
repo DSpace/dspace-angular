@@ -19,35 +19,35 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { RequestService } from '@core/data/request.service';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ActionType } from '@core/resource-policy/models/action-type.model';
-import { PolicyType } from '@core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { Bundle } from '@core/shared/bundle.model';
-import { Item } from '@core/shared/item.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { EPersonMock } from '@core/testing/eperson.mock';
-import { GroupMock } from '@core/testing/group-mock';
-import { getMockLinkService } from '@core/testing/link-service.mock';
-import { getMockResourcePolicyService } from '@core/testing/mock-resource-policy-service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { getMockRequestService } from '@core/testing/request.service.mock';
-import { RouterStub } from '@core/testing/router.stub';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
+import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { getMockResourcePolicyService } from '@dspace/core/testing/mock-resource-policy-service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
-} from '@core/testing/utils.test';
+} from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,

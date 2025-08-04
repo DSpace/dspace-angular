@@ -14,12 +14,12 @@ import {
   By,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Notification } from '@core/notification-system/models/notification.model';
-import { NotificationOptions } from '@core/notification-system/models/notification-options.model';
-import { NotificationType } from '@core/notification-system/models/notification-type';
-import { notificationsReducer } from '@core/notification-system/notifications.reducers';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { Notification } from '@dspace/core/notification-system/models/notification.model';
+import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { notificationsReducer } from '@dspace/core/notification-system/notifications.reducers';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,

@@ -4,17 +4,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

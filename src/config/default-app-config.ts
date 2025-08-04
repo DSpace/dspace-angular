@@ -1,4 +1,4 @@
-import { NotificationAnimationsType } from '@core/notification-system/models/notification-animations-type';
+import { NotificationAnimationsType } from '@dspace/core/notification-system/models/notification-animations-type';
 
 import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';

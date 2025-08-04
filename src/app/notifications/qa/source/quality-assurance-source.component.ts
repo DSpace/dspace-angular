@@ -9,12 +9,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { SortOptions } from '@core/cache/models/sort-options.model';
-import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

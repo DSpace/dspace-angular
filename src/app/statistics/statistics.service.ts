@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from '@core/data/request.service';
-import { RestRequest } from '@core/data/rest-request.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { SearchOptions } from '@core/shared/search/models/search-options.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RestRequest } from '@dspace/core/data/rest-request.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   map,
   take,

@@ -11,29 +11,30 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { ItemDataService } from '@core/data/item-data.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { QualityAssuranceEventDataService } from '@core/notifications/qa/events/quality-assurance-event-data.service';
+} from '@dspace/core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { QualityAssuranceEventDataService } from '@dspace/core/notifications/qa/events/quality-assurance-event-data.service';
 import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
-} from '@core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { Metadata } from '@core/shared/metadata.utils';
-import { NoContent } from '@core/shared/NoContent.model';
+} from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbTooltipModule,
@@ -42,7 +43,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

@@ -9,11 +9,11 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
-import { Context } from '@core/shared/context.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { RouterStub } from '@core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { Context } from '@dspace/core/shared/context.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

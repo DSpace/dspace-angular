@@ -1,14 +1,11 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Site } from '@core/shared/site.model';
+import { Site } from '@dspace/core/shared/site.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -31,7 +28,6 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   templateUrl: './home-page.component.html',
   standalone: true,
   imports: [
-    AsyncPipe,
     HomeCoarComponent,
     NgTemplateOutlet,
     RecentItemListComponent,

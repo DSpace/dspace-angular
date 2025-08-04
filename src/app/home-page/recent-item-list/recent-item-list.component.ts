@@ -15,28 +15,28 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
+} from '@dspace/config/app-config.interface';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import {
   followLink,
   FollowLinkConfig,
-} from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { toDSpaceObjectListRD } from '@core/shared/operators';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { ViewMode } from '@core/shared/view-mode.model';
+} from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { toDSpaceObjectListRD } from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { setPlaceHolderAttributes } from '@shared/utils/object-list-utils';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';

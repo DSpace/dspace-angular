@@ -13,26 +13,26 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
-import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
-import { ArrayMoveChangeAnalyzer } from '@core/data/array-move-change-analyzer.service';
-import { RemoteData } from '@core/data/remote-data';
-import { UpdateDataService } from '@core/data/update-data.service';
-import { LazyDataServicesMap } from '@core/data-services-map';
-import { lazyDataService } from '@core/lazy-data-service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { ResourceType } from '@core/shared/resource-type';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
+import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { UpdateDataService } from '@dspace/core/data/update-data.service';
+import { LazyDataServicesMap } from '@dspace/core/data-services-map';
+import { lazyDataService } from '@dspace/core/lazy-data-service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

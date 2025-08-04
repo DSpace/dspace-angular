@@ -5,24 +5,24 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { RemoteData } from '@core/data/remote-data';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { NoContent } from '@core/shared/NoContent.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { BehaviorSubject } from 'rxjs';
 import {

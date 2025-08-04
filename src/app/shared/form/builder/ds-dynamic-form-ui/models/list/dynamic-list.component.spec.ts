@@ -16,18 +16,18 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@core/testing/dynamic-form-mock-services';
-import { createTestComponent } from '@core/testing/utils.test';
-import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlLayout,

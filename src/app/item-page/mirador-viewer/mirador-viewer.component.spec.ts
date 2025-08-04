@@ -4,13 +4,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { BundleDataService } from '@core/data/bundle-data.service';
-import { Item } from '@core/shared/item.model';
-import { MetadataMap } from '@core/shared/metadata.models';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataMap } from '@dspace/core/shared/metadata.models';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

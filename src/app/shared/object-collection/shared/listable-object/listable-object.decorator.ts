@@ -1,13 +1,13 @@
 import { InjectionToken } from '@angular/core';
-import { ThemeConfig } from '@config/theme.config';
-import { Context } from '@core/shared/context.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { ThemeConfig } from '@dspace/config/theme.config';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 
 import { environment } from '../../../../../environments/environment';
 import { ListableObject } from '../listable-object.model';

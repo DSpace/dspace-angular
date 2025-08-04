@@ -5,11 +5,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { Metadata } from '@core/shared/metadata.utils';
-import { SubmissionObject } from '@core/submission/models/submission-object.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import {
   NgbActiveModal,
   NgbModal,

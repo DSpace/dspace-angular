@@ -5,14 +5,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { ChildHALResource } from '@core/shared/child-hal-resource.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { HALResource } from '@core/shared/hal-resource.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { HALResource } from '@dspace/core/shared/hal-resource.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';

@@ -10,9 +10,9 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
-import { Context } from '@core/shared/context.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

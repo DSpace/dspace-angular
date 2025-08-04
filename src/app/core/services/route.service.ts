@@ -6,13 +6,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
   select,
   Store,
 } from '@ngrx/store';
-import { hasValue } from '@shared/utils/empty.util';
 import isEqual from 'lodash/isEqual';
 import {
   combineLatest,

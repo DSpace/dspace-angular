@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Community } from '@core/shared/community.model';
+import { Community } from '@dspace/core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

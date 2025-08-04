@@ -7,14 +7,15 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '@core/supervision-order/supervision-order-data.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SupervisionOrder } from '@dspace/core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '@dspace/core/supervision-order/supervision-order-data.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -23,7 +24,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   map,
   Observable,

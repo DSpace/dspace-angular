@@ -14,13 +14,13 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { Item } from '@core/shared/item.model';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
-import { CSSVariableServiceStub } from '@core/testing/css-variable-service.stub';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModalRef,

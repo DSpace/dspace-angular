@@ -9,9 +9,9 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@core/shared/dspace-object-type.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

@@ -5,38 +5,38 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { ConfigObject } from '@core/config/models/config.model';
-import { FormRowModel } from '@core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
-import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { followLink } from '@core/shared/follow-link-config.model';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigObject } from '@dspace/core/config/models/config.model';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { SubmissionObject } from '@core/submission/models/submission-object.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionFormObject } from '@core/submission/models/workspaceitem-section-form.model';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
-import {
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-} from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+} from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
   isUndefined,
-} from '@shared/utils/empty.util';
-import { difference } from '@shared/utils/object.util';
+} from '@dspace/shared/utils/empty.util';
+import { difference } from '@dspace/shared/utils/object.util';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+} from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import {

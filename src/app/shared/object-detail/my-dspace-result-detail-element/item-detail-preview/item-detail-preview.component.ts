@@ -5,17 +5,17 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { Context } from '@core/shared/context.model';
-import { FileService } from '@core/shared/file.service';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { Item } from '@core/shared/item.model';
-import { getFirstSucceededRemoteListPayload } from '@core/shared/operators';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 

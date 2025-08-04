@@ -14,22 +14,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
-import { AuthService } from '@core/auth/auth.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { CommunityDataService } from '@core/data/community-data.service';
-import { ItemTemplateDataService } from '@core/data/item-template-data.service';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { Item } from '@core/shared/item.model';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
+} from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

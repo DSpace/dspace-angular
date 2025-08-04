@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';

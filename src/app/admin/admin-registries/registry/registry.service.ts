@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { RequestParam } from '@core/cache/models/request-param.model';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { MetadataFieldDataService } from '@core/data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '@core/data/metadata-schema-data.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { MetadataField } from '@core/metadata/metadata-field.model';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
-import { NoContent } from '@core/shared/NoContent.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
+import { MetadataSchemaDataService } from '@dspace/core/data/metadata-schema-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   select,
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmptyOperator,
-} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

@@ -9,37 +9,37 @@ import {
   ResolveEnd,
   Router,
 } from '@angular/router';
-import { getDefaultThemeConfig } from '@config/config.util';
+import { getDefaultThemeConfig } from '@dspace/config/config.util';
 import {
   HeadTagConfig,
   ThemeConfig,
-} from '@config/theme.config';
-import { LinkService } from '@core/cache/builders/link.service';
-import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { distinctNext } from '@core/shared/distinct-next';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { followLink } from '@core/shared/follow-link-config.model';
+} from '@dspace/config/theme.config';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { distinctNext } from '@dspace/core/shared/distinct-next';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
   NO_OP_ACTION_TYPE,
   NoOpAction,
-} from '@core/shared/ngrx/no-op.action';
+} from '@dspace/core/shared/ngrx/no-op.action';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createFeatureSelector,
   createSelector,
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   concatMap,

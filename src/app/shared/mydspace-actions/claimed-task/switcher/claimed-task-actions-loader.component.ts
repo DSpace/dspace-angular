@@ -4,10 +4,10 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { Item } from '@core/shared/item.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';

@@ -12,20 +12,20 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthMethodType } from '@core/auth/models/auth.method-type';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { HardRedirectService } from '@core/services/hard-redirect.service';
-import { NativeWindowService } from '@core/services/window.service';
-import { Registration } from '@core/shared/registration.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { Registration } from '@dspace/core/shared/registration.model';
 import {
   MockWindow,
   NativeWindowMockFactory,
-} from '@core/testing/mock-native-window-ref';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/mock-native-window-ref';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

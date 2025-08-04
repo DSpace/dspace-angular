@@ -9,15 +9,15 @@ import {
   AuthenticatedAction,
   AuthenticationSuccessAction,
   ResetAuthenticationMessagesAction,
-} from '@core/auth/auth.actions';
-import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
-import { isAuthenticated } from '@core/auth/selectors';
-import { Store } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/auth/auth.actions';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { isAuthenticated } from '@dspace/core/auth/selectors';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Subscription,

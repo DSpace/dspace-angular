@@ -1,4 +1,4 @@
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { FormFieldModel } from '../models/form-field.model';

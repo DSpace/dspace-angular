@@ -17,25 +17,26 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { ProcessDataService } from '@core/data/processes/process-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Process } from '@core/processes/process.model';
-import { ProcessStatus } from '@core/processes/process-status.model';
-import { redirectOn4xx } from '@core/shared/authorized.operators';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessStatus } from '@dspace/core/processes/process-status.model';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { URLCombiner } from '@core/url-combiner/url-combiner';
+} from '@dspace/core/shared/operators';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -44,7 +45,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

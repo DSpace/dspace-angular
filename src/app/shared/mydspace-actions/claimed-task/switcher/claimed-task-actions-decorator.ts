@@ -1,4 +1,4 @@
-import { hasNoValue } from '@shared/utils/empty.util';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
 import {
   ADVANCED_WORKFLOW_ACTION_RATING,

@@ -7,8 +7,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { supervisionOrderListMock } from '@core/testing/supervision-order.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { supervisionOrderListMock } from '@dspace/core/testing/supervision-order.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

@@ -15,11 +15,11 @@ import {
   NG_VALUE_ACCESSOR,
   UntypedFormBuilder,
 } from '@angular/forms';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isEmpty } from '@shared/utils/empty.util';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 

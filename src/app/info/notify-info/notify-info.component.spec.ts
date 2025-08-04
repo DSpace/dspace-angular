@@ -3,8 +3,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

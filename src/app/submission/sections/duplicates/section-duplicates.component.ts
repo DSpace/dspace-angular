@@ -5,9 +5,9 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { Metadata } from '@core/shared/metadata.utils';
-import { WorkspaceitemSectionDuplicatesObject } from '@core/submission/models/workspaceitem-section-duplicates.model';
-import { URLCombiner } from '@core/url-combiner/url-combiner';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
   TranslateModule,
   TranslateService,

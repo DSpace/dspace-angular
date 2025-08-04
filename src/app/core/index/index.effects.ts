@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NoOpAction } from '@core/shared/ngrx/no-op.action';
+import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -9,7 +10,6 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   filter,
   map,

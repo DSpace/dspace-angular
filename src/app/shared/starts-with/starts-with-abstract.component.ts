@@ -12,8 +12,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { hasValue } from '@shared/utils/empty.util';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 
 import { StartsWithType } from './starts-with-type';

@@ -3,30 +3,30 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { CommunityDataService } from '@core/data/community-data.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { Collection } from '@core/shared/collection.model';
-import { Community } from '@core/shared/community.model';
-import { followLink } from '@core/shared/follow-link-config.model';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '@core/shared/operators';
-import { PageInfo } from '@core/shared/page-info.model';
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   Store,
 } from '@ngrx/store';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

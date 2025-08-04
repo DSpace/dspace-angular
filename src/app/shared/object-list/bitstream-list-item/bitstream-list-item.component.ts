@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { Context } from '@core/shared/context.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';

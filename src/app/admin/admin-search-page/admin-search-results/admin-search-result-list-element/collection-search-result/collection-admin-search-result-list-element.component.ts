@@ -3,9 +3,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Collection } from '@core/shared/collection.model';
-import { Context } from '@core/shared/context.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';

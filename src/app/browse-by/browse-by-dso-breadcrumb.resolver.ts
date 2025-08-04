@@ -4,15 +4,15 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { DSOBreadcrumbsService } from '@core/breadcrumbs/dso-breadcrumbs.service';
-import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
-import { Collection } from '@core/shared/collection.model';
-import { Community } from '@core/shared/community.model';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { hasValue } from '@shared/utils/empty.util';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

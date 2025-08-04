@@ -8,8 +8,12 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -19,10 +23,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  hasValue,
-  isEmpty,
-} from '@shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 

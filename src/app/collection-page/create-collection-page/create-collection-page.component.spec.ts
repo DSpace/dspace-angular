@@ -7,16 +7,16 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { CommunityDataService } from '@core/data/community-data.service';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

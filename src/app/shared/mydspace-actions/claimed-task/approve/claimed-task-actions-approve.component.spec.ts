@@ -10,19 +10,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { SearchService } from '@core/shared/search/search.service';
-import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
-import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '@core/tasks/pool-task-data.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { getMockRequestService } from '@core/testing/request.service.mock';
-import { RouterStub } from '@core/testing/router.stub';
-import { getMockSearchService } from '@core/testing/search-service.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

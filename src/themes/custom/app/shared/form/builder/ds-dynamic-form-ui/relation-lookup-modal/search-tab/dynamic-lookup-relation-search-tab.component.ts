@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

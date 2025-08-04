@@ -1,5 +1,5 @@
-import { ThemeConfig } from '@config/theme.config';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { ThemeConfig } from '@dspace/config/theme.config';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { of } from 'rxjs';
 
 import { ThemeService } from '../theme.service';

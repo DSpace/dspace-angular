@@ -12,33 +12,33 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { RestResponse } from '@core/cache/response.models';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
-import { RequestService } from '@core/data/request.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
 import {
   INotification,
   Notification,
-} from '@core/notification-system/models/notification.model';
-import { NotificationType } from '@core/notification-system/models/notification-type';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Item } from '@core/shared/item.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { Relationship } from '@core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
-import { ItemDataServiceStub } from '@core/testing/item-data.service.stub';
-import { relationshipTypes } from '@core/testing/relationship-types.mock';
-import { RouterStub } from '@core/testing/router.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { ItemDataServiceStub } from '@dspace/core/testing/item-data.service.stub';
+import { relationshipTypes } from '@dspace/core/testing/relationship-types.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,

@@ -1,6 +1,6 @@
-import { Item } from '@core/shared/item.model';
-import { URLCombiner } from '@core/url-combiner/url-combiner';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { Item } from '@dspace/core/shared/item.model';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 export const ITEM_MODULE_PATH = 'items';
 

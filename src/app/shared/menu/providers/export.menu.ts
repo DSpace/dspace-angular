@@ -7,12 +7,12 @@
  */
 
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@core/data/processes/script-data.service';
+} from '@dspace/core/data/processes/script-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest as observableCombineLatest,

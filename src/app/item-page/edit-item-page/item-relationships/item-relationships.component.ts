@@ -10,22 +10,22 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,

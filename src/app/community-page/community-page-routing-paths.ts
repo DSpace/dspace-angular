@@ -1,4 +1,4 @@
-import { URLCombiner } from '@core/url-combiner/url-combiner';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 

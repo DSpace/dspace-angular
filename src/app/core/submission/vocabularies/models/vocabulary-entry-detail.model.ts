@@ -1,5 +1,5 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { HALLink } from '@core/shared/hal-link.model';
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
 import {
   autoserialize,
   deserialize,

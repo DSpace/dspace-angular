@@ -10,22 +10,22 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { RouteService } from '@core/services/route.service';
-import { PageInfo } from '@core/shared/page-info.model';
-import { FacetValue } from '@core/shared/search/models/facet-value.model';
-import { FilterType } from '@core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { routeServiceStub } from '@core/testing/route-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '@core/testing/search-filter-service.stub';
-import { SearchServiceStub } from '@core/testing/search-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,

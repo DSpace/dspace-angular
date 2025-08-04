@@ -5,7 +5,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

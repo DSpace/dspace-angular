@@ -3,17 +3,17 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { SubmissionCoarNotifyModel } from '@core/coar-notify/models/submission-coar-notify.model';
-import { CoarNotifyConfigDataService } from '@core/config/coar-notify-config-data.service';
-import { NotifyServicePattern } from '@core/data/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
+import { SubmissionCoarNotifyModel } from '@dspace/core/coar-notify/models/submission-coar-notify.model';
+import { CoarNotifyConfigDataService } from '@dspace/core/config/coar-notify-config-data.service';
+import { NotifyServicePattern } from '@dspace/core/data/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
 import {
   LdnService,
   LdnServiceByPattern,
-} from '@core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { LdnServicesService } from '@core/data/ldn-services-data.service';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { LdnServicesService } from '@dspace/core/data/ldn-services-data.service';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

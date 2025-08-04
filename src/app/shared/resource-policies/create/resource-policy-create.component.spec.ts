@@ -14,27 +14,27 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { LinkService } from '@core/cache/builders/link.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ActionType } from '@core/resource-policy/models/action-type.model';
-import { PolicyType } from '@core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
-import { Item } from '@core/shared/item.model';
-import { EPersonMock } from '@core/testing/eperson.mock';
-import { GroupMock } from '@core/testing/group-mock';
-import { getMockLinkService } from '@core/testing/link-service.mock';
-import { getMockResourcePolicyService } from '@core/testing/mock-resource-policy-service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
+import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { getMockResourcePolicyService } from '@dspace/core/testing/mock-resource-policy-service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
-} from '@core/testing/utils.test';
+} from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,

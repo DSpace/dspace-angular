@@ -20,8 +20,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RouteService } from '@core/services/route.service';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { RouteService } from '@dspace/core/services/route.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbDropdownModule,
   NgbModal,

@@ -17,24 +17,24 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { BrowseService } from '@core/browse/browse.service';
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BrowseService } from '@dspace/core/browse/browse.service';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Item } from '@core/shared/item.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { isValidDate } from '@shared/utils/date.util';
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { isValidDate } from '@dspace/shared/utils/date.util';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,

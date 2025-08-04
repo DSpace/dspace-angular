@@ -12,16 +12,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { authReducer } from '@core/auth/auth.reducer';
-import { AuthService } from '@core/auth/auth.service';
-import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
-import { LocaleService } from '@core/locale/locale.service';
-import { RouteService } from '@core/services/route.service';
-import { MockActivatedRoute } from '@core/testing/active-router.mock';
-import { AngularticsProviderMock } from '@core/testing/angulartics-provider.service.mock';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { RouterMock } from '@core/testing/router.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { AngularticsProviderMock } from '@dspace/core/testing/angulartics-provider.service.mock';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,
@@ -46,8 +46,8 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
-import { HeadTagService } from '@core/metadata/head-tag.service';
-import { HeadTagServiceMock } from '@core/testing/head-tag-service.mock';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
 import { getTestScheduler } from 'jasmine-marbles';
 
 let spy: SpyObj<any>;

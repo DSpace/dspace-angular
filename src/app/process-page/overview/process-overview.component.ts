@@ -9,10 +9,10 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProcessStatus } from '@core/processes/process-status.model';
+import { ProcessStatus } from '@dspace/core/processes/process-status.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

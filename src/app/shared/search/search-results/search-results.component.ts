@@ -6,23 +6,23 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SortOptions } from '@core/cache/models/sort-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '@core/shared/search/models/search-filter.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
   BehaviorSubject,

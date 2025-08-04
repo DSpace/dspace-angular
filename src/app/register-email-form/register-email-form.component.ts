@@ -17,27 +17,27 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from '@core/cookies/cookie.service';
-import { OrejimeService } from '@core/cookies/orejime.service';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
-import { RemoteData } from '@core/data/remote-data';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import {
   CAPTCHA_NAME,
   GoogleRecaptchaService,
-} from '@core/google-recaptcha/google-recaptcha.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+} from '@dspace/core/google-recaptcha/google-recaptcha.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { Registration } from '@core/shared/registration.model';
+} from '@dspace/core/shared/operators';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

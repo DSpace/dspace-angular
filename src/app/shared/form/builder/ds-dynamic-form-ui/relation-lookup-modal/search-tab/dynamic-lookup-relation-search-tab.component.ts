@@ -7,26 +7,26 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { LookupRelationService } from '@core/data/lookup-relation.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { Relationship } from '@core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { SearchObjects } from '@core/shared/search/models/search-objects.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+} from '@dspace/core/shared/operators';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

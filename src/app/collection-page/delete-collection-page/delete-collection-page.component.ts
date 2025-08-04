@@ -4,10 +4,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
 import {
   TranslateModule,
   TranslateService,

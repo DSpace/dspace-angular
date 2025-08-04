@@ -21,37 +21,37 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
-import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { Group } from '@core/eperson/models/group.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { NoContent } from '@core/shared/NoContent.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { UUIDService } from '@core/shared/uuid.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import {
   GroupMock,
   GroupMock2,
-} from '@core/testing/group-mock';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterMock } from '@core/testing/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/core/testing/group-mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';

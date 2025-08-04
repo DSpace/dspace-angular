@@ -5,9 +5,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { AdminNotifyMessagesDataService } from '@core/coar-notify/admin-notify-messages-data.service';
-import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-message.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { AdminNotifyMessagesDataService } from '@dspace/core/coar-notify/admin-notify-messages-data.service';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/models/admin-notify-message.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

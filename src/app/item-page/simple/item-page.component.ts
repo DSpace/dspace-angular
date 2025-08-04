@@ -14,27 +14,27 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { ItemDataService } from '@core/data/item-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { SignpostingDataService } from '@core/data/signposting-data.service';
-import { SignpostingLink } from '@core/data/signposting-links.model';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
 import {
   LinkDefinition,
   LinkHeadService,
-} from '@core/services/link-head.service';
-import { ServerResponseService } from '@core/services/server-response.service';
-import { Item } from '@core/shared/item.model';
-import { ItemRequest } from '@core/shared/item-request.model';
-import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/services/link-head.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,

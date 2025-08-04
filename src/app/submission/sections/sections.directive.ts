@@ -9,7 +9,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotNull,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import uniq from 'lodash/uniq';
 import {
   Observable,

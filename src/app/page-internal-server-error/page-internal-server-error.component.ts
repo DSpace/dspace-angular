@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
-import { ServerResponseService } from '@core/services/server-response.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-configuration.service';

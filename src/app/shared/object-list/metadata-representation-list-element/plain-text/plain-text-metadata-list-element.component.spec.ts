@@ -9,9 +9,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { MetadatumRepresentation } from '@core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { mockData } from '@core/testing/browse-definition-data-service.stub';
+import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { mockData } from '@dspace/core/testing/browse-definition-data-service.stub';
 
 import { PlainTextMetadataListElementComponent } from './plain-text-metadata-list-element.component';
 

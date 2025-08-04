@@ -13,24 +13,24 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@core/data/processes/script-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ProcessParameter } from '@core/processes/process-parameter.model';
-import { Collection } from '@core/shared/collection.model';
-import { Item } from '@core/shared/item.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { SearchServiceStub } from '@core/testing/search-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+} from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbActiveModal,
   NgbModal,

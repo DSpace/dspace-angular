@@ -14,19 +14,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
-import { redirectOn4xx } from '@core/shared/authorized.operators';
-import { Item } from '@core/shared/item.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

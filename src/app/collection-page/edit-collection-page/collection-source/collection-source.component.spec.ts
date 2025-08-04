@@ -14,32 +14,32 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { FieldUpdate } from '@core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { RequestService } from '@core/data/request.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RequestService } from '@dspace/core/data/request.service';
 import {
   INotification,
   Notification,
-} from '@core/notification-system/models/notification.model';
-import { NotificationType } from '@core/notification-system/models/notification-type';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
 import {
   ContentSource,
   ContentSourceHarvestType,
-} from '@core/shared/content-source.model';
-import { RouterStub } from '@core/testing/router.stub';
+} from '@dspace/core/shared/content-source.model';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { of } from 'rxjs';
 
 import { FormComponent } from '../../../shared/form/form.component';

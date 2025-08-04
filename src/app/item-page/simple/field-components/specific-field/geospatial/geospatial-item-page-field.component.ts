@@ -3,12 +3,12 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Item } from '@core/shared/item.model';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { GeospatialMapComponent } from '../../../../../shared/geospatial-map/geospatial-map.component';
 import { MetadataFieldWrapperComponent } from '../../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { CoreState } from '@core/core-state.model';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CoreState } from '@dspace/core/core-state.model';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '@core/data/base/find-all-data';
-import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
-import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+} from '@dspace/core/data/base/find-all-data';
+import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

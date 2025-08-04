@@ -7,17 +7,17 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { OrejimeService } from '@core/cookies/orejime.service';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+} from '@dspace/core/services/window.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   MatomoInitializerService,
   MatomoTracker,

@@ -10,8 +10,8 @@ import {
   tick,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,

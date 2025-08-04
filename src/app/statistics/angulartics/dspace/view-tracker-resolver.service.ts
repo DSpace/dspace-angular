@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { ReferrerService } from '@core/services/referrer.service';
+import { ReferrerService } from '@dspace/core/services/referrer.service';
 import { Angulartics2 } from 'angulartics2';
 import { switchMap } from 'rxjs';
 import {

@@ -1,4 +1,4 @@
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,

@@ -4,8 +4,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Item } from '@core/shared/item.model';
-import { mockSuggestionPublicationOne } from '@core/testing/publication-claim.mock';
+import { Item } from '@dspace/core/shared/item.model';
+import { mockSuggestionPublicationOne } from '@dspace/core/testing/publication-claim.mock';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';

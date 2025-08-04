@@ -2,18 +2,18 @@ import {
   fakeAsync,
   flush,
 } from '@angular/core/testing';
-import { AppConfig } from '@config/app-config.interface';
-import { AuthService } from '@core/auth/auth.service';
-import { CookieService } from '@core/cookies/cookie.service';
-import { OrejimeServiceStub } from '@core/cookies/orejime.service.stub';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
-import { CookieServiceMock } from '@core/testing/cookie.service.mock';
+import { AppConfig } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import {

@@ -5,13 +5,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '@core/notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,

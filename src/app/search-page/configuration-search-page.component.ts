@@ -12,10 +12,10 @@ import { Router } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { RouteService } from '@core/services/route.service';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+} from '@dspace/config/app-config.interface';
+import { RouteService } from '@dspace/core/services/route.service';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';

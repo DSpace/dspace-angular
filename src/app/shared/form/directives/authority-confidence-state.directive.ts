@@ -18,16 +18,16 @@ import {
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
-import { ConfidenceIconConfig } from '@config/submission-config.interface';
-import { ConfidenceType } from '@core/shared/confidence-type';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { TranslateService } from '@ngx-translate/core';
+import { ConfidenceIconConfig } from '@dspace/config/submission-config.interface';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import {
   isNotEmpty,
   isNull,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
 import { environment } from '../../../../environments/environment';

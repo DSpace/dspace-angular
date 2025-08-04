@@ -12,8 +12,8 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { RatingAdvancedWorkflowInfo } from '@core/tasks/models/rating-advanced-workflow-info.model';
-import { WorkflowAction } from '@core/tasks/models/workflow-action-object.model';
+import { RatingAdvancedWorkflowInfo } from '@dspace/core/tasks/models/rating-advanced-workflow-info.model';
+import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

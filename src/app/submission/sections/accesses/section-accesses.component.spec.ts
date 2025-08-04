@@ -3,18 +3,18 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { SubmissionAccessesConfigDataService } from '@core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { getSectionAccessesService } from '@core/testing/section-accesses.service.mock';
+import { SubmissionAccessesConfigDataService } from '@dspace/core/config/submission-accesses-config-data.service';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { getSectionAccessesService } from '@dspace/core/testing/section-accesses.service.mock';
 import {
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService,
-} from '@core/testing/section-accesses-config.service.mock';
-import { SectionsServiceStub } from '@core/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/core/testing/section-accesses-config.service.mock';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,

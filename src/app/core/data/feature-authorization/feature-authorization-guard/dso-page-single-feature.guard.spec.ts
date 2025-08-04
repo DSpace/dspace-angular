@@ -4,9 +4,9 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,

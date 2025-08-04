@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { QualityAssuranceSourceObject } from '@core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '@core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '@dspace/core/notifications/qa/models/quality-assurance-topic.model';
 import {
   select,
   Store,

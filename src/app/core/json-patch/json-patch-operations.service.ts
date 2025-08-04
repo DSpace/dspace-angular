@@ -1,11 +1,11 @@
-import { Store } from '@ngrx/store';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Store } from '@ngrx/store';
 import {
   merge as observableMerge,
   Observable,

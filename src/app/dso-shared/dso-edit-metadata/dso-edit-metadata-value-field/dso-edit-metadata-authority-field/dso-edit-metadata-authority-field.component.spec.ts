@@ -4,20 +4,20 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ItemDataService } from '@core/data/item-data.service';
-import { MetadataField } from '@core/metadata/metadata-field.model';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { ConfidenceType } from '@core/shared/confidence-type';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { RegistryService } from '../../../../admin/admin-registries/registry/registry.service';

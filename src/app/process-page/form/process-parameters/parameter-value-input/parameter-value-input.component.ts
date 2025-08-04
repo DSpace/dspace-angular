@@ -10,8 +10,8 @@ import {
   ControlContainer,
   NgForm,
 } from '@angular/forms';
-import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
-import { ScriptParameterType } from '@core/shared/scripts/script-parameter-type.model';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { ScriptParameterType } from '@dspace/core/shared/scripts/script-parameter-type.model';
 
 import { controlContainerFactory } from '../../process-form-factory';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';

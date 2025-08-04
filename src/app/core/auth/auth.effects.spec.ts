@@ -3,7 +3,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { APP_CONFIG } from '@config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,

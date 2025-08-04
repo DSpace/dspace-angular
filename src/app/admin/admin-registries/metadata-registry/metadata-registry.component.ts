@@ -8,15 +8,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { toFindListOptions } from '@core/pagination/pagination.utils';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { NoContent } from '@core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { toFindListOptions } from '@dspace/core/pagination/pagination.utils';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,

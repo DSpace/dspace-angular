@@ -9,7 +9,7 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SearchService } from '@core/shared/search/search.service';
+import { SearchService } from '@dspace/core/shared/search/search.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { expandSearchInput } from '../shared/animations/slide';

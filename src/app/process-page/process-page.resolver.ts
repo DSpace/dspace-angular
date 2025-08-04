@@ -4,11 +4,11 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { ProcessDataService } from '@core/data/processes/process-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { Process } from '@core/processes/process.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Process } from '@dspace/core/processes/process.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 
 export const PROCESS_PAGE_FOLLOW_LINKS = [

@@ -16,21 +16,21 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { FilterVocabularyConfig } from '@config/filter-vocabulary-config';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { PageInfo } from '@core/shared/page-info.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
-import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+} from '@dspace/config/app-config.interface';
+import { FilterVocabularyConfig } from '@dspace/config/filter-vocabulary-config';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   from,
   Observable,

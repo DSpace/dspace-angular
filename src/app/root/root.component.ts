@@ -12,12 +12,12 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { ThemeConfig } from '@config/theme.config';
-import { getPageInternalServerErrorRoute } from '@core/router/routing-paths';
+import { ThemeConfig } from '@dspace/config/theme.config';
+import { getPageInternalServerErrorRoute } from '@dspace/core/router/routing-paths';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
+} from '@dspace/core/services/window.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,

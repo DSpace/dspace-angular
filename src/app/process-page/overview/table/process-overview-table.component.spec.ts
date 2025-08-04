@@ -6,19 +6,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { ProcessDataService } from '@core/data/processes/process-data.service';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { Process } from '@core/processes/process.model';
-import { ProcessStatus } from '@core/processes/process-status.model';
-import { RouteService } from '@core/services/route.service';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { routeServiceStub } from '@core/testing/route-service.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessStatus } from '@dspace/core/processes/process-status.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbCollapse,
   NgbModal,

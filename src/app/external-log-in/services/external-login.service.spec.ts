@@ -5,17 +5,17 @@ import {
   tick,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { NoContent } from '@core/shared/NoContent.model';
-import { Registration } from '@core/shared/registration.model';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterMock } from '@core/testing/router.mock';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';

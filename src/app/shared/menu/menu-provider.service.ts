@@ -20,7 +20,7 @@ import {
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   combineLatest,
   map,

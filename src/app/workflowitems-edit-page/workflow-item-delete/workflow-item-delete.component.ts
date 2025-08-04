@@ -7,13 +7,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { NoContent } from '@core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
 import {
   TranslatePipe,
   TranslateService,

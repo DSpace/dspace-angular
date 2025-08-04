@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { Collection } from '@core/shared/collection.model';
-import { COLLECTION } from '@core/shared/collection.resource-type';
-import { Community } from '@core/shared/community.model';
-import { COMMUNITY } from '@core/shared/community.resource-type';
-import { Item } from '@core/shared/item.model';
-import { ITEM } from '@core/shared/item.resource-type';
-import { ConfigurationDataServiceStub } from '@core/testing/configuration-data.service.stub';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
+import { Community } from '@dspace/core/shared/community.model';
+import { COMMUNITY } from '@dspace/core/shared/community.resource-type';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 
 import { getCollectionModuleRoute } from '../app/collection-page/collection-page-routing-paths';
 import { getCommunityModuleRoute } from '../app/community-page/community-page-routing-paths';

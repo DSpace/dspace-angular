@@ -9,11 +9,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { LogOutAction } from '@core/auth/auth.actions';
-import { AuthService } from '@core/auth/auth.service';
-import { EndUserAgreementService } from '@core/end-user-agreement/end-user-agreement.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { LogOutAction } from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { EndUserAgreementService } from '@dspace/core/end-user-agreement/end-user-agreement.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

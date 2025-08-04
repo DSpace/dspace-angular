@@ -9,24 +9,24 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { RequestParam } from '@core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '@core/data/external-source-data.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { ExternalSource } from '@core/shared/external-source.model';
-import { PageInfo } from '@core/shared/page-info.model';
+} from '@dspace/core/data/paginated-list.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
 import {
   externalSourceCiencia,
   externalSourceMyStaffDb,
   externalSourceOrcid,
   getMockExternalSourceService,
-} from '@core/testing/external-source.service.mock';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
-import { createTestComponent } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/external-source.service.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';

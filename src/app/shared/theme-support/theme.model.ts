@@ -6,14 +6,14 @@ import {
   RegExThemeConfig,
   ThemeConfig,
   UUIDThemeConfig,
-} from '@config/theme.config';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { HandleObject } from '@core/shared/handle-object.model';
+} from '@dspace/config/theme.config';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { HandleObject } from '@dspace/core/shared/handle-object.model';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

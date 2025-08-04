@@ -12,17 +12,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { LocationStub } from '@core/testing/location.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { routeServiceStub } from '@core/testing/route-service.stub';
-import { RouterMock } from '@core/testing/router.mock';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { LocationStub } from '@dspace/core/testing/location.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,

@@ -14,20 +14,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { FacetValue } from '@core/shared/search/models/facet-value.model';
-import { FilterType } from '@core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '@core/testing/search-filter-service.stub';
-import { SearchServiceStub } from '@core/testing/search-service.stub';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

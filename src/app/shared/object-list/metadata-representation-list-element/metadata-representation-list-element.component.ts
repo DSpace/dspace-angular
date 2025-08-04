@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { MetadataRepresentation } from '@core/shared/metadata-representation/metadata-representation.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',

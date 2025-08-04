@@ -2,7 +2,7 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { hasNoValue } from '@shared/utils/empty.util';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

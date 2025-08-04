@@ -8,13 +8,13 @@ import { FormsModule } from '@angular/forms';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { Context } from '@core/shared/context.model';
-import { Item } from '@core/shared/item.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { ViewMode } from '@core/shared/view-mode.model';
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 

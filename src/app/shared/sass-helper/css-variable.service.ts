@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { KeyValuePair } from '@core/utilities/key-value-pair.model';
+} from '@dspace/core/data/paginated-list.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { KeyValuePair } from '@dspace/core/utilities/key-value-pair.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import {

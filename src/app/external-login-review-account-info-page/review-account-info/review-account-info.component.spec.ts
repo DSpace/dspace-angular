@@ -8,21 +8,21 @@ import {
 } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { RemoteData } from '@core/data/remote-data';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { HardRedirectService } from '@core/services/hard-redirect.service';
-import { NativeWindowService } from '@core/services/window.service';
-import { Registration } from '@core/shared/registration.model';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { EPersonMock } from '@core/testing/eperson.mock';
-import { NativeWindowMockFactory } from '@core/testing/mock-native-window-ref';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterMock } from '@core/testing/router.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

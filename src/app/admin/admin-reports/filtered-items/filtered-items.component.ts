@@ -11,20 +11,21 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { CommunityDataService } from '@core/data/community-data.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { MetadataFieldDataService } from '@core/data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '@core/data/metadata-schema-data.service';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { RestRequestMethod } from '@core/data/rest-request-method';
-import { DspaceRestService } from '@core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '@core/dspace-rest/raw-rest-response.model';
-import { MetadataField } from '@core/metadata/metadata-field.model';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { Collection } from '@core/shared/collection.model';
-import { Community } from '@core/shared/community.model';
-import { getFirstSucceededRemoteListPayload } from '@core/shared/operators';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
+import { MetadataSchemaDataService } from '@dspace/core/data/metadata-schema-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RestRequestMethod } from '@dspace/core/data/rest-request-method';
+import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   NgbAccordion,
   NgbAccordionModule,
@@ -33,7 +34,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   map,

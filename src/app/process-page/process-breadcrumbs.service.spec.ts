@@ -2,7 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Process } from '@core/processes/process.model';
+import { Process } from '@dspace/core/processes/process.model';
 import { getTestScheduler } from 'jasmine-marbles';
 
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';

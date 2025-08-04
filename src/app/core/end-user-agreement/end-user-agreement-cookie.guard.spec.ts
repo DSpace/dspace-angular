@@ -3,7 +3,7 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { Observable } from 'rxjs';
 
 import { EndUserAgreementService } from './end-user-agreement.service';

@@ -14,23 +14,23 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
-import { SortOptions } from '@core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { LinkHeadService } from '@core/services/link-head.service';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { SearchFilter } from '@core/shared/search/models/search-filter.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import {
+  hasValue,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  hasValue,
-  isUndefined,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   filter,

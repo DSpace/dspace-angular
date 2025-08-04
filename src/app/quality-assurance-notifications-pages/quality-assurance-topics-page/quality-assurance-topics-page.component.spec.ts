@@ -5,7 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { QualityAssuranceTopicsComponent } from '../../notifications/qa/topics/quality-assurance-topics.component';
 import { QualityAssuranceTopicsPageComponent } from './quality-assurance-topics-page.component';

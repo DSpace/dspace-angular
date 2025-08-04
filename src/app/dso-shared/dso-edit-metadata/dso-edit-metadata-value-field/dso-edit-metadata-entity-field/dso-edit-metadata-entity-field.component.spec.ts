@@ -2,8 +2,8 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { EntityTypeDataServiceStub } from '@core/testing/entity-type-data.service.stub';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { EntityTypeDataServiceStub } from '@dspace/core/testing/entity-type-data.service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DsoEditMetadataEntityFieldComponent } from './dso-edit-metadata-entity-field.component';

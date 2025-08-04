@@ -2,7 +2,7 @@ import {
   Component,
   Type,
 } from '@angular/core';
-import { hasNoValue } from '@shared/utils/empty.util';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
 import { DEFAULT_THEME } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchLabelComponent } from '../search-label/search-label.component';

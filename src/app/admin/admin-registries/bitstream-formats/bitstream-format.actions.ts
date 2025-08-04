@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import { BitstreamFormat } from '@core/shared/bitstream-format.model';
-import { type } from '@core/shared/ngrx/type';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { type } from '@dspace/core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
 
 /**

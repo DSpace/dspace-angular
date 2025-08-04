@@ -3,7 +3,7 @@ import {
   Injectable,
   OnDestroy,
 } from '@angular/core';
-import { Duplicate } from '@core/shared/duplicate-data/duplicate.model';
+import { Duplicate } from '@dspace/core/shared/duplicate-data/duplicate.model';
 import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

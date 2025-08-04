@@ -6,19 +6,19 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { RemoteData } from '@core/data/remote-data';
-import { ChildHALResource } from '@core/shared/child-hal-resource.model';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,

@@ -11,14 +11,14 @@ import {
 import {
   NotifyRequestsStatus,
   NotifyStatuses,
-} from '@core/coar-notify/models/notify-requests-status.model';
-import { RequestStatusEnum } from '@core/coar-notify/models/notify-status.enum';
-import { NotifyRequestsStatusDataService } from '@core/coar-notify/notify-services-status-data.service';
+} from '@dspace/core/coar-notify/models/notify-requests-status.model';
+import { RequestStatusEnum } from '@dspace/core/coar-notify/models/notify-status.enum';
+import { NotifyRequestsStatusDataService } from '@dspace/core/coar-notify/notify-services-status-data.service';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { hasValue } from '@shared/utils/empty.util';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   filter,
   map,

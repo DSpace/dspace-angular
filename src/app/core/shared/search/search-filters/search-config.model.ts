@@ -1,5 +1,5 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { CacheableObject } from '@core/cache/cacheable-object.model';
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
 import {
   autoserialize,
   deserialize,

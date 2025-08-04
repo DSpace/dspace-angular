@@ -4,10 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { Item } from '@core/shared/item.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';

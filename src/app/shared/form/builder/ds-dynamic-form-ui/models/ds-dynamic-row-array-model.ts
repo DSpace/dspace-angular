@@ -1,3 +1,4 @@
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormArrayModel,
   DynamicFormArrayModelConfig,
@@ -5,7 +6,6 @@ import {
   DynamicFormControlRelation,
   serializable,
 } from '@ng-dynamic-forms/core';
-import { hasValue } from '@shared/utils/empty.util';
 
 import { RelationshipOptions } from '../../models/relationship-options.model';
 

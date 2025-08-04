@@ -18,13 +18,13 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { isAuthenticationBlocking } from '@core/auth/selectors';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { isAuthenticationBlocking } from '@dspace/core/auth/selectors';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
-import { distinctNext } from '@core/shared/distinct-next';
+} from '@dspace/core/services/window.service';
+import { distinctNext } from '@dspace/core/shared/distinct-next';
 import {
   NgbModal,
   NgbModalConfig,

@@ -4,9 +4,9 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 
 import { AbstractComponentLoaderComponent } from '../../../../shared/abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../../shared/abstract-component-loader/dynamic-component-loader.directive';

@@ -11,21 +11,21 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '@core/profile/researcher-profile-data.service';
-import { Item } from '@core/shared/item.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { createFailedRemoteDataObjectFromError$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/shared/operators';
+import { createFailedRemoteDataObjectFromError$ } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   BehaviorSubject,

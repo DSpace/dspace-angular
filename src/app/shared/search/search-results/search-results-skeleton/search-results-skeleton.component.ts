@@ -4,9 +4,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { SearchService } from '@core/shared/search/search.service';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { hasValue } from '@shared/utils/empty.util';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Observable } from 'rxjs';
 

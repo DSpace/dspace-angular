@@ -4,8 +4,8 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
-import { Item } from '@core/shared/item.model';
-import { MetadataMap } from '@core/shared/metadata.models';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataMap } from '@dspace/core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({

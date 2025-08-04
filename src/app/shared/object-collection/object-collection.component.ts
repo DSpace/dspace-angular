@@ -21,15 +21,15 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Context } from '@core/shared/context.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { isEmpty } from '@shared/utils/empty.util';
-import { setPlaceHolderAttributes } from '@shared/utils/object-list-utils';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,

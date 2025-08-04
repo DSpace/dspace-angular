@@ -3,8 +3,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { environment } from '../../../../../environments/environment.test';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';

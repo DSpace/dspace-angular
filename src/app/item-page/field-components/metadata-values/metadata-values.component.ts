@@ -10,12 +10,12 @@ import { RouterLink } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { BrowseDefinition } from '@core/shared/browse-definition.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { VALUE_LIST_BROWSE_DEFINITION } from '@core/shared/value-list-browse-definition.resource-type';
+} from '@dspace/config/app-config.interface';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 
 import { environment } from '../../../../environments/environment';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

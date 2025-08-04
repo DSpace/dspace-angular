@@ -2,7 +2,7 @@ import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,

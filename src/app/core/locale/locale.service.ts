@@ -7,13 +7,13 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { LangConfig } from '@config/lang-config.interface';
-import { TranslateService } from '@ngx-translate/core';
+} from '@dspace/config/app-config.interface';
+import { LangConfig } from '@dspace/config/lang-config.interface';
 import {
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,

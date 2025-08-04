@@ -1,5 +1,5 @@
-import { AccessStatusObject } from '@core/shared/access-status.model';
-import { ACCESS_STATUS } from '@core/shared/access-status.resource-type';
+import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
+import { ACCESS_STATUS } from '@dspace/core/shared/access-status.resource-type';
 import {
   autoserialize,
   deserialize,

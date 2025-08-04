@@ -10,21 +10,21 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Item } from '@core/shared/item.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import {
   ItemMockPid10,
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
-} from '@core/testing/notifications.mock';
-import { getMockSearchService } from '@core/testing/search-service.mock';
-import { createTestComponent } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/notifications.mock';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

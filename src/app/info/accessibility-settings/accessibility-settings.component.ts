@@ -5,14 +5,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '@core/auth/auth.service';
-import { OrejimeService } from '@core/cookies/orejime.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isEmpty } from '@shared/utils/empty.util';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,

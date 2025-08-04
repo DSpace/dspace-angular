@@ -3,14 +3,14 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { ItemDataService } from '@core/data/item-data.service';
-import { Item } from '@core/shared/item.model';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {

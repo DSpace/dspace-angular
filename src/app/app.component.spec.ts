@@ -10,24 +10,24 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { authReducer } from '@core/auth/auth.reducer';
-import { AuthService } from '@core/auth/auth.service';
-import { LocaleService } from '@core/locale/locale.service';
-import { HeadTagService } from '@core/metadata/head-tag.service';
-import { RouteService } from '@core/services/route.service';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { RouteService } from '@dspace/core/services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
-import { MockActivatedRoute } from '@core/testing/active-router.mock';
-import { AngularticsProviderMock } from '@core/testing/angulartics-provider.service.mock';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { CSSVariableServiceStub } from '@core/testing/css-variable-service.stub';
-import { HeadTagServiceMock } from '@core/testing/head-tag-service.mock';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
-import { RouterMock } from '@core/testing/router.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+} from '@dspace/core/services/window.service';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { AngularticsProviderMock } from '@dspace/core/testing/angulartics-provider.service.mock';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,

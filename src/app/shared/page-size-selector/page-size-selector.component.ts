@@ -9,10 +9,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { Observable } from 'rxjs';
 import {
   map,

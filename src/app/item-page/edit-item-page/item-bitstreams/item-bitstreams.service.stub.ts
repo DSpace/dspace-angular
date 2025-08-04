@@ -1,5 +1,5 @@
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';

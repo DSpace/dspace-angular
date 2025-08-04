@@ -6,14 +6,20 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '@core/shared/collection.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { License } from '@core/shared/license.model';
-import { WorkspaceitemSectionLicenseObject } from '@core/submission/models/workspaceitem-section-license.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { License } from '@dspace/core/shared/license.model';
+import { WorkspaceitemSectionLicenseObject } from '@dspace/core/submission/models/workspaceitem-section-license.model';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -21,12 +27,6 @@ import {
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

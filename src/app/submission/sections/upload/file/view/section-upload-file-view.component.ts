@@ -7,11 +7,11 @@ import {
 import {
   MetadataMap,
   MetadataValue,
-} from '@core/shared/metadata.models';
-import { Metadata } from '@core/shared/metadata.utils';
-import { WorkspaceitemSectionUploadFileObject } from '@core/submission/models/workspaceitem-section-upload-file.model';
+} from '@dspace/core/shared/metadata.models';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 
 import { FileSizePipe } from '../../../../../shared/utils/file-size-pipe';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

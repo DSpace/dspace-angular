@@ -5,15 +5,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { SUBMISSION_CC_LICENSE } from '@core/submission/models/submission-cc-licence.resource-type';
-import { SubmissionCcLicence } from '@core/submission/models/submission-cc-license.model';
-import { SubmissionCcLicenseDataService } from '@core/submission/submission-cc-license-data.service';
-import { SubmissionCcLicenseUrlDataService } from '@core/submission/submission-cc-license-url-data.service';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { SUBMISSION_CC_LICENSE } from '@dspace/core/submission/models/submission-cc-licence.resource-type';
+import { SubmissionCcLicence } from '@dspace/core/submission/models/submission-cc-license.model';
+import { SubmissionCcLicenseDataService } from '@dspace/core/submission/submission-cc-license-data.service';
+import { SubmissionCcLicenseUrlDataService } from '@dspace/core/submission/submission-cc-license-url-data.service';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';

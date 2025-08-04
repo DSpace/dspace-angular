@@ -11,23 +11,23 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { ItemTemplateDataService } from '@core/data/item-template-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { Item } from '@core/shared/item.model';
-import { NoContent } from '@core/shared/NoContent.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   combineLatest as combineLatestObservable,
   Observable,

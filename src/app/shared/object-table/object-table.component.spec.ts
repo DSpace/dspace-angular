@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';

@@ -10,26 +10,26 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { SearchService } from '@core/shared/search/search.service';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

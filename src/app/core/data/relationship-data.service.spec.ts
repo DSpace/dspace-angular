@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
+} from '@dspace/config/app-config.interface';
 import { of } from 'rxjs';
 
 import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';

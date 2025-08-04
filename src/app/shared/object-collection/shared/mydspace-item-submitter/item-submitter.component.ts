@@ -4,15 +4,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { RemoteData } from '@core/data/remote-data';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   EMPTY,
   Observable,

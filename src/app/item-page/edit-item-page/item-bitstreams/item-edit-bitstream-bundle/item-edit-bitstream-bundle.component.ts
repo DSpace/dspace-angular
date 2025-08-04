@@ -13,35 +13,35 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '@core/data/bundle-data.service';
-import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { Bundle } from '@core/shared/bundle.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   paginatedListToArray,
-} from '@core/shared/operators';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
+} from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdownModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasNoValue,
-  hasValue,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

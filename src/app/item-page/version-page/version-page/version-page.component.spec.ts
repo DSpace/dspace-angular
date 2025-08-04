@@ -6,16 +6,16 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { VersionDataService } from '@core/data/version-data.service';
-import { Item } from '@core/shared/item.model';
-import { Version } from '@core/shared/version.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { Version } from '@dspace/core/shared/version.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';

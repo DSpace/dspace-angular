@@ -13,19 +13,19 @@ import { provideRouter } from '@angular/router';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { ExternalSourceDataService } from '@core/data/external-source-data.service';
-import { LookupRelationService } from '@core/data/lookup-relation.service';
-import { Collection } from '@core/shared/collection.model';
-import { ExternalSource } from '@core/shared/external-source.model';
-import { Item } from '@core/shared/item.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/config/app-config.interface';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   NgbActiveModal,
   NgbModule,

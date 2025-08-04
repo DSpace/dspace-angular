@@ -12,17 +12,17 @@ import {
   Params,
   Router,
 } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { NoContent } from '@core/shared/NoContent.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+} from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,

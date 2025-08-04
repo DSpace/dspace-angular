@@ -8,14 +8,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '@core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadatumRepresentation } from '@core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

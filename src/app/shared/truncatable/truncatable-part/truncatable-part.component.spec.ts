@@ -12,10 +12,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
-import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+} from '@dspace/core/services/window.service';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

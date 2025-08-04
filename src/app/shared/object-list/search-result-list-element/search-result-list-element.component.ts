@@ -6,12 +6,12 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Metadata } from '@core/shared/metadata.utils';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { hasValue } from '@shared/utils/empty.util';
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';

@@ -5,17 +5,17 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RequestService } from '@core/data/request.service';
-import { SystemWideAlertDataService } from '@core/data/system-wide-alert-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { SystemWideAlert } from '@core/shared/system-wide-alert.model';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
+import { RequestService } from '@dspace/core/data/request.service';
+import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   utcToZonedTime,

@@ -16,21 +16,21 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RemoteData } from '@core/data/remote-data';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { PageInfo } from '@core/shared/page-info.model';
-import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,

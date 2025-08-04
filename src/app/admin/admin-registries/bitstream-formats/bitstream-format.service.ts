@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
 import {
   createSelector,
   select,

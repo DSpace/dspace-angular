@@ -1,13 +1,13 @@
 import {
   link,
   typedObject,
-} from '@core/cache/builders/build-decorators';
-import { RemoteData } from '@core/data/remote-data';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { EPERSON } from '@core/eperson/models/eperson.resource-type';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { DSPACE_OBJECT } from '@core/shared/dspace-object.resource-type';
-import { HALLink } from '@core/shared/hal-link.model';
+} from '@dspace/core/cache/builders/build-decorators';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { EPERSON } from '@dspace/core/eperson/models/eperson.resource-type';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSPACE_OBJECT } from '@dspace/core/shared/dspace-object.resource-type';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
 import {
   autoserialize,
   deserialize,

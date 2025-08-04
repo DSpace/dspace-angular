@@ -8,16 +8,16 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { Item } from '@core/shared/item.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { parseCcCode } from '@dspace/shared/utils/license.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
-import { parseCcCode } from '@shared/utils/license.utils';
 import {
   map,
   Observable,

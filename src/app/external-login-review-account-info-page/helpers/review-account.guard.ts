@@ -5,13 +5,13 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
-import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
-import { RemoteData } from '@core/data/remote-data';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { Registration } from '@core/shared/registration.model';
-import { hasValue } from '@shared/utils/empty.util';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   catchError,
   mergeMap,

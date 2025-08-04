@@ -5,7 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

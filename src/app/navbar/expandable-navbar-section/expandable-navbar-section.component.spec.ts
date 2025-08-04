@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';

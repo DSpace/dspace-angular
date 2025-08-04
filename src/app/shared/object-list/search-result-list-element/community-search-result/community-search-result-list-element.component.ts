@@ -4,8 +4,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Community } from '@core/shared/community.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';

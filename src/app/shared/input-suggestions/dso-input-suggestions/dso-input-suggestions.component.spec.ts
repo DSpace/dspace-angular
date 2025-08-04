@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';

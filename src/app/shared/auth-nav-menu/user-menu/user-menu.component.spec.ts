@@ -13,17 +13,17 @@ import { ActivatedRoute } from '@angular/router';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
+} from '@dspace/config/app-config.interface';
 import {
   authReducer,
   AuthState,
-} from '@core/auth/auth.reducer';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { EPersonMock } from '@core/testing/eperson.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   Store,
   StoreModule,

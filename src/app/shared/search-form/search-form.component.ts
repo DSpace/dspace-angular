@@ -8,23 +8,23 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '@core/data/dspace-object-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 

@@ -10,16 +10,16 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
-import { BrowseDefinition } from '@core/shared/browse-definition.model';
-import { Context } from '@core/shared/context.model';
-import { HierarchicalBrowseDefinition } from '@core/shared/hierarchical-browse-definition.model';
-import { VocabularyEntryDetail } from '@core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { HierarchicalBrowseDefinition } from '@dspace/core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

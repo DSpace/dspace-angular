@@ -9,9 +9,9 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

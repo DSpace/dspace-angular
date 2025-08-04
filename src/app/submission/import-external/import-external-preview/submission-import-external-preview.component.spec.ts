@@ -9,13 +9,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
-import { Metadata } from '@core/shared/metadata.utils';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { createTestComponent } from '@core/testing/utils.test';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
   NgbActiveModal,
   NgbModal,

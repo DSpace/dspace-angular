@@ -14,20 +14,20 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { Collection } from '@core/shared/collection.model';
-import { Community } from '@core/shared/community.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 

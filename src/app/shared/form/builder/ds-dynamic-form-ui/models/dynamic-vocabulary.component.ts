@@ -5,15 +5,15 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { PageInfo } from '@core/shared/page-info.model';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   Observable,
   of,

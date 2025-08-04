@@ -9,18 +9,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { AuthService } from '@core/auth/auth.service';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { Item } from '@core/shared/item.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
-} from '@core/testing/dso-name.service.mock';
-import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
+} from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

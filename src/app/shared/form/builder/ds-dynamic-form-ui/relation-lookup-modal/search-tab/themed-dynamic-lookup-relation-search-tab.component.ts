@@ -4,12 +4,12 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Item } from '@core/shared/item.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
-import { SearchObjects } from '@core/shared/search/models/search-objects.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { Observable } from 'rxjs';
 
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';

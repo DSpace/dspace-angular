@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   maxMobileWidth,
   WidthCategory,
-} from '@core/shared/host-window-type';
+} from '@dspace/core/shared/host-window-type';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   select,
   Store,
 } from '@ngrx/store';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

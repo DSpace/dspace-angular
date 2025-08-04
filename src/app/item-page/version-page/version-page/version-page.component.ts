@@ -6,17 +6,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { RemoteData } from '@core/data/remote-data';
-import { VersionDataService } from '@core/data/version-data.service';
-import { getPageNotFoundRoute } from '@core/router/routing-paths';
-import { redirectOn4xx } from '@core/shared/authorized.operators';
-import { Item } from '@core/shared/item.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { getPageNotFoundRoute } from '@dspace/core/router/routing-paths';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { Version } from '@core/shared/version.model';
+} from '@dspace/core/shared/operators';
+import { Version } from '@dspace/core/shared/version.model';
 import { Observable } from 'rxjs';
 import {
   map,

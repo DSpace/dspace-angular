@@ -7,14 +7,14 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@core/data/remote-data';
-import { Group } from '@core/eperson/models/group.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { SupervisionOrder } from '@core/supervision-order/models/supervision-order.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { SupervisionOrder } from '@dspace/core/supervision-order/models/supervision-order.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   from,

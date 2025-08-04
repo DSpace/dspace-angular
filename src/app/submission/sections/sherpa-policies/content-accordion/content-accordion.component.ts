@@ -3,7 +3,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { PermittedVersions } from '@core/submission/models/sherpa-policies-details.model';
+import { PermittedVersions } from '@dspace/core/submission/models/sherpa-policies-details.model';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

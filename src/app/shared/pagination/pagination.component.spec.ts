@@ -1,5 +1,5 @@
 // Load the implementations that should be tested
-import {CommonModule, NgFor} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -23,15 +23,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { MockActivatedRoute } from '@core/testing/active-router.mock';
-import { HostWindowServiceMock } from '@core/testing/host-window-service.mock';
-import { RouterMock } from '@core/testing/router.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createTestComponent } from '@core/testing/utils.test';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { HostWindowServiceMock } from '@dspace/core/testing/host-window-service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import {

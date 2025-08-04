@@ -5,14 +5,18 @@ import {
   OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { LangConfig } from '@config/lang-config.interface';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
+import { LangConfig } from '@dspace/config/lang-config.interface';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
@@ -20,10 +24,6 @@ import {
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { environment } from '../../../environments/environment';

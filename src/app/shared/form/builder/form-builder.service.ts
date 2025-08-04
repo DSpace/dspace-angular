@@ -7,10 +7,23 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { VIRTUAL_METADATA_PREFIX } from '@core/shared/metadata.models';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { VIRTUAL_METADATA_PREFIX } from '@dspace/core/shared/metadata.models';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+} from '@dspace/shared/utils/empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -28,19 +41,6 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import {
-  dateToString,
-  isNgbDateStruct,
-} from '@shared/utils/date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-} from '@shared/utils/empty.util';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';

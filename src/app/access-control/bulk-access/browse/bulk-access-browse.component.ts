@@ -8,18 +8,18 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbAccordionModule,
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {
   BehaviorSubject,

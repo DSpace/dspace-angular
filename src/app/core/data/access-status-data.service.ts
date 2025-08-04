@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccessStatusObject } from '@core/shared/access-status.model';
+import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
 import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

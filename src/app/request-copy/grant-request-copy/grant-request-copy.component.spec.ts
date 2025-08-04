@@ -9,21 +9,21 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { ItemRequestDataService } from '@core/data/item-request-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { HardRedirectService } from '@core/services/hard-redirect.service';
-import { Item } from '@core/shared/item.model';
-import { ItemRequest } from '@core/shared/item-request.model';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,

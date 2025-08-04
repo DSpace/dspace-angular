@@ -5,7 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 import { AdminSearchPageComponent } from './admin-search-page.component';

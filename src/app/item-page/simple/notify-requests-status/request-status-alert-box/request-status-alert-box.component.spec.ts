@@ -4,7 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { RequestStatusEnum } from '@core/coar-notify/models/notify-status.enum';
+import { RequestStatusEnum } from '@dspace/core/coar-notify/models/notify-status.enum';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';

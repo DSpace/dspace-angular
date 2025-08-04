@@ -2,7 +2,7 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { UUIDService } from '@core/shared/uuid.service';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { of } from 'rxjs';
 
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';

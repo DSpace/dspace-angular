@@ -11,21 +11,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { authReducer } from '@core/auth/auth.reducer';
-import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
-import { BrowseService } from '@core/browse/browse.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { FlatBrowseDefinition } from '@core/shared/flat-browse-definition.model';
-import { HierarchicalBrowseDefinition } from '@core/shared/hierarchical-browse-definition.model';
-import { Item } from '@core/shared/item.model';
-import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
-import { EPersonMock } from '@core/testing/eperson.mock';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { FlatBrowseDefinition } from '@dspace/core/shared/flat-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '@dspace/core/shared/hierarchical-browse-definition.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   Store,
   StoreModule,

@@ -1,4 +1,8 @@
-import { MetadataValue } from '@core/shared/metadata.models';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
@@ -6,10 +10,6 @@ import {
   DynamicFormGroupModelConfig,
   serializable,
 } from '@ng-dynamic-forms/core';
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import { Subject } from 'rxjs';
 
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';

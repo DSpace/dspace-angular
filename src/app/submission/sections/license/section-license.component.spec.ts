@@ -14,23 +14,23 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { License } from '@core/shared/license.model';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { SectionsServiceStub } from '@core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { createTestComponent } from '@core/testing/utils.test';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { License } from '@dspace/core/shared/license.model';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,

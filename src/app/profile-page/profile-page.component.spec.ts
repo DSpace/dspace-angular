@@ -8,25 +8,25 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { authReducer } from '@core/auth/auth.reducer';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthTokenInfo } from '@core/auth/models/auth-token-info.model';
-import { RestResponse } from '@core/cache/response.models';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import {
   EmptySpecialGroupDataMock$,
   SpecialGroupDataMock$,
-} from '@core/testing/special-group.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
+} from '@dspace/core/testing/special-group.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';

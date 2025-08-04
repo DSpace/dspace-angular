@@ -9,17 +9,17 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { OrcidAuthService } from '@core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '@core/profile/model/researcher-profile.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
-import { Item } from '@core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { createFailedRemoteDataObjectFromError$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/services/window.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { createFailedRemoteDataObjectFromError$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,

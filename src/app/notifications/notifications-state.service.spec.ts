@@ -6,7 +6,7 @@ import {
   qualityAssuranceTopicObjectMissingPid,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '@core/testing/notifications.mock';
+} from '@dspace/core/testing/notifications.mock';
 import {
   Store,
   StoreModule,

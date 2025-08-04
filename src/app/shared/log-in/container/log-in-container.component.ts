@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AuthMethod } from '@core/auth/models/auth.method';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
 
 import { AuthMethodTypeComponent } from '../methods/auth-methods.type';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../methods/log-in.methods-decorator';

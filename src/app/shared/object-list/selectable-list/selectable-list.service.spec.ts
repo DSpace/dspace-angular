@@ -2,8 +2,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
-import { hasValue } from '@shared/utils/empty.util';
 
 import { AppState } from '../../../app.reducer';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';

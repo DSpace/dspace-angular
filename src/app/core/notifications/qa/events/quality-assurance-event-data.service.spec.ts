@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { RequestParam } from '@core/cache/models/request-param.model';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { RestResponse } from '@core/cache/response.models';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { RequestService } from '@core/data/request.service';
-import { RequestEntry } from '@core/data/request-entry.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { PageInfo } from '@core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RequestEntry } from '@dspace/core/data/request-entry.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { ReplaceOperation } from 'fast-json-patch';
 import {
   cold,

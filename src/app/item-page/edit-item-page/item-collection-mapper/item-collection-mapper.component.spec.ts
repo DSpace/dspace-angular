@@ -15,29 +15,29 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Collection } from '@core/shared/collection.model';
-import { Item } from '@core/shared/item.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '@core/testing/object-select-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { SearchServiceStub } from '@core/testing/search-service.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
+} from '@dspace/core/cache/models/sort-options.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,

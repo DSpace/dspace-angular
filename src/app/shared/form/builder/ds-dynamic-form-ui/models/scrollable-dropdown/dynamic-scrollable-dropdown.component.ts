@@ -12,18 +12,22 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { CacheableObject } from '@core/cache/cacheable-object.model';
-import { FindAllDataImpl } from '@core/data/base/find-all-data';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { FindAllDataImpl } from '@dspace/core/data/base/find-all-data';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { LazyDataServicesMap } from '@core/data-services-map';
-import { lazyDataService } from '@core/lazy-data-service';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { PageInfo } from '@core/shared/page-info.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { LazyDataServicesMap } from '@dspace/core/data-services-map';
+import { lazyDataService } from '@dspace/core/lazy-data-service';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdown,
   NgbDropdownModule,
@@ -33,10 +37,6 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isEmpty,
-} from '@shared/utils/empty.util';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import {
   Observable,

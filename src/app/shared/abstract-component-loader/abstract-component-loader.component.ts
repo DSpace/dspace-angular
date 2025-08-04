@@ -8,11 +8,11 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { GenericConstructor } from '@core/shared/generic-constructor';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 
 import { ThemeService } from '../theme-support/theme.service';

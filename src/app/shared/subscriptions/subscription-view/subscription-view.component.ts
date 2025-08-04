@@ -6,16 +6,16 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { Subscription } from '@core/shared/subscription.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { take } from 'rxjs/operators';
 import { getDSORoute } from 'src/app/app-routing-paths';
 

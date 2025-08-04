@@ -3,40 +3,40 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { RequestParam } from '@core/cache/models/request-param.model';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import {
   CreateData,
   CreateDataImpl,
-} from '@core/data/base/create-data';
+} from '@dspace/core/data/base/create-data';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '@core/data/base/delete-data';
-import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
+} from '@dspace/core/data/base/delete-data';
+import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
 import {
   PatchData,
   PatchDataImpl,
-} from '@core/data/base/patch-data';
+} from '@dspace/core/data/base/patch-data';
 import {
   SearchData,
   SearchDataImpl,
-} from '@core/data/base/search-data';
-import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
+} from '@dspace/core/data/base/search-data';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import {
   DeleteByIDRequest,
   PostRequest,
-} from '@core/data/request.models';
-import { RequestService } from '@core/data/request.service';
-import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
-import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { NoContent } from '@core/shared/NoContent.model';
-import { hasValue } from '@shared/utils/empty.util';
+} from '@dspace/core/data/request.models';
+import { RequestService } from '@dspace/core/data/request.service';
+import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {

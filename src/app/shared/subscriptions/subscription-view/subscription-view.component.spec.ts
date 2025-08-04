@@ -15,20 +15,20 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
 // Import utils
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Item } from '@core/shared/item.model';
-import { ITEM } from '@core/shared/item.resource-type';
-import { Subscription } from '@core/shared/subscription.model';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
-} from '@core/testing/subscriptions-data.mock';
+} from '@dspace/core/testing/subscriptions-data.mock';
 // Import mocks
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

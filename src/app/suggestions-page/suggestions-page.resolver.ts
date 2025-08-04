@@ -4,10 +4,10 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { SuggestionTarget } from '@core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionTargetDataService } from '@core/notifications/suggestions/target/suggestion-target-data.service';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionTargetDataService } from '@dspace/core/notifications/suggestions/target/suggestion-target-data.service';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 
 /**

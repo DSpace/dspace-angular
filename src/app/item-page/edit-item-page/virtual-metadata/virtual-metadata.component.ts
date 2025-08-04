@@ -15,12 +15,12 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { Item } from '@core/shared/item.model';
-import { MetadataValue } from '@core/shared/metadata.models';
+} from '@dspace/config/app-config.interface';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

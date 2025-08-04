@@ -12,19 +12,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Item } from '@core/shared/item.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
-import { PoolTaskDataService } from '@core/tasks/pool-task-data.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { getMockRequestService } from '@core/testing/request.service.mock';
-import { RouterStub } from '@core/testing/router.stub';
-import { getMockSearchService } from '@core/testing/search-service.mock';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 

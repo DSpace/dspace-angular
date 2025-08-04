@@ -10,22 +10,22 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ExternalSourceDataService } from '@core/data/external-source-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { Collection } from '@core/shared/collection.model';
-import { ExternalSource } from '@core/shared/external-source.model';
-import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
-import { Item } from '@core/shared/item.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { createPaginatedList } from '@core/testing/utils.test';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {

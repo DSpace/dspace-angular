@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   hasNoValue,
   isEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,

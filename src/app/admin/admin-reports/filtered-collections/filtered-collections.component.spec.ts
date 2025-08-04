@@ -10,9 +10,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { DspaceRestService } from '@core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '@core/dspace-rest/raw-rest-response.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   NgbAccordion,
   NgbAccordionModule,

@@ -1,7 +1,7 @@
-import { FormRowModel } from '@core/config/models/config-submission-form.model';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { DynamicSelectModel } from '@ng-dynamic-forms/core';
 
 import { DsDynamicInputModel } from '../builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';

@@ -5,7 +5,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { WorkspaceitemSectionIdentifiersObject } from '@core/submission/models/workspaceitem-section-identifiers.model';
+import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core/submission/models/workspaceitem-section-identifiers.model';
 import {
   TranslateModule,
   TranslateService,
@@ -15,7 +15,6 @@ import {
   of,
 } from 'rxjs';
 
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
@@ -35,7 +34,6 @@ import { SectionsService } from '../sections.service';
   imports: [
     AsyncPipe,
     TranslateModule,
-    VarDirective,
   ],
   standalone: true,
 })

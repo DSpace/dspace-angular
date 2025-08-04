@@ -5,20 +5,20 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthMethod } from '@core/auth/models/auth.method';
-import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   isAuthenticated,
   isAuthenticationLoading,
-} from '@core/auth/selectors';
-import { CoreState } from '@core/core-state.model';
+} from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
 } from '@ngrx/store';
-import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';

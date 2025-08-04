@@ -8,12 +8,7 @@ import { Router } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+} from '@dspace/config/app-config.interface';
 import {
   hasNoValue,
   hasValue,
@@ -22,7 +17,12 @@ import {
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
 import {
   Observable,

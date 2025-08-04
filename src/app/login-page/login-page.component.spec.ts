@@ -8,11 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
-import { AuthService } from '@core/auth/auth.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';

@@ -14,9 +14,8 @@
  * from your application's main.server.ts file, as seen below with the
  * import for `ngExpressEngine`.
  */
-
-import 'zone.js/node';
 import 'reflect-metadata';
+import 'zone.js/node';
 
 /* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
@@ -41,7 +40,7 @@ import { enableProdMode } from '@angular/core';
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue } from '@shared/utils/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 import bootstrap from './src/main.server';
 import { buildAppConfig } from './src/config/config.server';
@@ -51,14 +50,14 @@ import {
 } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from '@core/auth/models/auth-token-info.model';
+import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
 import { CommonEngine } from '@angular/ssr';
 import { APP_BASE_HREF } from '@angular/common';
 import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
-import { SsrExcludePatterns } from "./src/config/ssr-config.interface";
+import { SsrExcludePatterns } from './src/config/ssr-config.interface';
 
 /*
  * Set path for the browser application's dist folder

@@ -8,8 +8,8 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { MetadataField } from '@core/metadata/metadata-field.model';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,

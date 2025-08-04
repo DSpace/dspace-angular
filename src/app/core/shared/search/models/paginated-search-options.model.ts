@@ -1,4 +1,4 @@
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 import { SortOptions } from '../../../cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';

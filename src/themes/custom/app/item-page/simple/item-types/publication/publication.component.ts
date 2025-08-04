@@ -4,8 +4,8 @@ import {
   Component,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Context } from '@core/shared/context.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CollectionsComponent } from '../../../../../../../app/item-page/field-components/collections/collections.component';

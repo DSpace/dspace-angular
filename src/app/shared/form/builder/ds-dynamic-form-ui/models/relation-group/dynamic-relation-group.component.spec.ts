@@ -21,13 +21,13 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormRowModel } from '@core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
-import { createTestComponent } from '@core/testing/utils.test';
-import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   NgbModule,
   NgbTooltipModule,

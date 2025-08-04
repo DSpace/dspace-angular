@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { BITSTREAMFORMATS_MODULE_PATH } from './admin-registries-routing-paths';
 import { MetadataRegistryComponent } from './metadata-registry/metadata-registry.component';

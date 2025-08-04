@@ -4,13 +4,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/models/admin-notify-message-search-result.model';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

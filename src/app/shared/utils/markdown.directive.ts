@@ -12,8 +12,8 @@ import {
   DomSanitizer,
   SafeHtml,
 } from '@angular/platform-browser';
-import { MathService } from '@core/shared/math.service';
-import { isEmpty } from '@shared/utils/empty.util';
+import { MathService } from '@dspace/core/shared/math.service';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { Subject } from 'rxjs';
 import {
   filter,

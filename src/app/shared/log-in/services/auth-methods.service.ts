@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AuthMethod } from '@core/auth/models/auth.method';
-import { AuthMethodType } from '@core/auth/models/auth.method-type';
-import { getAuthenticationMethods } from '@core/auth/selectors';
-import { CoreState } from '@core/core-state.model';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { getAuthenticationMethods } from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
 import {
   select,
   Store,

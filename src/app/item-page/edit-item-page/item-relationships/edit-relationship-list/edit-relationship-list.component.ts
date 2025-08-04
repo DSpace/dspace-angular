@@ -14,43 +14,43 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { LinkService } from '@core/cache/builders/link.service';
-import { RequestParam } from '@core/cache/models/request-param.model';
-import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
-import { RelationshipIdentifiable } from '@core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Collection } from '@core/shared/collection.model';
-import { FollowLinkConfig } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { Relationship } from '@core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+} from '@dspace/config/app-config.interface';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { RelationshipIdentifiable } from '@dspace/core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/shared/operators';
 import {
   hasNoValue,
   hasValue,
   hasValueOperator,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

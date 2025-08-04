@@ -5,6 +5,6 @@
  * dependencies in webpack.
  */
 
-import { ResourceType } from '@core/shared/resource-type';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 
 export const SYSTEMWIDEALERT = new ResourceType('systemwidealert');

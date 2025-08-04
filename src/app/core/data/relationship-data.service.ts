@@ -6,13 +6,13 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
+} from '@dspace/config/app-config.interface';
 import {
   hasValue,
   hasValueOperator,
   isNotEmpty,
   isNotEmptyOperator,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

@@ -3,7 +3,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Context } from '@core/shared/context.model';
+import { Context } from '@dspace/core/shared/context.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**

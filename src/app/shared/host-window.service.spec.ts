@@ -1,5 +1,5 @@
-import { WidthCategory } from '@core/shared/host-window-type';
-import { CSSVariableServiceStub } from '@core/testing/css-variable-service.stub';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
 import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
 import { MockStore } from '@ngrx/store/testing/mock_store';

@@ -1,24 +1,29 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ErrorResponse } from '@core/cache/response.models';
-import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { Item } from '@core/shared/item.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SubmissionObject } from '@core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '@core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '@core/submission/submission-rest.service';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
+import { ErrorResponse } from '@dspace/core/cache/response.models';
+import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  hasValue,
+  isEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -26,11 +31,6 @@ import {
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import {
   Observable,
   of,

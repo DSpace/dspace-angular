@@ -1,7 +1,7 @@
 import { Inject } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 
 import {
   DynamicScrollableDropdownModel,

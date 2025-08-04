@@ -12,24 +12,24 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { Context } from '@core/shared/context.model';
-import { Item } from '@core/shared/item.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '@core/submission/submission-duplicate-data.service';
-import { PoolTask } from '@core/tasks/models/pool-task-object.model';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@core/testing/link-service.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';

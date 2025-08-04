@@ -7,10 +7,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Item } from '@core/shared/item.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
-import { hasValue } from '@shared/utils/empty.util';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

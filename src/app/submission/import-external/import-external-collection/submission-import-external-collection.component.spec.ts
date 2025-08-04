@@ -9,7 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createTestComponent } from '@core/testing/utils.test';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

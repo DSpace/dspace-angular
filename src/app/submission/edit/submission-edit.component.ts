@@ -9,23 +9,23 @@ import {
   ParamMap,
   Router,
 } from '@angular/router';
-import { SubmissionDefinitionsModel } from '@core/config/models/config-submission-definitions.model';
-import { ItemDataService } from '@core/data/item-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
-import { Item } from '@core/shared/item.model';
-import { getAllSucceededRemoteData } from '@core/shared/operators';
-import { SubmissionObject } from '@core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '@core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { TranslateService } from '@ngx-translate/core';
+import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import {
   hasValue,
   isEmpty,
   isNotEmptyOperator,
   isNotNull,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,

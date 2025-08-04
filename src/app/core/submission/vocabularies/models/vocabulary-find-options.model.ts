@@ -1,7 +1,7 @@
-import { RequestParam } from '@core/cache/models/request-param.model';
-import { SortOptions } from '@core/cache/models/sort-options.model';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 /**
  * Representing properties used to build a vocabulary find request

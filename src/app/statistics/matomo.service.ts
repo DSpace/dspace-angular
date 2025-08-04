@@ -4,13 +4,13 @@ import {
   Injectable,
   runInInjectionContext,
 } from '@angular/core';
-import { OrejimeService } from '@core/cookies/orejime.service';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NativeWindowService } from '@core/services/window.service';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   MatomoInitializerService,
   MatomoTracker,

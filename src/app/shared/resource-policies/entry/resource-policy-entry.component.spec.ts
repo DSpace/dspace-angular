@@ -16,15 +16,15 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { ActionType } from '@core/resource-policy/models/action-type.model';
-import { PolicyType } from '@core/resource-policy/models/policy-type.model';
-import { Item } from '@core/shared/item.model';
-import { EPersonMock } from '@core/testing/eperson.mock';
-import { GroupMock } from '@core/testing/group-mock';
-import { RouterStub } from '@core/testing/router.stub';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
+import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';

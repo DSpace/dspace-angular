@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   applyPatch,
   Operation,

@@ -1,6 +1,6 @@
-import { AccessStatusObject } from '@core/shared/access-status.model';
-import { ACCESS_STATUS } from '@core/shared/access-status.resource-type';
-import { isEmpty } from '@shared/utils/empty.util';
+import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
+import { ACCESS_STATUS } from '@dspace/core/shared/access-status.resource-type';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   autoserialize,
   autoserializeAs,

@@ -9,16 +9,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { MetadataField } from '@core/metadata/metadata-field.model';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { createPaginatedList } from '@core/testing/utils.test';
+} from '@dspace/core/cache/models/sort-options.model';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';

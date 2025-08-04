@@ -2,7 +2,7 @@ import {
   Pipe,
   PipeTransform,
 } from '@angular/core';
-import { isEmpty } from '@shared/utils/empty.util';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 
 
 @Pipe({

@@ -19,32 +19,32 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { EPersonDataService } from '@core/eperson/eperson-data.service';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { ActionType } from '@core/resource-policy/models/action-type.model';
-import { PolicyType } from '@core/resource-policy/models/policy-type.model';
-import { ResourcePolicy } from '@core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '@core/resource-policy/models/resource-policy.resource-type';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { EPersonMock } from '@core/testing/eperson.mock';
-import { GroupMock } from '@core/testing/group-mock';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { getMockRequestService } from '@core/testing/request.service.mock';
-import { RouterMock } from '@core/testing/router.mock';
-import { createTestComponent } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
+import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { RESOURCE_POLICY } from '@dspace/core/resource-policy/models/resource-policy.resource-type';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import { isNotEmptyOperator } from '@dspace/shared/utils/empty.util';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '@shared/utils/date.util';
-import { isNotEmptyOperator } from '@shared/utils/empty.util';
 import { getTestScheduler } from 'jasmine-marbles';
 import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';

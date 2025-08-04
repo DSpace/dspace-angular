@@ -18,10 +18,10 @@ import {
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
-import { StoreMock } from '@core/testing/store.mock';
-import { createTestComponent } from '@core/testing/utils.test';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/config/app-config.interface';
+import { StoreMock } from '@dspace/core/testing/store.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,

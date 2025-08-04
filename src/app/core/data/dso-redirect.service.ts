@@ -13,8 +13,8 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { hasValue } from '@shared/utils/empty.util';
+} from '@dspace/config/app-config.interface';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

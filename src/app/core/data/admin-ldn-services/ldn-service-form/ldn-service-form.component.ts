@@ -25,9 +25,9 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   NgbDropdownModule,
   NgbModal,

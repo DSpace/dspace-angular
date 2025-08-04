@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { KeyValuePair } from '@core/utilities/key-value-pair.model';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { KeyValuePair } from '@dspace/core/utilities/key-value-pair.model';
 import {
   MockStore,
   provideMockStore,

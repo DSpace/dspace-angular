@@ -3,7 +3,7 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { hasNoValue } from '@shared/utils/empty.util';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

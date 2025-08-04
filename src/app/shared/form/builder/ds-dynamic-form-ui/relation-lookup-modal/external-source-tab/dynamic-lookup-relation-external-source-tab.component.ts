@@ -9,29 +9,29 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ExternalSourceDataService } from '@core/data/external-source-data.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Collection } from '@core/shared/collection.model';
-import { Context } from '@core/shared/context.model';
-import { ExternalSource } from '@core/shared/external-source.model';
-import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
-import { Item } from '@core/shared/item.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@shared/utils/empty.util';
 import {
   Observable,
   Subscription,

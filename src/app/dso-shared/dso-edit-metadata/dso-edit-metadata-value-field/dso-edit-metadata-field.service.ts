@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ItemDataService } from '@core/data/item-data.service';
-import { Collection } from '@core/shared/collection.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { Vocabulary } from '@core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,

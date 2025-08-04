@@ -9,7 +9,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Registration } from '@core/shared/registration.model';
+import { Registration } from '@dspace/core/shared/registration.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';

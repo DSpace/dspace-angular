@@ -17,17 +17,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { NotifyInfoService } from '@core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '@core/data/item-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { SignpostingDataService } from '@core/data/signposting-data.service';
-import { LinkHeadService } from '@core/services/link-head.service';
-import { ServerResponseService } from '@core/services/server-response.service';
-import { Item } from '@core/shared/item.model';
-import { MetadataMap } from '@core/shared/metadata.models';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataMap } from '@dspace/core/shared/metadata.models';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

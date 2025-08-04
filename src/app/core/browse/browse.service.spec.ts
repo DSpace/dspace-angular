@@ -2,10 +2,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
-import { HrefOnlyDataService } from '@core/data/href-only-data.service';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { HrefOnlyDataService } from '@dspace/core/data/href-only-data.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import {
   TranslateLoader,
   TranslateModule,

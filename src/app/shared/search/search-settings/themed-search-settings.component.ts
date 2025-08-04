@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { SortOptions } from '@core/cache/models/sort-options.model';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchSettingsComponent } from './search-settings.component';

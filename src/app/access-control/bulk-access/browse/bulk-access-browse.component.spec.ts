@@ -4,9 +4,9 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbAccordionModule,
   NgbNavModule,

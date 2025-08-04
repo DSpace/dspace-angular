@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { of } from 'rxjs';
 
 import { endUserAgreementGuard } from './end-user-agreement.guard';

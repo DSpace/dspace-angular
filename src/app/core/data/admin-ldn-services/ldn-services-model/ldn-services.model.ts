@@ -1,7 +1,7 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { CacheableObject } from '@core/cache/cacheable-object.model';
-import { ResourceType } from '@core/shared/resource-type';
-import { excludeFromEquals } from '@core/utilities/equals.decorators';
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,

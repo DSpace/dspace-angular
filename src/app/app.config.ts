@@ -19,20 +19,20 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { StoreDevModules } from '@config/store/devtools';
-import { AuthInterceptor } from '@core/auth/auth.interceptor';
-import { ClientCookieService } from '@core/cookies/client-cookie.service';
-import { DspaceRestInterceptor } from '@core/dspace-rest/dspace-rest.interceptor';
-import { LocaleInterceptor } from '@core/locale/locale.interceptor';
-import { LogInterceptor } from '@core/log/log.interceptor';
+} from '@dspace/config/app-config.interface';
+import { StoreDevModules } from '@dspace/config/store/devtools';
+import { AuthInterceptor } from '@dspace/core/auth/auth.interceptor';
+import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service';
+import { DspaceRestInterceptor } from '@dspace/core/dspace-rest/dspace-rest.interceptor';
+import { LocaleInterceptor } from '@dspace/core/locale/locale.interceptor';
+import { LogInterceptor } from '@dspace/core/log/log.interceptor';
 import {
   models,
   provideCore,
-} from '@core/provide-core';
-import { ListableModule } from '@core/shared/listable.module';
-import { DSpaceRouterStateSerializer } from '@core/shared/ngrx/dspace-router-state-serializer';
-import { XsrfInterceptor } from '@core/xsrf/xsrf.interceptor';
+} from '@dspace/core/provide-core';
+import { ListableModule } from '@dspace/core/shared/listable.module';
+import { DSpaceRouterStateSerializer } from '@dspace/core/shared/ngrx/dspace-router-state-serializer';
+import { XsrfInterceptor } from '@dspace/core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';

@@ -11,22 +11,22 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { RequestService } from '@core/data/request.service';
-import { RestRequestMethod } from '@core/data/rest-request-method';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Community } from '@core/shared/community.model';
-import { AuthServiceMock } from '@core/testing/auth.service.mock';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RestRequestMethod } from '@dspace/core/data/rest-request-method';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 

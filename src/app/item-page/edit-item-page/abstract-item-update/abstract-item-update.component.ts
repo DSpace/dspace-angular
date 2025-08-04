@@ -9,16 +9,16 @@ import {
   Data,
   Router,
 } from '@angular/router';
-import { ItemDataService } from '@core/data/item-data.service';
-import { FieldUpdate } from '@core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Item } from '@core/shared/item.model';
-import { getAllSucceededRemoteData } from '@core/shared/operators';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

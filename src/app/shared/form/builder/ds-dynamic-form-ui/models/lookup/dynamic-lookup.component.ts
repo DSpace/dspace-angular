@@ -18,12 +18,17 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { ConfidenceType } from '@core/shared/confidence-type';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { PageInfo } from '@core/shared/page-info.model';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+} from '@dspace/core/data/paginated-list.model';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdown,
   NgbDropdownModule,
@@ -34,11 +39,6 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   of,

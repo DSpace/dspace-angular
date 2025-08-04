@@ -16,18 +16,19 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '@core/auth/auth.service';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { Subscription } from '@core/shared/subscription.model';
+} from '@dspace/core/shared/operators';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   NgbActiveModal,
   NgbModal,
@@ -36,7 +37,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import {
   BehaviorSubject,

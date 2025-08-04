@@ -4,12 +4,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { LogOutAction } from '@core/auth/auth.actions';
-import { AuthService } from '@core/auth/auth.service';
+import { LogOutAction } from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';

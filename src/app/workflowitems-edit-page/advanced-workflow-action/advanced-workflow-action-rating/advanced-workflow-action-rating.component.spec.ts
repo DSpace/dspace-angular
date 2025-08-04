@@ -12,28 +12,28 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RequestService } from '@core/data/request.service';
-import { WorkflowActionDataService } from '@core/data/workflow-action-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { Item } from '@core/shared/item.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '@core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '@core/tasks/models/process-task-response';
-import { RatingAdvancedWorkflowInfo } from '@core/tasks/models/rating-advanced-workflow-info.model';
-import { ClaimedTaskDataServiceStub } from '@core/testing/claimed-task-data-service.stub';
-import { LocationStub } from '@core/testing/location.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RequestServiceStub } from '@core/testing/request-service.stub';
-import { routeServiceStub } from '@core/testing/route-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { WorkflowActionDataServiceStub } from '@core/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '@core/testing/workflow-item-data-service.stub';
+import { RequestService } from '@dspace/core/data/request.service';
+import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
+import { RatingAdvancedWorkflowInfo } from '@dspace/core/tasks/models/rating-advanced-workflow-info.model';
+import { ClaimedTaskDataServiceStub } from '@dspace/core/testing/claimed-task-data-service.stub';
+import { LocationStub } from '@dspace/core/testing/location.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@dspace/core/testing/request-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { WorkflowActionDataServiceStub } from '@dspace/core/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '@dspace/core/testing/workflow-item-data-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

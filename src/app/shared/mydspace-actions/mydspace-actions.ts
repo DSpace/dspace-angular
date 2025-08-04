@@ -6,15 +6,15 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { IdentifiableDataService } from '@core/data/base/identifiable-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { NotificationOptions } from '@core/notification-system/models/notification-options.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { getFirstSucceededRemoteData } from '@core/shared/operators';
-import { ResourceType } from '@core/shared/resource-type';
-import { SearchService } from '@core/shared/search/search.service';
+import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { SearchService } from '@dspace/core/shared/search/search.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,

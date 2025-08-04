@@ -2,26 +2,26 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@core/data/processes/script-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Process } from '@core/processes/process.model';
-import { ProcessParameter } from '@core/processes/process-parameter.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+} from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 

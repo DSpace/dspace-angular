@@ -3,7 +3,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Journal } from '@core/submission/models/sherpa-policies-details.model';
+import { Journal } from '@dspace/core/submission/models/sherpa-policies-details.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**

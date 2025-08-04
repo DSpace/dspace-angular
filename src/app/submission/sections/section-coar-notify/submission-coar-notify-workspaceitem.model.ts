@@ -1,7 +1,7 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { CacheableObject } from '@core/cache/cacheable-object.model';
-import { COAR_NOTIFY_WORKSPACEITEM } from '@core/shared/section-coar-notify-service.resource-type';
-import { excludeFromEquals } from '@core/utilities/equals.decorators';
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { COAR_NOTIFY_WORKSPACEITEM } from '@dspace/core/shared/section-coar-notify-service.resource-type';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,

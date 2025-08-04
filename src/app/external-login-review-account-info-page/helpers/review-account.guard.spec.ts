@@ -10,15 +10,15 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthRegistrationType } from '@core/auth/models/auth.registration-type';
-import { EpersonRegistrationService } from '@core/data/eperson-registration.service';
-import { Registration } from '@core/shared/registration.model';
-import { RouterMock } from '@core/testing/router.mock';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,

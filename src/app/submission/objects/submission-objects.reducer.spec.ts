@@ -1,4 +1,4 @@
-import { Item } from '@core/shared/item.model';
+import { Item } from '@dspace/core/shared/item.model';
 
 import { SectionsType } from '../sections/sections-type';
 import {

@@ -10,11 +10,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { Community } from '@core/shared/community.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { of } from 'rxjs';
 
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';

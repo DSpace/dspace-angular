@@ -13,20 +13,20 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { RemoteData } from '@core/data/remote-data';
-import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
-import { FacetValues } from '@core/shared/search/models/facet-values.model';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '@core/shared/search/models/search-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
-import { SequenceService } from '@core/shared/sequence.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
+import { SequenceService } from '@dspace/core/shared/sequence.service';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,

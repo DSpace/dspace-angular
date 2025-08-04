@@ -3,9 +3,9 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
-import { Community } from '@core/shared/community.model';
-import { Context } from '@core/shared/context.model';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';

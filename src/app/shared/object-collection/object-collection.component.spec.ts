@@ -9,8 +9,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { RouterStub } from '@core/testing/router.stub';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 

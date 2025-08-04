@@ -7,30 +7,30 @@ import {
   Component,
   Inject,
 } from '@angular/core';
-import { LdnPattern } from '@core/coar-notify/models/submission-coar-notify.model';
-import { CoarNotifyConfigDataService } from '@core/config/coar-notify-config-data.service';
+import { LdnPattern } from '@dspace/core/coar-notify/models/submission-coar-notify.model';
+import { CoarNotifyConfigDataService } from '@dspace/core/config/coar-notify-config-data.service';
 import {
   LdnService,
   LdnServiceByPattern,
-} from '@core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { LdnServicesService } from '@core/data/ldn-services-data.service';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@core/json-patch/builder/json-patch-operations-builder';
+} from '@dspace/core/data/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { LdnServicesService } from '@dspace/core/data/ldn-services-data.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdown,
   NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,

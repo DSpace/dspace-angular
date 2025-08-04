@@ -3,7 +3,7 @@ import {
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 

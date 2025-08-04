@@ -8,9 +8,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { Community } from '@core/shared/community.model';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

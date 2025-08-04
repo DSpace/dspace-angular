@@ -8,34 +8,34 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { RequestParam } from '@core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '@core/data/external-source-data.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { LookupRelationService } from '@core/data/lookup-relation.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { ExternalSource } from '@core/shared/external-source.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+} from '@dspace/core/shared/operators';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbActiveModal,
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

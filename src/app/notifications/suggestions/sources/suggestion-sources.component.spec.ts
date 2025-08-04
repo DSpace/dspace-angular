@@ -11,15 +11,15 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { SuggestionSource } from '@core/notifications/suggestions/models/suggestion-source.model';
-import { SuggestionSourceDataService } from '@core/notifications/suggestions/source/suggestion-source-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PageInfo } from '@core/shared/page-info.model';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SuggestionSource } from '@dspace/core/notifications/suggestions/models/suggestion-source.model';
+import { SuggestionSourceDataService } from '@dspace/core/notifications/suggestions/source/suggestion-source-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

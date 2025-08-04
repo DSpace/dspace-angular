@@ -6,10 +6,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
-import { MockBitstreamFormat1 } from '@core/testing/item.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

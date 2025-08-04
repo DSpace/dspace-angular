@@ -5,10 +5,10 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { take } from 'rxjs/operators';
 
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';

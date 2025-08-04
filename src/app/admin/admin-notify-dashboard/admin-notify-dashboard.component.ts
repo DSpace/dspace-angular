@@ -8,14 +8,14 @@ import { RouterLink } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchObjects } from '@core/shared/search/models/search-objects.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+} from '@dspace/config/app-config.interface';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,

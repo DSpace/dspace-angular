@@ -15,8 +15,8 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PAGE_NOT_FOUND_PATH } from '@core/router/routing-paths';
-import { RouterStub } from '@core/testing/router.stub';
+import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/routing-paths';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 

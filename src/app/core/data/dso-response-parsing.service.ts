@@ -5,11 +5,11 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
+} from '@dspace/config/app-config.interface';
 import {
   hasNoValue,
   hasValue,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {

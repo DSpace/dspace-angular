@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Community } from '@core/shared/community.model';
+import { Community } from '@dspace/core/shared/community.model';
 
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';

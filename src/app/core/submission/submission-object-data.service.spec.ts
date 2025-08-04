@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 
 import { SubmissionService } from '../../submission/submission.service';
 import { RemoteData } from '../data/remote-data';

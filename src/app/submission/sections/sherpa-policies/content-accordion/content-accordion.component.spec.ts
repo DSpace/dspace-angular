@@ -4,8 +4,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SherpaDataResponse } from '@core/testing/section-sherpa-policies.service.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
-import { ScriptParameterType } from '@core/shared/scripts/script-parameter-type.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { ScriptParameterType } from '@dspace/core/shared/scripts/script-parameter-type.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

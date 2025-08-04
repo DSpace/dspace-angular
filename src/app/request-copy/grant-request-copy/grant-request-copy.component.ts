@@ -9,23 +9,23 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { ItemRequestDataService } from '@core/data/item-request-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { HardRedirectService } from '@core/services/hard-redirect.service';
-import { redirectOn4xx } from '@core/shared/authorized.operators';
-import { ItemRequest } from '@core/shared/item-request.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
-import { URLCombiner } from '@core/url-combiner/url-combiner';
+} from '@dspace/core/shared/operators';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,

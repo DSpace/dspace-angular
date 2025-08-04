@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { TestBed } from '@angular/core/testing';
-import { APP_DATA_SERVICES_MAP } from '@config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import {
   isEmpty,
   take,

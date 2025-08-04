@@ -1,5 +1,5 @@
 import { waitForAsync } from '@angular/core/testing';
-import { BitstreamFormat } from '@core/shared/bitstream-format.model';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
 import { createMockStore } from '@ngrx/store/testing';
 
 import {

@@ -1,4 +1,4 @@
-import { correlationIdReducer } from '@core/correlation-id/correlation-id.reducer';
+import { correlationIdReducer } from '@dspace/core/correlation-id/correlation-id.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
 import { authReducer } from './auth/auth.reducer';

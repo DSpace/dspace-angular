@@ -12,14 +12,14 @@ import {
   By,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { INotificationBoardOptions } from '@config/notifications-config.interfaces';
-import { CoreState } from '@core/core-state.model';
-import { Notification } from '@core/notification-system/models/notification.model';
-import { NotificationOptions } from '@core/notification-system/models/notification-options.model';
-import { NotificationType } from '@core/notification-system/models/notification-type';
-import { notificationsReducer } from '@core/notification-system/notifications.reducers';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
+import { CoreState } from '@dspace/core/core-state.model';
+import { Notification } from '@dspace/core/notification-system/models/notification.model';
+import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { notificationsReducer } from '@dspace/core/notification-system/notifications.reducers';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   Store,
   StoreModule,

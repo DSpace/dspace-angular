@@ -4,7 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { WidthCategory } from '@core/shared/host-window-type';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';

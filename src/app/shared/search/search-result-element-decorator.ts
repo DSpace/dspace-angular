@@ -1,13 +1,13 @@
-import { AdminNotifyMessage } from '@core/coar-notify/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@core/coar-notify/models/admin-notify-message-search-result.model';
-import { Collection } from '@core/shared/collection.model';
-import { Community } from '@core/shared/community.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { Item } from '@core/shared/item.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
-import { PoolTask } from '@core/tasks/models/pool-task-object.model';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/models/admin-notify-message-search-result.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
 
 import { ClaimedTaskSearchResult } from '../object-collection/shared/claimed-task-search-result.model';
 import { CollectionSearchResult } from '../object-collection/shared/collection-search-result.model';

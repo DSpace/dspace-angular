@@ -1,4 +1,4 @@
-import { EPersonMock } from '@core/testing/eperson.mock';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
 
 import {
   EPeopleRegistryCancelEPersonAction,

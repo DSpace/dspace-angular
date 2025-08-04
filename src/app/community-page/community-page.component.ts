@@ -10,17 +10,17 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { RemoteData } from '@core/data/remote-data';
-import { redirectOn4xx } from '@core/shared/authorized.operators';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { Community } from '@core/shared/community.model';
-import { getAllSucceededRemoteDataPayload } from '@core/shared/operators';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,

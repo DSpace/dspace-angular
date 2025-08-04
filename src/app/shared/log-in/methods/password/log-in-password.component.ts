@@ -15,23 +15,23 @@ import { RouterLink } from '@angular/router';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction,
-} from '@core/auth/auth.actions';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthMethod } from '@core/auth/models/auth.method';
+} from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
 import {
   getAuthenticationError,
   getAuthenticationInfo,
-} from '@core/auth/selectors';
-import { CoreState } from '@core/core-state.model';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@core/data/feature-authorization/feature-id';
-import { HardRedirectService } from '@core/services/hard-redirect.service';
+} from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

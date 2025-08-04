@@ -11,11 +11,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { CookieService } from '@core/cookies/cookie.service';
-import { DragService } from '@core/drag.service';
-import { CookieServiceMock } from '@core/testing/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '@core/testing/http-xsrf-token-extractor.mock';
-import { createTestComponent } from '@core/testing/utils.test';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { DragService } from '@dspace/core/drag.service';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
+import { HttpXsrfTokenExtractorMock } from '@dspace/core/testing/http-xsrf-token-extractor.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 

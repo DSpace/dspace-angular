@@ -4,24 +4,24 @@ import {
   EventEmitter,
   OnInit,
 } from '@angular/core';
-import { ItemDataService } from '@core/data/item-data.service';
-import { LookupRelationService } from '@core/data/lookup-relation.service';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Context } from '@core/shared/context.model';
-import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
-import { Item } from '@core/shared/item.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { Metadata } from '@core/shared/metadata.utils';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchResult } from '@core/shared/search/models/search-result.model';
+} from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
   NgbActiveModal,
   NgbModal,

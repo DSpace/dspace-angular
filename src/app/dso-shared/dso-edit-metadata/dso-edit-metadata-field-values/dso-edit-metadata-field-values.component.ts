@@ -10,8 +10,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   BehaviorSubject,
   Observable,

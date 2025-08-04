@@ -2,13 +2,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { getMockScrollToService } from '@core/testing/scroll-to-service.mock';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockScrollToService } from '@dspace/core/testing/scroll-to-service.mock';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,

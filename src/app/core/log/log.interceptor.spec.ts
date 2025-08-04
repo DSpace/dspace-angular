@@ -9,8 +9,8 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { coreReducers } from '@core/core.reducers';
-import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
+import { coreReducers } from '@dspace/core/core.reducers';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 

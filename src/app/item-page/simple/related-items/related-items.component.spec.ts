@@ -8,11 +8,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { Item } from '@core/shared/item.model';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

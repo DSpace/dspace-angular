@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { coreReducers } from '@core/core.reducers';
-import { CoreState } from '@core/core-state.model';
-import { UUIDService } from '@core/shared/uuid.service';
+import { coreReducers } from '@dspace/core/core.reducers';
+import { CoreState } from '@dspace/core/core-state.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
 import {
   Store,
   StoreModule,

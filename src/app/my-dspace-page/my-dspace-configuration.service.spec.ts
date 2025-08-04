@@ -1,16 +1,16 @@
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { Context } from '@core/shared/context.model';
-import { PaginatedSearchOptions } from '@core/shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '@core/shared/search/models/search-filter.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { HALEndpointServiceStub } from '@core/testing/hal-endpoint-service.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { getMockRemoteDataBuildService } from '@core/testing/remote-data-build.service.mock';
-import { RoleServiceMock } from '@core/testing/role-service.mock';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { getMockRemoteDataBuildService } from '@dspace/core/testing/remote-data-build.service.mock';
+import { RoleServiceMock } from '@dspace/core/testing/role-service.mock';
 import {
   cold,
   hot,

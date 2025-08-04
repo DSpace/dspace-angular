@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LinkService } from '@core/cache/builders/link.service';
-import { ProcessDataService } from '@core/data/processes/process-data.service';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { ProcessParameter } from '@core/processes/process-parameter.model';
-import { Script } from '@core/shared/scripts/script.model';
-import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

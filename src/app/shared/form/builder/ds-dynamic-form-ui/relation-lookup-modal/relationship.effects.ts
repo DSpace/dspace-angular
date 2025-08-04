@@ -3,25 +3,30 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { ServerSyncBufferActionTypes } from '@core/cache/server-sync-buffer.actions';
-import { RelationshipDataService } from '@core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '@core/data/relationship-type-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { JsonPatchOperationsActionTypes } from '@core/json-patch/json-patch-operations.actions';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { Relationship } from '@core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@core/shared/item-relationships/relationship-type.model';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ServerSyncBufferActionTypes } from '@dspace/core/cache/server-sync-buffer.actions';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { JsonPatchOperationsActionTypes } from '@dspace/core/json-patch/json-patch-operations.actions';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import {
   DEBOUNCE_TIME_OPERATOR,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { SubmissionObject } from '@core/submission/models/submission-object.model';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
+} from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -29,11 +34,6 @@ import {
 } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

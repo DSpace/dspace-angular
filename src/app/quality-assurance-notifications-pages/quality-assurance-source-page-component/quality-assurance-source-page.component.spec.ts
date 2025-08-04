@@ -4,7 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { QualityAssuranceSourceComponent } from '../../notifications/qa/source/quality-assurance-source.component';
 import { QualityAssuranceSourcePageComponent } from './quality-assurance-source-page.component';

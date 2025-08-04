@@ -4,21 +4,21 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { RemoteData } from '@core/data/remote-data';
-import { VersionHistoryDataService } from '@core/data/version-history-data.service';
-import { Item } from '@core/shared/item.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { Version } from '@core/shared/version.model';
-import { VersionHistory } from '@core/shared/version-history.model';
-import { TranslateModule } from '@ngx-translate/core';
+} from '@dspace/core/shared/operators';
+import { Version } from '@dspace/core/shared/version.model';
+import { VersionHistory } from '@dspace/core/shared/version-history.model';
 import {
   hasValue,
   hasValueOperator,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   Observable,

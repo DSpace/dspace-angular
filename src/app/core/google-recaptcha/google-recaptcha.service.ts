@@ -5,7 +5,7 @@ import {
   Renderer2,
   RendererFactory2,
 } from '@angular/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

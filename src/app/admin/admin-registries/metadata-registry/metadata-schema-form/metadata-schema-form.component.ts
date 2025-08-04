@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,

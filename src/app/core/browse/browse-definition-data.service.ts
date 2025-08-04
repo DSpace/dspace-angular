@@ -4,7 +4,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,

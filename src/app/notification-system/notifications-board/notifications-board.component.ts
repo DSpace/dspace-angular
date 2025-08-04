@@ -8,20 +8,20 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { INotificationBoardOptions } from '@config/notifications-config.interfaces';
-import { CoreState } from '@core/core-state.model';
-import { INotification } from '@core/notification-system/models/notification.model';
-import { NotificationsState } from '@core/notification-system/notifications.reducers';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { notificationsStateSelector } from '@core/notification-system/selectors';
+import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
+import { CoreState } from '@dspace/core/core-state.model';
+import { INotification } from '@dspace/core/notification-system/models/notification.model';
+import { NotificationsState } from '@dspace/core/notification-system/notifications.reducers';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { notificationsStateSelector } from '@dspace/core/notification-system/selectors';
+import {
+  hasNoValue,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasNoValue,
-  isNotEmptyOperator,
-} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 import differenceWith from 'lodash/differenceWith';
 import {

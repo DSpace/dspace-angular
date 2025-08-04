@@ -11,19 +11,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { RemoteData } from '@core/data/remote-data';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { FeedbackDataService } from '@core/feedback/feedback-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { FeedbackDataService } from '@dspace/core/feedback/feedback-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@core/services/window.service';
-import { NoContent } from '@core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { URLCombiner } from '@core/url-combiner/url-combiner';
+} from '@dspace/core/services/window.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
   TranslateModule,
   TranslateService,

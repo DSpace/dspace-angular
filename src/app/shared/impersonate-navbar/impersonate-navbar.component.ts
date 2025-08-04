@@ -4,8 +4,8 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
-import { AuthService } from '@core/auth/auth.service';
-import { isAuthenticated } from '@core/auth/selectors';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { isAuthenticated } from '@dspace/core/auth/selectors';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,

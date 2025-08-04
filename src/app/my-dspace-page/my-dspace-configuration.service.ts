@@ -7,21 +7,21 @@ import { ActivatedRoute } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { LinkService } from '@core/cache/builders/link.service';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
+} from '@dspace/config/app-config.interface';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { RequestService } from '@core/data/request.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { RoleService } from '@core/roles/role.service';
-import { RouteService } from '@core/services/route.service';
-import { Context } from '@core/shared/context.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+} from '@dspace/core/cache/models/sort-options.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RoleService } from '@dspace/core/roles/role.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import {
   combineLatest,
   Observable,

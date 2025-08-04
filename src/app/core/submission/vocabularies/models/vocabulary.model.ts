@@ -1,12 +1,12 @@
 import {
   link,
   typedObject,
-} from '@core/cache/builders/build-decorators';
-import { CacheableObject } from '@core/cache/cacheable-object.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { HALLink } from '@core/shared/hal-link.model';
-import { excludeFromEquals } from '@core/utilities/equals.decorators';
+} from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,

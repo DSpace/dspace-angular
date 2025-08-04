@@ -8,9 +8,9 @@ import { FormsModule } from '@angular/forms';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';

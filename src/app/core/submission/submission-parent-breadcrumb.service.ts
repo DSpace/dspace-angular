@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   hasValue,
   isEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   combineLatest,
   Observable,

@@ -10,11 +10,11 @@ import {
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
-import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
-import { ITEM } from '@core/shared/item.resource-type';
-import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+} from '@dspace/config/app-config.interface';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { Store } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
 import {
@@ -36,7 +36,7 @@ const mockLabel = 'Test location';
 const mockFields = [mockField];
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('@core/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('@dspace/core/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 describe('GeospatialItemPageFieldComponent', () => {
   beforeEach(waitForAsync(() => {

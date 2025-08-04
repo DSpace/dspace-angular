@@ -16,8 +16,8 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SearchService } from '@core/shared/search/search.service';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

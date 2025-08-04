@@ -18,15 +18,15 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@core/submission/vocabularies/vocabulary.service';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@core/testing/dynamic-form-mock-services';
-import { createTestComponent } from '@core/testing/utils.test';
-import { VocabularyServiceStub } from '@core/testing/vocabulary-service.stub';
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import {
   NgbModule,
   NgbTypeaheadSelectItemEvent,

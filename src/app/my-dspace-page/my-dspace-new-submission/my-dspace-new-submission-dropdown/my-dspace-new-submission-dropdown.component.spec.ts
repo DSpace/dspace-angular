@@ -11,15 +11,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { ResourceType } from '@core/shared/resource-type';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import {
   createPaginatedList,
   createTestComponent,
-} from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

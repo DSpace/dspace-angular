@@ -5,8 +5,8 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
-import { isNotEmpty } from '@shared/utils/empty.util';
+} from '@dspace/config/app-config.interface';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   Request,
   Response,

@@ -2,7 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { NoOpAction } from '@core/shared/ngrx/no-op.action';
+import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import {

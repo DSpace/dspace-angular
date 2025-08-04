@@ -4,27 +4,27 @@ import {
   Component,
   Inject,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { AccessConditionOption } from '@core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '@core/config/models/config-submission-forms.model';
-import { SubmissionUploadsModel } from '@core/config/models/config-submission-uploads.model';
-import { SubmissionUploadsConfigDataService } from '@core/config/submission-uploads-config-data.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { Group } from '@core/eperson/models/group.model';
-import { ResourcePolicyDataService } from '@core/resource-policy/resource-policy-data.service';
-import { Collection } from '@core/shared/collection.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { getFirstSucceededRemoteData } from '@core/shared/operators';
-import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AccessConditionOption } from '@dspace/core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { SubmissionUploadsModel } from '@dspace/core/config/models/config-submission-uploads.model';
+import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,

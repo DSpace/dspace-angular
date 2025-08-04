@@ -14,27 +14,27 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { GroupDataService } from '@core/eperson/group-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { LinkHeadService } from '@core/services/link-head.service';
-import { RouteService } from '@core/services/route.service';
-import { BrowseEntry } from '@core/shared/browse-entry.model';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { ITEM } from '@core/shared/item.resource-type';
-import { PageInfo } from '@core/shared/page-info.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { ViewMode } from '@core/shared/view-mode.model';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { routeServiceStub } from '@core/testing/route-service.stub';
-import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

@@ -17,10 +17,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { INotification } from '@core/notification-system/models/notification.model';
-import { NotificationAnimationsStatus } from '@core/notification-system/models/notification-animations-type';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { INotification } from '@dspace/core/notification-system/models/notification.model';
+import { NotificationAnimationsStatus } from '@dspace/core/notification-system/models/notification-animations-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,

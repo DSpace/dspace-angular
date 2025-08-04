@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { CSSVariableServiceStub } from '@core/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from '@core/testing/host-window-service.stub';
-import { RouterMock } from '@core/testing/router.mock';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessibilitySettingsService } from '../accessibility/accessibility-settings.service';

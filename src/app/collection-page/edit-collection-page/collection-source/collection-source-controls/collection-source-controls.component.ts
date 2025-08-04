@@ -6,27 +6,27 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { ProcessDataService } from '@core/data/processes/process-data.service';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Process } from '@core/processes/process.model';
-import { ProcessStatus } from '@core/processes/process-status.model';
-import { Collection } from '@core/shared/collection.model';
-import { ContentSource } from '@core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '@core/shared/content-source-set-serializer';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessStatus } from '@dspace/core/processes/process-status.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ContentSource } from '@dspace/core/shared/content-source.model';
+import { ContentSourceSetSerializer } from '@dspace/core/shared/content-source-set-serializer';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

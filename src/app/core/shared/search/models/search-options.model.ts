@@ -1,7 +1,7 @@
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 
 import { URLCombiner } from '../../../url-combiner/url-combiner';
 import { DSpaceObjectType } from '../../dspace-object-type.model';

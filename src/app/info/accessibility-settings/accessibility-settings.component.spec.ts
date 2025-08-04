@@ -4,12 +4,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { AuthService } from '@core/auth/auth.service';
-import { OrejimeService } from '@core/cookies/orejime.service';
-import { OrejimeServiceStub } from '@core/cookies/orejime.service.stub';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ContextHelpDirective } from 'src/app/shared/context-help.directive';

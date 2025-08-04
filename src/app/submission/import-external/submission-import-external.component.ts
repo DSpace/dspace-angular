@@ -8,30 +8,30 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { ExternalSourceDataService } from '@core/data/external-source-data.service';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { RouteService } from '@core/services/route.service';
-import { Context } from '@core/shared/context.model';
-import { ExternalSourceEntry } from '@core/shared/external-source-entry.model';
-import { NONE_ENTITY_TYPE } from '@core/shared/item-relationships/item-type.resource-type';
-import { getFinishedRemoteData } from '@core/shared/operators';
-import { PageInfo } from '@core/shared/page-info.model';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { NONE_ENTITY_TYPE } from '@dspace/core/shared/item-relationships/item-type.resource-type';
+import { getFinishedRemoteData } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

@@ -14,19 +14,19 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '@core/auth/auth.service';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { SubscriptionsDataService } from '@core/data/subscriptions-data.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Item } from '@core/shared/item.model';
-import { PageInfo } from '@core/shared/page-info.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
 import {
   subscriptionMock,
   subscriptionMock2,
-} from '@core/testing/subscriptions-data.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+} from '@dspace/core/testing/subscriptions-data.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbActiveModal,
   NgbModalModule,

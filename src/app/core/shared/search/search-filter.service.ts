@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
   select,
   Store,
 } from '@ngrx/store';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,

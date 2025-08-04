@@ -4,8 +4,8 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';

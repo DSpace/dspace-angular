@@ -1,12 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { CommunityDataService } from '@core/data/community-data.service';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { Community } from '@core/shared/community.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Community } from '@dspace/core/shared/community.model';
 import {
   TranslateModule,
   TranslateService,

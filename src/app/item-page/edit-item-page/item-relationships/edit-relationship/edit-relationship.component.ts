@@ -4,28 +4,28 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
-import { FieldChangeType } from '@core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@core/data/object-updates/field-update.model';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '@core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { Item } from '@core/shared/item.model';
+} from '@dspace/core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@core/shared/operators';
-import { ViewMode } from '@core/shared/view-mode.model';
+} from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,

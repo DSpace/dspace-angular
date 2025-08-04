@@ -10,18 +10,18 @@ import { ActivatedRoute } from '@angular/router';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '@config/app-config.interface';
-import { BitstreamDataService } from '@core/data/bitstream-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { MockBitstreamFormat1 } from '@core/testing/item.mock';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createPaginatedList } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
-import { XSRFService } from '@core/xsrf/xsrf.service';
+} from '@dspace/config/app-config.interface';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,

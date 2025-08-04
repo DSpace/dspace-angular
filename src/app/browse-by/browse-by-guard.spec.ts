@@ -1,9 +1,9 @@
-import { ValueListBrowseDefinition } from '@core/shared/value-list-browse-definition.model';
-import { RouterStub } from '@core/testing/router.stub';
+import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { first } from 'rxjs/operators';
 
 import { browseByGuard } from './browse-by-guard';

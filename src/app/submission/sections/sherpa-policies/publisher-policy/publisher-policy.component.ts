@@ -3,7 +3,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Policy } from '@core/submission/models/sherpa-policies-details.model';
+import { Policy } from '@dspace/core/submission/models/sherpa-policies-details.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AlertType } from '../../../../shared/alert/alert-type';

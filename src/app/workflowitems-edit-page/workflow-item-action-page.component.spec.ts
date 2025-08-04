@@ -16,21 +16,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '@core/submission/workflowitem-data.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { LocationStub } from '@core/testing/location.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RequestServiceStub } from '@core/testing/request-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { LocationStub } from '@dspace/core/testing/location.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@dspace/core/testing/request-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

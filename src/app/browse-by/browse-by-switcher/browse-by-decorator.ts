@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Context } from '@core/shared/context.model';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { hasNoValue } from '@shared/utils/empty.util';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
 import {
   DEFAULT_THEME,

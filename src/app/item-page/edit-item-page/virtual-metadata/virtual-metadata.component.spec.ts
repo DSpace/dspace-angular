@@ -7,9 +7,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { Item } from '@core/shared/item.model';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

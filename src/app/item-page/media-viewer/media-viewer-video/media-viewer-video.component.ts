@@ -3,12 +3,12 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { Bitstream } from '@core/shared/bitstream.model';
-import { MediaViewerItem } from '@core/shared/media-viewer-item.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CaptionInfo } from './caption-info';

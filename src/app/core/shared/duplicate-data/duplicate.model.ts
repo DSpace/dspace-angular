@@ -1,7 +1,7 @@
-import { CacheableObject } from '@core/cache/cacheable-object.model';
-import { HALLink } from '@core/shared/hal-link.model';
-import { MetadataMap } from '@core/shared/metadata.models';
-import { ResourceType } from '@core/shared/resource-type';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { MetadataMap } from '@dspace/core/shared/metadata.models';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import {
   autoserialize,
   deserialize,

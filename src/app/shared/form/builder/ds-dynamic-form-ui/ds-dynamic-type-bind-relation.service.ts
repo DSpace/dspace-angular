@@ -6,6 +6,10 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
+import {
   AND_OPERATOR,
   DYNAMIC_MATCHERS,
   DynamicFormControlCondition,
@@ -16,10 +20,6 @@ import {
   MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import {
-  hasNoValue,
-  hasValue,
-} from '@shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 

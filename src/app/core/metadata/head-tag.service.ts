@@ -15,18 +15,18 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@config/app-config.interface';
+} from '@dspace/config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   select,
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,

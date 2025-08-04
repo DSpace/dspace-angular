@@ -8,7 +8,7 @@
 import {
   hasNoValue,
   hasValue,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 

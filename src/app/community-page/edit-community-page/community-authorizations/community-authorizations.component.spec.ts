@@ -9,9 +9,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Collection } from '@core/shared/collection.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 

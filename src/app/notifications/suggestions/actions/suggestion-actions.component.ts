@@ -5,9 +5,9 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Suggestion } from '@core/notifications/suggestions/models/suggestion.model';
-import { Collection } from '@core/shared/collection.model';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
+import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
 import {
   NgbDropdownModule,
   NgbModal,

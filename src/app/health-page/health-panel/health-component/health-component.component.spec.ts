@@ -9,8 +9,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   HealthComponentOne,
   HealthComponentTwo,
-} from '@core/testing/health-endpoint.mocks';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+} from '@dspace/core/testing/health-endpoint.mocks';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,

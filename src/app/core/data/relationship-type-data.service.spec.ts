@@ -1,4 +1,4 @@
-import { hasValueOperator } from '@shared/utils/empty.util';
+import { hasValueOperator } from '@dspace/shared/utils/empty.util';
 import { of } from 'rxjs';
 
 import { ObjectCacheService } from '../cache/object-cache.service';

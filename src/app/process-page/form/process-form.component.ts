@@ -13,19 +13,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Process } from '@core/processes/process.model';
-import { ProcessParameter } from '@core/processes/process-parameter.model';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
-import { Script } from '@core/shared/scripts/script.model';
-import { ScriptParameter } from '@core/shared/scripts/script-parameter.model';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { isEmpty } from '@shared/utils/empty.util';
 
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';

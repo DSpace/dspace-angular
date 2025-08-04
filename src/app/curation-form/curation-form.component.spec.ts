@@ -12,18 +12,18 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { ConfigurationDataService } from '@core/data/configuration-data.service';
-import { ProcessDataService } from '@core/data/processes/process-data.service';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Process } from '@core/processes/process.model';
-import { ConfigurationProperty } from '@core/shared/configuration-property.model';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { RouterStub } from '@core/testing/router.stub';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

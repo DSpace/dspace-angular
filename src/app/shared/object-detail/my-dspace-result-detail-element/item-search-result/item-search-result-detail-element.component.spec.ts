@@ -8,10 +8,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { Context } from '@core/shared/context.model';
-import { Item } from '@core/shared/item.model';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { of } from 'rxjs';
 
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';

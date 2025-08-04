@@ -4,12 +4,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LinkService } from '@core/cache/builders/link.service';
-import { ProcessDataService } from '@core/data/processes/process-data.service';
-import { Process } from '@core/processes/process.model';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { Script } from '@core/shared/scripts/script.model';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { Script } from '@dspace/core/shared/scripts/script.model';
 import { Observable } from 'rxjs';
 import {
   map,

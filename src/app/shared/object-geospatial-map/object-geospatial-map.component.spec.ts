@@ -6,11 +6,11 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { Item } from '@core/shared/item.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,

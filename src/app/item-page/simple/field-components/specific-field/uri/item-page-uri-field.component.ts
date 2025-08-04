@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Item } from '@core/shared/item.model';
+import { Item } from '@dspace/core/shared/item.model';
 
 import { MetadataUriValuesComponent } from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';

@@ -4,6 +4,7 @@ import {
   NgZone,
   Type,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 // import @ngrx
 import {
   Actions,
@@ -15,7 +16,6 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import { hasValue } from '@shared/utils/empty.util';
 import {
   asyncScheduler,
   combineLatest as observableCombineLatest,

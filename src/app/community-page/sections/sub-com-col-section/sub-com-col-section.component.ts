@@ -7,8 +7,8 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { Community } from '@core/shared/community.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Community } from '@dspace/core/shared/community.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

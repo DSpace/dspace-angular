@@ -8,9 +8,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { SearchConfigurationService } from '@core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '@core/testing/search-configuration-service.stub';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

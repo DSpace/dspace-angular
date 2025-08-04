@@ -6,12 +6,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { GenericConstructor } from '@core/shared/generic-constructor';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
   hasValue,
   isNotEmptyOperator,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,

@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ScriptDataService } from '@core/data/processes/script-data.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Process } from '@core/processes/process.model';
-import { ProcessParameter } from '@core/processes/process-parameter.model';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BulkAccessControlService } from './bulk-access-control.service';

@@ -4,7 +4,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
-import { BreadcrumbsProviderService } from '@core/breadcrumbs/breadcrumbsProviderService';
+import { BreadcrumbsProviderService } from '@dspace/core/breadcrumbs/breadcrumbsProviderService';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,

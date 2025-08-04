@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Group } from '@core/eperson/models/group.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
 import {
   createSelector,
   select,

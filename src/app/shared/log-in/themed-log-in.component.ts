@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { AuthMethodType } from '@core/auth/models/auth.method-type';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
 
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LogInComponent } from './log-in.component';

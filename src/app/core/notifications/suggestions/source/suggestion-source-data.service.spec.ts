@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { RestResponse } from '@core/cache/response.models';
-import { CoreState } from '@core/core-state.model';
-import { FindAllData } from '@core/data/base/find-all-data';
-import { testFindAllDataImplementation } from '@core/data/base/find-all-data.spec';
-import { DefaultChangeAnalyzer } from '@core/data/default-change-analyzer.service';
-import { RemoteData } from '@core/data/remote-data';
-import { GetRequest } from '@core/data/request.models';
-import { RequestService } from '@core/data/request.service';
-import { RequestEntry } from '@core/data/request-entry.model';
-import { RequestEntryState } from '@core/data/request-entry-state.model';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { CoreState } from '@dspace/core/core-state.model';
+import { FindAllData } from '@dspace/core/data/base/find-all-data';
+import { testFindAllDataImplementation } from '@dspace/core/data/base/find-all-data.spec';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GetRequest } from '@dspace/core/data/request.models';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RequestEntry } from '@dspace/core/data/request-entry.model';
+import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import {
   cold,

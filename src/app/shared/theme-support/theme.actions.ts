@@ -1,4 +1,4 @@
-import { type } from '@core/shared/ngrx/type';
+import { type } from '@dspace/core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
 
 export const ThemeActionTypes = {

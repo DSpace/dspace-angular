@@ -13,15 +13,15 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { authReducer } from '@core/auth/auth.reducer';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthMethod } from '@core/auth/models/auth.method';
-import { AuthMethodType } from '@core/auth/models/auth.method-type';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '@core/services/hard-redirect.service';
-import { AuthServiceStub } from '@core/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '@core/testing/authorization-service.stub';
-import { createTestComponent } from '@core/testing/utils.test';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 

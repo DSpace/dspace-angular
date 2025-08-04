@@ -14,21 +14,21 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { FormRowModel } from '@core/config/models/config-submission-form.model';
-import { SubmissionFormsConfigDataService } from '@core/config/submission-forms-config-data.service';
-import { RequestService } from '@core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '@core/json-patch/builder/json-patch-operation-path-combiner';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { SectionsServiceStub } from '@core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { createTestComponent } from '@core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@core/utilities/remote-data.utils';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,

@@ -4,9 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteData } from '@core/data/remote-data';
-import { Item } from '@core/shared/item.model';
-import { getFirstSucceededRemoteData } from '@core/shared/operators';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

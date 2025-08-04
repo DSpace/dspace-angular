@@ -6,10 +6,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Suggestion } from '@core/notifications/suggestions/models/suggestion.model';
-import { Item } from '@core/shared/item.model';
+import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { isNotEmpty } from '@shared/utils/empty.util';
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { ItemSearchResultListElementComponent } from '../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';

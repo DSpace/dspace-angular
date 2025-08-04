@@ -2,8 +2,8 @@ import {
   DefaultUrlSerializer,
   UrlTree,
 } from '@angular/router';
-import { RouteService } from '@core/services/route.service';
-import { Item } from '@core/shared/item.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
 import { Observable } from 'rxjs';
 import {
   filter,

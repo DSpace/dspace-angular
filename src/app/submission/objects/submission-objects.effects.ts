@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { RemoteData } from '@core/data/remote-data';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { followLink } from '@core/shared/follow-link-config.model';
-import { Item } from '@core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { SubmissionObject } from '@core/submission/models/submission-object.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionDuplicatesObject } from '@core/submission/models/workspaceitem-section-duplicates.model';
-import { WorkspaceitemSectionUploadObject } from '@core/submission/models/workspaceitem-section-upload.model';
-import { WorkspaceitemSectionsObject } from '@core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '@core/submission/submission-object-data.service';
-import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -20,11 +25,6 @@ import {
 } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '@shared/utils/empty.util';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
 import union from 'lodash/union';

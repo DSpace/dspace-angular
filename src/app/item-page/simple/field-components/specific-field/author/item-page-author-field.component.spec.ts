@@ -8,13 +8,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { BrowseService } from '@core/browse/browse.service';
-import { BrowseDefinitionDataService } from '@core/browse/browse-definition-data.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { BrowseDefinitionDataServiceStub } from '@core/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '@core/testing/browse-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,

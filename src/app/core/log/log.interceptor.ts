@@ -6,11 +6,11 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CorrelationIdService } from '@core/correlation-id/correlation-id.service';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import {
   hasValue,
   isEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 

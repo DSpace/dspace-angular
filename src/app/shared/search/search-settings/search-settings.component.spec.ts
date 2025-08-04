@@ -10,15 +10,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@core/cache/models/sort-options.model';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@core/pagination/pagination-component-options.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SearchFilterService } from '@core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { PaginationServiceStub } from '@core/testing/pagination-service.stub';
-import { SearchServiceStub } from '@core/testing/search-service.stub';
-import { SidebarServiceStub } from '@core/testing/sidebar-service.stub';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { SidebarServiceStub } from '@dspace/core/testing/sidebar-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

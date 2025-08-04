@@ -7,8 +7,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MetadataSchema } from '@core/metadata/metadata-schema.model';
-import { RegistryServiceStub } from '@core/testing/registry.service.stub';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { RegistryServiceStub } from '@dspace/core/testing/registry.service.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

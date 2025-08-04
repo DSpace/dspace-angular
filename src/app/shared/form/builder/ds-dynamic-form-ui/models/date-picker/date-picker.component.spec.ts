@@ -22,8 +22,8 @@ import { By } from '@angular/platform-browser';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@core/testing/dynamic-form-mock-services';
-import { createTestComponent } from '@core/testing/utils.test';
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,

@@ -1,8 +1,8 @@
-import { typedObject } from '@core/cache/builders/build-decorators';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { HALLink } from '@core/shared/hal-link.model';
-import { excludeFromEquals } from '@core/utilities/equals.decorators';
-import { isNotEmpty } from '@shared/utils/empty.util';
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   autoserialize,
   deserialize,

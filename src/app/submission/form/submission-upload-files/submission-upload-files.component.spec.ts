@@ -9,14 +9,14 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { SectionsServiceStub } from '@core/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '@core/testing/submission-service.stub';
-import { getMockTranslateService } from '@core/testing/translate.service.mock';
-import { createTestComponent } from '@core/testing/utils.test';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,

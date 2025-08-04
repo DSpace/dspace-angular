@@ -11,11 +11,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { buildPaginatedList } from '@core/data/paginated-list.model';
-import { DSpaceObject } from '@core/shared/dspace-object.model';
-import { PageInfo } from '@core/shared/page-info.model';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,

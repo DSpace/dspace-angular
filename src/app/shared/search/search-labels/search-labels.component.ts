@@ -4,8 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AppliedFilter } from '@core/shared/search/models/applied-filter.model';
-import { SearchService } from '@core/shared/search/search.service';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
 import { BehaviorSubject } from 'rxjs';
 
 import { SearchLabelLoaderComponent } from './search-label-loader/search-label-loader.component';

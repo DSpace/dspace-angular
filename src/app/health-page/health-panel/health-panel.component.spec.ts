@@ -6,8 +6,8 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HealthResponseObj } from '@core/testing/health-endpoint.mocks';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { HealthResponseObj } from '@dspace/core/testing/health-endpoint.mocks';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   NgbAccordionModule,
   NgbNavModule,

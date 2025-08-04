@@ -1,4 +1,4 @@
-import { isEmpty } from '@shared/utils/empty.util';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import {

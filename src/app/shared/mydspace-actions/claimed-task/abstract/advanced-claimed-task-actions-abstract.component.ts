@@ -9,11 +9,11 @@ import {
   Params,
   Router,
 } from '@angular/router';
-import { RequestService } from '@core/data/request.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { getFirstSucceededRemoteDataPayload } from '@core/shared/operators';
-import { SearchService } from '@core/shared/search/search.service';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { TranslateService } from '@ngx-translate/core';
 
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';

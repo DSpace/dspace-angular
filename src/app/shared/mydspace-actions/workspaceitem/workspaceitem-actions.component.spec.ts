@@ -13,26 +13,26 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { AuthService } from '@core/auth/auth.service';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { RequestService } from '@core/data/request.service';
-import { EPerson } from '@core/eperson/models/eperson.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Item } from '@core/shared/item.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { WorkspaceItem } from '@core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@core/submission/workspaceitem-data.service';
-import { ActivatedRouteStub } from '@core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@core/testing/notifications-service.stub';
-import { getMockRequestService } from '@core/testing/request.service.mock';
-import { RouterStub } from '@core/testing/router.stub';
-import { getMockSearchService } from '@core/testing/search-service.mock';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@core/utilities/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModule,

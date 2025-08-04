@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '@core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@core/cache/object-cache.service';
-import { DSOChangeAnalyzer } from '@core/data/dso-change-analyzer.service';
-import { RequestService } from '@core/data/request.service';
-import { HALEndpointService } from '@core/shared/hal-endpoint.service';
-import { Subscription } from '@core/shared/subscription.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Subscription } from '@dspace/core/shared/subscription.model';
 import { Store } from '@ngrx/store';
 
 import { NotificationsService } from '../notification-system/notifications.service';

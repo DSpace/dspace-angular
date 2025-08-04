@@ -8,17 +8,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@config/app-config.interface';
-import { DSONameService } from '@core/breadcrumbs/dso-name.service';
-import { LinkService } from '@core/cache/builders/link.service';
-import { Context } from '@core/shared/context.model';
-import { Item } from '@core/shared/item.model';
-import { WorkflowItem } from '@core/submission/models/workflowitem.model';
-import { ClaimedTask } from '@core/tasks/models/claimed-task-object.model';
-import { DSONameServiceMock } from '@core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@core/testing/link-service.mock';
-import { mockTruncatableService } from '@core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

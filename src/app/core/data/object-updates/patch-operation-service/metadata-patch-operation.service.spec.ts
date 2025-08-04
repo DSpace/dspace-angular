@@ -1,4 +1,4 @@
-import { MetadatumViewModel } from '@core/shared/metadata.models';
+import { MetadatumViewModel } from '@dspace/core/shared/metadata.models';
 import { Operation } from 'fast-json-patch';
 
 import { FieldChangeType } from '../field-change-type.model';

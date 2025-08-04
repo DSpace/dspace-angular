@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewMode } from '@core/shared/view-mode.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';

@@ -10,25 +10,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { ErrorResponse } from '@core/cache/response.models';
-import { RequestService } from '@core/data/request.service';
-import { RequestError } from '@core/data/request-error.model';
-import { HttpOptions } from '@core/dspace-rest/dspace-rest.service';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { RouteService } from '@core/services/route.service';
-import { Item } from '@core/shared/item.model';
-import { SearchService } from '@core/shared/search/search.service';
-import { SubmissionJsonPatchOperationsService } from '@core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '@core/submission/submission-rest.service';
-import { SubmissionScopeType } from '@core/submission/submission-scope-type';
-import { MockActivatedRoute } from '@core/testing/active-router.mock';
-import { getMockRequestService } from '@core/testing/request.service.mock';
-import { RouterMock } from '@core/testing/router.mock';
-import { getMockSearchService } from '@core/testing/search-service.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '@core/testing/submission-json-patch-operations-service.stub';
-import { SubmissionRestServiceStub } from '@core/testing/submission-rest-service.stub';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
-import { createFailedRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { ErrorResponse } from '@dspace/core/cache/response.models';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RequestError } from '@dspace/core/data/request-error.model';
+import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchService } from '@dspace/core/shared/search/search.service';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionRestServiceStub } from '@dspace/core/testing/submission-rest-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,

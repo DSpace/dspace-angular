@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { GenericConstructor } from '@core/shared/generic-constructor';
-import { SearchFilterConfig } from '@core/shared/search/models/search-filter-config.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { BehaviorSubject } from 'rxjs';
 
 import { AbstractComponentLoaderComponent } from '../../../../abstract-component-loader/abstract-component-loader.component';

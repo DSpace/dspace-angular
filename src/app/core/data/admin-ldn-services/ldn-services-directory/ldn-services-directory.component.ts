@@ -12,15 +12,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LdnServicesService } from '@core/data/ldn-services-data.service';
-import { PaginationService } from '@core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '@core/shared/operators';
+import { LdnServicesService } from '@dspace/core/data/ldn-services-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   Observable,

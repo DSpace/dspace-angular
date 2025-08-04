@@ -10,14 +10,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { EntityTypeDataService } from '@core/data/entity-type-data.service';
-import { FindListOptions } from '@core/data/find-list-options.model';
-import { PaginatedList } from '@core/data/paginated-list.model';
-import { RemoteData } from '@core/data/remote-data';
-import { ItemType } from '@core/shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteWithNotEmptyData } from '@core/shared/operators';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { getFirstSucceededRemoteWithNotEmptyData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { hasValue } from '@shared/utils/empty.util';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,

@@ -7,8 +7,12 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { BitstreamFormat } from '@core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '@core/shared/bitstream-format-support-level';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
@@ -18,10 +22,6 @@ import {
   DynamicSelectModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import {
-  hasValue,
-  isEmpty,
-} from '@shared/utils/empty.util';
 
 import { environment } from '../../../../../environments/environment';
 import { FormComponent } from '../../../../shared/form/form.component';

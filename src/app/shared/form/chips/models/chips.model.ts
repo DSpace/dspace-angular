@@ -1,9 +1,9 @@
-import { MetadataIconConfig } from '@config/submission-config.interface';
-import { VocabularyEntry } from '@core/submission/vocabularies/models/vocabulary-entry.model';
+import { MetadataIconConfig } from '@dspace/config/submission-config.interface';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   hasValue,
   isNotEmpty,
-} from '@shared/utils/empty.util';
+} from '@dspace/shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';

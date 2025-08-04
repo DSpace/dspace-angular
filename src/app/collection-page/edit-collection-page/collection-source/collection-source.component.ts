@@ -12,24 +12,29 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { CollectionDataService } from '@core/data/collection-data.service';
-import { FieldUpdate } from '@core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '@core/data/object-updates/object-updates.service';
-import { RemoteData } from '@core/data/remote-data';
-import { RequestService } from '@core/data/request.service';
-import { INotification } from '@core/notification-system/models/notification.model';
-import { NotificationsService } from '@core/notification-system/notifications.service';
-import { Collection } from '@core/shared/collection.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { INotification } from '@dspace/core/notification-system/models/notification.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
 import {
   ContentSource,
   ContentSourceHarvestType,
-} from '@core/shared/content-source.model';
-import { MetadataConfig } from '@core/shared/metadata-config.model';
+} from '@dspace/core/shared/content-source.model';
+import { MetadataConfig } from '@dspace/core/shared/metadata-config.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '@core/shared/operators';
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -44,11 +49,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   Observable,

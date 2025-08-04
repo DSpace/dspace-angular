@@ -12,11 +12,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { AuthorizationDataService } from '@core/data/feature-authorization/authorization-data.service';
-import { Community } from '@core/shared/community.model';
-import { MetadataValue } from '@core/shared/metadata.models';
-import { RouterStub } from '@core/testing/router.stub';
-import { createSuccessfulRemoteDataObject } from '@core/utilities/remote-data.utils';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

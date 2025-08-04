@@ -1,4 +1,4 @@
-import { hasValue } from '@shared/utils/empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { ResponsiveColumnSizes } from './responsive-column-sizes';
 

@@ -4,8 +4,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HealthInfoResponseObj } from '@core/testing/health-endpoint.mocks';
-import { TranslateLoaderMock } from '@core/testing/translate-loader.mock';
+import { HealthInfoResponseObj } from '@dspace/core/testing/health-endpoint.mocks';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
