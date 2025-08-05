@@ -13,6 +13,7 @@ import { AuthService } from '@dspace/core/auth/auth.service';
 import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';
@@ -33,7 +34,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';

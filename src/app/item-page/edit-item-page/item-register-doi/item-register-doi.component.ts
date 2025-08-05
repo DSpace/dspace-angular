@@ -12,6 +12,7 @@ import { IdentifierDataService } from '@dspace/core/data/identifier-data.service
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Identifier } from '@dspace/core/shared/identifiers-data/identifier.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
@@ -26,7 +27,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { getItemPageRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 

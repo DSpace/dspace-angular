@@ -13,7 +13,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { ThemeConfig } from '@dspace/config/theme.config';
-import { getPageInternalServerErrorRoute } from '@dspace/core/router/routing-paths';
+import { getPageInternalServerErrorRoute } from '@dspace/core/router/core-routing-paths';
 import {
   NativeWindowRef,
   NativeWindowService,

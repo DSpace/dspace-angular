@@ -20,6 +20,7 @@ import { RouterLink } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import { MetadataService } from '@dspace/core/metadata/metadata.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { ConfidenceType } from '@dspace/core/shared/confidence-type';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
@@ -38,7 +39,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';

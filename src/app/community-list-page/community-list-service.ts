@@ -11,6 +11,10 @@ import {
   PaginatedList,
 } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  getCollectionPageRoute,
+  getCommunityPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
@@ -44,8 +48,6 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppState } from '../app.reducer';
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { FlatNode } from './flat-node.model';

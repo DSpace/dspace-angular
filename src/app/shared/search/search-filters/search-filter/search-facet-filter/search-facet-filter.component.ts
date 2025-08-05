@@ -17,6 +17,7 @@ import {
   Router,
 } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
@@ -47,7 +48,6 @@ import {
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { currentPath } from '../../../../utils/route.utils';
 
 /**
  * The operators the {@link AppliedFilter} should have in order to be shown in the facets

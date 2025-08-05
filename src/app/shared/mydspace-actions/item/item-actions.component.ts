@@ -11,6 +11,7 @@ import {
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +20,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**

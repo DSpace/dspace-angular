@@ -4,15 +4,16 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Observable } from 'rxjs';
+
+import { BitstreamDataService } from '../data/bitstream-data.service';
+import { RemoteData } from '../data/remote-data';
+import { Bitstream } from '../shared/bitstream.model';
 import {
   followLink,
   FollowLinkConfig,
-} from '@dspace/core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { Observable } from 'rxjs';
+} from '../shared/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

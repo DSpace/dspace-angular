@@ -24,6 +24,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
@@ -61,7 +62,6 @@ import { PaginationComponent } from '../../../../shared/pagination/pagination.co
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
-import { getItemPageRoute } from '../../../item-page-routing-paths';
 import {
   BitstreamTableEntry,
   ItemBitstreamsService,

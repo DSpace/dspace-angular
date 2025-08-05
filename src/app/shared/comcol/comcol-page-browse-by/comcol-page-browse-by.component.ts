@@ -21,6 +21,10 @@ import {
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  getCollectionPageRoute,
+  getCommunityPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
@@ -38,9 +42,6 @@ import {
   startWith,
   take,
 } from 'rxjs/operators';
-
-import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 
 export interface ComColPageNavOption {
   id: string;

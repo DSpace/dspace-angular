@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
 
 import { environment } from '../../../environments/environment';
 import { fadeIn } from '../animations/fade';

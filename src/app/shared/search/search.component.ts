@@ -25,6 +25,12 @@ import {
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  COLLECTION_MODULE_PATH,
+  COMMUNITY_MODULE_PATH,
+  ITEM_MODULE_PATH,
+} from '@dspace/core/router/core-routing-paths';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
@@ -64,9 +70,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
-import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
-import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
@@ -75,7 +78,6 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { currentPath } from '../utils/route.utils';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';

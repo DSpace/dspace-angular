@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
@@ -32,7 +33,6 @@ import {
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions-notice',

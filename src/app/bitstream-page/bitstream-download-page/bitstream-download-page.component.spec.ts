@@ -17,7 +17,7 @@ import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
-import { getForbiddenRoute } from '@dspace/core/router/routing-paths';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';

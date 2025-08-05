@@ -7,6 +7,7 @@ import {
   ThemeConfig,
   UUIDThemeConfig,
 } from '@dspace/config/theme.config';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { HandleObject } from '@dspace/core/shared/handle-object.model';
 import {
@@ -24,7 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
 import { HandleService } from '../handle.service';
 
 export class Theme {

@@ -12,6 +12,7 @@ import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';
@@ -26,7 +27,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

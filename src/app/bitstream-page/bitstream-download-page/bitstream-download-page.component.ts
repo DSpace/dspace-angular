@@ -23,7 +23,7 @@ import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
 import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
-import { getForbiddenRoute } from '@dspace/core/router/routing-paths';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';

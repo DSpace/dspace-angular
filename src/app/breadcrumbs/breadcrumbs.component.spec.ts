@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
@@ -14,7 +15,6 @@ import {
 import { of } from 'rxjs';
 
 import { VarDirective } from '../shared/utils/var.directive';
-import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbsService } from './breadcrumbs.service';
 

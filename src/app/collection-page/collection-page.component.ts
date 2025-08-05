@@ -16,6 +16,7 @@ import { AuthorizationDataService } from '@dspace/core/data/feature-authorizatio
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Collection } from '@dspace/core/shared/collection.model';
@@ -46,7 +47,6 @@ import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { VarDirective } from '../shared/utils/var.directive';
-import { getCollectionPageRoute } from './collection-page-routing-paths';
 
 @Component({
   selector: 'ds-base-collection-page',

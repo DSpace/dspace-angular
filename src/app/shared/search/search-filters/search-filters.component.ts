@@ -14,6 +14,7 @@ import {
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
@@ -32,7 +33,6 @@ import {
 } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { currentPath } from '../../utils/route.utils';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @Component({

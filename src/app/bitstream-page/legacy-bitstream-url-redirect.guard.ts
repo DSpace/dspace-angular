@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
-import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/routing-paths';
+import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';

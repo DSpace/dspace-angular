@@ -15,6 +15,7 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { Item } from '@dspace/core/shared/item.model';
@@ -59,7 +60,6 @@ import {
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
-import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-collection-mapper',

@@ -4,20 +4,20 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
-import { AppState } from '../app.reducer';
+import { environment } from '../../../environments/environment';
+import { AppState } from '../../app.reducer';
+import { ItemDataService } from '../data/item-data.service';
+import { RemoteData } from '../data/remote-data';
+import { ResolvedAction } from '../resolving/resolver.actions';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
+import { Item } from '../shared/item.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

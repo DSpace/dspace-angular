@@ -10,14 +10,14 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { SubmissionService } from '../../submission/submission.service';
 import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
 import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { Breadcrumb } from '../breadcrumbs/models/breadcrumb.model';
 import { CollectionDataService } from '../data/collection-data.service';
 import { RemoteData } from '../data/remote-data';
+import { getDSORoute } from '../router/utils/dso-route.utils';
 import { Collection } from '../shared/collection.model';
 import {
   getFirstCompletedRemoteData,

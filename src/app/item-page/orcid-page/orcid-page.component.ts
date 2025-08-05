@@ -19,6 +19,7 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import { Item } from '@dspace/core/shared/item.model';
 import {
@@ -40,7 +41,6 @@ import {
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { getItemPageRoute } from '../item-page-routing-paths';
 import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
 import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';

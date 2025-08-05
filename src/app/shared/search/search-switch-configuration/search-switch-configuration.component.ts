@@ -13,6 +13,7 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { SearchService } from '@dspace/core/shared/search/search.service';
 import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
@@ -22,7 +23,6 @@ import { Subscription } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { currentPath } from '../../utils/route.utils';
 import { SearchConfigurationOption } from './search-configuration-option.model';
 
 @Component({

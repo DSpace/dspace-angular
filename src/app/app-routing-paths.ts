@@ -1,16 +1,6 @@
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
+import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-
-import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
-import {
-  getItemModuleRoute,
-  getItemPageRoute,
-} from './item-page/item-page-routing-paths';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';
 
@@ -98,19 +88,6 @@ export const WORKSPACE_ITEM_MODULE_PATH = 'workspaceitems';
 
 export function getWorkspaceItemModuleRoute() {
   return `/${WORKSPACE_ITEM_MODULE_PATH}`;
-}
-
-export function getDSORoute(dso: DSpaceObject): string {
-  if (hasValue(dso)) {
-    switch ((dso as any).type) {
-      case Community.type.value:
-        return getCommunityPageRoute(dso.uuid);
-      case Collection.type.value:
-        return getCollectionPageRoute(dso.uuid);
-      case Item.type.value:
-        return getItemPageRoute(dso as Item);
-    }
-  }
 }
 
 export const INFO_MODULE_PATH = 'info';

@@ -4,6 +4,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { BreadcrumbConfig } from '@dspace/core/breadcrumbs/models/breadcrumb-config.model';
 import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { Process } from '@dspace/core/processes/process.model';
@@ -12,7 +13,6 @@ import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 
 /**

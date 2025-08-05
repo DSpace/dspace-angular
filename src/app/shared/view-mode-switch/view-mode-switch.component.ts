@@ -12,6 +12,7 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
@@ -24,7 +25,6 @@ import { filter } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '../utils/route.utils';
 
 /**
  * Component to switch between list and grid views.

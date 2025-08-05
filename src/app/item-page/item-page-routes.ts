@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { accessTokenResolver } from '@dspace/core/auth/access-token.resolver';
 import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '@dspace/core/breadcrumbs/item-breadcrumb.resolver';
+import { itemPageResolver } from '@dspace/core/resolvers/item-page.resolver';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { MenuRoute } from '../shared/menu/menu-route.model';
@@ -9,7 +10,6 @@ import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-track
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
-import { itemPageResolver } from './item-page.resolver';
 import {
   ITEM_ACCESS_BY_TOKEN_PATH,
   ITEM_EDIT_PATH,

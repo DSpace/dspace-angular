@@ -6,7 +6,6 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { getPageInternalServerErrorRoute } from '@dspace/core/router/routing-paths';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -14,6 +13,7 @@ import {
 } from 'rxjs/operators';
 
 import { RootDataService } from '../data/root-data.service';
+import { getPageInternalServerErrorRoute } from '../router/core-routing-paths';
 
 /**
  * A guard that checks if root api endpoint is reachable.

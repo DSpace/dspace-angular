@@ -18,6 +18,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,7 +34,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import { getItemPageRoute } from '../item-page-routing-paths';
 
 @Component({
   selector: 'ds-edit-item-page',

@@ -5,9 +5,8 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { LinkService } from '../cache/builders/link.service';
+import { getDSORoute } from '../router/utils/dso-route.utils';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -19,6 +18,7 @@ import {
 } from '../utilities/remote-data.utils';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;

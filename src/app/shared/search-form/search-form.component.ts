@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { SearchService } from '@dspace/core/shared/search/search.service';
@@ -29,7 +30,6 @@ import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({

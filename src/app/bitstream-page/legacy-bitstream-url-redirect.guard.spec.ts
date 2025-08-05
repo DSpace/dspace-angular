@@ -1,7 +1,7 @@
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
-import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/routing-paths';
+import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
 import { BrowserHardRedirectService } from '@dspace/core/services/browser-hard-redirect.service';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';

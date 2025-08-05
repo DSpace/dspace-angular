@@ -30,7 +30,8 @@ import { ItemRequestDataService } from '@dspace/core/data/item-request-data.serv
 import { ProofOfWorkCaptchaDataService } from '@dspace/core/data/proof-of-work-captcha-data.service';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getForbiddenRoute } from '@dspace/core/router/routing-paths';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';
@@ -61,7 +62,6 @@ import {
 
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { getItemPageRoute } from '../../item-page-routing-paths';
 import { AltchaCaptchaComponent } from './altcha-captcha.component';
 
 @Component({

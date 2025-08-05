@@ -23,6 +23,10 @@ import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import {
+  getCollectionPageRoute,
+  getCommunityPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
 import { RouteService } from '@dspace/core/services/route.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
@@ -54,8 +58,6 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment.test';
-import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';

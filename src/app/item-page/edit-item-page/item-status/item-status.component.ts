@@ -18,6 +18,7 @@ import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { Identifier } from '@dspace/core/shared/identifiers-data/identifier.model';
 import { IdentifierData } from '@dspace/core/shared/identifiers-data/identifier-data.model';
@@ -49,10 +50,7 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import {
-  getItemEditRoute,
-  getItemPageRoute,
-} from '../../item-page-routing-paths';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ItemOperationComponent } from '../item-operation/item-operation.component';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 

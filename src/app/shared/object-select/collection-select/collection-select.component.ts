@@ -9,6 +9,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import {
@@ -21,7 +22,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ErrorComponent } from '../../error/error.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';

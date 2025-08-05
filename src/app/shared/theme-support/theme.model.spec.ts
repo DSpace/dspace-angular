@@ -1,5 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import {
+  getCollectionModuleRoute,
+  getCommunityModuleRoute,
+  getItemModuleRoute,
+} from '@dspace/core/router/core-routing-paths';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
 import { Community } from '@dspace/core/shared/community.model';
@@ -8,9 +13,6 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
 import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 
-import { getCollectionModuleRoute } from '../../collection-page/collection-page-routing-paths';
-import { getCommunityModuleRoute } from '../../community-page/community-page-routing-paths';
-import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { HandleService } from '../handle.service';
 import {
   HandleTheme,

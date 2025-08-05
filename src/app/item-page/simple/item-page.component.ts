@@ -21,6 +21,7 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
 import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import {
   LinkDefinition,
   LinkHeadService,
@@ -52,7 +53,6 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
-import { getItemPageRoute } from '../item-page-routing-paths';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { AccessByTokenNotificationComponent } from './access-by-token-notification/access-by-token-notification.component';

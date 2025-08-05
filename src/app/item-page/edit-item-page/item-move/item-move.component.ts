@@ -14,6 +14,7 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
@@ -38,10 +39,7 @@ import {
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import {
-  getItemEditRoute,
-  getItemPageRoute,
-} from '../../item-page-routing-paths';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-move',

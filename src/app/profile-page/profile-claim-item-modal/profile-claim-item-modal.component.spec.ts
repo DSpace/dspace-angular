@@ -9,6 +9,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { RouterStub } from '@dspace/core/testing/router.stub';
@@ -17,7 +18,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';

@@ -15,6 +15,7 @@ import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { getCommunityPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Community } from '@dspace/core/shared/community.model';
@@ -38,7 +39,6 @@ import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { VarDirective } from '../shared/utils/var.directive';
-import { getCommunityPageRoute } from './community-page-routing-paths';
 
 @Component({
   selector: 'ds-base-community-page',

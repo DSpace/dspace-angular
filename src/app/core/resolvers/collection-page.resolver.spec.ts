@@ -1,29 +1,28 @@
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { communityPageResolver } from './community-page.resolver';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { collectionPageResolver } from './collection-page.resolver';
 
-describe('communityPageResolver', () => {
+describe('collectionPageResolver', () => {
   describe('resolve', () => {
     let resolver: any;
-    let communityService: any;
+    let collectionService: any;
     let store: any;
     const uuid = '1234-65487-12354-1235';
 
     beforeEach(() => {
-      communityService = {
+      collectionService = {
         findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
       store = jasmine.createSpyObj('store', {
         dispatch: {},
       });
-      resolver = communityPageResolver;
+      resolver = collectionPageResolver;
     });
 
-    it('should resolve a community with the correct id', (done) => {
-      (resolver({ params: { id: uuid } } as any, { url: 'current-url' } as any, communityService, store) as Observable<any>)
-        .pipe(first())
+    it('should resolve a collection with the correct id', (done) => {
+      (resolver({ params: { id: uuid } } as any, { url: 'current-url' } as any, collectionService, store) as Observable<any>).pipe(first())
         .subscribe(
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);

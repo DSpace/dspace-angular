@@ -1,9 +1,8 @@
 import { CanActivateFn } from '@angular/router';
 import { dsoPageSomeFeatureGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { itemPageResolver } from '@dspace/core/resolvers/item-page.resolver';
 import { of } from 'rxjs';
-
-import { itemPageResolver } from '../item-page.resolver';
 
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring any of the rights required for

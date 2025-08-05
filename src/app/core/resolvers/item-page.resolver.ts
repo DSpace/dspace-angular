@@ -5,21 +5,21 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppState } from '../app.reducer';
+import { AppState } from '../../app.reducer';
+import { AuthService } from '../auth/auth.service';
+import { ItemDataService } from '../data/item-data.service';
+import { RemoteData } from '../data/remote-data';
+import { ResolvedAction } from '../resolving/resolver.actions';
+import { getItemPageRoute } from '../router/utils/dso-route.utils';
+import { redirectOn4xx } from '../shared/authorized.operators';
+import { Item } from '../shared/item.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { getItemPageLinksToFollow } from './item.resolver';
-import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
  * Method for resolving an item based on the parameters in the current route

@@ -12,10 +12,13 @@ import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreemen
 import { reloadGuard } from '@dspace/core/reload/reload.guard';
 import { forgotPasswordCheckGuard } from '@dspace/core/rest-property/forgot-password-check-guard.guard';
 import {
+  COLLECTION_MODULE_PATH,
+  COMMUNITY_MODULE_PATH,
   ERROR_PAGE,
   FORBIDDEN_PATH,
   INTERNAL_SERVER_ERROR,
-} from '@dspace/core/router/routing-paths';
+  ITEM_MODULE_PATH,
+} from '@dspace/core/router/core-routing-paths';
 import { ServerCheckGuard } from '@dspace/core/server-check/server-check.guard';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
@@ -32,11 +35,8 @@ import {
   REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
-import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
-import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
-import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';

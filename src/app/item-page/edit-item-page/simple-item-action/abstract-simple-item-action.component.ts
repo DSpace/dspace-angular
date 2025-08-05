@@ -11,6 +11,7 @@ import {
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import {
@@ -23,10 +24,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  getItemEditRoute,
-  getItemPageRoute,
-} from '../../item-page-routing-paths';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 

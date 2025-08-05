@@ -13,6 +13,7 @@ import {
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
@@ -22,7 +23,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';

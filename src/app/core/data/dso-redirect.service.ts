@@ -18,9 +18,9 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { getDSORoute } from '../router/utils/dso-route.utils';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

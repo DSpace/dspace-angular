@@ -15,6 +15,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';
 import {
@@ -24,7 +25,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   getRequestCopyDenyRoute,

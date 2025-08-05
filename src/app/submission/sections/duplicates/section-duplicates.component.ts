@@ -5,6 +5,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
@@ -18,7 +19,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';

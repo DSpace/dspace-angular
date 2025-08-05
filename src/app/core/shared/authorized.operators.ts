@@ -4,10 +4,6 @@ import {
   UrlTree,
 } from '@angular/router';
 import {
-  getForbiddenRoute,
-  getPageNotFoundRoute,
-} from '@dspace/core/router/routing-paths';
-import {
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
@@ -20,6 +16,10 @@ import {
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 import { AuthService } from '../auth/auth.service';
 import { RemoteData } from '../data/remote-data';
+import {
+  getForbiddenRoute,
+  getPageNotFoundRoute,
+} from '../router/core-routing-paths';
 
 export const REDIRECT_ON_4XX = new InjectionToken<<T>(router: Router, authService: AuthService) => (source: Observable<RemoteData<T>>) => Observable<RemoteData<T>>>('redirectOn4xx', {
   providedIn: 'root',

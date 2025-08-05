@@ -8,6 +8,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Subscription } from '@dspace/core/shared/subscription.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
@@ -17,7 +18,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import { getDSORoute } from 'src/app/app-routing-paths';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';

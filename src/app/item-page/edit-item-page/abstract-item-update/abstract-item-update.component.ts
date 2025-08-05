@@ -15,6 +15,8 @@ import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.mod
 import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageLinksToFollow } from '@dspace/core/resolvers/item.resolver';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
 import { hasValue } from '@dspace/shared/utils/empty.util';
@@ -33,8 +35,6 @@ import {
 
 import { environment } from '../../../../environments/environment';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
-import { getItemPageLinksToFollow } from '../../item.resolver';
-import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-abstract-item-update',

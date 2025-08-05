@@ -5,7 +5,9 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
+import { BreadcrumbConfig } from '@dspace/core/breadcrumbs/models/breadcrumb-config.model';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
 import {
@@ -15,9 +17,6 @@ import {
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { getDSORoute } from '../app-routing-paths';
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
 
 /**
  * Method for resolving a breadcrumb config object
