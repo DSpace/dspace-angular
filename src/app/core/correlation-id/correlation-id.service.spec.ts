@@ -1,3 +1,4 @@
+
 import { TestBed } from '@angular/core/testing';
 import { coreReducers } from '@dspace/core/core.reducers';
 import { CoreState } from '@dspace/core/core-state.model';
@@ -21,7 +22,7 @@ describe('CorrelationIdService', () => {
   let uuidService;
   let store;
 
-  const mockStoreModuleConfig = {
+  const mockStoreModuleConfig: any = {
     runtimeChecks: {
       strictStateImmutability: true,
       strictActionImmutability: true,
@@ -31,7 +32,8 @@ describe('CorrelationIdService', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, mockStoreModuleConfig),
+        StoreModule.forRoot(),
+        StoreModule.forFeature('core', coreReducers, mockStoreModuleConfig),
       ],
     }).compileComponents();
   });
@@ -40,6 +42,7 @@ describe('CorrelationIdService', () => {
     cookieService = new CookieServiceMock();
     uuidService = new UUIDService();
     store = TestBed.inject(Store) as MockStore<CoreState>;
+    // store.setState(initialState);
     const mockOrejimeService = {
       getSavedPreferences: () => of({ CORRELATION_ID_OREJIME_KEY: true }),
       initialize: jasmine.createSpy('initialize'),
