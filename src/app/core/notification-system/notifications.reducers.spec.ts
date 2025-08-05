@@ -1,13 +1,11 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { StoreModule } from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { NotificationComponent } from '../../notification-system/notification/notification.component';
-import { NotificationsBoardComponent } from '../../notification-system/notifications-board/notifications-board.component';
+import { coreReducers } from '../core.reducers';
 import { Notification } from './models/notification.model';
-import { NotificationAnimationsType } from './models/notification-animations-type';
 import { NotificationOptions } from './models/notification-options.model';
 import { NotificationType } from './models/notification-type';
 import {
@@ -27,6 +25,13 @@ describe('Notifications reducer', () => {
   let options;
   let html;
 
+  const mockStoreModuleConfig: any = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
+
   beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [
@@ -34,8 +39,8 @@ describe('Notifications reducer', () => {
         ChangeDetectorRef,
       ],
       imports: [
-        StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
-        NotificationComponent, NotificationsBoardComponent,
+        StoreModule.forRoot(),
+        StoreModule.forFeature('core', coreReducers, mockStoreModuleConfig),
       ],
     });
 

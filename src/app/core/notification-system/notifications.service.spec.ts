@@ -13,9 +13,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { NotificationComponent } from '../../notification-system/notification/notification.component';
-import { NotificationsBoardComponent } from '../../notification-system/notifications-board/notifications-board.component';
+import { coreReducers } from '../core.reducers';
 import { TranslateLoaderMock } from '../testing/translate-loader.mock';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
@@ -24,7 +22,6 @@ import {
   RemoveAllNotificationsAction,
   RemoveNotificationAction,
 } from './notifications.actions';
-import { notificationsReducer } from './notifications.reducers';
 import { NotificationsService } from './notifications.service';
 
 describe('NotificationsService test', () => {
@@ -33,18 +30,24 @@ describe('NotificationsService test', () => {
     select: of(true),
   });
   let service: NotificationsService;
+  const mockStoreModuleConfig: any = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
+        StoreModule.forRoot(),
+        StoreModule.forFeature('core', coreReducers, mockStoreModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        NotificationComponent, NotificationsBoardComponent,
       ],
       providers: [
         { provide: Store, useValue: store },

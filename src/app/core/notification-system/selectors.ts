@@ -1,9 +1,6 @@
-/**
- * Returns the user state.
- * @function getUserState
- * @param {CoreState} state Top level state.
- * @return {AuthState}
- */
+import { createSelector } from '@ngrx/store';
+
+import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 
-export const notificationsStateSelector = (state: CoreState) => state.notifications;
+export const notificationsStateSelector = createSelector(coreSelector, (state: CoreState) => state.notifications);
