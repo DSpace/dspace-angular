@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { type } from '@dspace/core/shared/ngrx/type';
+import { type } from '@dspace/core/ngrx/type';
 import { Action } from '@ngrx/store';
 
 /**

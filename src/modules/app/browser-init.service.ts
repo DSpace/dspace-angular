@@ -30,6 +30,7 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { RootDataService } from '@dspace/core/data/root-data.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { StoreActionTypes } from '@dspace/core/ngrx/type';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
@@ -55,10 +56,7 @@ import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { MatomoService } from '../../app/statistics/matomo.service';
-import {
-  StoreAction,
-  StoreActionTypes,
-} from '../../app/store.actions';
+import { StoreAction } from '../../app/store.actions';
 import { environment } from '../../environments/environment';
 
 /**

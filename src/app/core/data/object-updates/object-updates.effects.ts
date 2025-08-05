@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import {
   hasNoValue,
   hasValue,
@@ -24,6 +23,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { NoOpAction } from '../../ngrx/no-op.action';
 import { INotification } from '../../notification-system/models/notification.model';
 import {
   NotificationsActions,

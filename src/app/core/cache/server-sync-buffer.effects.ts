@@ -7,7 +7,6 @@ import {
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
-import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import {
   hasValue,
   isNotEmpty,
@@ -43,6 +42,7 @@ import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { NoOpAction } from '../ngrx/no-op.action';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';

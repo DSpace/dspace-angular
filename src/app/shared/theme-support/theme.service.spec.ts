@@ -11,6 +11,7 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { NoOpAction } from '@dspace/core/ngrx/no-op.action';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
 import { Community } from '@dspace/core/shared/community.model';
@@ -18,7 +19,6 @@ import { COMMUNITY } from '@dspace/core/shared/community.resource-type';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
-import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 import { RouterMock } from '@dspace/core/testing/router.mock';
 import {

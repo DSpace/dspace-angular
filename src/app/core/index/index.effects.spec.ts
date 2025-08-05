@@ -2,7 +2,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
@@ -12,6 +11,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { AddToObjectCacheAction } from '../cache/object-cache.actions';
+import { NoOpAction } from '../ngrx/no-op.action';
 import { Item } from '../shared/item.model';
 import { AddToIndexAction } from './index.actions';
 import { UUIDIndexEffects } from './index.effects';

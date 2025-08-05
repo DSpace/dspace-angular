@@ -2,7 +2,7 @@
 /**
  * The list of NameVariantAction type definitions
  */
-import { type } from '@dspace/core/shared/ngrx/type';
+import { type } from '@dspace/core/ngrx/type';
 import { Action } from '@ngrx/store';
 
 export const NameVariantActionTypes = {

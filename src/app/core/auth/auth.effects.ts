@@ -38,11 +38,11 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
-import { StoreActionTypes } from '../../store.actions';
 import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { RequestActionTypes } from '../data/request.actions';
 import { EPerson } from '../eperson/models/eperson.model';
+import { StoreActionTypes } from '../ngrx/type';
 import { NotificationsActionTypes } from '../notification-system/notifications.actions';
 import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
 import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';

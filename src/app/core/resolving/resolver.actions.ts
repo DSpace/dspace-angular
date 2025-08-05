@@ -1,6 +1,6 @@
-import { type } from '@dspace/core/shared/ngrx/type';
 import { Action } from '@ngrx/store';
 
+import { type } from '../ngrx/type';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
 export const ResolverActionTypes = {

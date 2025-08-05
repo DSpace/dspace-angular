@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { type } from '@dspace/core/ngrx/type';
 import { Item } from '@dspace/core/shared/item.model';
-import { type } from '@dspace/core/shared/ngrx/type';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import {

@@ -21,12 +21,12 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { StoreActionTypes } from '../../store.actions';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { StoreActionTypes } from '../ngrx/type';
 import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestActionTypes,

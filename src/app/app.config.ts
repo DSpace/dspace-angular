@@ -26,12 +26,12 @@ import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service'
 import { DspaceRestInterceptor } from '@dspace/core/dspace-rest/dspace-rest.interceptor';
 import { LocaleInterceptor } from '@dspace/core/locale/locale.interceptor';
 import { LogInterceptor } from '@dspace/core/log/log.interceptor';
+import { DSpaceRouterStateSerializer } from '@dspace/core/ngrx/dspace-router-state-serializer';
 import {
   models,
   provideCore,
 } from '@dspace/core/provide-core';
 import { ListableModule } from '@dspace/core/shared/listable.module';
-import { DSpaceRouterStateSerializer } from '@dspace/core/shared/ngrx/dspace-router-state-serializer';
 import { XsrfInterceptor } from '@dspace/core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
+import { NoOpAction } from '@dspace/core/ngrx/no-op.action';
 import {
   Actions,
   createEffect,

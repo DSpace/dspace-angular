@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
-import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,
@@ -19,6 +18,7 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { RequestService } from '../data/request.service';
+import { NoOpAction } from '../ngrx/no-op.action';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { getMockRequestService } from '../testing/request.service.mock';
 import { StoreMock } from '../testing/store.mock';

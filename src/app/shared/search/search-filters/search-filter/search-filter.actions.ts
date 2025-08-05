@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { type } from '@dspace/core/shared/ngrx/type';
+import { type } from '@dspace/core/ngrx/type';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { Action } from '@ngrx/store';
 

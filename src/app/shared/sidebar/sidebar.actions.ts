@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { type } from '@dspace/core/shared/ngrx/type';
+import { type } from '@dspace/core/ngrx/type';
 import { Action } from '@ngrx/store';
 
 /**

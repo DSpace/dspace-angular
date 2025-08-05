@@ -20,13 +20,13 @@ import {
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
-import { distinctNext } from '@dspace/core/shared/distinct-next';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
   NO_OP_ACTION_TYPE,
   NoOpAction,
-} from '@dspace/core/shared/ngrx/no-op.action';
+} from '@dspace/core/ngrx/no-op.action';
+import { distinctNext } from '@dspace/core/shared/distinct-next';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,

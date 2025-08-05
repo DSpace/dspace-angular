@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
-import { NoOpAction } from '@dspace/core/shared/ngrx/no-op.action';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Actions,
@@ -29,6 +28,7 @@ import {
   RequestConfigureAction,
   RequestStaleAction,
 } from '../data/request.actions';
+import { NoOpAction } from '../ngrx/no-op.action';
 import {
   AddToIndexAction,
   RemoveFromIndexByValueAction,

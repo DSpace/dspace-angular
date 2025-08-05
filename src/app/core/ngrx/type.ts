@@ -27,3 +27,8 @@ export function type<T>(label: T | ''): T {
 
   return label as T;
 }
+
+export const StoreActionTypes = {
+  REHYDRATE: type('dspace/ngrx/REHYDRATE'),
+  REPLAY: type('dspace/ngrx/REPLAY'),
+};

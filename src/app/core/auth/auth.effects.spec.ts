@@ -23,9 +23,9 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
-import { StoreActionTypes } from '../../store.actions';
 import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { StoreActionTypes } from '../ngrx/type';
 import {
   authMethodsMock,
   AuthServiceStub,
