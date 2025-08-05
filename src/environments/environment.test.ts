@@ -48,6 +48,7 @@ export const environment: BuildConfig = {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       limit: 500, // limit each IP to 500 requests per windowMs
+      ipv6Subnet: 56,
     },
     useProxies: true,
   },

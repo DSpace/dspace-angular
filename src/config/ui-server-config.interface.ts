@@ -9,6 +9,7 @@ export class UIServerConfig extends ServerConfig {
   rateLimiter?: {
     windowMs: number;
     limit: number;
+    ipv6Subnet: number;
   };
 
   // Trust X-FORWARDED-* headers from proxies

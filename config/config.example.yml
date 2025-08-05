@@ -14,6 +14,9 @@ ui:
   rateLimiter:
     windowMs: 60000 # 1 minute
     limit: 500 # limit each IP to 500 requests per windowMs
+    # IPv6 subnet mask applied to IPv6 addresses.
+    # See: https://express-rate-limit.mintlify.app/reference/configuration#ipv6subnet
+    ipv6Subnet: 56
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 

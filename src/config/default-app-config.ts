@@ -53,6 +53,7 @@ export class DefaultAppConfig implements AppConfig {
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
       limit: 500, // limit each IP to 500 requests per windowMs
+      ipv6Subnet: 56, // IPv6 subnet mask applied to IPv6 addresses
     },
 
     // Trust X-FORWARDED-* headers from proxies
