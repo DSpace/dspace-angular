@@ -3,10 +3,8 @@ import {
   inject,
   makeEnvironmentProviders,
 } from '@angular/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 
-import { ListableNotificationObject } from '../shared/object-list/listable-notification-object/listable-notification-object.model';
-import { StatisticsEndpoint } from '../statistics/statistics-endpoint.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { AdminNotifyMessage } from './coar-notify/models/admin-notify-message.model';
@@ -74,6 +72,7 @@ import { Relationship } from './shared/item-relationships/relationship.model';
 import { RelationshipType } from './shared/item-relationships/relationship-type.model';
 import { ItemRequest } from './shared/item-request.model';
 import { License } from './shared/license.model';
+import { ListableNotificationObject } from './shared/listable-notification-object.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { Registration } from './shared/registration.model';
 import { Script } from './shared/scripts/script.model';
@@ -90,6 +89,7 @@ import { TemplateItem } from './shared/template-item.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
+import { StatisticsEndpoint } from './statistics/models/statistics-endpoint.model';
 import { UsageReport } from './statistics/models/usage-report.model';
 import { CorrectionType } from './submission/models/correctiontype.model';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';

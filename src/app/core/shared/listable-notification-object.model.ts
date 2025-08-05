@@ -1,11 +1,10 @@
-import { typedObject } from '@dspace/core/cache/builders/build-decorators';
-import { TypedObject } from '@dspace/core/cache/typed-object.model';
-import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { LISTABLE_NOTIFICATION_OBJECT } from '../../shared/object-list/listable-notification-object/listable-notification-object.resource-type';
+import { typedObject } from '../cache/builders/build-decorators';
+import { TypedObject } from '../cache/typed-object.model';
+import { NotificationType } from '../notification-system/models/notification-type';
+import { GenericConstructor } from './generic-constructor';
+import { ResourceType } from './resource-type';
 
 /**
  * Object representing a notification message inside a list of objects

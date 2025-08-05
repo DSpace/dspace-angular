@@ -30,6 +30,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { ListableNotificationObject } from '@dspace/core/shared/listable-notification-object.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -69,7 +70,6 @@ import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { ListableNotificationObject } from '../../object-list/listable-notification-object/listable-notification-object.model';
 import { LISTABLE_NOTIFICATION_OBJECT } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
 
 @Component({

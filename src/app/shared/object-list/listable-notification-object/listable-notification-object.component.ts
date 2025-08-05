@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { ListableNotificationObject } from '@dspace/core/shared/listable-notification-object.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ListableNotificationObject } from './listable-notification-object.model';
 import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
 
 /**
