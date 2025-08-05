@@ -7,11 +7,9 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';

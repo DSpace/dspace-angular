@@ -11,13 +11,13 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
 import { MetadataSchemaDataService } from '@dspace/core/data/metadata-schema-data.service';
 import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RestRequestMethod } from '@dspace/core/data/rest-request-method';
 import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
 import { MetadataField } from '@dspace/core/metadata/metadata-field.model';

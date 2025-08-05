@@ -1,3 +1,4 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
 import {
@@ -20,7 +21,6 @@ import { ItemTemplateDataService } from './item-template-data.service';
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 import createSpyObj = jasmine.createSpyObj;
 
 describe('ItemTemplateDataService', () => {

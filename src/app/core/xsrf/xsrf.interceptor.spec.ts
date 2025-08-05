@@ -11,10 +11,10 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 
 import { CookieService } from '../cookies/cookie.service';
 import { RequestError } from '../data/request-error.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { CookieServiceMock } from '../testing/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../testing/http-xsrf-token-extractor.mock';

@@ -6,6 +6,7 @@
  * http://www.dspace.org/license/
  */
 
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   Observable,
   of,
@@ -22,7 +23,6 @@ import { FindListOptions } from '../find-list-options.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
-import { RestRequestMethod } from '../rest-request-method';
 import {
   PutData,
   PutDataImpl,

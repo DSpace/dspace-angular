@@ -13,11 +13,13 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { UpdateDataService } from '@dspace/core/data/update-data.service';
-import { LazyDataServicesMap } from '@dspace/core/data-services-map';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
 import { lazyDataService } from '@dspace/core/lazy-data-service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Context } from '@dspace/core/shared/context.model';

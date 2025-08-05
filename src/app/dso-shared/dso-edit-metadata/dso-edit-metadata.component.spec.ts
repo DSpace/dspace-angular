@@ -13,8 +13,8 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';

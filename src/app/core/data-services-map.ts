@@ -1,5 +1,3 @@
-import { Type } from '@angular/core';
-
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,
@@ -10,8 +8,8 @@ import {
   LDN_SERVICE,
   LDN_SERVICE_CONSTRAINT_FILTERS,
 } from './data/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
-import { HALDataService } from './data/base/hal-data-service.interface';
 import { ROOT } from './data/root.resource-type';
+import { LazyDataServicesMap } from './data-services-map-type';
 import { EPERSON } from './eperson/models/eperson.resource-type';
 import { GROUP } from './eperson/models/group.resource-type';
 import { WORKFLOWITEM } from './eperson/models/workflowitem.resource-type';
@@ -70,8 +68,6 @@ import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
-
-export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],

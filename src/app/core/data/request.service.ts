@@ -3,6 +3,7 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
   hasValue,
@@ -57,7 +58,6 @@ import {
 } from './request-entry-state.model';
 import { RequestState } from './request-state.model';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * The base selector function to select the request state in the store

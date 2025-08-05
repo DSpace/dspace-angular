@@ -8,10 +8,12 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
-import { LazyDataServicesMap } from '@dspace/core/data-services-map';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
 import { lazyDataService } from '@dspace/core/lazy-data-service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';

@@ -16,10 +16,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RestResponse } from '@dspace/core/cache/response.models';
@@ -28,6 +25,7 @@ import { AuthorizationDataService } from '@dspace/core/data/feature-authorizatio
 import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { RequestEntry } from '@dspace/core/data/request-entry.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';

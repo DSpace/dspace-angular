@@ -9,11 +9,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { LazyDataServicesMap } from '@dspace/core/data-services-map';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
 import { GroupDataService } from '@dspace/core/eperson/group-data.service';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';

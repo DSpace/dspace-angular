@@ -1,3 +1,4 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   Observable,
   of,
@@ -8,7 +9,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';

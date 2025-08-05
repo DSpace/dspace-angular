@@ -11,16 +11,14 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   authReducer,
   AuthState,
 } from '@dspace/core/auth/auth.reducer';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { BrowserOnlyMockPipe } from '@dspace/core/testing/browser-only-mock.pipe';
 import { EPersonMock } from '@dspace/core/testing/eperson.mock';

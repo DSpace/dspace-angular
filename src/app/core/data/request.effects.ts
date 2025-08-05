@@ -2,6 +2,7 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasValue,
   isNotEmpty,
@@ -37,7 +38,6 @@ import {
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RequestError } from './request-error.model';
-import { RestRequestMethod } from './rest-request-method';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 
 @Injectable()

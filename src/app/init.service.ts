@@ -15,13 +15,13 @@ import {
 } from '@angular/core';
 import {
   APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { CheckAuthenticationTokenAction } from '@dspace/core/auth/auth.actions';
 import { isAuthenticationBlocking } from '@dspace/core/auth/selectors';
 import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import { LAZY_DATA_SERVICES } from '@dspace/core/data-services-map';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
@@ -28,7 +29,6 @@ import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntryState } from './request-entry-state.model';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API

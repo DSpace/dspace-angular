@@ -9,7 +9,7 @@ import {
   By,
 } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';

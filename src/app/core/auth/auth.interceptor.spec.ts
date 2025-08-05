@@ -9,11 +9,11 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { AuthServiceStub } from '../testing/auth-service.stub';
 import { RouterStub } from '../testing/router.stub';

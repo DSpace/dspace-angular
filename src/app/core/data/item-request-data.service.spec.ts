@@ -1,4 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { of } from 'rxjs';
 
 import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
@@ -15,7 +16,6 @@ import { FindListOptions } from './find-list-options.model';
 import { ItemRequestDataService } from './item-request-data.service';
 import { PostRequest } from './request.models';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 describe('ItemRequestDataService', () => {
   let service: ItemRequestDataService;

@@ -23,6 +23,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
@@ -39,10 +40,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
+import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import { SubmissionService } from '../../../../../../submission/submission.service';

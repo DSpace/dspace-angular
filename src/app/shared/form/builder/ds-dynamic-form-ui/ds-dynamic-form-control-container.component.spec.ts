@@ -17,11 +17,9 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { Item } from '@dspace/core/shared/item.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';

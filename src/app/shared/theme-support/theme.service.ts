@@ -9,8 +9,11 @@ import {
   ResolveEnd,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
 import { getDefaultThemeConfig } from '@dspace/config/config.util';
 import {
+  BASE_THEME_NAME,
   HeadTagConfig,
   ThemeConfig,
 } from '@dspace/config/theme.config';
@@ -64,7 +67,6 @@ import {
   SetThemeAction,
   ThemeActionTypes,
 } from './theme.actions';
-import { BASE_THEME_NAME } from './theme.constants';
 import {
   Theme,
   themeFactory,
@@ -103,6 +105,7 @@ export class ThemeService {
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
+    @Inject(APP_CONFIG) private appConfig: BuildConfig,
   ) {
     // Create objects from the theme configs in the environment file
     this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
@@ -167,7 +170,7 @@ export class ThemeService {
       if (hasValue(themeName)) {
         this.loadGlobalThemeConfig(themeName);
       } else {
-        const defaultThemeConfig = getDefaultThemeConfig();
+        const defaultThemeConfig = getDefaultThemeConfig(this.appConfig);
         if (hasValue(defaultThemeConfig)) {
           this.loadGlobalThemeConfig(defaultThemeConfig.name);
         } else {

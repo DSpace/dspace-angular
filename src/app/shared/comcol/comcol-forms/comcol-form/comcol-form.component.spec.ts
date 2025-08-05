@@ -11,10 +11,10 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { RequestService } from '@dspace/core/data/request.service';
-import { RestRequestMethod } from '@dspace/core/data/rest-request-method';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Community } from '@dspace/core/shared/community.model';
 import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';

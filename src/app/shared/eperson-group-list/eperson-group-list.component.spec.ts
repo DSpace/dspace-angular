@@ -12,11 +12,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RequestService } from '@dspace/core/data/request.service';
-import { LazyDataServicesMap } from '@dspace/core/data-services-map';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
 import { GroupDataService } from '@dspace/core/eperson/group-data.service';
 import { EPERSON } from '@dspace/core/eperson/models/eperson.resource-type';

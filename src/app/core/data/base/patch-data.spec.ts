@@ -6,6 +6,7 @@
  * http://www.dspace.org/license/
  */
 /* eslint-disable max-classes-per-file */
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   compare,
   Operation,
@@ -32,7 +33,6 @@ import { RemoteData } from '../remote-data';
 import { PatchRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
-import { RestRequestMethod } from '../rest-request-method';
 import { constructIdEndpointDefault } from './identifiable-data.service';
 import {
   PatchData,

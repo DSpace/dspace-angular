@@ -6,6 +6,7 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
@@ -13,7 +14,6 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { RestRequestMethod } from '../data/rest-request-method';
 import {
   DspaceRestService,
   HttpOptions,

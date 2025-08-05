@@ -1,3 +1,4 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasValue,
   isEmpty,
@@ -57,7 +58,6 @@ import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 export abstract class ComColDataService<T extends Community | Collection> extends IdentifiableDataService<T> implements CreateData<T>, FindAllData<T>, SearchData<T>, PatchData<T>, DeleteData<T> {
   private createData: CreateData<T>;

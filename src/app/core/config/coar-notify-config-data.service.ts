@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -34,7 +35,6 @@ import { RemoteData } from '../data/remote-data';
 import { MultipartPostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequest } from '../data/rest-request.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

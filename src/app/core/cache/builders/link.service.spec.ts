@@ -1,11 +1,11 @@
 /* eslint-disable max-classes-per-file */
 import { TestBed } from '@angular/core/testing';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import {
   isEmpty,
   take,
 } from 'rxjs/operators';
 
+import { APP_DATA_SERVICES_MAP } from '../../data-services-map-type';
 import { followLink } from '../../shared/follow-link-config.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';

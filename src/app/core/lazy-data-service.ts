@@ -8,6 +8,7 @@ import {
 } from 'rxjs';
 
 import { HALDataService } from './data/base/hal-data-service.interface';
+import { LazyDataServicesMap } from './data-services-map-type';
 
 /**
  * Loads a service lazily. The service is loaded when the observable is subscribed to.
@@ -25,7 +26,7 @@ import { HALDataService } from './data/base/hal-data-service.interface';
  * ```
  */
 export function lazyDataService<T>(
-  dataServicesMap: Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>,
+  dataServicesMap: LazyDataServicesMap,
   key: string,
   injector: Injector,
 ): Observable<T> {

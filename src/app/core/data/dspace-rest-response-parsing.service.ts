@@ -3,6 +3,7 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
   hasValue,
@@ -34,7 +35,6 @@ import {
 } from './paginated-list.model';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 
 
 /**

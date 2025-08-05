@@ -20,7 +20,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
@@ -32,6 +31,7 @@ import {
 } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
 import { GroupDataService } from '@dspace/core/eperson/group-data.service';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';

@@ -10,12 +10,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { SubmissionUploadsModel } from '@dspace/core/config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
 import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { GroupDataService } from '@dspace/core/eperson/group-data.service';
 import { Group } from '@dspace/core/eperson/models/group.model';
 import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';

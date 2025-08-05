@@ -11,6 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { BASE_THEME_NAME } from '@dspace/config/theme.config';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
   hasNoValue,
@@ -32,7 +33,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeService } from './theme.service';
 
 @Component({

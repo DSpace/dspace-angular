@@ -1,3 +1,4 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
@@ -57,7 +58,6 @@ import {
   PostRequest,
 } from './request.models';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * Interface to list the methods used by the injected service in components

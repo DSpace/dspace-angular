@@ -1,4 +1,4 @@
-import { Config } from '@dspace/config/config.interface';
+import { Config } from './config.interface';
 
 /**
  * Configuration interface used by the AccessibilitySettingsService

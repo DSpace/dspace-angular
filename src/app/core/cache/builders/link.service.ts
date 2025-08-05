@@ -3,8 +3,6 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
-import { LazyDataServicesMap } from '@dspace/core/data-services-map';
 import {
   hasValue,
   isNotEmpty,
@@ -21,6 +19,10 @@ import {
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '../../data-services-map-type';
 import { lazyDataService } from '../../lazy-data-service';
 import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';

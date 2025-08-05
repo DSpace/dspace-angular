@@ -8,7 +8,7 @@ import {
   FormBuilder,
   FormGroup,
 } from '@angular/forms';
-import { RestRequestMethod } from '@dspace/core/data/rest-request-method';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
 import {

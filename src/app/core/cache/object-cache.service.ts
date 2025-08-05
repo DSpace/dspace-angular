@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
   hasValue,
@@ -31,7 +32,6 @@ import {
 
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import {
   selfLinkFromAlternativeLinkSelector,

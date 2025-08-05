@@ -21,6 +21,7 @@ import {
 } from '@angular/router';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
 import { GroupDataService } from '@dspace/core/eperson/group-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
@@ -50,10 +51,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
+import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import { SubmissionService } from '../../../submission/submission.service';

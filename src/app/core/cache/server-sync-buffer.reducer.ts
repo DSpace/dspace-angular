@@ -1,9 +1,9 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils/empty.util';
 
-import { RestRequestMethod } from '../data/rest-request-method';
 import {
   AddToSSBAction,
   EmptySSBAction,

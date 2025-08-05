@@ -1,4 +1,4 @@
-import { NotificationAnimationsType } from './notification-animations-type';
+import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 
 export interface INotificationOptions {
   timeOut: number;

@@ -5,6 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
   hasValue,
@@ -30,7 +31,6 @@ import { ChangeAnalyzer } from '../change-analyzer';
 import { RemoteData } from '../remote-data';
 import { PatchRequest } from '../request.models';
 import { RequestService } from '../request.service';
-import { RestRequestMethod } from '../rest-request-method';
 import {
   ConstructIdEndpoint,
   IdentifiableDataService,

@@ -6,6 +6,10 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  AdminNotifyMetricsBox,
+  AdminNotifyMetricsRow,
+} from '@dspace/config/admin-notify-metrics.config';
+import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
@@ -25,10 +29,6 @@ import { map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
-import {
-  AdminNotifyMetricsBox,
-  AdminNotifyMetricsRow,
-} from './admin-notify-metrics/admin-notify-metrics.model';
 
 @Component({
   selector: 'ds-admin-notify-dashboard',

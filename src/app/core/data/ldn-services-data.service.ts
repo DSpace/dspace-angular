@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -41,7 +42,6 @@ import { RemoteData } from './remote-data';
 import { MultipartPostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint.

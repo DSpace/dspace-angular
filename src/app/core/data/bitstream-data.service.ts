@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Operation,
@@ -63,7 +64,6 @@ import {
   PutRequest,
 } from './request.models';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API

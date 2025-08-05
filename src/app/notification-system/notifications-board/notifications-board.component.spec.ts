@@ -3,7 +3,6 @@ import {
   ComponentFixture,
   fakeAsync,
   flush,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -13,17 +12,12 @@ import {
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
-import { CoreState } from '@dspace/core/core-state.model';
 import { Notification } from '@dspace/core/notification-system/models/notification.model';
 import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
 import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
-import { notificationsReducer } from '@dspace/core/notification-system/notifications.reducers';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
@@ -41,6 +35,22 @@ describe('NotificationsBoardComponent', () => {
   let fixture: ComponentFixture<NotificationsBoardComponent>;
   let liveRegionService: LiveRegionServiceStub;
 
+  const mockStoreModuleConfig: any = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
+
+  const initialState = {
+    core: {
+      notifications: [
+        new Notification(uniqueId(), NotificationType.Success, 'title1', 'content1'),
+        new Notification(uniqueId(), NotificationType.Info, 'title2', 'content2'),
+      ],
+    },
+  };
+
   beforeEach(waitForAsync(() => {
     liveRegionService = new LiveRegionServiceStub();
 
@@ -48,15 +58,12 @@ describe('NotificationsBoardComponent', () => {
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot({ notificationsReducer }, {
-          runtimeChecks: {
-            strictStateImmutability: false,
-            strictActionImmutability: false,
-          },
-        }),
+        /*        StoreModule.forRoot(),
+        StoreModule.forFeature('core', coreReducers, mockStoreModuleConfig),*/
         NotificationsBoardComponent, NotificationComponent,
       ],
       providers: [
+        provideMockStore({ initialState }),
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: LiveRegionService, useValue: liveRegionService },
         { provide: AccessibilitySettingsService, useValue: getAccessibilitySettingsServiceStub() },
@@ -65,16 +72,7 @@ describe('NotificationsBoardComponent', () => {
     }).compileComponents();  // compile template and css
   }));
 
-  beforeEach(inject([NotificationsService, Store], (service: NotificationsService, store: Store<CoreState>) => {
-    store
-      .subscribe((state) => {
-        const notifications = [
-          new Notification(uniqueId(), NotificationType.Success, 'title1', 'content1'),
-          new Notification(uniqueId(), NotificationType.Info, 'title2', 'content2'),
-        ];
-        state.notifications = notifications;
-      });
-
+  beforeEach(() => {
     fixture = TestBed.createComponent(NotificationsBoardComponent);
     comp = fixture.componentInstance;
     comp.options = {
@@ -87,7 +85,7 @@ describe('NotificationsBoardComponent', () => {
     } as INotificationBoardOptions;
 
     fixture.detectChanges();
-  }));
+  });
 
   it('should create component', () => {
     expect(comp).toBeTruthy();

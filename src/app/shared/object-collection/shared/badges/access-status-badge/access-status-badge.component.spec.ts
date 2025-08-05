@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
@@ -13,7 +14,6 @@ import { Item } from '@dspace/core/shared/item.model';
 import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
 import { TruncatePipe } from '../../../../utils/truncate.pipe';

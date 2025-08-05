@@ -8,6 +8,7 @@
 /* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasValue,
   isNotEmpty,
@@ -71,7 +72,6 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
 
 /**

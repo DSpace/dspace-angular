@@ -10,9 +10,9 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';

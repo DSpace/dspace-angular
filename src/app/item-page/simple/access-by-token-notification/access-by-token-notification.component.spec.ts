@@ -5,10 +5,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_DATA_SERVICES_MAP } from '@dspace/config/app-config.interface';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { RequestService } from '@dspace/core/data/request.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';

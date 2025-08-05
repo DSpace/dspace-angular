@@ -10,6 +10,7 @@ import {
 } from '@angular/router';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';
@@ -23,10 +24,7 @@ import {
   getTestScheduler,
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
+import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';

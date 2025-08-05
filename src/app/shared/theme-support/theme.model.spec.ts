@@ -8,16 +8,17 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
 import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 
-import { getCollectionModuleRoute } from '../app/collection-page/collection-page-routing-paths';
-import { getCommunityModuleRoute } from '../app/community-page/community-page-routing-paths';
-import { getItemModuleRoute } from '../app/item-page/item-page-routing-paths';
-import { HandleService } from '../app/shared/handle.service';
+import { getCollectionModuleRoute } from '../../collection-page/collection-page-routing-paths';
+import { getCommunityModuleRoute } from '../../community-page/community-page-routing-paths';
+import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
+import { HandleService } from '../handle.service';
 import {
   HandleTheme,
   RegExTheme,
   Theme,
   UUIDTheme,
-} from '../app/shared/theme-support/theme.model';
+} from './theme.model';
+
 
 describe('Theme Models', () => {
   let theme: Theme;

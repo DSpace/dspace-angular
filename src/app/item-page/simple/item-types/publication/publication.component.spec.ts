@@ -12,10 +12,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
@@ -28,6 +25,7 @@ import { RelationshipDataService } from '@dspace/core/data/relationship-data.ser
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { VersionDataService } from '@dspace/core/data/version-data.service';
 import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';

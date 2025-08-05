@@ -7,6 +7,7 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
@@ -109,6 +110,7 @@ describe('ThemeService', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
         { provide: ConfigurationDataService, useValue: configurationService },
+        { provide: APP_CONFIG, useValue: {} },
       ],
     });
 
@@ -422,6 +424,7 @@ describe('ThemeService', () => {
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
           { provide: ConfigurationDataService, useValue: configurationService },
+          { provide: APP_CONFIG, useValue: {} },
         ],
       });
 

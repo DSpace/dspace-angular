@@ -1,4 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
@@ -9,7 +11,6 @@ import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { FindListOptions } from './find-list-options.model';
 import { ResponseParsingService } from './parsing.service';
-import { RestRequestMethod } from './rest-request-method';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 
 

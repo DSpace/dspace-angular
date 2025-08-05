@@ -1,3 +1,4 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   cold,
   getTestScheduler,
@@ -14,7 +15,6 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
 import { NotificationsService } from '../notification-system/notifications.service';

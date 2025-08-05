@@ -1,4 +1,4 @@
-import { RestRequestMethod } from '@dspace/core/data/rest-request-method';
+import { RestRequestMethod } from './rest-request-method';
 
 /**
  * The number of seconds between automatic syncs to the

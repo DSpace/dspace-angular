@@ -15,10 +15,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { StoreMock } from '@dspace/core/testing/store.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';

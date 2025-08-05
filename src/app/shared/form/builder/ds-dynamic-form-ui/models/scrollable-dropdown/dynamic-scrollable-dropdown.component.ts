@@ -19,7 +19,10 @@ import {
   PaginatedList,
 } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
-import { LazyDataServicesMap } from '@dspace/core/data-services-map';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
 import { lazyDataService } from '@dspace/core/lazy-data-service';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
@@ -49,7 +52,6 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';

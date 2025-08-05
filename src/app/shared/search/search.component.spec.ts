@@ -14,16 +14,14 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   SortDirection,
   SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { RouteService } from '@dspace/core/services/route.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
