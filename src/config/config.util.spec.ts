@@ -9,7 +9,7 @@ describe('Config Util', () => {
       const appConfig = new DefaultAppConfig();
       expect(appConfig.cache.msToLive.default).toEqual(15 * 60 * 1000); // 15 minute
       expect(appConfig.ui.rateLimiter.windowMs).toEqual(1 * 60 * 1000); // 1 minute
-      expect(appConfig.ui.rateLimiter.limit).toEqual(500);
+      expect(appConfig.ui.rateLimiter.limit).toEqual(50);
       expect(appConfig.ui.useProxies).toEqual(true);
 
       expect(appConfig.submission.autosave.metadata).toEqual([]);
