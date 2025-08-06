@@ -15,7 +15,6 @@ import { AuthorizationDataService } from '@dspace/core/data/feature-authorizatio
 import { Context } from '@dspace/core/shared/context.model';
 import { FileService } from '@dspace/core/shared/file.service';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { ListableModule } from '@dspace/core/shared/listable.module';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -29,6 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment.test';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { ListableModule } from '../../../listable.module';
 import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';

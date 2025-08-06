@@ -31,7 +31,6 @@ import {
   models,
   provideCore,
 } from '@dspace/core/provide-core';
-import { ListableModule } from '@dspace/core/shared/listable.module';
 import { XsrfInterceptor } from '@dspace/core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
@@ -69,6 +68,7 @@ import {
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 import { LOGIN_METHOD_FOR_DECORATOR_MAP } from './external-log-in/decorators/external-log-in.methods-decorator';
 import { RootModule } from './root.module';
+import { ListableModule } from './shared/listable.module';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
 import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';
 import {
