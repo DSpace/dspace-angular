@@ -12,6 +12,7 @@ import {
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { VisibilityType } from '@dspace/core/submission/visibility-type';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -27,7 +28,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
 import { SectionsService } from '../sections/sections.service';
-import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
 import {
   mockSectionsData,

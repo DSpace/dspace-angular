@@ -24,6 +24,7 @@ import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -61,7 +62,6 @@ import {
 } from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionFormComponent } from './section-form.component';
 import { SectionFormOperationsService } from './section-form-operations.service';
 

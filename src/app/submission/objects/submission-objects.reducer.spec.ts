@@ -1,6 +1,6 @@
 import { Item } from '@dspace/core/shared/item.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 
-import { SectionsType } from '../sections/sections-type';
 import {
   mockSubmissionCollectionId,
   mockSubmissionDefinitionResponse,

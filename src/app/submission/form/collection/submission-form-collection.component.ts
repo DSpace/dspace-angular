@@ -19,6 +19,7 @@ import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json
 import { Collection } from '@dspace/core/shared/collection.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import {
   hasValue,
@@ -42,7 +43,6 @@ import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '../../sections/sections-type';
 import { SubmissionService } from '../../submission.service';
 
 /**

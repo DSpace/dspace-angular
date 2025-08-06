@@ -27,6 +27,7 @@ import { ConfigurationProperty } from '@dspace/core/shared/configuration-propert
 import { Item } from '@dspace/core/shared/item.model';
 import { License } from '@dspace/core/shared/license.model';
 import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core/submission/models/workspaceitem-section-identifiers.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -53,7 +54,6 @@ import {
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionIdentifiersComponent } from './section-identifiers.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {

@@ -10,6 +10,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
@@ -25,7 +26,6 @@ import {
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionContainerComponent } from './section-container.component';
 
 const sectionState = {

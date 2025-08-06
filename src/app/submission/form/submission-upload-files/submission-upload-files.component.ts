@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
 import {
@@ -28,7 +29,6 @@ import {
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '../../sections/sections-type';
 import { SubmissionService } from '../../submission.service';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 

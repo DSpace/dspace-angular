@@ -22,6 +22,7 @@ import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-pol
 import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -48,7 +49,6 @@ import {
 } from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { SectionUploadService } from './section-upload.service';
 

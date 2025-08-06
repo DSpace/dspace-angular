@@ -23,6 +23,7 @@ import {
   SubmissionCcLicence,
 } from '@dspace/core/submission/models/submission-cc-license.model';
 import { WorkspaceitemSectionCcLicenseObject } from '@dspace/core/submission/models/workspaceitem-section-cc-license.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionCcLicenseDataService } from '@dspace/core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '@dspace/core/submission/submission-cc-license-url-data.service';
 import {
@@ -56,7 +57,6 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 
 /**
  * This component represents the submission section to select the Creative Commons license.

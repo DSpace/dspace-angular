@@ -13,8 +13,12 @@ import { SubmissionSectionModel } from '@dspace/core/config/models/config-submis
 import { Collection } from '@dspace/core/shared/collection.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { VisibilityType } from '@dspace/core/submission/visibility-type';
 import {
   hasValue,
   isNotEmpty,
@@ -36,14 +40,10 @@ import {
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
-import { SectionVisibility } from '../objects/section-visibility.model';
-import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SectionsService } from '../sections/sections.service';
-import { SectionsType } from '../sections/sections-type';
-import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';

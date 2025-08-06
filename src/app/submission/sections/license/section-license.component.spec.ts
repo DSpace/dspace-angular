@@ -23,6 +23,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Collection } from '@dspace/core/shared/collection.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { License } from '@dspace/core/shared/license.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -64,7 +65,6 @@ import {
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionLicenseComponent } from './section-license.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {

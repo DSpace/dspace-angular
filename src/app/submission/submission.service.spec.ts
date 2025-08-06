@@ -17,6 +17,7 @@ import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
@@ -48,7 +49,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { SearchService } from '../shared/search/search.service';
-import { SectionScope } from './objects/section-visibility.model';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,

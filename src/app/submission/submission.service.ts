@@ -9,8 +9,11 @@ import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
@@ -50,8 +53,6 @@ import {
 
 import { environment } from '../../environments/environment';
 import { SearchService } from '../shared/search/search.service';
-import { SectionScope } from './objects/section-visibility.model';
-import { SubmissionError } from './objects/submission-error.model';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -70,7 +71,6 @@ import {
 } from './objects/submission-objects.reducer';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SectionDataObject } from './sections/models/section-data.model';
-import { SectionsType } from './sections/sections-type';
 import { submissionObjectFromIdSelector } from './selectors';
 import {
   submissionSelector,

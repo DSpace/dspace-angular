@@ -2,20 +2,20 @@
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
 import { type } from '@dspace/core/ngrx/type';
 import { Item } from '@dspace/core/shared/item.model';
+import {
+  SectionScope,
+  SectionVisibility,
+} from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
   WorkspaceitemSectionsObject,
 } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { Action } from '@ngrx/store';
 
-import { SectionsType } from '../sections/sections-type';
-import {
-  SectionScope,
-  SectionVisibility,
-} from './section-visibility.model';
-import { SubmissionError } from './submission-error.model';
 import { SubmissionSectionError } from './submission-section-error.model';
 
 /**

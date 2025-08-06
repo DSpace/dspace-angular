@@ -10,6 +10,7 @@ import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.mode
 import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
@@ -46,7 +47,6 @@ import {
 import { environment } from '../../../environments/environment';
 import { FormState } from '../../shared/form/form.reducer';
 import { SectionsService } from '../sections/sections.service';
-import { SectionsType } from '../sections/sections-type';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import { SubmissionObjectService } from '../submission-object.service';

@@ -1,10 +1,10 @@
-import { WorkspaceitemSectionDataType } from '@dspace/core/submission/models/workspaceitem-sections.model';
-
-import { SectionsType } from '../sections/sections-type';
 import {
   SectionScope,
   SectionVisibility,
-} from './section-visibility.model';
+} from '@dspace/core/submission/models/section-visibility.model';
+import { WorkspaceitemSectionDataType } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+
 import { SubmissionSectionError } from './submission-section-error.model';
 
 /**

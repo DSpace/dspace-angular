@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   hasValue,
   isNotEmpty,
@@ -21,7 +22,6 @@ import { SubmissionSectionError } from '../objects/submission-section-error.mode
 import { SubmissionService } from '../submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SectionsService } from './sections.service';
-import { SectionsType } from './sections-type';
 
 /**
  * Directive for handling generic section functionality

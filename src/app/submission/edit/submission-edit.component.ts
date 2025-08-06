@@ -16,6 +16,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
@@ -37,7 +38,6 @@ import {
 } from 'rxjs/operators';
 
 import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
-import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
 

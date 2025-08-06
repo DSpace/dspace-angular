@@ -3,6 +3,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockScrollToService } from '@dspace/core/testing/scroll-to-service.mock';
@@ -29,7 +31,6 @@ import { storeModuleConfig } from '../../app.reducer';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/form/testing/form-service.mock';
-import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -49,7 +50,6 @@ import {
   mockSubmissionStateWithoutUpload,
 } from '../utils/submission.mock';
 import { SectionsService } from './sections.service';
-import { SectionsType } from './sections-type';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;

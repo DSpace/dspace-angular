@@ -28,6 +28,7 @@ import { Duplicate } from '@dspace/core/shared/duplicate-data/duplicate.model';
 import { DUPLICATE } from '@dspace/core/shared/duplicate-data/duplicate.resource-type';
 import { License } from '@dspace/core/shared/license.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -54,7 +55,6 @@ import {
 } from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionDuplicatesComponent } from './section-duplicates.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
