@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { AdminNotifyMetricsBox } from '@dspace/config/admin-notify-metrics.config';
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/models/admin-notify-message-search-result.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 

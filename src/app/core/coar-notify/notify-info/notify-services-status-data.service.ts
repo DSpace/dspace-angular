@@ -5,13 +5,13 @@ import {
   take,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { RemoteData } from '../data/remote-data';
-import { GetRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import { RemoteData } from '../../data/remote-data';
+import { GetRequest } from '../../data/request.models';
+import { RequestService } from '../../data/request.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotifyRequestsStatus } from './models/notify-requests-status.model';
 
 @Injectable({ providedIn: 'root' })

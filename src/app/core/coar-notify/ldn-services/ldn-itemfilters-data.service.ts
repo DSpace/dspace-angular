@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../notification-system/notifications.service';
-import { FollowLinkConfig } from '../shared/follow-link-config.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Itemfilter } from './admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
 import {
   FindAllData,
   FindAllDataImpl,
-} from './base/find-all-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { FindListOptions } from './find-list-options.model';
-import { PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { RequestService } from './request.service';
+} from '../../data/base/find-all-data';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { NotificationsService } from '../../notification-system/notifications.service';
+import { FollowLinkConfig } from '../../shared/follow-link-config.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { Itemfilter } from './models/ldn-service-itemfilters';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint

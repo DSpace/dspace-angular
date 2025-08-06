@@ -67,7 +67,7 @@ export const ROUTES: Route[] = [
       { path: '', pathMatch: 'full', redirectTo: 'services' },
       {
         path: 'services',
-        loadChildren: () => import('../core/data/admin-ldn-services/admin-ldn-services-routes')
+        loadChildren: () => import('./admin-ldn-services/admin-ldn-services-routes')
           .then((m) => m.ROUTES),
       },
     ],

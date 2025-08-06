@@ -1,7 +1,3 @@
-import { typedObject } from '@dspace/core/cache/builders/build-decorators';
-import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,
@@ -9,6 +5,10 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
+import { typedObject } from '../../../cache/builders/build-decorators';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { LDN_SERVICE } from './ldn-service.resource-type';
 import { NotifyServicePattern } from './ldn-service-patterns.model';
 

@@ -1,5 +1,5 @@
-import { AdminNotifyMessage } from '@dspace/core/coar-notify/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/models/admin-notify-message-search-result.model';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';

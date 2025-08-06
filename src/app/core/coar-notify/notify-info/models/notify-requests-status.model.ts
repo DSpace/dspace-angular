@@ -5,12 +5,12 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { HALLink } from '../../shared/hal-link.model';
-import { NOTIFYREQUEST } from '../../shared/notify-requests-status.resource-type';
-import { ResourceType } from '../../shared/resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { typedObject } from '../../../cache/builders/build-decorators';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { HALLink } from '../../../shared/hal-link.model';
+import { NOTIFYREQUEST } from '../../../shared/notify-requests-status.resource-type';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { RequestStatusEnum } from './notify-status.enum';
 
 /**

@@ -7,9 +7,11 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
-import { AdminNotifyMessage } from './coar-notify/models/admin-notify-message.model';
-import { NotifyRequestsStatus } from './coar-notify/models/notify-requests-status.model';
-import { SubmissionCoarNotifyModel } from './coar-notify/models/submission-coar-notify.model';
+import { Itemfilter } from './coar-notify/ldn-services/models/ldn-service-itemfilters';
+import { LdnService } from './coar-notify/ldn-services/models/ldn-services.model';
+import { AdminNotifyMessage } from './coar-notify/notify-info/models/admin-notify-message.model';
+import { NotifyRequestsStatus } from './coar-notify/notify-info/models/notify-requests-status.model';
+import { SubmissionCoarNotifyModel } from './coar-notify/notify-info/models/submission-coar-notify.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { SubmissionAccessModel } from './config/models/config-submission-access.model';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
@@ -21,8 +23,6 @@ import { SubmissionSectionModel } from './config/models/config-submission-sectio
 import { SubmissionSectionsModel } from './config/models/config-submission-sections.model';
 import { SubmissionUploadModel } from './config/models/config-submission-upload.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
-import { Itemfilter } from './data/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
-import { LdnService } from './data/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { PaginatedList } from './data/paginated-list.model';
 import { Root } from './data/root.model';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';

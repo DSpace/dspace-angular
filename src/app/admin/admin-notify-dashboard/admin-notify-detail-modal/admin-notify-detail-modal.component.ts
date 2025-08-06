@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { AdminNotifyMessage } from '@dspace/core/coar-notify/models/admin-notify-message.model';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,

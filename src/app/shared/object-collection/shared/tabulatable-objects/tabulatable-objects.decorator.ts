@@ -1,4 +1,4 @@
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/models/admin-notify-message-search-result.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';

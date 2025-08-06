@@ -25,7 +25,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { LdnItemfiltersService } from '@dspace/core/coar-notify/ldn-services/ldn-itemfilters-data.service';
+import { LdnServicesService } from '@dspace/core/coar-notify/ldn-services/ldn-services-data.service';
+import { LDN_SERVICE } from '@dspace/core/coar-notify/ldn-services/models/ldn-service.resource-type';
+import { Itemfilter } from '@dspace/core/coar-notify/ldn-services/models/ldn-service-itemfilters';
+import { NotifyServicePattern } from '@dspace/core/coar-notify/ldn-services/models/ldn-service-patterns.model';
+import { LdnService } from '@dspace/core/coar-notify/ldn-services/models/ldn-services.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
@@ -43,16 +52,7 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { IpV4Validator } from '../../../../shared/utils/ipV4.validator';
-import { NotificationsService } from '../../../notification-system/notifications.service';
-import { FindListOptions } from '../../find-list-options.model';
-import { LdnItemfiltersService } from '../../ldn-itemfilters-data.service';
-import { LdnServicesService } from '../../ldn-services-data.service';
-import { PaginatedList } from '../../paginated-list.model';
-import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
-import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
-import { NotifyServicePattern } from '../ldn-services-model/ldn-service-patterns.model';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 
 /**

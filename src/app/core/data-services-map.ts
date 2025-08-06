@@ -1,13 +1,13 @@
 import {
+  LDN_SERVICE,
+  LDN_SERVICE_CONSTRAINT_FILTERS,
+} from './coar-notify/ldn-services/models/ldn-service.resource-type';
+import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,
   SUBMISSION_FORMS_TYPE,
   SUBMISSION_UPLOADS_TYPE,
 } from './config/models/config-type';
-import {
-  LDN_SERVICE,
-  LDN_SERVICE_CONSTRAINT_FILTERS,
-} from './data/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
 import { ROOT } from './data/root.resource-type';
 import { LazyDataServicesMap } from './data-services-map-type';
 import { EPERSON } from './eperson/models/eperson.resource-type';
@@ -123,11 +123,11 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [DSPACE_OBJECT.value, () => import('./data/dspace-object-data.service').then(m => m.DSpaceObjectDataService)],
   [BITSTREAM_FORMAT.value, () => import('./data/bitstream-format-data.service').then(m => m.BitstreamFormatDataService)],
   [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('./config/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
-  [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('./data/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
-  [LDN_SERVICE.value, () => import('./data/ldn-services-data.service').then(m => m.LdnServicesService)],
-  [ADMIN_NOTIFY_MESSAGE.value, () => import('./coar-notify/admin-notify-messages-data.service').then(m => m.AdminNotifyMessagesDataService)],
+  [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('./coar-notify/ldn-services/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
+  [LDN_SERVICE.value, () => import('./coar-notify/ldn-services/ldn-services-data.service').then(m => m.LdnServicesService)],
+  [ADMIN_NOTIFY_MESSAGE.value, () => import('./coar-notify/notify-info/admin-notify-messages-data.service').then(m => m.AdminNotifyMessagesDataService)],
   [SUBMISSION_FORMS_TYPE.value, () => import('./config/submission-forms-config-data.service').then(m => m.SubmissionFormsConfigDataService)],
-  [NOTIFYREQUEST.value, () => import('./coar-notify/notify-services-status-data.service').then(m => m.NotifyRequestsStatusDataService)],
+  [NOTIFYREQUEST.value, () => import('./coar-notify/notify-info/notify-services-status-data.service').then(m => m.NotifyRequestsStatusDataService)],
   [QUALITY_ASSURANCE_EVENT_OBJECT.value, () => import('./notifications/qa/events/quality-assurance-event-data.service').then(m => m.QualityAssuranceEventDataService)],
   [QUALITY_ASSURANCE_SOURCE_OBJECT.value, () => import('./notifications/qa/source/quality-assurance-source-data.service').then(m => m.QualityAssuranceSourceDataService)],
   [QUALITY_ASSURANCE_TOPIC_OBJECT.value, () => import('./notifications/qa/topics/quality-assurance-topic-data.service').then(m => m.QualityAssuranceTopicDataService)],

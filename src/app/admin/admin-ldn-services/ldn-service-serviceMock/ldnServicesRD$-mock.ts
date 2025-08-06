@@ -1,13 +1,12 @@
+import { LDN_SERVICE } from '@dspace/core/coar-notify/ldn-services/models/ldn-service.resource-type';
+import { LdnService } from '@dspace/core/coar-notify/ldn-services/models/ldn-services.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
-
-import { PaginatedList } from '../../paginated-list.model';
-import { RemoteData } from '../../remote-data';
-import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
 
 export const mockLdnService: LdnService = {
   uuid: '1',

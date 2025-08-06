@@ -5,8 +5,8 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AdminNotifyMessage } from '@dspace/core/coar-notify/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/models/admin-notify-message-search-result.model';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
