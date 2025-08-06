@@ -29,11 +29,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  compareArraysUsingIds,
-  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
-  relationsToItems,
-} from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -62,6 +57,11 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
+import {
+  compareArraysUsingIds,
+  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
+  relationsToItems,
+} from '../utilities/item-relationships-utils';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PutData,

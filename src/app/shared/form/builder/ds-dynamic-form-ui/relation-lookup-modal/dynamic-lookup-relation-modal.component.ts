@@ -26,6 +26,7 @@ import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import {
@@ -57,7 +58,6 @@ import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import { NameVariantService } from './name-variant.service';
 import {

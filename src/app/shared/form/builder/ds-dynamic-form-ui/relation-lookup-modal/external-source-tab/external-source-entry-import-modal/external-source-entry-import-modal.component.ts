@@ -22,6 +22,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
@@ -45,7 +46,6 @@ import { CollectionListEntry } from '../../../../../../collection-dropdown/colle
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
 
 /**
  * The possible types of import for the external entry

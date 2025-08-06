@@ -1,4 +1,5 @@
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import {
   hasNoValue,
   isNotEmpty,
@@ -13,7 +14,6 @@ import {
 import { Subject } from 'rxjs';
 
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';

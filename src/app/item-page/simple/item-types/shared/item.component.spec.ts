@@ -48,6 +48,10 @@ import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.ser
 import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  compareArraysUsing,
+  compareArraysUsingIds,
+} from '@dspace/core/utilities/item-relationships-utils';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
@@ -74,10 +78,6 @@ import { ThemedMetadataRepresentationListComponent } from '../../metadata-repres
 import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../related-items/related-items-component';
 import { ItemComponent } from './item.component';
-import {
-  compareArraysUsing,
-  compareArraysUsingIds,
-} from './item-relationships-utils';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {

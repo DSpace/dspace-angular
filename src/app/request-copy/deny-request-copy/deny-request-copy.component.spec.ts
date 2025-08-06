@@ -17,6 +17,7 @@ import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import {
   createFailedRemoteDataObject$,
@@ -32,7 +33,6 @@ import { of } from 'rxjs';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { DenyRequestCopyComponent } from './deny-request-copy.component';
 
 describe('DenyRequestCopyComponent', () => {

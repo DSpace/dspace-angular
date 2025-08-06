@@ -20,6 +20,7 @@ import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import {
   hasValue,
   isNotEmpty,
@@ -43,7 +44,6 @@ import { ThemedLoadingComponent } from '../../../../loading/themed-loading.compo
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 

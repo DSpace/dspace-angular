@@ -21,6 +21,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
@@ -39,7 +40,6 @@ import { CollectionElementLinkType } from '../../../../../object-collection/coll
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 
 
 @Component({

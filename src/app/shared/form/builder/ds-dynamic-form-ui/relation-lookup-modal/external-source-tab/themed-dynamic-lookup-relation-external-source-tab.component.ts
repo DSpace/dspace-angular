@@ -9,9 +9,9 @@ import { Context } from '@dspace/core/shared/context.model';
 import { ExternalSource } from '@dspace/core/shared/external-source.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 
 @Component({

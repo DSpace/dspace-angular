@@ -5,7 +5,6 @@ import {
 } from '@dspace/config/app-config.interface';
 import { of } from 'rxjs';
 
-import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { followLink } from '../shared/follow-link-config.model';
@@ -21,6 +20,7 @@ import { ObjectCacheServiceStub } from '../testing/object-cache-service.stub';
 import { getMockRemoteDataBuildServiceHrefMap } from '../testing/remote-data-build.service.mock';
 import { getMockRequestService } from '../testing/request.service.mock';
 import { createPaginatedList } from '../testing/utils.test';
+import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../utilities/item-relationships-utils';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,

@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -24,7 +25,6 @@ import { ItemSearchResultListElementComponent } from '../../../../object-list/se
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { getMockThemeService } from '../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import {
   ExistingMetadataListElementComponent,

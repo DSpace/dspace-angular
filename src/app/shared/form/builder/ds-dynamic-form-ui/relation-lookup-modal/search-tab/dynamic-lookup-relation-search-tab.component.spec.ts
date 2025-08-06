@@ -12,6 +12,7 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
@@ -25,7 +26,6 @@ import { of } from 'rxjs';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 
 

@@ -1,3 +1,4 @@
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormArrayModel,
@@ -6,8 +7,6 @@ import {
   DynamicFormControlRelation,
   serializable,
 } from '@ng-dynamic-forms/core';
-
-import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
   notRepeatable: boolean;

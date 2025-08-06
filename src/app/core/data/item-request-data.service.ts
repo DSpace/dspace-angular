@@ -12,7 +12,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -24,6 +23,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemRequest } from '../shared/item-request.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
+import { RequestCopyEmail } from '../shared/request-copy-email.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   SearchData,

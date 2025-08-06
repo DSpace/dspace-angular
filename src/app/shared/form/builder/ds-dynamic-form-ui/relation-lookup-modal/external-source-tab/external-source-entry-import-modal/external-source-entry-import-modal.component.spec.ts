@@ -13,6 +13,7 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
@@ -23,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
 import {
   ExternalSourceEntryImportModalComponent,
   ImportType,

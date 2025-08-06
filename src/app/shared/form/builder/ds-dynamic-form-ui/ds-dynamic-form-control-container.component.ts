@@ -55,10 +55,12 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SUBMISSION_LINKS_TO_FOLLOW } from '@dspace/core/submission/resolver/submission-links-to-follow';
 import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
+import { paginatedRelationsToItems } from '@dspace/core/utilities/item-relationships-utils';
 import {
   hasNoValue,
   hasValue,
@@ -107,14 +109,12 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../app.reducer';
-import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import {
   ExistingMetadataListElementComponent,

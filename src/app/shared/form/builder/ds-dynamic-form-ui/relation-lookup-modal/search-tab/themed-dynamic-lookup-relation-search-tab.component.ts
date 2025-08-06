@@ -9,12 +9,12 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { Observable } from 'rxjs';
 
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 
 @Component({

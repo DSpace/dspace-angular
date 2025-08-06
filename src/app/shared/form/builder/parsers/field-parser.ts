@@ -2,6 +2,7 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { isNgbDateStruct } from '@dspace/shared/utils/date.util';
@@ -32,7 +33,6 @@ import {
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';

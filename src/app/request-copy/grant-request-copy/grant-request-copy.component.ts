@@ -21,6 +21,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
@@ -36,7 +37,6 @@ import {
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
 
 @Component({
