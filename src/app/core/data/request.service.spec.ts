@@ -24,7 +24,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { storeModuleConfig } from '../../app.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
@@ -90,6 +89,13 @@ describe('RequestService', () => {
       msToLive: {
         default: 15 * 60 * 1000,
       },
+    },
+  };
+
+  const storeModuleConfig = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
     },
   };
 

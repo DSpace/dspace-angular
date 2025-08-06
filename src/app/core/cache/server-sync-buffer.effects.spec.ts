@@ -16,7 +16,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { storeModuleConfig } from '../../app.reducer';
 import { RequestService } from '../data/request.service';
 import { NoOpAction } from '../ngrx/no-op.action';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -46,6 +45,12 @@ describe('ServerSyncBufferEffects', () => {
       },
   };
   const selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+  const storeModuleConfig = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
   let store;
 
   beforeEach(() => {
