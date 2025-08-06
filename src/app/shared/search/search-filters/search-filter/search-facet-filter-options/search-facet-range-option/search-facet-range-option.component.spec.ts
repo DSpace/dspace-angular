@@ -19,9 +19,6 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
@@ -29,6 +26,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
+import { SearchService } from '../../../../search.service';
+import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchFilterService } from '../../../search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,

@@ -26,7 +26,6 @@ import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -50,6 +49,7 @@ import {
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';

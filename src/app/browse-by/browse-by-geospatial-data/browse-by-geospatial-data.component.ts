@@ -17,8 +17,6 @@ import {
 } from '@dspace/core/shared/operators';
 import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -35,6 +33,8 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { GeospatialMapComponent } from '../../shared/geospatial-map/geospatial-map.component';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-browse-by-geospatial-data',

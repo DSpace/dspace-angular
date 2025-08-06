@@ -21,7 +21,6 @@ import { RoleService } from '@dspace/core/roles/role.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import {
   combineLatest,
   Observable,
@@ -31,6 +30,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 

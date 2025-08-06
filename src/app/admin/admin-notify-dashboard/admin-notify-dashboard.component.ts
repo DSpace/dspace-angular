@@ -18,8 +18,6 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -28,6 +26,8 @@ import {
 import { map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 
 @Component({

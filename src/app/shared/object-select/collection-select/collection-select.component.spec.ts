@@ -14,7 +14,6 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { LinkHeadService } from '@dspace/core/services/link-head.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -25,6 +24,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../host-window.service';
+import { SearchConfigurationService } from '../../search/search-configuration.service';
 import { ObjectSelectService } from '../object-select.service';
 import { CollectionSelectComponent } from './collection-select.component';
 

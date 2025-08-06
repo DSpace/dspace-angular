@@ -17,8 +17,6 @@ import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
@@ -33,6 +31,8 @@ import {
 } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchService } from '../../../search.service';
+import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 

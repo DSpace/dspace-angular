@@ -16,8 +16,6 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
@@ -37,6 +35,8 @@ import {
 import { ErrorComponent } from '../../error/error.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
+import { SearchService } from '../search.service';
+import { SearchConfigurationService } from '../search-configuration.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
 

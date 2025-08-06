@@ -15,7 +15,6 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
@@ -30,6 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { SearchService } from '../../../shared/search/search.service';
 import { ItemMoveComponent } from './item-move.component';
 
 describe('ItemMoveComponent', () => {

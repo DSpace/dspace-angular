@@ -14,9 +14,6 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
@@ -25,6 +22,9 @@ import {
 import { map } from 'rxjs/operators';
 
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
+import { SearchService } from '../../../../search.service';
+import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchFilterService } from '../../../search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,

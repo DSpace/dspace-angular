@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 
-import { SearchService } from '../shared/search/search.service';
+import { SearchService } from '../../shared/search/search.service';
 
 export function getMockSearchService(): SearchService {
   return jasmine.createSpyObj('searchService', {

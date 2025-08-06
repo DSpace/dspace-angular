@@ -10,7 +10,6 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
@@ -20,6 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { SearchService } from '../../../search/search.service';
 import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-actions';
 
 /**

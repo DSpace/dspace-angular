@@ -21,7 +21,6 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { RouterMock } from '@dspace/core/testing/router.mock';
@@ -35,6 +34,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { RSSComponent } from './rss.component';
 
 describe('RssComponent', () => {

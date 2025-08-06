@@ -11,9 +11,6 @@ import {
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
@@ -21,7 +18,10 @@ import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-serv
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SearchService } from '../../search.service';
 import { addOperatorToFilterValue } from '../../search.utils';
+import { SearchConfigurationService } from '../../search-configuration.service';
+import { SearchFilterService } from '../../search-filters/search-filter.service';
 import { SearchLabelRangeComponent } from './search-label-range.component';
 
 describe('SearchLabelRangeComponent', () => {

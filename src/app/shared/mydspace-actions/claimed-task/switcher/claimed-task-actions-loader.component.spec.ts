@@ -15,7 +15,6 @@ import {
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
@@ -29,6 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { SearchService } from '../../../search/search.service';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';

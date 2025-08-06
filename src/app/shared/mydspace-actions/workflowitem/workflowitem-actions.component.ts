@@ -9,7 +9,6 @@ import {
 } from '@angular/router';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +18,7 @@ import {
 } from '@ngx-translate/core';
 
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { SearchService } from '../../search/search.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**

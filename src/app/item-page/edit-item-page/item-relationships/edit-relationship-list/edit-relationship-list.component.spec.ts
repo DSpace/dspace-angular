@@ -31,7 +31,6 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthRequestServiceStub } from '@dspace/core/testing/auth-request-service.stub';
 import { EditItemRelationshipsServiceStub } from '@dspace/core/testing/edit-item-relationships.service.stub';
@@ -55,6 +54,7 @@ import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-f
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { SearchConfigurationService } from '../../../../shared/search/search-configuration.service';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 

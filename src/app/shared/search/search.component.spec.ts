@@ -34,9 +34,6 @@ import { FilterType } from '@dspace/core/shared/search/models/filter-type.model'
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import {
   SearchConfig,
   SortConfig,
@@ -65,6 +62,9 @@ import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component
 import { SidebarService } from '../sidebar/sidebar.service';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { SearchComponent } from './search.component';
+import { SearchService } from './search.service';
+import { SearchConfigurationService } from './search-configuration.service';
+import { SearchFilterService } from './search-filters/search-filter.service';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';

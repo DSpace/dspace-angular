@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
@@ -13,6 +12,7 @@ import { DsDynamicLookupRelationExternalSourceTabComponent as BaseComponent } fr
 import { ThemedLoadingComponent } from '../../../../../../../../../app/shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../../../../../app/shared/object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../../../../../app/shared/page-size-selector/page-size-selector.component';
+import { SearchConfigurationService } from '../../../../../../../../../app/shared/search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../../../../../../../../app/shared/search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
 

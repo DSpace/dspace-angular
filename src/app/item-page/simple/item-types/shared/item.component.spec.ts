@@ -39,7 +39,6 @@ import { Relationship } from '@dspace/core/shared/item-relationships/relationshi
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
@@ -69,6 +68,7 @@ import { environment } from '../../../../../environments/environment';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
+import { SearchService } from '../../../../shared/search/search.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';

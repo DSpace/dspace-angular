@@ -20,7 +20,6 @@ import { LinkHeadService } from '@dspace/core/services/link-head.service';
 import { Community } from '@dspace/core/shared/community.model';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
@@ -31,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { SearchConfigurationService } from '../../../../shared/search/search-configuration.service';
 import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';

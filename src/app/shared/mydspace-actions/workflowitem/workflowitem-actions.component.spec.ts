@@ -16,7 +16,6 @@ import {
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -32,6 +31,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SearchService } from '../../search/search.service';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 
 let component: WorkflowitemActionsComponent;

@@ -4,9 +4,6 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
@@ -14,6 +11,9 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
+import { SearchService } from '../search.service';
+import { SearchConfigurationService } from '../search-configuration.service';
+import { SearchFilterService } from '../search-filters/search-filter.service';
 import { AdvancedSearchComponent } from './advanced-search.component';
 
 describe('AdvancedSearchComponent', () => {

@@ -22,7 +22,6 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { LinkHeadService } from '@dspace/core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import {
   hasValue,
   isUndefined,
@@ -39,6 +38,7 @@ import {
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 
 /**
  * The Rss feed button component.

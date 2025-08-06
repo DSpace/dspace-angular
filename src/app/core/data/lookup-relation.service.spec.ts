@@ -4,13 +4,13 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { SearchService } from '../../shared/search/search.service';
 import { ExternalSource } from '../shared/external-source.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { RelationshipOptions } from '../shared/relationship-options.model';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchResult } from '../shared/search/models/search-result.model';
-import { SearchService } from '../shared/search/search.service';
 import { createPaginatedList } from '../testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { ExternalSourceDataService } from './external-source-data.service';

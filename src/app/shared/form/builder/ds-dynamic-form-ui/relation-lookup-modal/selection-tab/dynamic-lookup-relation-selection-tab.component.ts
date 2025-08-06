@@ -20,7 +20,6 @@ import { ListableObject } from '@dspace/core/shared/object-collection/listable-o
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -33,6 +32,7 @@ import {
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',

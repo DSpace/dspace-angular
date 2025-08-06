@@ -18,9 +18,6 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { SequenceService } from '@dspace/core/shared/sequence.service';
 import {
   hasValue,
@@ -42,6 +39,9 @@ import {
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
+import { SearchService } from '../../search.service';
+import { SearchConfigurationService } from '../../search-configuration.service';
+import { SearchFilterService } from '../search-filter.service';
 import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 

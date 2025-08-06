@@ -32,7 +32,6 @@ import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
@@ -57,6 +56,7 @@ import { RelatedItemsComponent } from '../../../../item-page/simple/related-item
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
+import { SearchService } from '../../../../shared/search/search.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';

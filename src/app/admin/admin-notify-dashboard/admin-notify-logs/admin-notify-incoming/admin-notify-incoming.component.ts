@@ -3,10 +3,10 @@ import {
   Inject,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../../../../shared/search/search-configuration.service';
 import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admin-notify-logs-result.component';
 
 @Component({

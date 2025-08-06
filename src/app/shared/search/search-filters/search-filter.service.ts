@@ -1,6 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
@@ -20,11 +32,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
+import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
+import { EmphasizePipe } from '../../utils/emphasize.pipe';
+import { SearchService } from '../search.service';
 import {
   getFacetValueForType,
   stripOperatorFromFilterValue,
-} from '../../../shared/search/search.utils';
+} from '../search.utils';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -34,25 +48,11 @@ import {
   SearchFilterMinimizeAllPageAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '../../../shared/search/search-filters/search-filter/search-filter.actions';
+} from './search-filter/search-filter.actions';
 import {
   SearchFiltersState,
   SearchFilterState,
-} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { EmphasizePipe } from '../../../shared/utils/emphasize.pipe';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../cache/models/sort-options.model';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { RouteService } from '../../services/route.service';
-import { getFirstSucceededRemoteData } from '../operators';
-import { FacetValue } from './models/facet-value.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchOptions } from './models/search-options.model';
-import { SearchService } from './search.service';
+} from './search-filter/search-filter.reducer';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 

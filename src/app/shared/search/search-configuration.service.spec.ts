@@ -2,27 +2,27 @@
 import { Params } from '@angular/router';
 import { AppConfig } from '@dspace/config/app-config.interface';
 import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestEntry } from '@dspace/core/data/request-entry.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
   combineLatest as observableCombineLatest,
   Observable,
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../cache/models/sort-options.model';
-import { RemoteData } from '../../data/remote-data';
-import { RequestEntry } from '../../data/request-entry.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { getMockRequestService } from '../../testing/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
-import { AppliedFilter } from './models/applied-filter.model';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
-import { SearchFilter } from './models/search-filter.model';
-import { SearchObjects } from './models/search-objects.model';
 import { SearchConfigurationService } from './search-configuration.service';
 
 describe('SearchConfigurationService', () => {

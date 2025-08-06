@@ -25,7 +25,6 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -39,6 +38,7 @@ import {
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { SearchService } from '../../../shared/search/search.service';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 
 @Component({

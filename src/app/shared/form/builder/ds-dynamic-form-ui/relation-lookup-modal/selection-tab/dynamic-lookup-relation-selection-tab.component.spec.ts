@@ -17,7 +17,6 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,6 +27,7 @@ import {
 
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSelectionTabComponent } from './dynamic-lookup-relation-selection-tab.component';
 

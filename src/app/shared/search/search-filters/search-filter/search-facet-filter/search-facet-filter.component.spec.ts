@@ -16,8 +16,6 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
@@ -31,6 +29,8 @@ import {
 } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchService } from '../../../search.service';
+import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {

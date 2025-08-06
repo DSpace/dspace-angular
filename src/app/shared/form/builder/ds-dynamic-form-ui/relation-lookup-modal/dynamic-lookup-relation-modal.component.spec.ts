@@ -21,7 +21,6 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -40,6 +39,7 @@ import {
 
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { SearchConfigurationService } from '../../../../search/search-configuration.service';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './name-variant.service';
 import {

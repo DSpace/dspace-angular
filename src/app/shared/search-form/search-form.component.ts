@@ -14,9 +14,6 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import {
   hasValue,
   isNotEmpty,
@@ -29,6 +26,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { SearchService } from '../search/search.service';
+import { SearchConfigurationService } from '../search/search-configuration.service';
+import { SearchFilterService } from '../search/search-filters/search-filter.service';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 

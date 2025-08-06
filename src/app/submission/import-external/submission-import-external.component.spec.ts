@@ -19,7 +19,6 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { RouteService } from '@dspace/core/services/route.service';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { getMockExternalSourceService } from '@dspace/core/testing/external-source.service.mock';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
@@ -44,6 +43,7 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';

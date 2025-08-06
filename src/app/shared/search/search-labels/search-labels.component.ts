@@ -5,9 +5,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { BehaviorSubject } from 'rxjs';
 
+import { SearchService } from '../search.service';
 import { SearchLabelLoaderComponent } from './search-label-loader/search-label-loader.component';
 
 @Component({

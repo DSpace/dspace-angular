@@ -13,6 +13,7 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
+import { SearchService } from '../../shared/search/search.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ExternalSource } from '../shared/external-source.model';
@@ -25,7 +26,6 @@ import {
 import { RelationshipOptions } from '../shared/relationship-options.model';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchResult } from '../shared/search/models/search-result.model';
-import { SearchService } from '../shared/search/search.service';
 import { ExternalSourceDataService } from './external-source-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';

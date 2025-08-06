@@ -13,7 +13,6 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
@@ -29,6 +28,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
 
 let component: ClaimedTaskActionsReturnToPoolComponent;

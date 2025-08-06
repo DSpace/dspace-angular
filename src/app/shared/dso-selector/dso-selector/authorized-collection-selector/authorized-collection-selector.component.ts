@@ -25,7 +25,6 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
@@ -38,6 +37,7 @@ import { map } from 'rxjs/operators';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchService } from '../../../search/search.service';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({

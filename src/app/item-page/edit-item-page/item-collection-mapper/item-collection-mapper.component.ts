@@ -29,8 +29,6 @@ import {
   toDSpaceObjectListRD,
 } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import {
   hasValue,
   isNotEmpty,
@@ -58,6 +56,8 @@ import {
   fadeInOut,
 } from '../../../shared/animations/fade';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
+import { SearchService } from '../../../shared/search/search.service';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 

@@ -15,8 +15,6 @@ import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-sea
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { relatedRelationships } from '@dspace/core/testing/related-relationships.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -24,6 +22,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { SearchService } from '../../../../../search/search.service';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';

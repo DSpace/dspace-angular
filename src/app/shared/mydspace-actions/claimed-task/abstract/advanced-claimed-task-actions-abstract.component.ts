@@ -12,11 +12,11 @@ import {
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { TranslateService } from '@ngx-translate/core';
 
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 
 /**

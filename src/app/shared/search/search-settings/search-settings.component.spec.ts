@@ -13,8 +13,6 @@ import {
 } from '@dspace/core/cache/models/sort-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
@@ -26,6 +24,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configu
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { VarDirective } from '../../utils/var.directive';
+import { SearchService } from '../search.service';
+import { SearchFilterService } from '../search-filters/search-filter.service';
 import { SearchSettingsComponent } from './search-settings.component';
 
 describe('SearchSettingsComponent', () => {

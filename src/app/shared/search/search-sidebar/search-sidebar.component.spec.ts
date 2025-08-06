@@ -9,13 +9,13 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
+import { SearchConfigurationService } from '../search-configuration.service';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { SearchSidebarComponent } from './search-sidebar.component';

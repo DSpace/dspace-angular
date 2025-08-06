@@ -14,7 +14,6 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
@@ -27,6 +26,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { SearchService } from '../../search/search.service';
 import { VarDirective } from '../../utils/var.directive';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actions-loader.component';

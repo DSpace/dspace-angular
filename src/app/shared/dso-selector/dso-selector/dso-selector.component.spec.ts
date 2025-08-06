@@ -16,7 +16,6 @@ import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
@@ -26,6 +25,7 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchService } from '../../search/search.service';
 import { DSOSelectorComponent } from './dso-selector.component';
 
 describe('DSOSelectorComponent', () => {

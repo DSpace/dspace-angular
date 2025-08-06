@@ -14,7 +14,6 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import { ResourceType } from '@dspace/core/shared/resource-type';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -25,6 +24,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { SearchService } from '../search/search.service';
 import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';
 
 export interface MyDSpaceActionsResult {

@@ -15,12 +15,12 @@ import {
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../../../search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 
 /**

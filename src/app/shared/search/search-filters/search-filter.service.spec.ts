@@ -2,9 +2,21 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 
+import { SearchService } from '../search.service';
+import { SearchFilterService } from './search-filter.service';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -13,20 +25,8 @@ import {
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '../../../shared/search/search-filters/search-filter/search-filter.actions';
-import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../cache/models/sort-options.model';
-import { RouteService } from '../../services/route.service';
-import { routeServiceStub } from '../../testing/route-service.stub';
-import { SearchServiceStub } from '../../testing/search-service.stub';
-import { FilterType } from './models/filter-type.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchOptions } from './models/search-options.model';
-import { SearchService } from './search.service';
-import { SearchFilterService } from './search-filter.service';
+} from './search-filter/search-filter.actions';
+import { SearchFiltersState } from './search-filter/search-filter.reducer';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;

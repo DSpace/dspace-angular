@@ -19,8 +19,6 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { RouterStub } from '@dspace/core/testing/router.stub';
@@ -38,6 +36,8 @@ import {
 
 import { environment } from '../../../../../../environments/environment.test';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchService } from '../../../search.service';
+import { SearchFilterService } from '../../search-filter.service';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {

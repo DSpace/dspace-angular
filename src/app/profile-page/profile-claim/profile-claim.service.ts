@@ -5,7 +5,6 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { createNoContentRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   isEmpty,
@@ -16,6 +15,8 @@ import {
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { SearchService } from '../../shared/search/search.service';
 
 /**
  * Service that handle profiles claim.

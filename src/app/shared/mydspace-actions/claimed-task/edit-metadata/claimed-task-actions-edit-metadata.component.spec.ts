@@ -15,7 +15,6 @@ import {
 } from '@angular/router';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
@@ -30,6 +29,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
 
 let component: ClaimedTaskActionsEditMetadataComponent;

@@ -6,13 +6,13 @@ import {
 } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AdminNotifyMessagesDataService } from '@dspace/core/coar-notify/notify-info/admin-notify-messages-data.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { mockAdminNotifyMessages } from '@dspace/core/testing/admin-notify-messages.mock';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';

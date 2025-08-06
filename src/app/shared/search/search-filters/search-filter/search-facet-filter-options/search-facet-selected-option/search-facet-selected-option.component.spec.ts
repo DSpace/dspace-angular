@@ -14,9 +14,6 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
@@ -25,6 +22,9 @@ import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-serv
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SearchService } from '../../../../search.service';
+import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchFilterService } from '../../../search-filter.service';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
 
 describe('SearchFacetSelectedOptionComponent', () => {

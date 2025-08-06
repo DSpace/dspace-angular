@@ -17,7 +17,6 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-search-result.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import {
   NgbModal,
   NgbModalRef,
@@ -33,6 +32,7 @@ import {
 } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';

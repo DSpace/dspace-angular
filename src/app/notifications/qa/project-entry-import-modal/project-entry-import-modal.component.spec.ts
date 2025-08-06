@@ -15,7 +15,6 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { Item } from '@dspace/core/shared/item.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import {
   ItemMockPid10,
@@ -32,6 +31,7 @@ import { of } from 'rxjs';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { SearchService } from '../../../shared/search/search.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 import {
   ImportType,

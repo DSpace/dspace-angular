@@ -12,7 +12,6 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { ResourceType } from '@dspace/core/shared/resource-type';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -26,6 +25,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { SearchService } from '../search/search.service';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 

@@ -1,5 +1,35 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { BaseDataService } from '@dspace/core/data/base/base-data.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { FacetValueResponseParsingService } from '@dspace/core/data/facet-value-response-parsing.service';
+import { ResponseParsingService } from '@dspace/core/data/parsing.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GetRequest } from '@dspace/core/data/request.models';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RestRequest } from '@dspace/core/data/rest-request.model';
+import { SearchResponseParsingService } from '@dspace/core/data/search-response-parsing.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
   hasValue,
   hasValueOperator,
@@ -20,38 +50,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { BaseDataService } from '../../data/base/base-data.service';
-import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
-import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
-import { ResponseParsingService } from '../../data/parsing.service';
-import { RemoteData } from '../../data/remote-data';
-import { GetRequest } from '../../data/request.models';
-import { RequestService } from '../../data/request.service';
-import { RestRequest } from '../../data/rest-request.model';
-import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
-import { PaginationService } from '../../pagination/pagination.service';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { RouteService } from '../../services/route.service';
-import { URLCombiner } from '../../url-combiner/url-combiner';
-import { DSpaceObject } from '../dspace-object.model';
-import { FollowLinkConfig } from '../follow-link-config.model';
-import { GenericConstructor } from '../generic-constructor';
-import { HALEndpointService } from '../hal-endpoint.service';
-import { ListableObject } from '../object-collection/listable-object.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../operators';
-import { ViewMode } from '../view-mode.model';
-import { AppliedFilter } from './models/applied-filter.model';
-import { FacetValues } from './models/facet-values.model';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchObjects } from './models/search-objects.model';
-import { SearchResult } from './models/search-result.model';
 import { SearchConfigurationService } from './search-configuration.service';
+import { getSearchResultFor } from './search-result-element-decorator';
 
 /**
  * A limited data service implementation for the 'discover' endpoint

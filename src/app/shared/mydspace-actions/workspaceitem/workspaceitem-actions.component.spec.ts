@@ -19,7 +19,6 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -43,6 +42,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SearchService } from '../../search/search.service';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 
 let component: WorkspaceitemActionsComponent;

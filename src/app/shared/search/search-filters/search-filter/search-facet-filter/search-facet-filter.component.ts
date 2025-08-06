@@ -24,9 +24,6 @@ import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model'
 import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import {
   hasNoValue,
   hasValue,
@@ -48,6 +45,9 @@ import {
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
+import { SearchService } from '../../../search.service';
+import { SearchConfigurationService } from '../../../search-configuration.service';
+import { SearchFilterService } from '../../search-filter.service';
 
 /**
  * The operators the {@link AppliedFilter} should have in order to be shown in the facets

@@ -19,7 +19,6 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
@@ -39,6 +38,7 @@ import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.co
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';

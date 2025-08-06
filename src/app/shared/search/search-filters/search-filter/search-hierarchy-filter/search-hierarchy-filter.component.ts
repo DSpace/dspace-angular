@@ -20,9 +20,6 @@ import {
 import { FilterVocabularyConfig } from '@dspace/config/filter-vocabulary-config';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
@@ -45,7 +42,10 @@ import {
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { SearchService } from '../../../search.service';
 import { addOperatorToFilterValue } from '../../../search.utils';
+import { SearchConfigurationService } from '../../../search-configuration.service';
+import { SearchFilterService } from '../../search-filter.service';
 import {
   facetLoad,
   SearchFacetFilterComponent,

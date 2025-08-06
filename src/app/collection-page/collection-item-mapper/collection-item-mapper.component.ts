@@ -33,8 +33,6 @@ import {
   toDSpaceObjectListRD,
 } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -59,6 +57,8 @@ import {
   fadeInOut,
 } from '../../shared/animations/fade';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 

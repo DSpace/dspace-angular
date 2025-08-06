@@ -16,7 +16,6 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
@@ -28,6 +27,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SearchService } from '../../search/search.service';
 import { ItemActionsComponent } from './item-actions.component';
 
 let component: ItemActionsComponent;

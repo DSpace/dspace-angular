@@ -13,7 +13,6 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
@@ -37,6 +36,7 @@ import { SelectableListItemControlComponent } from '../../../shared/object-colle
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 

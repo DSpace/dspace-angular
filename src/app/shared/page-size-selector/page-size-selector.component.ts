@@ -12,7 +12,6 @@ import {
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -20,6 +19,7 @@ import {
 } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
 
 @Component({

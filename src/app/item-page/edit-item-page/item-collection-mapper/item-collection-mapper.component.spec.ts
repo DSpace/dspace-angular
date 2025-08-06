@@ -25,8 +25,6 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
@@ -51,6 +49,8 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { SearchService } from '../../../shared/search/search.service';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

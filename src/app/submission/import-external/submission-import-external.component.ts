@@ -21,7 +21,6 @@ import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.m
 import { NONE_ENTITY_TYPE } from '@dspace/core/shared/item-relationships/item-type.resource-type';
 import { getFinishedRemoteData } from '@dspace/core/shared/operators';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   hasValue,
@@ -50,6 +49,7 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import {

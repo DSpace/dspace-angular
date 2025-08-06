@@ -22,7 +22,6 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -43,6 +42,7 @@ import {
 import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import { SearchService } from '../../../search/search.service';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents

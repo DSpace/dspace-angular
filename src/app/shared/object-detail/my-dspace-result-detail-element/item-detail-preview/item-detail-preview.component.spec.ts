@@ -26,7 +26,6 @@ import { FileService } from '@dspace/core/shared/file.service';
 import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
@@ -42,6 +41,7 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { SearchService } from '../../../search/search.service';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { FileSizePipe } from '../../../utils/file-size-pipe';

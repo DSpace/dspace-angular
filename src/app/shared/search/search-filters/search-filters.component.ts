@@ -17,9 +17,6 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
@@ -33,6 +30,9 @@ import {
 } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchService } from '../search.service';
+import { SearchConfigurationService } from '../search-configuration.service';
+import { SearchFilterService } from './search-filter.service';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @Component({

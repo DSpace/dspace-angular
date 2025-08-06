@@ -24,7 +24,6 @@ import { ListableObject } from '@dspace/core/shared/object-collection/listable-o
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import {
   hasValue,
   hasValueOperator,
@@ -54,6 +53,7 @@ import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.co
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';

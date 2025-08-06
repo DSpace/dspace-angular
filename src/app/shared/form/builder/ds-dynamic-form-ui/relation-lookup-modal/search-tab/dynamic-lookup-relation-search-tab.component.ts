@@ -24,8 +24,6 @@ import {
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -38,6 +36,8 @@ import { take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { SearchService } from '../../../../../search/search.service';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 

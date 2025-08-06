@@ -17,9 +17,6 @@ import {
 } from '@dspace/config/app-config.interface';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
 import {
   hasValue,
@@ -36,6 +33,9 @@ import { take } from 'rxjs/operators';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
+import { SearchService } from '../search.service';
+import { SearchConfigurationService } from '../search-configuration.service';
+import { SearchFilterService } from '../search-filters/search-filter.service';
 
 /**
  * This component represents the advanced search in the search sidebar.

@@ -9,7 +9,6 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ClaimedApprovedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-approved-task-search-result.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -22,6 +21,7 @@ import {
 } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';

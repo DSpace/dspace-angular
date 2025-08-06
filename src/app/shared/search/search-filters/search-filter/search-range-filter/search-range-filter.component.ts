@@ -12,9 +12,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { RouteService } from '@dspace/core/services/route.service';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { yearFromString } from '@dspace/shared/utils/date.util';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
@@ -30,6 +27,9 @@ import {
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
+import { SearchService } from '../../../search.service';
+import { SearchConfigurationService } from '../../../search-configuration.service';
+import { SearchFilterService } from '../../search-filter.service';
 import {
   facetLoad,
   SearchFacetFilterComponent,

@@ -21,7 +21,6 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
@@ -39,6 +38,7 @@ import {
 } from 'rxjs';
 
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
+import { SearchService } from '../../search/search.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**

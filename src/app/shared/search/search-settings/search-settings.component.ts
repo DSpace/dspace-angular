@@ -10,12 +10,12 @@ import {
   SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
+import { SearchConfigurationService } from '../search-configuration.service';
 
 @Component({
   selector: 'ds-base-search-settings',

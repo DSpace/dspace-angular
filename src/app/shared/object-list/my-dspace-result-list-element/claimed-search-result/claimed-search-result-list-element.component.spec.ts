@@ -22,7 +22,6 @@ import { ConfigurationProperty } from '@dspace/core/shared/configuration-propert
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
@@ -41,6 +40,7 @@ import { of } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
+import { SearchService } from '../../../search/search.service';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

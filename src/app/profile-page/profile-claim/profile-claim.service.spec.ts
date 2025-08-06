@@ -2,7 +2,6 @@ import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import {
   createNoContentRemoteDataObject,
   createSuccessfulRemoteDataObject,
@@ -14,6 +13,7 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { SearchService } from '../../shared/search/search.service';
 import { ProfileClaimService } from './profile-claim.service';
 
 describe('ProfileClaimService', () => {

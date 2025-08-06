@@ -13,7 +13,6 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { currentPath } from '@dspace/core/router/utils/route.utils';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   isEmpty,
@@ -24,6 +23,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SearchService } from '../search/search.service';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 /**

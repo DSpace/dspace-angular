@@ -28,7 +28,6 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { BitstreamDataServiceStub } from '@dspace/core/testing/bitstream-data-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
@@ -41,6 +40,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';

@@ -8,13 +8,13 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
 import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment.test';
+import { SearchService } from '../../shared/search/search.service';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 

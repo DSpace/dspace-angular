@@ -14,9 +14,6 @@ import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.se
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { Community } from '@dspace/core/shared/community.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { SearchService } from '@dspace/core/shared/search/search.service';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '@dspace/core/shared/search/search-filter.service';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
@@ -24,6 +21,9 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SearchService } from '../search/search.service';
+import { SearchConfigurationService } from '../search/search-configuration.service';
+import { SearchFilterService } from '../search/search-filters/search-filter.service';
 import { SearchFormComponent } from './search-form.component';
 
 describe('SearchFormComponent', () => {

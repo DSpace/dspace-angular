@@ -17,7 +17,6 @@ import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
@@ -32,6 +31,7 @@ import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { RegistryService } from '../registry/registry.service';

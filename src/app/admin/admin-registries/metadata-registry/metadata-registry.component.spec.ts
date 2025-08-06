@@ -18,7 +18,6 @@ import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -36,6 +35,7 @@ import { getMockFormBuilderService } from '../../../shared/form/testing/form-bui
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { RegistryService } from '../registry/registry.service';
 import { MetadataRegistryComponent } from './metadata-registry.component';
