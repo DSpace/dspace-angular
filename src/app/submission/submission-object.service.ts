@@ -6,22 +6,22 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
+import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
   Observable,
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionService } from '../../submission/submission.service';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { RemoteData } from '../data/remote-data';
-import { RequestEntryState } from '../data/request-entry-state.model';
-import { FollowLinkConfig } from '../shared/follow-link-config.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { SubmissionObject } from './models/submission-object.model';
-import { SubmissionScopeType } from './submission-scope-type';
-import { WorkflowItemDataService } from './workflowitem-data.service';
-import { WorkspaceitemDataService } from './workspaceitem-data.service';
+import { SubmissionService } from './submission.service';
 
 /**
  * A service to retrieve submission objects (WorkspaceItem/WorkflowItem)
@@ -30,7 +30,7 @@ import { WorkspaceitemDataService } from './workspaceitem-data.service';
 @Injectable({
   providedIn: 'root',
 })
-export class SubmissionObjectDataService {
+export class SubmissionObjectService {
   private readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   constructor(

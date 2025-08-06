@@ -4,7 +4,6 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
@@ -40,6 +39,7 @@ import {
 } from '../../app.reducer';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
+import { SubmissionObjectService } from '../submission-object.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import {
   mockSectionsData,
@@ -127,7 +127,7 @@ describe('SubmissionObjectEffects test suite', () => {
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
-        { provide: SubmissionObjectDataService, useValue: submissionObjectDataServiceStub },
+        { provide: SubmissionObjectService, useValue: submissionObjectDataServiceStub },
         { provide: WorkspaceitemDataService, useValue: workspaceItemDataService },
       ],
     });

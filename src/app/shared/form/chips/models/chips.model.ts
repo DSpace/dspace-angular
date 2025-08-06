@@ -1,4 +1,6 @@
 import { MetadataIconConfig } from '@dspace/config/submission-config.interface';
+import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   hasValue,
@@ -9,8 +11,6 @@ import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
-import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 import { ChipsItem } from './chips-item.model';
 
 export class Chips {

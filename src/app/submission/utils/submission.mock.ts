@@ -1,10 +1,10 @@
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { Group } from '@dspace/core/eperson/models/group.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObjectState } from '../objects/submission-objects.reducer';
 
 export const mockSectionsData = {

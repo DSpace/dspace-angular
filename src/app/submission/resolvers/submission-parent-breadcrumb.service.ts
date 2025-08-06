@@ -1,4 +1,17 @@
 import { Injectable } from '@angular/core';
+import { BreadcrumbsProviderService } from '@dspace/core/breadcrumbs/breadcrumbsProviderService';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Collection } from '@dspace/core/shared/collection.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import {
   hasValue,
   isEmpty,
@@ -10,20 +23,7 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { SubmissionService } from '../../submission/submission.service';
-import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
-import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { Breadcrumb } from '../breadcrumbs/models/breadcrumb.model';
-import { CollectionDataService } from '../data/collection-data.service';
-import { RemoteData } from '../data/remote-data';
-import { getDSORoute } from '../router/utils/dso-route.utils';
-import { Collection } from '../shared/collection.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../shared/operators';
-import { SubmissionObject } from './models/submission-object.model';
+import { SubmissionService } from '../submission.service';
 
 /**
  * Service to calculate the parent {@link DSpaceObject} breadcrumbs for a {@link SubmissionObject}

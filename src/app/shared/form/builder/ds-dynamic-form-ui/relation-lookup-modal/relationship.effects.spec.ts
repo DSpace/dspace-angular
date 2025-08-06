@@ -15,7 +15,6 @@ import { RelationshipType } from '@dspace/core/shared/item-relationships/relatio
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { DEBOUNCE_TIME_OPERATOR } from '@dspace/core/shared/operators';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
@@ -31,6 +30,7 @@ import {
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
+import { SubmissionObjectService } from '../../../../../submission/submission-object.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import {
   AddRelationshipAction,
@@ -134,7 +134,7 @@ describe('RelationshipEffects', () => {
         { provide: RelationshipTypeDataService, useValue: mockRelationshipTypeService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         {
-          provide: SubmissionObjectDataService, useValue: {
+          provide: SubmissionObjectService, useValue: {
             findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()),
           },
           getHrefByID: () => of(''),

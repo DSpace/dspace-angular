@@ -29,7 +29,6 @@ import { ActionType } from '@dspace/core/resource-policy/models/action-type.mode
 import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
 import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '@dspace/core/resource-policy/models/resource-policy.resource-type';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { EPersonMock } from '@dspace/core/testing/eperson.mock';
 import { GroupMock } from '@dspace/core/testing/group-mock';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -55,6 +54,7 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import { SubmissionService } from '../../../submission/submission.service';
+import { SubmissionObjectService } from '../../../submission/submission-object.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
@@ -229,7 +229,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         FormBuilderService,
         ResourcePolicyFormComponent,
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
-        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: SubmissionObjectService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },

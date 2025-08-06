@@ -14,6 +14,8 @@ import { FormRowModel } from '@dspace/core/config/models/config-submission-form.
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -55,8 +57,6 @@ import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
-import { FormFieldModel } from './models/form-field.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 
 describe('FormBuilderService test suite', () => {
 

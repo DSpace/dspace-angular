@@ -11,6 +11,7 @@ import { AccessConditionOption } from '@dspace/core/config/models/config-access-
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
@@ -47,7 +48,6 @@ import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic
 
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';

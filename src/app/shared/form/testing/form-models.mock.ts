@@ -1,4 +1,6 @@
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
@@ -12,8 +14,6 @@ import {
 } from '../builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRelationGroupModel } from '../builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldModel } from '../builder/models/form-field.model';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',

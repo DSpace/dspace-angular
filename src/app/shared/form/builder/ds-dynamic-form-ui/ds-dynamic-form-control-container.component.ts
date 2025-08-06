@@ -41,6 +41,7 @@ import { MetadataService } from '@dspace/core/metadata/metadata.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import {
@@ -59,7 +60,6 @@ import { RelationshipOptions } from '@dspace/core/shared/relationship-options.mo
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SUBMISSION_LINKS_TO_FOLLOW } from '@dspace/core/submission/resolver/submission-links-to-follow';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '@dspace/core/utilities/item-relationships-utils';
 import {
   hasNoValue,
@@ -110,11 +110,11 @@ import {
 
 import { AppState } from '../../../../app.reducer';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import {
   ExistingMetadataListElementComponent,
@@ -206,7 +206,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected relationshipService: RelationshipDataService,
     protected selectableListService: SelectableListService,
     protected store: Store<AppState>,
-    protected submissionObjectService: SubmissionObjectDataService,
+    protected submissionObjectService: SubmissionObjectService,
     protected ref: ChangeDetectorRef,
     protected formBuilderService: FormBuilderService,
     protected submissionService: SubmissionService,

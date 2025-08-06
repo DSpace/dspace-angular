@@ -12,9 +12,9 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 
-import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { CoreState } from '../../core-state.model';
+import { FormFieldLanguageValueObject } from '../../shared/form/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '../../shared/form/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
 import {
   FlushPatchOperationAction,

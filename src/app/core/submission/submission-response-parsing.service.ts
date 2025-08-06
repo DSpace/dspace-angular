@@ -13,7 +13,6 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import { deepClone } from 'fast-json-patch';
 
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';
 import { ConfigObject } from '../config/models/config.model';
@@ -22,6 +21,7 @@ import { DSOResponseParsingService } from '../data/dso-response-parsing.service'
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/rest-request.model';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { FormFieldMetadataValueObject } from '../shared/form/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';

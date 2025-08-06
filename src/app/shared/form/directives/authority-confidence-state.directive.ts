@@ -20,6 +20,7 @@ import {
 } from '@angular/core';
 import { ConfidenceIconConfig } from '@dspace/config/submission-config.interface';
 import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -31,7 +32,6 @@ import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
 import { environment } from '../../../../environments/environment';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value

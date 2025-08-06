@@ -1,8 +1,8 @@
-import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { autoserialize } from 'cerialize';
 
 import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { FormRowModel } from '../../../config/models/config-submission-form.model';
+import { RelationshipOptions } from '../../relationship-options.model';
 import { LanguageCode } from './form-field-language-value.model';
 
 /**

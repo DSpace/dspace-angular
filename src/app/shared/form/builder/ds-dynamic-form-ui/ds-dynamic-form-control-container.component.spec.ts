@@ -22,7 +22,6 @@ import { RelationshipDataService } from '@dspace/core/data/relationship-data.ser
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { Item } from '@dspace/core/shared/item.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -67,6 +66,7 @@ import { of } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
@@ -230,7 +230,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: FormBuilderService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         {
-          provide: SubmissionObjectDataService,
+          provide: SubmissionObjectService,
           useValue: {
             findById: () => of(createSuccessfulRemoteDataObject(testWSI)),
           },

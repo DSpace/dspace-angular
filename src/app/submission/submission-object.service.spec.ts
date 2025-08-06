@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 
-import { SubmissionService } from '../../submission/submission.service';
-import { RemoteData } from '../data/remote-data';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { SubmissionObject } from './models/submission-object.model';
-import { SubmissionObjectDataService } from './submission-object-data.service';
-import { SubmissionScopeType } from './submission-scope-type';
-import { WorkflowItemDataService } from './workflowitem-data.service';
-import { WorkspaceitemDataService } from './workspaceitem-data.service';
+import { SubmissionService } from './submission.service';
+import { SubmissionObjectService } from './submission-object.service';
 
-describe('SubmissionObjectDataService', () => {
-  let service: SubmissionObjectDataService;
+describe('SubmissionObjectService', () => {
+  let service: SubmissionObjectService;
   let submissionService: SubmissionService;
   let workspaceitemDataService: WorkspaceitemDataService;
   let workflowItemDataService: WorkflowItemDataService;
@@ -39,7 +39,7 @@ describe('SubmissionObjectDataService', () => {
         { provide: HALEndpointService, useValue: halService },
         { provide: SubmissionService, useValue: submissionService },
         { provide: APP_CONFIG, useValue: { cache : { msToLive: { default : 15 * 60 * 1000 } } } },
-        SubmissionObjectDataService,
+        SubmissionObjectService,
       ],
     });
   });
@@ -50,7 +50,7 @@ describe('SubmissionObjectDataService', () => {
         getSubmissionScope: {},
       });
       TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
-      service = TestBed.inject(SubmissionObjectDataService);
+      service = TestBed.inject(SubmissionObjectService);
       service.findById(submissionId);
       expect(submissionService.getSubmissionScope).toHaveBeenCalled();
     });
@@ -61,7 +61,7 @@ describe('SubmissionObjectDataService', () => {
           getSubmissionScope: SubmissionScopeType.WorkspaceItem,
         });
         TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
-        service = TestBed.inject(SubmissionObjectDataService);
+        service = TestBed.inject(SubmissionObjectService);
       });
 
       it('should forward the result of WorkspaceitemDataService.findByIdAndIDType()', () => {
@@ -77,7 +77,7 @@ describe('SubmissionObjectDataService', () => {
           getSubmissionScope: SubmissionScopeType.WorkflowItem,
         });
         TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
-        service = TestBed.inject(SubmissionObjectDataService);
+        service = TestBed.inject(SubmissionObjectService);
       });
 
       it('should forward the result of WorkflowItemDataService.findByIdAndIDType()', () => {
@@ -93,7 +93,7 @@ describe('SubmissionObjectDataService', () => {
           getSubmissionScope: 'Something else',
         });
         TestBed.overrideProvider(SubmissionService, { useValue: submissionService });
-        service = TestBed.inject(SubmissionObjectDataService);
+        service = TestBed.inject(SubmissionObjectService);
       });
 
       it('shouldn\'t call any data service methods', () => {

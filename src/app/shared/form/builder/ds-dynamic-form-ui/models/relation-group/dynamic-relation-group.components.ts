@@ -15,6 +15,8 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
@@ -60,8 +62,6 @@ import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 
 /**

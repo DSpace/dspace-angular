@@ -2,6 +2,8 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { SubmissionFieldScopeType } from '@dspace/core/submission/submission-field-scope-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
@@ -15,9 +17,7 @@ import {
 import uniqueId from 'lodash/uniqueId';
 
 import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { FormFieldModel } from '../models/form-field.model';
 import {
   CONFIG_DATA,
   FieldParser,

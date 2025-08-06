@@ -8,8 +8,8 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/ds-dynamic-form-constants';
+import { OtherInformation } from '../../../shared/form/models/form-field-metadata-value.model';
 import { ListableObject } from '../../../shared/object-collection/listable-object.model';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 

@@ -7,7 +7,6 @@ import { SubmissionAccessesConfigDataService } from '@dspace/core/config/submiss
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { getSectionAccessesService } from '@dspace/core/testing/section-accesses.service.mock';
 import {
   getSubmissionAccessesConfigNotChangeDiscoverableService,
@@ -45,6 +44,7 @@ import { getMockFormOperationsService } from '../../../shared/form/testing/form-
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { SubmissionService } from '../../submission.service';
+import { SubmissionObjectService } from '../../submission-object.service';
 import { mockAccessesFormData } from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
@@ -119,7 +119,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
           { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
-          { provide: SubmissionObjectDataService, useValue: {} },
+          { provide: SubmissionObjectService, useValue: {} },
           { provide: SubmissionService, useValue: {} },
           { provide: XSRFService, useValue: {} },
           { provide: APP_CONFIG, useValue: environment },
@@ -217,7 +217,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
           { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
-          { provide: SubmissionObjectDataService, useValue: {} },
+          { provide: SubmissionObjectService, useValue: {} },
           { provide: SubmissionService, useValue: {} },
           { provide: XSRFService, useValue: {} },
           { provide: APP_CONFIG, useValue: environment },

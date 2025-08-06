@@ -11,7 +11,6 @@ import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/mo
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
   isEmpty,
@@ -50,6 +49,7 @@ import { SectionsService } from '../sections/sections.service';
 import { SectionsType } from '../sections/sections-type';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
+import { SubmissionObjectService } from '../submission-object.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import {
@@ -367,7 +367,7 @@ export class SubmissionObjectEffects {
     private sectionService: SectionsService,
     private store$: Store<any>,
     private submissionService: SubmissionService,
-    private submissionObjectService: SubmissionObjectDataService,
+    private submissionObjectService: SubmissionObjectService,
     private translate: TranslateService,
     private workspaceItemDataService: WorkspaceitemDataService,
   ) {

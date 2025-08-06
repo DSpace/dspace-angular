@@ -21,8 +21,8 @@ import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { License } from '@dspace/core/shared/license.model';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -49,12 +49,12 @@ import { environment } from 'src/environments/environment.test';
 
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { SubmissionService } from '../../submission.service';
+import { SubmissionObjectService } from '../../submission-object.service';
 import {
   mockLicenseParsedErrors,
   mockSubmissionCollectionId,
@@ -186,7 +186,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         {
-          provide: SubmissionObjectDataService,
+          provide: SubmissionObjectService,
           useValue: {
             findById: () => of(createSuccessfulRemoteDataObject(mockSubmissionObject)),
           },

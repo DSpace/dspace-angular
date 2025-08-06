@@ -21,7 +21,6 @@ import {
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { SubmissionObjectDataService } from '@dspace/core/submission/submission-object-data.service';
 import {
   hasNoValue,
   hasValue,
@@ -51,6 +50,7 @@ import {
 
 import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionState } from '../../../../../submission/submission.reducers';
+import { SubmissionObjectService } from '../../../../../submission/submission-object.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import {
   AddRelationshipAction,
@@ -211,7 +211,7 @@ export class RelationshipEffects {
   constructor(private actions$: Actions,
               private relationshipService: RelationshipDataService,
               private relationshipTypeService: RelationshipTypeDataService,
-              private submissionObjectService: SubmissionObjectDataService,
+              private submissionObjectService: SubmissionObjectService,
               private store: Store<SubmissionState>,
               private objectCache: ObjectCacheService,
               private requestService: RequestService,

@@ -1,7 +1,7 @@
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DynamicDisabledModel } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { DisabledFieldParser } from './disabled-field-parser';
 import { ParserOptions } from './parser-options';
 
