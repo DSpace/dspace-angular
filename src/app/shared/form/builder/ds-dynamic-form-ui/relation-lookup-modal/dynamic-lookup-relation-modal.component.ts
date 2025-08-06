@@ -20,6 +20,8 @@ import { ExternalSource } from '@dspace/core/shared/external-source.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
@@ -53,8 +55,6 @@ import { AppState } from '../../../../../app.reducer';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';

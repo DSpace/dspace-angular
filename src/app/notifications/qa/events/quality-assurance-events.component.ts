@@ -31,6 +31,7 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
@@ -67,7 +68,6 @@ import { environment } from '../../../../environments/environment';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import {
   ProjectEntryImportModalComponent,

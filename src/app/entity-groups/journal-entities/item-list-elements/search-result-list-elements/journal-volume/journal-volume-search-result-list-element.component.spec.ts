@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
@@ -20,7 +21,6 @@ import { of } from 'rxjs';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

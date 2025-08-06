@@ -1,5 +1,5 @@
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { EquatableObject } from '@dspace/core/utilities/equals.decorators';
+import { EquatableObject } from '../../utilities/equals.decorators';
+import { GenericConstructor } from '../generic-constructor';
 
 export abstract class ListableObject extends EquatableObject<ListableObject> {
   /**

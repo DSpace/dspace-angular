@@ -15,12 +15,12 @@ import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { fadeIn } from '../animations/fade';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ImportableListItemControlComponent } from '../object-collection/shared/importable-list-item-control/importable-list-item-control.component';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { PaginationComponent } from '../pagination/pagination.component';

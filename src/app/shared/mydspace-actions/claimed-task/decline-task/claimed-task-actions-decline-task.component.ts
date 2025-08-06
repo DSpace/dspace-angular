@@ -8,6 +8,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ClaimedDeclinedTaskTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-task-search-result.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -20,7 +21,6 @@ import {
 } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { ClaimedDeclinedTaskTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';

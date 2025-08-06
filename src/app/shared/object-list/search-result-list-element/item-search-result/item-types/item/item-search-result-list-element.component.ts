@@ -9,11 +9,11 @@ import {
 import { RouterLink } from '@angular/router';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';

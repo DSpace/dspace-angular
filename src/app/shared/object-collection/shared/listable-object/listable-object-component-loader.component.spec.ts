@@ -16,6 +16,7 @@ import { Context } from '@dspace/core/shared/context.model';
 import { FileService } from '@dspace/core/shared/file.service';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { ListableModule } from '@dspace/core/shared/listable.module';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
@@ -33,7 +34,6 @@ import { SearchResultListElementComponent } from '../../../object-list/search-re
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { ListableObject } from '../listable-object.model';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 
 const testType = 'TestType';

@@ -33,6 +33,7 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -76,7 +77,6 @@ import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/b
 import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';

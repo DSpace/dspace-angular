@@ -8,6 +8,7 @@ import {
 } from '@angular/core/testing';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -20,7 +21,6 @@ import {
 } from '@ngx-translate/core';
 
 import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-detail.model';
-import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectGeospatialMapComponent } from './object-geospatial-map.component';
 

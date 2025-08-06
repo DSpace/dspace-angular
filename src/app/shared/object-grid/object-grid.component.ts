@@ -17,6 +17,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { WidthCategory } from '@dspace/core/shared/host-window-type';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
@@ -39,7 +40,6 @@ import { ErrorComponent } from '../error/error.component';
 import { HostWindowService } from '../host-window.service';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';

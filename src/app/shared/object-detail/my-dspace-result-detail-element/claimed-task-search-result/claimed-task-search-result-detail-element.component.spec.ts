@@ -17,6 +17,7 @@ import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
@@ -25,7 +26,6 @@ import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-
 import { of } from 'rxjs';
 
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { ClaimedTaskSearchResultDetailElementComponent } from './claimed-task-search-result-detail-element.component';

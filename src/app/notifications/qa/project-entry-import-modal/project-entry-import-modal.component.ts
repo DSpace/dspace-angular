@@ -18,6 +18,7 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
@@ -37,7 +38,6 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 

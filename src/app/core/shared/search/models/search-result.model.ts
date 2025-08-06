@@ -3,7 +3,6 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import {
   excludeFromEquals,
@@ -14,6 +13,7 @@ import { GenericConstructor } from '../../generic-constructor';
 import { HALLink } from '../../hal-link.model';
 import { HALResource } from '../../hal-resource.model';
 import { MetadataMap } from '../../metadata.models';
+import { ListableObject } from '../../object-collection/listable-object.model';
 import { SEARCH_RESULT } from '../types/search-result.resource-type';
 
 /**

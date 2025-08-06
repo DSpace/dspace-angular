@@ -23,6 +23,7 @@ import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Community } from '@dspace/core/shared/community.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
@@ -32,7 +33,6 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

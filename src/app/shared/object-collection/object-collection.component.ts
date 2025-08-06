@@ -26,6 +26,7 @@ import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { isEmpty } from '@dspace/shared/utils/empty.util';
@@ -42,7 +43,6 @@ import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
 import { CollectionElementLinkType } from './collection-element-link.type';
-import { ListableObject } from './shared/listable-object.model';
 
 /**
  * Component that can render a list of listable objects in different view modes

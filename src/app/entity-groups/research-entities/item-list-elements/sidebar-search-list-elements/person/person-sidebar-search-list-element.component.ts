@@ -7,6 +7,7 @@ import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
@@ -14,7 +15,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

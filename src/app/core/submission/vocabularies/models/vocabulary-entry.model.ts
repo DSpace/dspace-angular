@@ -10,7 +10,7 @@ import {
 
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
-import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
+import { ListableObject } from '../../../shared/object-collection/listable-object.model';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 
 /**

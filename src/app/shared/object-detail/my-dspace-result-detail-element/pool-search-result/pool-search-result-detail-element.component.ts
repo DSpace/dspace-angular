@@ -11,6 +11,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { Context } from '@dspace/core/shared/context.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
@@ -31,7 +32,6 @@ import {
 
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 

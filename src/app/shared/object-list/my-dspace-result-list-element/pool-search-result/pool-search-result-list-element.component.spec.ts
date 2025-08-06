@@ -20,6 +20,7 @@ import { ConfigurationDataService } from '@dspace/core/data/configuration-data.s
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
 import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
@@ -33,7 +34,6 @@ import {
 import { of } from 'rxjs';
 
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

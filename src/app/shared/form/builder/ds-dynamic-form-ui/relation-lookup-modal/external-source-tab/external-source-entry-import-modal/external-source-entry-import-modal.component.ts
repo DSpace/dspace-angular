@@ -16,6 +16,8 @@ import { Item } from '@dspace/core/shared/item.model';
 import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
@@ -41,8 +43,6 @@ import { SubmissionImportExternalCollectionComponent } from '../../../../../../.
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';

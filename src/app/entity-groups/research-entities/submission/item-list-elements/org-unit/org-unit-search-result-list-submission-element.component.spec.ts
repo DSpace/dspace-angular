@@ -24,6 +24,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
@@ -38,7 +39,6 @@ import {
 
 import { environment } from '../../../../../../environments/environment';
 import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

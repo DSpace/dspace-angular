@@ -16,6 +16,7 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
@@ -31,7 +32,6 @@ import {
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 
 @Component({

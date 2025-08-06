@@ -13,6 +13,7 @@ import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-search-result.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
@@ -23,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment';
-import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { getMockThemeService } from '../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';

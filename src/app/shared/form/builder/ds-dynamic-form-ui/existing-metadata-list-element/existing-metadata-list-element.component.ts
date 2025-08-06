@@ -15,6 +15,7 @@ import { Relationship } from '@dspace/core/shared/item-relationships/relationshi
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
@@ -40,7 +41,6 @@ import { SubmissionObjectEntry } from '../../../../../submission/objects/submiss
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';

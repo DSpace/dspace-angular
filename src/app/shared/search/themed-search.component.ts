@@ -6,11 +6,11 @@ import {
 } from '@angular/core';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { SearchComponent } from './search.component';
 import { SelectionConfig } from './search-results/search-results.component';

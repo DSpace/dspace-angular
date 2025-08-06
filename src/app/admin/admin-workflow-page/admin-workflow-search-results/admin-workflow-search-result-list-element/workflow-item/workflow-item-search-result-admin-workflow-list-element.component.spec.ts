@@ -13,6 +13,7 @@ import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
@@ -25,7 +26,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

@@ -12,9 +12,9 @@ import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { ObjectListComponent } from './object-list.component';
 

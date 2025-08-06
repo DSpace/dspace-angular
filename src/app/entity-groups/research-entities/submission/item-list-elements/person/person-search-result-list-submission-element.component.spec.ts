@@ -24,6 +24,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
@@ -38,7 +39,6 @@ import {
 import { REQUEST } from '../../../../../../express.tokens';
 import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';

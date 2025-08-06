@@ -15,6 +15,7 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ListableModule } from '@dspace/core/shared/listable.module';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { SupervisionOrderDataService } from '@dspace/core/supervision-order/supervision-order-data.service';
@@ -31,7 +32,6 @@ import { of } from 'rxjs';
 
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';

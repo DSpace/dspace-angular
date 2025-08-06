@@ -10,7 +10,6 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import {
   link,
   typedObject,
@@ -33,6 +32,7 @@ import { IDENTIFIERS } from './identifiers-data/identifier-data.resource-type';
 import { ITEM } from './item.resource-type';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
+import { ListableObject } from './object-collection/listable-object.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
 

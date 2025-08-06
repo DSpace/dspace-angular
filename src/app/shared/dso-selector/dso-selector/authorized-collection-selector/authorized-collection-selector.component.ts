@@ -22,6 +22,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
@@ -36,7 +37,6 @@ import { map } from 'rxjs/operators';
 
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { DSOSelectorComponent } from '../dso-selector.component';
 

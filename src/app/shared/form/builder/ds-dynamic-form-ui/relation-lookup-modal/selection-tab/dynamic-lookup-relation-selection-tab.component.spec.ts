@@ -14,6 +14,8 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
@@ -25,8 +27,6 @@ import {
 } from 'rxjs';
 
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSelectionTabComponent } from './dynamic-lookup-relation-selection-tab.component';

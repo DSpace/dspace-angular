@@ -17,6 +17,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-search-result.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
 import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
@@ -37,7 +38,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
 
 let component: ClaimedTaskActionsRejectComponent;

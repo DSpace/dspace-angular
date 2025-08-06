@@ -5,10 +5,10 @@ import {
 } from '@angular/core';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';

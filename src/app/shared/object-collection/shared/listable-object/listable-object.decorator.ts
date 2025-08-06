@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 import { ThemeConfig } from '@dspace/config/theme.config';
 import { Context } from '@dspace/core/shared/context.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
@@ -10,7 +11,6 @@ import {
 } from '@dspace/shared/utils/empty.util';
 
 import { environment } from '../../../../../environments/environment';
-import { ListableObject } from '../listable-object.model';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 export const DEFAULT_CONTEXT = Context.Any;

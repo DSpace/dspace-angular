@@ -10,7 +10,6 @@ import {
   deserializeAs,
 } from 'cerialize';
 
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
@@ -25,6 +24,7 @@ import {
   MetadatumViewModel,
 } from './metadata.models';
 import { Metadata } from './metadata.utils';
+import { ListableObject } from './object-collection/listable-object.model';
 import { ResourceType } from './resource-type';
 
 /**

@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -19,7 +20,6 @@ import {
 import { of } from 'rxjs';
 
 import { SubmissionService } from '../../../../../submission/submission.service';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { getMockThemeService } from '../../../../theme-support/test/theme-service.mock';

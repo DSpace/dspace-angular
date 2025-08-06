@@ -14,6 +14,7 @@ import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import {
@@ -24,7 +25,6 @@ import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.ser
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { getMockThemeService } from '../../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';

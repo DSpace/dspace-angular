@@ -47,6 +47,7 @@ import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
 } from '@dspace/core/shared/metadata.models';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
@@ -108,7 +109,6 @@ import {
 import { AppState } from '../../../../app.reducer';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';

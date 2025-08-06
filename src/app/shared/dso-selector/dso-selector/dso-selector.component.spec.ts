@@ -14,6 +14,7 @@ import {
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchService } from '@dspace/core/shared/search/search.service';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -24,7 +25,6 @@ import {
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { DSOSelectorComponent } from './dso-selector.component';
 

@@ -15,6 +15,7 @@ import { Context } from '@dspace/core/shared/context.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
@@ -31,7 +32,6 @@ import {
   getListableObjectComponent,
   listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

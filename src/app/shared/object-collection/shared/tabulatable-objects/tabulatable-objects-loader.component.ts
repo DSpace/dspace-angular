@@ -14,6 +14,7 @@ import {
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
@@ -30,7 +31,6 @@ import { take } from 'rxjs/operators';
 
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { ListableObject } from '../listable-object.model';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';
 import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
 

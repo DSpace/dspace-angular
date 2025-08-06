@@ -1,8 +1,7 @@
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { Item } from '@dspace/core/shared/item.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { inheritEquatable } from '@dspace/core/utilities/equals.decorators';
-
+import { inheritEquatable } from '../../utilities/equals.decorators';
+import { GenericConstructor } from '../generic-constructor';
+import { Item } from '../item.model';
+import { SearchResult } from '../search/models/search-result.model';
 import { ListableObject } from './listable-object.model';
 
 @inheritEquatable(SearchResult)

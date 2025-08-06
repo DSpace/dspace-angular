@@ -9,12 +9,12 @@ import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import {
   SearchResultsComponent,

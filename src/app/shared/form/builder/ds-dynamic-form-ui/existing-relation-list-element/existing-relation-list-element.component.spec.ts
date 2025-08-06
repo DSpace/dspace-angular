@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
@@ -13,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SubmissionService } from '../../../../../submission/submission.service';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';

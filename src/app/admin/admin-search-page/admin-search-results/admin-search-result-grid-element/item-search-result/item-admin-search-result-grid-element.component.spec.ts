@@ -14,6 +14,7 @@ import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { FileService } from '@dspace/core/shared/file.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ListableModule } from '@dspace/core/shared/listable.module';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
@@ -24,7 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

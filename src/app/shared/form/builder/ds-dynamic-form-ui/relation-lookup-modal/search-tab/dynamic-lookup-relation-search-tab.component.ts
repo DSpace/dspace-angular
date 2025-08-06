@@ -16,6 +16,7 @@ import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
@@ -35,7 +36,6 @@ import { take } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';

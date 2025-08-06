@@ -5,10 +5,10 @@ import {
 import { Component } from '@angular/core';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Context } from '@dspace/core/shared/context.model';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';

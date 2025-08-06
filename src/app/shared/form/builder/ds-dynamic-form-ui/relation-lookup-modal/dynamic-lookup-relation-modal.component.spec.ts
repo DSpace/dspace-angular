@@ -18,6 +18,7 @@ import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { ExternalSource } from '@dspace/core/shared/external-source.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
@@ -37,7 +38,6 @@ import {
 } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';

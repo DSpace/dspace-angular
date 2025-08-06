@@ -22,6 +22,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -35,7 +36,6 @@ import {
 
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';

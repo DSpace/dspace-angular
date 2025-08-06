@@ -5,10 +5,10 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Community } from '@dspace/core/shared/community.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 

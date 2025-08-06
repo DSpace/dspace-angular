@@ -9,6 +9,7 @@ import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
@@ -18,7 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';

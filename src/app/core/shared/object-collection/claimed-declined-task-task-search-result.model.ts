@@ -1,5 +1,5 @@
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { ClaimedTask } from '../../tasks/models/claimed-task-object.model';
+import { SearchResult } from '../search/models/search-result.model';
 
 /**
  * Represents a search result object of a Declined ClaimedTask object (sent back to the Review Managers)

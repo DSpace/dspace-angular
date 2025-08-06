@@ -11,6 +11,7 @@ import {
 } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
@@ -31,7 +32,6 @@ import {
 } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';

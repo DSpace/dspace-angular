@@ -20,7 +20,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { BaseDataService } from '../../data/base/base-data.service';
@@ -40,6 +39,7 @@ import { DSpaceObject } from '../dspace-object.model';
 import { FollowLinkConfig } from '../follow-link-config.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
+import { ListableObject } from '../object-collection/listable-object.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,

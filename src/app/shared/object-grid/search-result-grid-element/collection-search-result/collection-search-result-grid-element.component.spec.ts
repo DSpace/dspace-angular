@@ -23,6 +23,7 @@ import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
@@ -31,7 +32,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';

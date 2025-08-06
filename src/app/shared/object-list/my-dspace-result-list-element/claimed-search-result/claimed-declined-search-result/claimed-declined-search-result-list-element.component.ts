@@ -13,14 +13,14 @@ import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { Context } from '@dspace/core/shared/context.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-search-result.model';
+import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
-import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';

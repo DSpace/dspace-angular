@@ -20,6 +20,7 @@ import { ExternalSource } from '@dspace/core/shared/external-source.model';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchConfigurationService } from '@dspace/core/shared/search/search-configuration.service';
@@ -50,7 +51,6 @@ import {
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';

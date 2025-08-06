@@ -13,11 +13,11 @@ import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Community } from '@dspace/core/shared/community.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { of } from 'rxjs';
 
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

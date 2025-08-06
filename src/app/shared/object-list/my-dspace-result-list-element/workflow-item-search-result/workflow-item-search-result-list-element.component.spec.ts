@@ -17,6 +17,7 @@ import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
@@ -28,7 +29,6 @@ import { take } from 'rxjs/operators';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 

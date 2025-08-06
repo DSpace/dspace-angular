@@ -10,6 +10,7 @@ import {
   Output,
 } from '@angular/core';
 import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
@@ -30,7 +31,6 @@ import { filter } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';

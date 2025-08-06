@@ -1,9 +1,9 @@
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { LISTABLE_NOTIFICATION_OBJECT } from '../../shared/object-list/listable-notification-object/listable-notification-object.resource-type';
 import { typedObject } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/typed-object.model';
 import { NotificationType } from '../notification-system/models/notification-type';
 import { GenericConstructor } from './generic-constructor';
+import { ListableObject } from './object-collection/listable-object.model';
 import { ResourceType } from './resource-type';
 
 /**
