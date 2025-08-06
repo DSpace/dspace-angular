@@ -13,7 +13,6 @@ import { provideRouter } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { ExternalSource } from '@dspace/core/shared/external-source.model';
@@ -41,6 +40,7 @@ import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import { LookupRelationService } from './lookup-relation.service';
 import { NameVariantService } from './name-variant.service';
 import {
   AddRelationshipAction,

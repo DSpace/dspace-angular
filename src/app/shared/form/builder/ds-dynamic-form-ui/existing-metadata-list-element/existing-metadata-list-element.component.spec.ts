@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -26,10 +27,7 @@ import { SelectableListService } from '../../../../object-list/selectable-list/s
 import { getMockThemeService } from '../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
-import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship,
-} from './existing-metadata-list-element.component';
+import { ExistingMetadataListElementComponent } from './existing-metadata-list-element.component';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -48,7 +46,7 @@ describe('ExistingMetadataListElementComponent', () => {
   let leftItemRD$;
   let rightItemRD$;
   let relatedSearchResult;
-  let submissionId;
+  let submissionId: string;
   let relationshipService;
   let submissionServiceStub;
 
@@ -76,7 +74,7 @@ describe('ExistingMetadataListElementComponent', () => {
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
     submissionId = '1234';
-    reoRel = new ReorderableRelationship(relationship, true, {} as any, {} as any, submissionId);
+    reoRel = new ReorderableRelationship(relationship, true);
     submissionServiceStub = new SubmissionServiceStub();
     submissionServiceStub.getSubmissionObject.and.returnValue(of({}));
   }

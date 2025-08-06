@@ -29,8 +29,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -45,6 +43,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { ReorderableRelationship } from '../shared/item-relationships/reorderable-relationship';
 import { MetadataValue } from '../shared/metadata.models';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
@@ -62,6 +61,7 @@ import {
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems,
 } from '../utilities/item-relationships-utils';
+import { itemLinksToFollow } from '../utilities/relation-query.utils';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PutData,

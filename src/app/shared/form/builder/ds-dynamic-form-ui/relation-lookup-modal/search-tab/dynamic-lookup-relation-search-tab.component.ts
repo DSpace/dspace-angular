@@ -7,7 +7,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
@@ -40,6 +39,7 @@ import { SearchService } from '../../../../../search/search.service';
 import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
+import { LookupRelationService } from '../lookup-relation.service';
 
 
 @Component({

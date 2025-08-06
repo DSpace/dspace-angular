@@ -12,7 +12,6 @@ import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-
 import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
@@ -59,6 +58,7 @@ import { SelectableListState } from '../../../../object-list/selectable-list/sel
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
+import { LookupRelationService } from './lookup-relation.service';
 import { NameVariantService } from './name-variant.service';
 import {
   AddRelationshipAction,

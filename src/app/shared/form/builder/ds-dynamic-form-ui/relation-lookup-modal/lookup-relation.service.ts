@@ -1,4 +1,20 @@
 import { Injectable } from '@angular/core';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
   Observable,
   ReplaySubject,
@@ -13,23 +29,7 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import { SearchService } from '../../shared/search/search.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { ExternalSource } from '../shared/external-source.model';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { Item } from '../shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../shared/operators';
-import { RelationshipOptions } from '../shared/relationship-options.model';
-import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
-import { SearchResult } from '../shared/search/models/search-result.model';
-import { ExternalSourceDataService } from './external-source-data.service';
-import { PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { RequestService } from './request.service';
+import { SearchService } from '../../../../search/search.service';
 
 /**
  * A service for retrieving local and external entries information during a relation lookup

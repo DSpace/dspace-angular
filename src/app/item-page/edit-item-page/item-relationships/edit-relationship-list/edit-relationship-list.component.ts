@@ -42,6 +42,7 @@ import {
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { itemLinksToFollow } from '@dspace/core/utilities/relation-query.utils';
 import {
   hasNoValue,
   hasValue,
@@ -80,7 +81,6 @@ import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loadin
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
-import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';

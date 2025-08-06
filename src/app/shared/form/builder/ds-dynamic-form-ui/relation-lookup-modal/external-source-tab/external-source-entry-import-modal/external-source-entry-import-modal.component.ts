@@ -5,7 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
@@ -46,6 +45,7 @@ import { CollectionListEntry } from '../../../../../../collection-dropdown/colle
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
+import { LookupRelationService } from '../../lookup-relation.service';
 
 /**
  * The possible types of import for the external entry

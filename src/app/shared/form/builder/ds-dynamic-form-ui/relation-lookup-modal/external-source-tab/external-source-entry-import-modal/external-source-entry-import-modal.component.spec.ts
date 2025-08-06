@@ -7,7 +7,6 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { LookupRelationService } from '@dspace/core/data/lookup-relation.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
@@ -24,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
+import { LookupRelationService } from '../../lookup-relation.service';
 import {
   ExternalSourceEntryImportModalComponent,
   ImportType,
