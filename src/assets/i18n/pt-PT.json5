@@ -11046,10 +11046,5 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
-  "item.preview.organization.url": "URL",
-
-  "item.preview.organization.address.addressLocality": "Cidade",
-
-  "item.preview.organization.alternateName":"Nome alternativo",
 
 }
