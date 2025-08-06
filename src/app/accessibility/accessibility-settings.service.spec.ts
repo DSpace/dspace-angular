@@ -4,6 +4,7 @@ import {
 } from '@angular/core/testing';
 import { AppConfig } from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
+import { ACCESSIBILITY_COOKIE } from '@dspace/core/cookies/accessibility-cookie';
 import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
@@ -17,7 +18,6 @@ import {
 import { of } from 'rxjs';
 
 import {
-  ACCESSIBILITY_COOKIE,
   ACCESSIBILITY_SETTINGS_METADATA_KEY,
   AccessibilitySettings,
   AccessibilitySettingsFormValues,

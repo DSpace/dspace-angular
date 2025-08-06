@@ -8,6 +8,7 @@ import {
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
+import { ACCESSIBILITY_COOKIE } from '@dspace/core/cookies/accessibility-cookie';
 import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { OrejimeService } from '@dspace/core/cookies/orejime.service';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
@@ -32,11 +33,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-
-/**
- * Name of the cookie used to store the settings locally
- */
-export const ACCESSIBILITY_COOKIE = 'dsAccessibilityCookie';
 
 /**
  * Name of the metadata field to store settings on the ePerson

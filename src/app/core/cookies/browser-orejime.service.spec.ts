@@ -1,4 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
@@ -6,7 +10,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 import { RestResponse } from '../cache/response.models';
 import { ConfigurationDataService } from '../data/configuration-data.service';
@@ -79,7 +82,13 @@ describe('BrowserOrejimeService', () => {
       },
     });
 
-    environment.info.enableCookieConsentPopup = true;
+    const appConfig: Partial<AppConfig> = {
+      info: {
+        enablePrivacyStatement: true,
+        enableCookieConsentPopup: true,
+      },
+      defaultLanguage: 'en',
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -103,6 +112,10 @@ describe('BrowserOrejimeService', () => {
         {
           provide: ConfigurationDataService,
           useValue: configurationDataService,
+        },
+        {
+          provide: APP_CONFIG,
+          useValue: appConfig,
         },
       ],
     });

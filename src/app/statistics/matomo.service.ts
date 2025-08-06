@@ -10,6 +10,11 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { NativeWindowService } from '@dspace/core/services/window.service';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  MATOMO_ENABLED,
+  MATOMO_SITE_ID,
+  MATOMO_TRACKER_URL,
+} from '@dspace/core/statistics/models/matomo-type';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   MatomoInitializerService,
@@ -27,11 +32,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-
-export const MATOMO_TRACKER_URL = 'matomo.tracker.url';
-export const MATOMO_SITE_ID = 'matomo.request.siteid';
-
-export const MATOMO_ENABLED = 'matomo.enabled';
 
 /**
  * Service to manage Matomo analytics integration.

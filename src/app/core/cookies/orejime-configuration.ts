@@ -1,4 +1,3 @@
-import { ACCESSIBILITY_COOKIE } from '../../accessibility/accessibility-settings.service';
 import {
   IMPERSONATING_COOKIE,
   REDIRECT_COOKIE,
@@ -10,6 +9,7 @@ import {
 } from '../google-recaptcha/google-recaptcha.service';
 import { LANG_COOKIE } from '../locale/locale.service';
 import { NativeWindowRef } from '../services/window.service';
+import { ACCESSIBILITY_COOKIE } from './accessibility-cookie';
 
 /**
  * Cookie for has_agreed_end_user

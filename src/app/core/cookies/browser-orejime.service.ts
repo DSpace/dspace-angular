@@ -4,6 +4,10 @@ import {
   InjectionToken,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -23,8 +27,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import { AuthService } from '../auth/auth.service';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
@@ -35,6 +37,7 @@ import {
   NativeWindowService,
 } from '../services/window.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { MATOMO_ENABLED } from '../statistics/models/matomo-type';
 import { CookieService } from './cookie.service';
 import { OrejimeService } from './orejime.service';
 import {
@@ -108,6 +111,7 @@ export class BrowserOrejimeService extends OrejimeService {
     private configService: ConfigurationDataService,
     private cookieService: CookieService,
     @Inject(LAZY_OREJIME) private lazyOrejime: Promise<any>,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
     super();
   }
@@ -120,7 +124,7 @@ export class BrowserOrejimeService extends OrejimeService {
    *  - Add and translate orejime configuration messages
    */
   initialize() {
-    if (!environment.info.enablePrivacyStatement) {
+    if (!this.appConfig.info.enablePrivacyStatement) {
       this.orejimeConfig.translations.zz.consentModal.privacyPolicy.text = 'cookies.consent.content-modal.no-privacy-policy.text';
     }
 
@@ -160,7 +164,7 @@ export class BrowserOrejimeService extends OrejimeService {
       }),
     );
 
-    this.translateService.setDefaultLang(environment.defaultLanguage);
+    this.translateService.setDefaultLang(this.appConfig.defaultLanguage);
 
     const user$: Observable<EPerson> = this.getUser$();
 
@@ -191,7 +195,7 @@ export class BrowserOrejimeService extends OrejimeService {
          */
         this.translateConfiguration();
 
-        if (!environment.info?.enableCookieConsentPopup) {
+        if (!this.appConfig.info?.enableCookieConsentPopup) {
           this.orejimeConfig.apps = [];
         } else {
           this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
@@ -349,7 +353,7 @@ export class BrowserOrejimeService extends OrejimeService {
     /**
      * Make sure the fallback language is english
      */
-    this.translateService.setDefaultLang(environment.defaultLanguage);
+    this.translateService.setDefaultLang(this.appConfig.defaultLanguage);
 
     this.translate(this.orejimeConfig.translations.zz);
   }
