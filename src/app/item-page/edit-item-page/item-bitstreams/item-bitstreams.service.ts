@@ -10,6 +10,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getBitstreamDownloadRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
@@ -36,7 +37,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';

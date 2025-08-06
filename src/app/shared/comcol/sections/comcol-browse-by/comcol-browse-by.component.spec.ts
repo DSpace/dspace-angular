@@ -9,11 +9,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
-import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';

@@ -10,6 +10,7 @@ import { Item } from '../../shared/item.model';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import {
   ENTITY_MODULE_PATH,
+  getBitstreamModuleRoute,
   getCollectionModuleRoute,
   getCommunityModuleRoute,
   getItemModuleRoute,
@@ -52,4 +53,39 @@ export function getDSORoute(dso: DSpaceObject): string {
         return getItemPageRoute(dso as Item);
     }
   }
+}
+
+export function getBitstreamDownloadRoute(bitstream): string {
+  return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
+}
+
+export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: string, queryParams: any } {
+  const url = new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString();
+  return {
+    routerLink: url,
+    queryParams: {
+      bitstream: bitstream.uuid,
+    },
+  };
+}
+
+/**
+ * Get a bitstream download route with an access token (to provide direct access to a user) added as a query parameter
+ * @param bitstream the bitstream to download
+ * @param accessToken the access token, which should match an access_token in the requestitem table
+ */
+export function getBitstreamDownloadWithAccessTokenRoute(bitstream, accessToken): {
+  routerLink: string,
+  queryParams: any
+} {
+  const url = new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
+  const options = {
+    routerLink: url,
+    queryParams: {},
+  };
+  // Only add the access token if it is not empty, otherwise keep valid empty query parameters
+  if (hasValue(accessToken)) {
+    options.queryParams = { accessToken: accessToken };
+  }
+  return options;
 }

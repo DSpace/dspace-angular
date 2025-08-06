@@ -43,7 +43,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
@@ -53,6 +52,7 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RootDataService } from '../data/root-data.service';
+import { getBitstreamDownloadRoute } from '../router/utils/dso-route.utils';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { getDownloadableBitstream } from '../shared/bitstream.operators';

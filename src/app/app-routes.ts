@@ -12,12 +12,14 @@ import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreemen
 import { reloadGuard } from '@dspace/core/reload/reload.guard';
 import { forgotPasswordCheckGuard } from '@dspace/core/rest-property/forgot-password-check-guard.guard';
 import {
+  BITSTREAM_MODULE_PATH,
   COLLECTION_MODULE_PATH,
   COMMUNITY_MODULE_PATH,
   ERROR_PAGE,
   FORBIDDEN_PATH,
   INTERNAL_SERVER_ERROR,
   ITEM_MODULE_PATH,
+  LEGACY_BITSTREAM_MODULE_PATH,
 } from '@dspace/core/router/core-routing-paths';
 import { ServerCheckGuard } from '@dspace/core/server-check/server-check.guard';
 
@@ -25,11 +27,9 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
-  BITSTREAM_MODULE_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
   INFO_MODULE_PATH,
-  LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   REQUEST_COPY_MODULE_PATH,

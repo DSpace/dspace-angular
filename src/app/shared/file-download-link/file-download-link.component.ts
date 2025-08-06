@@ -15,6 +15,11 @@ import {
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import {
+  getBitstreamDownloadRoute,
+  getBitstreamDownloadWithAccessTokenRoute,
+  getBitstreamRequestACopyRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemRequest } from '@dspace/core/shared/item-request.model';
@@ -33,11 +38,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  getBitstreamDownloadRoute,
-  getBitstreamDownloadWithAccessTokenRoute,
-  getBitstreamRequestACopyRoute,
-} from '../../app-routing-paths';
 import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
 @Component({

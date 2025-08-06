@@ -14,6 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { authReducer } from '@dspace/core/auth/auth.reducer';
 import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
 import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { FlatBrowseDefinition } from '@dspace/core/shared/flat-browse-definition.model';
@@ -38,7 +39,6 @@ import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
-import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/menu/menu-service.stub';

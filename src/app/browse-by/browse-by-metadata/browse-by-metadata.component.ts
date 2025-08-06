@@ -23,6 +23,7 @@ import {
 } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
 import { BrowseEntrySearchOptions } from '@dspace/core/browse/browse-entry-search-options.model';
 import {
   SortDirection,
@@ -58,7 +59,6 @@ import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-
 import { environment } from '../../../environments/environment';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

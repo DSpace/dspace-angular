@@ -1,3 +1,4 @@
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
 import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
@@ -7,7 +8,6 @@ import {
 import { first } from 'rxjs/operators';
 
 import { browseByGuard } from './browse-by-guard';
-import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 
 describe('browseByGuard', () => {
   describe('canActivate', () => {

@@ -10,6 +10,7 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { HierarchicalBrowseDefinition } from '@dspace/core/shared/hierarchical-browse-definition.model';
@@ -28,7 +29,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',

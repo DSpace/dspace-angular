@@ -18,6 +18,7 @@ import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getBitstreamModuleRoute } from '@dspace/core/router/core-routing-paths';
 import { Bundle } from '@dspace/core/shared/bundle.model';
 import { Item } from '@dspace/core/shared/item.model';
 import {
@@ -45,7 +46,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
