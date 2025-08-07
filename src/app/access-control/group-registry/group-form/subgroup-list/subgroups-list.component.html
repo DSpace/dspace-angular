@@ -25,7 +25,7 @@
                 <td class="align-middle">{{group.id}}</td>
                 <td class="align-middle">
                   <a (click)="groupRegistryService.startEditingNewGroup(group)"
-                    [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">
+                    [routerLink]="[getGroupEditPageRouterLink(group)]">
                     {{ dsoNameService.getName(group) }}
                   </a>
                 </td>
@@ -108,7 +108,7 @@
                 <td class="align-middle">{{group.id}}</td>
                 <td class="align-middle">
                   <a (click)="groupRegistryService.startEditingNewGroup(group)"
-                    [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">
+                    [routerLink]="[getGroupEditPageRouterLink(group)]">
                     {{ dsoNameService.getName(group) }}
                   </a>
                 </td>

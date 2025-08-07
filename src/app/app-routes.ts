@@ -23,9 +23,9 @@ import {
 } from '@dspace/core/router/core-routing-paths';
 import { ServerCheckGuard } from '@dspace/core/server-check/server-check.guard';
 
+import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-routing-paths';
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
-  ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,

@@ -71,7 +71,10 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
-import { getEPersonsRoute } from '../../access-control-routing-paths';
+import {
+  getEPersonsRoute,
+  getGroupEditPageRouterLink,
+} from '../../access-control-routing-paths';
 import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
@@ -237,6 +240,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Subscription to email field value change
    */
   emailValueChangeSubscribe: Subscription;
+
+  protected readonly getGroupEditPageRouterLink = getGroupEditPageRouterLink;
 
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
@@ -636,4 +641,5 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.groups$ = this.groupsDataService.findListByHref(eperson._links.groups.href, options);
     }));
   }
+
 }

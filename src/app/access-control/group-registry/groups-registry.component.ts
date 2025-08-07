@@ -68,6 +68,7 @@ import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { getGroupEditPageRouterLink } from '../access-control-routing-paths';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -135,6 +136,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * List of subscriptions
    */
   subs: Subscription[] = [];
+
+  protected readonly getGroupEditPageRouterLink = getGroupEditPageRouterLink;
 
   constructor(public groupService: GroupDataService,
               private ePersonDataService: EPersonDataService,
@@ -345,5 +348,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       }
     });
   }
+
 
 }

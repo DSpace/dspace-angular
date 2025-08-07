@@ -8,7 +8,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -236,15 +235,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
   public getGroupRegistryRouterLink(): string {
     return '/access-control/groups';
   }
-
-  /**
-   * Get Edit page of group
-   * @param group Group we want edit page for
-   */
-  public getGroupEditPageRouterLink(group: Group): string {
-    return getGroupEditRoute(group.id);
-  }
-
 
   /**
    * Extract optional UUID from a string

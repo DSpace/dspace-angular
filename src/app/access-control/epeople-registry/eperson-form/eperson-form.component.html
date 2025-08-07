@@ -82,7 +82,7 @@
                         <td class="align-middle">{{group.id}}</td>
                         <td class="align-middle">
                           <a (click)="groupRegistryService.startEditingNewGroup(group)"
-                            [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">
+                            [routerLink]="[getGroupEditPageRouterLink(group)]">
                             {{ dsoNameService.getName(group) }}
                           </a>
                         </td>

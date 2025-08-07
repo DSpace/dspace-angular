@@ -45,6 +45,7 @@ import {
 
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { getGroupEditPageRouterLink } from '../../../access-control-routing-paths';
 import { GroupRegistryService } from '../../group-registry.service';
 
 /**
@@ -121,6 +122,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
 
   // current active group being edited
   groupBeingEdited: Group;
+
+  protected readonly getGroupEditPageRouterLink = getGroupEditPageRouterLink;
 
   constructor(public groupDataService: GroupDataService,
               public groupRegistryService: GroupRegistryService,
@@ -305,4 +308,5 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     });
     this.search({ query: '' });
   }
+
 }

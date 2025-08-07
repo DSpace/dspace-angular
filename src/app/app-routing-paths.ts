@@ -49,12 +49,6 @@ export function getInfoModulePath() {
   return `/${INFO_MODULE_PATH}`;
 }
 
-export const ACCESS_CONTROL_MODULE_PATH = 'access-control';
-
-export function getAccessControlModuleRoute() {
-  return `/${ACCESS_CONTROL_MODULE_PATH}`;
-}
-
 export const REQUEST_COPY_MODULE_PATH = 'request-a-copy';
 export function getRequestCopyModulePath() {
   return `/${REQUEST_COPY_MODULE_PATH}`;
