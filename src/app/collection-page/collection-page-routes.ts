@@ -3,7 +3,6 @@ import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { collectionBreadcrumbResolver } from '@dspace/core/breadcrumbs/collection-breadcrumb.resolver';
 import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { collectionPageResolver } from '@dspace/core/resolvers/collection-page.resolver';
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
@@ -11,6 +10,7 @@ import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
+import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
   COLLECTION_CREATE_PATH,

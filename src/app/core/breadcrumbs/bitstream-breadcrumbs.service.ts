@@ -15,9 +15,11 @@ import {
 import { LinkService } from '../cache/builders/link.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { RemoteData } from '../data/remote-data';
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../resolvers/bitstream-page.resolver';
 import { getDSORoute } from '../router/utils/dso-route.utils';
-import { Bitstream } from '../shared/bitstream.model';
+import {
+  Bitstream,
+  BITSTREAM_PAGE_LINKS_TO_FOLLOW,
+} from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { DSpaceObject } from '../shared/dspace-object.model';

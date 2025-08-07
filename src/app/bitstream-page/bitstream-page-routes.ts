@@ -2,7 +2,6 @@ import { Route } from '@angular/router';
 import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { bitstreamBreadcrumbResolver } from '@dspace/core/breadcrumbs/bitstream-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { bitstreamPageResolver } from '@dspace/core/resolvers/bitstream-page.resolver';
 
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
@@ -10,6 +9,7 @@ import { resourcePolicyResolver } from '../shared/resource-policies/resolvers/re
 import { resourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { bitstreamPageResolver } from './bitstream-page.resolver';
 import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';

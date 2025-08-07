@@ -8,8 +8,10 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
 import { CommunityDataService } from '../data/community-data.service';
-import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../resolvers/community-page.resolver';
-import { Community } from '../shared/community.model';
+import {
+  Community,
+  COMMUNITY_PAGE_LINKS_TO_FOLLOW,
+} from '../shared/community.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import {

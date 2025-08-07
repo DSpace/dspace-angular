@@ -7,8 +7,10 @@ import {
 import { Observable } from 'rxjs';
 
 import { BitstreamDataService } from '../data/bitstream-data.service';
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../resolvers/bitstream-page.resolver';
-import { Bitstream } from '../shared/bitstream.model';
+import {
+  Bitstream,
+  BITSTREAM_PAGE_LINKS_TO_FOLLOW,
+} from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { BitstreamBreadcrumbsService } from './bitstream-breadcrumbs.service';

@@ -7,8 +7,10 @@ import {
 import { Observable } from 'rxjs';
 
 import { CollectionDataService } from '../data/collection-data.service';
-import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../resolvers/collection-page.resolver';
-import { Collection } from '../shared/collection.model';
+import {
+  Collection,
+  COLLECTION_PAGE_LINKS_TO_FOLLOW,
+} from '../shared/collection.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';

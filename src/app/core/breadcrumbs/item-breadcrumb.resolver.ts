@@ -7,10 +7,12 @@ import {
 import { Observable } from 'rxjs';
 
 import { ItemDataService } from '../data/item-data.service';
-import { getItemPageLinksToFollow } from '../resolvers/item.resolver';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
-import { Item } from '../shared/item.model';
+import {
+  getItemPageLinksToFollow,
+  Item,
+} from '../shared/item.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { BreadcrumbConfig } from './models/breadcrumb-config.model';
