@@ -10,6 +10,7 @@ import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getHomePageRoute } from '@dspace/core/router/core-routing-paths';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
@@ -32,8 +33,6 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-
-import { getHomePageRoute } from '../../../../app-routing-paths';
 
 /**
  * Component representing the create page for communities and collections

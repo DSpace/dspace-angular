@@ -4,7 +4,7 @@ import {
   HealthInfoResponse,
   HealthResponse,
   HealthStatus,
-} from '../../health-page/models/health-component.model';
+} from '../shared/health-component.model';
 
 export const HealthResponseObj: HealthResponse = {
   'status': HealthStatus.UP_WITH_ISSUES,

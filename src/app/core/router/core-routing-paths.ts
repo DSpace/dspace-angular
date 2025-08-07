@@ -48,3 +48,9 @@ export const LEGACY_BITSTREAM_MODULE_PATH = 'bitstream';
 export function getBitstreamModuleRoute() {
   return `/${BITSTREAM_MODULE_PATH}`;
 }
+
+export const HOME_PAGE_PATH = 'home';
+
+export function getHomePageRoute() {
+  return `/${HOME_PAGE_PATH}`;
+}

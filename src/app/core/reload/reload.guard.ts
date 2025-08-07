@@ -12,7 +12,7 @@ import {
 } from '@dspace/config/app-config.interface';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
-import { HOME_PAGE_PATH } from '../../app-routing-paths';
+import { HOME_PAGE_PATH } from '../router/core-routing-paths';
 
 /**
  * A guard redirecting the user to the URL provided in the route's query params

@@ -1,11 +1,5 @@
 export const COAR_NOTIFY_SUPPORT = 'coar-notify-support';
 
-export const HOME_PAGE_PATH = 'home';
-
-export function getHomePageRoute() {
-  return `/${HOME_PAGE_PATH}`;
-}
-
 export const ADMIN_MODULE_PATH = 'admin';
 
 export function getAdminModuleRoute() {
