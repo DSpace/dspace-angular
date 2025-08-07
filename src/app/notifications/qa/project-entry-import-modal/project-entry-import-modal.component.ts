@@ -10,14 +10,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { SourceQualityAssuranceEventMessageObject } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
 import {
-  QualityAssuranceEventObject,
-  SourceQualityAssuranceEventMessageObject,
-} from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
+  ImportType,
+  QualityAssuranceEventData,
+} from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
@@ -40,63 +40,6 @@ import { CollectionElementLinkType } from '../../../shared/object-collection/col
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchService } from '../../../shared/search/search.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
-
-/**
- * The possible types of import for the external entry
- */
-export enum ImportType {
-  None = 'None',
-  LocalEntity = 'LocalEntity',
-  LocalAuthority = 'LocalAuthority',
-  NewEntity = 'NewEntity',
-  NewAuthority = 'NewAuthority'
-}
-
-/**
- * The data type passed from the parent page
- */
-export interface QualityAssuranceEventData {
-  /**
-   * The Quality Assurance event
-   */
-  event: QualityAssuranceEventObject;
-  /**
-   * The Quality Assurance event Id (uuid)
-   */
-  id: string;
-  /**
-   * The publication title
-   */
-  title: string;
-  /**
-   * Contains the boolean that indicates if a project is present
-   */
-  hasProject: boolean;
-  /**
-   * The project title, if present
-   */
-  projectTitle: string;
-  /**
-   * The project id (uuid), if present
-   */
-  projectId: string;
-  /**
-   * The project handle, if present
-   */
-  handle: string;
-  /**
-   * The reject/discard reason
-   */
-  reason: string;
-  /**
-   * Contains the boolean that indicates if there is a running operation (REST call)
-   */
-  isRunning: boolean;
-  /**
-   * The related publication DSpace item
-   */
-  target?: Item;
-}
 
 @Component({
   selector: 'ds-project-entry-import-modal',

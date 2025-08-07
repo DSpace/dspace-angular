@@ -1,4 +1,4 @@
-import { SubmissionSectionError } from '../../../submission/objects/submission-section-error.model';
+import { SubmissionSectionError } from './submission-section-error.model';
 
 /**
  * An interface to represent section error

@@ -11,8 +11,9 @@ import {
   Observable,
   of,
 } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
+import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 
 export declare type HasAcceptedGuardParamFn = () => Observable<boolean>;
 /**
@@ -32,3 +33,18 @@ export const endUserAgreementGuard = (
     );
   };
 };
+
+/**
+ * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
+ * @param router    Router
+ * @param redirect  Redirect URL to add to the UrlTree. This is used to redirect back to the original route after the
+ *                  user accepts the agreement.
+ */
+export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: string) =>
+  (source: Observable<boolean>): Observable<boolean | UrlTree> =>
+    source.pipe(
+      map((hasAgreed: boolean) => {
+        const queryParams = { redirect: encodeURIComponent(redirect) };
+        return hasAgreed ? hasAgreed : router.createUrlTree([getEndUserAgreementPath()], { queryParams });
+      }),
+    );

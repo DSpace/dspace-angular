@@ -22,6 +22,7 @@ import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
@@ -52,7 +53,6 @@ import { getMockFormOperationsService } from '../../../shared/form/testing/form-
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObjectService } from '../../submission-object.service';
 import {

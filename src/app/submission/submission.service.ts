@@ -12,6 +12,7 @@ import { Item } from '@dspace/core/shared/item.model';
 import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
@@ -69,7 +70,6 @@ import {
   SubmissionObjectEntry,
   SubmissionSectionEntry,
 } from './objects/submission-objects.reducer';
-import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SectionDataObject } from './sections/models/section-data.model';
 import { submissionObjectFromIdSelector } from './selectors';
 import {

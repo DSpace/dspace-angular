@@ -1,3 +1,4 @@
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import {
   hasValue,
@@ -48,7 +49,6 @@ import {
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
 } from './submission-objects.actions';
-import { SubmissionSectionObject } from './submission-section-object.model';
 
 /**
  * An interface to represent SubmissionSectionObject entry

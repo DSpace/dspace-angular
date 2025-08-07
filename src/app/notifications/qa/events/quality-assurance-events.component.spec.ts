@@ -21,6 +21,7 @@ import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { QualityAssuranceEventDataService } from '@dspace/core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
@@ -56,7 +57,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 
 describe('QualityAssuranceEventsComponent test suite', () => {

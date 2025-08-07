@@ -4,6 +4,7 @@ import {
 } from '@angular/core/testing';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
@@ -39,7 +40,6 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
 import { submissionReducers } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';

@@ -5,6 +5,8 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
@@ -78,8 +80,6 @@ import {
   UpdateSectionDataSuccessAction,
 } from './submission-objects.actions';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
-import { SubmissionSectionError } from './submission-section-error.model';
-import { SubmissionSectionObject } from './submission-section-object.model';
 
 @Injectable()
 export class SubmissionObjectEffects {

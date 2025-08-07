@@ -3,6 +3,8 @@ import { SubmissionFormsModel } from '@dspace/core/config/models/config-submissi
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { WorkspaceitemSectionDataType } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
@@ -48,8 +50,6 @@ import {
   UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
-import { SubmissionSectionObject } from '../objects/submission-section-object.model';
 import {
   submissionObjectFromIdSelector,
   submissionSectionDataFromIdSelector,

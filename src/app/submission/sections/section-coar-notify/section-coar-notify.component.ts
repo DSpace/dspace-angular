@@ -21,6 +21,7 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import {
   hasValue,
   isEmpty,
@@ -43,7 +44,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';

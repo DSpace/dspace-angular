@@ -8,6 +8,7 @@ import {
 } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
@@ -15,8 +16,6 @@ import {
 } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { Action } from '@ngrx/store';
-
-import { SubmissionSectionError } from './submission-section-error.model';
 
 /**
  * For each action type in an action group, make a simple

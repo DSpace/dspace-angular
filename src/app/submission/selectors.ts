@@ -2,10 +2,10 @@ import {
   keySelector,
   subStateSelector,
 } from '@dspace/core/ngrx/selectors-utils';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { MemoizedSelector } from '@ngrx/store';
 
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
-import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import {
   submissionSelector,
   SubmissionState,

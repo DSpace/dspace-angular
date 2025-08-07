@@ -24,6 +24,7 @@ import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
 } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
@@ -69,10 +70,7 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import {
-  ProjectEntryImportModalComponent,
-  QualityAssuranceEventData,
-} from '../project-entry-import-modal/project-entry-import-modal.component';
+import { ProjectEntryImportModalComponent } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 
 /**

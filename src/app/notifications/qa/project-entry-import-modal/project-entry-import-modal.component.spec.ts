@@ -11,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { ImportType } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
@@ -33,10 +34,7 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchService } from '../../../shared/search/search.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
-import {
-  ImportType,
-  ProjectEntryImportModalComponent,
-} from './project-entry-import-modal.component';
+import { ProjectEntryImportModalComponent } from './project-entry-import-modal.component';
 
 const eventData = {
   event: qualityAssuranceEventObjectMissingProjectFound,

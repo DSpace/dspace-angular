@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   hasValue,
@@ -18,7 +19,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SectionsService } from './sections.service';

@@ -21,6 +21,8 @@ import {
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
@@ -59,8 +61,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObjectService } from '../../submission-object.service';
 import { SectionModelComponent } from '../models/section.model';
