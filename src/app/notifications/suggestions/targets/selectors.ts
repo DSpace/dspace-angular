@@ -1,3 +1,4 @@
+import { subStateSelector } from '@dspace/core/ngrx/selectors-utils';
 import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
 import {
   createFeatureSelector,
@@ -5,7 +6,6 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { subStateSelector } from '../../../submission/selectors';
 import {
   suggestionNotificationsSelector,
   SuggestionNotificationsState,
