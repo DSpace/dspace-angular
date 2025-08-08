@@ -37,6 +37,7 @@ import {
   mockUploadFiles,
 } from '../../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { createFailedRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
@@ -48,7 +49,6 @@ import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
-import { ThemedSubmissionSectionUploadFileComponent } from './themed-section-upload-file.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 
 const configMetadataFormMock = {
@@ -67,7 +67,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
+  let submissionServiceStub = new SubmissionServiceStub();
+  submissionServiceStub.retrieveSubmission.and.returnValue(createFailedRemoteDataObject$());
   let uploadService: any;
   let formService: any;
   let halService: any;
@@ -107,7 +108,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
@@ -120,10 +121,12 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(SubmissionSectionUploadFileComponent, {
-        remove: { imports: [
-          SubmissionSectionUploadFileViewComponent,
-          ThemedFileDownloadLinkComponent,
-        ] },
+        remove: {
+          imports: [
+            SubmissionSectionUploadFileViewComponent,
+            ThemedFileDownloadLinkComponent,
+          ],
+        },
       })
       .compileComponents().then();
   }));
@@ -284,7 +287,6 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   imports: [
     AsyncPipe,
     NgbModule,
-    ThemedSubmissionSectionUploadFileComponent,
   ],
 })
 class TestComponent {
