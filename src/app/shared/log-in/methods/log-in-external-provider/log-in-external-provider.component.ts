@@ -3,6 +3,19 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
@@ -10,20 +23,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import {
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../../core/services/window.service';
-import { isEmpty } from '../../../empty.util';
 
 @Component({
   selector: 'ds-log-in-external-provider',

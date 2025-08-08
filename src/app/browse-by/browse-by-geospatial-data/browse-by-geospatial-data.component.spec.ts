@@ -5,21 +5,21 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FacetValue } from '../../shared/search/models/facet-value.model';
-import { FilterType } from '../../shared/search/models/filter-type.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '../../shared/search/models/search-filter-config.model';
-import { SearchServiceStub } from '../../shared/testing/search-service.stub';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data.component';
 
 // create route stub

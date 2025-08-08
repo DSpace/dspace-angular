@@ -1,4 +1,17 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -25,18 +38,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
+import { NoOpAction } from '../ngrx/no-op.action';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
@@ -53,7 +59,7 @@ import {
 
 @Injectable()
 export class ServerSyncBufferEffects {
-
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
   /**
    * When an ADDToSSBAction is dispatched
    * Set a time out (configurable per method type)
@@ -64,7 +70,7 @@ export class ServerSyncBufferEffects {
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
-        const autoSyncConfig = environment.cache.autoSync;
+        const autoSyncConfig = this.appConfig.cache.autoSync;
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return of(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),

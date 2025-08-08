@@ -6,19 +6,19 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
+import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
+import { getMockHrefOnlyDataService } from '../testing/href-only-data.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { HrefOnlyDataService } from './href-only-data.service';
 import { RequestService } from './request.service';

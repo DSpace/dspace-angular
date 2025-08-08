@@ -2,6 +2,11 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -16,16 +21,12 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
-import { StoreActionTypes } from '../../store.actions';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { StoreActionTypes } from '../ngrx/type';
 import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestActionTypes,
@@ -37,7 +38,6 @@ import {
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RequestError } from './request-error.model';
-import { RestRequestMethod } from './rest-request-method';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 
 @Injectable()

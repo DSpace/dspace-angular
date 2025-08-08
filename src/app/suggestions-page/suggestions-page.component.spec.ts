@@ -11,6 +11,24 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import {
+  mockSuggestionPublicationOne,
+  mockSuggestionPublicationTwo,
+} from '@dspace/core/testing/publication-claim.mock';
+import { mockSuggestionTargetsObjectOne } from '@dspace/core/testing/publication-claim-targets.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import {
+  getMockSuggestionNotificationsStateService,
+  getMockSuggestionsService,
+} from '@dspace/core/testing/suggestion.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,
@@ -19,29 +37,11 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../core/auth/auth.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { SuggestionApproveAndImport } from '../notifications/suggestions/list-element/suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from '../notifications/suggestions/list-element/suggestion-evidences/suggestion-evidences.component';
 import { SuggestionListElementComponent } from '../notifications/suggestions/list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../notifications/suggestions/suggestions.service';
 import { SuggestionTargetsStateService } from '../notifications/suggestions/targets/suggestion-targets.state.service';
-import {
-  mockSuggestionPublicationOne,
-  mockSuggestionPublicationTwo,
-} from '../shared/mocks/publication-claim.mock';
-import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
-import {
-  getMockSuggestionNotificationsStateService,
-  getMockSuggestionsService,
-} from '../shared/mocks/suggestion.mock';
-import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SuggestionsPageComponent } from './suggestions-page.component';

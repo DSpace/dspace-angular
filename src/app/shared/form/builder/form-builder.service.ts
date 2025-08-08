@@ -7,6 +7,25 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { VIRTUAL_METADATA_PREFIX } from '@dspace/core/shared/metadata.models';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+} from '@dspace/shared/utils/empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -28,24 +47,6 @@ import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-} from '../../empty.util';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {
   CONCAT_GROUP_SUFFIX,
   DynamicConcatModel,
@@ -55,7 +56,6 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { RowParser } from './parsers/row-parser';
 
 @Injectable({ providedIn: 'root' })

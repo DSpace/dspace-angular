@@ -6,6 +6,10 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  isEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -24,10 +28,6 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import {
-  isEmpty,
-  isNotUndefined,
-} from '../empty.util';
 import { FormBuilderService } from './builder/form-builder.service';
 import {
   FormAddError,

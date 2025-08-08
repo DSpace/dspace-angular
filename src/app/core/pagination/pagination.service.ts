@@ -4,6 +4,13 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import { isNumeric } from '@dspace/shared/utils/numeric.util';
+import { difference } from '@dspace/shared/utils/object.util';
+import {
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
@@ -14,19 +21,12 @@ import {
 } from 'rxjs/operators';
 
 import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
-import { isNumeric } from '../../shared/numeric.util';
-import { difference } from '../../shared/object.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import {
   SortDirection,
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { RouteService } from '../services/route.service';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 import { PaginationRouteParams } from './pagination-route-params.interface';
 
 @Injectable({

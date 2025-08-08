@@ -3,14 +3,13 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { getResourceTypeValueFor } from '../../../../../core/cache/object-cache.reducer';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { getResourceTypeValueFor } from '@dspace/core/cache/object-cache.reducer';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   hasValue,
   isEmpty,
-} from '../../../../empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-base-type-badge',

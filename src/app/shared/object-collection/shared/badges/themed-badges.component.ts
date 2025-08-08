@@ -2,9 +2,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Context } from 'src/app/core/shared/context.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { BadgesComponent } from './badges.component';
 

@@ -1,6 +1,6 @@
+import { MetadatumViewModel } from '@dspace/core/shared/metadata.models';
 import { Operation } from 'fast-json-patch';
 
-import { MetadatumViewModel } from '../../../shared/metadata.models';
 import { FieldChangeType } from '../field-change-type.model';
 import { FieldUpdates } from '../field-updates.model';
 import { MetadataPatchOperationService } from './metadata-patch-operation.service';
