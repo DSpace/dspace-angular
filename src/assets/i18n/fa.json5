@@ -1074,596 +1074,448 @@
   "admin.reports.commons.filters.bundle": "فیلترهای بسته فایلها",
 
   // "admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
+  "admin.reports.commons.filters.bundle.has_unsupported_bundle": "دارای فایل در یک بسته پشتیبانی نشده است",
 
   // "admin.reports.commons.filters.bundle.has_small_thumbnail": "Has unusually small thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_small_thumbnail": "Has unusually small thumbnail",
+  "admin.reports.commons.filters.bundle.has_small_thumbnail": "دارای تصویر کوچک غیرمعمول",
 
   // "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
+  "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "دارای فایل اصلی بدون تصویر کوچک",
 
   // "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
+  "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "نام تصویر کوچک نامعتبر است (برای هر اصلی یک تصویر کوچک در نظر گرفته شده است)",
 
   // "admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
+  "admin.reports.commons.filters.bundle.has_non_generated_thumb": "دارای تصویر کوچک تولید نشده ",
 
   // "admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
+  "admin.reports.commons.filters.bundle.no_license": "مجوز ندارد.",
 
   // "admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
+  "admin.reports.commons.filters.bundle.has_license_documentation": "دارای مستندات در بسته مجوز است",
 
   // "admin.reports.commons.filters.permission": "Permission Filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission": "Permission Filters",
+  "admin.reports.commons.filters.permission": "فیلترهای مجوز",
 
   // "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
+  "admin.reports.commons.filters.permission.has_restricted_original": "آیتم دارای فایل اصلی محدود شده است",
 
   // "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
+  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "آیتم حداقل یک فایل اصلی دارد که برای کاربر ناشناس قابل دسترسی نیست",
 
   // "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail": "تصویر کوچک آیتم محدود شده است",
 
   // "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "آیتم حداقل یک تصویر کوچک دارد که برای کاربر ناشناس قابل دسترسی نیست",
 
   // "admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
+  "admin.reports.commons.filters.permission.has_restricted_metadata": "آیتم دارای ابرداده محدود است",
 
   // "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
+  "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "آیتم دارای ابرداده‌ای است که برای کاربر ناشناس قابل دسترسی نیست",
 
   // "admin.search.breadcrumbs": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.breadcrumbs": "Administrative Search",
+  "admin.search.breadcrumbs": "جستجوی مدیریتی",
 
   // "admin.search.collection.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.collection.edit": "Edit",
+  "admin.search.collection.edit": "ویرایش",
 
   // "admin.search.community.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.community.edit": "Edit",
+  "admin.search.community.edit": "ویرایش",
 
   // "admin.search.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.search.item.delete": "Delete",
+  "admin.search.item.delete": "حذف",
 
   // "admin.search.item.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.item.edit": "Edit",
+  "admin.search.item.edit": "ویرایش",
 
   // "admin.search.item.make-private": "Make non-discoverable",
-  // TODO New key - Add a translation
-  "admin.search.item.make-private": "Make non-discoverable",
+  "admin.search.item.make-private": "غیرقابل کشف کردن",
 
   // "admin.search.item.make-public": "Make discoverable",
-  // TODO New key - Add a translation
-  "admin.search.item.make-public": "Make discoverable",
+  "admin.search.item.make-public": "قابل کشف کردن",
 
   // "admin.search.item.move": "Move",
-  // TODO New key - Add a translation
-  "admin.search.item.move": "Move",
+  "admin.search.item.move": "حرکت",
 
   // "admin.search.item.reinstate": "Reinstate",
-  // TODO New key - Add a translation
-  "admin.search.item.reinstate": "Reinstate",
+  "admin.search.item.reinstate": "بازگرداندن",
 
   // "admin.search.item.withdraw": "Withdraw",
-  // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "برداشت",
 
   // "admin.search.title": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.title": "Administrative Search",
+  "admin.search.title": "جستجوی مدیریتی",
 
   // "administrativeView.search.results.head": "Administrative Search",
-  // TODO New key - Add a translation
-  "administrativeView.search.results.head": "Administrative Search",
+  "administrativeView.search.results.head": "جستجوی مدیریتی",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.breadcrumbs": "Administer Workflow",
+  "admin.workflow.breadcrumbs": "مدیریت گردش کار",
 
   // "admin.workflow.title": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.title": "Administer Workflow",
+  "admin.workflow.title": "مدیریت گردش کار",
 
   // "admin.workflow.item.workflow": "Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.item.workflow": "Workflow",
+  "admin.workflow.item.workflow": "گردش کار",
 
   // "admin.workflow.item.workspace": "Workspace",
-  // TODO New key - Add a translation
-  "admin.workflow.item.workspace": "Workspace",
+  "admin.workflow.item.workspace": "فضای کاری",
 
   // "admin.workflow.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.workflow.item.delete": "Delete",
+  "admin.workflow.item.delete": "حذف",
 
   // "admin.workflow.item.send-back": "Send back",
-  // TODO New key - Add a translation
-  "admin.workflow.item.send-back": "Send back",
+  "admin.workflow.item.send-back": "ارسال مجدد",
 
   // "admin.workflow.item.policies": "Policies",
-  // TODO New key - Add a translation
-  "admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.policies": "سیاستها",
 
   // "admin.workflow.item.supervision": "Supervision",
-  // TODO New key - Add a translation
-  "admin.workflow.item.supervision": "Supervision",
+  "admin.workflow.item.supervision": "نظارت",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.breadcrumbs": "Import Metadata",
+  "admin.metadata-import.breadcrumbs": "وارد کردن ابرداده",
 
   // "admin.batch-import.breadcrumbs": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "وارد کردن دسته ای",
 
   // "admin.metadata-import.title": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.title": "Import Metadata",
+  "admin.metadata-import.title": "وارد کردن ابرداده",
 
   // "admin.batch-import.title": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.title": "Import Batch",
+  "admin.batch-import.title": "وارد کردن دسته ای",
 
   // "admin.metadata-import.page.header": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.header": "Import Metadata",
+  "admin.metadata-import.page.header": "وارد کردن ابرداده",
 
   // "admin.batch-import.page.header": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.header": "Import Batch",
+  "admin.batch-import.page.header": "وارد کردن دسته ای",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+  "admin.metadata-import.page.help": "می‌توانید فایل‌های CSV که حاوی عملیات متادیتای دسته‌ای روی فایل‌ها هستند را اینجا رها یا مرور کنید",
 
   // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
+  "admin.batch-import.page.help": "مجموعه‌ای را که می‌خواهید وارد کنید انتخاب کنید. سپس، فایل زیپ با فرمت آرشیو ساده (SAF) که شامل آیتمهای مورد نظر برای وارد کردن است را رها کنید یا به آن بروید.",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  "admin.batch-import.page.toggle.help": "انجام واردکردن یا با بارگزاری فایل یا از طریق URL امکان‌پذیر است، برای تنظیم منبع ورودی از دکمه‌ی بالا استفاده کنید.",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+  "admin.metadata-import.page.dropMsg": "برای وارد کردن، یک CSV ابرداده را رها کنید",
 
   // "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+  "admin.batch-import.page.dropMsg": "برای وارد کردن، یک فایل زیپ دسته‌ای را رها کنید",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+  "admin.metadata-import.page.dropMsgReplace": "برای جای گزینی ابرداده CSV برای وارد کردن، آن را رها کنید",
 
   // "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
+  "admin.batch-import.page.dropMsgReplace": "برای جایگزینی فایل زیپ وارد شده، آن را رها کنید",
 
   // "admin.metadata-import.page.button.return": "Back",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.return": "Back",
+  "admin.metadata-import.page.button.return": "برگشت",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.proceed": "Proceed",
+  "admin.metadata-import.page.button.proceed": "ادامه",
 
   // "admin.metadata-import.page.button.select-collection": "Select Collection",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.select-collection": "Select Collection",
+  "admin.metadata-import.page.button.select-collection": "انتخاب مجموعه",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFile": "Select file first!",
+  "admin.metadata-import.page.error.addFile": "ابتدا فایل را انتخاب کنید!",
 
   // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
+  "admin.metadata-import.page.error.addFileUrl": "ابتدا آدرس فایل را وارد کنید!",
 
   // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.error.addFile": "Select ZIP file first!",
+  "admin.batch-import.page.error.addFile": "ابتدا فایل زیپ را انتخاب کنید!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.toggle.upload": "Upload",
+  "admin.metadata-import.page.toggle.upload": "بارگزاری",
 
   // "admin.metadata-import.page.toggle.url": "URL",
-  // TODO New key - Add a translation
   "admin.metadata-import.page.toggle.url": "URL",
 
   // "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
+  "admin.metadata-import.page.urlMsg": "آدرس فایل زیپ دسته‌ای را برای وارد کردن وارد کنید",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly": "Validate Only",
+  "admin.metadata-import.page.validateOnly": "فقط اعتبارسنجی",
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.metadata-import.page.validateOnly.hint": "پس از انتخاب، فایل CSV بارگزاری شده اعتبارسنجی می‌شود. گزارشی از تغییرات شناسایی شده دریافت خواهید کرد، اما هیچ تغییری ذخیره نخواهد شد.",
 
   // "advanced-workflow-action.rating.form.rating.label": "Rating",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.rating.label": "Rating",
+  "advanced-workflow-action.rating.form.rating.label": "رتبه‌بندی",
 
   // "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
+  "advanced-workflow-action.rating.form.rating.error": "شما باید به آیتم امتیاز دهید",
 
   // "advanced-workflow-action.rating.form.review.label": "Review",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.review.label": "Review",
+  "advanced-workflow-action.rating.form.review.label": "نقد",
 
   // "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
+  "advanced-workflow-action.rating.form.review.error": "برای ارسال این رتبه‌بندی، باید نقد خود را وارد کنید",
 
   // "advanced-workflow-action.rating.description": "Please select a rating below",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.description": "Please select a rating below",
+  "advanced-workflow-action.rating.description": "لطفا یک رتبه بندی در زیر را انتخاب کنید",
 
   // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
+  "advanced-workflow-action.rating.description-requiredDescription": "لطفا یک رتبه بندی در زیر را انتخاب کنید و همچنین یک نقد اضافه کنید",
 
   // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+  "advanced-workflow-action.select-reviewer.description-single": "لطفاً قبل از ارسال، یک داور واحد را در زیر انتخاب کنید",
 
   // "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+  "advanced-workflow-action.select-reviewer.description-multiple": "لطفا قبل از ارسال، یک یا چند داور را از زیر انتخاب کنید",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
-  // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "افزودن EPeople",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "مرور همه",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "اعضا جاری",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "جستجو",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
-  // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "نام",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "هویت",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "ایمیل",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
-  // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "حذف/افزودن",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "حذف عضو با نام \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "عضو با موفقیت افزوده شد: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "افزودن عضو ناموفق بود: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "عضو با موفقیت حذف شد: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "حذف عضو ناموفق بود: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "افزودن عضو با نام \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "در حال حاضر گروه فعالی وجود ندارد، ابتدا نام را ارسال کنید.",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "هنوز عضوی در گروه نیست، جستجو و اضافه کنید.",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "هیچ EPeople در آن جستجو یافت نشد",
 
   // "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
+  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "داوری انتخاب نشده است",
 
   // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.batch-import.page.validateOnly.hint": "پس از انتخاب، فایل زیپ بارگزاری شده اعتبارسنجی می‌شود. گزارشی از تغییرات شناسایی شده دریافت خواهید کرد، اما هیچ تغییری ذخیره نخواهد شد.",
 
   // "admin.batch-import.page.remove": "remove",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.remove": "remove",
+  "admin.batch-import.page.remove": "حذف",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  // TODO New key - Add a translation
-  "auth.errors.invalid-user": "Invalid email address or password.",
+  "auth.errors.invalid-user": "آدرس ایمیل یا رمز عبور نامعتبر",
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.expired": "Your session has expired. Please log in again.",
+  "auth.messages.expired": "زمان استفاده از حساب کاربری شما به پایان رسیده است. لطفا دوباره وارد شوید.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
+  "auth.messages.token-refresh-failed": "به‌روزرسانی توکن نشست شما ناموفق بود. لطفاً دوباره وارد شوید.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
-  // TODO New key - Add a translation
-  "bitstream.download.page": "Now downloading {{bitstream}}...",
+  "bitstream.download.page": "درحال دانلود کردن {{bitstream}}...",
 
   // "bitstream.download.page.back": "Back",
-  // TODO New key - Add a translation
-  "bitstream.download.page.back": "Back",
+  "bitstream.download.page.back": "برگشت",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
-  // TODO New key - Add a translation
-  "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.link": "ویرایش سیاستهای فایل",
 
   // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
-  // TODO New key - Add a translation
-  "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.title": "ویرایش سیاستهای فایل",
 
   // "bitstream.edit.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream.edit.return": "Back",
+  "bitstream.edit.return": "برگشت",
 
   // "bitstream.edit.bitstream": "Bitstream: ",
-  // TODO New key - Add a translation
-  "bitstream.edit.bitstream": "Bitstream: ",
+  "bitstream.edit.bitstream": "فایل: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": "در صورت تمایل، توضیح مختصری از فایل ارائه دهید، برای مثال \"<i>مقاله اصلی</i>\" یا \"<i>خواندنیهای داده آزمایش</i>\".",
 
   // "bitstream.edit.form.description.label": "Description",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.label": "Description",
+  "bitstream.edit.form.description.label": "توصیف",
 
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  "bitstream.edit.form.embargo.hint": "اولین روزی که از آن تاریخ دسترسی مجاز است. <b>این تاریخ در این فرم قابل تغییر نیست.</b> برای تنظیم تاریخ ممنوعیت (قفل فایل) برای یک فایل به زبانه <i>وضعیت آیتم</i> بروید، روی <i>مجوزها...</i> کلیک کنید، سیاست <i>خواندن</i> فایل را ایجاد یا ویرایش کنید و <i>تاریخ شروع</i> را به دلخواه تنظیم کنید.",
 
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+  "bitstream.edit.form.embargo.label": "ممنوعیت (قفل فایل) تا تاریخ مشخص",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "نام فایل را تغییر دهید. توجه داشته باشید که این کار آدرس اینترنتی فایل نمایش داده شده را تغییر می‌دهد، اما لینک‌های قدیمی همچنان تا زمانی که شناسه توالی تغییر نکند، قابل مشاهده خواهند بود.",
 
   // "bitstream.edit.form.fileName.label": "Filename",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.label": "Filename",
+  "bitstream.edit.form.fileName.label": "نام فایل",
 
   // "bitstream.edit.form.newFormat.label": "Describe new format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "توصیف قالب جدید",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "برنامه‌ای که برای ایجاد فایل استفاده کرده‌اید و شماره نسخه (برای مثال، \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary File",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.primaryBitstream.label": "Primary File",
+  "bitstream.edit.form.primaryBitstream.label": "فایل اصلی",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "اگر قالب مورد نظر در فهرست بالا نیست، <b>گزینه «قالب در فهرست نیست» را در بالا انتخاب کنید</b> و آن را در زیر «توضیح قالب جدید» شرح دهید.",
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+  "bitstream.edit.form.selectedFormat.label": "قالب انتخاب شده",
 
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+  "bitstream.edit.form.selectedFormat.unknown": "قالب در لیست نیست",
 
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+  "bitstream.edit.notifications.error.format.title": "خطایی در ذخیره قالب فایل رخ داد",
 
   // "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+  "bitstream.edit.notifications.error.primaryBitstream.title": "خطایی در ذخیره فایل اصلی رخ داد",
 
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+  "bitstream.edit.form.iiifLabel.label": "IIIF برچسب",
 
   // "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
+  "bitstream.edit.form.iiifLabel.hint": "برچسب بوم نقاشی برای این تصویر. در صورت عدم ارائه، برچسب پیش‌فرض استفاده خواهد شد.",
 
   // "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+  "bitstream.edit.form.iiifToc.label": "فهرست مندرجات IIIF",
 
   // "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
+  "bitstream.edit.form.iiifToc.hint": "افزودن متن در اینجا، این را به شروع یک محدوده جدید از فهرست مندرجات تبدیل می‌کند.",
 
   // "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
+  "bitstream.edit.form.iiifWidth.label": "عرض بوم IIIF",
 
   // "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
+  "bitstream.edit.form.iiifWidth.hint": "عرض بوم معمولاً باید با عرض تصویر مطابقت داشته باشد.",
 
   // "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
+  "bitstream.edit.form.iiifHeight.label": "ارتفاع بوم IIIF",
 
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
+  "bitstream.edit.form.iiifHeight.hint": "ارتفاع بوم معمولاً باید با ارتفاع تصویر مطابقت داشته باشد.",
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+  "bitstream.edit.notifications.saved.content": "تغییرات شما در این فایل ذخیره شد.",
 
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+  "bitstream.edit.notifications.saved.title": "فایل ذخیره شد",
 
   // "bitstream.edit.title": "Edit bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.title": "Edit bitstream",
+  "bitstream.edit.title": "ویرایش فایل",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+  "bitstream-request-a-copy.alert.canDownload1": "شما از قبل به این فایل دسترسی دارید. اگر می‌خواهید فایل را دانلود کنید، کلیک کنید ",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload2": "here",
+  "bitstream-request-a-copy.alert.canDownload2": "اینجا",
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.header": "Request a copy of the file",
+  "bitstream-request-a-copy.header": "درخواست یک کپی از فایل",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  "bitstream-request-a-copy.intro": "برای درخواست کپی برای آیتم زیر، اطلاعات زیر را وارد کنید: ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.one": "درخواست فایل زیر: ",
 
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+  "bitstream-request-a-copy.intro.bitstream.all": "درخواست همه فایلها. ",
 
   // "bitstream-request-a-copy.name.label": "Name *",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.label": "Name *",
+  "bitstream-request-a-copy.name.label": "نام *",
 
   // "bitstream-request-a-copy.name.error": "The name is required",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.error": "The name is required",
+  "bitstream-request-a-copy.name.error": "نام موردنیاز است",
 
   // "bitstream-request-a-copy.email.label": "Your email address *",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.label": "Your email address *",
+  "bitstream-request-a-copy.email.label": "آدرس ایمیل شما *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+  "bitstream-request-a-copy.email.hint": "این آدرس ایمیل برای ارسال فایل استفاده می‌شود.",
 
   // "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+  "bitstream-request-a-copy.email.error": "لطفاً یک آدرس ایمیل معتبر وارد کنید.",
 
   // "bitstream-request-a-copy.allfiles.label": "Files",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.allfiles.label": "Files",
+  "bitstream-request-a-copy.allfiles.label": "فایلها",
 
   // "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+  "bitstream-request-a-copy.files-all-false.label": "فقط فایل درخواست شده",
 
   // "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+  "bitstream-request-a-copy.files-all-true.label": "تمام فایل‌ها (از این آیتم) در دسترسی محدود",
 
   // "bitstream-request-a-copy.message.label": "Message",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.message.label": "Message",
+  "bitstream-request-a-copy.message.label": "پیام",
 
   // "bitstream-request-a-copy.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.return": "Back",
+  "bitstream-request-a-copy.return": "برگشت",
 
   // "bitstream-request-a-copy.submit": "Request copy",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit": "Request copy",
+  "bitstream-request-a-copy.submit": "درخواست کپی",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+  "bitstream-request-a-copy.submit.success": "درخواست آیتم با موفقیت ارسال شد.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+  "bitstream-request-a-copy.submit.error": "مشکلی در ارسال درخواست آیتم پیش آمد.",
 
   // "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
+  "bitstream-request-a-copy.access-by-token.warning": "شما در حال مشاهده این آیتم با لینک دسترسی امن هستید که توسط نویسنده یا کارکنان مخزن در اختیار شما قرار گرفته است. مهم است که این لینک را با کاربران غیرمجاز به اشتراک نگذارید.",
 
   // "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
+  "bitstream-request-a-copy.access-by-token.expiry-label": "دسترسی ارائه شده توسط این لینک در منقضی خواهد شد",
 
   // "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
+  "bitstream-request-a-copy.access-by-token.expired": "دسترسی ارائه شده توسط این لینک دیگر امکان‌پذیر نیست. دسترسی منقضی شده است ",
 
   // "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
+  "bitstream-request-a-copy.access-by-token.not-granted": "دسترسی از طریق این لینک امکان‌پذیر نیست. دسترسی یا اعطا نشده یا لغو شده است.",
 
   // "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
+  "bitstream-request-a-copy.access-by-token.re-request": "برای ارسال درخواست جدید دسترسی، لینک‌های دانلود محدود شده را دنبال کنید.",
 
   // "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
+  "bitstream-request-a-copy.access-by-token.alt-text": "دسترسی به این آیتم توسط یک توکن امن فراهم شده است",
 
   // "browse.back.all-results": "All browse results",
   "browse.back.all-results": "همه نتایج مرور",
@@ -1898,12 +1750,10 @@
   "collection.edit.breadcrumbs": "ویرایش مجموعه",
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.mapper.head": "Item Mapper",
+  "collection.edit.tabs.mapper.head": "نگاشت آیتم",
 
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.item-mapper.title": "ویرایش مجموعه - Item Mapper",
+  "collection.edit.tabs.item-mapper.title": "ویرایش مجموعه- نگاشت آیتم",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
   "collection.edit.item-mapper.cancel": "لغو",
@@ -1912,120 +1762,91 @@
   "collection.edit.item-mapper.collection": "مجموعه: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.confirm": "Map selected items",
+  "collection.edit.item-mapper.confirm": "نگاشت آیتمهای انتخاب شده",
 
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+  "collection.edit.item-mapper.description": "این ابزار نگاشت آیتم است که به مدیران مجموعه اجازه می‌دهد آیتم‌ها را از مجموعه‌های دیگر به این مجموعه نگاشت کنند. می‌توانید آیتم‌ها را از مجموعه‌های دیگر جستجو کرده و آنها را نگاشت کنید، یا فهرست آیتم‌های نگاشت‌شده‌ی فعلی را مرور کنید.",
 
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
+  "collection.edit.item-mapper.head": "نگاشت آیتم - آیتم‌ها را از مجموعه‌های دیگر نگاشت کنید",
 
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.no-search": "Please enter a query to search",
+  "collection.edit.item-mapper.no-search": "لطفا یک پرس و جو برای جستجو وارد کنید",
 
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.error.content": "{آیتمها رخ داد{amount}} خطا برای نگاشت ",
 
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
+  "collection.edit.item-mapper.notifications.map.error.head": "خطاهای نگاشت",
 
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.success.content": "بطور موفق نگاشت {{amount}} آیتمها انجام شد",
 
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
+  "collection.edit.item-mapper.notifications.map.success.head": "نگاشت کامل شد",
 
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "خطاهایی در حذف نگاشت‌های {{amount}} آیتمها رخ داده است.",
 
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
+  "collection.edit.item-mapper.notifications.unmap.error.head": "حذف خطاهای نگاشت",
 
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "نگاشت‌های {{amount}} آیتم‌ها با موفقیت حذف شدند.",
 
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
+  "collection.edit.item-mapper.notifications.unmap.success.head": "حذف نگاشت کامل شد",
 
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.remove": "Remove selected item mappings",
+  "collection.edit.item-mapper.remove": "حذف نگاشتهای آیتم انتخاب شده",
 
   // "collection.edit.item-mapper.search-form.placeholder": "Search items...",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.search-form.placeholder": "Search items...",
+  "collection.edit.item-mapper.search-form.placeholder": "جستجوی آیتمها...",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
+  "collection.edit.item-mapper.tabs.browse": "مرور آیتمهای نگاشت شده",
 
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.map": "Map new items",
+  "collection.edit.item-mapper.tabs.map": "نگاشت آیتمهای جدید",
 
   // "collection.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.delete.title": "Delete logo",
+  "collection.edit.logo.delete.title": "حذف لوگو",
 
   // "collection.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "collection.edit.logo.delete-undo.title": "Undo delete",
+  "collection.edit.logo.delete-undo.title": "برگرداندن حذف",
 
   // "collection.edit.logo.label": "Collection logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.label": "Collection logo",
+  "collection.edit.logo.label": "لوگوی مجموعه",
 
   // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
+  "collection.edit.logo.notifications.add.error": "بارگزاری لوگوی مجموعه ناموفق بود. لطفاً قبل از تلاش مجدد، محتوا را تأیید کنید.",
 
   // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
+  "collection.edit.logo.notifications.add.success": "بارگزاری لوگوی مجموعه موفق بود",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "collection.edit.logo.notifications.delete.success.title": "لوگو حذف شد",
 
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
+  "collection.edit.logo.notifications.delete.success.content": "لوگوی مجموعه با موفقیت حذف شد",
 
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "collection.edit.logo.notifications.delete.error.title": "خطای در حذف لگو",
 
   // "collection.edit.logo.upload": "Drop a collection logo to upload",
-  // TODO New key - Add a translation
-  "collection.edit.logo.upload": "Drop a collection logo to upload",
+  "collection.edit.logo.upload": "لوگوی مجموعه را برای آپلود رها کنید",
 
   // "collection.edit.notifications.success": "Successfully edited the collection",
-  // TODO New key - Add a translation
-  "collection.edit.notifications.success": "Successfully edited the collection",
+  "collection.edit.notifications.success": "مجموعه با موفقیت ویرایش شد",
 
   // "collection.edit.return": "Back",
-  // TODO New key - Add a translation
-  "collection.edit.return": "Back",
+  "collection.edit.return": "برگشت",
 
   // "collection.edit.tabs.access-control.head": "Access Control",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.access-control.head": "Access Control",
+  "collection.edit.tabs.access-control.head": "کنترل دسترسی",
 
   // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+  "collection.edit.tabs.access-control.title": "ویرایش مجموعه- کنترل دسترسی",
 
   // "collection.edit.tabs.curate.head": "Curate",
   // TODO New key - Add a translation
