@@ -67,7 +67,7 @@ describe('CollectionSourceControlsComponent', () => {
         {
           id: 'dim',
           label: 'DSpace Intermediate Metadata',
-          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim',
+          nameSpace: 'https://www.dspace.org/xmlns/dspace/dim',
         },
       ],
       oaiSource: 'oai-harvest-source',
