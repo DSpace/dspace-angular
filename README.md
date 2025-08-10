@@ -30,7 +30,7 @@ Downloads
 Documentation for each release may be viewed online or downloaded via our [Documentation Wiki](https://wiki.lyrasis.org/display/DSDOC/).
 
 The latest DSpace Installation instructions are available at:
-https://wiki.lyrasis.org/display/DSDOC7x/Installing+DSpace
+https://wiki.lyrasis.org/display/DSDOC9x/Installing+DSpace
 
 Quick start
 -----------
@@ -349,7 +349,7 @@ See our [DSpace Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code
 Documentation
 --------------
 
-Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC7x/
+Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC9x/
 
 Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 

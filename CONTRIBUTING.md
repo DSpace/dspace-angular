@@ -10,7 +10,7 @@ DSpace is a community built and supported project. We do not have a centralized 
 ## Contribute new code via a Pull Request
 
 We accept [GitHub Pull Requests (PRs)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) at any time from anyone.
-Contributors to each release are recognized in our [Release Notes](https://wiki.lyrasis.org/display/DSDOC8x/Release+Notes).
+Contributors to each release are recognized in our [Release Notes](https://wiki.lyrasis.org/display/DSDOC9x/Release+Notes).
 
 Code Contribution Checklist
 - [ ] PRs _should_ be smaller in size (ideally less than 1,000 lines of code, not including comments & tests)
@@ -18,7 +18,7 @@ Code Contribution Checklist
 - [ ] PRs **must** not introduce circular dependencies (verified via `yarn check-circ-deps`)
 - [ ] PRs **must** include [TypeDoc](https://typedoc.org/) comments for _all new (or modified) public methods and classes_. Large or complex private methods should also have TypeDoc.
 - [ ] PRs **must** pass all automated pecs/tests and includes new/updated specs or tests based on the [Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide).
-- [ ] User interface changes **must** align with [Accessibility guidelines](https://wiki.lyrasis.org/display/DSDOC8x/Accessibility)
+- [ ] User interface changes **must** align with [Accessibility guidelines](https://wiki.lyrasis.org/display/DSDOC9x/Accessibility)
 - [ ] PRs **must** use i18n (internationalization) keys instead of hardcoded English text, to allow for translations.
 - [ ] Details on how to test the PR **must** be provided. Reviewers must be aware of any steps they need to take to successfully test your fix or feature.
 - [ ] If a PR includes new libraries/dependencies (in `package.json`), then their software licenses **must** align with the [DSpace BSD License](https://github.com/DSpace/dspace-angular/blob/main/LICENSE) based on the [Licensing of Contributions](https://wiki.lyrasis.org/display/DSPACE/Code+Contribution+Guidelines#CodeContributionGuidelines-LicensingofContributions) documentation.
