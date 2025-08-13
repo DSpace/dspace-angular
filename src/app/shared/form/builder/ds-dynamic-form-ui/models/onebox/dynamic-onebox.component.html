@@ -36,38 +36,42 @@
 </ng-template>
 
 @if (isSolrSuggest()) {
-
-  <div *ngIf="(model.vocabularyOptions?.type === 'suggest')" class="position-relative right-addon">
-    <i *ngIf="searching || loadingInitialValue" class="fas fa-circle-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
-    <i *ngIf="!searching && !loadingInitialValue"
-       dsAuthorityConfidenceState
-       class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0"
-       aria-hidden="true"
-       [authorityValue]="currentValue"
-       (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
-    <input #instance="ngbTypeahead"
-           class="form-control"
-           [attr.aria-labelledby]="'label_' + model.id"
-           [attr.autoComplete]="model.autoComplete"
-           [attr.aria-label]="model.label | translate"
-           [class.is-invalid]="showErrorMessages || (this.model.errorMessages !== null)"
-           [id]="model.id"
-           [inputFormatter]="formatter"
-           [name]="model.name"
-           [ngbTypeahead]="searchSuggest"
-           [placeholder]="model.placeholder"
-           [readonly]="model.readOnly"
-           [disabled]="model.readOnly"
-           [resultTemplate]="suggestrt"
-           [type]="model.inputType"
-           [(ngModel)]="currentValue"
-           (blur)="onBlur($event)"
-           (focus)="onFocus($event)"
-           (change)="onChange($event)"
-           (input)="onInput($event)"
-           (selectItem)="onSelectSuggestedTerm($event)">
-    <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
-  </div>
+  @if (model.vocabularyOptions?.type === 'suggest') {
+    <div *ngIf="(model.vocabularyOptions?.type === 'suggest')" class="position-relative right-addon">
+      @if (searching || loadingInitialValue) {
+        <i class="fas fa-circle-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
+      }
+      @else {
+        <i dsAuthorityConfidenceState
+           class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0"
+           aria-hidden="true"
+           [authorityValue]="currentValue"
+           (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
+      }
+      <input #instance="ngbTypeahead"
+             class="form-control"
+             [attr.aria-labelledby]="'label_' + model.id"
+             [attr.autoComplete]="model.autoComplete"
+             [attr.aria-label]="model.label | translate"
+             [class.is-invalid]="showErrorMessages || (this.model.errorMessages !== null)"
+             [id]="model.id"
+             [inputFormatter]="formatter"
+             [name]="model.name"
+             [ngbTypeahead]="searchSuggest"
+             [placeholder]="model.placeholder"
+             [readonly]="model.readOnly"
+             [disabled]="model.readOnly"
+             [resultTemplate]="suggestrt"
+             [type]="model.inputType"
+             [(ngModel)]="currentValue"
+             (blur)="onBlur($event)"
+             (focus)="onFocus($event)"
+             (change)="onChange($event)"
+             (input)="onInput($event)"
+             (selectItem)="onSelectSuggestedTerm($event)">
+      <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+    </div>
+  }
 
 } @else {
 

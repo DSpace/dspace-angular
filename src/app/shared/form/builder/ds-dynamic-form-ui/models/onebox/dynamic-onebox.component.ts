@@ -1,8 +1,5 @@
 import {
   AsyncPipe,
-  NgClass,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -86,16 +83,13 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   imports: [
     AsyncPipe,
     AuthorityConfidenceStateDirective,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbTypeaheadModule,
     NgTemplateOutlet,
     ObjNgFor,
-    TranslateModule,
     ObjNgFor,
-    NgForOf,
-    FormsModule,
-    BtnDisabledDirective,
-    NgClass,
-    NgIf,
-    NgbTypeaheadModule,
+    TranslateModule,
   ],
   standalone: true,
 })
