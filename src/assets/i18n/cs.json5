@@ -846,7 +846,7 @@
   "admin.workflow.item.workflow": "Workflow",
 
   // "admin.workflow.item.workspace": "Workspace",
-  "admin.workflow.item.workspace": "Pracovní prostor",
+  "admin.workflow.item.workspace": "Workspace",
 
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Smazat",
@@ -1251,7 +1251,7 @@
   "pagination.next.button.disabled.tooltip": "Žádné další stránky výsledků",
 
   // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
-  "pagination.page-number-bar": "Ovládací lišta pro navigaci na stránce, vztažená k prvku s ID: ",
+  "pagination.page-number-bar": "Ovládací panel pro navigaci mezi stránkami, vzhledem k prvku s ID:",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   "browse.startsWith": ", začíná na {{ startsWith }}",
@@ -1326,7 +1326,7 @@
   "browse.startsWith.input": "Filtrovat",
 
   // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
-  "browse.taxonomy_srsc.title": "Procházení podle tematické kategorie",
+  "browse.taxonomy_srsc.title": "Prohlížení podle kategorií předmětů",
 
   // "browse.taxonomy.button": "Browse",
   "browse.taxonomy.button": "Procházet",
@@ -1797,7 +1797,7 @@
   "community.create.notifications.success": "Úspěšně vytvořena komunita",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Vytvořit podkomunitu v komunitě {{ parent }}",
+  "community.create.sub-head": "Vytvořit podkomunitu pro komunitu {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
   "community.curate.header": "Spravovat komunitu: {{ community }}",
@@ -2100,7 +2100,7 @@
   "cookies.consent.app.title.accessibility": "Nastavení přístupnosti",
 
   // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
-  "cookies.consent.app.description.accessibility": "Požadováno pro uložení vašich nastavení přístupnosti lokálně",
+  "cookies.consent.app.description.accessibility": "Požadováno pro lokální uložení nastavení přístupnosti",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Ověřování",
@@ -2466,7 +2466,7 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Bez udělení licence nelze záznam dokončit. Pokud v tuto chvíli nemůžete licenci udělit, uložte svou práci a vraťte se k příspěvku později nebo jej smažte.",
+  "error.validation.license.notgranted": "Pro dokončení zaslání musíte udělit licenci. Pokud v tuto chvíli tuto licenci nemůžete udělit, můžete svou práci uložit a později se k svému příspěvku vrátit nebo jej smazat.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Toto zadání je omezeno aktuálním vzorcem: {{ pattern }}.",
@@ -2571,7 +2571,7 @@
   "forgot-email.form.error.head": "Chyba při pokusu o obnovení hesla",
 
   // "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
-  "forgot-email.form.error.content": "Došlo k chybě při pokusu o resetování hesla pro účet spojený s následující e-mailovou adresou: {{ email }}",
+  "forgot-email.form.error.content": "Při pokusu o obnovení hesla k účtu přiřazenému k následující e-mailové adrese došlo k chybě: {{ email }}",
 
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Zapomenuté heslo",
@@ -2874,7 +2874,7 @@
   "info.accessibility-settings.breadcrumbs": "Nastavení přístupnosti",
 
   // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
-  "info.accessibility-settings.cookie-warning": Uložení nastavení přístupnosti momentálně není možné. Přihlaste se pro uložení nastavení do uživatelských dat nebo přijměte cookie 'Nastavení přístupnosti' pomocí menu 'Nastavení cookies' ve spodní části stránky. Po přijetí cookie můžete stránku znovu načíst pro odstranění této zprávy.",
+  "info.accessibility-settings.cookie-warning": "Uložení nastavení přístupnosti momentálně není možné. Přihlaste se pro uložení nastavení do uživatelských dat nebo přijměte cookie 'Nastavení přístupnosti' pomocí menu 'Nastavení cookies' ve spodní části stránky. Po přijetí cookie můžete stránku znovu načíst pro odstranění této zprávy.",
 
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
   "info.accessibility-settings.disableNotificationTimeOut.label": "Automaticky zavřít upozornění po vypršení času",
@@ -3813,7 +3813,7 @@
   "item.page.journal.search.title": "Články v tomto časopise",
 
   // "item.page.link.full": "Full item page",
-  "item.page.link.full": "Zobrazit úplný záznam",
+  "item.page.link.full": "Zobrazit celý záznam",
 
   // "item.page.link.simple": "Simple item page",
   "item.page.link.simple": "Zobrazit minimální záznam",
@@ -3876,7 +3876,7 @@
   "item.page.claim.button": "Převzít",
 
   // "item.page.claim.tooltip": "Claim this item as profile",
-  "item.page.claim.tooltip": "Prohlásit tento záznam za profil",
+  "item.page.claim.tooltip": "Prohlásit tento záznam za profilovou",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Identifikátor:",
@@ -4320,7 +4320,7 @@
   "iiif.page.doi": "Trvalý odkaz: ",
 
   // "iiif.page.issue": "Issue: ",
-  "iiif.page.issue": "Číslo: ",
+  "iiif.page.issue": "Problém: ",
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "Popis: ",
@@ -4776,7 +4776,7 @@
   "mydspace.status.mydspaceWorkflow": "Workflow",
 
   // "mydspace.status.mydspaceWorkspace": "Workspace",
-  "mydspace.status.mydspaceWorkspace": "Pracovní prostor",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Můj DSpace",
@@ -5421,7 +5421,7 @@
   "register-page.registration.error.head": "Chyba při pokusu o registraci e-mailu",
 
   // "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
-  "register-page.registration.error.content": "Při registraci následující e-mailové adresy došlo k chybě: {{ email }}",
+  "register-page.registration.error.content": "Došlo k chybě při registraci následující e-mailové adresy: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
   "register-page.registration.error.recaptcha": "Chyba při pokusu o ověření pomocí recaptcha",
@@ -5679,7 +5679,7 @@
   "resource-policies.table.headers.select": "Vybrat",
 
   // "resource-policies.table.headers.deselect": "Deselect",
-  "resource-policies.table.headers.deselect": "Zrušit výběr"
+  "resource-policies.table.headers.deselect": "Zrušit výběr",
 
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
@@ -5706,7 +5706,7 @@
   "resource-policies.table.headers.title.for.collection": "Politiky kolekce",
 
   // "root.skip-to-content": "Skip to main content",
-  "root.skip-to-content": "Přejít k hlavnímu obsahu"
+  "root.skip-to-content": "Přejít k hlavnímu obsahu",
 
   // "search.description": "",
   "search.description": "",
@@ -5724,7 +5724,7 @@
   "search.search-form.placeholder": "Hledat v repozitáři...",
 
   // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
-  "search.filters.remove": "Odstranit filtr typu {{ type }} s hodnotou {{ value }}"
+  "search.filters.remove": "Odstranit filtr typu {{ type }} s hodnotou {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Autor",
@@ -6033,7 +6033,7 @@
   "search.filters.namedresourcetype.Workflow": "Workflow",
 
   // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "Pracovní prostor",
+  "search.filters.namedresourcetype.Workspace": "Workspace",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Ano",
@@ -6114,7 +6114,7 @@
   "search.view-switch.show-list": "Zobrazit jako seznam",
 
   // "selectable-list-item-control.deselect": "Deselect item",
-  "selectable-list-item-control.deselect": "Zrušit výběr položky"
+  "selectable-list-item-control.deselect": "Zrušit výběr položky",
 
   // "selectable-list-item-control.select": "Select item",
   "selectable-list-item-control.select": "Vybrat položku",
@@ -6171,7 +6171,7 @@
   "sorting.person.birthDate.ASC": "Datum narození vzestupně",
 
   // "sorting.person.birthDate.DESC": "Birth Date Descending",
-  "sorting.person.birthDate.DESC": "Datum narození sestupně"
+  "sorting.person.birthDate.DESC": "Datum narození sestupně",
 
   // "statistics.title": "Statistics",
   "statistics.title": "Statistiky",
@@ -6663,13 +6663,13 @@
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Čísla časopisu",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Ročníky časopisu",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Svazky časopisů",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Ročníky časopisu",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Svazky časopisů",
 
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Ročníky časopisu",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Svazky časopisů",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Časopisy",
@@ -6726,7 +6726,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Vybrané časopisy",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Vybraný ročník časopisu",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Vybraný svazek časopisu",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Vybraný ročník časopisu",
@@ -6870,7 +6870,7 @@
   "submission.sections.general.no-collection": "Nebyla nalezena žádná kolekce",
 
   // "submission.sections.general.no-entity": "No entity types found",
-  "submission.sections.general.no-entity": "Nebyl nalezen žádný typ entity"
+  "submission.sections.general.no-entity": "Nebyl nalezen žádný typ entity",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Nejsou k dispozici žádné volby",
@@ -7272,7 +7272,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Odmítnout",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl odesílatel něco změnit a znovu odeslat.",
+  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl odesílatel něco změnit a znovu předložit.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vrátit do fondu",
@@ -7461,7 +7461,7 @@
   "vocabulary-treeview.search.form.search": "Hledat",
 
   // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
-  "vocabulary-treeview.search.form.search-placeholder": "Filtrovat výsledky zadáním prvních několika písmen"
+  "vocabulary-treeview.search.form.search-placeholder": "Filtrovat výsledky zadáním prvních několika písmen",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Nebyly zobrazeny žádné záznamy",
@@ -8094,7 +8094,7 @@
   "system-wide-alert.form.label.countdownTo.hint": "Nápověda: Nastavte odpočítávací měřič. Je-li to povoleno, lze datum nastavit i v budoucnosti a systémový upozornění bude uvádět odpočítávání do nastaveného data. Ve chvíli, kdy skončí odpočítávání, zmizí i odpočítávač z upozornění. Server NEBUDE automaticky zastaven.",
 
   // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
-  "system-wide-alert-form.select-date-by-calendar": "Vyberte datum pomocí kalendáře"
+  "system-wide-alert-form.select-date-by-calendar": "Vyberte datum pomocí kalendáře",
 
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Náhled systémového upozornění",
@@ -8142,7 +8142,7 @@
   "access-control-bitstream-toggle.enable": "Povolit možnost provádět změny v souborech",
 
   // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
-  "access-control-bitstream-toggle.disable": "Zakázat možnost provádět změny v souborech"
+  "access-control-bitstream-toggle.disable": "Zakázat možnost provádět změny v souborech",
 
   // "access-control-mode": "Mode",
   "access-control-mode": "Mód",
@@ -8181,7 +8181,7 @@
   "access-control-add-more": "Přidat další",
 
   // "access-control-remove": "Remove access condition",
-  "access-control-remove": "Odstranit podmínku přístupu"
+  "access-control-remove": "Odstranit podmínku přístupu",
 
   // "access-control-select-bitstreams-modal.title": "Select bitstreams",
   "access-control-select-bitstreams-modal.title": "Vybrat soubory",
@@ -8220,7 +8220,7 @@
   "browse.search-form.placeholder": "Hledat v repozitáři",
 
   // "file-download-link.download": "Download ",
-  "file-download-link.download": "Stáhnout ",
+  "file-download-link.download": "Stáhnout",
 
   // "register-page.registration.aria.label": "Enter your e-mail address",
   "register-page.registration.aria.label": "Zadejte svou e-mailovou adresu",
