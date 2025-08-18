@@ -182,9 +182,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
   // Whether or not user has done a EPeople search yet
   searchDone: boolean;
 
-  // Whether or not user has done a EPeople Member search yet
-  searchCurrentMembersDone: boolean;
-
   // current active group being edited
   groupBeingEdited: Group;
 
@@ -381,7 +378,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
             this.currentMembersSearchQuery = query;
             this.paginationService.resetPage(this.config.id);
           }
-          this.searchCurrentMembersDone = true;
 
           return this.ePersonDataService.searchMembers(this.currentMembersSearchQuery, this.groupBeingEdited.id, {
             currentPage: paginationOptions.currentPage,
@@ -456,7 +452,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     });
     this.search({ query: '' });
   }
-
+  
   /**
   * Reset all input-fields to be empty and search all search
   */

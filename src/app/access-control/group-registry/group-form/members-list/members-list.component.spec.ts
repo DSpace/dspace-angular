@@ -287,11 +287,16 @@ describe('MembersListComponent', () => {
 
   describe('test for searchMembers', () => {
     let comp: any;
+    let ePersonDataServiceSpy: any;
+    let notificationsServiceSpy: any;
 
     beforeEach(() => {
+      ePersonDataServiceSpy = jasmine.createSpyObj('ePersonDataService', ['searchMembers']);
+      notificationsServiceSpy = jasmine.createSpyObj('notificationsService', ['error']);
+
       comp = component as any;
-      spyOn(comp.ePersonDataService, 'searchMembers');
-      spyOn(comp.notificationsService, 'error');
+      comp.ePersonDataService = ePersonDataServiceSpy;
+      comp.notificationsService = notificationsServiceSpy;
     });
 
     it('should search members and update ePeopleMembersOfGroup', fakeAsync(() => {
@@ -301,7 +306,7 @@ describe('MembersListComponent', () => {
       const fakeResponse = createSuccessfulRemoteDataObject$(fakePaginatedList);
 
       comp.groupBeingEdited = fakeGroup;
-      comp.ePersonDataService.searchMembers.and.returnValue(fakeResponse);
+      ePersonDataServiceSpy.searchMembers.and.returnValue(fakeResponse);
 
       spyOn(comp, 'isMemberOfGroup').and.returnValue(of(true));
       const groupSpy = spyOn(comp.ePeopleMembersOfGroup, 'next');
@@ -317,7 +322,7 @@ describe('MembersListComponent', () => {
       const fakeGroup = mockGroup;
       comp.groupBeingEdited = fakeGroup;
 
-      comp.ePersonDataService.searchMembers.and.returnValue(createFailedRemoteDataObject$('Server Error'));
+      ePersonDataServiceSpy.searchMembers.and.returnValue(createFailedRemoteDataObject$('Server Error'));
 
       comp.searchMembers({ queryCurrentMembers: 'John' });
       tick();
