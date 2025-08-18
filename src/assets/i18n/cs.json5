@@ -201,7 +201,6 @@
   "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.table.return": "Zpět",
 
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
@@ -301,7 +300,6 @@
   "admin.registries.schema.fields.table.selected": "Vybraná metadatová pole",
 
   // "admin.registries.schema.fields.table.id": "ID",
-  // TODO Source message changed - Revise the translation
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
@@ -356,7 +354,6 @@
   "admin.registries.schema.notification.success": "V pořádku",
 
   // "admin.registries.schema.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.registries.schema.return": "Zpět",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
@@ -429,7 +426,6 @@
   "admin.access-control.epeople.search.scope.metadata": "Metadata",
 
   // "admin.access-control.epeople.search.scope.email": "Email (exact)",
-  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.search.scope.email": "E-mail (přesný)",
 
   // "admin.access-control.epeople.search.button": "Search",
@@ -448,7 +444,6 @@
   "admin.access-control.epeople.table.name": "Jméno",
 
   // "admin.access-control.epeople.table.email": "Email (exact)",
-  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.table.email": "E-mail (přesný)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -479,11 +474,9 @@
   "admin.access-control.epeople.form.lastName": "Příjmení",
 
   // "admin.access-control.epeople.form.email": "Email",
-  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.email": "E-mail",
 
   // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
-  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.emailHint": "Musí to být platná e-mailová adresa",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -796,7 +789,6 @@
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Ve skupině zatím nejsou žádné podskupiny.",
 
   // "admin.access-control.groups.form.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.return": "Zpět",
 
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
@@ -824,12 +816,10 @@
   "admin.search.item.edit": "Upravit",
 
   // "admin.search.item.make-private": "Make non-discoverable",
-  // TODO Source message changed - Revise the translation
-  "admin.search.item.make-private": "Učinit nedohledatelným",
+  "admin.search.item.make-private": "Skrýt z vyhledávání",
 
   // "admin.search.item.make-public": "Make discoverable",
-  // TODO Source message changed - Revise the translation
-  "admin.search.item.make-public": "Učinit dohledatelným",
+  "admin.search.item.make-public": "Zpřístupnit ve vyhledávání",
 
   // "admin.search.item.move": "Move",
   "admin.search.item.move": "Přesunout",
@@ -910,7 +900,6 @@
   "admin.batch-import.page.dropMsgReplace": "Nahraďte přetažením soubor ZIP k importu",
 
   // "admin.metadata-import.page.button.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.metadata-import.page.button.return": "Zpět",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
@@ -1088,7 +1077,6 @@
   "bitstream.edit.form.newFormat.hint": "Aplikace, kterou jste použili k vytvoření souboru, a číslo verze (například \"<i>ACMESoft SuperApp verze 1.5</i>\").",
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
-  // TODO Source message changed - Revise the translation
   "bitstream.edit.form.primaryBitstream.label": "Primární soubor",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
@@ -1278,7 +1266,6 @@
   "browse.startsWith.choose_year.label": "Vyberte rok vydání",
 
   // "browse.startsWith.jump": "Filter results by year or month",
-  // TODO Source message changed - Revise the translation
   "browse.startsWith.jump": "Filtrovat výsledky podle roku nebo měsíce",
 
   // "browse.startsWith.months.april": "April",
@@ -1324,18 +1311,15 @@
   "browse.startsWith.months.september": "Září",
 
   // "browse.startsWith.submit": "Browse",
-  // TODO Source message changed - Revise the translation
   "browse.startsWith.submit": "Procházet",
 
   // "browse.startsWith.type_date": "Filter results by date",
-  // TODO Source message changed - Revise the translation
   "browse.startsWith.type_date": "Filtrovat výsledky podle data",
 
   // "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
   "browse.startsWith.type_date.label": "Nebo zadejte datum (rok-měsíc) a klikněte na tlačítko Procházet",
 
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
-  // TODO Source message changed - Revise the translation
   "browse.startsWith.type_text": "Filtrovat výsledky zadáním několika prvních písmen",
 
   // "browse.startsWith.input": "Filter",
@@ -1348,11 +1332,9 @@
   "browse.taxonomy.button": "Procházet",
 
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
-  // TODO Source message changed - Revise the translation
   "browse.title": "Procházet {{ collection }} podle {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  // TODO Source message changed - Revise the translation
   "browse.title.page": "Procházet {{ collection }} podle {{ field }}. {{ value }}",
 
   // "search.browse.item-back": "Back to Results",
@@ -1509,7 +1491,6 @@
   "collection.edit.notifications.success": "Úspěšně upravena kolekce",
 
   // "collection.edit.return": "Back",
-  // TODO Source message changed - Revise the translation
   "collection.edit.return": "Zpět",
 
   // "collection.edit.tabs.access-control.head": "Access Control",
@@ -1588,8 +1569,7 @@
   "collection.edit.tabs.source.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
 
   // "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
-  // TODO Source message changed - Revise the translation
-  "collection.edit.tabs.source.notifications.discarded.title": "Změny vyřazeny",
+  "collection.edit.tabs.source.notifications.discarded.title": "Zahozené změny",
 
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
   "collection.edit.tabs.source.notifications.invalid.content": "Vaše změny nebyly uloženy. Před uložením se prosím ujistěte, že jsou všechna pole platná.",
@@ -1886,11 +1866,9 @@
   "community.edit.notifications.unauthorized": "K provedení této změny nemáte oprávnění",
 
   // "community.edit.notifications.error": "An error occurred while editing the community",
-  // TODO Source message changed - Revise the translation
   "community.edit.notifications.error": "Při úpravě komunity došlo k chybě",
 
   // "community.edit.return": "Back",
-  // TODO Source message changed - Revise the translation
   "community.edit.return": "Zpět",
 
   // "community.edit.tabs.curate.head": "Curate",
@@ -1978,8 +1956,7 @@
   "comcol-role.edit.bitstream_read.name": "Výchozí přístup ke čtení souboru",
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO Source message changed - Revise the translation
-  "comcol-role.edit.bitstream_read.description": "Správci komunit mohou vytvářet podkomunity nebo kolekce a spravovat nebo přidělovat správu těmto podkomunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do libovolných podkolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
+  "comcol-role.edit.bitstream_read.description": "Lidé a skupiny, kteří mohou číst nové bitstreamy přidané do této kolekce. Změny v této roli nejsou retroaktivní. Existující bitstreamy budou stále zobrazitelné na základě práv nastavených při jejich přidání.",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "Výchozí čtení pro příchozí soubory je v současné době nastaveno na hodnotu Anonymní.",
@@ -2042,11 +2019,9 @@
   "community.all-lists.head": "Podkomunity a kolekce",
 
   // "community.sub-collection-list.head": "Collections in this Community",
-  // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Kolekce této komunity",
 
   // "community.sub-community-list.head": "Communities in this Community",
-  // TODO Source message changed - Revise the translation
   "community.sub-community-list.head": "Komunity této komunity",
 
   // "cookies.consent.accept-all": "Accept all",
@@ -2209,7 +2184,6 @@
   "curation.form.submit.error.head": "Spuštění úlohy správy se nezdařilo.",
 
   // "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
-  // TODO Source message changed - Revise the translation
   "curation.form.submit.error.content": "Při pokusu o spuštění úlohy správy došlo k chybě.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
@@ -2570,7 +2544,6 @@
   "forgot-email.form.header": "Zapomenuté heslo",
 
   // "forgot-email.form.info": "Enter the email address associated with the account.",
-  // TODO Source message changed - Revise the translation
   "forgot-email.form.info": "Zadejte e-mailovou adresu přidruženou k účtu.",
 
   // "forgot-email.form.email": "Email Address *",
@@ -2583,22 +2556,18 @@
   "forgot-email.form.email.error.not-email-form": "Vyplňte prosím platnou e-mailovou adresu",
 
   // "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
-  // TODO Source message changed - Revise the translation
   "forgot-email.form.email.hint": "Na tuto adresu bude zaslán e-mail s dalšími pokyny.",
 
   // "forgot-email.form.submit": "Reset password",
-  // TODO Source message changed - Revise the translation
   "forgot-email.form.submit": "Obnovit heslo",
 
   // "forgot-email.form.success.head": "Password reset email sent",
-  // TODO Source message changed - Revise the translation
   "forgot-email.form.success.head": "E-mail pro obnovení hesla odeslán",
 
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
   "forgot-email.form.success.content": "Na adresu {{ email }} byl odeslán e-mail obsahující speciální URL a další instrukce.",
 
   // "forgot-email.form.error.head": "Error when trying to reset password",
-  // TODO Source message changed - Revise the translation
   "forgot-email.form.error.head": "Chyba při pokusu o obnovení hesla",
 
   // "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
@@ -2611,7 +2580,6 @@
   "forgot-password.form.head": "Zapomenuté heslo",
 
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
-  // TODO Source message changed - Revise the translation
   "forgot-password.form.info": "Zadejte nové heslo do níže uvedeného pole a potvrďte jej opětovným zadáním do druhého pole.",
 
   // "forgot-password.form.card.security": "Security",
@@ -2630,7 +2598,6 @@
   "forgot-password.form.label.passwordrepeat": "Zadejte znovu pro ověření",
 
   // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
-  // TODO Source message changed - Revise the translation
   "forgot-password.form.error.empty-password": "Zadejte prosím heslo do níže uvedeného pole.",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
@@ -2742,7 +2709,6 @@
   "form.search-help": "Klikněte zde pro vyhledání existující korespondence",
 
   // "form.submit": "Save",
-  // TODO Source message changed - Revise the translation
   "form.submit": "Uložit",
 
   // "form.create": "Create",
@@ -3052,7 +3018,6 @@
   "item.badge.status": "Stav položky:",
 
   // "item.badge.private": "Non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.badge.private": "Nedohledatelné",
 
   // "item.badge.withdrawn": "Withdrawn",
@@ -3062,7 +3027,6 @@
   "item.bitstreams.upload.bundle": "Svazek",
 
   // "item.bitstreams.upload.bundle.placeholder": "Select a bundle or input new bundle name",
-  // TODO Source message changed - Revise the translation
   "item.bitstreams.upload.bundle.placeholder": "Vyberte svazek nebo zadejte nový název svazku",
 
   // "item.bitstreams.upload.bundle.new": "Create bundle",
@@ -3420,7 +3384,6 @@
   "item.edit.metadata.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
 
   // "item.edit.metadata.notifications.discarded.title": "Changes discarded",
-  // TODO Source message changed - Revise the translation
   "item.edit.metadata.notifications.discarded.title": "Zahozené změny",
 
   // "item.edit.metadata.notifications.error.title": "An error occurred",
@@ -3436,7 +3399,6 @@
   "item.edit.metadata.notifications.outdated.content": "Záznam, na kterém právě pracujete, byl změněn jiným uživatelem. Vaše aktuální změny byly zahozeny, aby se zabránilo konfliktům",
 
   // "item.edit.metadata.notifications.outdated.title": "Changes outdated",
-  // TODO Source message changed - Revise the translation
   "item.edit.metadata.notifications.outdated.title": "Změny jsou zastaralé",
 
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
@@ -3464,7 +3426,6 @@
   "item.edit.modify.overview.value": "Hodnota",
 
   // "item.edit.move.cancel": "Back",
-  // TODO Source message changed - Revise the translation
   "item.edit.move.cancel": "Zpět",
 
   // "item.edit.move.save-button": "Save",
@@ -3510,44 +3471,36 @@
   "item.edit.private.cancel": "Zrušit",
 
   // "item.edit.private.confirm": "Make it non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.private.confirm": "Učinit nedohledatelným",
 
   // "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
-  // TODO Source message changed - Revise the translation
   "item.edit.private.description": "Jste si jisti, že by tento záznam neměl být v archivu objeven?",
 
   // "item.edit.private.error": "An error occurred while making the item non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.private.error": "Při změně stavu záznamu na nedohledatelný došlo k chybě",
 
   // "item.edit.private.header": "Make item non-discoverable: {{ id }}",
   "item.edit.private.header": "Změnit stav záznamu na nedohledatelný: {{ id }}",
 
   // "item.edit.private.success": "The item is now non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.private.success": "Záznam je nyní nedohledatelný",
 
   // "item.edit.public.cancel": "Cancel",
   "item.edit.public.cancel": "Zrušit",
 
   // "item.edit.public.confirm": "Make it discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.public.confirm": "Učinit dohledatelným",
 
   // "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
-  // TODO Source message changed - Revise the translation
   "item.edit.public.description": "Jste si jisti, že by tento záznam měl být v archivu dohledatelný?",
 
   // "item.edit.public.error": "An error occurred while making the item discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.public.error": "Při změně záznamu na dohledatelnou došlo k chybě",
 
   // "item.edit.public.header": "Make item discoverable: {{ id }}",
   "item.edit.public.header": "Učinit záznam dohledatelným: {{ id }}",
 
   // "item.edit.public.success": "The item is now discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.public.success": "Záznam je nyní dohledatelný",
 
   // "item.edit.reinstate.cancel": "Cancel",
@@ -3674,19 +3627,15 @@
   "item.edit.tabs.status.buttons.move.label": "Přesunout záznam do jiné kolekce",
 
   // "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.buttons.private.button": "Učinit nedohledatelným...",
 
   // "item.edit.tabs.status.buttons.private.label": "Make item non-discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.buttons.private.label": "Učinit záznam nedohledatelným",
 
   // "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.buttons.public.button": "Učinit dohledatelným...",
 
   // "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.buttons.public.label": "Učinit záznam dohledatelným",
 
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
@@ -3921,7 +3870,6 @@
   "item.page.version.create": "Vytvořit novou verzi",
 
   // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
-  // TODO Source message changed - Revise the translation
   "item.page.version.hasDraft": "Nová verze nemůže být vytvořena, protože v historii verzí už další rozpracovaná verze existuje.",
 
   // "item.page.claim.button": "Claim",
@@ -3973,7 +3921,6 @@
   "item.preview.dc.rights": "Práva",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
   "item.preview.dc.identifier.other": "Další identifikátor:",
 
   // "item.preview.dc.relation.issn": "ISSN",
@@ -4052,7 +3999,6 @@
   "item.version.history.head": "Historie verzí",
 
   // "item.version.history.return": "Back",
-  // TODO Source message changed - Revise the translation
   "item.version.history.return": "Zpět",
 
   // "item.version.history.selected": "Selected version",
@@ -4104,7 +4050,6 @@
   "item.version.history.table.action.deleteVersion": "Smazat verzi",
 
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
-  // TODO Source message changed - Revise the translation
   "item.version.history.table.action.hasDraft": "Nová verze nemůže být vytvořena, protože v historii verzí už další rozpracovaná verze existuje.",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -4150,7 +4095,6 @@
   "item.version.create.notification.failure": "Nová verze nebyla vytvořena",
 
   // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
-  // TODO Source message changed - Revise the translation
   "item.version.create.notification.inProgress": "Nová verze nemůže být vytvořena, protože v historii verzí už další rozpracovaná verze existuje.",
 
   // "item.version.delete.modal.header": "Delete version",
@@ -4613,8 +4557,7 @@
   "menu.section.icon.pin": "Připnout postranní panel",
 
   // "menu.section.icon.processes": "Processes Health",
-  // TODO Source message changed - Revise the translation
-  "menu.section.icon.processes": "zdravotní stav procesů",
+  "menu.section.icon.processes": "Zdravotní stav procesů",
 
   // "menu.section.icon.registries": "Registries menu section",
   "menu.section.icon.registries": "Sekce menu Registry",
@@ -4803,18 +4746,15 @@
   "mydspace.results.no-title": "Žádný název",
 
   // "mydspace.results.no-uri": "No URI",
-  // TODO Source message changed - Revise the translation
   "mydspace.results.no-uri": "Žádné Uri",
 
   // "mydspace.search-form.placeholder": "Search in MyDSpace...",
   "mydspace.search-form.placeholder": "Hledat v mém dspace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
-  // TODO Source message changed - Revise the translation
   "mydspace.show.workflow": "Úlohy workflow",
 
   // "mydspace.show.workspace": "Your submissions",
-  // TODO Source message changed - Revise the translation
   "mydspace.show.workspace": "Vaše záznamy",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
@@ -5028,7 +4968,6 @@
   "process.new.cancel": "Zrušit",
 
   // "process.new.submit": "Save",
-  // TODO Source message changed - Revise the translation
   "process.new.submit": "Uložit",
 
   // "process.new.select-script": "Script",
@@ -5227,7 +5166,6 @@
   "profile.card.security": "Zabezpečení",
 
   // "profile.form.submit": "Save",
-  // TODO Source message changed - Revise the translation
   "profile.form.submit": "Uložit",
 
   // "profile.groups.head": "Authorization groups you belong to",
@@ -5273,7 +5211,6 @@
   "profile.security.form.error.matching-passwords": "Hesla se neshodují.",
 
   // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
-  // TODO Source message changed - Revise the translation
   "profile.security.form.info": "Volitelně můžete zadat nové heslo do políčka níže a potvrdit je opětovným zadáním do druhého políčka.",
 
   // "profile.security.form.label.password": "Password",
@@ -5421,7 +5358,6 @@
   "register-page.create-profile.security.header": "Zabezpečení",
 
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
-  // TODO Source message changed - Revise the translation
   "register-page.create-profile.security.info": "Zadejte prosím heslo do níže uvedeného pole a potvrďte jej opětovným zadáním do druhého pole.",
 
   // "register-page.create-profile.security.label.password": "Password *",
@@ -5803,7 +5739,6 @@
   "search.filters.applied.f.dateSubmitted": "Datum vložení",
 
   // "search.filters.applied.f.discoverable": "Non-discoverable",
-  // TODO Source message changed - Revise the translation
   "search.filters.applied.f.discoverable": "Nedohledatelné",
 
   // "search.filters.applied.f.entityType": "Item Type",
@@ -5906,14 +5841,12 @@
   "search.filters.filter.dateIssued.head": "Datum",
 
   // "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
-  // TODO Source message changed - Revise the translation
   "search.filters.filter.dateIssued.max.placeholder": "Maximální datum",
 
   // "search.filters.filter.dateIssued.max.label": "End",
   "search.filters.filter.dateIssued.max.label": "Konec",
 
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
-  // TODO Source message changed - Revise the translation
   "search.filters.filter.dateIssued.min.placeholder": "Minimální Datum",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
@@ -5929,7 +5862,6 @@
   "search.filters.filter.dateSubmitted.label": "Hledat datum vložení",
 
   // "search.filters.filter.discoverable.head": "Non-discoverable",
-  // TODO Source message changed - Revise the translation
   "search.filters.filter.discoverable.head": "Nedohledatelné",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
@@ -6110,8 +6042,7 @@
   "search.filters.withdrawn.false": "Ne",
 
   // "search.filters.head": "Filters",
-  // TODO Source message changed - Revise the translation
-  "search.filters.head": "Zúžit hledání",
+  "search.filters.head": "Filtry",
 
   // "search.filters.reset": "Reset filters",
   "search.filters.reset": "Resetovat filtry",
@@ -6123,7 +6054,6 @@
   "search.form.search": "Hledat",
 
   // "search.form.search_dspace": "All repository",
-  // TODO Source message changed - Revise the translation
   "search.form.search_dspace": "Celý repozitář",
 
   // "search.form.scope.all": "All of DSpace",
@@ -6205,7 +6135,6 @@
   "sorting.score.ASC": "Nejméně relevantní",
 
   // "sorting.score.DESC": "Most Relevant",
-  // TODO Source message changed - Revise the translation
   "sorting.score.DESC": "Nejvíce relevantní",
 
   // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
@@ -6290,7 +6219,6 @@
   "submission.general.cancel": "Zrušit",
 
   // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
-  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "Nemáte oprávnění k vytvoření nového příspěvku.",
 
   // "submission.general.deposit": "Deposit",
@@ -7284,7 +7212,6 @@
   "submission.workflow.generic.delete": "Smazat",
 
   // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.delete-help": "Pokud chcete tento záznam vyřadit, zvolte \"Smazat\". Poté budete vyzváni k potvrzení.",
 
   // "submission.workflow.generic.edit": "Edit",
@@ -7642,7 +7569,6 @@
   "workflow-item.send-back.button.cancel": "Zrušit",
 
   // "workflow-item.send-back.button.confirm": "Send back",
-  // TODO Source message changed - Revise the translation
   "workflow-item.send-back.button.confirm": "Odeslat zpět",
 
   // "workflow-item.view.breadcrumbs": "Workflow View",
