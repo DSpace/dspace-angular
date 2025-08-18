@@ -459,6 +459,22 @@
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "Apagar \"{{name}}\"",
 
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Sem utilizadores para mostrar.",
 
@@ -651,7 +667,8 @@
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
   "admin.access-control.groups.form.delete-group.modal.header": "Apagar grupo \"{{ dsoName }}\"",
 
-  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.delete-group.modal.info": "Pretende mesmo apagar o grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
@@ -2287,6 +2304,22 @@
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
   "comcol-role.edit.delete.error.title": "Falha na remoção do '{{ role }}' nos perfis do grupo",
+
+  // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "comcol-role.edit.delete.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.cancel": "Cancel",
+
+  // "comcol-role.edit.delete.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.confirm": "Delete",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Administradores",
@@ -5619,10 +5652,10 @@
   "publication-claim.source.description": "Em baixo pode ver todas as fontes.",
 
   // "quality-assurance.title": "Quality Assurance",
-  "quality-assurance.title": "Controlo de Qualidade",
+  "quality-assurance.title": "Controlo de qualidade",
 
   // "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
-  "quality-assurance.topics.description": "Em Abaixo pode ver todos os tópicos recebidos das subscrições de {{source}}.",
+  "quality-assurance.topics.description": "Em baixo pode ver todos os tópicos recebidos das subscrições de {{source}}.",
 
   // "quality-assurance.source.description": "Below you can see all the notification's sources.",
   "quality-assurance.source.description": "Em baixo pode ver todas as fontes da notificação.",
@@ -5841,7 +5874,7 @@
   "orgunit.page.country": "País",
 
   // "orgunit.page.dateestablished": "Date established",
-  "orgunit.page.dateestablished": "Data estabelecida",
+  "orgunit.page.dateestablished": "Data de criação",
 
   // "orgunit.page.description": "Description",
   "orgunit.page.description": "Descrição",
@@ -5874,7 +5907,7 @@
   "pagination.showing.detail": "{{ range }} de {{ total }}",
 
   // "pagination.showing.label": "Now showing ",
-  "pagination.showing.label": "A mostrar",
+  "pagination.showing.label": "A mostrar ",
 
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Opções de ordenação",
@@ -8407,7 +8440,7 @@
   "submission.sections.general.metadata-extracted": "Novos metadados foram extraídos e adicionados à secção <strong>{{sectionId}}</strong>.",
 
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
-  "submission.sections.general.metadata-extracted-new-section": "Nova Secção <strong>{{sectionId}}</strong> foi adicionada a dubmissão.",
+  "submission.sections.general.metadata-extracted-new-section": "Nova secção <strong>{{sectionId}}</strong> foi adicionada à submissão.",
 
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "Não foi encontrada nenhuma coleção",
@@ -9794,7 +9827,7 @@
   "coar-notify-support.title": "Protocolo COAR Notify",
 
   // "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
-  "coar-notify-support-title.content": "Aqui, suportamos totalmente o protocolo COAR Notify, que foi concebido para melhorar a comunicação entre repositórios. Para saber mais sobre o protocolo COAR Notify, visite a página <a href=\"https://notify.coar-repositories.org/\"rel=\"noopener noreferrer\">COAR Notify</a>.",
+  "coar-notify-support-title.content": "Suportamos totalmente o protocolo COAR Notify, que foi concebido para melhorar a comunicação entre repositórios. Para saber mais sobre o protocolo COAR Notify, visite a página <a href=\"https://notify.coar-repositories.org/\"rel=\"noopener noreferrer\">COAR Notify</a>.",
 
   // "coar-notify-support.ldn-inbox.title": "LDN InBox",
   "coar-notify-support.ldn-inbox.title": "Caixa de entrada LDN",
@@ -9806,10 +9839,10 @@
   "coar-notify-support.message-moderation.title": "Moderação de mensagens",
 
   // "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated",
-  "coar-notify-support.message-moderation.content": "Para garantir um ambiente seguro e produtivo, todas as mensagens LDN recebidas são moderadas. Se pretende trocar informações connosco, contacte-nos através do nosso",
+  "coar-notify-support.message-moderation.content": "Para garantir um ambiente seguro e produtivo, todas as mensagens LDN recebidas são moderadas. Caso pretenda comunicar connosco, por favor utilize o nosso",
 
   // "coar-notify-support.message-moderation.feedback-form": " Feedback form.",
-  "coar-notify-support.message-moderation.feedback-form": "Formulário de comentários.",
+  "coar-notify-support.message-moderation.feedback-form": " formulário de contacto.",
 
   // "service.overview.delete.header": "Delete Service",
   "service.overview.delete.header": "Exluir serviço",

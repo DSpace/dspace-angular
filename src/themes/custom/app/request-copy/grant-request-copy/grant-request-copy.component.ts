@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  CommonModule,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -21,7 +18,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   standalone: true,
   imports: [
     AsyncPipe,
-    CommonModule,
     FormsModule,
     RouterLink,
     ThemedEmailRequestCopyComponent,

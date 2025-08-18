@@ -2,7 +2,7 @@
   <h2>{{ 'info.accessibility-settings.title' | translate }}</h2>
 
   <form>
-    <div class="form-group row">
+    <div class="mb-3 row">
       <label [for]="'disableNotificationTimeOutInput'" class="col-sm-4 col-form-label">
         {{ 'info.accessibility-settings.disableNotificationTimeOut.label' | translate }}
       </label>
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
       <label [for]="'notificationTimeOutInput'" class="col-sm-4 col-form-label">
         {{ 'info.accessibility-settings.notificationTimeOut.label' | translate }}
       </label>
@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
       <label [for]="'liveRegionTimeOutInput'" class="col-sm-4 col-form-label">
         {{ 'info.accessibility-settings.liveRegionTimeOut.label' | translate }}
       </label>
@@ -77,7 +77,7 @@
     </div>
 
     <div role="group">
-      <button type="submit" (click)="saveSettings()" class="btn btn-primary mr-2">
+      <button type="submit" (click)="saveSettings()" class="btn btn-primary me-2">
         {{ 'info.accessibility-settings.submit' | translate }}
       </button>
       <button (click)="resetSettings()" class="btn btn-warning">
