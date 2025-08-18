@@ -51,8 +51,7 @@
   "error-page.orcid.generic-error": "Při přihlašování přes ORCID došlo k chybě. Ujistěte se, že jste sdíleli e-mailovou adresu připojenou ke svému účtu ORCID s DSpace. Pokud chyba přetrvává, kontaktujte správce",
 
   // "listelement.badge.access-status": "Access status:",
-  // TODO New key - Add a translation
-  "listelement.badge.access-status": "Access status:",
+  "listelement.badge.access-status": "Stav přístupu:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "Embargo",
@@ -196,8 +195,7 @@
   "admin.registries.bitstream-formats.table.name": "Název",
 
   // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  "admin.registries.bitstream-formats.table.selected": "Vybrané formáty souborů",
 
   // "admin.registries.bitstream-formats.table.id": "ID",
   "admin.registries.bitstream-formats.table.id": "ID",
@@ -222,12 +220,10 @@
   "admin.registries.bitstream-formats.title": "Registr formátů souboru",
 
   // "admin.registries.bitstream-formats.select": "Select",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.select": "Select",
+  "admin.registries.bitstream-formats.select": "Vybrat",
 
   // "admin.registries.bitstream-formats.deselect": "Deselect",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.deselect": "Deselect",
+  "admin.registries.bitstream-formats.deselect": "Zrušit výběr",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registr metadat",
@@ -254,19 +250,16 @@
   "admin.registries.metadata.schemas.no-items": "Žádná schémata metadat k zobrazení.",
 
   // "admin.registries.metadata.schemas.select": "Select",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.select": "Select",
+  "admin.registries.metadata.schemas.select": "Vybrat",
 
   // "admin.registries.metadata.schemas.deselect": "Deselect",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.deselect": "Deselect",
+  "admin.registries.metadata.schemas.deselect": "Zrušit výběr",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Smazat vybrané",
 
   // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  "admin.registries.metadata.schemas.table.selected": "Vybrané schémata",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -287,12 +280,10 @@
   "admin.registries.schema.description": "Toto je metadatové schéma pro \"{{namespace}}\".",
 
   // "admin.registries.schema.fields.select": "Select",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.select": "Select",
+  "admin.registries.schema.fields.select": "Vybrat",
 
   // "admin.registries.schema.fields.deselect": "Deselect",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.deselect": "Deselect",
+  "admin.registries.schema.fields.deselect": "Zrušit výběr",
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Metadatové pole schématu",
@@ -307,8 +298,7 @@
   "admin.registries.schema.fields.table.field": "Pole",
 
   // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  "admin.registries.schema.fields.table.selected": "Vybraná metadatová pole",
 
   // "admin.registries.schema.fields.table.id": "ID",
   // TODO Source message changed - Revise the translation
@@ -415,20 +405,16 @@
   "admin.access-control.epeople.title": "Uživatelé",
 
   // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "Nový uživatel",
 
   // "admin.access-control.epeople.edit.title": "New EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.edit.title": "New EPerson",
+  "admin.access-control.epeople.edit.title": "Nový uživatel",
 
   // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+  "admin.access-control.epeople.add.breadcrumbs": "Přidat uživatele",
 
   // "admin.access-control.epeople.add.title": "Add EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.add.title": "Add EPerson",
+  "admin.access-control.epeople.add.title": "Přidat uživatele",
 
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Uživatelé",
@@ -1226,8 +1212,7 @@
   "browse.comcol.by.srsc": "Podle předmětu",
 
   // "browse.comcol.by.nsi": "By Norwegian Science Index",
-  // TODO New key - Add a translation
-  "browse.comcol.by.nsi": "By Norwegian Science Index",
+  "browse.comcol.by.nsi": "Podle Norwegian Science Index",
 
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Podle názvu",
@@ -1263,8 +1248,7 @@
   "browse.metadata.srsc.breadcrumbs": "Procházet podle předmětu",
 
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
-  // TODO New key - Add a translation
-  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+  "browse.metadata.nsi.breadcrumbs": "Procházet podle Norwegian Science Index",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Procházet podle názvu",
@@ -1279,8 +1263,7 @@
   "pagination.next.button.disabled.tooltip": "Žádné další stránky výsledků",
 
   // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
-  // TODO New key - Add a translation
-  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+  "pagination.page-number-bar": "Ovládací lišta pro navigaci na stránce, vztažená k prvku s ID: ",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   "browse.startsWith": ", začíná na {{ startsWith }}",
@@ -1359,8 +1342,7 @@
   "browse.startsWith.input": "Filtrovat",
 
   // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
-  // TODO New key - Add a translation
-  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  "browse.taxonomy_srsc.title": "Procházení podle tematické kategorie",
 
   // "browse.taxonomy.button": "Browse",
   "browse.taxonomy.button": "Procházet",
@@ -1389,12 +1371,10 @@
   "claimed-declined-task-search-result-list-element.title": "Zamítnuto, posláno zpět správci schvalovacího workflow",
 
   // "collection.create.breadcrumbs": "Create collection",
-  // TODO New key - Add a translation
-  "collection.create.breadcrumbs": "Create collection",
+  "collection.create.breadcrumbs": "Vytvořit kolekci",
 
   // "collection.browse.logo": "Browse for a collection logo",
-  // TODO New key - Add a translation
-  "collection.browse.logo": "Browse for a collection logo",
+  "collection.browse.logo": "Vybrat logo kolekce",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Vytvořit kolekci",
@@ -1693,16 +1673,13 @@
   "collection.listelement.badge": "Kolekce",
 
   // "collection.logo": "Collection logo",
-  // TODO New key - Add a translation
-  "collection.logo": "Collection logo",
+  "collection.logo": "Logo kolekce",
 
   // "collection.page.browse.recent.head": "Recent Submissions",
-  // TODO New key - Add a translation
-  "collection.page.browse.recent.head": "Recent Submissions",
+  "collection.page.browse.recent.head": "Nejnovější příspěvky",
 
   // "collection.page.browse.recent.empty": "No items to show",
-  // TODO New key - Add a translation
-  "collection.page.browse.recent.empty": "No items to show",
+  "collection.page.browse.recent.empty": "Žádné položky k zobrazení",
 
   // "collection.page.edit": "Edit this collection",
   "collection.page.edit": "Upravit tuto kolekci",
@@ -1723,16 +1700,13 @@
   "collection.select.empty": "Žádná kolekce k zobrazení",
 
   // "collection.select.table.selected": "Selected collections",
-  // TODO New key - Add a translation
-  "collection.select.table.selected": "Selected collections",
+  "collection.select.table.selected": "Vybrané kolekce",
 
   // "collection.select.table.select": "Select collection",
-  // TODO New key - Add a translation
-  "collection.select.table.select": "Select collection",
+  "collection.select.table.select": "Vybrané kolekce",
 
   // "collection.select.table.deselect": "Deselect collection",
-  // TODO New key - Add a translation
-  "collection.select.table.deselect": "Deselect collection",
+  "collection.select.table.deselect": "Zrušit výběr kolekce",
 
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Název",
@@ -1825,20 +1799,16 @@
   "communityList.showMore": "Zobrazit více",
 
   // "communityList.expand": "Expand {{ name }}",
-  // TODO New key - Add a translation
-  "communityList.expand": "Expand {{ name }}",
+  "communityList.expand": "Rozbalit {{ name }}",
 
   // "communityList.collapse": "Collapse {{ name }}",
-  // TODO New key - Add a translation
-  "communityList.collapse": "Collapse {{ name }}",
+  "communityList.collapse": "Sbalit {{ name }}",
 
   // "community.browse.logo": "Browse for a community logo",
-  // TODO New key - Add a translation
-  "community.browse.logo": "Browse for a community logo",
+  "community.browse.logo": "Vybrat logo komunity",
 
   // "community.create.breadcrumbs": "Create Community",
-  // TODO New key - Add a translation
-  "community.create.breadcrumbs": "Create Community",
+  "community.create.breadcrumbs": "Vytvořit komunitu",
 
   // "community.create.head": "Create a Community",
   "community.create.head": "Vytvořit komunitu",
@@ -1957,8 +1927,7 @@
   "community.listelement.badge": "Komunita",
 
   // "community.logo": "Community logo",
-  // TODO New key - Add a translation
-  "community.logo": "Community logo",
+  "community.logo": "Logo komunity",
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Žádná skupina",
@@ -2153,12 +2122,10 @@
   "cookies.consent.content-modal.service": "služba",
 
   // "cookies.consent.app.title.accessibility": "Accessibility Settings",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+  "cookies.consent.app.title.accessibility": "Nastavení přístupnosti",
 
   // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+  "cookies.consent.app.description.accessibility": "Požadováno pro uložení vašich nastavení přístupnosti lokálně",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Ověřování",
@@ -2273,16 +2240,13 @@
   "deny-request-copy.success": "Úspěšně zamítnuta žádost o kopii záznamy",
 
   // "dynamic-list.load-more": "Load more",
-  // TODO New key - Add a translation
-  "dynamic-list.load-more": "Load more",
+  "dynamic-list.load-more": "Načíst více",
 
   // "dropdown.clear": "Clear selection",
-  // TODO New key - Add a translation
-  "dropdown.clear": "Clear selection",
+  "dropdown.clear": "Vymazat výběr",
 
   // "dropdown.clear.tooltip": "Clear the selected option",
-  // TODO New key - Add a translation
-  "dropdown.clear.tooltip": "Clear the selected option",
+  "dropdown.clear.tooltip": "Vymazat vybranou možnost",
 
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Bez názvu",
@@ -2507,8 +2471,7 @@
   "error.recent-submissions": "Chyba při načítání nedávných příspěvků",
 
   // "error.profile-groups": "Error retrieving profile groups",
-  // TODO New key - Add a translation
-  "error.profile-groups": "Error retrieving profile groups",
+  "error.profile-groups": "Chyba při načítání skupin profilů",
 
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Chyba při načítání výsledků vyhledávání",
@@ -2574,8 +2537,7 @@
   "feed.description": "Synchronizační kanál",
 
   // "file-download-link.restricted": "Restricted bitstream",
-  // TODO New key - Add a translation
-  "file-download-link.restricted": "Restricted bitstream",
+  "file-download-link.restricted": "Omezený soubor",
 
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Chyba při získávání souborů pro tento záznam",
@@ -2584,8 +2546,7 @@
   "footer.copyright": "copyright © 2002-{{ year }}",
 
   // "footer.link.accessibility": "Accessibility settings",
-  // TODO New key - Add a translation
-  "footer.link.accessibility": "Accessibility settings",
+  "footer.link.accessibility": "Nastavení přístupnosti",
 
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "DSpace software",
@@ -2641,8 +2602,7 @@
   "forgot-email.form.error.head": "Chyba při pokusu o obnovení hesla",
 
   // "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
-  // TODO New key - Add a translation
-  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "Došlo k chybě při pokusu o resetování hesla pro účet spojený s následující e-mailovou adresou: {{ email }}",
 
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Zapomenuté heslo",
@@ -2792,24 +2752,19 @@
   "form.repeatable.sort.tip": "Přetáhněte záznam na novou pozici",
 
   // "form.number-picker.decrement": "Decrement {{field}}",
-  // TODO New key - Add a translation
-  "form.number-picker.decrement": "Decrement {{field}}",
+  "form.number-picker.decrement": "Snížit {{field}}",
 
   // "form.number-picker.increment": "Increment {{field}}",
-  // TODO New key - Add a translation
-  "form.number-picker.increment": "Increment {{field}}",
+  "form.number-picker.increment": "Zvýšit {{field}}",
 
   // "form.date-picker.placeholder.year": "Year",
-  // TODO New key - Add a translation
-  "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Rok",
 
   // "form.date-picker.placeholder.month": "Month",
-  // TODO New key - Add a translation
-  "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Měsíc",
 
   // "form.date-picker.placeholder.day": "Day",
-  // TODO New key - Add a translation
-  "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Den",
 
   // "grant-deny-request-copy.deny": "Don't send copy",
   "grant-deny-request-copy.deny": "Neposílat kopii",
@@ -2902,8 +2857,7 @@
   "health-page.section.solrOaiCore.title": "Solr: oai core",
 
   // "health-page.section.solrSearchCore.title": "Solr: search core",
-  // TODO New key - Add a translation
-  "health-page.section.solrSearchCore.title": "Solr: search core",
+  "health-page.section.solrSearchCore.title": "Solr: vyhledávací jádro",
 
   // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
   "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
@@ -2951,80 +2905,61 @@
   "home.top-level-communities.help": "Vyberte komunitu a procházejte její kolekce.",
 
   // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  "info.accessibility-settings.breadcrumbs": "Nastavení přístupnosti",
 
   // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  "info.accessibility-settings.cookie-warning": Uložení nastavení přístupnosti momentálně není možné. Přihlaste se pro uložení nastavení do uživatelských dat nebo přijměte cookie 'Nastavení přístupnosti' pomocí menu 'Nastavení cookies' ve spodní části stránky. Po přijetí cookie můžete stránku znovu načíst pro odstranění této zprávy.",
 
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automaticky zavřít upozornění po vypršení času",
 
   // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "Když je tento přepínač aktivován, upozornění se automaticky zavřou po uplynutí času. Pokud je deaktivován, upozornění zůstanou otevřená, dokud je ručně nezavřete.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  "info.accessibility-settings.failed-notification": "Nepodařilo se uložit nastavení přístupnosti",
 
   // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  "info.accessibility-settings.invalid-form-notification": "Uložení selhalo. Formulář obsahuje neplatné hodnoty.",
 
   // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  "info.accessibility-settings.liveRegionTimeOut.label": "Časový limit ARIA Live regionu (v sekundách)",
 
   // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  "info.accessibility-settings.liveRegionTimeOut.hint": "Doba, po kterou zpráva v ARIA Live regionu zůstává viditelná. ARIA Live regiony nejsou viditelné na stránce, ale poskytují oznámení pro čtečky obrazovky.",
 
   // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Časový limit ARIA Live regionu musí být větší než 0",
 
   // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  "info.accessibility-settings.notificationTimeOut.label": "Časový limit upozornění (v sekundách)",
 
   // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  "info.accessibility-settings.notificationTimeOut.hint": "Doba, po které upozornění zmizí.",
 
   // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  "info.accessibility-settings.notificationTimeOut.invalid": "Časový limit upozornění musí být větší než 0",
 
   // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  "info.accessibility-settings.save-notification.cookie": "Nastavení úspěšně uloženo lokálně.",
 
   // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  "info.accessibility-settings.save-notification.metadata": "Nastavení úspěšně uloženo v uživatelském profilu.",
 
   // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  "info.accessibility-settings.reset-failed": "Nepodařilo se resetovat. Přihlaste se nebo přijměte cookie 'Nastavení přístupnosti'.",
 
   // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  "info.accessibility-settings.reset-notification": "Nastavení bylo úspěšně resetováno.",
 
   // "info.accessibility-settings.reset": "Reset accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.reset": "Reset accessibility settings",
+  "info.accessibility-settings.reset": "Resetovat nastavení přístupnosti",
 
   // "info.accessibility-settings.submit": "Save accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.submit": "Save accessibility settings",
+  "info.accessibility-settings.submit": "Uložit nastavení přístupnosti",
 
   // "info.accessibility-settings.title": "Accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.title": "Accessibility settings",
+  "info.accessibility-settings.title": "Nastavení přístupnosti",
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Přečetl/a jsem si a souhlasím se smlouvou s koncovým uživatelem",
@@ -3114,8 +3049,7 @@
   "item.edit.authorizations.title": "Upravit politiky záznamu",
 
   // "item.badge.status": "Item status:",
-  // TODO New key - Add a translation
-  "item.badge.status": "Item status:",
+  "item.badge.status": "Stav položky:",
 
   // "item.badge.private": "Non-discoverable",
   // TODO Source message changed - Revise the translation
@@ -3174,12 +3108,10 @@
   "item.edit.bitstreams.bundle.name": "Svazek: {{ name }}",
 
   // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreamy v balíčku {{ bundle }}",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+  "item.edit.bitstreams.bundle.tooltip": "Bitstream lze přesunout na jinou stránku přetažením na číslo stránky.",
 
   // "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.discard-button": "Zahodit",
@@ -3200,31 +3132,25 @@
   "item.edit.bitstreams.edit.buttons.undo": "Vrátit změny",
 
   // "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} byl vrácen na pozici {{ toIndex }} a již není vybrán.",
 
   // "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} již není vybrán.",
 
   // "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+  "item.edit.bitstreams.edit.live.loading": "Čeká se na dokončení přesunu.",
 
   // "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} je vybrán.",
 
   // "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} je nyní na pozici {{ toIndex }}.",
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty": "Tento záznam neobsahuje žádné soubory. Klikněte na tlačítko pro nahrání a nějaký vytvořte.",
 
   // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
+  "item.edit.bitstreams.info-alert": "Bitstreamy lze přeskupovat v jejich balíčcích podržením uchopovacího bodu a pohybem myši. Alternativně lze bitstream přesunout pomocí klávesnice: Vyberte bitstream stisknutím Enter, když je uchopovací bod bitstreamu v popředí. Přesuňte bitstream nahoru nebo dolů pomocí šipek. Stiskněte Enter znovu pro potvrzení aktuální pozice bitstreamu.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Akce",
@@ -3281,8 +3207,7 @@
   "item.edit.bitstreams.upload-button": "Nahrát",
 
   // "item.edit.bitstreams.load-more.link": "Load more",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.load-more.link": "Load more",
+  "item.edit.bitstreams.load-more.link": "Načíst více",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Zrušit",
@@ -3441,12 +3366,10 @@
   "item.edit.metadata.discard-button": "Vyřadit",
 
   // "item.edit.metadata.edit.language": "Edit language",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.language": "Edit language",
+  "item.edit.metadata.edit.language": "Upravit jazyk",
 
   // "item.edit.metadata.edit.value": "Edit value",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.value": "Edit value",
+  "item.edit.metadata.edit.value": "Upravit hodnotu",
 
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "Potvrdit",
@@ -3485,8 +3408,7 @@
   "item.edit.metadata.headers.value": "Hodnota",
 
   // "item.edit.metadata.metadatafield": "Edit field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.metadatafield": "Edit field",
+  "item.edit.metadata.metadatafield": "Upravit pole",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   "item.edit.metadata.metadatafield.error": "Při ověřování metadatového pole se vyskytla chyba",
@@ -3567,8 +3489,7 @@
   "item.edit.move.inheritpolicies.description": "Zdědit výchozí politiky cílové kolekce",
 
   // "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
-  // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+  "item.edit.move.inheritpolicies.tooltip": "Upozornění: Pokud je povoleno, bude politika čtení pro položku a všechny soubory s ní spojené nahrazena výchozí politikou čtení sbírky. Toto nelze vrátit zpět.",
 
   // "item.edit.move.move": "Move",
   "item.edit.move.move": "Přesunout",
@@ -4043,16 +3964,13 @@
   "item.preview.oaire.citation.volume": "Ročník",
 
   // "item.preview.dc.relation.hasversion": "Has version",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.hasversion": "Has version",
+  "item.preview.dc.relation.hasversion": "Má verzi",
 
   // "item.preview.dc.relation.ispartofseries": "Is part of series",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartofseries": "Is part of series",
+  "item.preview.dc.relation.ispartofseries": "Je součástí série",
 
   // "item.preview.dc.rights": "Rights",
-  // TODO New key - Add a translation
-  "item.preview.dc.rights": "Rights",
+  "item.preview.dc.rights": "Práva",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
   // TODO Source message changed - Revise the translation
@@ -4110,16 +4028,13 @@
   "item.select.empty": "Žádné záznamy k zobrazení",
 
   // "item.select.table.selected": "Selected items",
-  // TODO New key - Add a translation
-  "item.select.table.selected": "Selected items",
+  "item.select.table.selected": "Vybrané položky",
 
   // "item.select.table.select": "Select item",
-  // TODO New key - Add a translation
-  "item.select.table.select": "Select item",
+  "item.select.table.select": "Vybrat položku",
 
   // "item.select.table.deselect": "Deselect item",
-  // TODO New key - Add a translation
-  "item.select.table.deselect": "Deselect item",
+  "item.select.table.deselect": "Zrušit výběr položky",
 
   // "item.select.table.author": "Author",
   "item.select.table.author": "Autor",
@@ -4275,12 +4190,10 @@
   "itemtemplate.edit.metadata.discard-button": "Vyřadit",
 
   // "itemtemplate.edit.metadata.edit.language": "Edit language",
-  // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.edit.language": "Edit language",
+  "itemtemplate.edit.metadata.edit.language": "Upravit jazyk",
 
   // "itemtemplate.edit.metadata.edit.value": "Edit value",
-  // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.edit.value": "Edit value",
+  "itemtemplate.edit.metadata.edit.value": "Upravit hodnotu",
 
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Potvrdit",
@@ -4316,8 +4229,7 @@
   "itemtemplate.edit.metadata.headers.value": "Hodnota",
 
   // "itemtemplate.edit.metadata.metadatafield": "Edit field",
-  // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.metadatafield": "Edit field",
+  "itemtemplate.edit.metadata.metadatafield": "Upravit pole",
 
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   "itemtemplate.edit.metadata.metadatafield.error": "Při ověřování metadatového pole se vyskytla chyba",
@@ -4566,8 +4478,7 @@
   "logout.title": "Odhlášení",
 
   // "menu.header.nav.description": "Admin navigation bar",
-  // TODO New key - Add a translation
-  "menu.header.nav.description": "Admin navigation bar",
+  "menu.header.nav.description": "Navigační lišta administrátora",
 
   // "menu.header.admin": "Management",
   "menu.header.admin": "Admin",
@@ -4624,8 +4535,7 @@
   "menu.section.browse_global_by_srsc": "Podle předmětové kategorie",
 
   // "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
+  "menu.section.browse_global_by_nsi": "Podle Norwegian Science Index",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Podle názvu",
@@ -4911,8 +4821,7 @@
   "mydspace.show.supervisedWorkspace": "Záznamy pod dohledem",
 
   // "mydspace.status": "My DSpace status:",
-  // TODO New key - Add a translation
-  "mydspace.status": "My DSpace status:",
+  "mydspace.status": "Stav mého DSpace:",
 
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Archivováno",
@@ -4924,7 +4833,6 @@
   "mydspace.status.mydspaceWaitingController": "Čeká na kontrolu",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
-  // TODO New key - Add a translation
   "mydspace.status.mydspaceWorkflow": "Workflow",
 
   // "mydspace.status.mydspaceWorkspace": "Workspace",
@@ -4949,8 +4857,7 @@
   "mydspace.view-btn": "Zobrazit",
 
   // "nav.expandable-navbar-section-suffix": "(submenu)",
-  // TODO New key - Add a translation
-  "nav.expandable-navbar-section-suffix": "(submenu)",
+  "nav.expandable-navbar-section-suffix": "(podnabídka)",
 
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Celý repozitář",
@@ -5004,8 +4911,7 @@
   "nav.user.description": "Panel uživatelského profilu ",
 
   // "listelement.badge.dso-type": "Item type:",
-  // TODO New key - Add a translation
-  "listelement.badge.dso-type": "Item type:",
+  "listelement.badge.dso-type": "Typ položky:",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Záznam",
@@ -5038,8 +4944,7 @@
   "orgunit.page.titleprefix": "Organizační jednotka: ",
 
   // "orgunit.search.results.head": "Organizational Unit Search Results",
-  // TODO New key - Add a translation
-  "orgunit.search.results.head": "Organizational Unit Search Results",
+  "orgunit.search.results.head": "Výsledky hledání organizační jednotky",
 
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Možnosti stránkování",
@@ -5108,20 +5013,16 @@
   "process.new.select-parameters": "Parametry",
 
   // "process.new.select-parameter": "Select parameter",
-  // TODO New key - Add a translation
-  "process.new.select-parameter": "Select parameter",
+  "process.new.select-parameter": "Vyberte parametr",
 
   // "process.new.add-parameter": "Add a parameter...",
-  // TODO New key - Add a translation
-  "process.new.add-parameter": "Add a parameter...",
+  "process.new.add-parameter": "Přidat parametr...",
 
   // "process.new.delete-parameter": "Delete parameter",
-  // TODO New key - Add a translation
-  "process.new.delete-parameter": "Delete parameter",
+  "process.new.delete-parameter": "Odstranit parametr",
 
   // "process.new.parameter.label": "Parameter value",
-  // TODO New key - Add a translation
-  "process.new.parameter.label": "Parameter value",
+  "process.new.parameter.label": "Hodnota parametru",
 
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Zrušit",
@@ -5284,8 +5185,7 @@
   "process.overview.delete": "Smazat {{count}} procesů",
 
   // "process.overview.delete-process": "Delete process",
-  // TODO New key - Add a translation
-  "process.overview.delete-process": "Delete process",
+  "process.overview.delete-process": "Odstranit proces",
 
   // "process.overview.delete.clear": "Clear delete selection",
   "process.overview.delete.clear": "Zrušit výběr mazání",
@@ -5312,16 +5212,13 @@
   "profile.breadcrumbs": "Aktualizovat profil",
 
   // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
-  // TODO New key - Add a translation
-  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  "profile.card.accessibility.content": "Nastavení přístupnosti lze upravit na stránce nastavení přístupnosti.",
 
   // "profile.card.accessibility.header": "Accessibility",
-  // TODO New key - Add a translation
-  "profile.card.accessibility.header": "Accessibility",
+  "profile.card.accessibility.header": "Přístupnost",
 
   // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
-  // TODO New key - Add a translation
-  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  "profile.card.accessibility.link": "Přejít na stránku nastavení přístupnosti",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Identifikace",
@@ -5588,8 +5485,7 @@
   "register-page.registration.error.head": "Chyba při pokusu o registraci e-mailu",
 
   // "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
-  // TODO New key - Add a translation
-  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "Při registraci následující e-mailové adresy došlo k chybě: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
   "register-page.registration.error.recaptcha": "Chyba při pokusu o ověření pomocí recaptcha",
@@ -5805,8 +5701,7 @@
   "resource-policies.form.name.label": "Název",
 
   // "resource-policies.form.name.hint": "Max 30 characters",
-  // TODO New key - Add a translation
-  "resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "Maximálně 30 znaků",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "vyberte typ politiky",
@@ -5839,20 +5734,16 @@
   "resource-policies.table.headers.group": "Skupina",
 
   // "resource-policies.table.headers.select-all": "Select all",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.select-all": "Select all",
+  "resource-policies.table.headers.select-all": "Vybrat vše",
 
   // "resource-policies.table.headers.deselect-all": "Deselect all",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.deselect-all": "Deselect all",
+  "resource-policies.table.headers.deselect-all": "Zrušit výběr všeho",
 
   // "resource-policies.table.headers.select": "Select",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.select": "Select",
+  "resource-policies.table.headers.select": "Vybrat",
 
   // "resource-policies.table.headers.deselect": "Deselect",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.deselect": "Deselect",
+  "resource-policies.table.headers.deselect": "Zrušit výběr"
 
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
@@ -5879,8 +5770,7 @@
   "resource-policies.table.headers.title.for.collection": "Politiky kolekce",
 
   // "root.skip-to-content": "Skip to main content",
-  // TODO New key - Add a translation
-  "root.skip-to-content": "Skip to main content",
+  "root.skip-to-content": "Přejít k hlavnímu obsahu"
 
   // "search.description": "",
   "search.description": "",
@@ -5898,8 +5788,7 @@
   "search.search-form.placeholder": "Hledat v repozitáři...",
 
   // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
-  // TODO New key - Add a translation
-  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  "search.filters.remove": "Odstranit filtr typu {{ type }} s hodnotou {{ value }}"
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Autor",
@@ -5981,12 +5870,10 @@
   "search.filters.filter.creativeDatePublished.label": "Hledat datum zveřejnění",
 
   // "search.filters.filter.creativeDatePublished.min.label": "Start",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.min.label": "Start",
+  "search.filters.filter.creativeDatePublished.min.label": "Začátek",
 
   // "search.filters.filter.creativeDatePublished.max.label": "End",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.max.label": "End",
+  "search.filters.filter.creativeDatePublished.max.label": "Konec",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Editor",
@@ -6172,12 +6059,10 @@
   "search.filters.filter.show-tree": "Procházet {{ name }} podle",
 
   // "search.filters.filter.supervisedBy.head": "Supervised By",
-  // TODO New key - Add a translation
-  "search.filters.filter.supervisedBy.head": "Supervised By",
+  "search.filters.filter.supervisedBy.head": "Dohlížející autorita:",
 
   // "search.filters.filter.supervisedBy.placeholder": "Supervised By",
-  // TODO New key - Add a translation
-  "search.filters.filter.supervisedBy.placeholder": "Supervised By",
+  "search.filters.filter.supervisedBy.placeholder": "Dohlížející autorita:",
 
   // "search.filters.filter.supervisedBy.label": "Search Supervised By",
   "search.filters.filter.supervisedBy.label": "Hledat dohlížející autoritu",
@@ -6204,24 +6089,19 @@
   "search.filters.discoverable.false": "Ano",
 
   // "search.filters.namedresourcetype.Archived": "Archived",
-  // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Archivováno",
 
   // "search.filters.namedresourcetype.Validation": "Validation",
-  // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Ověřování",
 
   // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.Waiting for Controller": "Čeká na kontrolu",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
-  // TODO New key - Add a translation
   "search.filters.namedresourcetype.Workflow": "Workflow",
 
   // "search.filters.namedresourcetype.Workspace": "Workspace",
-  // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Pracovní prostor",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Ano",
@@ -6304,12 +6184,10 @@
   "search.view-switch.show-list": "Zobrazit jako seznam",
 
   // "selectable-list-item-control.deselect": "Deselect item",
-  // TODO New key - Add a translation
-  "selectable-list-item-control.deselect": "Deselect item",
+  "selectable-list-item-control.deselect": "Zrušit výběr položky"
 
   // "selectable-list-item-control.select": "Select item",
-  // TODO New key - Add a translation
-  "selectable-list-item-control.select": "Select item",
+  "selectable-list-item-control.select": "Vybrat položku",
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Vzestupně",
@@ -6349,28 +6227,22 @@
   "sorting.lastModified.DESC": "Naposledy upraveno sestupně",
 
   // "sorting.person.familyName.ASC": "Surname Ascending",
-  // TODO New key - Add a translation
-  "sorting.person.familyName.ASC": "Surname Ascending",
+  "sorting.person.familyName.ASC": "Příjmení vzestupně",
 
   // "sorting.person.familyName.DESC": "Surname Descending",
-  // TODO New key - Add a translation
-  "sorting.person.familyName.DESC": "Surname Descending",
+  "sorting.person.familyName.DESC": "Příjmení sestupně",
 
   // "sorting.person.givenName.ASC": "Name Ascending",
-  // TODO New key - Add a translation
-  "sorting.person.givenName.ASC": "Name Ascending",
+  "sorting.person.givenName.ASC": "Jméno vzestupně",
 
   // "sorting.person.givenName.DESC": "Name Descending",
-  // TODO New key - Add a translation
-  "sorting.person.givenName.DESC": "Name Descending",
+  "sorting.person.givenName.DESC": "Jméno sestupně",
 
   // "sorting.person.birthDate.ASC": "Birth Date Ascending",
-  // TODO New key - Add a translation
-  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+  "sorting.person.birthDate.ASC": "Datum narození vzestupně",
 
   // "sorting.person.birthDate.DESC": "Birth Date Descending",
-  // TODO New key - Add a translation
-  "sorting.person.birthDate.DESC": "Birth Date Descending",
+  "sorting.person.birthDate.DESC": "Datum narození sestupně"
 
   // "statistics.title": "Statistics",
   "statistics.title": "Statistiky",
@@ -6545,8 +6417,7 @@
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
   // "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
+  "submission.import-external.source.openAIREFunding": "Financování OpenAIRE API",
 
   // "submission.import-external.source.orcid": "ORCID",
   "submission.import-external.source.orcid": "ORCID",
@@ -6651,8 +6522,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Financování OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importovat externě uloženého autora",
@@ -6793,8 +6663,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Lokálně uložená čísla časopisu ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Místní svazky časopisů ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Lokálně uložené ročníky časopisu ({{ count }})",
@@ -6830,8 +6699,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Vyhledat organizační jednotky",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Financování OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projekty",
@@ -6843,8 +6711,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publikace autora",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Financování OpenAIRE API",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projekt",
@@ -6868,8 +6735,7 @@
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Čísla časopisu",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Ročníky časopisu",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Ročníky časopisu",
@@ -6932,8 +6798,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Vybrané časopisy",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Vybraný ročník časopisu",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Vybraný ročník časopisu",
@@ -7077,8 +6942,7 @@
   "submission.sections.general.no-collection": "Nebyla nalezena žádná kolekce",
 
   // "submission.sections.general.no-entity": "No entity types found",
-  // TODO New key - Add a translation
-  "submission.sections.general.no-entity": "No entity types found",
+  "submission.sections.general.no-entity": "Nebyl nalezen žádný typ entity"
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Nejsou k dispozici žádné volby",
@@ -7132,8 +6996,7 @@
   "submission.sections.submit.progressbar.describe.steptwo": "Popsat",
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+  "submission.sections.submit.progressbar.detect-duplicate": "Potenciální duplicity",
 
   // "submission.sections.submit.progressbar.identifiers": "Identifiers",
   "submission.sections.submit.progressbar.identifiers": "Identifikátory",
@@ -7554,8 +7417,7 @@
   "subscriptions.tooltip": "Potvrdit",
 
   // "subscriptions.unsubscribe": "Unsubscribe",
-  // TODO New key - Add a translation
-  "subscriptions.unsubscribe": "Unsubscribe",
+  "subscriptions.unsubscribe": "Odhlásit odběr",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Notifikace",
@@ -7672,8 +7534,7 @@
   "vocabulary-treeview.search.form.search": "Hledat",
 
   // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  "vocabulary-treeview.search.form.search-placeholder": "Filtrovat výsledky zadáním prvních několika písmen"
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Nebyly zobrazeny žádné záznamy",
@@ -8247,12 +8108,10 @@
   "person.orcid.registry.auth": "ORCID oprávnění",
 
   // "person.orcid-tooltip.authenticated": "{{orcid}}",
-  // TODO New key - Add a translation
   "person.orcid-tooltip.authenticated": "{{orcid}}",
 
   // "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
-  // TODO New key - Add a translation
-  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (nepotvrzeno)",
 
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Nedávné příspěvky",
@@ -8309,8 +8168,7 @@
   "system-wide-alert.form.label.countdownTo.hint": "Nápověda: Nastavte odpočítávací měřič. Je-li to povoleno, lze datum nastavit i v budoucnosti a systémový upozornění bude uvádět odpočítávání do nastaveného data. Ve chvíli, kdy skončí odpočítávání, zmizí i odpočítávač z upozornění. Server NEBUDE automaticky zastaven.",
 
   // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
-  // TODO New key - Add a translation
-  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  "system-wide-alert-form.select-date-by-calendar": "Vyberte datum pomocí kalendáře"
 
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Náhled systémového upozornění",
@@ -8346,23 +8204,19 @@
   "access-control-item-header-toggle": "Metadata záznamu",
 
   // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
-  // TODO New key - Add a translation
-  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  "access-control-item-toggle.enable": "Povolit možnost provádět změny v metadatech položky",
 
   // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
-  // TODO New key - Add a translation
-  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  "access-control-item-toggle.disable": "Zakázat možnost provádět změny v metadatech položky",
 
   // "access-control-bitstream-header-toggle": "Bitstreams",
   "access-control-bitstream-header-toggle": "Soubory",
 
   // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
-  // TODO New key - Add a translation
-  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.enable": "Povolit možnost provádět změny v souborech",
 
   // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
-  // TODO New key - Add a translation
-  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.disable": "Zakázat možnost provádět změny v souborech"
 
   // "access-control-mode": "Mode",
   "access-control-mode": "Mód",
@@ -8389,8 +8243,7 @@
   "access-control-bitstreams-selected": "vybrány soubory",
 
   // "access-control-bitstreams-select": "Select bitstreams",
-  // TODO New key - Add a translation
-  "access-control-bitstreams-select": "Select bitstreams",
+  "access-control-bitstreams-select": "Vybrat soubory",
 
   // "access-control-cancel": "Cancel",
   "access-control-cancel": "Zrušit",
@@ -8402,8 +8255,7 @@
   "access-control-add-more": "Přidat další",
 
   // "access-control-remove": "Remove access condition",
-  // TODO New key - Add a translation
-  "access-control-remove": "Remove access condition",
+  "access-control-remove": "Odstranit podmínku přístupu"
 
   // "access-control-select-bitstreams-modal.title": "Select bitstreams",
   "access-control-select-bitstreams-modal.title": "Vybrat soubory",
@@ -8433,56 +8285,43 @@
   "access-control-option-end-date-note": "Vyberte datum, do kterého má být typ přístupu aktivován",
 
   // "vocabulary-treeview.search.form.add": "Add",
-  // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.add": "Add",
+  "vocabulary-treeview.search.form.add": "Přidat",
 
   // "process.overview.unknown.user": "Unknown",
-  // TODO New key - Add a translation
-  "process.overview.unknown.user": "Unknown",
+  "process.overview.unknown.user": "Neznámý",
 
   // "browse.search-form.placeholder": "Search the repository",
-  // TODO New key - Add a translation
-  "browse.search-form.placeholder": "Search the repository",
+  "browse.search-form.placeholder": "Hledat v repozitáři",
 
   // "file-download-link.download": "Download ",
-  // TODO New key - Add a translation
-  "file-download-link.download": "Download ",
+  "file-download-link.download": "Stáhnout ",
 
   // "register-page.registration.aria.label": "Enter your e-mail address",
-  // TODO New key - Add a translation
-  "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Zadejte svou e-mailovou adresu",
 
   // "forgot-email.form.aria.label": "Enter your e-mail address",
-  // TODO New key - Add a translation
-  "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Zadejte svou e-mailovou adresu",
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
-  // TODO New key - Add a translation
-  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  "search-facet-option.update.announcement": "Stránka bude znovu načtena. Filtr {{ filter }} je vybrán.",
 
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
-  // TODO New key - Add a translation
-  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+  "live-region.ordering.instructions": "Stiskněte mezerník pro přeskupení {{ itemName }}.",
 
   // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  // TODO New key - Add a translation
-  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }}, uchopeno. Aktuální pozice v seznamu: {{ index }} z {{ length }}. Použijte šipky nahoru/dolů pro změnu pozice, mezerník pro uvolnění, Escape pro zrušení.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  // TODO New key - Add a translation
-  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.moved": "{{ itemName }}, přesunuto na pozici {{ index }} z {{ length }}. Použijte šipky nahoru/dolů pro změnu pozice, mezerník pro uvolnění, Escape pro zrušení.",
 
   // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
-  // TODO New key - Add a translation
-  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+  "live-region.ordering.dropped": "{{ itemName }}, uvolněno na pozici {{ index }} z {{ length }}.",
 
   // "dynamic-form-array.sortable-list.label": "Sortable list",
-  // TODO New key - Add a translation
-  "dynamic-form-array.sortable-list.label": "Sortable list",
+  "dynamic-form-array.sortable-list.label": "Seznam, který lze třídit",
 
   // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
-  // TODO New key - Add a translation
-  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  "metadata-export-search.submit.error.limit-exceeded": "Budou exportovány pouze první {{limit}} položky"
 
 
 }
