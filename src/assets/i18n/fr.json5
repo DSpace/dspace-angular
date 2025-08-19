@@ -1632,8 +1632,8 @@
   // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
   "pagination.page-number-bar": "Barre de contrôle pour la page de navigation, relative à l'élément ayant l'identifiant : ",
 
-  // "browse.startsWith": ": ", starting with {{ startsWith }}",
-  "browse.startsWith": ": ", commencant par {{ startsWith }}",
+  // "browse.startsWith": ", starting with {{ startsWith }}",
+  "browse.startsWith": ", commencant par {{ startsWith }}",
 
   // "browse.startsWith.choose_start": "(Choose start)",
   "browse.startsWith.choose_start": "(Choisir le début)",
