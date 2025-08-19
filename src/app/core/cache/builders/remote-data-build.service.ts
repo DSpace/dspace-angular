@@ -3,7 +3,7 @@ import {
   AsyncSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   distinctUntilKeyChanged,
@@ -71,7 +71,7 @@ export class RemoteDataBuildService {
    */
   private buildPayload<T>(requestEntry$: Observable<RequestEntry>, href$?: Observable<string>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<T> {
     if (hasNoValue(href$)) {
-      href$ = observableOf(undefined);
+      href$ = of(undefined);
     }
     return observableCombineLatest([href$, requestEntry$]).pipe(
       switchMap(([href, entry]: [string, RequestEntry]) => {
@@ -190,11 +190,11 @@ export class RemoteDataBuildService {
             this.linkService.resolveLinks(obj, ...pageLink.linksToFollow),
           );
         if (isNotEmpty(otherLinks)) {
-          return observableOf(this.linkService.resolveLinks(paginatedList, ...otherLinks));
+          return of(this.linkService.resolveLinks(paginatedList, ...otherLinks));
         }
       }
     }
-    return observableOf(paginatedList as any);
+    return of(paginatedList as any);
   }
 
   /**
@@ -205,7 +205,7 @@ export class RemoteDataBuildService {
    */
   buildFromRequestUUID<T>(requestUUID$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<T>> {
     if (typeof requestUUID$ === 'string') {
-      requestUUID$ = observableOf(requestUUID$);
+      requestUUID$ = of(requestUUID$);
     }
     const requestEntry$ = requestUUID$.pipe(getRequestFromRequestUUID(this.requestService));
 
@@ -265,7 +265,7 @@ export class RemoteDataBuildService {
    */
   buildFromHref<T>(href$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
-      href$ = observableOf(href$);
+      href$ = of(href$);
     }
 
     href$ = href$.pipe(map((href: string) => getUrlWithoutEmbedParams(href)));

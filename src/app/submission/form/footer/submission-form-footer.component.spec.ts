@@ -21,7 +21,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
@@ -71,7 +71,7 @@ describe('SubmissionFormFooterComponent', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      submissionServiceStub.getSubmissionStatus.and.returnValue(observableOf(true));
+      submissionServiceStub.getSubmissionStatus.and.returnValue(of(true));
       const html = `
         <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer>`;
 
@@ -201,7 +201,7 @@ describe('SubmissionFormFooterComponent', () => {
 
     describe('on discard confirmation', () => {
       beforeEach((done) => {
-        comp.showDepositAndDiscard = observableOf(true);
+        comp.showDepositAndDiscard = of(true);
         fixture.detectChanges();
         const modalBtn = fixture.debugElement.query(By.css('.btn-danger'));
 
@@ -224,8 +224,8 @@ describe('SubmissionFormFooterComponent', () => {
     });
 
     it('should not have deposit button disabled when submission is not valid', () => {
-      comp.showDepositAndDiscard = observableOf(true);
-      compAsAny.submissionIsInvalid = observableOf(true);
+      comp.showDepositAndDiscard = of(true);
+      compAsAny.submissionIsInvalid = of(true);
       fixture.detectChanges();
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-success'));
 
@@ -234,8 +234,8 @@ describe('SubmissionFormFooterComponent', () => {
     });
 
     it('should not have deposit button disabled when submission is valid', () => {
-      comp.showDepositAndDiscard = observableOf(true);
-      compAsAny.submissionIsInvalid = observableOf(false);
+      comp.showDepositAndDiscard = of(true);
+      compAsAny.submissionIsInvalid = of(false);
       fixture.detectChanges();
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-success'));
 
@@ -244,7 +244,7 @@ describe('SubmissionFormFooterComponent', () => {
     });
 
     it('should disable save button when all modifications had been saved', () => {
-      comp.hasUnsavedModification = observableOf(false);
+      comp.hasUnsavedModification = of(false);
       fixture.detectChanges();
 
       const saveBtn: any = fixture.debugElement.query(By.css('#save'));
@@ -253,7 +253,7 @@ describe('SubmissionFormFooterComponent', () => {
     });
 
     it('should enable save button when there are not saved modifications', () => {
-      comp.hasUnsavedModification = observableOf(true);
+      comp.hasUnsavedModification = of(true);
       fixture.detectChanges();
 
       const saveBtn: any = fixture.debugElement.query(By.css('#save'));
@@ -269,7 +269,9 @@ describe('SubmissionFormFooterComponent', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [NgbModule],
+  imports: [
+    NgbModule,
+  ],
 })
 class TestComponent {
 

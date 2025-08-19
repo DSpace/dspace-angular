@@ -15,9 +15,9 @@ import { AlertComponent } from '../../../../../app/shared/alert/alert.component'
   standalone: true,
   imports: [
     AlertComponent,
-    TranslateModule,
-    RouterLink,
     AsyncPipe,
+    RouterLink,
+    TranslateModule,
   ],
 })
 export class ItemAlertsComponent extends BaseComponent {

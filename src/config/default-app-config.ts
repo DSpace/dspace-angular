@@ -1,3 +1,4 @@
+import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
@@ -14,11 +15,13 @@ import { CommunityPageConfig } from './community-page-config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
+import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
@@ -264,18 +267,22 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'de', label: 'Deutsch', active: true },
     { code: 'el', label: 'Ελληνικά', active: true },
     { code: 'es', label: 'Español', active: true },
+    { code: 'fa', label: 'فارسی', active: true },
     { code: 'fi', label: 'Suomi', active: true },
     { code: 'fr', label: 'Français', active: true },
     { code: 'gd', label: 'Gàidhlig', active: true },
+    { code: 'gu', label: 'ગુજરાતી', active: true },
     { code: 'hi', label: 'हिंदी', active: true },
     { code: 'hu', label: 'Magyar', active: true },
     { code: 'it', label: 'Italiano', active: true },
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'lv', label: 'Latviešu', active: true },
+    { code: 'mr', label: 'मराठी', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
     { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
+    { code: 'ru', label: 'Русский', active: true },
     { code: 'sr-lat', label: 'Srpski (lat)', active: true },
     { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'sv', label: 'Svenska', active: true },
@@ -329,11 +336,14 @@ export class DefaultAppConfig implements AppConfig {
       // Rounded to the nearest size in the list of selectable sizes on the
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
       pageSize: 5,
+      // Show the bitstream access status label
+      showAccessStatuses: false,
     },
   };
 
   // Community Page Config
   community: CommunityPageConfig = {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
@@ -341,6 +351,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Collection Page Config
   collection: CollectionPageConfig = {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
@@ -477,6 +488,7 @@ export class DefaultAppConfig implements AppConfig {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
     enableCOARNotifySupport: true,
+    enableCookieConsentPopup: true,
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
@@ -598,5 +610,33 @@ export class DefaultAppConfig implements AppConfig {
   liveRegion: LiveRegionConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
+  };
+
+  matomo: MatomoConfig = {};
+
+  // Leaflet tile providers and other configurable attributes
+  geospatialMapViewer: GeospatialMapConfig = {
+    spatialMetadataFields: [
+      'dcterms.spatial',
+    ],
+    spatialFacetDiscoveryConfiguration: 'geospatial',
+    spatialPointFilterName: 'point',
+    enableItemPageFields: false,
+    enableSearchViewMode: false,
+    enableBrowseMap: false,
+    tileProviders: [
+      'OpenStreetMap.Mapnik',
+    ],
+    // Starting centre point for maps (before drawing and zooming to markers)
+    // Defaults to Istanbul
+    defaultCentrePoint: {
+      lat: 41.015137,
+      lng: 28.979530,
+    },
+  };
+
+  // Accessibility settings configuration, used by the AccessibilitySettingsService
+  accessibility: AccessibilitySettingsConfig = {
+    cookieExpirationDuration: 7,
   };
 }

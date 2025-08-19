@@ -26,7 +26,15 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   styleUrls: ['./item-search-result-list-element.component.scss'],
   templateUrl: './item-search-result-list-element.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    RouterLink,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item search result of the type Publication

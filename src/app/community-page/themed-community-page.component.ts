@@ -11,7 +11,9 @@ import { CommunityPageComponent } from './community-page.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [CommunityPageComponent],
+  imports: [
+    CommunityPageComponent,
+  ],
 })
 export class ThemedCommunityPageComponent extends ThemedComponent<CommunityPageComponent> {
   protected getComponentName(): string {

@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ThemeConfig } from '../../../config/theme.config';
 import { isNotEmpty } from '../empty.util';
@@ -7,7 +7,7 @@ import { ThemeService } from '../theme-support/theme.service';
 export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]): ThemeService {
   const spy = jasmine.createSpyObj('themeService', {
     getThemeName: themeName,
-    getThemeName$: observableOf(themeName),
+    getThemeName$: of(themeName),
     getThemeConfigFor: undefined,
     listenForRouteChanges: undefined,
   });

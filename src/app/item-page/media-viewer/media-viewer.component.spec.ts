@@ -1,4 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -6,15 +9,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { FileService } from '../../core/shared/file.service';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
@@ -22,6 +28,7 @@ import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
@@ -31,12 +38,15 @@ import { MediaViewerComponent } from './media-viewer.component';
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
   let fixture: ComponentFixture<MediaViewerComponent>;
+  let authService;
+  let authorizationService;
+  let fileService;
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(), {
     sizeBytes: 10201,
     content:
       'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-    format: observableOf(MockBitstreamFormat1),
+    format: of(MockBitstreamFormat1),
     bundleName: 'ORIGINAL',
     _links: {
       self: {
@@ -55,7 +65,7 @@ describe('MediaViewerComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test_word.docx',
+          value: 'test_image.jpg',
         },
       ],
     },
@@ -73,6 +83,15 @@ describe('MediaViewerComponent', () => {
   );
 
   beforeEach(waitForAsync(() => {
+    authService = jasmine.createSpyObj('AuthService', {
+      isAuthenticated: of(true),
+    });
+    authorizationService = jasmine.createSpyObj('AuthorizationService', {
+      isAuthorized: of(true),
+    });
+    fileService = jasmine.createSpyObj('FileService', {
+      retrieveFileDownloadLink: null,
+    });
     return TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -88,9 +107,14 @@ describe('MediaViewerComponent', () => {
         MetadataFieldWrapperComponent,
       ],
       providers: [
+        { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: FileService, useValue: fileService },
+        { provide: PLATFORM_ID, useValue: 'browser' },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -150,9 +174,9 @@ describe('MediaViewerComponent', () => {
       expect(mediaItem.thumbnail).toBe(null);
     });
 
-    it('should display a default, thumbnail', () => {
+    it('should display a default thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-media-viewer-image'),
+        By.css('ds-thumbnail'),
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });

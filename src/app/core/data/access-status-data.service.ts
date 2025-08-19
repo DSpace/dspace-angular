@@ -29,7 +29,7 @@ export class AccessStatusDataService extends BaseDataService<AccessStatusObject>
    * Returns {@link RemoteData} of {@link AccessStatusObject} that is the access status of the given item
    * @param item Item we want the access status of
    */
-  findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
+  findItemAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
     return this.findByHref(item._links.accessStatus.href);
   }
 }

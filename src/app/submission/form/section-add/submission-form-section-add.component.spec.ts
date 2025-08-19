@@ -16,7 +16,7 @@ import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
 import {
@@ -95,7 +95,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf([]));
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(of([]));
       const html = `
         <ds-submission-form-section-add [collectionId]="collectionId"
                                         [submissionId]="submissionId">
@@ -137,7 +137,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
     });
 
     it('should init sectionList properly', () => {
-      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(of(mockAvailableSections));
 
       fixture.detectChanges();
 
@@ -151,7 +151,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
     });
 
     it('should call addSection', () => {
-      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(of(mockAvailableSections));
 
       comp.addSection(mockAvailableSections[1].id);
 
@@ -167,7 +167,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
       beforeEach(() => {
 
-        submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+        submissionServiceStub.getDisabledSectionsList.and.returnValue(of(mockAvailableSections));
         comp.ngOnInit();
         fixture.detectChanges();
         dropdowBtn = fixture.debugElement.query(By.css('#sectionControls'));
@@ -222,7 +222,9 @@ describe('SubmissionFormSectionAddComponent Component', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [NgbModule],
+  imports: [
+    NgbModule,
+  ],
 })
 class TestComponent {
 

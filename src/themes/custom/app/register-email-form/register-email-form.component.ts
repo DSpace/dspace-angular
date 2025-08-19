@@ -16,7 +16,15 @@ import { BtnDisabledDirective } from '../../../../app/shared/btn-disabled.direct
   // templateUrl: './register-email-form.component.html',
   templateUrl: '../../../../app/register-email-form/register-email-form.component.html',
   standalone: true,
-  imports: [ FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    GoogleRecaptchaComponent,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class RegisterEmailFormComponent extends BaseComponent {
 }

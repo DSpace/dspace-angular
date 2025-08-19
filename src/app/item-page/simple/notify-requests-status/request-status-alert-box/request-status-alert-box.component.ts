@@ -19,10 +19,10 @@ import { RequestStatusEnum } from '../notify-status.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    TruncatablePartComponent,
-    TruncatableComponent,
-    TranslateModule,
     NgClass,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
   ],
 })
 /**
@@ -65,6 +65,13 @@ export class RequestStatusAlertBoxComponent implements OnInit {
         this.displayOptions = {
           alertType: 'alert-danger',
           text: 'request-status-alert-box.rejected',
+        };
+        break;
+
+      case RequestStatusEnum.TENTATIVE_REJECT:
+        this.displayOptions = {
+          alertType: 'alert-warning',
+          text: 'request-status-alert-box.tentative_rejected',
         };
         break;
 

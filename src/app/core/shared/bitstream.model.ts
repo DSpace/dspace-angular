@@ -4,6 +4,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
+import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
 import {
   link,
@@ -52,6 +54,7 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
     format: HALLink;
     content: HALLink;
     thumbnail: HALLink;
+    accessStatus: HALLink;
   };
 
   /**
@@ -74,6 +77,13 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    */
   @link(BUNDLE)
   bundle?: Observable<RemoteData<Bundle>>;
+
+  /**
+   * The access status for this Bitstream
+   * Will be undefined unless the access status {@link HALLink} has been resolved.
+   */
+  @link(ACCESS_STATUS, false, 'accessStatus')
+  accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   getParentLinkKey(): keyof this['_links'] {
     return 'format';

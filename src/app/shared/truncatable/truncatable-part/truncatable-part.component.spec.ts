@@ -14,7 +14,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   NativeWindowRef,
@@ -40,9 +40,9 @@ describe('TruncatablePartComponent', () => {
     truncatableService = {
       isCollapsed: (id: string) => {
         if (id === id1) {
-          return observableOf(true);
+          return of(true);
         } else {
-          return observableOf(false);
+          return of(false);
         }
       },
     };

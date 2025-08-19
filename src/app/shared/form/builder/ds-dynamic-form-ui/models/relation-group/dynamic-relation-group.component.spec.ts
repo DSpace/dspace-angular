@@ -372,11 +372,11 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    DsDynamicRelationGroupComponent,
     AsyncPipe,
+    DsDynamicRelationGroupComponent,
     NgbTooltipModule,
-    TranslateModule,
     NgClass,
+    TranslateModule,
   ],
 })
 class TestComponent {

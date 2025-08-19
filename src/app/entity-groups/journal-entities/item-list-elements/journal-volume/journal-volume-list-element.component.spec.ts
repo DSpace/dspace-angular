@@ -7,7 +7,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
@@ -18,7 +18,7 @@ import { JournalVolumeSearchResultListElementComponent } from '../search-result-
 import { JournalVolumeListElementComponent } from './journal-volume-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -46,7 +46,7 @@ describe('JournalVolumeListElementComponent', () => {
   let fixture;
 
   const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
+    isCollapsed: (id: number) => of(true),
   };
 
   beforeEach(waitForAsync(() => {

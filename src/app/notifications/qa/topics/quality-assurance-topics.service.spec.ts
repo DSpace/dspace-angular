@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import {
@@ -44,8 +44,8 @@ describe('QualityAssuranceTopicsService', () => {
   beforeEach(() => {
     restService = TestBed.inject(QualityAssuranceTopicDataService);
     restServiceAsAny = restService;
-    restServiceAsAny.searchTopicsBySource.and.returnValue(observableOf(paginatedListRD));
-    restServiceAsAny.searchTopicsByTarget.and.returnValue(observableOf(paginatedListRD));
+    restServiceAsAny.searchTopicsBySource.and.returnValue(of(paginatedListRD));
+    restServiceAsAny.searchTopicsByTarget.and.returnValue(of(paginatedListRD));
     service = new QualityAssuranceTopicsService(restService);
     serviceAsAny = service;
   });

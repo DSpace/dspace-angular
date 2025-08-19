@@ -11,9 +11,6 @@ import { ThemedSearchNavbarComponent } from '../../../../app/search-navbar/theme
 import { ThemedAuthNavMenuComponent } from '../../../../app/shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { ImpersonateNavbarComponent } from '../../../../app/shared/impersonate-navbar/impersonate-navbar.component';
 
-/**
- * Represents the header with the logo and simple navigation
- */
 @Component({
   selector: 'ds-themed-header',
   // styleUrls: ['header.component.scss'],
@@ -21,7 +18,17 @@ import { ImpersonateNavbarComponent } from '../../../../app/shared/impersonate-n
   // templateUrl: 'header.component.html',
   templateUrl: '../../../../app/header/header.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ContextHelpToggleComponent,
+    ImpersonateNavbarComponent,
+    NgbDropdownModule,
+    RouterLink,
+    ThemedAuthNavMenuComponent,
+    ThemedLangSwitchComponent,
+    ThemedSearchNavbarComponent,
+    TranslateModule,
+  ],
 })
 export class HeaderComponent extends BaseComponent {
 }

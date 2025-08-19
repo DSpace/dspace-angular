@@ -1,7 +1,7 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 export class AuthServiceMock {
@@ -13,11 +13,11 @@ export class AuthServiceMock {
   }
 
   public getShortlivedToken(): Observable<string> {
-    return observableOf('token');
+    return of('token');
   }
 
   public isAuthenticated(): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   public setRedirectUrl(url: string) {
@@ -27,6 +27,18 @@ export class AuthServiceMock {
   }
 
   public isUserIdle(): Observable<boolean> {
-    return observableOf(false);
+    return of(false);
+  }
+
+  public getImpersonateID(): string {
+    return null;
+  }
+
+  public getRedirectUrl(): Observable<string> {
+    return;
+  }
+
+  public getExternalServerRedirectUrl(): string {
+    return;
   }
 }

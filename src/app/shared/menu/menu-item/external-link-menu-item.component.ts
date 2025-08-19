@@ -18,7 +18,11 @@ import { ExternalLinkMenuItemModel } from './models/external-link.model';
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './external-link-menu-item.component.html',
   standalone: true,
-  imports: [NgClass, TranslateModule, RouterLinkActive],
+  imports: [
+    NgClass,
+    RouterLinkActive,
+    TranslateModule,
+  ],
 })
 export class ExternalLinkMenuItemComponent implements OnInit {
   item: ExternalLinkMenuItemModel;

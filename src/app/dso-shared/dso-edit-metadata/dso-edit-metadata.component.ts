@@ -38,6 +38,7 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { lazyDataService } from '../../core/lazy-data-service';
+import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
@@ -63,7 +64,18 @@ import { MetadataFieldSelectorComponent } from './metadata-field-selector/metada
   styleUrls: ['./dso-edit-metadata.component.scss'],
   templateUrl: './dso-edit-metadata.component.html',
   standalone: true,
-  imports: [DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, DsoEditMetadataFieldValuesComponent, AlertComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    DsoEditMetadataFieldValuesComponent,
+    DsoEditMetadataHeadersComponent,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataValueHeadersComponent,
+    MetadataFieldSelectorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them
@@ -141,6 +153,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Unsubscribed from in ngOnDestroy()
    */
   dsoUpdateSubscription: Subscription;
+
+  public readonly Context = Context;
 
   constructor(protected route: ActivatedRoute,
               protected notificationsService: NotificationsService,

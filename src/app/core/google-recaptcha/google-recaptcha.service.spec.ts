@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NativeWindowRef } from '../services/window.service';
@@ -23,7 +23,7 @@ describe('GoogleRecaptchaService', () => {
   function init() {
     window = new NativeWindowRef();
     rendererFactory2 = jasmine.createSpyObj('rendererFactory2', {
-      createRenderer: observableOf('googleRecaptchaToken'),
+      createRenderer: of('googleRecaptchaToken'),
       createElement: scriptElementMock,
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {

@@ -16,7 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { REQUEST } from '../../../express.tokens';
@@ -97,7 +97,7 @@ describe('AuthService test', () => {
   function init() {
     mockStore = jasmine.createSpyObj('store', {
       dispatch: {},
-      pipe: observableOf(true),
+      pipe: of(true),
     });
     window = new NativeWindowRef();
     routerStub = new RouterStub();
@@ -133,7 +133,7 @@ describe('AuthService test', () => {
       resolveLinks: {},
     };
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['redirect']);
-    spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: observableOf({ payload: {} }) });
+    spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: of({ payload: {} }) });
 
   }
 
@@ -288,7 +288,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService(window, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -373,7 +373,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService(window, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
       storage = (authService as any).storage;
       routeServiceMock = TestBed.inject(RouteService);
       routerStub = TestBed.inject(Router);
@@ -593,7 +593,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = unAuthenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService(window, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
     }));
 
     it('should return null for the shortlived token', () => {
@@ -633,7 +633,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = idleState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = new AuthService(window, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
     }));
 
     it('isUserIdle should return true when user is not idle', () => {

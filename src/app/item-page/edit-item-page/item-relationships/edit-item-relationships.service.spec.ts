@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -174,7 +174,7 @@ describe('EditItemRelationshipsService', () => {
     });
 
     it('should support performing multiple relationships manipulations in one submit() call', () => {
-      spyOn(objectUpdatesService, 'getFieldUpdates').and.returnValue(observableOf({
+      spyOn(objectUpdatesService, 'getFieldUpdates').and.returnValue(of({
         [`1-${relationshipItem1.uuid}`]: fieldUpdateAddRelationship1,
         [`1-${relationshipItem2.uuid}`]: fieldUpdateRemoveRelationship2,
       } as FieldUpdates));

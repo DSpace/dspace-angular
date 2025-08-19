@@ -43,12 +43,12 @@ import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-sch
   templateUrl: './metadata-registry.component.html',
   styleUrls: ['./metadata-registry.component.scss'],
   imports: [
-    MetadataSchemaFormComponent,
-    TranslateModule,
     AsyncPipe,
-    PaginationComponent,
+    MetadataSchemaFormComponent,
     NgClass,
+    PaginationComponent,
     RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })
