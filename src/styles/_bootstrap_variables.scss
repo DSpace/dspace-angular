@@ -40,6 +40,7 @@ $warning:   #ec9433 !default;               // Orange
 $danger:    #cf4444 !default;               // Red
 $light:     #f8f9fa !default;               // As Bootstrap $gray-100
 $dark:      darken(#2b4e72, 17%) !default;  // Blue gray (darker)
+$highlightColor: rgba(30, 111, 144, 0.3) !default; // $info color with 0.3 opacity
 
 // Add new semantic colors here (you don't need to add existing semantic colors)
 $global-custom-semantic-colors: (
