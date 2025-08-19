@@ -452,7 +452,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     });
     this.search({ query: '' });
   }
-  
+
   /**
   * Reset all input-fields to be empty and search all search
   */
