@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  CommonModule,
+  NgClass,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -72,8 +72,8 @@ import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/i
     AlertComponent,
     AsyncPipe,
     BtnDisabledDirective,
-    CommonModule,
     ItemEditBitstreamBundleComponent,
+    NgClass,
     RouterLink,
     ThemedLoadingComponent,
     TranslateModule,
