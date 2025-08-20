@@ -319,6 +319,9 @@
   // "admin.registries.schema.form.edit": "Edit metadata field",
   "admin.registries.schema.form.edit": "Измените поље за метаподатке",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "Телефон",
+
   // "admin.registries.schema.form.element": "Element",
   "admin.registries.schema.form.element": "Елемент",
 

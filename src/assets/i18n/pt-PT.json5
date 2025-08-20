@@ -317,6 +317,9 @@
   // "admin.registries.schema.form.qualifier": "Qualifier",
   "admin.registries.schema.form.qualifier": "Qualificador",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "Telefone",
+
   // "admin.registries.schema.form.scopenote": "Scope Note",
   "admin.registries.schema.form.scopenote": "Nota de âmbito",
 

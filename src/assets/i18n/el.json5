@@ -319,6 +319,9 @@
   // "admin.registries.schema.form.create": "Create metadata field",
   "admin.registries.schema.form.create": "Δημιουργία πεδίου μεταδεδομένων",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "Τηλέφωνο",
+
   // "admin.registries.schema.form.edit": "Edit metadata field",
   "admin.registries.schema.form.edit": "Επεξεργασία πεδίου μεταδεδομένων",
 

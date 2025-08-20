@@ -319,6 +319,9 @@
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "ক্ষেত্র",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "ফোন",
+
   // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
   // TODO New key - Add a translation
   "admin.registries.schema.fields.table.selected": "Selected metadata fields",

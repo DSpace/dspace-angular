@@ -321,6 +321,9 @@
   // TODO Source message changed - Revise the translation
   "admin.registries.schema.fields.table.id": "ID",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "Telefon",
+
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Cél megjegyzés",
 

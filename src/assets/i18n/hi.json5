@@ -318,6 +318,9 @@
   // "admin.registries.schema.form.create": "Create metadata field",
   "admin.registries.schema.form.create": "मेटाडेटा फ़ील्ड बनाएं",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "फ़ोन",
+
   // "admin.registries.schema.form.edit": "Edit metadata field",
   "admin.registries.schema.form.edit": "मेटाडेटा फ़ील्ड संपादित करें",
 

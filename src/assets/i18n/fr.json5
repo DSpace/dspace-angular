@@ -318,6 +318,9 @@
   // "admin.registries.schema.form.element": "Element",
   "admin.registries.schema.form.element": "Élément",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "Téléphone",
+
   // "admin.registries.schema.form.qualifier": "Qualifier",
   "admin.registries.schema.form.qualifier": "Qualificatif",
 

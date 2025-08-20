@@ -318,6 +318,9 @@
   // "admin.registries.schema.form.scopenote": "Scope Note",
   "admin.registries.schema.form.scopenote": "Nota de alcance",
 
+  // "admin.access-control.epeople.form.phone": "Phone",
+  "admin.access-control.epeople.form.phone": "Teléfono",
+
   // "admin.registries.schema.head": "Metadata Schema",
   "admin.registries.schema.head": "Esquema de metadatos",
 
