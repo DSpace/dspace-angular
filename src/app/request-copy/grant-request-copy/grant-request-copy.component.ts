@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  CommonModule,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -49,7 +46,6 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   standalone: true,
   imports: [
     AsyncPipe,
-    CommonModule,
     FormsModule,
     RouterLink,
     ThemedEmailRequestCopyComponent,

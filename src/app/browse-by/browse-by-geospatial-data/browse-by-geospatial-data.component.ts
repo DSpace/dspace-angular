@@ -1,14 +1,11 @@
 import {
   AsyncPipe,
   isPlatformBrowser,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
-  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -47,7 +44,6 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
   imports: [
     AsyncPipe,
     GeospatialMapComponent,
-    NgIf,
     TranslateModule,
   ],
   standalone: true,
@@ -67,7 +63,6 @@ export class BrowseByGeospatialDataComponent implements OnInit {
   public facetValues$: Observable<FacetValues> = of(null);
 
   constructor(
-    @Inject(PLATFORM_ID) public platformId: string,
     private searchConfigurationService: SearchConfigurationService,
     private searchService: SearchService,
     protected route: ActivatedRoute,
