@@ -5,10 +5,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FeedbackComponent } from './feedback.component';
 import { ThemedFeedbackFormComponent } from './feedback-form/themed-feedback-form.component';

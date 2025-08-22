@@ -4,10 +4,10 @@ import 'core-js/es/reflect';
 
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { AppConfig } from '@dspace/config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from '@dspace/config/config.util';
 
 import { AppComponent } from './app/app.component';
-import { AppConfig } from './config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from './config/config.util';
 import { environment } from './environments/environment';
 import { browserAppConfig } from './modules/app/browser-app.config';
 

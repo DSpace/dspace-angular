@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,
@@ -9,10 +10,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../cookies/cookie.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { CookieService } from '../services/cookie.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
