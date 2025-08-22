@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/themed-dso-selector.component';
 import { CreateCollectionParentSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { CreateCollectionParentSelectorComponent as BaseComponent } from '../../
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    ThemedDSOSelectorComponent,
     TranslateModule,
   ],
 })
