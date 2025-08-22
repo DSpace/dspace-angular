@@ -23,13 +23,13 @@ import {
 describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;
   let httpMock: HttpTestingController;
-  const url = 'http://www.dspace.org/';
+  const url = 'https://www.dspace.org/';
 
   const mockError = new HttpErrorResponse({
     status: 0,
     statusText: 'Unknown Error',
     error: {
-      message: 'Http failure response for http://www.dspace.org/: 0 ',
+      message: 'Http failure response for https://www.dspace.org/: 0 ',
     },
   });
 
@@ -77,7 +77,7 @@ describe('DspaceRestService', () => {
         expect(err).toEqual(jasmine.objectContaining({
           statusCode: 0,
           statusText: 'Unknown Error',
-          message: 'Http failure response for http://www.dspace.org/: 0 ',
+          message: 'Http failure response for https://www.dspace.org/: 0 ',
         }));
       });
       const req = httpMock.expectOne(url);

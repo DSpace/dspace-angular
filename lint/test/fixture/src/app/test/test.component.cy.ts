@@ -3,6 +3,6 @@
  * detailed in the LICENSE and NOTICE files at the root of the source
  * tree and available online at
  *
- * http://www.dspace.org/license/
+ * https://www.dspace.org/license/
  */
 
