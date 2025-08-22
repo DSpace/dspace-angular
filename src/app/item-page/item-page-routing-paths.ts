@@ -4,48 +4,71 @@ import { isNotEmpty } from '../shared/empty.util';
 
 export const ITEM_MODULE_PATH = 'items';
 
-export function getItemModuleRoute() {
-  return `/${ITEM_MODULE_PATH}`;
-}
 
 export const ENTITY_MODULE_PATH = 'entities';
 
 /**
+ * Normalize a namespace by ensuring it starts with '/' and doesn't end with '/'
+ */
+function normalizeNamespace(namespace?: string): string {
+  if (!namespace || namespace === '/') {
+    return '';
+  }
+
+  let normalized = namespace;
+  if (!normalized.startsWith('/')) {
+    normalized = '/' + normalized;
+  }
+  if (normalized.endsWith('/')) {
+    normalized = normalized.slice(0, -1);
+  }
+  return normalized;
+}
+
+export function getItemModuleRoute(namespace?: string) {
+  const normalizedNamespace = normalizeNamespace(namespace);
+  return `${normalizedNamespace}/${ITEM_MODULE_PATH}`;
+}
+
+/**
  * Get the route to an item's page
  * Depending on the item's entity type, the route will either start with /items or /entities
- * @param item  The item to retrieve the route for
+ * @param item      The item to retrieve the route for
+ * @param namespace Optional namespace to prepend to the route
  */
-export function getItemPageRoute(item: Item) {
+export function getItemPageRoute(item: Item, namespace?: string) {
   const type = item.firstMetadataValue('dspace.entity.type');
-  return getEntityPageRoute(type, item.uuid);
+  return getEntityPageRoute(type, item.uuid, namespace);
 }
 
-export function getItemEditRoute(item: Item) {
-  return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH).toString();
+export function getItemEditRoute(item: Item, namespace?: string) {
+  return new URLCombiner(getItemPageRoute(item, namespace), ITEM_EDIT_PATH).toString();
 }
 
-export function getItemEditVersionhistoryRoute(item: Item) {
-  return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH, ITEM_EDIT_VERSIONHISTORY_PATH).toString();
+export function getItemEditVersionhistoryRoute(item: Item, namespace?: string) {
+  return new URLCombiner(getItemPageRoute(item, namespace), ITEM_EDIT_PATH, ITEM_EDIT_VERSIONHISTORY_PATH).toString();
 }
 
-export function getEntityPageRoute(entityType: string, itemId: string) {
+export function getEntityPageRoute(entityType: string, itemId: string, namespace?: string) {
+  const normalizedNamespace = normalizeNamespace(namespace);
   if (isNotEmpty(entityType)) {
-    return new URLCombiner('/entities', encodeURIComponent(entityType.toLowerCase()), itemId).toString();
+    return new URLCombiner(`${normalizedNamespace}/entities`, encodeURIComponent(entityType.toLowerCase()), itemId).toString();
   } else {
-    return new URLCombiner(getItemModuleRoute(), itemId).toString();
+    return new URLCombiner(getItemModuleRoute(namespace), itemId).toString();
   }
 }
 
-export function getEntityEditRoute(entityType: string, itemId: string) {
-  return new URLCombiner(getEntityPageRoute(entityType, itemId), ITEM_EDIT_PATH).toString();
+export function getEntityEditRoute(entityType: string, itemId: string, namespace?: string) {
+  return new URLCombiner(getEntityPageRoute(entityType, itemId, namespace), ITEM_EDIT_PATH).toString();
 }
 
 /**
  * Get the route to an item's version
  * @param versionId the ID of the version for which the route will be retrieved
+ * @param namespace Optional namespace to prepend to the route
  */
-export function getItemVersionRoute(versionId: string) {
-  return new URLCombiner(getItemModuleRoute(), ITEM_VERSION_PATH, versionId).toString();
+export function getItemVersionRoute(versionId: string, namespace?: string) {
+  return new URLCombiner(getItemModuleRoute(namespace), ITEM_VERSION_PATH, versionId).toString();
 }
 
 export const ITEM_EDIT_PATH = 'edit';
