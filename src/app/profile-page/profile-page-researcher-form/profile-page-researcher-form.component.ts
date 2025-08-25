@@ -11,10 +11,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {
   map,
   mergeMap,
@@ -47,10 +44,10 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
   templateUrl: './profile-page-researcher-form.component.html',
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
     TranslateModule,
     UiSwitchModule,
     VarDirective,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -185,24 +182,6 @@ export class ProfilePageResearcherFormComponent implements OnInit {
         this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
       }
     });
-  }
-
-  /**
-   * Return a boolean representing if a delete operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingDelete(): Observable<boolean> {
-    return this.processingDelete$.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if a create operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingCreate(): Observable<boolean> {
-    return this.processingCreate$.asObservable();
   }
 
   /**

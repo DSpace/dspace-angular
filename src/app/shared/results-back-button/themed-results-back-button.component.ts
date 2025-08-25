@@ -12,7 +12,9 @@ import { ResultsBackButtonComponent } from './results-back-button.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [ResultsBackButtonComponent],
+  imports: [
+    ResultsBackButtonComponent,
+  ],
 })
 export class ThemedResultsBackButtonComponent extends ThemedComponent<ResultsBackButtonComponent> {
 

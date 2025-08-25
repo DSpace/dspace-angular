@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   SortDirection,
@@ -16,14 +16,14 @@ export class PaginationServiceStub {
   ) {
   }
 
-  getCurrentPagination = jasmine.createSpy('getCurrentPagination').and.returnValue(observableOf(this.pagination));
-  getCurrentSort = jasmine.createSpy('getCurrentSort').and.returnValue(observableOf(this.sort));
-  getFindListOptions = jasmine.createSpy('getFindListOptions').and.returnValue(observableOf(this.findlistOptions));
+  getCurrentPagination = jasmine.createSpy('getCurrentPagination').and.returnValue(of(this.pagination));
+  getCurrentSort = jasmine.createSpy('getCurrentSort').and.returnValue(of(this.sort));
+  getFindListOptions = jasmine.createSpy('getFindListOptions').and.returnValue(of(this.findlistOptions));
   resetPage = jasmine.createSpy('resetPage');
   updateRoute = jasmine.createSpy('updateRoute');
   updateRouteWithUrl = jasmine.createSpy('updateRouteWithUrl');
   clearPagination = jasmine.createSpy('clearPagination');
-  getRouteParameterValue = jasmine.createSpy('getRouteParameterValue').and.returnValue(observableOf(''));
+  getRouteParameterValue = jasmine.createSpy('getRouteParameterValue').and.returnValue(of(''));
   getPageParam = jasmine.createSpy('getPageParam').and.returnValue(`${this.pagination.id}.page`);
 
 }

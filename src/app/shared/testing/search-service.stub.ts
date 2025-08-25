@@ -1,7 +1,7 @@
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { ViewMode } from '../../core/shared/view-mode.model';
@@ -24,7 +24,7 @@ export class SearchServiceStub {
   }
 
   getSelectedValuesForFilter(_filterName: string): Observable<AppliedFilter[]> {
-    return observableOf([]);
+    return of([]);
   }
 
   getViewMode(): Observable<ViewMode> {
@@ -53,10 +53,10 @@ export class SearchServiceStub {
   }
 
   getFilterLabels() {
-    return observableOf([]);
+    return of([]);
   }
 
   search() {
-    return observableOf({});
+    return of({});
   }
 }

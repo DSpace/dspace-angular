@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
 
@@ -119,7 +119,7 @@ describe('SearchFilterComponent', () => {
   describe('when isCollapsed is called and the filter is collapsed', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
-      searchFilterService.isCollapsed = () => observableOf(true);
+      searchFilterService.isCollapsed = () => of(true);
       isActive = (comp as any).isCollapsed();
     });
 
@@ -134,7 +134,7 @@ describe('SearchFilterComponent', () => {
   describe('when isCollapsed is called and the filter is not collapsed', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
-      searchFilterService.isCollapsed = () => observableOf(false);
+      searchFilterService.isCollapsed = () => of(false);
       isActive = (comp as any).isCollapsed();
     });
 
@@ -153,7 +153,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 5,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tt)', {
         t: true,
@@ -166,7 +166,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 0,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tf)', {
         t: true,
@@ -180,7 +180,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 0,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter1, appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tt)', {
         t: true,
@@ -193,7 +193,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 5,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter1, appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tt)', {
         t: true,

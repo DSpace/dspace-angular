@@ -20,7 +20,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -184,9 +184,9 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionObject));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.getSectionData.and.returnValue(of(sectionObject));
       testFixture = TestBed.createComponent(SubmissionSectionDuplicatesComponent);
       testComp = testFixture.componentInstance;
 
@@ -212,10 +212,10 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       formOperationsService = TestBed.inject(SectionFormOperationsService);
       collectionDataService = TestBed.inject(CollectionDataService);
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
-      spyOn(comp, 'getDuplicateData').and.returnValue(observableOf({ potentialDuplicates: duplicates }));
+      spyOn(comp, 'getDuplicateData').and.returnValue(of({ potentialDuplicates: duplicates }));
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
     });
 
@@ -227,7 +227,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 
     // Test initialisation of the submission section
     it('Should init section properly', fakeAsync(() => {
-      spyOn(comp, 'getSectionStatus').and.returnValue(observableOf(true));
+      spyOn(comp, 'getSectionStatus').and.returnValue(of(true));
       expect(comp.isLoading).toBeTruthy();
       comp.onSectionInit();
       tick(100);
@@ -257,7 +257,12 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

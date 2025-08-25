@@ -29,7 +29,9 @@ import {
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
-  imports: [SearchResultsComponent],
+  imports: [
+    SearchResultsComponent,
+  ],
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 

@@ -23,6 +23,7 @@ import { StartsWithType } from './starts-with-type';
  */
 @Component({
   selector: 'ds-start-with-abstract',
+  standalone: true,
   template: '',
 })
 export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {

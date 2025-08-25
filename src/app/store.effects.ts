@@ -8,7 +8,7 @@ import {
   Action,
   Store,
 } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from './app.reducer';
@@ -25,7 +25,7 @@ export class StoreEffects {
       // replayAction.payload.forEach((action: Action) => {
       //   this.store.dispatch(action);
       // });
-      return observableOf({});
+      return of({});
     })), { dispatch: false });
 
   resize = createEffect(() => this.actions.pipe(

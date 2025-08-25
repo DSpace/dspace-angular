@@ -5,7 +5,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
@@ -37,7 +37,7 @@ describe('WorkflowItemDataService test', () => {
   const item = Object.assign(new Item(), {
     id: '1234-1234',
     uuid: '1234-1234',
-    bundles: observableOf({}),
+    bundles: of({}),
     metadata: {
       'dc.title': [
         {
@@ -66,12 +66,12 @@ describe('WorkflowItemDataService test', () => {
     },
   });
   const itemRD = createSuccessfulRemoteDataObject(item);
-  const wsi = Object.assign(new WorkflowItem(), { item: observableOf(itemRD), id: '1234', uuid: '1234' });
+  const wsi = Object.assign(new WorkflowItem(), { item: of(itemRD), id: '1234', uuid: '1234' });
   const wsiRD = createSuccessfulRemoteDataObject(wsi);
 
   const endpointURL = `https://rest.api/rest/api/submission/workspaceitems`;
   const searchRequestURL = `https://rest.api/rest/api/submission/workspaceitems/search/item?uuid=1234-1234`;
-  const searchRequestURL$ = observableOf(searchRequestURL);
+  const searchRequestURL$ = of(searchRequestURL);
 
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
 
@@ -110,8 +110,8 @@ describe('WorkflowItemDataService test', () => {
         generateRequestId: requestUUID,
         send: true,
         removeByHrefSubstring: {},
-        getByHref: observableOf(responseCacheEntry),
-        getByUUID: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
+        getByUUID: of(responseCacheEntry),
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {

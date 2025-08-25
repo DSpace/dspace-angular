@@ -6,7 +6,7 @@ import {
 } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import {
   catchError,
   map,
@@ -53,7 +53,7 @@ export class QualityAssuranceSourceEffects {
           } else {
             console.error('Unexpected object thrown', error);
           }
-          return observableOf(new RetrieveAllSourceErrorAction());
+          return of(new RetrieveAllSourceErrorAction());
         }),
       );
     }),

@@ -8,7 +8,7 @@
 
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
@@ -69,7 +69,7 @@ class TestService extends PutDataImpl<any> {
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
 }
 
@@ -141,7 +141,7 @@ describe('PutDataImpl', () => {
     });
 
 
-    buildFromRequestUUIDSpy = spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(observableOf(remoteDataMocks.Success));
+    buildFromRequestUUIDSpy = spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(of(remoteDataMocks.Success));
   });
 
   describe('put', () => {

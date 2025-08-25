@@ -11,7 +11,9 @@ import { RegisterEmailComponent } from './register-email.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [RegisterEmailComponent],
+  imports: [
+    RegisterEmailComponent,
+  ],
 })
 export class ThemedRegisterEmailComponent extends ThemedComponent<RegisterEmailComponent> {
   protected getComponentName(): string {

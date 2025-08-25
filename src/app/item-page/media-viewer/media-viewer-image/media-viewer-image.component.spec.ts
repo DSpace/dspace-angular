@@ -5,7 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
@@ -18,14 +18,14 @@ describe('MediaViewerImageComponent', () => {
   let fixture: ComponentFixture<MediaViewerImageComponent>;
 
   const authService = jasmine.createSpyObj('authService', {
-    isAuthenticated: observableOf(false),
+    isAuthenticated: of(false),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(), {
     sizeBytes: 10201,
     content:
       'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-    format: observableOf(MockBitstreamFormat1),
+    format: of(MockBitstreamFormat1),
     bundleName: 'ORIGINAL',
     _links: {
       self: {

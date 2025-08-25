@@ -24,7 +24,11 @@ import { isAuthenticated } from '../../core/auth/selectors';
   selector: 'ds-impersonate-navbar',
   templateUrl: 'impersonate-navbar.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Navbar component for actions to take concerning impersonating users

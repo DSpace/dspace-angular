@@ -1,0 +1,16 @@
+<div class="container">
+  @if (registrationData$ | async; as registrationData) {
+    <ds-external-log-in
+      [authMethods]="authMethods"
+      [registrationData]="registrationData"
+      [token]="token"
+    ></ds-external-log-in>
+  }
+
+  @if (hasErrors) {
+    <ds-alert
+      [type]="AlertTypeEnum.Error"
+      [content]="'external-login.error.notification' | translate"
+    ></ds-alert>
+  }
+</div>

@@ -1,0 +1,52 @@
+<div class="row">
+  <h4>{{ 'external-login.confirmation.header' | translate }}</h4>
+</div>
+<div class="row justify-content-center">
+  <ng-container *ngComponentOutlet="getExternalLoginConfirmationType(); injector: objectInjector;">
+  </ng-container>
+</div>
+<ds-alert class="container mt-2" [type]="AlertTypeEnum.Info" [attr.data-test]="'info-text'">
+  {{ informationText }}
+</ds-alert>
+<div class="row d-flex justify-content-center">
+  <div class="col-6 d-flex">
+    <div class="col d-flex justify-content-center align-items-center">
+      @if (registrationData.email) {
+        <ds-confirm-email [registrationData]="registrationData" [token]="token"></ds-confirm-email>
+      } @else {
+      <ds-provide-email [registrationId]="registrationData.id" [token]="token"></ds-provide-email>
+    }
+    </div>
+    @if (hasAuthMethodTypes | async) {
+      <div class="col-1 d-flex justify-content-center align-items-center">
+        <h4 class="mt-2">{{ 'external-login.component.or' | translate }}</h4>
+      </div>
+      <div class="col d-flex justify-content-center align-items-center">
+        <button data-test="open-modal" class="btn block btn-lg btn-primary" (click)="openLoginModal(loginModal)">
+          {{ 'external-login.connect-to-existing-account.label' | translate }}
+        </button>
+      </div>
+    }
+  </div>
+</div>
+
+<ng-template #loginModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-info"> {{ 'external-login.connect-to-existing-account.label' | translate }}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row justify-content-center">
+      <ds-log-in
+        [excludedAuthMethod]="relatedAuthMethod"
+        [showRegisterLink]="false"
+        [isStandalonePage]="true"
+      ></ds-log-in>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="c('Close click');clearRedirectUrl()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+      {{ 'external-login.modal.label.close' | translate }}
+    </button>
+  </div>
+</ng-template>

@@ -4,12 +4,12 @@
       <div class="file-section">
         @for (file of bitstreams; track file; let last = $last) {
           <ds-file-download-link [bitstream]="file" [item]="item">
-            <span>
-              @if (primaryBitsreamId === file.id) {
-                <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
-              }
-              {{ dsoNameService.getName(file) }}
-            </span>
+          <span>
+            @if (primaryBitstreamId === file.id) {
+              <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
+            }
+            {{ dsoNameService.getName(file) }}
+          </span>
             <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
             @if (!last) {
               <span innerHTML="{{separator}}"></span>

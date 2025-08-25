@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
@@ -23,7 +23,7 @@ describe('ParameterSelectComponent', () => {
   let scriptParams: ScriptParameter[];
 
   const translateServiceStub = {
-    get: () => observableOf('---'),
+    get: () => of('---'),
   };
 
   function init() {

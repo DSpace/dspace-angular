@@ -23,6 +23,7 @@ import { ComcolBrowseByComponent } from './comcol-browse-by.component';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
+  standalone: true,
   template: '<span id="ComcolBrowseByComponent"></span>',
 })
 class BrowseByTestComponent {
@@ -33,7 +34,9 @@ class BrowseByTestComponent {
   selector: 'ds-browse-by-switcher',
   template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
   standalone: true,
-  imports: [DynamicComponentLoaderDirective],
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 class TestBrowseBySwitcherComponent extends BrowseBySwitcherComponent {
   getComponent(): GenericConstructor<Component> {

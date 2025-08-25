@@ -12,10 +12,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
@@ -105,6 +102,10 @@ describe('SubmissionEditComponent Component', () => {
   });
 
   afterEach(() => {
+    if (fixture) {
+      // Ensure Angular cleans up the component properly
+      fixture.destroy();
+    }
     comp = null;
     fixture = null;
     router = null;
@@ -116,8 +117,8 @@ describe('SubmissionEditComponent Component', () => {
     submissionServiceStub.retrieveSubmission.and.returnValue(
       createSuccessfulRemoteDataObject$(submissionObject),
     );
-    submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionObject));
-    submissionServiceStub.getSubmissionStatus.and.returnValue(observableOf(true));
+    submissionServiceStub.getSubmissionObject.and.returnValue(of(submissionObject));
+    submissionServiceStub.getSubmissionStatus.and.returnValue(of(true));
 
 
     fixture.detectChanges();
@@ -145,7 +146,7 @@ describe('SubmissionEditComponent Component', () => {
   it('should not has effects when an invalid SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
-    submissionServiceStub.retrieveSubmission.and.returnValue(observableOf(null));
+    submissionServiceStub.retrieveSubmission.and.returnValue(of(null));
 
     fixture.detectChanges();
 

@@ -11,7 +11,9 @@ import { DenyRequestCopyComponent } from './deny-request-copy.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [DenyRequestCopyComponent],
+  imports: [
+    DenyRequestCopyComponent,
+  ],
 })
 export class ThemedDenyRequestCopyComponent extends ThemedComponent<DenyRequestCopyComponent> {
   protected getComponentName(): string {

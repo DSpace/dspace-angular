@@ -15,7 +15,10 @@ import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-r
   styleUrls: ['./item-admin-search-result-list-element.component.scss'],
   templateUrl: './item-admin-search-result-list-element.component.html',
   standalone: true,
-  imports: [ListableObjectComponentLoaderComponent, ItemAdminSearchResultActionsComponent],
+  imports: [
+    ItemAdminSearchResultActionsComponent,
+    ListableObjectComponentLoaderComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item search result on the admin search page

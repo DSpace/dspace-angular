@@ -1,4 +1,11 @@
-@if ((currentMode$ | async) === viewModeEnum.ListElement) {
+@if ((currentMode$ | async) === viewModeEnum.GeospatialMap) {
+  @defer {
+    <ds-object-geospatial-map [objects]="objects">
+    </ds-object-geospatial-map>
+  }
+}
+
+@if ((currentMode$ | async) === viewModeEnum.ListElement || (currentMode$ | async) === viewModeEnum.GeospatialMap) {
   <ds-object-list [ngClass]="placeholderFontClass"
     [config]="config"
     [sortConfig]="sortConfig"
@@ -8,6 +15,7 @@
     [linkType]="linkType"
     [context]="context"
     [hidePaginationDetail]="hidePaginationDetail"
+    [showRSS]="showRSS"
     [showPaginator]="showPaginator"
     [showThumbnails]="showThumbnails"
     (paginationChange)="onPaginationChange($event)"
@@ -53,6 +61,7 @@
     [sortConfig]="sortConfig"
     [objects]="objects"
     [hideGear]="hideGear"
+    [showRSS]="showRSS"
     [linkType]="linkType"
     [context]="context"
     [hidePaginationDetail]="hidePaginationDetail"

@@ -8,7 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -91,7 +91,7 @@ export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {
    * A boolean representing if upload functionality is enabled
    * @type {boolean}
    */
-  private uploadEnabled: Observable<boolean> = observableOf(false);
+  private uploadEnabled: Observable<boolean> = of(false);
 
   /**
    * Save submission before to upload a file

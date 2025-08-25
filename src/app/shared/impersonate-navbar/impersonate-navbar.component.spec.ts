@@ -12,7 +12,7 @@ import {
 } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   AppState,
@@ -75,7 +75,7 @@ describe('ImpersonateNavbarComponent', () => {
 
   describe('when the user is impersonating another user', () => {
     beforeEach(() => {
-      component.isImpersonating$ = observableOf(true);
+      component.isImpersonating$ = of(true);
       fixture.detectChanges();
     });
 

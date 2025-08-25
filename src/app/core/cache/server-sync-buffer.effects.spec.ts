@@ -10,7 +10,7 @@ import {
 } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -62,7 +62,7 @@ describe('ServerSyncBufferEffects', () => {
               const object = Object.assign(new DSpaceObject(), {
                 _links: { self: { href: link } },
               });
-              return observableOf(object);
+              return of(object);
             },
             getByHref: (link) => {
               const object = Object.assign(new DSpaceObject(), {
@@ -70,7 +70,7 @@ describe('ServerSyncBufferEffects', () => {
                   self: { href: link },
                 },
               });
-              return observableOf(object);
+              return of(object);
             },
           },
         },

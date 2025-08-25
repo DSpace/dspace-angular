@@ -11,7 +11,9 @@ import { LoginPageComponent } from './login-page.component';
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [LoginPageComponent],
+  imports: [
+    LoginPageComponent,
+  ],
 })
 export class ThemedLoginPageComponent extends ThemedComponent<LoginPageComponent> {
   protected getComponentName(): string {
