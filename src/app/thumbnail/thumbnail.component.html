@@ -9,7 +9,7 @@
     </div>
   }
   <!-- don't use *ngIf="!isLoading" so the thumbnail can load in while the animation is playing -->
-  @if (src !== null && customDescription === undefined) {
+  @if (src() !== null && customDescription === undefined) {
     <img class="thumbnail-content img-fluid"
          [class.d-none]="isLoading()"
          [src]="src() | dsSafeUrl"
@@ -17,7 +17,7 @@
          (error)="errorHandler()"
          (load)="successHandler()"/>
   }
-  @if (src !== null && customDescription !== undefined) {
+  @if (src() !== null && customDescription !== undefined) {
     <img class="thumbnail-content img-fluid"
          [class.d-none]="isLoading()"
          [src]="src() | dsSafeUrl"
