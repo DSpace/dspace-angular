@@ -42,6 +42,11 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   @Input() inPlaceSearch;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * UI parameters when this filter is removed
    */
   removeQueryParams;

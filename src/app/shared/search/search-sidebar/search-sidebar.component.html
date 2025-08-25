@@ -16,14 +16,17 @@
                                             [configurationList]="configurationList"
                                             [defaultConfiguration]="configuration"
                                             [inPlaceSearch]="inPlaceSearch"
+                                            [retainScrollPosition]="retainScrollPosition"
                                             (changeConfiguration)="changeConfiguration.emit($event)"></ds-search-switch-configuration>
-            <ds-themed-search-filters [currentScope]="currentScope"
+          <ds-themed-search-filters [currentScope]="currentScope"
                                [currentConfiguration]="configuration"
                                [filters]="filters"
                                [refreshFilters]="refreshFilters"
-                               [inPlaceSearch]="inPlaceSearch"></ds-themed-search-filters>
+                               [inPlaceSearch]="inPlaceSearch"
+                               [retainScrollPosition]="retainScrollPosition"></ds-themed-search-filters>
             <ds-themed-search-settings [currentSortOption]="currentSortOption"
-                                       [sortOptionsList]="sortOptionsList"></ds-themed-search-settings>
+                                       [sortOptionsList]="sortOptionsList"
+                                       [retainScrollPosition]="retainScrollPosition"></ds-themed-search-settings>
         </div>
     </div>
 </div>

@@ -61,6 +61,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() selectionConfig: {repeatable: boolean, listId: string};
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * Emit custom event for listable object custom actions.
    */
   @Output() customEvent = new EventEmitter<any>();

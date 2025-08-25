@@ -26,6 +26,9 @@ import { SearchConfigurationServiceStub } from '../../../../testing/search-confi
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { FacetValue} from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
+import { routeServiceStub } from '../../../../testing/route-service.stub';
+import { RouteService } from '../../../../../core/services/route.service';
 
 describe('SearchHierarchyFilterComponent', () => {
 
@@ -75,7 +78,9 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)}
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: RETAIN_SCROLL_POSITION, useValue: new BehaviorSubject<boolean>(false) },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

@@ -26,6 +26,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -42,6 +43,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               protected modalService: NgbModal,
@@ -49,9 +51,10 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, paginationService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, retainScrollPosition);
   }
 
   vocabularyExists$: Observable<boolean>;
@@ -95,16 +98,10 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       this.selectedValues$
         .pipe(take(1))
         .subscribe((selectedValues) => {
-          this.router.navigate(
-            [this.searchService.getSearchLink()],
-            {
-              queryParams: {
-                [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
-                  .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
-              },
-              queryParamsHandling: 'merge',
-            },
-          );
+          this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), {}, {
+            [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
+              .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
+          }, this.retainScrollPosition);
         });
     }).catch();
   }

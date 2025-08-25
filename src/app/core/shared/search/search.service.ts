@@ -315,7 +315,7 @@ export class SearchService implements OnDestroy {
    * @param {ViewMode} viewMode Mode to switch to
    * @param {string[]} searchLinkParts
    */
-  setViewMode(viewMode: ViewMode, searchLinkParts?: string[]) {
+  setViewMode(viewMode: ViewMode, searchLinkParts?: string[], retainScrollPosition?: boolean) {
     this.paginationService.getCurrentPagination(this.searchConfigurationService.paginationID, new PaginationComponentOptions()).pipe(take(1))
       .subscribe((config) => {
         let pageParams = { page: 1 };
@@ -325,7 +325,7 @@ export class SearchService implements OnDestroy {
         } else if (config.pageSize === 1) {
           pageParams = Object.assign(pageParams, { pageSize: 10 });
         }
-        this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams);
+        this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], pageParams, queryParams, retainScrollPosition);
       });
   }
 

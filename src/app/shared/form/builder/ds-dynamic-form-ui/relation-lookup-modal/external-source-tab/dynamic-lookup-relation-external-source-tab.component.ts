@@ -76,6 +76,12 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    */
   @Input() context: Context;
   @Input() repeatable: boolean;
+
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
   /**
    * Emit an event when an object has been imported (or selected from similar local entries)
    */
@@ -180,6 +186,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
       modalComp.relationship = this.relationship;
       modalComp.label = this.label;
       modalComp.relatedEntityType = this.relatedEntityType;
+      modalComp.retainScrollPosition = this.retainScrollPosition;
     }));
 
     this.subs.push(modalComp$.pipe(

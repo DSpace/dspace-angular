@@ -14,10 +14,11 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 export class ThemedSearchSettingsComponent extends ThemedComponent<SearchSettingsComponent> {
   @Input() currentSortOption: SortOptions;
   @Input() sortOptionsList: SortOptions[];
+  @Input() retainScrollPosition: boolean;
 
 
   protected inAndOutputNames: (keyof SearchSettingsComponent & keyof this)[] = [
-    'currentSortOption', 'sortOptionsList'];
+    'currentSortOption', 'sortOptionsList', 'retainScrollPosition'];
 
   protected getComponentName(): string {
     return 'SearchSettingsComponent';

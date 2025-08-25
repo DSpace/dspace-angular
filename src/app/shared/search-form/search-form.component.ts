@@ -64,6 +64,11 @@ export class SearchFormComponent implements OnChanges {
   @Input() showScopeSelector = false;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * Output the search data on submit
    */
   @Output() submitSearch = new EventEmitter<any>();
@@ -116,10 +121,7 @@ export class SearchFormComponent implements OnChanges {
   updateSearch(data: any) {
     const queryParams = Object.assign({}, data);
 
-    void this.router.navigate(this.getSearchLinkParts(), {
-      queryParams: queryParams,
-      queryParamsHandling: 'merge'
-    });
+    this.paginationService.updateRoute(this.searchConfig.paginatedSearchOptions?.value?.pagination?.id, {}, queryParams, this.retainScrollPosition);
   }
 
   /**

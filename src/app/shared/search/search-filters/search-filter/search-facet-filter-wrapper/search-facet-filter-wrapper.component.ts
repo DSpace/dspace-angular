@@ -10,6 +10,7 @@ import {
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { BehaviorSubject } from 'rxjs';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
@@ -36,6 +37,11 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * The constructor of the search facet filter that should be rendered, based on the filter config's type
    */
   searchFilter: GenericConstructor<SearchFacetFilterComponent>;
@@ -56,7 +62,8 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
       providers: [
         { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
         { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
-        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] }
+        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
+        { provide: RETAIN_SCROLL_POSITION, useFactory: () => this.retainScrollPosition, deps: [] },
       ],
       parent: this.injector
     });

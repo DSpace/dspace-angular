@@ -20,6 +20,7 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
 import { yearFromString } from 'src/app/shared/date.util';
+import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL
@@ -76,6 +77,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected router: Router,
               protected rdbs: RemoteDataBuildService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -83,8 +85,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, paginationService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, retainScrollPosition);
 
   }
 
@@ -117,14 +120,10 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
-    this.router.navigate(this.getSearchLinkParts(), {
-      queryParams:
-        {
-          [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
-          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax
-        },
-      queryParamsHandling: 'merge'
-    });
+    this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), {}, {
+      [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax
+    }, this.retainScrollPosition);
     this.filter = '';
   }
 

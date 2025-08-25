@@ -1,5 +1,6 @@
 <a *ngIf="isVisible | async" class="d-flex flex-row"
    [tabIndex]="-1"
+   [preserveFragment]="retainScrollPosition"
    [routerLink]="[searchLink]"
    [queryParams]="addQueryParams" queryParamsHandling="merge">
   <label class="mb-0 d-flex w-100">

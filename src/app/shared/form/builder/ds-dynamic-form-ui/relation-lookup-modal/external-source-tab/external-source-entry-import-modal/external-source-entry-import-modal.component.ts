@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
@@ -57,22 +57,22 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
   /**
    * The label to use for all messages (added to the end of relevant i18n keys)
    */
-  label: string;
+  @Input() label: string;
 
   /**
    * The external source entry
    */
-  externalSourceEntry: ExternalSourceEntry;
+  @Input() externalSourceEntry: ExternalSourceEntry;
 
   /**
    * The item in submission
    */
-  item: Item;
+  @Input() item: Item;
 
   /**
    * The current relationship-options used for filtering results
    */
-  relationship: RelationshipOptions;
+  @Input() relationship: RelationshipOptions;
 
   /**
    * The metadata value for the entry's uri
@@ -142,7 +142,12 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
   /**
    * The entity types compatible with the given external source
    */
-  relatedEntityType: ItemType;
+  @Input() relatedEntityType: ItemType;
+
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
 
   /**
    * The modal for the collection selection

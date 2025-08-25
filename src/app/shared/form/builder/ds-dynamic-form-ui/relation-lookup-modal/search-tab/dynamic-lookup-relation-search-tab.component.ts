@@ -94,6 +94,11 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() isEditRelationship: boolean;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * Send an event to deselect an object from the list
    */
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
@@ -167,7 +172,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Method to reset the route when the window is opened to make sure no strange pagination issues appears
    */
   resetRoute() {
-    this.paginationService.updateRoute(this.searchConfigService.paginationID, this.initialPagination);
+    this.paginationService.updateRoute(this.searchConfigService.paginationID, this.initialPagination, undefined, true);
   }
 
   /**

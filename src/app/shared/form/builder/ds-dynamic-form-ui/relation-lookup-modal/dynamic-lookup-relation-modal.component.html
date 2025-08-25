@@ -24,6 +24,7 @@
                             [item]="item"
                             [isEditRelationship]="isEditRelationship"
                             [toRemove]="toRemove"
+                            [retainScrollPosition]="true"
                             (selectObject)="select($event)"
                             (deselectObject)="deselect($event)"
                             (resultFound)="setTotalInternals($event.pageInfo.totalElements)"
@@ -43,6 +44,7 @@
                             [relationship]="relationshipOptions"
                             [context]="context"
                             [externalSource]="source"
+                            [retainScrollPosition]="true"
                             (importedObject)="imported($event)"
                             class="d-block pt-3">
                     </ds-themed-dynamic-lookup-relation-external-source-tab>
@@ -56,6 +58,7 @@
                             [listId]="listId"
                             [relationshipType]="relationshipOptions.relationshipType"
                             [repeatable]="repeatable"
+                            [retainScrollPosition]="true"
                             [context]="context"
                             (selectObject)="select($event)"
                             (deselectObject)="deselect($event)"

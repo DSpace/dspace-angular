@@ -1,5 +1,6 @@
 <a *ngIf="isVisible | async" class="d-flex flex-row"
    [routerLink]="[searchLink]"
+   [preserveFragment]="retainScrollPosition"
    [queryParams]="changeQueryParams" queryParamsHandling="merge">
   <span class="filter-value px-1">{{filterValue.label}}</span>
   <span class="float-right filter-value-count ml-auto">

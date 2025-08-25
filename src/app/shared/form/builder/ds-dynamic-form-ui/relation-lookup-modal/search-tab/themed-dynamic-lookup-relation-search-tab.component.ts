@@ -19,7 +19,9 @@ import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model'
 export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedComponent<DsDynamicLookupRelationSearchTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationSearchTabComponent & keyof this)[] = ['relationship', 'listId',
     'query', 'repeatable', 'selection$', 'context', 'relationshipType', 'item', 'isLeft', 'toRemove', 'isEditRelationship',
-    'deselectObject', 'selectObject', 'resultFound'];
+    'deselectObject', 'selectObject', 'resultFound',
+    'retainScrollPosition',
+  ];
 
   @Input() relationship: RelationshipOptions;
 
@@ -42,6 +44,8 @@ export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedCompone
   @Input() toRemove: SearchResult<Item>[];
 
   @Input() isEditRelationship: boolean;
+
+  @Input() retainScrollPosition: boolean;
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
 

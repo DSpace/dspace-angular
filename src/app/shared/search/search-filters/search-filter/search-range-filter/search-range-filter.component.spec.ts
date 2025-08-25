@@ -25,6 +25,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouteService } from '../../../../../core/services/route.service';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -105,6 +106,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
+        { provide: RETAIN_SCROLL_POSITION, useValue: new BehaviorSubject<boolean>(false) },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => selectedValues,
@@ -146,11 +148,12 @@ describe('SearchRangeFilterComponent', () => {
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: {
+        queryParams: jasmine.objectContaining({
           [mockFilterConfig.paramName + minSuffix]: [1900],
-          [mockFilterConfig.paramName + maxSuffix]: [1950]
-        },
-        queryParamsHandling: 'merge'
+          [mockFilterConfig.paramName + maxSuffix]: [1950],
+        }),
+        queryParamsHandling: 'merge',
+        fragment: 'prevent-scroll',
       });
     });
   });

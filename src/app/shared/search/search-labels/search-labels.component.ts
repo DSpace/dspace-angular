@@ -26,6 +26,11 @@ export class SearchLabelsComponent {
   @Input() inPlaceSearch;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * Initialize the instance variable
    */
   constructor(

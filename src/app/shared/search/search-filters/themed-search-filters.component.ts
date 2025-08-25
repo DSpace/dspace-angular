@@ -20,9 +20,16 @@ export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersC
   @Input() inPlaceSearch;
   @Input() refreshFilters: Observable<any>;
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() retainScrollPosition: boolean;
 
   protected inAndOutputNames: (keyof SearchFiltersComponent & keyof this)[] = [
-    'filters', 'currentConfiguration', 'currentScope', 'inPlaceSearch', 'refreshFilters'];
+    'currentConfiguration',
+    'currentScope',
+    'filters',
+    'inPlaceSearch',
+    'refreshFilters',
+    'retainScrollPosition',
+  ];
 
   protected getComponentName(): string {
     return 'SearchFiltersComponent';

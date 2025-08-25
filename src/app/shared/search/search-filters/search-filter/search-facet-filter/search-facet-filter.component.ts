@@ -35,6 +35,7 @@ import { currentPath } from '../../../../utils/route.utils';
 import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 import { FacetValues } from '../../../models/facet-values.model';
+import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -99,12 +100,15 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>) {
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean,
+  ) {
   }
 
   /**
@@ -256,16 +260,12 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
       this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
         if (isNotEmpty(data)) {
-          this.router.navigate(this.getSearchLinkParts(), {
-            queryParams:
-              {
-                [this.filterConfig.paramName]: [
-                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
-                  data
-                ]
-              },
-            queryParamsHandling: 'merge'
-          });
+          this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), { page: 1 }, {
+            [this.filterConfig.paramName]: [
+              ...selectedValues.map((facet) => this.getFacetValue(facet)),
+              data
+            ]
+          }, this.retainScrollPosition);
           this.filter = '';
         }
         this.filterSearchResults = observableOf([]);

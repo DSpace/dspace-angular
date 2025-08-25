@@ -84,6 +84,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() showThumbnails;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition: boolean;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange: EventEmitter<any> = new EventEmitter();
@@ -175,6 +180,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'selectObject',
     'importObject',
     'sortFieldChange',
+    'retainScrollPosition',
   ];
 
   protected getComponentName(): string {

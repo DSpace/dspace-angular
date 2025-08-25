@@ -141,13 +141,23 @@ describe('SearchService', () => {
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.ListElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'page-id',
+        ['/search'],
+        { page: 1 },
+        { view: ViewMode.ListElement },
+        undefined,
       );
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.GridElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+        'page-id',
+        ['/search'],
+        { page: 1 },
+        { view: ViewMode.GridElement },
+        undefined,
       );
     });
 

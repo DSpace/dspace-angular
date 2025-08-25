@@ -24,6 +24,11 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../testing/pagination-service.stub';
+import { PaginationService } from 'ngx-pagination';
+import { RouteService } from '../../../../../core/services/route.service';
+import { routeServiceStub } from '../../../../testing/route-service.stub';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -94,11 +99,14 @@ describe('SearchFacetFilterComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
+        { provide: RETAIN_SCROLL_POSITION, useValue: new BehaviorSubject<boolean>(false) },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => observableOf(selectedValues),
@@ -213,8 +221,9 @@ describe('SearchFacetFilterComponent', () => {
     it('should call navigate on the router with the right searchlink and parameters when the filter is provided with a valid operator', () => {
       comp.onSubmit(testValue + ',equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
-        queryParamsHandling: 'merge'
+        queryParams: jasmine.objectContaining({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }),
+        queryParamsHandling: 'merge',
+        fragment: 'prevent-scroll',
       });
     });
 

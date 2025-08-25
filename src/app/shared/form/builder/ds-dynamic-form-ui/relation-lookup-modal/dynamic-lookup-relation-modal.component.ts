@@ -24,11 +24,11 @@ import { Context } from '../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
-import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -155,16 +155,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   constructor(
     public modal: NgbActiveModal,
-    private selectableListService: SelectableListService,
-    private relationshipService: RelationshipDataService,
-    private relationshipTypeService: RelationshipTypeDataService,
-    private externalSourceService: ExternalSourceDataService,
-    private lookupRelationService: LookupRelationService,
-    private searchConfigService: SearchConfigurationService,
-    private rdbService: RemoteDataBuildService,
-    private zone: NgZone,
-    private store: Store<AppState>,
-    private router: Router,
+    protected selectableListService: SelectableListService,
+    protected relationshipService: RelationshipDataService,
+    protected relationshipTypeService: RelationshipTypeDataService,
+    protected externalSourceService: ExternalSourceDataService,
+    protected lookupRelationService: LookupRelationService,
+    protected searchConfigService: SearchConfigurationService,
+    protected rdbService: RemoteDataBuildService,
+    protected zone: NgZone,
+    protected store: Store<AppState>,
+    protected paginationService: PaginationService,
   ) {
 
   }
@@ -298,7 +298,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnDestroy() {
-    this.router.navigate([], {});
+    this.paginationService.clearPagination(this.searchConfigService.paginationID);
+    this.paginationService.updateRoute(this.searchConfigService.paginationID, undefined, undefined, true, {
+      queryParamsHandling: '',
+    });
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 
