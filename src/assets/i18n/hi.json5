@@ -547,15 +547,6 @@
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "संग्रह/समुदाय",
 
-  // "admin.access-control.epeople.form.table.remove": "Remove",
-  "admin.access-control.epeople.form.table.remove": "हटाएँ",
-
-  // "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Remove member from group \"{{name}}\"",
-  "admin.access-control.epeople.form.table.edit.buttons.removegroup": "समूह \"{{name}}\" से सदस्य हटाएँ",
-
-  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Successfully removed member from group \" {{name}} \"",
-  "admin.access-control.epeople.form.notification.success.deleteMembership": "सदस्य को समूह \"{{name}}\" से सफलतापूर्वक हटाया गया",
-
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "यह ई-व्यक्ति किसी भी समूह का सदस्य नहीं है",
 

@@ -539,15 +539,6 @@
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Kolekcija/Zajednica",
 
-  // "admin.access-control.epeople.form.table.remove": "Remove",
-  "admin.access-control.epeople.form.table.remove": "Ukloni",
-
-  // "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Remove member from group \"{{name}}\"",
-  "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Ukloni člana iz grupe \"{{name}}\"",
-
-  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Successfully removed member from group \" {{name}} \"",
-  "admin.access-control.epeople.form.notification.success.deleteMembership": "Član je uspešno uklonjen iz grupe \"{{name}}\"",
-
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Ovaj EPerson nije član nijedne grupe",
 

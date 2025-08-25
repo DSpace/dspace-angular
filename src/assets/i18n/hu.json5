@@ -559,15 +559,6 @@
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Gyűjtemény/Közösség",
 
-  // "admin.access-control.epeople.form.table.remove": "Remove",
-  "admin.access-control.epeople.form.table.remove": "Eltávolítás",
-
-  // "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Remove member from group \"{{name}}\"",
-  "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Tag eltávolítása a(z) \"{{name}}\" csoportból",
-
-  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Successfully removed member from group \" {{name}} \"",
-  "admin.access-control.epeople.form.notification.success.deleteMembership": "A tag sikeresen eltávolítva a(z) \"{{name}}\" csoportból",
-
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Ez az ESzemély egyetlen csoportnak sem tagja",
 

@@ -542,15 +542,6 @@
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Kolekce/Komunita",
 
-  // "admin.access-control.epeople.form.table.remove": "Remove",
-  "admin.access-control.epeople.form.table.remove": "Odstranit",
-
-  // "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Remove member from group \"{{name}}\"",
-  "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Odebrat člena ze skupiny \"{{name}}\"",
-
-  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Successfully removed member from group \" {{name}} \"",
-  "admin.access-control.epeople.form.notification.success.deleteMembership": "Člen byl úspěšně odebrán ze skupiny \"{{name}}\"",
-
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Tento uživatel není členem žádné skupiny",
 

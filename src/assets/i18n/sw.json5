@@ -696,15 +696,6 @@
   // TODO New key - Add a translation
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
 
-  // "admin.access-control.epeople.form.table.remove": "Remove",
-  "admin.access-control.epeople.form.table.remove": "Ondoa",
-
-  // "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Remove member from group \"{{name}}\"",
-  "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Ondoa mwanachama kutoka kikundi \"{{name}}\"",
-
-  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Successfully removed member from group \" {{name}} \"",
-  "admin.access-control.epeople.form.notification.success.deleteMembership": "Mwanachama ameondolewa kwa mafanikio kutoka kikundi \"{{name}}\"",
-
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   // TODO New key - Add a translation
   "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",

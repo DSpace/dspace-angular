@@ -696,15 +696,6 @@
   // TODO New key - Add a translation
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
 
-  // "admin.access-control.epeople.form.table.remove": "Remove",
-  "admin.access-control.epeople.form.table.remove": "削除",
-
-  // "admin.access-control.epeople.form.table.edit.buttons.removegroup": "Remove member from group \"{{name}}\"",
-  "admin.access-control.epeople.form.table.edit.buttons.removegroup": "グループ「{{name}}」からメンバーを削除",
-
-  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Successfully removed member from group \" {{name}} \"",
-  "admin.access-control.epeople.form.notification.success.deleteMembership": "メンバーがグループ「{{name}}」から正常に削除されました",
-
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   // TODO New key - Add a translation
   "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
