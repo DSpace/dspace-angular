@@ -323,9 +323,6 @@
   // "admin.registries.schema.fields.table.delete": "Delete selected",
   "admin.registries.schema.fields.table.delete": "Silme Seçildi",
 
-  // "admin.access-control.epeople.form.phone": "Phone",
-  "admin.access-control.epeople.form.phone": "Telefon",
-
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Alan",
 

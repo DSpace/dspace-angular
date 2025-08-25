@@ -323,9 +323,6 @@
   // TODO New key - Add a translation
   "admin.registries.metadata.form.namespace": "Namespace",
 
-  // "admin.access-control.epeople.form.phone": "Phone",
-  "admin.access-control.epeople.form.phone": "電話",
-
   // "admin.registries.metadata.head": "Metadata Registry",
   // TODO New key - Add a translation
   "admin.registries.metadata.head": "Metadata Registry",

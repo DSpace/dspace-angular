@@ -323,9 +323,6 @@
   // TODO New key - Add a translation
   "admin.registries.schema.fields.select": "Select",
 
-  // "admin.access-control.epeople.form.phone": "Phone",
-  "admin.access-control.epeople.form.phone": "Telefoon",
-
   // "admin.registries.schema.fields.deselect": "Deselect",
   // TODO New key - Add a translation
   "admin.registries.schema.fields.deselect": "Deselect",

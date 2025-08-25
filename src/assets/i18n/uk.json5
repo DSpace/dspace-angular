@@ -321,9 +321,6 @@
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
   "admin.registries.schema.fields.no-items": "Немає полів метаданих.",
 
-  // "admin.access-control.epeople.form.phone": "Phone",
-  "admin.access-control.epeople.form.phone": "Телефон",
-
   // "admin.registries.schema.fields.table.delete": "Delete selected",
   "admin.registries.schema.fields.table.delete": "Видалити виділене",
 

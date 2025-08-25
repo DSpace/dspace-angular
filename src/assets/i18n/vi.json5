@@ -320,9 +320,6 @@
   // "admin.registries.schema.form.create": "Create metadata field",
   "admin.registries.schema.form.create": "Tạo trường thông tin mô tả",
 
-  // "admin.access-control.epeople.form.phone": "Phone",
-  "admin.access-control.epeople.form.phone": "Điện thoại",
-
   // "admin.registries.schema.form.edit": "Edit metadata field",
   "admin.registries.schema.form.edit": "Chỉnh sửa trường thông tin mô tả",
 
