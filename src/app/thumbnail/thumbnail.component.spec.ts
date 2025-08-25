@@ -104,10 +104,15 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should set isLoading$ to false once an image is successfully loaded', () => {
+        comp.customDescription = undefined;
+        comp.setSrc('http://bit.stream');
+
         fixture.detectChanges();
         const img = fixture.debugElement.query(By.css('img.thumbnail-content'));
         expect(img).toBeTruthy();
+
         img.triggerEventHandler('load', new Event('load'));
+        expect(comp.isLoading()).toBeFalse();
       });
 
       it('should set isLoading$ to false once the src is set to null', () => {
