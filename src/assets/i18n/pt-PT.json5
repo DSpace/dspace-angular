@@ -11022,7 +11022,7 @@
 
   // "search.filters.access_status.unknown": "Unknown",
   "search.filters.access_status.unknown": "Desconhecido",
-  
+
   // "metadata-export-filtered-items.tooltip": "Export report output as CSV",
   "metadata-export-filtered-items.tooltip": "Exportar o resultado do relatório como CSV",
 
@@ -11045,7 +11045,7 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
-  
+
   // "community.form.thumbnail": "Thumbnail Description",
   "community.form.thumbnail": "Descrição do logotipo da comunidade",
 
