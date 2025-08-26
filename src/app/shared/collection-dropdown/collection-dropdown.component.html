@@ -27,7 +27,7 @@
   }
   @if (searchListCollection?.length > 0) {
     @for (listItem of searchListCollection; track listItem) {
-      <li
+      <button
         class="dropdown-item collection-item"
         role="menuitem"
         title="{{ listItem.collection.name }}"
@@ -40,7 +40,7 @@
           }
           <div class="list-item text-truncate text-primary fw-bold">{{ listItem.collection.name}}</div>
         </div>
-      </li>
+      </button>
     }
   }
   @if ((isLoading | async)) {
