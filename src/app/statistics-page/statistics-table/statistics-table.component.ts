@@ -4,7 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -41,9 +44,15 @@ export class StatisticsTableComponent implements OnInit {
    */
   headers: string[];
 
+  /**
+   * Object header label
+   */
+  objectHeaderLabel: string;
+
   constructor(
     protected dsoService: DSpaceObjectDataService,
     protected nameService: DSONameService,
+    protected translateService: TranslateService,
   ) {
 
   }
@@ -53,5 +62,14 @@ export class StatisticsTableComponent implements OnInit {
     if (this.hasData) {
       this.headers = Object.keys(this.report.points[0].values);
     }
+    this.objectHeaderLabel = this.getObjectHeaderLabel(this.report.reportType);
+  }
+
+  /**
+   * Defines a dynamic label for the object column
+   * @param reportType
+   */
+  getObjectHeaderLabel(reportType: string): string {
+    return this.translateService.instant('statistics.table.header.' + reportType);
   }
 }
