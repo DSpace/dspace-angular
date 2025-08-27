@@ -1,13 +1,15 @@
-<span class="badge badge-info">{{ "admin.workflow.item.workspace" | translate }}</span>
-<ds-listable-object-component-loader *ngIf="item$ | async"
-                                     [object]="item$ | async"
-                                     [viewMode]="viewModes.ListElement"
-                                     [index]="index"
-                                     [linkType]="linkType"
-                                     [listID]="listID"></ds-listable-object-component-loader>
+<span class="badge bg-info">{{ "admin.workflow.item.workspace" | translate }}</span>
+@if (item$ | async) {
+  <ds-listable-object-component-loader
+    [object]="item$ | async"
+    [viewMode]="viewModes.ListElement"
+    [index]="index"
+    [linkType]="linkType"
+  [listID]="listID"></ds-listable-object-component-loader>
+}
 
 <ds-workspace-item-admin-workflow-actions-element [small]="false"
-                                                  [supervisionOrderList]="supervisionOrder$ | async"
-                                                  [wsi]="dso"
-                                                  (create)="reloadObject($event)"
-                                                  (delete)="reloadObject($event)"></ds-workspace-item-admin-workflow-actions-element>
+  [supervisionOrderList]="supervisionOrder$ | async"
+  [wsi]="dso"
+  (create)="reloadObject($event)"
+(delete)="reloadObject($event)"></ds-workspace-item-admin-workflow-actions-element>

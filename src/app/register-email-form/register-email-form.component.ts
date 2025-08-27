@@ -1,29 +1,78 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
-import {NotificationsService} from '../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
-import {Router} from '@angular/router';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, ValidatorFn } from '@angular/forms';
-import {Registration} from '../core/shared/registration.model';
-import {RemoteData} from '../core/data/remote-data';
-import {ConfigurationDataService} from '../core/data/configuration-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import {ConfigurationProperty} from '../core/shared/configuration-property.model';
-import {isNotEmpty} from '../shared/empty.util';
-import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
-import {map, startWith, take} from 'rxjs/operators';
-import {CAPTCHA_NAME, GoogleRecaptchaService} from '../core/google-recaptcha/google-recaptcha.service';
-import {AlertType} from '../shared/alert/alert-type';
-import {KlaroService} from '../shared/cookies/klaro.service';
-import {CookieService} from '../core/services/cookie.service';
-import { Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+  switchMap,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  take,
+} from 'rxjs/operators';
+
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
+import { RemoteData } from '../core/data/remote-data';
+import {
+  CAPTCHA_NAME,
+  GoogleRecaptchaService,
+} from '../core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '../core/services/cookie.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '../core/shared/operators';
+import { Registration } from '../core/shared/registration.model';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { AlertType } from '../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
+import { OrejimeService } from '../shared/cookies/orejime.service';
+import { isNotEmpty } from '../shared/empty.util';
+import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
-  selector: 'ds-register-email-form',
-  templateUrl: './register-email-form.component.html'
+  selector: 'ds-base-register-email-form',
+  templateUrl: './register-email-form.component.html',
+  standalone: true,
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    GoogleRecaptchaComponent,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component responsible to render an email registration form.
@@ -66,13 +115,9 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
 
   subscriptions: Subscription[] = [];
 
-  captchaVersion(): Observable<string> {
-    return this.googleRecaptchaService.captchaVersion();
-  }
+  captchaVersion$: Observable<string>;
 
-  captchaMode(): Observable<string> {
-    return this.googleRecaptchaService.captchaMode();
-  }
+  captchaMode$: Observable<string>;
 
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
@@ -83,7 +128,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     private configService: ConfigurationDataService,
     public googleRecaptchaService: GoogleRecaptchaService,
     public cookieService: CookieService,
-    @Optional() public klaroService: KlaroService,
+    @Optional() public orejimeService: OrejimeService,
     private changeDetectorRef: ChangeDetectorRef,
     private notificationsService: NotificationsService,
   ) {
@@ -94,17 +139,19 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this.captchaVersion$ = this.googleRecaptchaService.captchaVersion();
+    this.captchaMode$ = this.googleRecaptchaService.captchaMode();
     const validators: ValidatorFn[] = [
       Validators.required,
       Validators.email,
       // Regex pattern borrowed from HTML5 specs for a valid email address:
       // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
-      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
+      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'),
     ];
     this.form = this.formBuilder.group({
       email: new UntypedFormControl('', {
         validators: validators,
-      })
+      }),
     });
     this.validMailDomains = [];
     if (this.typeRequest === TYPE_REQUEST_REGISTER) {
@@ -126,7 +173,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     }
     this.subscriptions.push(this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true'),
     ).subscribe((res: boolean) => {
       this.registrationVerification = res;
     }));
@@ -150,7 +197,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   register(tokenV2?) {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
-        this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
+        this.subscriptions.push(combineLatest([this.captchaVersion$, this.captchaMode$]).pipe(
           switchMap(([captchaVersion, captchaMode])  => {
             if (captchaVersion === 'v3') {
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
@@ -165,13 +212,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
           }),
           take(1),
         ).subscribe((token) => {
-            if (isNotEmpty(token)) {
-              this.registration(token);
-            } else {
-              console.error('reCaptcha error');
-              this.showNotification('error');
-            }
+          if (isNotEmpty(token)) {
+            this.registration(token);
+          } else {
+            console.error('reCaptcha error');
+            this.showNotification('error');
           }
+        },
         ));
       } else {
         this.registration();
@@ -183,19 +230,19 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Registration of an email address
    */
   registration(captchaToken = null) {
-    let registerEmail$ = captchaToken ?
+    const registerEmail$ = captchaToken ?
       this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, this.typeRequest) :
       this.epersonRegistrationService.registerEmail(this.email.value, null, this.typeRequest);
     this.subscriptions.push(registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
-          this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
+          this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, { email: this.email.value }));
         this.router.navigate(['/home']);
-        } else if (response.statusCode === 422) {
-        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, {domains: this.validMailDomains.join(', ')}));
+      } else if (response.statusCode === 422) {
+        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, { domains: this.validMailDomains.join(', ') }));
       } else {
         this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
-          this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
+          this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, { email: this.email.value }));
       }
     }));
   }
@@ -204,8 +251,8 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Return true if the user has accepted the required cookies for reCaptcha
    */
   isRecaptchaCookieAccepted(): boolean {
-    const klaroAnonymousCookie = this.cookieService.get('klaro-anonymous');
-    return isNotEmpty(klaroAnonymousCookie) ? klaroAnonymousCookie[CAPTCHA_NAME] : false;
+    const orejimeAnonymousCookie = this.cookieService.get('orejime-anonymous');
+    return isNotEmpty(orejimeAnonymousCookie) ? orejimeAnonymousCookie[CAPTCHA_NAME] : false;
   }
 
   /**
@@ -213,7 +260,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    */
   disableUntilCheckedFcn(): Observable<boolean> {
     const checked$ = this.checkboxCheckedSubject$.asObservable();
-    return combineLatest([this.captchaVersion(), this.captchaMode(), checked$]).pipe(
+    return combineLatest([this.captchaVersion$, this.captchaMode$, checked$]).pipe(
       // disable if checkbox is not checked or if reCaptcha is not in v2 checkbox mode
       switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
       startWith(true),
@@ -247,5 +294,4 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
         console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
     }
   }
-
 }

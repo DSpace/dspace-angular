@@ -1,0 +1,168 @@
+<div class="container-fluid">
+  @if (patterns?.length > 0 ) {
+    @for (ldnPattern of patterns; track ldnPattern; let i = $index) {
+      <div class="col">
+        @if ((filterServices(ldnPattern.pattern ) | async)?.length > 0) {
+          <div>
+            <label class="row col-form-label">
+              {{'submission.section.section-coar-notify.control.' + ldnPattern.pattern + '.label' | translate }}
+              </label
+              >
+              @if (ldnServiceByPattern[ldnPattern.pattern]?.services.length) {
+                <div>
+                  @for (
+                    service of ldnServiceByPattern[ldnPattern.pattern].services; track
+                    service; let serviceIndex = $index) {
+                    <div
+                      >
+                      <div class="row">
+                        <div ngbDropdown #myDropdown="ngbDropdown" [class.mt-2]="serviceIndex > 0" class="flex-grow-1">
+                          <div class="position-relative right-addon"
+                            [attr.aria-label]="ldnPattern.pattern + '.dropdown'">
+                            <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+                            aria-hidden="true"></i>
+                            <input
+                              [attr.aria-label]="ldnPattern.pattern+'.dropdownanchor'"
+                              type="text"
+                              [readonly]="true"
+                              [ngClass]="{'border-danger': (getShownSectionErrors$(ldnPattern.pattern, serviceIndex) | async)?.length > 0}"
+                              class="form-control w-100 scrollable-dropdown-input"
+                              [value]="ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]?.name"
+                              (click)="myDropdown.open()"
+                              />
+                          </div>
+                          <div
+                            ngbDropdownMenu
+                            class="dropdown-menu scrollable-dropdown-menu w-100"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            >
+                            <div
+                              class="scrollable-menu"
+                              role="listbox"
+                              infiniteScroll
+                              [infiniteScrollDistance]="2"
+                              [infiniteScrollThrottle]="50"
+                              [scrollWindow]="false"
+                              >
+                              @if ((filterServices(ldnPattern.pattern) | async)?.length === 0) {
+                                <button
+                                  class="dropdown-item collection-item text-truncate w-100"
+                                  >
+                                  {{'submission.section.section-coar-notify.dropdown.no-data' | translate}}
+                                </button>
+                              }
+                              @if ((filterServices(ldnPattern.pattern ) | async)?.length > 0) {
+                                <button
+                                  class="dropdown-item collection-item text-truncate w-100"
+                                  (click)="onChange(ldnPattern.pattern, serviceIndex, null)"
+                                  >
+                                  {{'submission.section.section-coar-notify.dropdown.select-none' | translate}}
+                                </button>
+                              }
+                              @for (serviceOption of filterServices(ldnPattern.pattern ) | async; track serviceOption) {
+                                <button
+                                  [ngClass]="{'bg-light': ldnServiceByPattern[ldnPattern.pattern ].services[serviceIndex]?.id === serviceOption.id}"
+                                  class="dropdown-item collection-item text-truncate w-100"
+                                  (click)="onChange(ldnPattern.pattern, serviceIndex, serviceOption)"
+                                  >
+                                  <b>
+                                    {{ serviceOption.name }}
+                                  </b>
+                                  <br />
+                                  {{ serviceOption.description }}
+                                </button>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                        @if (ldnServiceByPattern[ldnPattern.pattern].services.length > 1) {
+                          <button
+                            type="button" [class.mt-2]="serviceIndex > 0"
+                            class="btn btn-secondary ms-2"
+                            role="button"
+                            title="{{'form.remove' | translate}}"
+                            [attr.aria-label]="'form.remove' | translate"
+                            (click)="removeService(ldnPattern, serviceIndex)"
+                            >
+                            <span><i class="fas fa-trash" aria-hidden="true"></i></span>
+                          </button>
+                        }
+                      </div>
+                      @if (!ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex] &&
+                        serviceIndex === ldnServiceByPattern[ldnPattern.pattern].services.length -1) {
+                        <small
+                          class="row text-muted"
+                          >
+                          {{'submission.section.section-coar-notify.small.notification' | translate : {pattern : ldnPattern.pattern} }}
+                        </small>
+                      }
+                      @if ((getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)?.length > 0) {
+                        @for (error of (getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async); track error) {
+                          <small class="row text-danger">
+                            {{ error.message | translate}}
+                          </small>
+                        }
+                      }
+                      @if (ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]) {
+                        <div
+                          class="row mt-1"
+                          >
+                          <div
+                            class="alert alert-info w-100 d-flex align-items-center flex-row"
+                            >
+                            <i class="fa-solid fa-circle-info fa-xl ms-2"></i>
+                            <div class="ms-4">
+                              <div>{{ 'submission.section.section-coar-notify.selection.description' | translate }}</div>
+                              @if (ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]?.description) {
+                                <div>
+                                  {{ ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex].description }}
+                                </div>
+                              } @else {
+                                <span class="text-muted">
+                                  {{ 'submission.section.section-coar-notify.selection.no-description' | translate }}
+                                </span>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      }
+                      @if ((getShownSectionErrors$(ldnPattern.pattern, serviceIndex) | async)?.length > 0) {
+                        <div class="row">
+                          <div
+                            class="alert alert-danger w-100 d-flex align-items-center flex-row"
+                            >
+                            <div class="ms-4">
+                              <span>
+                                {{ 'submission.section.section-coar-notify.notification.error' | translate }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                      <div class="row">
+                        @if (ldnPattern.multipleRequest && (serviceIndex === ldnServiceByPattern[ldnPattern.pattern].services.length - 1)) {
+                          <div
+                            (click)="addNewService(ldnPattern)"
+                            class="btn btn-link mt-2 ps-0"
+                            >
+                            <i class="fas fa-plus"></i>
+                            {{ 'submission.sections.general.add-more' | translate }}
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    }
+    @if (!hasSectionData) {
+      <p>
+        {{ 'submission.section.section-coar-notify.info.no-pattern' | translate }}
+      </p>
+    }
+  </div>

@@ -1,12 +1,16 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { StatisticsTableComponent } from './statistics-table.component';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { StatisticsTableComponent } from './statistics-table.component';
 
 describe('StatisticsTableComponent', () => {
 
@@ -18,8 +22,6 @@ describe('StatisticsTableComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         StatisticsTableComponent,
       ],
       providers: [
@@ -27,7 +29,7 @@ describe('StatisticsTableComponent', () => {
         { provide: DSONameService, useValue: {} },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -69,8 +71,8 @@ describe('StatisticsTableComponent', () => {
               views: 8,
               downloads: 8,
             },
-          }
-        ]
+          },
+        ],
       });
       component.ngOnInit();
       fixture.detectChanges();
@@ -81,9 +83,9 @@ describe('StatisticsTableComponent', () => {
       expect(de.query(By.css('table'))).toBeTruthy();
 
       expect(de.query(By.css('th.views-header')).nativeElement.innerText)
-        .toEqual('views');
+        .toEqual('statistics.table.header.views');
       expect(de.query(By.css('th.downloads-header')).nativeElement.innerText)
-        .toEqual('downloads');
+        .toEqual('statistics.table.header.downloads');
 
       expect(de.query(By.css('td.item_1-views-data')).nativeElement.innerText)
         .toEqual('7');

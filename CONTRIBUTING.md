@@ -10,7 +10,7 @@ DSpace is a community built and supported project. We do not have a centralized 
 ## Contribute new code via a Pull Request
 
 We accept [GitHub Pull Requests (PRs)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) at any time from anyone.
-Contributors to each release are recognized in our [Release Notes](https://wiki.lyrasis.org/display/DSDOC7x/Release+Notes).
+Contributors to each release are recognized in our [Release Notes](https://wiki.lyrasis.org/display/DSDOC8x/Release+Notes).
 
 Code Contribution Checklist
 - [ ] PRs _should_ be smaller in size (ideally less than 1,000 lines of code, not including comments & tests)
@@ -18,6 +18,9 @@ Code Contribution Checklist
 - [ ] PRs **must** not introduce circular dependencies (verified via `yarn check-circ-deps`)
 - [ ] PRs **must** include [TypeDoc](https://typedoc.org/) comments for _all new (or modified) public methods and classes_. Large or complex private methods should also have TypeDoc.
 - [ ] PRs **must** pass all automated pecs/tests and includes new/updated specs or tests based on the [Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide).
+- [ ] User interface changes **must** align with [Accessibility guidelines](https://wiki.lyrasis.org/display/DSDOC8x/Accessibility)
+- [ ] PRs **must** use i18n (internationalization) keys instead of hardcoded English text, to allow for translations.
+- [ ] Details on how to test the PR **must** be provided. Reviewers must be aware of any steps they need to take to successfully test your fix or feature.
 - [ ] If a PR includes new libraries/dependencies (in `package.json`), then their software licenses **must** align with the [DSpace BSD License](https://github.com/DSpace/dspace-angular/blob/main/LICENSE) based on the [Licensing of Contributions](https://wiki.lyrasis.org/display/DSPACE/Code+Contribution+Guidelines#CodeContributionGuidelines-LicensingofContributions) documentation.
 - [ ] Basic technical documentation _should_ be provided for any new features or configuration, either in the PR itself or in the DSpace Wiki documentation.
 - [ ] If a PR fixes an issue ticket, please [link them together](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue).
@@ -26,7 +29,7 @@ Additional details on the code contribution process can be found in our [Code Co
 
 ## Contribute documentation
 
-DSpace Documentation is a collaborative effort in a shared Wiki. The latest documentation is at https://wiki.lyrasis.org/display/DSDOC7x 
+DSpace Documentation is a collaborative effort in a shared Wiki. The latest documentation is at https://wiki.lyrasis.org/display/DSDOC
 
 If you find areas of the DSpace Documentation which you wish to improve, please request a Wiki account by emailing wikihelp@lyrasis.org.
 Once you have an account setup, contact @tdonohue (via [Slack](https://wiki.lyrasis.org/display/DSPACE/Slack) or email) for access to edit our Documentation.
@@ -34,7 +37,7 @@ Once you have an account setup, contact @tdonohue (via [Slack](https://wiki.lyra
 ## Help others on mailing lists or Slack
 
 DSpace has our own [Slack](https://wiki.lyrasis.org/display/DSPACE/Slack) community and [Mailing Lists](https://wiki.lyrasis.org/display/DSPACE/Mailing+Lists) where discussions take place and questions are answered.
-Anyone is welcome to join and help others. We just ask you to follow our [Code of Conduct](https://www.lyrasis.org/about/Pages/Code-of-Conduct.aspx) (adopted via LYRASIS).
+Anyone is welcome to join and help others. We just ask you to follow our [Code of Conduct](https://www.lyrasis.org/about/Pages/Code-of-Conduct.aspx) (adopted via Lyrasis).
 
 ## Join a working or interest group
 
@@ -42,5 +45,5 @@ Most of the work in building/improving DSpace comes via [Working Groups](https:/
 
 All working/interest groups are open to anyone to join and participate.  A few key groups to be aware of include:
 
-* [DSpace 7 Working Group](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+Working+Group) - This is the main (mostly volunteer) development team. We meet weekly to review our current development [project board](https://github.com/orgs/DSpace/projects), assigning tickets and/or PRs.
-* [DSpace Community Advisory Team (DCAT)](https://wiki.lyrasis.org/display/cmtygp/DSpace+Community+Advisory+Team) - This is an interest group for repository managers/administrators. We meet monthly to discuss DSpace, share tips & provide feedback back to developers.
+* [DSpace Developer Team](https://wiki.lyrasis.org/display/DSPACE/Developer+Meetings) - This is the primary, volunteer development team. We meet weekly to review our current development [project board](https://github.com/orgs/DSpace/projects), assigning tickets and/or PRs. This is also were discussions of the next release or major issues occur. Anyone is welcome to attend.
+* [DSpace Community Advisory Team (DCAT)](https://wiki.lyrasis.org/display/cmtygp/DSpace+Community+Advisory+Team) - This is an interest group for repository managers/administrators. We meet monthly to discuss DSpace, share tips & provide feedback back to developers. Anyone is welcome to attend.

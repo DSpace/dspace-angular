@@ -1,11 +1,22 @@
-import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { MetadataFieldDataService } from '../../../core/data/metadata-field-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ValidationSuggestionsComponent } from './validation-suggestions.component';
@@ -18,21 +29,20 @@ describe('ValidationSuggestionsComponent', () => {
   let el: HTMLElement;
   const suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
     displayValue: 'suggestion dos',
-    value: 'suggestion dos'
+    value: 'suggestion dos',
   }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule],
-      declarations: [ValidationSuggestionsComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule, ValidationSuggestionsComponent],
       providers: [FormsModule,
         ReactiveFormsModule,
         { provide: MetadataFieldDataService, useValue: {} },
         { provide: ObjectUpdatesService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ValidationSuggestionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

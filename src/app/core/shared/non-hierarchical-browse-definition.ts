@@ -1,7 +1,12 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { SortOption } from './sort-option.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-decorator';
+import {
+  autoserialize,
+  autoserializeAs,
+  inheritSerialization,
+} from 'cerialize';
+
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { BrowseDefinition } from './browse-definition.model';
+import { SortOption } from './sort-option.model';
 
 /**
  * Super class for NonHierarchicalBrowseDefinition models,
@@ -15,9 +20,6 @@ export abstract class NonHierarchicalBrowseDefinition extends BrowseDefinition {
 
   @autoserializeAs('order')
   defaultSortOrder: string;
-
-  @autoserializeAs('metadata')
-  metadataKeys: string[];
 
   @autoserialize
   dataType: BrowseByDataType;

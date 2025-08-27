@@ -1,24 +1,36 @@
 import { Injectable } from '@angular/core';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
-import { SUBMISSION_CC_LICENSE_URL } from './models/submission-cc-licence-link.resource-type';
-import { Field, Option, SubmissionCcLicence } from './models/submission-cc-license.model';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
-import { BaseDataService } from '../data/base/base-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list.model';
-import { dataService } from '../data/base/data-service.decorator';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-@Injectable()
-@dataService(SUBMISSION_CC_LICENSE_URL)
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { BaseDataService } from '../data/base/base-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import {
+  Field,
+  Option,
+  SubmissionCcLicence,
+} from './models/submission-cc-license.model';
+import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
+
+@Injectable({ providedIn: 'root' })
 export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {
   private searchData: SearchDataImpl<SubmissionCcLicenceUrl>;
 
@@ -43,19 +55,10 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
     return this.searchData.getSearchByHref(
       'rightsByQuestions',{
         searchParams: [
-          {
-            fieldName: 'license',
-            fieldValue: ccLicense.id
-          },
-          ...ccLicense.fields.map(
-            (field) => {
-              return {
-                fieldName: `answer_${field.id}`,
-                fieldValue: options.get(field).id,
-              };
-            }),
-        ]
-      }
+          new RequestParam('license', ccLicense.id),
+          ...ccLicense.fields.map((field: Field) => new RequestParam(`answer_${field.id}`, options.get(field).id)),
+        ],
+      },
     ).pipe(
       switchMap((href) => this.findByHref(href)),
       getFirstSucceededRemoteData(),

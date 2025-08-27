@@ -1,10 +1,17 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { SidebarService } from './sidebar.service';
+import { of } from 'rxjs';
+
 import { AppState } from '../../app.reducer';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { SidebarCollapseAction, SidebarExpandAction } from './sidebar.actions';
 import { HostWindowService } from '../host-window.service';
+import {
+  SidebarCollapseAction,
+  SidebarExpandAction,
+} from './sidebar.actions';
+import { SidebarService } from './sidebar.service';
 
 describe('SidebarService', () => {
   let service: SidebarService;
@@ -12,25 +19,25 @@ describe('SidebarService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    pipe: observableOf(true)
+    pipe: of(true),
   });
   const windowService = jasmine.createSpyObj('hostWindowService',
     {
-      isXs: observableOf(true),
-      isSm: observableOf(false),
-      isXsOrSm: observableOf(true)
+      isXs: of(true),
+      isSm: of(false),
+      isXsOrSm: of(true),
     });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [
         {
-          provide: Store, useValue: store
+          provide: Store, useValue: store,
         },
         {
-          provide: HostWindowService, useValue: windowService
+          provide: HostWindowService, useValue: windowService,
         },
-      ]
+      ],
     }).compileComponents();
   }));
 

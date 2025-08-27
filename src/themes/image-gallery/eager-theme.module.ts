@@ -1,18 +1,11 @@
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CommunityPageModule } from '../../app/community-page/community-page.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
+
 import { RootModule } from '../../app/root.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ComcolModule } from '../../app/shared/comcol/comcol.module';
-import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { SharedModule } from '../../app/shared/shared.module';
-import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
-import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityPageComponent } from './app/community-page/community-page.component';
+import { ComcolPageBrowseByComponent } from './app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 import { ItemGridElementComponent } from './app/shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { ItemSearchResultGridElementComponent } from './app/shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 
@@ -20,35 +13,26 @@ import { ItemSearchResultGridElementComponent } from './app/shared/object-grid/s
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
  */
-const ENTRY_COMPONENTS = [
-  CollectionPageComponent,
-  CommunityPageComponent,
-];
+const ENTRY_COMPONENTS = [];
 
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
-  CommunityListComponent,
+  CollectionPageComponent,
+  ComcolPageBrowseByComponent,
+  CommunityPageComponent,
   ItemGridElementComponent,
   ItemSearchResultGridElementComponent,
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    SharedModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
-    RootModule,
-    NavbarModule,
-    ComcolModule,
-    DsoPageModule,
-    StatisticsModule,
-    CommunityPageModule,
     CdkTreeModule,
+    CommonModule,
+    RootModule,
+    ...DECLARATIONS,
   ],
-  declarations: DECLARATIONS,
   providers: [
-    ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
+    ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
   ],
 })
 /**

@@ -1,4 +1,8 @@
-import { AddUrlToHistoryAction, HistoryAction, HistoryActionTypes } from './history.actions';
+import {
+  AddUrlToHistoryAction,
+  HistoryAction,
+  HistoryActionTypes,
+} from './history.actions';
 
 /**
  * The auth state.

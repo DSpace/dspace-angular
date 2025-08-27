@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 
 /**
  * Component which represent a DSpace dropdown selector.
@@ -6,7 +16,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'ds-select',
   templateUrl: './ds-select.component.html',
-  styleUrls: ['./ds-select.component.scss']
+  styleUrls: ['./ds-select.component.scss'],
+  standalone: true,
+  imports: [
+    BtnDisabledDirective,
+    NgbDropdownModule,
+    TranslateModule,
+  ],
 })
 export class DsSelectComponent {
 

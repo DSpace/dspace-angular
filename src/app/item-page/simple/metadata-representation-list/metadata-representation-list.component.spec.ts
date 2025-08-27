@@ -1,18 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { Item } from '../../../core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { of as observableOf } from 'rxjs';
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import { of } from 'rxjs';
+
+import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
 import { BrowseDefinitionDataServiceStub } from '../../../shared/testing/browse-definition-data-service.stub';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
 
 const itemType = 'Person';
 const metadataFields = ['dc.contributor.author', 'dc.creator'];
@@ -24,13 +35,13 @@ const parentItem: Item = Object.assign(new Item(), {
         language: null,
         value: 'Related Author with authority',
         authority: 'virtual::related-author',
-        place: 2
+        place: 2,
       },
       {
         language: null,
         value: 'Author without authority',
-        place: 1
-      }
+        place: 1,
+      },
     ],
     'dc.creator': [
       {
@@ -49,10 +60,10 @@ const parentItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'Parent Item'
-      }
-    ]
-  }
+        value: 'Parent Item',
+      },
+    ],
+  },
 });
 const relatedAuthor: Item = Object.assign(new Item(), {
   id: 'related-author',
@@ -60,10 +71,10 @@ const relatedAuthor: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'Related Author'
-      }
-    ]
-  }
+        value: 'Related Author',
+      },
+    ],
+  },
 });
 const relatedCreator: Item = Object.assign(new Item(), {
   id: 'related-creator',
@@ -71,11 +82,11 @@ const relatedCreator: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'Related Creator'
-      }
+        value: 'Related Creator',
+      },
     ],
     'dspace.entity.type': 'Person',
-  }
+  },
 });
 
 describe('MetadataRepresentationListComponent', () => {
@@ -88,30 +99,30 @@ describe('MetadataRepresentationListComponent', () => {
     relationshipService = {
       resolveMetadataRepresentation: (metadatum: MetadataValue, parent: DSpaceObject, type: string) => {
         if (metadatum.value === 'Related Author with authority') {
-          return observableOf(Object.assign(new ItemMetadataRepresentation(metadatum), relatedAuthor));
+          return of(Object.assign(new ItemMetadataRepresentation(metadatum), relatedAuthor));
         }
         if (metadatum.value === 'Author without authority') {
-          return observableOf(Object.assign(new MetadatumRepresentation(type), metadatum));
+          return of(Object.assign(new MetadatumRepresentation(type), metadatum));
         }
         if (metadatum.value === 'Related Creator with authority') {
-          return observableOf(Object.assign(new ItemMetadataRepresentation(metadatum), relatedCreator));
+          return of(Object.assign(new ItemMetadataRepresentation(metadatum), relatedCreator));
         }
         if (metadatum.value === 'Related Creator with authority - unauthorized') {
-          return observableOf(Object.assign(new MetadatumRepresentation(type), metadatum));
+          return of(Object.assign(new MetadatumRepresentation(type), metadatum));
         }
       },
     };
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [MetadataRepresentationListComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), MetadataRepresentationListComponent, VarDirective],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRepresentationListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [MetadataFieldWrapperComponent, MetadataRepresentationLoaderComponent, ThemedLoadingComponent] },
     }).compileComponents();
   }));
 
@@ -146,7 +157,7 @@ describe('MetadataRepresentationListComponent', () => {
   describe('when decrease is called', () => {
     beforeEach(() => {
       // Add a second page
-      comp.objects.push(observableOf(undefined));
+      comp.objects.push(of(undefined));
       comp.decrease();
     });
 

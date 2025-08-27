@@ -1,44 +1,64 @@
 /* eslint-disable max-classes-per-file */
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { Injectable, OnDestroy } from '@angular/core';
-import { map, switchMap, take } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Angulartics2 } from 'angulartics2';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  skipWhile,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
+import { FacetValues } from '../../../shared/search/models/facet-values.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { SearchObjects } from '../../../shared/search/models/search-objects.model';
+import { SearchResult } from '../../../shared/search/models/search-result.model';
+import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { BaseDataService } from '../../data/base/base-data.service';
+import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
+import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
 import { GetRequest } from '../../data/request.models';
 import { RequestService } from '../../data/request.service';
+import { RestRequest } from '../../data/rest-request.model';
+import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
+import { PaginationService } from '../../pagination/pagination.service';
+import { RouteService } from '../../services/route.service';
+import { URLCombiner } from '../../url-combiner/url-combiner';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
-import { URLCombiner } from '../../url-combiner/url-combiner';
-import { hasValue, hasValueOperator, isNotEmpty } from '../../../shared/empty.util';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
-import { SearchObjects } from '../../../shared/search/models/search-objects.model';
-import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../operators';
 import { ViewMode } from '../view-mode.model';
-import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../operators';
-import { RouteService } from '../../services/route.service';
-import { SearchResult } from '../../../shared/search/models/search-result.model';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { FacetValues } from '../../../shared/search/models/facet-values.model';
-import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { RestRequest } from '../../data/rest-request.model';
-import { BaseDataService } from '../../data/base/base-data.service';
-import { Angulartics2 } from 'angulartics2';
 
 /**
  * A limited data service implementation for the 'discover' endpoint
  * - Overrides {@link BaseDataService.addEmbedParams} in order to make it public
  *
  * Doesn't use any of the service's dependencies, they are initialized as undefined
- * Therefore, equest/response handling methods won't work even though they're defined
+ * Therefore, request/response handling methods won't work even though they're defined
  */
 class SearchDataService extends BaseDataService<any> {
   constructor() {
@@ -59,8 +79,8 @@ class SearchDataService extends BaseDataService<any> {
 /**
  * Service that performs all general actions that have to do with the search page
  */
-@Injectable()
-export class SearchService implements OnDestroy {
+@Injectable({ providedIn: 'root' })
+export class SearchService {
 
   /**
    * Endpoint link path for retrieving general search results
@@ -78,14 +98,11 @@ export class SearchService implements OnDestroy {
   private request: GenericConstructor<RestRequest> = GetRequest;
 
   /**
-   * Subscription to unsubscribe from
-   */
-  private sub;
-
-  /**
    * Instance of SearchDataService to forward data service methods to
    */
   private searchDataService: SearchDataService;
+
+  public appliedFilters$: BehaviorSubject<AppliedFilter[]> = new BehaviorSubject([]);
 
   constructor(
     private routeService: RouteService,
@@ -98,6 +115,18 @@ export class SearchService implements OnDestroy {
     private angulartics2: Angulartics2,
   ) {
     this.searchDataService = new SearchDataService();
+  }
+
+  /**
+   * Get the currently {@link AppliedFilter}s for the given filter.
+   *
+   * @param filterName The name of the filter
+   */
+  getSelectedValuesForFilter(filterName: string): Observable<AppliedFilter[]> {
+    return this.appliedFilters$.pipe(
+      map((appliedFilters: AppliedFilter[]) => appliedFilters.filter((appliedFilter: AppliedFilter) => appliedFilter.filter === filterName)),
+      distinctUntilChanged((previous: AppliedFilter[], next: AppliedFilter[]) => JSON.stringify(previous) === JSON.stringify(next)),
+    );
   }
 
   /**
@@ -122,7 +151,7 @@ export class SearchService implements OnDestroy {
         } else {
           return url;
         }
-      })
+      }),
     );
   }
 
@@ -140,6 +169,7 @@ export class SearchService implements OnDestroy {
   search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
     const href$ = this.getEndpoint(searchOptions);
 
+    let startTime: number;
     href$.pipe(
       take(1),
       map((href: string) => {
@@ -149,7 +179,7 @@ export class SearchService implements OnDestroy {
         } else {
           return href;
         }
-      })
+      }),
     ).subscribe((url: string) => {
       const request = new this.request(this.requestService.generateRequestId(), url);
 
@@ -160,39 +190,31 @@ export class SearchService implements OnDestroy {
       Object.assign(request, {
         responseMsToLive: hasValue(responseMsToLive) ? responseMsToLive : request.responseMsToLive,
         getResponseParser: getResponseParserFn,
-        searchOptions: searchOptions
+        searchOptions: searchOptions,
       });
 
+      startTime = new Date().getTime();
       this.requestService.send(request, useCachedVersionIfAvailable);
     });
 
     const sqr$ = href$.pipe(
-      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href))
+      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href)),
     );
 
-    return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
-  /**
-   * Method to retrieve request entries for search results from the server
-   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
-   * @returns {Observable<RemoteData<SearchObjects<T>>>} Emits a paginated list with all search results found
-   */
-  searchEntries<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<SearchObjects<T>>> {
-    const href$ = this.getEndpoint(searchOptions);
-
-    const sqr$ = href$.pipe(
-      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href))
+    return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<SearchObjects<T>>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
     );
-
-    return this.directlyAttachIndexableObjects(sqr$);
   }
 
   /**
    * Method to directly attach the indexableObjects to search results, instead of using RemoteData.
    * For compatibility with the way the search was written originally
    *
-   * @param sqr$:                       a SearchObjects RemotaData Observable without its
+   * @param sqr$                        A {@link SearchObjects} {@link RemoteData} Observable without its
    *                                    indexableObjects attached
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
@@ -221,10 +243,10 @@ export class SearchService implements OnDestroy {
 
                 // Attach the payload directly to the indexableObject property on the result
                 return Object.assign(new resultConstructor(), result, {
-                  indexableObject
+                  indexableObject,
                 }) as SearchResult<T>;
               }),
-            )
+            ),
           );
 
           // Swap the original page in the remoteData with the new one, now that the results have the
@@ -233,7 +255,7 @@ export class SearchService implements OnDestroy {
             map((page: SearchResult<T>[]) => {
 
               const payload = Object.assign(new SearchObjects(), resultsRd.payload, {
-                page
+                page,
               }) as SearchObjects<T>;
 
               return new RemoteData(
@@ -245,13 +267,13 @@ export class SearchService implements OnDestroy {
                 payload,
                 resultsRd.statusCode,
               );
-            })
+            }),
           );
         }
         // If we don't have a payload, or the page is empty, simply pass on the unmodified
         // RemoteData object
         return [resultsRd];
-      })
+      }),
     );
   }
 
@@ -276,8 +298,8 @@ export class SearchService implements OnDestroy {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
         pagination: Object.assign({}, searchOptions.pagination, {
           currentPage: valuePage,
-          pageSize: filterConfig.pageSize
-        })
+          pageSize: filterConfig.pageSize,
+        }),
       });
       href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
     } else {
@@ -289,11 +311,29 @@ export class SearchService implements OnDestroy {
     request = Object.assign(request, {
       getResponseParser(): GenericConstructor<ResponseParsingService> {
         return FacetValueResponseParsingService;
-      }
+      },
     });
+    const startTime = new Date().getTime();
     this.requestService.send(request, useCachedVersionIfAvailable);
 
-    return this.rdb.buildFromHref(href);
+    return this.rdb.buildFromHref(href).pipe(
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<FacetValues>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
+      tap((facetValuesRD: RemoteData<FacetValues>) => {
+        if (facetValuesRD.hasSucceeded) {
+          const appliedFilters: AppliedFilter[] = (facetValuesRD.payload.appliedFilters ?? [])
+            .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
+            // TODO this should ideally be fixed in the backend
+            .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
+              operator: hasValue(appliedFilter.value.match(/\[\s*(\*|\d+)\s*TO\s*(\*|\d+)\s*]/)) ? 'range' : appliedFilter.operator,
+            }));
+          this.appliedFilters$.next(appliedFilters);
+        }
+      }),
+    );
   }
 
   /**
@@ -330,7 +370,7 @@ export class SearchService implements OnDestroy {
   }
 
   /**
-   * Send search event to rest api using angularitics
+   * Send search event to rest api using angulartics2
    * @param config              Paginated search options used
    * @param searchQueryResponse The response objects of the performed search
    * @param clickedObject       Optional UUID of an object a search was performed and clicked for
@@ -342,7 +382,7 @@ export class SearchService implements OnDestroy {
       const appliedFilter = appliedFilters[i];
       filters.push(appliedFilter);
     }
-    this.angulartics2.eventTrack.next({
+    const searchTrackObject = {
       action: 'search',
       properties: {
         searchOptions: config,
@@ -354,12 +394,14 @@ export class SearchService implements OnDestroy {
         },
         sort: {
           by: config.sort.field,
-          order: config.sort.direction
+          order: config.sort.direction,
         },
         filters: filters,
         clickedObject,
       },
-    });
+    };
+
+    this.angulartics2.eventTrack.next(searchTrackObject);
   }
 
   /**
@@ -369,12 +411,4 @@ export class SearchService implements OnDestroy {
     return '/search';
   }
 
-  /**
-   * Unsubscribe from the subscription
-   */
-  ngOnDestroy(): void {
-    if (this.sub !== undefined) {
-      this.sub.unsubscribe();
-    }
-  }
 }

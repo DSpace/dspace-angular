@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { isNotEmpty } from '../../../empty.util';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { isNotEmpty } from '../../../empty.util';
 
 /**
  * Component representing the edit page for communities and collections
  */
 @Component({
   selector: 'ds-edit-comcol',
-  template: ''
+  template: '',
+  standalone: true,
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
@@ -43,7 +49,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
 
   public constructor(
     protected router: Router,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
   ) {
     this.router.events.subscribe(() => this.initPageParamsByRoute());
   }

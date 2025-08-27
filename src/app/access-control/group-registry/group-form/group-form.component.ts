@@ -1,57 +1,101 @@
-import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
   Subscription,
 } from 'rxjs';
-import { catchError, map, switchMap, take, filter, debounceTime } from 'rxjs/operators';
+import {
+  debounceTime,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../environments/environment';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import {
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
+  getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { Operation } from 'fast-json-patch';
+import {
+  getGroupEditRoute,
+  getGroupsRoute,
+} from '../../access-control-routing-paths';
+import { MembersListComponent } from './members-list/members-list.component';
+import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
 import { ValidateGroupExists } from './validators/group-exists.validator';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { environment } from '../../../../environments/environment';
-import { getGroupEditRoute, getGroupsRoute } from '../../access-control-routing-paths';
 
 @Component({
   selector: 'ds-group-form',
-  templateUrl: './group-form.component.html'
+  templateUrl: './group-form.component.html',
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    ContextHelpDirective,
+    FormComponent,
+    MembersListComponent,
+    SubgroupsListComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * A form used for creating and editing groups
@@ -68,9 +112,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   /**
    * Dynamic models for the inputs of form
    */
-  groupName: DynamicInputModel;
-  groupCommunity: DynamicInputModel;
-  groupDescription: DynamicTextAreaModel;
+  groupName: AbstractControl;
+  groupCommunity: AbstractControl;
+  groupDescription: AbstractControl;
 
   /**
    * A list of all dynamic input models
@@ -83,13 +127,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     groupName: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
     groupDescription: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
   };
 
@@ -114,20 +158,29 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   /**
-   * Group currently being edited
-   */
-  groupBeingEdited: Group;
-
-  /**
    * Observable whether or not the logged in user is allowed to delete the Group & doesn't have a linked object (community / collection linked to workspace group
    */
   canEdit$: Observable<boolean>;
 
   /**
-   * The AlertType enumeration
-   * @type {AlertType}
+   * The current {@link Group}
    */
-  public AlertTypeEnum = AlertType;
+  activeGroup$: Observable<Group>;
+
+  /**
+   * The current {@link Group}'s linked {@link Community}/{@link Collection}
+   */
+  activeGroupLinkedDSO$: Observable<DSpaceObject>;
+
+  /**
+   * Link to the current {@link Group}'s {@link Community}/{@link Collection} edit role tab
+   */
+  linkedEditRolesRoute$: Observable<string>;
+
+  /**
+   * The AlertType enumeration
+   */
+  public readonly AlertType = AlertType;
 
   /**
    * Subscription to email field value change
@@ -137,126 +190,121 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
   constructor(
     public groupDataService: GroupDataService,
-    private ePersonDataService: EPersonDataService,
-    private dSpaceObjectDataService: DSpaceObjectDataService,
-    private formBuilderService: FormBuilderService,
-    private translateService: TranslateService,
-    private notificationsService: NotificationsService,
-    private route: ActivatedRoute,
+    protected dSpaceObjectDataService: DSpaceObjectDataService,
+    protected formBuilderService: FormBuilderService,
+    protected translateService: TranslateService,
+    protected notificationsService: NotificationsService,
+    protected route: ActivatedRoute,
     protected router: Router,
-    private authorizationService: AuthorizationDataService,
-    private modalService: NgbModal,
+    protected authorizationService: AuthorizationDataService,
+    protected modalService: NgbModal,
     public requestService: RequestService,
     protected changeDetectorRef: ChangeDetectorRef,
     public dsoNameService: DSONameService,
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    if (this.route.snapshot.params.groupId !== 'newGroup') {
+      this.setActiveGroup(this.route.snapshot.params.groupId);
+    }
+    this.activeGroup$ = this.groupDataService.getActiveGroup();
+    this.activeGroupLinkedDSO$ = this.getActiveGroupLinkedDSO();
+    this.linkedEditRolesRoute$ = this.getLinkedEditRolesRoute();
+    this.canEdit$ = this.activeGroupLinkedDSO$.pipe(
+      switchMap((dso: DSpaceObject) => {
+        if (hasValue(dso)) {
+          return [false];
+        } else {
+          return this.activeGroup$.pipe(
+            hasValueOperator(),
+            switchMap((group: Group) => this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self)),
+          );
+        }
+      }),
+    );
     this.initialisePage();
   }
 
   initialisePage() {
-    this.subs.push(this.route.params.subscribe((params) => {
-      if (params.groupId !== 'newGroup') {
-        this.setActiveGroup(params.groupId);
-      }
-    }));
-    this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
-      hasValueOperator(),
-      switchMap((group: Group) => {
-        return observableCombineLatest([
-          this.authorizationService.isAuthorized(FeatureID.CanDelete, isNotEmpty(group) ? group.self : undefined),
-          this.hasLinkedDSO(group),
-        ]).pipe(
-          map(([isAuthorized, hasLinkedDSO]: [boolean, boolean]) => isAuthorized && !hasLinkedDSO),
-        );
+    const groupNameModel = new DynamicInputModel({
+      id: 'groupName',
+      label: this.translateService.instant(`${this.messagePrefix}.groupName`),
+      name: 'groupName',
+      validators: {
+        required: null,
+      },
+      required: true,
+    });
+    const groupCommunityModel = new DynamicInputModel({
+      id: 'groupCommunity',
+      label: this.translateService.instant(`${this.messagePrefix}.groupCommunity`),
+      name: 'groupCommunity',
+      required: false,
+      readOnly: true,
+    });
+    const groupDescriptionModel = new DynamicTextAreaModel({
+      id: 'groupDescription',
+      label: this.translateService.instant(`${this.messagePrefix}.groupDescription`),
+      name: 'groupDescription',
+      required: false,
+      spellCheck: environment.form.spellCheck,
+    });
+    this.formModel = [
+      groupNameModel,
+      groupDescriptionModel,
+    ];
+    this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+    this.groupName = this.formGroup.get('groupName');
+    this.groupDescription = this.formGroup.get('groupDescription');
+
+    if (hasValue(this.groupName)) {
+      this.groupName.setAsyncValidators(ValidateGroupExists.createValidator(this.groupDataService));
+      this.groupNameValueChangeSubscribe = this.groupName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+        this.changeDetectorRef.detectChanges();
+      });
+    }
+
+    this.subs.push(
+      observableCombineLatest([
+        this.activeGroup$,
+        this.canEdit$,
+        this.activeGroupLinkedDSO$,
+      ]).subscribe(([activeGroup, canEdit, linkedObject]) => {
+
+        if (activeGroup != null) {
+
+          // Disable group name exists validator
+          this.formGroup.controls.groupName.clearAsyncValidators();
+
+          if (isNotEmpty(linkedObject?.name)) {
+            if (!this.formGroup.controls.groupCommunity) {
+              this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, groupCommunityModel);
+              this.groupDescription = this.formGroup.get('groupCommunity');
+            }
+            this.formGroup.patchValue({
+              groupName: activeGroup.name,
+              groupCommunity: linkedObject?.name ?? '',
+              groupDescription: activeGroup.firstMetadataValue('dc.description'),
+            });
+          } else {
+            this.formModel = [
+              groupNameModel,
+              groupDescriptionModel,
+            ];
+            this.formGroup.patchValue({
+              groupName: activeGroup.name,
+              groupDescription: activeGroup.firstMetadataValue('dc.description'),
+            });
+          }
+          if (!canEdit || activeGroup.permanent) {
+            this.formGroup.disable();
+          } else {
+            this.formGroup.enable();
+          }
+        }
       }),
     );
-    observableCombineLatest([
-      this.translateService.get(`${this.messagePrefix}.groupName`),
-      this.translateService.get(`${this.messagePrefix}.groupCommunity`),
-      this.translateService.get(`${this.messagePrefix}.groupDescription`)
-    ]).subscribe(([groupName, groupCommunity, groupDescription]) => {
-      this.groupName = new DynamicInputModel({
-        id: 'groupName',
-        label: groupName,
-        name: 'groupName',
-        validators: {
-          required: null,
-        },
-        required: true,
-      });
-      this.groupCommunity = new DynamicInputModel({
-        id: 'groupCommunity',
-        label: groupCommunity,
-        name: 'groupCommunity',
-        required: false,
-        readOnly: true,
-      });
-      this.groupDescription = new DynamicTextAreaModel({
-        id: 'groupDescription',
-        label: groupDescription,
-        name: 'groupDescription',
-        required: false,
-        spellCheck: environment.form.spellCheck,
-      });
-      this.formModel = [
-        this.groupName,
-        this.groupDescription,
-      ];
-      this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-
-      if (!!this.formGroup.controls.groupName) {
-        this.formGroup.controls.groupName.setAsyncValidators(ValidateGroupExists.createValidator(this.groupDataService));
-        this.groupNameValueChangeSubscribe = this.groupName.valueChanges.pipe(debounceTime(300)).subscribe(() => {
-          this.changeDetectorRef.detectChanges();
-        });
-      }
-
-      this.subs.push(
-        observableCombineLatest([
-          this.groupDataService.getActiveGroup(),
-          this.canEdit$,
-          this.groupDataService.getActiveGroup()
-            .pipe(filter((activeGroup) => hasValue(activeGroup)),switchMap((activeGroup) => this.getLinkedDSO(activeGroup).pipe(getFirstSucceededRemoteDataPayload())))
-        ]).subscribe(([activeGroup, canEdit, linkedObject]) => {
-
-          if (activeGroup != null) {
-
-            // Disable group name exists validator
-            this.formGroup.controls.groupName.clearAsyncValidators();
-
-            this.groupBeingEdited = activeGroup;
-
-            if (linkedObject?.name) {
-              if (!this.formGroup.controls.groupCommunity) {
-                this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
-                this.formGroup.patchValue({
-                  groupName: activeGroup.name,
-                  groupCommunity: linkedObject?.name ?? '',
-                  groupDescription: activeGroup.firstMetadataValue('dc.description'),
-                });
-              }
-            } else {
-              this.formModel = [
-                this.groupName,
-                this.groupDescription,
-              ];
-              this.formGroup.patchValue({
-                groupName: activeGroup.name,
-                groupDescription: activeGroup.firstMetadataValue('dc.description'),
-              });
-            }
-            setTimeout(() => {
-              if (!canEdit || activeGroup.permanent) {
-                this.formGroup.disable();
-              }
-            }, 200);
-          }
-        })
-      );
-    });
   }
 
   /**
@@ -275,25 +323,22 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created eperson using the EventEmitter submitForm
    */
   onSubmit() {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe(
-      (group: Group) => {
-        const values = {
+    this.activeGroup$.pipe(take(1)).subscribe((group: Group) => {
+      if (group === null) {
+        this.createNewGroup({
           name: this.groupName.value,
           metadata: {
             'dc.description': [
               {
-                value: this.groupDescription.value
-              }
-            ]
+                value: this.groupDescription.value,
+              },
+            ],
           },
-        };
-        if (group === null) {
-          this.createNewGroup(values);
-        } else {
-          this.editGroup(group);
-        }
+        });
+      } else {
+        this.editGroup(group);
       }
-    );
+    });
   }
 
   /**
@@ -303,7 +348,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   createNewGroup(values) {
     const groupToCreate = Object.assign(new Group(), values);
     this.groupDataService.create(groupToCreate).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: groupToCreate.name }));
@@ -332,7 +377,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     // Relevant message for group name in use
     this.subs.push(this.groupDataService.searchGroups(group.name, {
       currentPage: 1,
-      elementsPerPage: 0
+      elementsPerPage: 0,
     }).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
       .subscribe((list: PaginatedList<Group>) => {
         if (list.totalElements > 0) {
@@ -354,7 +399,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'add',
         path: '/metadata/dc.description',
-        value: this.groupDescription.value
+        value: this.groupDescription.value,
       }];
     }
 
@@ -362,12 +407,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'replace',
         path: '/name',
-        value: this.groupName.value
+        value: this.groupName.value,
       }];
     }
 
     this.groupDataService.patch(group, operations).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: this.dsoNameService.getName(rd.payload) }));
@@ -399,7 +444,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * @param groupSelfLink   SelfLink of group to set as active
    */
   setActiveGroupWithLink(groupSelfLink: string) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+    this.activeGroup$.pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup === null) {
         this.groupDataService.cancelEditGroup();
         this.groupDataService.findByHref(groupSelfLink, false, false, followLink('subgroups'), followLink('epersons'), followLink('object'))
@@ -418,9 +463,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * It'll either show a success or error message depending on whether the delete was successful or not.
    */
   delete() {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((group: Group) => {
+    this.activeGroup$.pipe(take(1)).subscribe((group: Group) => {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = group;
+      modalRef.componentInstance.name = this.dsoNameService.getName(group);
       modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-group.modal.header';
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-group.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-group.modal.cancel';
@@ -462,52 +507,38 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Check if group has a linked object (community or collection linked to a workflow group)
-   * @param group
+   * Get the active {@link Group}'s linked object if it has one ({@link Community} or {@link Collection} linked to a
+   * workflow group)
    */
-  hasLinkedDSO(group: Group): Observable<boolean> {
-    if (hasValue(group) && hasValue(group._links.object.href)) {
-      return this.getLinkedDSO(group).pipe(
-        map((rd: RemoteData<DSpaceObject>) => {
-          return hasValue(rd) && hasValue(rd.payload);
-        }),
-        catchError(() => observableOf(false)),
-      );
-    }
+  getActiveGroupLinkedDSO(): Observable<DSpaceObject> {
+    return this.activeGroup$.pipe(
+      hasValueOperator(),
+      switchMap((group: Group) => {
+        if (group.object === undefined) {
+          return this.dSpaceObjectDataService.findByHref(group._links.object.href);
+        }
+        return group.object;
+      }),
+      getAllCompletedRemoteData(),
+      getRemoteDataPayload(),
+    );
   }
 
   /**
-   * Get group's linked object if it has one (community or collection linked to a workflow group)
-   * @param group
+   * Get the route to the edit roles tab of the active {@link Group}'s linked object (community or collection linked
+   * to a workflow group) if it has one
    */
-  getLinkedDSO(group: Group): Observable<RemoteData<DSpaceObject>> {
-    if (hasValue(group) && hasValue(group._links.object.href)) {
-      if (group.object === undefined) {
-        return this.dSpaceObjectDataService.findByHref(group._links.object.href);
-      }
-      return group.object;
-    }
-  }
-
-  /**
-   * Get the route to the edit roles tab of the group's linked object (community or collection linked to a workflow group) if it has one
-   * @param group
-   */
-  getLinkedEditRolesRoute(group: Group): Observable<string> {
-    if (hasValue(group) && hasValue(group._links.object.href)) {
-      return this.getLinkedDSO(group).pipe(
-        map((rd: RemoteData<DSpaceObject>) => {
-          if (hasValue(rd) && hasValue(rd.payload)) {
-            const dso = rd.payload;
-            switch ((dso as any).type) {
-              case Community.type.value:
-                return getCommunityEditRolesRoute(rd.payload.id);
-              case Collection.type.value:
-                return getCollectionEditRolesRoute(rd.payload.id);
-            }
-          }
-        })
-      );
-    }
+  getLinkedEditRolesRoute(): Observable<string> {
+    return this.activeGroupLinkedDSO$.pipe(
+      hasValueOperator(),
+      map((dso: DSpaceObject) => {
+        switch ((dso as any).type) {
+          case Community.type.value:
+            return getCommunityEditRolesRoute(dso.id);
+          case Collection.type.value:
+            return getCollectionEditRolesRoute(dso.id);
+        }
+      }),
+    );
   }
 }

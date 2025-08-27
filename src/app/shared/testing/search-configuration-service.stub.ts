@@ -1,47 +1,69 @@
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { Params } from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
 
+import {
+  FilterConfig,
+  SearchConfig,
+} from '../../core/shared/search/search-filters/search-config.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { SearchOptions } from '../search/models/search-options.model';
+
+/**
+ * Stub class of {@link SearchConfigurationService}
+ */
 export class SearchConfigurationServiceStub {
 
   public paginationID = 'test-id';
 
-  private searchOptions: BehaviorSubject<any> = new BehaviorSubject<any>({});
-  private paginatedSearchOptions: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  public searchOptions: BehaviorSubject<SearchOptions> = new BehaviorSubject(new SearchOptions({}));
+  public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject(new PaginatedSearchOptions({}));
 
   getCurrentFrontendFilters() {
-    return observableOf([]);
+    return of([]);
+  }
+
+  getCurrentFilters() {
+    return of([]);
   }
 
   getCurrentScope(a) {
-    return observableOf('test-id');
+    return of('test-id');
   }
 
   getCurrentQuery(a) {
-    return observableOf(a);
+    return of(a);
   }
 
   getCurrentConfiguration(a) {
-    return observableOf(a);
+    return of(a);
+  }
+
+  getConfigurationAdvancedSearchFilters(_configuration: string, _scope?: string): Observable<FilterConfig[]> {
+    return of([]);
   }
 
   getConfig () {
-    return observableOf({ hasSucceeded: true, payload: [] });
+    return of({ hasSucceeded: true, payload: [] });
+  }
+
+  getConfigurationSearchConfig(_configuration: string, _scope?: string): Observable<SearchConfig> {
+    return of(new SearchConfig());
   }
 
   getAvailableConfigurationOptions() {
-    return observableOf([{value: 'test', label: 'test'}]);
+    return of([{ value: 'test', label: 'test' }]);
   }
 
-  getConfigurationSearchConfigObservable() {
-    return observableOf(new SearchConfig());
+  unselectAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
+    return of({});
   }
 
-  getConfigurationSortOptionsObservable() {
-    return observableOf([new SortOptions('score', SortDirection.ASC), new SortOptions('score', SortDirection.DESC)]);
+  selectNewAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
+    return of({});
   }
 
-  initializeSortOptionsFromConfiguration() {
-   /* empty */
-  }
 }

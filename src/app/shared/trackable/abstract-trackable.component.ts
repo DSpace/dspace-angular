@@ -1,17 +1,23 @@
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { NotificationsService } from '../notifications/notifications.service';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Component } from '@angular/core';
+
+import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 /**
  * Abstract Component that is able to track changes made in the inheriting component using the ObjectUpdateService
  */
 @Component({
   selector: 'ds-abstract-trackable',
-  template: ''
+  template: '',
+  standalone: true,
 })
-export class AbstractTrackableComponent {
+export class AbstractTrackableComponent implements OnInit {
 
   /**
    * The time span for being able to undo discarding changes
@@ -21,12 +27,23 @@ export class AbstractTrackableComponent {
   public url: string;
   public notificationsPrefix = 'static-pages.form.notification';
 
+  hasChanges$: Observable<boolean>;
+
+  isReinstatable$: Observable<boolean>;
+
   constructor(
     public objectUpdatesService: ObjectUpdatesService,
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
+    public router: Router,
   ) {
 
+  }
+
+  ngOnInit(): void {
+    this.url = this.router.url.split('?')[0];
+    this.hasChanges$ = this.hasChanges();
+    this.isReinstatable$ = this.isReinstatable();
   }
 
   /**
@@ -34,7 +51,7 @@ export class AbstractTrackableComponent {
    * Shows a notification to remind the user that they can undo this
    */
   discard() {
-    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), {timeOut: this.discardTimeOut});
+    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), { timeOut: this.discardTimeOut });
     this.objectUpdatesService.discardFieldUpdates(this.url, undoNotification);
   }
 

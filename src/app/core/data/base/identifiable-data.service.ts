@@ -5,16 +5,21 @@
  *
  * http://www.dspace.org/license/
  */
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { RemoteData } from '../remote-data';
-import { BaseDataService } from './base-data.service';
-import { RequestService } from '../request.service';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { BaseDataService } from './base-data.service';
 
 /**
  * Shorthand type for the method to construct an ID endpoint.
@@ -79,5 +84,20 @@ export class IdentifiableDataService<T extends CacheableObject> extends BaseData
   getIDHrefObs(resourceID: string, ...linksToFollow: FollowLinkConfig<T>[]): Observable<string> {
     return this.getEndpoint().pipe(
       map((endpoint: string) => this.getIDHref(endpoint, resourceID, ...linksToFollow)));
+  }
+
+  /**
+   * Invalidate a cached resource by its identifier
+   * @param resourceID  the identifier of the resource to invalidate
+   */
+  invalidateById(resourceID: string): Observable<boolean> {
+    const ok$ = this.getIDHrefObs(resourceID).pipe(
+      take(1),
+      switchMap((href) => this.invalidateByHref(href)),
+    );
+
+    ok$.subscribe();
+
+    return ok$;
   }
 }

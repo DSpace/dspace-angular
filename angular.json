@@ -30,7 +30,6 @@
               "lodash",
               "jwt-decode",
               "uuid",
-              "webfontloader",
               "zone.js"
             ],
             "outputPath": "dist/browser",
@@ -84,7 +83,10 @@
                 "input": "src/themes/image-gallery/styles/theme.scss",
                 "inject": false,
                 "bundleName": "image-gallery-theme"
-              }
+              },
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
+              "node_modules/leaflet.markercluster/dist/MarkerCluster.css"
             ],
             "scripts": [],
             "baseHref": "/"
@@ -134,22 +136,22 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "dspace-angular:build",
+            "buildTarget": "dspace-angular:build",
             "port": 4000
           },
           "configurations": {
             "development": {
-              "browserTarget": "dspace-angular:build:development"
+              "buildTarget": "dspace-angular:build:development"
             },
             "production": {
-              "browserTarget": "dspace-angular:build:production"
+              "buildTarget": "dspace-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dspace-angular:build"
+            "buildTarget": "dspace-angular:build"
           }
         },
         "test": {
@@ -242,23 +244,23 @@
           }
         },
         "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
           "options": {
-            "browserTarget": "dspace-angular:build",
+            "buildTarget": "dspace-angular:build",
             "serverTarget": "dspace-angular:server",
             "port": 4000
           },
           "configurations": {
             "production": {
-              "browserTarget": "dspace-angular:build:production",
+              "buildTarget": "dspace-angular:build:production",
               "serverTarget": "dspace-angular:server:production"
             }
           }
         },
         "prerender": {
-          "builder": "@nguniversal/builders:prerender",
+          "builder": "@angular-devkit/build-angular:prerender",
           "options": {
-            "browserTarget": "dspace-angular:build:production",
+            "buildTarget": "dspace-angular:build:production",
             "serverTarget": "dspace-angular:server:production",
             "routes": [
               "/"
@@ -291,6 +293,8 @@
           "options": {
             "lintFilePatterns": [
               "src/**/*.ts",
+              "cypress/**/*.ts",
+              "lint/**/*.ts",
               "src/**/*.html",
               "src/**/*.json5"
             ]

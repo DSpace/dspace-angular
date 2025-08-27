@@ -1,6 +1,6 @@
+import { ParsedResponse } from '../cache/response.models';
 import { Registration } from '../shared/registration.model';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
-import { ParsedResponse } from '../cache/response.models';
 
 describe('RegistrationResponseParsingService', () => {
   describe('parse', () => {
@@ -10,7 +10,7 @@ describe('RegistrationResponseParsingService', () => {
     const data = {
       payload: { email: 'test@email.org', token: 'test-token' },
       statusCode: 200,
-      statusText: 'Success'
+      statusText: 'Success',
     };
 
     it('should parse a registration response', () => {

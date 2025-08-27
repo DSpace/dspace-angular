@@ -4,6 +4,7 @@
   div.background-image-container {
     color: white;
     position: relative;
+    font-weight: 600;
 
     .background-image > img {
       background-color: var(--bs-info);
@@ -64,9 +65,14 @@
   a {
     color: var(--ds-home-news-link-color);
 
-    @include hover {
+    &:hover {
       color: var(--ds-home-news-link-hover-color);
     }
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    font-weight: 400;
   }
 }
 
