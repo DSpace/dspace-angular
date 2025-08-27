@@ -28,7 +28,13 @@ import {
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
-import { of } from 'rxjs';
+import {
+  delay,
+  of,
+} from 'rxjs';
+import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
+import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from 'src/app/core/shared/bitstream-format-support-level';
 
 import {
   APP_CONFIG,
@@ -65,6 +71,7 @@ import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 
+
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
     getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
@@ -78,6 +85,11 @@ const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   replace: jasmine.createSpy('replace'),
   remove: jasmine.createSpy('remove'),
 });
+
+const mockBitstreamService = {
+  update: jasmine.createSpy('update').and.returnValue(of({})),
+  updateFormat: jasmine.createSpy('updateFormat').and.returnValue(of({}).pipe(delay(0))),
+};
 
 const formMetadataMock = ['dc.title', 'dc.description'];
 
@@ -146,6 +158,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: BitstreamDataService, useValue: mockBitstreamService },
         provideMockStore({ initialState }),
         FormBuilderService,
         { provide: ChangeDetectorRef, useValue: mockCdRef },
@@ -232,7 +245,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       comp.formModel = compAsAny.buildFileEditForm();
 
-      const models = [DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel];
+      const models = [DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel, DynamicFormGroupModel];
 
       expect(comp.formModel).toBeDefined();
       expect(comp.formModel.length).toBe(models.length);
@@ -393,6 +406,83 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
     }));
 
+    describe('Bitstream Format Editing', () => {
+      let mockFormat: BitstreamFormat;
+      beforeEach(() => {
+        comp.fileData = JSON.parse(JSON.stringify(fileData));
+        comp.formId = 'testFileForm';
+        (comp as any).pathCombiner = pathCombiner;
+
+        mockFormat = {
+          id: 'fmt-1',
+          shortDescription: 'Adobe PDF',
+          description: 'Portable Document Format',
+          supportLevel: BitstreamFormatSupportLevel.Known,
+          mimetype: 'application/pdf',
+          internal: false,
+        } as BitstreamFormat;
+
+        (comp.fileData as any).format = mockFormat;
+        formService.getFormData.and.returnValue(of(mockFileFormData));
+      });
+
+      it('should initialize dropdown with existing format on open', () => {
+        comp.formModel = compAsAny.buildFileEditForm();
+        expect(compAsAny.selectedFormatModel.value).toEqual(mockFormat.shortDescription);
+        expect(compAsAny.newFormatModel.hidden).toBeTrue();
+      });
+
+      it('should show "Describe New Format" input when format is Unknown', () => {
+        mockFormat.supportLevel = BitstreamFormatSupportLevel.Unknown;
+        (comp.fileData as any).format = mockFormat;
+        comp.bitstream = {
+          uuid:'bs-1',
+          metadata: {
+            'dc.format':[{ value: 'application/zip' }],
+          },
+        } as any;
+
+        comp.formModel = compAsAny.buildFileEditForm();
+
+        expect(compAsAny.selectedFormatModel.value).toEqual(mockFormat.shortDescription);
+        expect(compAsAny.newFormatModel.hidden).toBeFalse();
+        expect(compAsAny.newFormatModel.value).toEqual('application/zip');
+      });
+
+      it('should call bitstreamService.updateFormat when format is changed', fakeAsync(() => {
+        (comp as any).formRef = { formGroup: {} } as any;
+        comp.bitstream = { uuid: 'bs-1', metadata: {} } as any;
+        comp.fileData = JSON.parse(JSON.stringify(fileData));
+        (comp as any).originalFormat = { id: 'fmt-1' } as BitstreamFormat;
+        (comp as any).selectedFormat = { id: 'fmt-2', shortDescription: 'DOCX', supportLevel: BitstreamFormatSupportLevel.Known } as BitstreamFormat;
+        formService.getFormData.and.returnValue(of(mockFileFormData));
+        compAsAny.saveBitstreamData();
+        tick();
+
+        expect(mockBitstreamService.updateFormat).toHaveBeenCalledWith(comp.bitstream, (comp as any).selectedFormat);
+      }));
+
+      it('should update dc.format metadata when "other format" is provided', fakeAsync(() => {
+        (comp as any).formRef = { formGroup: {} } as any;
+        comp.bitstream = { uuid: 'bs-1', metadata: {} } as any;
+        comp.fileData = JSON.parse(JSON.stringify(fileData));
+        (comp as any).originalFormat = mockFormat;
+        (comp as any).selectedFormat = mockFormat;
+
+        // Mock formData with "other format"
+        formService.getFormData.and.returnValue(of({
+          ...mockFileFormData,
+          formatGroup: { newFormat: [{ display: 'application/zip' }] },
+        }));
+
+        compAsAny.saveBitstreamData();
+        tick();
+
+        expect(mockBitstreamService.update).toHaveBeenCalled();
+        const updatedBs = mockBitstreamService.update.calls.mostRecent().args[0] as any;
+        expect(updatedBs.metadata['dc.format'][0].value).toEqual('application/zip');
+      }));
+    });
   });
 });
 
