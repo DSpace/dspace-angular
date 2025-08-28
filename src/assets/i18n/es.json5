@@ -7566,6 +7566,18 @@
   // "statistics.table.title.TopCities": "Top city views",
   "statistics.table.title.TopCities": "Visitas principales por ciudad",
 
+  //"statistics.table.title.TotalVisitsItems": "Total items visits",
+  "statistics.table.title.TotalVisitsItems": "Visitas totales de items",
+
+  //"statistics.table.title.TotalDownloadsBitstreams": "Total file visits",
+  "statistics.table.title.TotalDownloadsBitstreams": "Visitas totales de archivos",
+
+  //"statistics.table.title.TopItems": "Top items views",
+  "statistics.table.title.TopItems": "Visitas principales por items",
+
+  //"statistics.table.title.TopBitstreams": "Top file views",
+  "statistics.table.title.TopBitstreams": "Visitas principales por archivos",
+
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Visitas",
 
