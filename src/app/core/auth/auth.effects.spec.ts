@@ -131,7 +131,7 @@ describe('AuthEffects', () => {
 
     describe('when token is valid', () => {
       it('should return a AUTHENTICATED_SUCCESS action in response to a AUTHENTICATED action', () => {
-        actions = hot('--a-', { a: { type: AuthActionTypes.AUTHENTICATED, payload: token } });
+        actions = hot('--a-', { a: new AuthenticatedAction(token) });
 
         const expected = cold('--b-', { b: new AuthenticatedSuccessAction(true, token, EPersonMock._links.self.href) });
 
@@ -139,13 +139,25 @@ describe('AuthEffects', () => {
       });
     });
 
-    describe('when token is not valid', () => {
+    describe('when token is expired', () => {
       it('should return a AUTHENTICATED_ERROR action in response to a AUTHENTICATED action', () => {
         spyOn((authEffects as any).authService, 'authenticatedUser').and.returnValue(observableThrow(new Error('Message Error test')));
 
-        actions = hot('--a-', { a: { type: AuthActionTypes.AUTHENTICATED, payload: token } });
+        actions = hot('--a-', { a: new AuthenticatedAction(token) });
 
         const expected = cold('--b-', { b: new AuthenticatedErrorAction(new Error('Message Error test')) });
+
+        expect(authEffects.authenticated$).toBeObservable(expected);
+      });
+    });
+
+    describe('when token is not valid but also not expired (~ cookie)', () => {
+      it('should return a AUTHENTICATED_ERROR action in response to a AUTHENTICATED action', () => {
+        spyOn((authEffects as any).authService, 'authenticatedUser').and.returnValue(observableThrow(new Error('Message Error test')));
+
+        actions = hot('--a-', { a: new AuthenticatedAction(token, true) });
+
+        const expected = cold('--b-', { b: new CheckAuthenticationTokenCookieAction() });
 
         expect(authEffects.authenticated$).toBeObservable(expected);
       });
@@ -185,7 +197,7 @@ describe('AuthEffects', () => {
 
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN } });
 
-        const expected = cold('--b-', { b: new AuthenticatedAction(token) });
+        const expected = cold('--b-', { b: new AuthenticatedAction(token, true) });
 
         expect(authEffects.checkToken$).toBeObservable(expected);
       });
