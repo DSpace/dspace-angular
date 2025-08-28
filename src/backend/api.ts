@@ -8,7 +8,7 @@ import ITEMS from './data/items.json';
 import { fakeDataBase } from './db';
 
 const { Router } = require('express');
-const util = require('util');
+const util = require('node:util');
 
 // you would use cookies/token etc
 const USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example
