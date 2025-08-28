@@ -113,6 +113,7 @@ const sectionObject: SectionDataObject = {
   header: 'submit.progressbar.describe.license',
   id: 'license',
   sectionType: SectionsType.License,
+  extendsSectionType: undefined,
 };
 
 const dynamicFormControlEvent: DynamicFormControlEvent = {
