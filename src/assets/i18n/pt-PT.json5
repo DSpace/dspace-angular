@@ -11046,5 +11046,10 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
+  // "community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descrição do logotipo da comunidade",
+
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descrição do logotipo da coleção",
 
 }
