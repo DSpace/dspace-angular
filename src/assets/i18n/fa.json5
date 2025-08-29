@@ -1849,492 +1849,370 @@
   "collection.edit.tabs.access-control.title": "ویرایش مجموعه- کنترل دسترسی",
 
   // "collection.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.head": "Curate",
+  "collection.edit.tabs.curate.head": "دست چین",
 
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.title": "Collection Edit - Curate",
+  "collection.edit.tabs.curate.title": "ویرایش مجموعه- دست چین",
 
   // "collection.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.head": "Authorizations",
+  "collection.edit.tabs.authorizations.head": "مجوزها",
 
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+  "collection.edit.tabs.authorizations.title": "ویرایش مجموعه- مجوزها",
 
   // "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "بارگزاری بسته های بیشتر",
 
   // "collection.edit.item.authorizations.load-more-button": "Load more",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.load-more-button": "Load more",
+  "collection.edit.item.authorizations.load-more-button": "بارگزاری بیشتر",
 
   // "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "نمایش سیساستهای فایل برای بسته",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.head": "Edit Metadata",
+  "collection.edit.tabs.metadata.head": "ویرایش ابرداده",
 
   // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
+  "collection.edit.tabs.metadata.title": "ویرایش مجموعه- ابرداده",
 
   // "collection.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.roles.head": "Assign Roles",
+  "collection.edit.tabs.roles.head": "اختصاص نقش‌ها",
 
   // "collection.edit.tabs.roles.title": "Collection Edit - Roles",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.roles.title": "Collection Edit - Roles",
+  "collection.edit.tabs.roles.title": "ویرایش مجموعه - نقش‌ها",
 
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
+  "collection.edit.tabs.source.external": "این مجموعه محتوای خود را از یک منبع خارجی جمع آوری می‌کند",
 
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "شما باید یک شناسه id مشخص برای مجموعه هدف فراهم کنید.",
 
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.harvestType": "Content being harvested",
+  "collection.edit.tabs.source.form.harvestType": "محتوا در حال جمع آوری است",
 
   // "collection.edit.tabs.source.form.head": "Configure an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.head": "Configure an external source",
+  "collection.edit.tabs.source.form.head": "پیکربندی یک منبع خارجی",
 
   // "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
+  "collection.edit.tabs.source.form.metadataConfigId": "قالب ابرداده",
 
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
+  "collection.edit.tabs.source.form.oaiSetId": "تنظیم شناسه خاص OAI",
 
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
+  "collection.edit.tabs.source.form.oaiSource": "فراهم کننده OAI",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "جمع‌آوری فراداده‌ها و جریان‌های بیتی (نیاز به پشتیبانی ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "جمع‌آوری لبرداده‌ها و ارجاعات به فایلها (نیاز به پشتیبانی ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "فقط جمع آوری ابرداده",
 
   // "collection.edit.tabs.source.head": "Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.head": "Content Source",
+  "collection.edit.tabs.source.head": "منبع محتوا",
 
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "collection.edit.tabs.source.notifications.discarded.content": "تغییرات شما لغو شد. برای بازگرداندن تغییرات، روی دکمه «بازگرد» کلیک کنید.",
 
   // "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "تغییرات لغو شدند",
 
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "collection.edit.tabs.source.notifications.invalid.content": "تغییرات شما ذخیره نشد. لطفاً قبل از ذخیره، مطمئن شوید که همه فیلدها معتبر هستند.",
 
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
+  "collection.edit.tabs.source.notifications.invalid.title": "ابرداده نامعتبر",
 
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
+  "collection.edit.tabs.source.notifications.saved.content": "تغییرات شما در منبع محتوای این مجموعه ذخیره شد.",
 
   // "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
+  "collection.edit.tabs.source.notifications.saved.title": "منبع محتوا ذخیره شد",
 
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.title": "Collection Edit - Content Source",
+  "collection.edit.tabs.source.title": "ویرایش مجموعه- منبع محتوا",
 
   // "collection.edit.template.add-button": "Add",
-  // TODO New key - Add a translation
-  "collection.edit.template.add-button": "Add",
+  "collection.edit.template.add-button": "افزودن",
 
   // "collection.edit.template.breadcrumbs": "Item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.breadcrumbs": "Item template",
+  "collection.edit.template.breadcrumbs": "الگوی آیتم",
 
   // "collection.edit.template.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.cancel": "لغو",
 
   // "collection.edit.template.delete-button": "Delete",
-  // TODO New key - Add a translation
-  "collection.edit.template.delete-button": "Delete",
+  "collection.edit.template.delete-button": "حذف",
 
   // "collection.edit.template.edit-button": "Edit",
-  // TODO New key - Add a translation
-  "collection.edit.template.edit-button": "Edit",
+  "collection.edit.template.edit-button": "ویرایش",
 
   // "collection.edit.template.error": "An error occurred retrieving the template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.error": "An error occurred retrieving the template item",
+  "collection.edit.template.error": "خطایی در بازیابی آیتم الگو رخ داد",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  // TODO New key - Add a translation
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": "ویرایش الگوی آیتم برای مجموعه \"{{ collection }}\"",
 
   // "collection.edit.template.label": "Template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.label": "Template item",
+  "collection.edit.template.label": "آیتم الگو",
 
   // "collection.edit.template.loading": "Loading template item...",
-  // TODO New key - Add a translation
-  "collection.edit.template.loading": "Loading template item...",
+  "collection.edit.template.loading": "بارگزاری آیتم الگو...",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+  "collection.edit.template.notifications.delete.error": "حذف آیتم الگو ناموفق بود",
 
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+  "collection.edit.template.notifications.delete.success": "آیتم الگو با موفقیت حذف شد",
 
   // "collection.edit.template.title": "Edit Template Item",
-  // TODO New key - Add a translation
-  "collection.edit.template.title": "Edit Template Item",
+  "collection.edit.template.title": "ویرایش الگوی آیتم",
 
   // "collection.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "collection.form.abstract": "Short Description",
+  "collection.form.abstract": "توصیف کوتاه",
 
   // "collection.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.description": "Introductory text (HTML)",
+  "collection.form.description": "متن مقدماتی (HTML)",
 
   // "collection.form.errors.title.required": "Please enter a collection name",
-  // TODO New key - Add a translation
-  "collection.form.errors.title.required": "Please enter a collection name",
+  "collection.form.errors.title.required": "لطفا نام مجموعه را وارد کنید",
 
   // "collection.form.license": "License",
-  // TODO New key - Add a translation
-  "collection.form.license": "License",
+  "collection.form.license": "مجوز",
 
   // "collection.form.provenance": "Provenance",
-  // TODO New key - Add a translation
-  "collection.form.provenance": "Provenance",
+  "collection.form.provenance": "منشأ",
 
   // "collection.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.rights": "Copyright text (HTML)",
+  "collection.form.rights": "متن حق کپی (HTML)",
 
   // "collection.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.tableofcontents": "News (HTML)",
+  "collection.form.tableofcontents": "خبر (HTML)",
 
   // "collection.form.title": "Name",
-  // TODO New key - Add a translation
-  "collection.form.title": "Name",
+  "collection.form.title": "نام",
 
   // "collection.form.entityType": "Entity Type",
-  // TODO New key - Add a translation
-  "collection.form.entityType": "Entity Type",
+  "collection.form.entityType": "نوع موجودیت",
 
   // "collection.listelement.badge": "Collection",
-  // TODO New key - Add a translation
-  "collection.listelement.badge": "Collection",
+  "collection.listelement.badge": "مجموعه",
 
   // "collection.logo": "Collection logo",
-  // TODO New key - Add a translation
-  "collection.logo": "Collection logo",
+  "collection.logo": "لوگوی مجموعه",
 
   // "collection.page.browse.search.head": "Search",
-  // TODO New key - Add a translation
-  "collection.page.browse.search.head": "Search",
+  "collection.page.browse.search.head": "جستجو",
 
   // "collection.page.edit": "Edit this collection",
-  // TODO New key - Add a translation
-  "collection.page.edit": "Edit this collection",
+  "collection.page.edit": "ویرایش مجموعه",
 
   // "collection.page.handle": "Permanent URI for this collection",
-  // TODO New key - Add a translation
-  "collection.page.handle": "Permanent URI for this collection",
+  "collection.page.handle": "URI دائمی برای این مجموعه",
 
   // "collection.page.license": "License",
-  // TODO New key - Add a translation
-  "collection.page.license": "License",
+  "collection.page.license": "مجوز",
 
   // "collection.page.news": "News",
-  // TODO New key - Add a translation
-  "collection.page.news": "News",
+  "collection.page.news": "خبر",
 
   // "collection.page.options": "Options",
-  // TODO New key - Add a translation
-  "collection.page.options": "Options",
+  "collection.page.options": "گزینه‌ها",
 
   // "collection.search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
-  "collection.search.breadcrumbs": "Search",
+  "collection.search.breadcrumbs": "جستجو",
 
   // "collection.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "collection.search.results.head": "Search Results",
+  "collection.search.results.head": "نتایج جستجو",
 
   // "collection.select.confirm": "Confirm selected",
-  // TODO New key - Add a translation
-  "collection.select.confirm": "Confirm selected",
+  "collection.select.confirm": "تأیید انتخاب شده",
 
   // "collection.select.empty": "No collections to show",
-  // TODO New key - Add a translation
-  "collection.select.empty": "No collections to show",
+  "collection.select.empty": "هیچ مجموعه ای برای نمایش وجود ندارد",
 
   // "collection.select.table.selected": "Selected collections",
-  // TODO New key - Add a translation
-  "collection.select.table.selected": "Selected collections",
+  "collection.select.table.selected": "مجموعه های انتخاب شده",
 
   // "collection.select.table.select": "Select collection",
-  // TODO New key - Add a translation
-  "collection.select.table.select": "Select collection",
+  "collection.select.table.select": "انتخاب مجموعه",
 
   // "collection.select.table.deselect": "Deselect collection",
-  // TODO New key - Add a translation
-  "collection.select.table.deselect": "Deselect collection",
+  "collection.select.table.deselect": "لغو انتخاب مجموعه",
 
   // "collection.select.table.title": "Title",
-  // TODO New key - Add a translation
-  "collection.select.table.title": "Title",
+  "collection.select.table.title": "عنوان",
 
   // "collection.source.controls.head": "Harvest Controls",
-  // TODO New key - Add a translation
-  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.head": "کنترلهای جمع آوری",
 
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.submit.error": "مشکلی در شروع تست تنظیمات پیش آمد",
 
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.failed": "اسکریپت برای تست تنظیمات ناموفق بود",
 
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.completed": "اسکریپت برای تست تنظیمات با موفقیت به پایان رسید",
 
   // "collection.source.controls.test.submit": "Test configuration",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.submit": "پیکربندی تست",
 
   // "collection.source.controls.test.running": "Testing configuration...",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.test.running": "پیکربندی آزمایشی...",
 
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.success": "ورود با موفقیت آغاز شد",
 
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit.error": "Sمشکلی در شروع وارد کردن پیش آمد",
 
   // "collection.source.controls.import.submit": "Import now",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.submit": "اکنون وارد کنید",
 
   // "collection.source.controls.import.running": "Importing...",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.running": "در حال وارد کردن...",
 
   // "collection.source.controls.import.failed": "An error occurred during the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.failed": "خطایی در هنگام وارد کردن رخ داد",
 
   // "collection.source.controls.import.completed": "The import completed",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.import.completed": "وارد کردن کامل شد",
 
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.success": "تنظیم و وارد کردن مجدد با موفقیت آغاز شد",
 
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.submit.error": "مشکلی در شروع تنظیم مجدد و وارد کردن مجدد پیش آمد",
 
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.failed": "هنگام تنظیم مجدد و وارد کردن مجدد، خطایی روی داد",
 
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.completed": "تنظیم مجدد و وارد کردن مجدد تکمیل شد",
 
   // "collection.source.controls.reset.submit": "Reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.submit": "تنظیم و وارد کردن مجدد",
 
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.reset.running": "تنظیم و وارد کردن مجدد ...",
 
   // "collection.source.controls.harvest.status": "Harvest status:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.status": "وضعیت جمع آوری:",
 
   // "collection.source.controls.harvest.start": "Harvest start time:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.start": "زمان شروع جمع آوری:",
 
   // "collection.source.controls.harvest.last": "Last time harvested:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.last": "آخرین زمان جمع آوری:",
 
   // "collection.source.controls.harvest.message": "Harvest info:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.message": "اطلاعات جمع آوری:",
 
   // "collection.source.controls.harvest.no-information": "N/A",
-  // TODO New key - Add a translation
   "collection.source.controls.harvest.no-information": "N/A",
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
+  "collection.source.update.notifications.error.content": "تنظیمات ارائه شده تست شده و جواب نداده است.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.title": "Server Error",
+  "collection.source.update.notifications.error.title": "خطای سرور",
 
   // "communityList.breadcrumbs": "Community List",
-  // TODO New key - Add a translation
-  "communityList.breadcrumbs": "Community List",
+  "communityList.breadcrumbs": "لیست جامعه",
 
   // "communityList.tabTitle": "Community List",
-  // TODO New key - Add a translation
-  "communityList.tabTitle": "Community List",
+  "communityList.tabTitle": "لیست جامعه",
 
   // "communityList.title": "List of Communities",
-  // TODO New key - Add a translation
-  "communityList.title": "List of Communities",
+  "communityList.title": "لیست جامعه ها",
 
   // "communityList.showMore": "Show More",
-  // TODO New key - Add a translation
-  "communityList.showMore": "Show More",
+  "communityList.showMore": "نمایش بیشتر",
 
   // "communityList.expand": "Expand {{ name }}",
-  // TODO New key - Add a translation
-  "communityList.expand": "Expand {{ name }}",
+  "communityList.expand": "گسترش {{ name }}",
 
   // "communityList.collapse": "Collapse {{ name }}",
-  // TODO New key - Add a translation
-  "communityList.collapse": "Collapse {{ name }}",
+  "communityList.collapse": "جمع کردن {{ name }}",
 
   // "community.browse.logo": "Browse for a community logo",
-  // TODO New key - Add a translation
-  "community.browse.logo": "Browse for a community logo",
+  "community.browse.logo": "جستجوی لوگوی جامعه",
 
   // "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
-  // TODO New key - Add a translation
-  "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
+  "community.subcoms-cols.breadcrumbs": "زیر جامعه ها و مجموعه ها",
 
   // "community.create.breadcrumbs": "Create Community",
-  // TODO New key - Add a translation
-  "community.create.breadcrumbs": "Create Community",
+  "community.create.breadcrumbs": "ایجاد جامعه",
 
   // "community.create.head": "Create a Community",
-  // TODO New key - Add a translation
-  "community.create.head": "Create a Community",
+  "community.create.head": "ایجاد یک جامعه",
 
   // "community.create.notifications.success": "Successfully created the community",
-  // TODO New key - Add a translation
-  "community.create.notifications.success": "Successfully created the community",
+  "community.create.notifications.success": "جامعه با موفقیت ایجاد شد",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  // TODO New key - Add a translation
-  "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
+  "community.create.sub-head": "ایجاد یک زیر جامعه برای جامعه {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
-  // TODO New key - Add a translation
-  "community.curate.header": "Curate Community: {{community}}",
+  "community.curate.header": "دست چین جامعه: {{community}}",
 
   // "community.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "community.delete.cancel": "Cancel",
+  "community.delete.cancel": "لغو",
 
   // "community.delete.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "community.delete.confirm": "Confirm",
+  "community.delete.confirm": "تایید",
 
   // "community.delete.processing": "Deleting...",
-  // TODO New key - Add a translation
-  "community.delete.processing": "Deleting...",
+  "community.delete.processing": "حذف ...",
 
   // "community.delete.head": "Delete Community",
-  // TODO New key - Add a translation
-  "community.delete.head": "Delete Community",
+  "community.delete.head": "حذف جامعه",
 
   // "community.delete.notification.fail": "Community could not be deleted",
-  // TODO New key - Add a translation
-  "community.delete.notification.fail": "Community could not be deleted",
+  "community.delete.notification.fail": "جامعه نمیتواند حذف شود",
 
   // "community.delete.notification.success": "Successfully deleted community",
-  // TODO New key - Add a translation
-  "community.delete.notification.success": "Successfully deleted community",
+  "community.delete.notification.success": "جامعه با موفقیت حذف شد",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  // TODO New key - Add a translation
-  "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
+  "community.delete.text": "آیا مطمئن هستید میخواهید جامعه را حذف کنید \"{{ dso }}\"",
 
   // "community.edit.delete": "Delete this community",
-  // TODO New key - Add a translation
-  "community.edit.delete": "Delete this community",
+  "community.edit.delete": "حذف این جامعه",
 
   // "community.edit.head": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.head": "Edit Community",
+  "community.edit.head": "ویرایش جامعه",
 
   // "community.edit.breadcrumbs": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.breadcrumbs": "Edit Community",
+  "community.edit.breadcrumbs": "ویرایش جامعه",
 
   // "community.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete.title": "Delete logo",
+  "community.edit.logo.delete.title": "حذف لوگو",
 
   // "community-collection.edit.logo.delete.title": "Confirm deletion",
-  // TODO New key - Add a translation
-  "community-collection.edit.logo.delete.title": "Confirm deletion",
+  "community-collection.edit.logo.delete.title": "تایید حذف",
 
   // "community.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete-undo.title": "Undo delete",
+  "community.edit.logo.delete-undo.title": "لغو حذف",
 
   // "community-collection.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "community-collection.edit.logo.delete-undo.title": "Undo delete",
+  "community-collection.edit.logo.delete-undo.title": "لغو حذف",
 
   // "community.edit.logo.label": "Community logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.label": "Community logo",
+  "community.edit.logo.label": "لوگوی جامعه",
 
   // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
+  "community.edit.logo.notifications.add.error": "بارگذاری لوگوی جامعه ناموفق بود. لطفاً قبل از تلاش مجدد، محتوا را تأیید کنید.",
 
   // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.success": "Upload community logo successful.",
+  "community.edit.logo.notifications.add.success": " لوگوی جامعه با موفقیت انجام شد.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "community.edit.logo.notifications.delete.success.title": "لوگو حذف شد",
 
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
   // TODO New key - Add a translation
