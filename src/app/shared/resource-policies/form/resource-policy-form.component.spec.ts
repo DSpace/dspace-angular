@@ -19,6 +19,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
@@ -50,9 +51,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
 
+import { environment } from '../../../../environments/environment.test';
 import { SubmissionService } from '../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../submission/submission-object.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';

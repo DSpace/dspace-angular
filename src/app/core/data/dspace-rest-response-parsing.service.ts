@@ -3,16 +3,16 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';

@@ -4,6 +4,10 @@ import {
   NgZone,
   Type,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 // import @ngrx
 import {
@@ -33,10 +37,6 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';

@@ -12,6 +12,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { authReducer } from '@dspace/core/auth/auth.reducer';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
@@ -31,7 +32,6 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';

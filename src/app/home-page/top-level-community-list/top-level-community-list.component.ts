@@ -7,6 +7,10 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
   SortDirection,
   SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
@@ -24,10 +28,6 @@ import {
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';

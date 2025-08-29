@@ -7,6 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
@@ -24,9 +25,8 @@ import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
 
+import { environment } from '../../../environments/environment.test';
 import { HostWindowService } from '../../shared/host-window.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';

@@ -12,6 +12,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
 import { ThemeConfig } from '@dspace/config/theme.config';
 import { getPageInternalServerErrorRoute } from '@dspace/core/router/core-routing-paths';
 import {
@@ -31,7 +32,6 @@ import {
   skipWhile,
   startWith,
 } from 'rxjs/operators';
-import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
 import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';

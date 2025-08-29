@@ -3,6 +3,7 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
@@ -32,7 +33,6 @@ import {
   tap,
   toArray,
 } from 'rxjs/operators';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';

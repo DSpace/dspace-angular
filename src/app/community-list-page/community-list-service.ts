@@ -3,6 +3,10 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
@@ -41,10 +45,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppState } from '../app.reducer';

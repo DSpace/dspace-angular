@@ -14,6 +14,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
@@ -44,11 +45,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
 
+import { environment } from '../../../../environments/environment.test';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';

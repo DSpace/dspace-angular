@@ -2,6 +2,7 @@ import {
   inject,
   TestBed,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   SortDirection,
   SortOptions,
@@ -21,9 +22,8 @@ import {
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
 
+import { environment } from '../../environments/environment.test';
 import { AppState } from '../app.reducer';
 import {
   CommunityListService,

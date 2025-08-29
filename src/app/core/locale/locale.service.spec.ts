@@ -2,12 +2,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../cookies/cookie.service';

@@ -21,6 +21,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
@@ -41,9 +42,8 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
 
+import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../../../submission/submission-object.service';
 import { Chips } from '../../../../chips/models/chips.model';

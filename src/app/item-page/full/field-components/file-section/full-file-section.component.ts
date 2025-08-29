@@ -6,6 +6,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
@@ -29,10 +33,6 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
