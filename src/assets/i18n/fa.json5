@@ -2443,12 +2443,10 @@
   "community.all-lists.head": "Subcommunities and Collections",
 
   // "community.search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
-  "community.search.breadcrumbs": "Search",
+  "community.search.breadcrumbs": "جستجو",
 
   // "community.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "community.search.results.head": "Search Results",
+  "community.search.results.head": "نتایج جستجو",
 
   // "community.sub-collection-list.head": "Collections in this community",
   // TODO New key - Add a translation
@@ -2695,8 +2693,7 @@
   "deny-request-copy.success": "Successfully denied item request",
 
   // "dynamic-list.load-more": "Load more",
-  // TODO New key - Add a translation
-  "dynamic-list.load-more": "Load more",
+  "dynamic-list.load-more": "بارگذاری بیشتر",
 
   // "dropdown.clear": "Clear selection",
   // TODO New key - Add a translation
@@ -2807,8 +2804,7 @@
   "dso-selector.set-scope.community.head": "Select a search scope",
 
   // "dso-selector.set-scope.community.button": "Search all of DSpace",
-  // TODO New key - Add a translation
-  "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "جستجوی همه دی اسپیس",
 
   // "dso-selector.set-scope.community.or-divider": "or",
   // TODO New key - Add a translation
@@ -3391,8 +3387,7 @@
   "form.save-help": "Save changes",
 
   // "form.search": "Search",
-  // TODO New key - Add a translation
-  "form.search": "Search",
+  "form.search": "جستجو",
 
   // "form.search-help": "Click here to look for an existing correspondence",
   // TODO New key - Add a translation
@@ -3834,8 +3829,7 @@
   "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.more": "Load more",
+  "item.edit.bitstreams.bundle.load.more": "بارگذاری بیشتر",
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   // TODO New key - Add a translation
@@ -3974,8 +3968,7 @@
   "item.edit.bitstreams.upload-button": "Upload",
 
   // "item.edit.bitstreams.load-more.link": "Load more",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.load-more.link": "Load more",
+  "item.edit.bitstreams.load-more.link": "بارگذاری بیشتر",
 
   // "item.edit.delete.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -4906,8 +4899,7 @@
   "item.page.collections.loading": "Loading...",
 
   // "item.page.collections.load-more": "Load more",
-  // TODO New key - Add a translation
-  "item.page.collections.load-more": "Load more",
+  "item.page.collections.load-more": "بارگذاری بیشتر",
 
   // "item.page.date": "Date",
   // TODO New key - Add a translation
@@ -5773,185 +5765,122 @@
   // TODO New key - Add a translation
   "iiifsearchable.page.issue": "Issue: ",
 
-  // "iiifsearchable.page.description": "Description: ",
-  // TODO New key - Add a translation
-  "iiifsearchable.page.description": "Description: ",
-
-  // "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
-  // TODO New key - Add a translation
-  "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
-
-  // "iiif.listelement.badge": "Image Media",
-  // TODO New key - Add a translation
-  "iiif.listelement.badge": "Image Media",
-
-  // "iiif.page.titleprefix": "Image: ",
-  // TODO New key - Add a translation
-  "iiif.page.titleprefix": "Image: ",
-
-  // "iiif.page.doi": "Permanent Link: ",
-  // TODO New key - Add a translation
-  "iiif.page.doi": "Permanent Link: ",
-
-  // "iiif.page.issue": "Issue: ",
-  // TODO New key - Add a translation
-  "iiif.page.issue": "Issue: ",
-
   // "iiif.page.description": "Description: ",
-  // TODO New key - Add a translation
-  "iiif.page.description": "Description: ",
+  "iiif.page.description": "توصیف: ",
 
   // "loading.bitstream": "Loading bitstream...",
-  // TODO New key - Add a translation
-  "loading.bitstream": "Loading bitstream...",
+  "loading.bitstream": "بارگزاری فایل...",
 
   // "loading.bitstreams": "Loading bitstreams...",
-  // TODO New key - Add a translation
-  "loading.bitstreams": "Loading bitstreams...",
+  "loading.bitstreams": "بارگزاری فایلها...",
 
   // "loading.browse-by": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.browse-by": "Loading items...",
+  "loading.browse-by": "بارگزاری آیتمها...",
 
   // "loading.browse-by-page": "Loading page...",
-  // TODO New key - Add a translation
-  "loading.browse-by-page": "Loading page...",
+  "loading.browse-by-page": "بارگزاری صفحه...",
 
   // "loading.collection": "Loading collection...",
-  // TODO New key - Add a translation
-  "loading.collection": "Loading collection...",
+  "loading.collection": "بارگزاری مجموعه...",
 
   // "loading.collections": "Loading collections...",
-  // TODO New key - Add a translation
-  "loading.collections": "Loading collections...",
+  "loading.collections": "بارگزاری مجموعه ها...",
 
   // "loading.content-source": "Loading content source...",
-  // TODO New key - Add a translation
-  "loading.content-source": "Loading content source...",
+  "loading.content-source": "بارگزاری محتوای منبع...",
 
   // "loading.community": "Loading community...",
-  // TODO New key - Add a translation
-  "loading.community": "Loading community...",
+  "loading.community": "بارگزاری جامعه...",
 
   // "loading.default": "Loading...",
-  // TODO New key - Add a translation
-  "loading.default": "Loading...",
+  "loading.default": "بارگزاری...",
 
   // "loading.item": "Loading item...",
-  // TODO New key - Add a translation
-  "loading.item": "Loading item...",
+  "loading.item": "بارگزاری آیتم",
 
   // "loading.items": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.items": "Loading items...",
+  "loading.items": "بارگزاری آیتمها...",
 
   // "loading.mydspace-results": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.mydspace-results": "Loading items...",
+  "loading.mydspace-results": "بارگزاری آیتمها...",
 
   // "loading.objects": "Loading...",
-  // TODO New key - Add a translation
-  "loading.objects": "Loading...",
+  "loading.objects": "بارگزاری ...",
 
   // "loading.recent-submissions": "Loading recent submissions...",
-  // TODO New key - Add a translation
-  "loading.recent-submissions": "Loading recent submissions...",
+  "loading.recent-submissions": "بارگزاری ارسالهای اخیر ...",
 
   // "loading.search-results": "Loading search results...",
-  // TODO New key - Add a translation
-  "loading.search-results": "Loading search results...",
+  "loading.search-results": "بارگزاری نتایج جستجو ...",
 
   // "loading.sub-collections": "Loading sub-collections...",
-  // TODO New key - Add a translation
-  "loading.sub-collections": "Loading sub-collections...",
+  "loading.sub-collections": "بارگزاری زیرمجموعه ...",
 
   // "loading.sub-communities": "Loading sub-communities...",
-  // TODO New key - Add a translation
-  "loading.sub-communities": "Loading sub-communities...",
+  "loading.sub-communities": "بارگزاری زیر جامعه ...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
-  // TODO New key - Add a translation
-  "loading.top-level-communities": "Loading top-level communities...",
+  "loading.top-level-communities": "بارگزاری جامعه های سطح-بالا ...",
 
   // "login.form.email": "Email address",
-  // TODO New key - Add a translation
-  "login.form.email": "Email address",
+  "login.form.email": "آدرس ایمیل",
 
   // "login.form.forgot-password": "Have you forgotten your password?",
-  // TODO New key - Add a translation
-  "login.form.forgot-password": "Have you forgotten your password?",
+  "login.form.forgot-password": "آیا رمز عبور خود را فراموش کرده‌اید؟",
 
   // "login.form.header": "Please log in to DSpace",
-  // TODO New key - Add a translation
-  "login.form.header": "Please log in to DSpace",
+  "login.form.header": "لطفا وارد دی‌اسپیس شوید",
 
   // "login.form.new-user": "New user? Click here to register.",
-  // TODO New key - Add a translation
-  "login.form.new-user": "New user? Click here to register.",
+  "login.form.new-user": "کاربر جدید؟ برای ثبت نام اینجا کلیک کنید.",
 
   // "login.form.oidc": "Log in with OIDC",
-  // TODO New key - Add a translation
-  "login.form.oidc": "Log in with OIDC",
+  "login.form.oidc": "ورود با OIDC",
 
   // "login.form.orcid": "Log in with ORCID",
-  // TODO New key - Add a translation
-  "login.form.orcid": "Log in with ORCID",
+  "login.form.orcid": "ورود با ORCID",
 
   // "login.form.password": "Password",
-  // TODO New key - Add a translation
-  "login.form.password": "Password",
+  "login.form.password": "رمز عبور",
 
   // "login.form.saml": "Log in with SAML",
-  // TODO New key - Add a translation
-  "login.form.saml": "Log in with SAML",
+  "login.form.saml": "ورود با SAML",
 
   // "login.form.shibboleth": "Log in with Shibboleth",
-  // TODO New key - Add a translation
-  "login.form.shibboleth": "Log in with Shibboleth",
+  "login.form.shibboleth": "ورود با Shibboleth",
 
   // "login.form.submit": "Log in",
-  // TODO New key - Add a translation
   "login.form.submit": "ورود",
 
   // "login.title": "Login",
-  // TODO New key - Add a translation
   "login.title": "ورود",
 
   // "login.breadcrumbs": "Login",
-  // TODO New key - Add a translation
   "login.breadcrumbs": "ورود",
 
   // "logout.form.header": "Log out from DSpace",
-  // TODO New key - Add a translation
-  "logout.form.header": "Log out from DSpace",
+  "logout.form.header": "خروج از دی اسپیس",
 
   // "logout.form.submit": "Log out",
-  // TODO New key - Add a translation
-  "logout.form.submit": "Log out",
+  "logout.form.submit": "خروج",
 
   // "logout.title": "Logout",
-  // TODO New key - Add a translation
-  "logout.title": "Logout",
+  "logout.title": "خروج",
 
   // "menu.header.nav.description": "Admin navigation bar",
-  // TODO New key - Add a translation
-  "menu.header.nav.description": "Admin navigation bar",
+  "menu.header.nav.description": "نوار راهبری مدیر",
 
   // "menu.header.admin": "Management",
-  // TODO New key - Add a translation
-  "menu.header.admin": "Management",
+  "menu.header.admin": "مدیریت",
 
   // "menu.header.image.logo": "Repository logo",
-  // TODO New key - Add a translation
-  "menu.header.image.logo": "Repository logo",
+  "menu.header.image.logo": "لوگو مخزن",
 
   // "menu.header.admin.description": "Management menu",
-  // TODO New key - Add a translation
-  "menu.header.admin.description": "Management menu",
+  "menu.header.admin.description": "منوی مدیریت",
 
   // "menu.section.access_control": "Access Control",
-  // TODO New key - Add a translation
-  "menu.section.access_control": "Access Control",
+  "menu.section.access_control": "کنترل دسترسی",
 
   // "menu.section.access_control_authorizations": "Authorizations",
   // TODO New key - Add a translation
