@@ -1,4 +1,4 @@
-import { ResourceType } from '../../../shared/resource-type';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 
 /**
  * The resource type for vocabulary models

@@ -4,8 +4,8 @@ import {
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BREADCRUMB_MESSAGE_POSTFIX } from './i18n-breadcrumbs.service';
+import { Breadcrumb } from './models/breadcrumb.model';
 import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
 
 describe('NavigationBreadcrumbsService', () => {

@@ -3,23 +3,23 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { LdnServicesService } from '@dspace/core/coar-notify/ldn-services/ldn-services-data.service';
+import { NotifyServicePattern } from '@dspace/core/coar-notify/ldn-services/models/ldn-service-patterns.model';
+import {
+  LdnService,
+  LdnServiceByPattern,
+} from '@dspace/core/coar-notify/ldn-services/models/ldn-services.model';
+import { SubmissionCoarNotifyModel } from '@dspace/core/coar-notify/notify-info/models/submission-coar-notify.model';
+import { CoarNotifyConfigDataService } from '@dspace/core/config/coar-notify-config-data.service';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
-import {
-  LdnService,
-  LdnServiceByPattern,
-} from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';
-import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 
 describe('SubmissionSectionCoarNotifyComponent', () => {
   let component: SubmissionSectionCoarNotifyComponent;
@@ -33,8 +33,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   let cdRefStub: any;
 
 
-  const patterns: SubmissionCoarNotifyConfig[] = Object.assign(
-    [new SubmissionCoarNotifyConfig()],
+  const patterns: SubmissionCoarNotifyModel[] = Object.assign(
+    [new SubmissionCoarNotifyModel()],
     {
       patterns: [{ pattern: 'review', multipleRequest: false }, { pattern: 'endorsment', multipleRequest: false }],
     },

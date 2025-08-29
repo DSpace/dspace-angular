@@ -5,8 +5,8 @@ import {
   of,
 } from 'rxjs';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 /**
  * Service to calculate QA breadcrumbs for a single part of the route

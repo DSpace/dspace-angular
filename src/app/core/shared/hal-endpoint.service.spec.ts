@@ -1,18 +1,20 @@
+import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   combineLatest as observableCombineLatest,
   of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { environment } from '../../../environments/environment';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { EndpointMapRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { HALEndpointService } from './hal-endpoint.service';
+
 
 
 describe('HALEndpointService', () => {
@@ -109,19 +111,25 @@ describe('HALEndpointService', () => {
     });
 
     envConfig = {
-      rest: { baseUrl: 'https://rest.api/' },
+      rest: { baseUrl: 'https://rest.com/server' },
     } as any;
 
-    service = new HALEndpointService(
-      requestService,
-      rdbService,
-    );
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: RequestService, useValue: requestService },
+        { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: APP_CONFIG, useValue:  envConfig  },
+        HALEndpointService,
+      ],
+    }).compileComponents();
+
+    service = TestBed.inject(HALEndpointService);
   });
 
   describe('getRootEndpointMap', () => {
     it('should send a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
-      const expected = new EndpointMapRequest(requestService.generateRequestId(), `${environment.rest.baseUrl}/api`);
+      const expected = new EndpointMapRequest(requestService.generateRequestId(), `${envConfig.rest.baseUrl}/api`);
       expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
 
@@ -215,11 +223,7 @@ describe('HALEndpointService', () => {
 
   describe('isEnabledOnRestApi', () => {
     beforeEach(() => {
-      service = new HALEndpointService(
-        requestService,
-        rdbService,
-      );
-
+      service = TestBed.inject(HALEndpointService);
     });
 
     it('should return undefined as long as getRootEndpointMap hasn\'t fired', () => {

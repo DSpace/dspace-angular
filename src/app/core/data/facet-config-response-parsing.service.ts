@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { FacetConfigResponse } from '../../shared/search/models/facet-config-response.model';
-import { SearchFilterConfig } from '../../shared/search/models/search-filter-config.model';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { FacetConfigResponse } from '../shared/search/models/facet-config-response.model';
+import { SearchFilterConfig } from '../shared/search/models/search-filter-config.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 

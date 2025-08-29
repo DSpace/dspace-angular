@@ -1,3 +1,4 @@
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   blue,
   bold,
@@ -12,7 +13,6 @@ import {
 import { load } from 'js-yaml';
 import { join } from 'path';
 
-import { isNotEmpty } from '../app/shared/empty.util';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';

@@ -12,18 +12,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { Script } from '../../scripts/script.model';
 import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {

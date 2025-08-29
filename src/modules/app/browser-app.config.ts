@@ -16,6 +16,29 @@ import {
 } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
+import { BrowserAuthRequestService } from '@dspace/core/auth/browser-auth-request.service';
+import { BrowserOrejimeService } from '@dspace/core/cookies/browser-orejime.service';
+import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { coreEffects } from '@dspace/core/core.effects';
+import { coreReducers } from '@dspace/core/core.reducers';
+import { CoreState } from '@dspace/core/core-state.model';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { BrowserReferrerService } from '@dspace/core/services/browser.referrer.service';
+import {
+  BrowserHardRedirectService,
+  locationProvider,
+  LocationToken,
+} from '@dspace/core/services/browser-hard-redirect.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { ReferrerService } from '@dspace/core/services/referrer.service';
+import { ClientMathService } from '@dspace/core/shared/client-math.service';
+import { MathService } from '@dspace/core/shared/math.service';
+import { BrowserXSRFService } from '@dspace/core/xsrf/browser-xsrf.service';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -39,29 +62,6 @@ import {
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
-import { AuthService } from '../../app/core/auth/auth.service';
-import { AuthRequestService } from '../../app/core/auth/auth-request.service';
-import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
-import { coreEffects } from '../../app/core/core.effects';
-import { coreReducers } from '../../app/core/core.reducers';
-import { CoreState } from '../../app/core/core-state.model';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
-import {
-  BrowserHardRedirectService,
-  locationProvider,
-  LocationToken,
-} from '../../app/core/services/browser-hard-redirect.service';
-import { ClientCookieService } from '../../app/core/services/client-cookie.service';
-import { CookieService } from '../../app/core/services/cookie.service';
-import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
-import { ReferrerService } from '../../app/core/services/referrer.service';
-import { ClientMathService } from '../../app/core/shared/client-math.service';
-import { MathService } from '../../app/core/shared/math.service';
-import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
-import { XSRFService } from '../../app/core/xsrf/xsrf.service';
-import { BrowserOrejimeService } from '../../app/shared/cookies/browser-orejime.service';
-import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';

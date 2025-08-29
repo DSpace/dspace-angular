@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { sourcesBreadcrumbResolver } from '@dspace/core/breadcrumbs/sources-breadcrumb.resolver';
 
-import { authenticatedGuard } from '../../core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { sourcesBreadcrumbResolver } from '../../core/breadcrumbs/sources-breadcrumb.resolver';
 import { PublicationClaimComponent } from '../../notifications/suggestions/targets/publication-claim/publication-claim.component';
 import { AdminNotificationsPublicationClaimPageResolver } from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
 import { QualityAssuranceEventsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';

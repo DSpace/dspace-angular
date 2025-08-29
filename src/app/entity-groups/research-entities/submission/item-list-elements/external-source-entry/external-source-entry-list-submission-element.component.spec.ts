@@ -4,9 +4,9 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
 import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {

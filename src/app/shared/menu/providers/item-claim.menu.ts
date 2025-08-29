@@ -6,6 +6,13 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -14,13 +21,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { isNotEmpty } from '../../empty.util';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';

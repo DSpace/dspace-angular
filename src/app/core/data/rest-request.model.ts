@@ -1,12 +1,11 @@
-import { environment } from '../../../environments/environment';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * A request to the DSpace REST API
  */
 export abstract class RestRequest {
-  public responseMsToLive = environment.cache.msToLive.default;
   public isMultipart = false;
 
   constructor(
@@ -15,6 +14,7 @@ export abstract class RestRequest {
         public method: RestRequestMethod = RestRequestMethod.GET,
         public body?: any,
         public options?: HttpOptions,
+        public responseMsToLive?: number,
   ) {
   }
 }

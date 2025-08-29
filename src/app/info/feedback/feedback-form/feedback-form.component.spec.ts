@@ -10,22 +10,22 @@ import {
 import { UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { FeedbackDataService } from '@dspace/core/feedback/feedback-data.service';
+import { Feedback } from '@dspace/core/feedback/models/feedback.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
-import { Feedback } from '../../../core/feedback/models/feedback.model';
-import { RouteService } from '../../../core/services/route.service';
-import { NativeWindowService } from '../../../core/services/window.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { FeedbackFormComponent } from './feedback-form.component';
 
 
