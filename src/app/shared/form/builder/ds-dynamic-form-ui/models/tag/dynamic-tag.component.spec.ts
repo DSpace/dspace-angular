@@ -22,10 +22,10 @@ import {
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
 
-function createKeyUpEvent(key: number) {
+function createKeyUpEvent(key: string) {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const event = {
-    keyCode: key, preventDefault: () => {
+    key: key, preventDefault: () => {
     }, stopPropagation: () => {
     }
   };
@@ -256,8 +256,8 @@ describe('DsDynamicTagComponent test suite', () => {
         expect(tagComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
       });
 
-      it('should add an item on ENTER or key press is \',\' or \';\'', fakeAsync(() => {
-        let event = createKeyUpEvent(13);
+      it('should add an item on ENTER or key press is \',\'', fakeAsync(() => {
+        let event = createKeyUpEvent('Enter');
         tagComp.currentValue = 'test value';
 
         tagFixture.detectChanges();
@@ -268,7 +268,7 @@ describe('DsDynamicTagComponent test suite', () => {
         expect(tagComp.model.value).toEqual(['test value']);
         expect(tagComp.currentValue).toBeNull();
 
-        event = createKeyUpEvent(188);
+        event = createKeyUpEvent(',');
         tagComp.currentValue = 'test value';
 
         tagFixture.detectChanges();
