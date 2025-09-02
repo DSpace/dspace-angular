@@ -1797,7 +1797,7 @@
   "community.create.notifications.success": "Úspěšně vytvořena komunita",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Vytvořit podkomunitu pro komunitu {{ parent }}",
+  "community.create.sub-head": "Vytvořit podkomunitu v komunitě {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
   "community.curate.header": "Spravovat komunitu: {{ community }}",
@@ -2466,7 +2466,7 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Pro dokončení zaslání musíte udělit licenci. Pokud v tuto chvíli tuto licenci nemůžete udělit, můžete svou práci uložit a později se k svému příspěvku vrátit nebo jej smazat.",
+  "error.validation.license.notgranted": "Bez udělení licence nelze záznam dokončit. Pokud v tuto chvíli nemůžete licenci udělit, uložte svou práci a vraťte se k příspěvku později nebo jej smažte.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Toto zadání je omezeno aktuálním vzorcem: {{ pattern }}.",
@@ -3630,13 +3630,13 @@
   "item.edit.tabs.status.buttons.private.button": "Učinit nedohledatelným...",
 
   // "item.edit.tabs.status.buttons.private.label": "Make item non-discoverable",
-  "item.edit.tabs.status.buttons.private.label": "Učinit záznam nedohledatelným",
+  "item.edit.tabs.status.buttons.private.label": "Skrýt záznam ve vyhledávání",
 
   // "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
   "item.edit.tabs.status.buttons.public.button": "Učinit dohledatelným...",
 
   // "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
-  "item.edit.tabs.status.buttons.public.label": "Učinit záznam dohledatelným",
+  "item.edit.tabs.status.buttons.public.label": "Zpřístupnit záznam ve vyhledávání",
 
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
   "item.edit.tabs.status.buttons.reinstate.button": "Obnovit...",
@@ -3876,7 +3876,7 @@
   "item.page.claim.button": "Převzít",
 
   // "item.page.claim.tooltip": "Claim this item as profile",
-  "item.page.claim.tooltip": "Prohlásit tento záznam za profilovou",
+  "item.page.claim.tooltip": "Prohlásit tento záznam za profil",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Identifikátor:",
@@ -4320,7 +4320,7 @@
   "iiif.page.doi": "Trvalý odkaz: ",
 
   // "iiif.page.issue": "Issue: ",
-  "iiif.page.issue": "Problém: ",
+  "iiif.page.issue": "Číslo: ",
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "Popis: ",
