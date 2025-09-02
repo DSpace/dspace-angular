@@ -594,7 +594,7 @@
   "admin.access-control.groups.table.edit.buttons.remove": "Odstranit \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  "admin.access-control.groups.no-items": "Nebyla nalezena žádná skupina s tímto v návzvu nebo UUID",
+  "admin.access-control.groups.no-items": "Nebyla nalezena žádná skupina s tímto v názvu nebo UUID",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   "admin.access-control.groups.notification.deleted.success": "Úspěšně odstraněna skupina \"{{name}}\"",
@@ -1032,7 +1032,7 @@
   "auth.messages.expired": "Vaše relace vypršela. Přihlaste se prosím znovu.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-  "auth.messages.token-refresh-failed": "Nepodařilo se obnovit váš přístupový token. Prosím přihlašte se znovu.",
+  "auth.messages.token-refresh-failed": "Nepodařilo se obnovit váš přístupový token. Prosím, přihlašte se znovu.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
   "bitstream.download.page": "Nyní se stahuje {{bitstream}}...",
@@ -1137,7 +1137,7 @@
   "bitstream-request-a-copy.header": "Vyžádat si kopii souboru",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
-  "bitstream-request-a-copy.intro": "Zadejte následující informace, abyste si vyžádali kopii následující záznamy: ",
+  "bitstream-request-a-copy.intro": "Zadejte následující informace, abyste si vyžádali kopii následujícího záznamu: ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
   "bitstream-request-a-copy.intro.bitstream.one": "Žádám o kopii následujícího souboru: ",
@@ -1485,7 +1485,7 @@
   "collection.edit.logo.notifications.delete.error.title": "Chyba při mazání loga",
 
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
-  "collection.edit.logo.upload": "Odstranit logo kolekce k nahrání",
+  "collection.edit.logo.upload": "Přetáhněte logo kolekce pro nahrání",
 
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Úspěšně upravena kolekce",
@@ -1665,7 +1665,7 @@
   "collection.page.edit": "Upravit tuto kolekci",
 
   // "collection.page.handle": "Permanent URI for this collection",
-  "collection.page.handle": "Permanentní URI k tomuto záznamu",
+  "collection.page.handle": "Permanentní URI této kolekce",
 
   // "collection.page.license": "License",
   "collection.page.license": "Licence",
@@ -1758,7 +1758,7 @@
   "collection.source.controls.harvest.message": "Informace o harvestu:",
 
   // "collection.source.controls.harvest.no-information": "N/A",
-  "collection.source.controls.harvest.no-information": "Není k dispozi",
+  "collection.source.controls.harvest.no-information": "Není k dispozici",
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   "collection.source.update.notifications.error.content": "Zadané nastavení bylo otestováno a nefungovalo.",
@@ -2007,7 +2007,7 @@
   "community.page.edit": "Upravit tuto komunitu",
 
   // "community.page.handle": "Permanent URI for this community",
-  "community.page.handle": "Stálý URI pro tuto komunitu",
+  "community.page.handle": "Trvalé URI",
 
   // "community.page.license": "License",
   "community.page.license": "Licence",
@@ -2211,10 +2211,10 @@
   "deny-request-copy.intro": "Tato zpráva bude zaslána žadateli o kopii",
 
   // "deny-request-copy.success": "Successfully denied item request",
-  "deny-request-copy.success": "Úspěšně zamítnuta žádost o kopii záznamy",
+  "deny-request-copy.success": "Úspěšně zamítnuta žádost o kopii záznamu",
 
   // "dynamic-list.load-more": "Load more",
-  "dynamic-list.load-more": "Načíst více",
+  "dynamic-list.load-more": "Načíst další",
 
   // "dropdown.clear": "Clear selection",
   "dropdown.clear": "Vymazat výběr",
@@ -2379,7 +2379,7 @@
   "confirmation-modal.delete-eperson.header": "Odstranit uživatele \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Určitě chcete odstranit uživatele \"{{ dsoName }}}\"",
+  "confirmation-modal.delete-eperson.info": "Určitě chcete odstranit uživatele \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Zrušit",
@@ -2829,7 +2829,7 @@
   "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
   // "health-page.section-info.app.title": "Application Backend",
-  "health-page.section-info.app.title": "Application Backend",
+  "health-page.section-info.app.title": "Aplikační server",
 
   // "health-page.section-info.java.title": "Java",
   "health-page.section-info.java.title": "Java",
@@ -3066,7 +3066,7 @@
   "item.edit.bitstreams.bundle.load.all": "Načíst všechny ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  "item.edit.bitstreams.bundle.load.more": "Načíst více",
+  "item.edit.bitstreams.bundle.load.more": "Načíst další",
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "Svazek: {{ name }}",
@@ -3171,7 +3171,7 @@
   "item.edit.bitstreams.upload-button": "Nahrát",
 
   // "item.edit.bitstreams.load-more.link": "Load more",
-  "item.edit.bitstreams.load-more.link": "Načíst více",
+  "item.edit.bitstreams.load-more.link": "Načíst další",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Zrušit",
@@ -3495,7 +3495,7 @@
   "item.edit.public.description": "Jste si jisti, že by tento záznam měl být v archivu dohledatelný?",
 
   // "item.edit.public.error": "An error occurred while making the item discoverable",
-  "item.edit.public.error": "Při změně záznamu na dohledatelnou došlo k chybě",
+  "item.edit.public.error": "Při změně záznamu na dohledatelný došlo k chybě",
 
   // "item.edit.public.header": "Make item discoverable: {{ id }}",
   "item.edit.public.header": "Učinit záznam dohledatelným: {{ id }}",
@@ -3564,7 +3564,7 @@
   "item.edit.relationships.save-button": "Uložit",
 
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
-  "item.edit.relationships.no-entity-type": "Přidat metadata 'dspace.entity.type' pro povolení vztahů pro tuto záznam",
+  "item.edit.relationships.no-entity-type": "Přidat metadata 'dspace.entity.type' pro povolení vztahů pro tento záznam",
 
   // "item.edit.return": "Back",
   "item.edit.return": "Zpět",
@@ -3732,7 +3732,7 @@
   "item.page.volume-title": "Název svazku",
 
   // "item.search.results.head": "Item Search Results",
-  "item.search.results.head": "Výsleky vyhledávání",
+  "item.search.results.head": "Výsledky vyhledávání",
 
   // "item.search.title": "Item Search",
   "item.search.title": "Hledat",
@@ -4746,7 +4746,7 @@
   "mydspace.results.no-title": "Žádný název",
 
   // "mydspace.results.no-uri": "No URI",
-  "mydspace.results.no-uri": "Žádné Uri",
+  "mydspace.results.no-uri": "Žádné URI",
 
   // "mydspace.search-form.placeholder": "Search in MyDSpace...",
   "mydspace.search-form.placeholder": "Hledat v mém dspace...",
@@ -5262,7 +5262,7 @@
   "project.page.expectedcompletion": "Předpokládané dokončení",
 
   // "project.page.funder": "Funders",
-  "project.page.funder": "Poskytovatelé finací",
+  "project.page.funder": "Poskytovatelé financí",
 
   // "project.page.id": "ID",
   "project.page.id": "ID",
@@ -5340,7 +5340,7 @@
   "register-page.create-profile.identification.first-name": "Křestní jméno *",
 
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
-  "register-page.create-profile.identification.first-name.error": "Vyplňte prosím křesní jméno",
+  "register-page.create-profile.identification.first-name.error": "Vyplňte prosím křestní jméno",
 
   // "register-page.create-profile.identification.last-name": "Last Name *",
   "register-page.create-profile.identification.last-name": "Příjmení *",
@@ -5763,7 +5763,7 @@
   "search.filters.applied.f.jobTitle": "Název pracovní pozice",
 
   // "search.filters.applied.f.birthDate.max": "End birth date",
-  "search.filters.applied.f.birthDate.max": "Datum narozdení do",
+  "search.filters.applied.f.birthDate.max": "Datum narození do",
 
   // "search.filters.applied.f.birthDate.min": "Start birth date",
   "search.filters.applied.f.birthDate.min": "Datum narození od",
@@ -6195,13 +6195,13 @@
   "statistics.table.title.TotalVisitsPerMonth": "Celkový počet návštěv za měsíc",
 
   // "statistics.table.title.TotalDownloads": "File Visits",
-  "statistics.table.title.TotalDownloads": "Návštěvy souborů",
+  "statistics.table.title.TotalDownloads": "Stažení souborů",
 
   // "statistics.table.title.TopCountries": "Top country views",
-  "statistics.table.title.TopCountries": "Nejvíce zobrazení ze státu",
+  "statistics.table.title.TopCountries": "Země s nejvíce zobrazeními",
 
   // "statistics.table.title.TopCities": "Top city views",
-  "statistics.table.title.TopCities": "Nejvíce zobrazení z města",
+  "statistics.table.title.TopCities": "Města s nejvíce zobrazeními",
 
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Zobrazení",
@@ -6285,7 +6285,7 @@
   "submission.import-external.page.hint": "Zadejte výše uvedený dotaz, abyste našli záznamy z webu, které chcete importovat do systému DSpace.",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
-  "submission.import-external.back-to-my-dspace": "Zpět do Mého DSpace",
+  "submission.import-external.back-to-my-dspace": "Zpět na Můj DSpace",
 
   // "submission.import-external.search.placeholder": "Search the external source",
   "submission.import-external.search.placeholder": "Prohledat externí zdroj",
@@ -6381,7 +6381,7 @@
   "submission.import-external.preview.title.Project": "Náhled projektu",
 
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
-  "submission.import-external.preview.subtitle": "Níže uvedená metadata byla importována z externího zdroje. Budou předvyplněna při zahájení odesílání..",
+  "submission.import-external.preview.subtitle": "Níže uvedená metadata byla importována z externího zdroje. Budou předvyplněna při zahájení odesílání.",
 
   // "submission.import-external.preview.button.import": "Start submission",
   "submission.import-external.preview.button.import": "Začít nový příspěvek",
@@ -6768,7 +6768,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Vybrané číslo časopisu",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Vybrané organizační jednotka",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Vybraná organizační jednotka",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Výsledky vyhledávání",
@@ -7275,7 +7275,7 @@
   "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl odesílatel něco změnit a znovu předložit.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
-  "submission.workflow.tasks.claimed.return": "Vrátit do fondu",
+  "submission.workflow.tasks.claimed.return": "Vrátit do fronty",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
   "submission.workflow.tasks.claimed.return_help": "Vrátit úlohu do fondu, aby ji mohl provést jiný uživatel.",
@@ -7341,7 +7341,7 @@
   "subscriptions.frequency.W": "Týdenní frekvence",
 
   // "subscriptions.tooltip": "Subscribe",
-  "subscriptions.tooltip": "Potvrdit",
+  "subscriptions.tooltip": "Odebírat",
 
   // "subscriptions.unsubscribe": "Unsubscribe",
   "subscriptions.unsubscribe": "Odhlásit odběr",
@@ -7386,13 +7386,13 @@
   "subscriptions.modal.update.success": "Notifikace {{ type }} byla aktualizována.",
 
   // "subscriptions.modal.create.error": "An error occurs during the subscription creation",
-  "subscriptions.modal.create.error": "Během nastavování notifikce došlo k chybě.",
+  "subscriptions.modal.create.error": "Během nastavování notifikace došlo k chybě.",
 
   // "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
-  "subscriptions.modal.delete.error": "Během rušení notifikce došlo k chybě.",
+  "subscriptions.modal.delete.error": "Během rušení notifikace došlo k chybě.",
 
   // "subscriptions.modal.update.error": "An error occurs during the subscription update",
-  "subscriptions.modal.update.error": "Během aktualizace notifikce došlo k chybě.",
+  "subscriptions.modal.update.error": "Během aktualizace notifikace došlo k chybě.",
 
   // "subscriptions.table.dso": "Subject",
   "subscriptions.table.dso": "Předmět",
@@ -7452,7 +7452,7 @@
   "vocabulary-treeview.header": "Hierarchické stromové zobrazení",
 
   // "vocabulary-treeview.load-more": "Load more",
-  "vocabulary-treeview.load-more": "Další",
+  "vocabulary-treeview.load-more": "Načíst další",
 
   // "vocabulary-treeview.search.form.reset": "Reset",
   "vocabulary-treeview.search.form.reset": "Resetovat",
@@ -7464,7 +7464,7 @@
   "vocabulary-treeview.search.form.search-placeholder": "Filtrovat výsledky zadáním prvních několika písmen",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
-  "vocabulary-treeview.search.no-result": "Nebyly zobrazeny žádné záznamy",
+  "vocabulary-treeview.search.no-result": "Nebyly nalezeny žádné položky",
 
   // "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
   "vocabulary-treeview.tree.description.nsi": "Norský vědecký index",
@@ -8052,7 +8052,7 @@
   "system-wide-alert-banner.countdown.prefix": "V",
 
   // "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
-  "system-wide-alert-banner.countdown.days": "{{days}} den(dny),",
+  "system-wide-alert-banner.countdown.days": "{{days}} dní,",
 
   // "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
   "system-wide-alert-banner.countdown.hours": "{{hours}} hodina(y) a",
@@ -8091,7 +8091,7 @@
   "system-wide-alert.form.label.countdownTo.enable": "Povolit odpočet",
 
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
-  "system-wide-alert.form.label.countdownTo.hint": "Nápověda: Nastavte odpočítávací měřič. Je-li to povoleno, lze datum nastavit i v budoucnosti a systémový upozornění bude uvádět odpočítávání do nastaveného data. Ve chvíli, kdy skončí odpočítávání, zmizí i odpočítávač z upozornění. Server NEBUDE automaticky zastaven.",
+  "system-wide-alert.form.label.countdownTo.hint": "Nápověda: Nastavte odpočítávací měřič. Je-li to povoleno, lze datum nastavit i v budoucnosti a systémové upozornění bude uvádět odpočítávání do nastaveného data. Ve chvíli, kdy skončí odpočítávání, zmizí i odpočítávač z upozornění. Server NEBUDE automaticky zastaven.",
 
   // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
   "system-wide-alert-form.select-date-by-calendar": "Vyberte datum pomocí kalendáře",
@@ -8163,7 +8163,7 @@
   "access-control-limit-to-specific": "Uplatnit změny pouze na specifikované soubory",
 
   // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
-  "access-control-process-all-bitstreams": "Aktualozivat všechny soubory u daného záznamu",
+  "access-control-process-all-bitstreams": "Aktualizovat všechny soubory u daného záznamu",
 
   // "access-control-bitstreams-selected": "bitstreams selected",
   "access-control-bitstreams-selected": "vybrány soubory",
