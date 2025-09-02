@@ -8247,7 +8247,7 @@
   "dynamic-form-array.sortable-list.label": "Seznam, který lze třídit",
 
   // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
-  "metadata-export-search.submit.error.limit-exceeded": "Budou exportovány pouze první {{limit}} položky"
+  "metadata-export-search.submit.error.limit-exceeded": "Budou exportovány pouze první {{limit}} položky",
 
 
 }
