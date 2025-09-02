@@ -3899,8 +3899,7 @@
   "home.search-form.placeholder": "Search the repository ...",
 
   // "home.title": "Home",
-  // TODO Source message changed - Revise the translation
-  // TODO Change univer name
+
   "home.title": "Репозитарій :: Головна",
 
   // "home.top-level-communities.head": "Communities in DSpace",
