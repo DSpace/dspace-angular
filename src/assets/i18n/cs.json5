@@ -6663,13 +6663,13 @@
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Čísla časopisu",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Svazky časopisů",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Ročníky časopisů",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Svazky časopisů",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Ročníky časopisů",
 
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Svazky časopisů",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Ročníky časopisů",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Časopisy",
@@ -6726,7 +6726,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Vybrané časopisy",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Vybraný svazek časopisu",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Vybraný ročník časopisu",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Vybraný ročník časopisu",
