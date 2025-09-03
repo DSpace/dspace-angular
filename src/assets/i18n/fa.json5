@@ -2209,238 +2209,181 @@
   "community.edit.logo.notifications.add.error": "بارگذاری لوگوی جامعه ناموفق بود. لطفاً قبل از تلاش مجدد، محتوا را تأیید کنید.",
 
   // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
-  "community.edit.logo.notifications.add.success": " لوگوی جامعه با موفقیت انجام شد.",
+  "community.edit.logo.notifications.add.success": " بارگذاری لوگوی جامعه موفقیت آمیز بود.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
   "community.edit.logo.notifications.delete.success.title": "لوگو حذف شد",
 
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
+  "community.edit.logo.notifications.delete.success.content": "لوگوی جامعه با موفقیت حذف شد",
 
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "community.edit.logo.notifications.delete.error.title": "خطای حذف لوگو",
 
   // "community.edit.logo.upload": "Drop a community logo to upload",
-  // TODO New key - Add a translation
-  "community.edit.logo.upload": "Drop a community logo to upload",
+  "community.edit.logo.upload": "برای آپلود، لوگوی جامعه را رها کنید",
 
   // "community.edit.notifications.success": "Successfully edited the community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.success": "Successfully edited the community",
+  "community.edit.notifications.success": "جامعه با موفقیت ویرایش شد",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
-  // TODO New key - Add a translation
-  "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+  "community.edit.notifications.unauthorized": "شما حق اعمال این تغییر را ندارید",
 
   // "community.edit.notifications.error": "An error occurred while editing the community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.error": "An error occurred while editing the community",
+  "community.edit.notifications.error": "خطایی هنگام ویرایش جامعه رخ داد",
 
   // "community.edit.return": "Back",
-  // TODO New key - Add a translation
-  "community.edit.return": "Back",
+  "community.edit.return": "برگشت",
 
   // "community.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.head": "Curate",
+  "community.edit.tabs.curate.head": "دست چین",
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.title": "Community Edit - Curate",
+  "community.edit.tabs.curate.title": "ویرایش جامعه- دست چین",
 
   // "community.edit.tabs.access-control.head": "Access Control",
-  // TODO New key - Add a translation
-  "community.edit.tabs.access-control.head": "Access Control",
+  "community.edit.tabs.access-control.head": "کنترل دسترسی",
 
   // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
-  // TODO New key - Add a translation
-  "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  "community.edit.tabs.access-control.title": "ویرایش جامعه- کنترل دسترسی",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.head": "Edit Metadata",
+  "community.edit.tabs.metadata.head": "ویرایش ابرداده",
 
   // "community.edit.tabs.metadata.title": "Community Edit - Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.title": "Community Edit - Metadata",
+  "community.edit.tabs.metadata.title": "ویرایش جامعه- ابرداده",
 
   // "community.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.head": "Assign Roles",
+  "community.edit.tabs.roles.head": "اختصاص نقشها",
 
   // "community.edit.tabs.roles.title": "Community Edit - Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.title": "Community Edit - Roles",
+  "community.edit.tabs.roles.title": "ویرایش جامعه- نقشها",
 
   // "community.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.head": "Authorizations",
+  "community.edit.tabs.authorizations.head": "مجوزها",
 
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
+  "community.edit.tabs.authorizations.title": "ویرایش جامعه- مجوزها",
 
   // "community.listelement.badge": "Community",
-  // TODO New key - Add a translation
-  "community.listelement.badge": "Community",
+  "community.listelement.badge": "جامعه",
 
   // "community.logo": "Community logo",
-  // TODO New key - Add a translation
-  "community.logo": "Community logo",
+  "community.logo": "لوگوی جامعه",
 
   // "comcol-role.edit.no-group": "None",
-  // TODO New key - Add a translation
-  "comcol-role.edit.no-group": "None",
+  "comcol-role.edit.no-group": "هیچکدام",
 
   // "comcol-role.edit.create": "Create",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create": "Create",
+  "comcol-role.edit.create": "ایجاد",
 
   // "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+  "comcol-role.edit.create.error.title": "ایجاد گروه برای نقش  '{{ role }}' ناموفق بود",
 
   // "comcol-role.edit.restrict": "Restrict",
-  // TODO New key - Add a translation
-  "comcol-role.edit.restrict": "Restrict",
+  "comcol-role.edit.restrict": "محدود",
 
   // "comcol-role.edit.delete": "Delete",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete": "Delete",
+  "comcol-role.edit.delete": "حذف",
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
+  "comcol-role.edit.delete.error.title": "گروه نقش '{{ role }}' حذف نشد.",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.name": "Administrators",
+  "comcol-role.edit.community-admin.name": "مدیران",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.name": "Administrators",
+  "comcol-role.edit.collection-admin.name": "مدیران",
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.community-admin.description": "مدیران جامعه می‌توانند زیرجامعه ها یا مجموعه‌ها را ایجاد کنند و مدیریت یا اختصاص مدیریت برای آن زیرجامعه ها یا مجموعه‌ها را بر عهده بگیرند. علاوه بر این، آنها تصمیم می‌گیرند که چه کسی می‌تواند آیتمها را به هر زیرمجموعه ارسال کند، ابرداده‌های آیتمها را (پس از ارسال) ویرایش کند و آیتمهای موجود را از مجموعه‌های دیگر (با مجوز) اضافه کند (نگاشت کند).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
+  "comcol-role.edit.collection-admin.description": "مدیران مجموعه تصمیم می‌گیرند چه کسی می‌تواند آیتمها را به مجموعه ارسال کند، ابرداده‌های آیتمها را (پس از ارسال) ویرایش کند، و آیتمهای موجود را از مجموعه‌های دیگر به این مجموعه اضافه (نگاشت) کند (منوط به مجوز آن مجموعه).",
 
   // "comcol-role.edit.submitters.name": "Submitters",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.name": "Submitters",
+  "comcol-role.edit.submitters.name": "ارسال کنندگان",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
+  "comcol-role.edit.submitters.description": "E-Peopleو گروه‌هایی که مجوز ارسال آیتمهای جدید به این مجموعه را دارند.",
 
   // "comcol-role.edit.item_read.name": "Default item read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.name": "Default item read access",
+  "comcol-role.edit.item_read.name": "دسترسی پیش فرض خواندن آیتم",
 
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.item_read.description": "E-People و گروه‌هایی که می‌توانند آیتم جدید ارسال شده به این مجموعه را بخوانند. تغییرات در این نقش عطف به ماسبق نمی‌شوند. آیتم موجود در سیستم همچنان توسط کسانی که در زمان اضافه شدن، دسترسی خواندن داشته‌اند، قابل مشاهده خواهند بود.",
 
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
+  "comcol-role.edit.item_read.anonymous-group": "خواندن پیش‌فرض برای آیتمهای ورودی در حال حاضر روی ناشناس تنظیم شده است.",
 
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+  "comcol-role.edit.bitstream_read.name": "دسترسی خواندن پیش فرض فایل",
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.bitstream_read.description": "E-People و گروه‌هایی که می‌توانند فایلهای جدید ارسال شده به این مجموعه را بخوانند. تغییرات در این نقش عطف به ماسبق نمی‌شوند. فایلهای موجود در سیستم همچنان توسط کسانی که در زمان اضافه شدنشان دسترسی خواندن داشته‌اند، قابل مشاهده خواهند بود.",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "خواندن پیش‌فرض برای فایلهای ورودی در حال حاضر روی ناشناس تنظیم شده است.",
 
   // "comcol-role.edit.editor.name": "Editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.name": "Editors",
+  "comcol-role.edit.editor.name": "ویرایشگرها",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
+  "comcol-role.edit.editor.description": "ویرایشگرها می‌توانند ابرداده‌های ارسالهای دریافتی را ویرایش کنند و سپس آنها را بپذیرند یا رد کنند.",
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.name": "Final editors",
+  "comcol-role.edit.finaleditor.name": "ویرایشگرهای نهایی",
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
+  "comcol-role.edit.finaleditor.description": "ویرایشگرهای نهایی می‌توانند ابرداده‌های ارسالهای دریافتی را ویرایش کنند، اما نمی‌توانند آنها را رد کنند.",
 
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.name": "Reviewers",
+  "comcol-role.edit.reviewer.name": "داوران",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
+  "comcol-role.edit.reviewer.description": "داوران می‌توانند ارسالهای دریافتی را بپذیرند یا رد کنند. با این حال، آنها قادر به ویرایش ابرداده‌های ارسالها نیستند.",
 
   // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+  "comcol-role.edit.scorereviewers.name": "داوران امتیاز",
 
   // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+  "comcol-role.edit.scorereviewers.description": "داوران می‌توانند به ارسالهای دریافتی امتیاز بدهند، این امتیاز مشخص می‌کند که آیا ارسال رد خواهد شد یا خیر.",
 
   // "community.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "community.form.abstract": "Short Description",
+  "community.form.abstract": "توصیف کوتاه",
 
   // "community.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.description": "Introductory text (HTML)",
+  "community.form.description": "متن مقدماتی (HTML)",
 
   // "community.form.errors.title.required": "Please enter a community name",
-  // TODO New key - Add a translation
-  "community.form.errors.title.required": "Please enter a community name",
+  "community.form.errors.title.required": "لطفا یک نام جامعه وارد کنید",
 
   // "community.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.rights": "Copyright text (HTML)",
+  "community.form.rights": "متن کپی رایت (HTML)",
 
   // "community.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "community.form.tableofcontents": "News (HTML)",
+  "community.form.tableofcontents": "خبر (HTML)",
 
   // "community.form.title": "Name",
-  // TODO New key - Add a translation
-  "community.form.title": "Name",
+  "community.form.title": "نام",
 
   // "community.page.edit": "Edit this community",
-  // TODO New key - Add a translation
-  "community.page.edit": "Edit this community",
+  "community.page.edit": "ویرایش این جامعه",
 
   // "community.page.handle": "Permanent URI for this community",
-  // TODO New key - Add a translation
-  "community.page.handle": "Permanent URI for this community",
+  "community.page.handle": " URI دائمی برای این جامعه",
 
   // "community.page.license": "License",
-  // TODO New key - Add a translation
-  "community.page.license": "License",
+  "community.page.license": "گواهی",
 
   // "community.page.news": "News",
-  // TODO New key - Add a translation
-  "community.page.news": "News",
+  "community.page.news": "خبر",
 
   // "community.page.options": "Options",
-  // TODO New key - Add a translation
-  "community.page.options": "Options",
+  "community.page.options": "گزینه‌ها",
 
   // "community.all-lists.head": "Subcommunities and Collections",
-  // TODO New key - Add a translation
-  "community.all-lists.head": "Subcommunities and Collections",
+  "community.all-lists.head": "زیر جامعه ها و مجموعه ها",
 
   // "community.search.breadcrumbs": "Search",
   "community.search.breadcrumbs": "جستجو",
@@ -2449,76 +2392,58 @@
   "community.search.results.head": "نتایج جستجو",
 
   // "community.sub-collection-list.head": "Collections in this community",
-  // TODO New key - Add a translation
-  "community.sub-collection-list.head": "Collections in this community",
+  "community.sub-collection-list.head": "مجموعه ها در این جامعه",
 
   // "community.sub-community-list.head": "Communities in this Community",
-  // TODO New key - Add a translation
-  "community.sub-community-list.head": "Communities in this Community",
+  "community.sub-community-list.head": "جامعه ها در این جامعه",
 
   // "cookies.consent.accept-all": "Accept all",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-all": "Accept all",
+  "cookies.consent.accept-all": "پذیرش همه",
 
   // "cookies.consent.accept-selected": "Accept selected",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-selected": "Accept selected",
+  "cookies.consent.accept-selected": "پذیرش انتخاب شده",
 
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+  "cookies.consent.app.opt-out.description": "این برنامه به طور پیش‌فرض بارگذاری می‌شود (اما می‌توانید صرف نظر کنید)",
 
   // "cookies.consent.app.opt-out.title": "(opt-out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.title": "(opt-out)",
+  "cookies.consent.app.opt-out.title": "(انصراف)",
 
   // "cookies.consent.app.purpose": "purpose",
-  // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": "هدف",
 
   // "cookies.consent.app.required.description": "This application is always required",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "این برنامه همیشه مورد نیاز است",
 
   // "cookies.consent.app.required.title": "(always required)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(همیشه موردنیاز)",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
-  // TODO New key - Add a translation
-  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+  "cookies.consent.update": "از آخرین بازدید شما تغییراتی رخ داده است، لطفاً موافقت خود را به‌روز کنید.",
 
   // "cookies.consent.close": "Close",
-  // TODO New key - Add a translation
-  "cookies.consent.close": "Close",
+  "cookies.consent.close": "بستن",
 
   // "cookies.consent.decline": "Decline",
-  // TODO New key - Add a translation
-  "cookies.consent.decline": "Decline",
+  "cookies.consent.decline": "رد",
 
   // "cookies.consent.decline-all": "Decline all",
-  // TODO New key - Add a translation
-  "cookies.consent.decline-all": "Decline all",
+  "cookies.consent.decline-all": "رد همه",
 
   // "cookies.consent.ok": "That's ok",
-  // TODO New key - Add a translation
-  "cookies.consent.ok": "That's ok",
+  "cookies.consent.ok": "اشکالی نداره.",
 
   // "cookies.consent.save": "Save",
-  // TODO New key - Add a translation
-  "cookies.consent.save": "Save",
+  "cookies.consent.save": "ذخیره",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
+  "cookies.consent.content-notice.description": "ما اطلاعات شخصی شما را برای اهداف زیر جمع‌آوری و پردازش می‌کنیم: {purposes}",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.learnMore": "Customize",
+  "cookies.consent.content-notice.learnMore": "سفارشی سازی",
 
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+  "cookies.consent.content-modal.description": "در اینجا می‌توانید اطلاعاتی را که ما درباره شما جمع‌آوری می‌کنیم، مشاهده و سفارشی‌سازی کنید.",
 
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
   // TODO New key - Add a translation
