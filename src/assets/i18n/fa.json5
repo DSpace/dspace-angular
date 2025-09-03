@@ -6731,16 +6731,13 @@
   "pagination.options.description": "Pagination options",
 
   // "pagination.results-per-page": "Results Per Page",
-  // TODO New key - Add a translation
-  "pagination.results-per-page": "Results Per Page",
+  "pagination.results-per-page": "نتایج در هر صفحه",
 
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  // TODO New key - Add a translation
-  "pagination.showing.detail": "{{ range }} of {{ total }}",
+  "pagination.showing.detail": "{{ range }} از {{ total }}",
 
   // "pagination.showing.label": "Now showing ",
-  // TODO New key - Add a translation
-  "pagination.showing.label": "Now showing ",
+  "pagination.showing.label": "در حال نمایش",
 
   // "pagination.sort-direction": "Sort Options",
   // TODO New key - Add a translation
