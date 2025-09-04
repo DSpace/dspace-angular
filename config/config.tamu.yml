@@ -1,8 +1,8 @@
 rest:
   ssl: true
-  host: api-dev.library.tamu.edu
+  host: oaktrust-dev.library.tamu.edu
   port: 443
-  nameSpace: /dspace7
+  nameSpace: /server
 
 mediaViewer:
   image: true
