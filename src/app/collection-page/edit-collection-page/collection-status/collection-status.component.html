@@ -1,0 +1,28 @@
+<p class="mt-2">{{ 'collection.edit.tabs.status.description' | translate }}</p>
+<div class="row">
+  @for (statusKey of statusDataKeys; track statusKey) {
+    <div class="w-100 pt-1">
+      <div class="col-12 col-md-3 float-start status-label fw-bold">
+        {{ 'collection.edit.tabs.status.labels.' + statusKey | translate }}:
+      </div>
+      <div class="col-12 col-md-9 float-start status-data" id="status-{{ statusKey }}">
+        {{ statusData[statusKey] }}
+      </div>
+    </div>
+  }
+
+  <div class="w-100 pt-1">
+    <div class="col-12 col-md-3 float-start status-label fw-bold">
+      {{ 'collection.edit.tabs.status.labels.collectionPage' | translate }}:
+    </div>
+    <div class="col-12 col-md-9 float-start status-data" id="status-collectionPage">
+      <a [routerLink]="collectionPageRoute$ | async">{{ collectionPageRoute$ | async }}</a>
+    </div>
+  </div>
+
+  @for (operation of (operations$ | async); track operation) {
+    <div class="w-100" [ngClass]="{ 'pt-3': operation }">
+      <ds-collection-operation [operation]="operation"></ds-collection-operation>
+    </div>
+  }
+</div>
