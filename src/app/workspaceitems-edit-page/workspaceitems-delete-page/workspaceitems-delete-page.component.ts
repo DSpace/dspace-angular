@@ -1,5 +1,5 @@
 import {
-  CommonModule,
+  AsyncPipe,
   Location,
 } from '@angular/common';
 import {
@@ -42,7 +42,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   templateUrl: './workspaceitems-delete-page.component.html',
   styleUrls: ['./workspaceitems-delete-page.component.scss'],
   imports: [
-    CommonModule,
+    AsyncPipe,
     ModifyItemOverviewComponent,
     TranslateModule,
   ],

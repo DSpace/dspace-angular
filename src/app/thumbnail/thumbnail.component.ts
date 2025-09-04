@@ -1,7 +1,4 @@
-import {
-  CommonModule,
-  isPlatformBrowser,
-} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   Inject,
@@ -12,7 +9,7 @@ import {
   SimpleChanges,
   WritableSignal,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -40,10 +37,9 @@ import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
   templateUrl: './thumbnail.component.html',
   standalone: true,
   imports: [
-    CommonModule,
     SafeUrlPipe,
     ThemedLoadingComponent,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class ThumbnailComponent implements OnChanges {

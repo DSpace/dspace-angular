@@ -265,6 +265,9 @@ languages:
   - code: es
     label: Español
     active: true
+  - code: fa
+    label: فارسی
+    active: true
   - code: fi
     label: Suomi
     active: true
@@ -273,6 +276,9 @@ languages:
     active: true
   - code: gd
     label: Gàidhlig
+    active: true
+  - code: gu
+    label: ગુજરાતી
     active: true
   - code: hi
     label: हिंदी
@@ -289,6 +295,9 @@ languages:
   - code: lv
     label: Latviešu
     active: true
+  - code: mr
+    label: मराठी
+    active: true
   - code: nl
     label: Nederlands
     active: true
@@ -300,6 +309,9 @@ languages:
     active: true
   - code: pt-BR
     label: Português do Brasil
+    active: true
+  - code: ru
+    label: Русский
     active: true
   - code: sr-lat
     label: Srpski (lat)
