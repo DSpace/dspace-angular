@@ -5,7 +5,7 @@
     </span>
     <div class="col-6 col-md-2">
       <select id="year-select" class="form-select" (change)="setStartsWithYearEvent($event)" [attr.aria-label]="'browse.startsWith.choose_year.label' |translate">
-        <option [value]="-1" [selected]="!startsWithYear">
+        <option [value]="-1" [selected]="!startsWithYear" aria-label="">
           {{ 'browse.startsWith.choose_year' | translate }}
         </option>
         @for (option of startsWithOptions; track option) {
@@ -22,7 +22,8 @@
         @for (option of monthOptions; track option) {
           <option
             [value]="option"
-            [selected]="option === startsWithMonth ? 'selected': null">
+            [selected]="option === startsWithMonth ? 'selected': null"
+            [attr.aria-label]="option === 'none' ? '' : 'browse.startsWith.months.' + option | translate">
             {{ 'browse.startsWith.months.' + option | translate }}
           </option>
         }
