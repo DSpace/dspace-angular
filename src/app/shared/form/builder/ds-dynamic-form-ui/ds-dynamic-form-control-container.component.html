@@ -1,4 +1,4 @@
-<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+<div [class.form-group]="hasLabel || model.type === 'DATE' || (model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
      [class.d-none]="model.hidden"
      [formGroup]="group"
      [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
@@ -19,8 +19,7 @@
       <small *ngIf="hasHint && (formBuilderService.hasArrayGroupValue(model) || (!model.repeatable && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)"
              class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
       <!-- In case of repeatable fields show empty space for all elements except the first -->
-      <div *ngIf="context?.index !== null
-              && (!showErrorMessages || errorMessages.length === 0)" class="clearfix w-100 mb-2"></div>
+      <div *ngIf="context?.parent?.groups?.length > 1 && (!showErrorMessages || errorMessages.length === 0)" class="clearfix w-100 mb-2"></div>
 
       <div *ngIf="!model.hideErrorMessages && showErrorMessages" [id]="id + '_errors'"
            [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
@@ -78,7 +77,7 @@
     </ds-existing-relation-list-element>
     <small *ngIf="hasHint && (model.repeatable === false || context?.index === context?.context?.groups?.length - 1) && (!showErrorMessages || errorMessages.length === 0)"
            class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
-    <div class="clearfix w-100 mb-2"></div>
+    <div *ngIf="context?.parent?.groups?.length > 1 && (!showErrorMessages || errorMessages.length === 0)" class="clearfix w-100 mb-2"></div>
   </ng-container>
   <ng-content></ng-content>
 </div>
