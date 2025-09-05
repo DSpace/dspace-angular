@@ -16,7 +16,7 @@ import { of } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
+import { ThemedRelatedEntitiesSearchComponent } from '../related-entities-search/themed-related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
 
 describe('TabbedRelatedEntitiesSearchComponent', () => {
@@ -59,7 +59,7 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
       .overrideComponent(TabbedRelatedEntitiesSearchComponent, {
         remove: {
           imports: [
-            RelatedEntitiesSearchComponent,
+            ThemedRelatedEntitiesSearchComponent,
           ],
         },
       })
