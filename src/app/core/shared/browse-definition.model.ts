@@ -3,7 +3,7 @@ import {
   autoserializeAs,
 } from 'cerialize';
 
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../browse/browse-by-data-type';
 import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**

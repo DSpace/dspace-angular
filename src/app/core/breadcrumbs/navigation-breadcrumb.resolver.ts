@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { BreadcrumbConfig } from './models/breadcrumb-config.model';
 import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
 
 /**

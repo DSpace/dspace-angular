@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   Observable,
   skipWhile,
 } from 'rxjs';
@@ -12,11 +17,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';

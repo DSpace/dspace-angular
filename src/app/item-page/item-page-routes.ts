@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
+import { accessTokenResolver } from '@dspace/core/auth/access-token.resolver';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { itemBreadcrumbResolver } from '@dspace/core/breadcrumbs/item-breadcrumb.resolver';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
-import { accessTokenResolver } from '../core/auth/access-token.resolver';
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';

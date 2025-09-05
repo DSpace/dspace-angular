@@ -1,4 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -9,11 +13,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -33,6 +32,7 @@ import {
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   getAllCompletedRemoteData,

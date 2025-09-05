@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+
 import { environment } from '../../../../../environments/environment';
-import { Context } from '../../../../core/shared/context.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
   DEFAULT_VIEW_MODE,
   getListableObjectComponent,

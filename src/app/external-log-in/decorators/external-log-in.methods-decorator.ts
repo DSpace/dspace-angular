@@ -1,4 +1,4 @@
-import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
 
 import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
 

@@ -15,6 +15,20 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+// Import utils
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import {
+  findByEPersonAndDsoResEmpty,
+  subscriptionMock,
+} from '@dspace/core/testing/subscriptions-data.mock';
+// Import mocks
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -22,22 +36,8 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
-import { getMockThemeService } from '../../mocks/theme-service.mock';
-// Import mocks
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-// Import utils
-import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import {
-  findByEPersonAndDsoResEmpty,
-  subscriptionMock,
-} from '../../testing/subscriptions-data.mock';
+import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { Subscription } from '../models/subscription.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionViewComponent } from './subscription-view.component';
 
 describe('SubscriptionViewComponent', () => {

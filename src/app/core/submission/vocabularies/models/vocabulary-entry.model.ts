@@ -1,16 +1,16 @@
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 
-import { isNotEmpty } from '../../../../shared/empty.util';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
-import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { GenericConstructor } from '../../../shared/generic-constructor';
-import { HALLink } from '../../../shared/hal-link.model';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/ds-dynamic-form-constants';
+import { OtherInformation } from '../../../shared/form/models/form-field-metadata-value.model';
+import { ListableObject } from '../../../shared/object-collection/listable-object.model';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 
 /**

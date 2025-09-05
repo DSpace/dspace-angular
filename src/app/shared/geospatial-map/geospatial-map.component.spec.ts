@@ -7,13 +7,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { GeospatialMapComponent } from './geospatial-map.component';
 
 let elRef: ElementRef;

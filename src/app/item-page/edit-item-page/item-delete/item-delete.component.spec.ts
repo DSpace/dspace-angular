@@ -12,6 +12,24 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -19,26 +37,8 @@ import {
   of,
 } from 'rxjs';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
