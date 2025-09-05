@@ -18,7 +18,7 @@
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-md-4">
+  <div class="col-12 col-md-4">
     @if (!(mediaViewer.image || mediaViewer.video)) {
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
@@ -54,7 +54,7 @@
       [label]="'publication.page.publisher'">
     </ds-generic-item-page-field>
   </div>
-  <div class="col-xs-12 col-md-7">
+  <div class="col-12 col-md-7">
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isProjectOfPublication'"
