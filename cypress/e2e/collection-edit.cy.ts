@@ -27,7 +27,6 @@ describe('Edit Collection > Status tab', () => {
   });
 });
 
-
 describe('Edit Collection > Edit Metadata tab', () => {
   it('should pass accessibility tests', () => {
     // <ds-edit-collection> tag must be loaded
