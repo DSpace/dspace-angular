@@ -253,6 +253,10 @@
             "forceSingleLine": true
           }
         ],
+        "import/enforce-node-protocol-usage": [
+          "error",
+          "always"
+        ],
 
         "unused-imports/no-unused-imports": "error",
         "lodash/import-scope": [
