@@ -67,9 +67,11 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        tab: event.nextId
+        tab: event.nextId,
+        query: this.route.snapshot.queryParams.query,
+        scope: this.route.snapshot.queryParams.scope,
+        'spc.page': 1,
       },
-      queryParamsHandling: 'merge'
     });
   }
 
