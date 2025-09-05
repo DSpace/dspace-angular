@@ -55,8 +55,8 @@
         <button #toggle type="button" class="btn btn-default btn-transparent" cdkTreeNodeToggle
           [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
           (click)="toggleExpanded(node)"
-          (keyup.enter)="toggleExpanded(node)"
-          (keyup.space)="toggleExpanded(node)"
+          (keydown.enter)="toggleExpanded(node)"
+          (keydown.space)="toggleExpanded(node)"
           data-test="expand-button"
           role="button"
           tabindex="0">
