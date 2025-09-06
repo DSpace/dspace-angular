@@ -24,7 +24,7 @@ import {
   concat as observableConcat,
   EMPTY,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   filter,
@@ -187,16 +187,18 @@ export class HeadTagService {
 
     this.setCitationAbstractUrlTag();
     this.setCitationDoiTag();
-    this.setCitationPdfUrlTag();
-    this.setCitationPublisherTag();
-    
+
     this.setCitationJournalTitleTag();
     this.setCitationVolumeTag();
     this.setCitationIssueTag();
 
+    this.setCitationPdfUrlTag();
+    this.setCitationPublisherTag();
+
     if (this.isDissertation()) {
       this.setCitationDissertationNameTag();
     }
+
 
     // this.setCitationFirstPageTag();
     // this.setCitationLastPageTag();
@@ -331,7 +333,7 @@ export class HeadTagService {
       }
     }
   }
-  
+
   /**
    * Add <meta name="citation_journal_title" ... >  to the <head>
    */
@@ -339,7 +341,7 @@ export class HeadTagService {
     const value = this.getMetaTagValue('dc.relation.ispartof');
     this.addMetaTag('citation_journal_title', value);
   }
-  
+
   /**
    * Add <meta name="citation_volume" ... >  to the <head>
    */
@@ -347,14 +349,14 @@ export class HeadTagService {
     const value = this.getMetaTagValue('dc.citation.volume');
     this.addMetaTag('citation_volume', value);
   }
-  
+
   /**
    * Add <meta name="citation_issue" ... >  to the <head>
-   */  
+   */
   protected setCitationIssueTag(): void {
     const value = this.getMetaTagValue('dc.citation.issue');
     this.addMetaTag('citation_issue', value);
-  }  
+  }
 
   /**
    * Add <meta name="citation_pdf_url" ... >  to the <head>
@@ -428,7 +430,7 @@ export class HeadTagService {
   }
 
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
-    return of(bitstream).pipe(
+    return observableOf(bitstream).pipe(
       getDownloadableBitstream(this.authorizationService),
       switchMap((bit: Bitstream) => {
         if (hasValue(bit)) {
@@ -465,7 +467,7 @@ export class HeadTagService {
         )),
       ).pipe(
         // Verify that the bitstream is downloadable
-        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => of(bitstream).pipe(
+        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
           map((bit: Bitstream) => [bit, format]),
         )),
