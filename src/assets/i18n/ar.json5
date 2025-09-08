@@ -2593,7 +2593,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "نقوم بجمع ومعالجة معلوماتك الشخصية للأغراض التالية: <strong>الاستيثاق، والتفضيلات، والإقرار، والإحصائيات</strong>. <br/> لمعرفة المزيد، يرجى قراءة {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "نقوم بجمع ومعالجة معلوماتك الشخصية للأغراض التالية: الاستيثاق، والتفضيلات، والإقرار، والإحصائيات.  لمعرفة المزيد، يرجى قراءة {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "تخصيص",
