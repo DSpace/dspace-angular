@@ -258,7 +258,7 @@
   "admin.registries.metadata.schemas.table.delete": "Smazat vybrané",
 
   // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
-  "admin.registries.metadata.schemas.table.selected": "Vybrané schémata",
+  "admin.registries.metadata.schemas.table.selected": "Vybraná schémata",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -1683,7 +1683,7 @@
   "collection.select.table.selected": "Vybrané kolekce",
 
   // "collection.select.table.select": "Select collection",
-  "collection.select.table.select": "Vybrané kolekce",
+  "collection.select.table.select": "Vybrat kolekci",
 
   // "collection.select.table.deselect": "Deselect collection",
   "collection.select.table.deselect": "Zrušit výběr kolekce",
@@ -1956,7 +1956,7 @@
   "comcol-role.edit.bitstream_read.name": "Výchozí přístup ke čtení souboru",
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
-  "comcol-role.edit.bitstream_read.description": "Lidé a skupiny, kteří mohou číst nové bitstreamy přidané do této kolekce. Změny v této roli nejsou retroaktivní. Existující bitstreamy budou stále zobrazitelné na základě práv nastavených při jejich přidání.",
+  "comcol-role.edit.bitstream_read.description": "Lidé a skupiny, kteří mohou číst nové soubory přidané do této kolekce. Změny v této roli nejsou retroaktivní. Existující soubory budou stále zobrazitelné na základě práv nastavených při jejich přidání.",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "Výchozí čtení pro příchozí soubory je v současné době nastaveno na hodnotu Anonymní.",
@@ -2511,7 +2511,7 @@
   "feed.description": "Synchronizační kanál",
 
   // "file-download-link.restricted": "Restricted bitstream",
-  "file-download-link.restricted": "Omezený soubor",
+  "file-download-link.restricted": "Soubor s omezeným přístupem",
 
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Chyba při získávání souborů pro tento záznam",
@@ -2823,7 +2823,7 @@
   "health-page.section.solrOaiCore.title": "Solr: oai core",
 
   // "health-page.section.solrSearchCore.title": "Solr: search core",
-  "health-page.section.solrSearchCore.title": "Solr: vyhledávací jádro",
+  "health-page.section.solrSearchCore.title": "Solr: search core",
 
   // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
   "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
@@ -2889,13 +2889,13 @@
   "info.accessibility-settings.invalid-form-notification": "Uložení selhalo. Formulář obsahuje neplatné hodnoty.",
 
   // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
-  "info.accessibility-settings.liveRegionTimeOut.label": "Časový limit ARIA Live regionu (v sekundách)",
+  "info.accessibility-settings.liveRegionTimeOut.label": "Časový limit ARIA Live region (v sekundách)",
 
   // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
-  "info.accessibility-settings.liveRegionTimeOut.hint": "Doba, po kterou zpráva v ARIA Live regionu zůstává viditelná. ARIA Live regiony nejsou viditelné na stránce, ale poskytují oznámení pro čtečky obrazovky.",
+  "info.accessibility-settings.liveRegionTimeOut.hint": "Doba, po kterou zpráva v ARIA Live region zůstává viditelná. ARIA Live regiony nejsou viditelné na stránce, ale poskytují oznámení pro čtečky obrazovky.",
 
   // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
-  "info.accessibility-settings.liveRegionTimeOut.invalid": "Časový limit ARIA Live regionu musí být větší než 0",
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Časový limit ARIA Live region musí být větší než 0",
 
   // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
   "info.accessibility-settings.notificationTimeOut.label": "Časový limit upozornění (v sekundách)",
@@ -3072,10 +3072,10 @@
   "item.edit.bitstreams.bundle.name": "Svazek: {{ name }}",
 
   // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
-  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreamy v balíčku {{ bundle }}",
+  "item.edit.bitstreams.bundle.table.aria-label": "Soubory v balíčku {{ bundle }}",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
-  "item.edit.bitstreams.bundle.tooltip": "Bitstream lze přesunout na jinou stránku přetažením na číslo stránky.",
+  "item.edit.bitstreams.bundle.tooltip": "Soubor lze přesunout na jinou stránku přetažením na číslo stránky.",
 
   // "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.discard-button": "Zahodit",
@@ -3114,7 +3114,7 @@
   "item.edit.bitstreams.empty": "Tento záznam neobsahuje žádné soubory. Klikněte na tlačítko pro nahrání a nějaký vytvořte.",
 
   // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
-  "item.edit.bitstreams.info-alert": "Bitstreamy lze přeskupovat v jejich balíčcích podržením uchopovacího bodu a pohybem myši. Alternativně lze bitstream přesunout pomocí klávesnice: Vyberte bitstream stisknutím Enter, když je uchopovací bod bitstreamu v popředí. Přesuňte bitstream nahoru nebo dolů pomocí šipek. Stiskněte Enter znovu pro potvrzení aktuální pozice bitstreamu.",
+  "item.edit.bitstreams.info-alert": "Soubory lze přeskupovat v jejich balíčcích podržením uchopovacího bodu a pohybem myši. Alternativně lze soubor přesunout pomocí klávesnice: Vyberte soubor stisknutím Enter, když je uchopovací bod souboru v popředí. Přesuňte soubor nahoru nebo dolů pomocí šipek. Stiskněte Enter znovu pro potvrzení aktuální pozice souboru.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Akce",
@@ -3450,7 +3450,7 @@
   "item.edit.move.inheritpolicies.description": "Zdědit výchozí politiky cílové kolekce",
 
   // "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
-  "item.edit.move.inheritpolicies.tooltip": "Upozornění: Pokud je povoleno, bude politika čtení pro položku a všechny soubory s ní spojené nahrazena výchozí politikou čtení sbírky. Toto nelze vrátit zpět.",
+  "item.edit.move.inheritpolicies.tooltip": "Upozornění: Pokud je povoleno, bude politika čtení pro položku a všechny soubory s ní spojené nahrazena výchozí politikou čtení sbírky. Tuto akci nelze vrátit zpět.",
 
   // "item.edit.move.move": "Move",
   "item.edit.move.move": "Přesunout",
@@ -3636,7 +3636,7 @@
   "item.edit.tabs.status.buttons.public.button": "Učinit dohledatelným...",
 
   // "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
-  "item.edit.tabs.status.buttons.public.label": "Zpřístupnit záznam ve vyhledávání",
+  "item.edit.tabs.status.buttons.public.label": "Učinit záznam dohledatelným",
 
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
   "item.edit.tabs.status.buttons.reinstate.button": "Obnovit...",
