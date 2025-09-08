@@ -44,6 +44,12 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             queryParams: of({ tab: mockRelationType }),
+            snapshot: {
+              queryParams: {
+                scope: 'collection-uuid',
+                query: 'test',
+              },
+            },
           },
         },
         { provide: Router, useValue: router },
@@ -89,8 +95,10 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         relativeTo: (comp as any).route,
         queryParams: {
           tab: event.nextId,
+          query: 'test',
+          scope: 'collection-uuid',
+          'spc.page': 1,
         },
-        queryParamsHandling: 'merge',
       });
     });
   });
