@@ -3630,7 +3630,7 @@
   "item.edit.tabs.status.buttons.private.button": "Učinit nedohledatelným...",
 
   // "item.edit.tabs.status.buttons.private.label": "Make item non-discoverable",
-  "item.edit.tabs.status.buttons.private.label": "Skrýt záznam ve vyhledávání",
+  "item.edit.tabs.status.buttons.private.label": "Učinit záznam nedohledatelným",
 
   // "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
   "item.edit.tabs.status.buttons.public.button": "Učinit dohledatelným...",
