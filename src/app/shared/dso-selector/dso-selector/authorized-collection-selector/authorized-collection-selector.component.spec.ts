@@ -90,7 +90,7 @@ describe('AuthorizedCollectionSelectorComponent', () => {
 
         component.search('', 1).subscribe(() => {
           expect(collectionService.getAuthorizedCollection).toHaveBeenCalledWith(
-            '', jasmine.any(Object), true, false, 'findAdminAuthorized', jasmine.anything()
+            '', jasmine.any(Object), true, false, 'findAdminAuthorized', jasmine.anything(),
           );
           done();
         });
