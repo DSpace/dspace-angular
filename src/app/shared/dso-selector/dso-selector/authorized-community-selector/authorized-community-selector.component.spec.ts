@@ -59,16 +59,13 @@ describe('AuthorizedCommunitySelectorComponent', () => {
   });
 
   describe('search', () => {
-    describe('when has no entity type', () => {
-      it('should call getAuthorizedCommunity and return the authorized community in a SearchResult', (done) => {
-        component.search('', 1).subscribe((resultRD) => {
-          expect(communityService.getAuthorizedCommunity).toHaveBeenCalled();
-          expect(resultRD.payload.page.length).toEqual(1);
-          expect(resultRD.payload.page[0].indexableObject).toEqual(community);
-          done();
-        });
+    it('should call getAuthorizedCommunity and return the authorized community in a SearchResult', (done) => {
+      component.search('', 1).subscribe((resultRD) => {
+        expect(communityService.getAuthorizedCommunity).toHaveBeenCalled();
+        expect(resultRD.payload.page.length).toEqual(1);
+        expect(resultRD.payload.page[0].indexableObject).toEqual(community);
+        done();
       });
     });
-
   });
 });
