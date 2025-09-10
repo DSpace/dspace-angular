@@ -1,0 +1,17 @@
+<form class="w-100" [formGroup]="formData" (ngSubmit)="submitForm(formData.value)">
+  <div class="mb-3">
+    <div class="row">
+      <div class="form-group input-group col-sm-12 col-md-6 col-auto">
+        <input class="form-control" [attr.aria-label]="'browse.startsWith.input' | translate" placeholder="{{'browse.startsWith.placeholder' | translate}}" type="text" name="startsWith" formControlName="startsWith" [value]="getStartsWith()" />
+        <span class="input-group-append">
+          <button class="btn btn-primary" type="submit"><i class="fas fa-book-open"></i> {{'browse.startsWith.submit' | translate}}</button>
+        </span>
+      </div>
+    </div>
+    <small class="text-muted">
+      <span aria-hidden="true">{{'browse.startsWith.input' | translate}}. </span>
+      <span aria-hidden="true">{{'browse.startsWith.click_here' | translate}}</span>
+      <span><a [attr.aria-label]="'browse.startsWith.type_text' | translate" [routerLink]="['../../search']">{{'browse.startsWith.general_search' | translate}}</a>.</span>
+    </small>
+  </div>
+</form>

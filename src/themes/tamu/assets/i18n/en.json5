@@ -78,4 +78,11 @@
   "nav.mydspace": "My OAKTrust",
 
   "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to OAKTrust.",
+
+  "browse.startsWith.input": "To browse a location in the index, enter the first few letters",
+  "browse.startsWith.click_here": "Click here for a ",
+  "browse.startsWith.general_search": "general search",
+  "browse.startsWith.type_text": "Click here for a general search",
+
+  "browse.startsWith.placeholder": "Enter the first few letters",
 }

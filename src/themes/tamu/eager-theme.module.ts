@@ -13,6 +13,7 @@ import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityPageSubCollectionListComponent } from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
 import { CommunityPageSubCommunityListComponent } from './app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
+import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
 import { SubmissionSectionLicenseComponent } from './app/submission/sections/license/section-license.component';
 // END TAMU Customizations
 
@@ -34,6 +35,7 @@ const DECLARATIONS = [
   CommunityPageSubCommunityListComponent,
   LoginPageComponent,
   LogoutPageComponent,
+  StartsWithTextComponent,
   SubmissionSectionLicenseComponent,
   // END TAMU Customizations
 ];
