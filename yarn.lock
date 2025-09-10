@@ -4689,10 +4689,10 @@ custom-event@~1.0.0:
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
   integrity sha512-GAj5FOq0Hd+RsCGVJxZuKaIDXDf3h6GQoNEjFgbLLI/trgtavwUbSnZ5pVfg27DVCaWjIohryS0JFwIJyT2cMg==
 
-cypress-axe@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/cypress-axe/-/cypress-axe-1.6.0.tgz#2d70475e15356dd243ebcbfefd5719526f7ca9bc"
-  integrity sha512-C/ij50G8eebBrl/WsGT7E+T/SFyIsRZ3Epx9cRTLrPL9Y1GcxlQGFoAVdtSFWRrHSCWXq9HC6iJQMaI89O9yvQ==
+cypress-axe@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/cypress-axe/-/cypress-axe-1.7.0.tgz#258c007db13c637eaffec1cf2765090b521c07a0"
+  integrity sha512-zzJpvAAjauEB3GZl0KYXb8i3w6MztWAt2WM3czYTFyNVC30alDmqCm9E7GwZ4bgkldZJlmHakaVEyu73R5St4w==
 
 cypress@^13.17.0:
   version "13.17.0"
