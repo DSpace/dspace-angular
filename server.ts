@@ -559,8 +559,8 @@ function createHttpsServer(keys) {
  * Create an HTTP server with the configured port and host.
  */
 function run() {
-  const port = environment.ui.port || 4000;
-  const host = environment.ui.host || '/';
+  const port = environment.ui.port;
+  const host = environment.ui.host;
 
   // Start up the Node server
   const server = app();
