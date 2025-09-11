@@ -1,61 +1,35 @@
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import {
+  DSONameService,
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  FeatureID,
+  ItemDataService,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  Collection,
+  DSpaceObject,
+  DSpaceObjectType,
+  followLink,
+  NoContent,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
   toDSpaceObjectListRD,
-} from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+  PaginatedSearchOptions,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  map,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import {
-  fadeIn,
-  fadeInOut,
-} from '../../shared/animations/fade';
+import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { SearchService } from '../../shared/search/search.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';

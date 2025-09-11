@@ -1,8 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormBuilder,
@@ -10,37 +7,31 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LangConfig } from '@dspace/config';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { LangConfig } from '@dspace/config/lang-config.interface';
-import { AuthenticateAction } from '@dspace/core/auth/auth.actions';
-import { CoreState } from '@dspace/core/core-state.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import {
+  AuthenticateAction,
+  CoreState,
+  RemoteData,
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
-} from '@dspace/core/end-user-agreement/end-user-agreement.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import {
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+  Registration,
+} from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
 import { Store } from '@ngrx/store';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import {
+  ProfilePageSecurityFormComponent,
+} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 
 /**

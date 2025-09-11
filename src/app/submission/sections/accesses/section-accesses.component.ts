@@ -1,23 +1,15 @@
-
-import {
-  Component,
-  Inject,
-  ViewChild,
-} from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { AccessesConditionOption } from '@dspace/core/config/models/config-accesses-conditions-options.model';
-import { SubmissionAccessesConfigDataService } from '@dspace/core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import { WorkspaceitemSectionAccessesObject } from '@dspace/core/submission/models/workspaceitem-section-accesses.model';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { dateToISOFormat } from '@dspace/shared/utils/date.util';
 import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '@dspace/shared/utils/empty.util';
+  AccessesConditionOption,
+  SubmissionAccessesConfigDataService,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  getFirstSucceededRemoteData,
+  WorkspaceitemSectionAccessesObject,
+  SubmissionJsonPatchOperationsService,
+} from '@dspace/core'
+import { dateToISOFormat, hasValue, isNotEmpty, isNotNull } from '@dspace/utils';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -31,21 +23,15 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
-import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import {
+  DynamicDateControlValue,
+} from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import {
+  DynamicFormControlCondition,
+} from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  mergeMap,
-  take,
-} from 'rxjs/operators';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';

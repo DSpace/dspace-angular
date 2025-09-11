@@ -1,13 +1,7 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-} from '@angular/common';
-import {
-  Component,
-  Injector,
-} from '@angular/core';
+import { AsyncPipe, NgComponentOutlet } from '@angular/common';
+import { Component, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core'
 
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';

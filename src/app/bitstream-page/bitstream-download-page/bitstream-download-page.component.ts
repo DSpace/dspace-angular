@@ -1,51 +1,27 @@
+import { AsyncPipe, isPlatformServer, Location } from '@angular/common';
+import { Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
-  AsyncPipe,
-  isPlatformServer,
-  Location,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Params,
-  Router,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
-import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
-import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { ServerResponseService } from '@dspace/core/services/server-response.service';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { FileService } from '@dspace/core/shared/file.service';
-import { getRemoteDataPayload } from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  AuthService,
+  DSONameService,
+  ConfigurationDataService,
+  AuthorizationDataService,
+  FeatureID,
+  RemoteData,
+  SignpostingDataService,
+  SignpostingLink,
+  getForbiddenRoute,
+  HardRedirectService,
+  ServerResponseService,
+  redirectOn4xx,
+  Bitstream,
+  FileService,
+  getRemoteDataPayload,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { MatomoService } from '../../statistics/matomo.service';
 

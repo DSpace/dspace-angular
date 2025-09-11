@@ -1,11 +1,5 @@
-
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { hasValue } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 

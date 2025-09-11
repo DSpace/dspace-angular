@@ -1,34 +1,30 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import {
+  DSONameService,
+  RelationshipDataService,
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
-} from '@dspace/core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
-import { DsoEditMetadataFieldServiceStub } from '@dspace/core/testing/dso-edit-metadata-field.service.stub';
+  ItemMetadataRepresentation,
+  DsoEditMetadataFieldServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import {
-  DsoEditMetadataChangeType,
-  DsoEditMetadataValue,
-} from '../dso-edit-metadata-form';
-import { DsoEditMetadataFieldService } from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
-import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
+  ThemedTypeBadgeComponent,
+} from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  DsoEditMetadataFieldService,
+} from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
+import {
+  DsoEditMetadataValueFieldLoaderComponent,
+} from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
 
 const EDIT_BTN = 'edit';

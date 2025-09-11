@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  Location,
-} from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -16,52 +13,30 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
-import { ProofOfWorkCaptchaDataService } from '@dspace/core/data/proof-of-work-captcha-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
-import {
+  AuthService,
+  DSONameService,
+  BitstreamDataService,
+  AuthorizationDataService,
+  FeatureID,
+  ItemRequestDataService,
+  ProofOfWorkCaptchaDataService,
+  EPerson,
+  NotificationsService,
+  getForbiddenRoute,
   getBitstreamDownloadRoute,
   getItemPageRoute,
-} from '@dspace/core/router/utils/dso-route.utils';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import {
+  Bitstream,
+  Item,
+  ItemRequest,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest, Observable, of, Subscription } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AltchaCaptchaComponent } from './altcha-captcha.component';

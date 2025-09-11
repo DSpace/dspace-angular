@@ -1,11 +1,6 @@
 // Load the implementations that should be tested
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -15,29 +10,23 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { HostWindowServiceMock } from '@dspace/core/testing/host-window-service.mock';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+  FindListOptions,
+  PaginationService,
+  PaginationComponentOptions,
+  MockActivatedRoute,
+  HostWindowServiceMock,
+  RouterMock,
+  TranslateLoaderMock,
+  createTestComponent,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject } from 'rxjs';
 
@@ -400,7 +389,7 @@ describe('Pagination component', () => {
   imports: [
     NgbModule,
     NgxPaginationModule,
-    PaginationComponent,
+
   ],
 })
 class TestComponent {

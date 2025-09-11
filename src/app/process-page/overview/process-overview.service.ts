@@ -1,18 +1,18 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import {
+  RequestParam,
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessStatus } from '@dspace/core/processes/process-status.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  FindListOptions,
+  PaginatedList,
+  ProcessDataService,
+  RemoteData,
+  PaginationComponentOptions,
+  Process,
+  ProcessStatus,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { Observable } from 'rxjs';
 
 /**

@@ -1,23 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  maxMobileWidth,
-  WidthCategory,
-} from '@dspace/core/shared/host-window-type';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-} from 'rxjs/operators';
+import { maxMobileWidth, WidthCategory } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { createSelector, select, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import { CSSVariableService } from './sass-helper/css-variable.service';

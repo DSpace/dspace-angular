@@ -1,25 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+  getItemPageRoute,
+  Item,
+  ItemSearchResult,
+  SearchObjects,
+  RouterStub,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal.component';
 

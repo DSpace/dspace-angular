@@ -1,15 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  AdminNotifyMessage,
+  AdminNotifySearchResult,
+  buildPaginatedList,
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

@@ -1,9 +1,6 @@
-import { SubmissionObjectError } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionObjectError } from '@dspace/core'
 
-import {
-  default as parseSectionErrorPaths,
-  SectionErrorPath,
-} from './parseSectionErrorPaths';
+import { default as parseSectionErrorPaths, SectionErrorPath } from './parseSectionErrorPaths';
 
 /**
  * the following method accept an array of SubmissionObjectError and return a section errors object

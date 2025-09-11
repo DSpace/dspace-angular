@@ -1,20 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  HealthInfoComponentOne,
-  HealthInfoComponentTwo,
-} from '@dspace/core/testing/health-endpoint.mocks';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { HealthInfoComponentOne, HealthInfoComponentTwo, TranslateLoaderMock } from '@dspace/core'
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { HealthInfoComponentComponent } from './health-info-component.component';

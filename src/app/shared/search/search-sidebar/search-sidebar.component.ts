@@ -1,27 +1,16 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+  SortOptions,
+  RemoteData,
+  PaginatedSearchOptions,
+  SearchFilterConfig,
+  FilterConfig,
+  ViewMode,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
@@ -29,8 +18,12 @@ import { AdvancedSearchComponent } from '../advanced-search/advanced-search.comp
 import { SearchConfigurationService } from '../search-configuration.service';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
-import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
-import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
+import {
+  SearchConfigurationOption,
+} from '../search-switch-configuration/search-configuration-option.model';
+import {
+  SearchSwitchConfigurationComponent,
+} from '../search-switch-configuration/search-switch-configuration.component';
 
 /**
  * This component renders a simple item page.

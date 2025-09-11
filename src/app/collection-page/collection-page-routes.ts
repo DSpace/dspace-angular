@@ -1,13 +1,19 @@
 import { Route } from '@angular/router';
-import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
-import { collectionBreadcrumbResolver } from '@dspace/core/breadcrumbs/collection-breadcrumb.resolver';
-import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import {
+  authenticatedGuard,
+  collectionBreadcrumbResolver,
+  communityBreadcrumbResolver,
+  i18nBreadcrumbResolver,
+} from '@dspace/core'
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
-import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
+import {
+  ComcolBrowseByComponent,
+} from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import {
+  ComcolSearchSectionComponent,
+} from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { collectionPageResolver } from './collection-page.resolver';
@@ -17,11 +23,17 @@ import {
   COLLECTION_EDIT_PATH,
   ITEMTEMPLATE_PATH,
 } from './collection-page-routing-paths';
-import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
+import {
+  CreateCollectionPageComponent,
+} from './create-collection-page/create-collection-page.component';
 import { createCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
-import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
+import {
+  DeleteCollectionPageComponent,
+} from './delete-collection-page/delete-collection-page.component';
 import { itemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
-import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
+import {
+  ThemedEditItemTemplatePageComponent,
+} from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
 export const ROUTES: Route[] = [

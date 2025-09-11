@@ -1,26 +1,20 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  Bitstream,
+  DSpaceObject,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
+import {
+  ResourcePoliciesComponent,
+} from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 
 describe('BitstreamAuthorizationsComponent', () => {

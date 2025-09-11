@@ -1,13 +1,12 @@
 import { TitleCasePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { HealthInfoComponent } from '@dspace/core/shared/health-component.model';
+import { Component, Input } from '@angular/core';
+import { HealthInfoComponent } from '@dspace/core'
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
-import { HealthComponentComponent } from '../../health-panel/health-component/health-component.component';
+import {
+  HealthComponentComponent,
+} from '../../health-panel/health-component/health-component.component';
 
 /**
  * Shows a health info object

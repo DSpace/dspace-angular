@@ -1,18 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { TransferState } from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { hasValue } from '@dspace/utils';
 import { TranslateLoader } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import {
-  NGX_TRANSLATE_STATE,
-  NgxTranslateState,
-} from './ngx-translate-state';
+import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
 
 /**
  * A TranslateLoader for ngx-translate to retrieve i18n messages from the TransferState, or download

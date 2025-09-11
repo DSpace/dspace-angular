@@ -1,19 +1,12 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterOutlet,
-} from '@angular/router';
-import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Collection } from '@dspace/core/shared/collection.model';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { getCollectionPageRoute, Collection } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import {
+  EditComColPageComponent,
+} from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 
 /**
  * Component that represents the page where a user can edit an existing Collection

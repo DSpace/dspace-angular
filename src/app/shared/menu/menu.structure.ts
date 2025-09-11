@@ -5,21 +5,11 @@
  *
  * http://www.dspace.org/license/
  */
-import {
-  InjectionToken,
-  Provider,
-  Type,
-} from '@angular/core';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { InjectionToken, Provider, Type } from '@angular/core';
+import { hasValue, isNotEmpty } from '@dspace/utils';
 
 import { MenuID } from './menu-id.model';
-import {
-  AbstractMenuProvider,
-  MenuProviderTypeWithOptions,
-} from './menu-provider.model';
+import { AbstractMenuProvider, MenuProviderTypeWithOptions } from './menu-provider.model';
 import { MenuRoute } from './menu-route.model';
 
 export const MENU_PROVIDER = new InjectionToken<AbstractMenuProvider>('MENU_PROVIDER');

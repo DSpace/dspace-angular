@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -14,19 +11,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
-import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '@dspace/shared/utils/empty.util';
-import { hasOnlyEmptyProperties } from '@dspace/shared/utils/object.util';
+  SubmissionFormsModel,
+  PLACEHOLDER_PARENT_METADATA,
+  FormFieldMetadataValueObject,
+  getFirstSucceededRemoteDataPayload,
+  VocabularyEntryDetail,
+  VocabularyService,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty, isNotNull, hasOnlyEmptyProperties } from '@dspace/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -39,18 +32,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
-import {
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  mergeMap,
-  scan,
-} from 'rxjs/operators';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { filter, map, mergeMap, scan } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
 import { shrinkInOut } from '../../../../../animations/shrink';

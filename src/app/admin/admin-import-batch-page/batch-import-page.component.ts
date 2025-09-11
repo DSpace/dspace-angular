@@ -2,32 +2,30 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import {
+  DSONameService,
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@dspace/core/data/processes/script-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  RemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { isEmpty, isNotEmpty } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
-import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
+import {
+  ImportBatchSelectorComponent,
+} from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
+import {
+  FileDropzoneNoUploaderComponent,
+} from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
   selector: 'ds-batch-import-page',

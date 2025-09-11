@@ -1,9 +1,6 @@
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { ListableObject } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../app.reducer';

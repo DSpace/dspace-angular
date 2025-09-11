@@ -1,0 +1,42 @@
+import { AppConfig } from '@dspace/config';
+
+import { FilteredDiscoveryQueryResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
+import {
+  FilteredDiscoveryPageResponseParsingService,
+} from './filtered-discovery-page-response-parsing.service';
+import { ResponseParsingService } from './parsing.service';
+import { GetRequest } from './request.models';
+
+describe('FilteredDiscoveryPageResponseParsingService', () => {
+  let service: FilteredDiscoveryPageResponseParsingService;
+
+  beforeEach(() => {
+    service = new FilteredDiscoveryPageResponseParsingService(getMockObjectCacheService(), {
+      cache: { msToLive: { default: 15 * 60 * 1000  } },
+    } as AppConfig);
+  });
+
+  describe('parse', () => {
+    const request = Object.assign(new GetRequest('client/f5b4ccb8-fbb0-4548-b558-f234d9fdfad6', 'https://rest.api/path'), {
+      getResponseParser(): GenericConstructor<ResponseParsingService> {
+        return FilteredDiscoveryPageResponseParsingService;
+      },
+    });
+
+    const mockResponse = {
+      payload: {
+        'discovery-query': 'query',
+      },
+      statusCode: 200,
+      statusText: 'OK',
+    } as RawRestResponse;
+
+    it('should return a FilteredDiscoveryQueryResponse containing the correct query', () => {
+      const response = service.parse(request, mockResponse);
+      expect((response as FilteredDiscoveryQueryResponse).filterQuery).toBe(mockResponse.payload['discovery-query']);
+    });
+  });
+});

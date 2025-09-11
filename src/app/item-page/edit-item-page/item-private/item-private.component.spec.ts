@@ -1,27 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RestResponse } from '@dspace/core/cache/response.models';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
+  RestResponse,
+  ItemDataService,
+  NotificationsService,
+  Item,
+  NotificationsServiceStub,
+  RouterStub,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

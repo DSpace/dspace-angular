@@ -1,37 +1,18 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  Params,
-  Router,
-} from '@angular/router';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { Params, Router } from '@angular/router';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { FilterType, SearchFilterConfig, FilterConfig } from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import {
+  FilterInputSuggestionsComponent,
+} from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
 import { SearchService } from '../search.service';
 import { SearchConfigurationService } from '../search-configuration.service';

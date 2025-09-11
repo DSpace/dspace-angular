@@ -1,15 +1,8 @@
-import {
-  NO_ERRORS_SCHEMA,
-  TemplateRef,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, TemplateRef } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { ProcessDataService } from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';

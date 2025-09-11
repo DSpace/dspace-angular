@@ -1,35 +1,29 @@
+import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
+import { Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  AsyncPipe,
-  isPlatformBrowser,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  Inject,
-  Input,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Item } from '@dspace/core/shared/item.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
+  FindListOptions,
+  PaginatedList,
+  RelationshipDataService,
+  RemoteData,
+  Item,
+  ViewMode,
+} from '@dspace/core'
+import { setPlaceHolderAttributes } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
+import {
+  AbstractIncrementalListComponent,
+} from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-related-items',

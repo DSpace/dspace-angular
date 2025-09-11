@@ -1,45 +1,26 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Input, OnChanges } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import {
+  FieldChangeType,
+  FieldUpdate,
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '@dspace/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { Item } from '@dspace/core/shared/item.model';
-import {
+  ObjectUpdatesService,
+  Item,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  ViewMode,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 
 @Component({

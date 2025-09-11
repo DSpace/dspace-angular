@@ -7,14 +7,16 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
 } from '@angular/core';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  PaginatedList,
+  RemoteData,
+  getItemPageRoute,
+  Item,
+  ItemSearchResult,
+  ListableObject,
+  ViewMode,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 
 import { environment } from '../../../environments/environment';
 import { fadeIn } from '../animations/fade';

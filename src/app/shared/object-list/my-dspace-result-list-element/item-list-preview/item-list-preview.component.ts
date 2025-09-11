@@ -1,31 +1,24 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { DSONameService, Context, Item, SearchResult, WorkflowItem } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
-import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
-import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
-import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import {
+  ThemedBadgesComponent,
+} from '../../../object-collection/shared/badges/themed-badges.component';
+import {
+  ItemCollectionComponent,
+} from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import {
+  ItemSubmitterComponent,
+} from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../truncatable/truncatable-part/truncatable-part.component';
 
 /**
  * This component show metadata for the given item object in the list view.

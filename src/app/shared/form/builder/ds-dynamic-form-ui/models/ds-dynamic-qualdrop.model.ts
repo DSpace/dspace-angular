@@ -1,4 +1,4 @@
-import { LanguageCode } from '@dspace/core/shared/form/models/form-field-language-value.model';
+import { LanguageCode } from '@dspace/core'
 import {
   DynamicFormControlLayout,
   DynamicFormGroupModel,

@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -9,14 +8,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {
-  ControlContainer,
-  NgForm,
-} from '@angular/forms';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { ProcessParameter, Script, ScriptParameter } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { controlContainerFactory } from '../process-form-factory';

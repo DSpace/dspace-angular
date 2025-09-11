@@ -9,32 +9,22 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
 import {
-  ActivatedRoute,
-  Data,
-} from '@angular/router';
-import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { UpdateDataService } from '@dspace/core/data/update-data.service';
-import {
+  ArrayMoveChangeAnalyzer,
+  RemoteData,
+  UpdateDataService,
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
-} from '@dspace/core/data-services-map-type';
-import { lazyDataService } from '@dspace/core/lazy-data-service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  lazyDataService,
+  NotificationsService,
+  Context,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  ResourceType,
+} from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -42,22 +32,28 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  map,
-  mergeMap,
-  tap,
-} from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
+import {
+  DsoEditMetadataFieldValuesComponent,
+} from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
-import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
-import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
-import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
-import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
+import {
+  DsoEditMetadataHeadersComponent,
+} from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
+import {
+  DsoEditMetadataValueComponent,
+} from './dso-edit-metadata-value/dso-edit-metadata-value.component';
+import {
+  DsoEditMetadataValueHeadersComponent,
+} from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
+import {
+  MetadataFieldSelectorComponent,
+} from './metadata-field-selector/metadata-field-selector.component';
 
 @Component({
   selector: 'ds-base-dso-edit-metadata',

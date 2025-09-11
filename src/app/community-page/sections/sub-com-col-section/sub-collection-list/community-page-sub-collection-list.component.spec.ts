@@ -1,39 +1,38 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { LinkHeadService } from '@dspace/core/services/link-head.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  CollectionDataService,
+  ConfigurationDataService,
+  FindListOptions,
+  buildPaginatedList,
+  GroupDataService,
+  PaginationService,
+  LinkHeadService,
+  Community,
+  ConfigurationProperty,
+  PageInfo,
+  HostWindowServiceStub,
+  PaginationServiceStub,
+  SearchConfigurationServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../shared/search/search-configuration.service';
 import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { CommunityPageSubCollectionListComponent } from './community-page-sub-collection-list.component';
+import {
+  CommunityPageSubCollectionListComponent,
+} from './community-page-sub-collection-list.component';
 
 describe('CommunityPageSubCollectionListComponent', () => {
   let comp: CommunityPageSubCollectionListComponent;

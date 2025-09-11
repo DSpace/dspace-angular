@@ -1,8 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { Component, Input } from '@angular/core';
+import { AuthMethodType } from '@dspace/core'
 
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LogInComponent } from './log-in.component';
@@ -15,9 +12,7 @@ import { LogInComponent } from './log-in.component';
   styleUrls: [],
   templateUrl: './../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    LogInComponent,
-  ],
+  imports: [],
 })
 export class ThemedLogInComponent extends ThemedComponent<LogInComponent> {
 

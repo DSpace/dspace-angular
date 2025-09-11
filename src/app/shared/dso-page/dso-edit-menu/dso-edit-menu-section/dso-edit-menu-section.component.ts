@@ -1,15 +1,11 @@
-
-import {
-  Component,
-  Inject,
-  Injector,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { isNotEmpty } from '@dspace/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
+import {
+  AbstractMenuSectionComponent,
+} from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { MenuService } from '../../../menu/menu.service';

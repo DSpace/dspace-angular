@@ -1,18 +1,8 @@
 import { CommonModule } from '@angular/common';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  EventEmitter,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ConfirmationSentComponent } from './confirmation-sent.component';

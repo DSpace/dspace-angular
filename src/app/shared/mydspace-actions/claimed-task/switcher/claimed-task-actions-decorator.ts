@@ -1,4 +1,4 @@
-import { hasNoValue } from '@dspace/shared/utils/empty.util';
+import { hasNoValue } from '@dspace/utils';
 
 import {
   ADVANCED_WORKFLOW_ACTION_RATING,
@@ -22,7 +22,9 @@ import {
   ClaimedTaskActionsEditMetadataComponent,
   WORKFLOW_TASK_OPTION_EDIT_METADATA,
 } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
-import { AdvancedClaimedTaskActionRatingComponent } from '../rating/advanced-claimed-task-action-rating.component';
+import {
+  AdvancedClaimedTaskActionRatingComponent,
+} from '../rating/advanced-claimed-task-action-rating.component';
 import {
   ClaimedTaskActionsRejectComponent,
   WORKFLOW_TASK_OPTION_REJECT,
@@ -31,7 +33,9 @@ import {
   ClaimedTaskActionsReturnToPoolComponent,
   WORKFLOW_TASK_OPTION_RETURN_TO_POOL,
 } from '../return-to-pool/claimed-task-actions-return-to-pool.component';
-import { AdvancedClaimedTaskActionSelectReviewerComponent } from '../select-reviewer/advanced-claimed-task-action-select-reviewer.component';
+import {
+  AdvancedClaimedTaskActionSelectReviewerComponent,
+} from '../select-reviewer/advanced-claimed-task-action-select-reviewer.component';
 
 export type WorkflowTaskOptionComponent =
   typeof ClaimedTaskActionsApproveComponent |

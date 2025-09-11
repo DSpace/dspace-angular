@@ -1,12 +1,6 @@
-import {
-  APP_BASE_HREF,
-  DOCUMENT,
-} from '@angular/common';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import {
-  ApplicationConfig,
-  importProvidersFrom,
-} from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {
   NoPreloading,
   provideRouter,
@@ -16,34 +10,23 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import { APP_CONFIG, AppConfig, StoreDevModules } from '@dspace/config';
 import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { StoreDevModules } from '@dspace/config/store/devtools';
-import { AuthInterceptor } from '@dspace/core/auth/auth.interceptor';
-import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service';
-import { DspaceRestInterceptor } from '@dspace/core/dspace-rest/dspace-rest.interceptor';
-import { LocaleInterceptor } from '@dspace/core/locale/locale.interceptor';
-import { LogInterceptor } from '@dspace/core/log/log.interceptor';
-import { DSpaceRouterStateSerializer } from '@dspace/core/ngrx/dspace-router-state-serializer';
-import {
+  AuthInterceptor,
+  ClientCookieService,
+  DspaceRestInterceptor,
+  LocaleInterceptor,
+  LogInterceptor,
+  DSpaceRouterStateSerializer,
   models,
   provideCore,
-} from '@dspace/core/provide-core';
-import { XsrfInterceptor } from '@dspace/core/xsrf/xsrf.interceptor';
+  XsrfInterceptor,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  RouterStateSerializer,
-  StoreRouterConnectingModule,
-} from '@ngrx/router-store';
-import {
-  MetaReducer,
-  StoreModule,
-  USER_PROVIDED_META_REDUCERS,
-} from '@ngrx/store';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -51,26 +34,19 @@ import { environment } from '../environments/environment';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { appEffects } from './app.effects';
 import { MENUS } from './app.menus';
-import {
-  appMetaReducers,
-  debugMetaReducers,
-} from './app.metareducers';
-import {
-  appReducers,
-  AppState,
-  storeModuleConfig,
-} from './app.reducer';
-import {
-  APP_ROUTES,
-  APP_ROUTING_CONF,
-  APP_ROUTING_SCROLL_CONF,
-} from './app-routes';
+import { appMetaReducers, debugMetaReducers } from './app.metareducers';
+import { appReducers, AppState, storeModuleConfig } from './app.reducer';
+import { APP_ROUTES, APP_ROUTING_CONF, APP_ROUTING_SCROLL_CONF } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
-import { LOGIN_METHOD_FOR_DECORATOR_MAP } from './external-log-in/decorators/external-log-in.methods-decorator';
+import {
+  LOGIN_METHOD_FOR_DECORATOR_MAP,
+} from './external-log-in/decorators/external-log-in.methods-decorator';
 import { RootModule } from './root.module';
 import { ListableModule } from './shared/listable.module';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
-import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';
+import {
+  METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP,
+} from './shared/metadata-representation/metadata-representation.decorator';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP,
   WORKFLOW_TASK_OPTION_DECORATOR_MAP,

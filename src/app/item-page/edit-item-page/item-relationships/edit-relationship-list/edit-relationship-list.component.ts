@@ -1,58 +1,36 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { RequestParam } from '@dspace/core/cache/models/request-param.model';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
-import { RelationshipIdentifiable } from '@dspace/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import {
+  LinkService,
+  RequestParam,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  RelationshipIdentifiable,
+  ObjectUpdatesService,
+  PaginatedList,
+  RelationshipDataService,
+  RemoteData,
+  PaginationService,
+  PaginationComponentOptions,
+  Collection,
+  FollowLinkConfig,
+  Item,
+  ItemType,
+  Relationship,
+  RelationshipType,
+  ItemSearchResult,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { itemLinksToFollow } from '@dspace/core/utilities/relation-query.utils';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  RelationshipOptions,
+  itemLinksToFollow,
+} from '@dspace/core'
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -75,10 +53,16 @@ import {
 } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
+import {
+  DsDynamicLookupRelationModalComponent,
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import {
+  NameVariantService,
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

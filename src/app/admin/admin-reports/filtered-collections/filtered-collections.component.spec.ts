@@ -1,26 +1,11 @@
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  NgbAccordion,
-  NgbAccordionModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { DspaceRestService, RawRestResponse, TranslateLoaderMock } from '@dspace/core'
+import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { FilteredCollectionsComponent } from './filtered-collections.component';

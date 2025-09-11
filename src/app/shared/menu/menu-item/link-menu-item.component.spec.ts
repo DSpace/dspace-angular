@@ -1,22 +1,13 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { QueryParamsDirectiveStub } from '@dspace/core/testing/query-params-directive.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { RouterLinkDirectiveStub } from '@dspace/core/testing/router-link-directive.stub';
+  ActivatedRouteStub,
+  QueryParamsDirectiveStub,
+  RouterStub,
+  RouterLinkDirectiveStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LinkMenuItemComponent } from './link-menu-item.component';

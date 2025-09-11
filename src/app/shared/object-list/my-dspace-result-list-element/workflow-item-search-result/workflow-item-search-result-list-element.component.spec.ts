@@ -1,36 +1,35 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  DSONameService,
+  LinkService,
+  ItemDataService,
+  Context,
+  Item,
+  WorkflowItemSearchResult,
+  WorkflowItem,
+  DSONameServiceMock,
+  getMockLinkService,
+  mockTruncatableService,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
-import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  WorkflowitemActionsComponent,
+} from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
+import {
+  WorkflowItemSearchResultListElementComponent,
+} from './workflow-item-search-result-list-element.component';
 
 
 let component: WorkflowItemSearchResultListElementComponent;

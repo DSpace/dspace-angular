@@ -1,24 +1,16 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Router,
-} from '@angular/router';
-import { Context } from '@dspace/core/shared/context.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Context, ViewMode } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationService } from '../../../../shared/search/search-configuration.service';
-import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
+import {
+  SearchLabelsComponent,
+} from '../../../../shared/search/search-labels/search-labels.component';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 
 @Component({

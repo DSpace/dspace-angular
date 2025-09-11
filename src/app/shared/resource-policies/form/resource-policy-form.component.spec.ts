@@ -1,46 +1,30 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
-import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
-import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '@dspace/core/resource-policy/models/resource-policy.resource-type';
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
-import { GroupMock } from '@dspace/core/testing/group-mock';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '@dspace/shared/utils/date.util';
-import { isNotEmptyOperator } from '@dspace/shared/utils/empty.util';
+  RemoteData,
+  RequestService,
+  APP_DATA_SERVICES_MAP,
+  EPersonDataService,
+  GroupDataService,
+  PaginationService,
+  ActionType,
+  PolicyType,
+  ResourcePolicy,
+  RESOURCE_POLICY,
+  EPersonMock,
+  GroupMock,
+  PaginationServiceStub,
+  getMockRequestService,
+  RouterMock,
+  createTestComponent,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { dateToISOFormat, stringToNgbDateStruct, isNotEmptyOperator } from '@dspace/utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -57,8 +41,12 @@ import { SubmissionService } from '../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../submission/submission-object.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
-import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
-import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  dsDynamicFormControlMapFn,
+} from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import {
+  DsDynamicTypeBindRelationService,
+} from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';

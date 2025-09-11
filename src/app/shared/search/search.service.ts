@@ -1,54 +1,39 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { BaseDataService } from '@dspace/core/data/base/base-data.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { FacetValueResponseParsingService } from '@dspace/core/data/facet-value-response-parsing.service';
-import { ResponseParsingService } from '@dspace/core/data/parsing.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { GetRequest } from '@dspace/core/data/request.models';
-import { RequestService } from '@dspace/core/data/request.service';
-import { RestRequest } from '@dspace/core/data/rest-request.model';
-import { SearchResponseParsingService } from '@dspace/core/data/search-response-parsing.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import {
+  RemoteDataBuildService,
+  BaseDataService,
+  DSpaceObjectDataService,
+  FacetValueResponseParsingService,
+  ResponseParsingService,
+  RemoteData,
+  GetRequest,
+  RequestService,
+  RestRequest,
+  SearchResponseParsingService,
+  PaginationService,
+  PaginationComponentOptions,
+  RouteService,
+  DSpaceObject,
+  FollowLinkConfig,
+  GenericConstructor,
+  HALEndpointService,
+  ListableObject,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  AppliedFilter,
+  FacetValues,
+  PaginatedSearchOptions,
+  SearchFilterConfig,
+  SearchObjects,
+  SearchResult,
+  ViewMode,
+  URLCombiner,
+} from '@dspace/core'
+import { hasValue, hasValueOperator, isNotEmpty } from '@dspace/utils';
 import { Angulartics2 } from 'angulartics2';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  skipWhile,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 
 import { SearchConfigurationService } from './search-configuration.service';
 import { getSearchResultFor } from './search-result-element-decorator';

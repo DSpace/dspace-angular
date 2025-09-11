@@ -8,36 +8,32 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  AuthService,
+  DSONameService,
+  EpersonRegistrationService,
+  AuthorizationDataService,
+  FeatureID,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+  EPersonDataService,
+  GroupDataService,
+  EPerson,
+  Group,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
+  followLink,
+  NoContent,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  PageInfo,
+  Registration,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
@@ -45,36 +41,21 @@ import {
   DynamicFormLayout,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  debounceTime,
-  finalize,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest, Observable, of, Subscription } from 'rxjs';
+import { debounceTime, finalize, map, switchMap, take } from 'rxjs/operators';
 
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
-import {
-  getEPersonsRoute,
-  getGroupEditPageRouterLink,
-} from '../../access-control-routing-paths';
+import { getEPersonsRoute, getGroupEditPageRouterLink } from '../../access-control-routing-paths';
 import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';

@@ -1,20 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { Context } from '@dspace/core/shared/context.model';
-import {
-  MetadataRepresentation,
-  MetadataRepresentationType,
-} from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Context, MetadataRepresentation, MetadataRepresentationType } from '@dspace/core'
 
-import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
-import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import {
+  DynamicComponentLoaderDirective,
+} from '../abstract-component-loader/dynamic-component-loader.directive';
+import {
+  PlainTextMetadataListElementComponent,
+} from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';

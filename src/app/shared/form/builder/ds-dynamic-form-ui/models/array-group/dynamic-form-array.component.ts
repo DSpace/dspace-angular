@@ -1,27 +1,9 @@
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragHandle,
-  CdkDropList,
-} from '@angular/cdk/drag-drop';
-import {
-  NgClass,
-  NgTemplateOutlet,
-} from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  Output,
-  QueryList,
-} from '@angular/core';
-import {
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { Component, EventEmitter, forwardRef, Input, Output, QueryList } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { Relationship } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import {
   DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
@@ -33,13 +15,12 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
-import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
+import {
+  DsDynamicFormControlContainerComponent,
+} from '../../ds-dynamic-form-control-container.component';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 
 @Component({

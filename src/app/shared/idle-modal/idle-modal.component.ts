@@ -1,12 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { LogOutAction } from '@dspace/core/auth/auth.actions';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { LogOutAction, AuthService } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';

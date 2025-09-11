@@ -1,6 +1,5 @@
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { VocabularyEntry, VocabularyOptions } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,

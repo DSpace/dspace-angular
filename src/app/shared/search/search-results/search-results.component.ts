@@ -1,44 +1,34 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
-  hasNoValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  SortOptions,
+  PaginatedList,
+  RemoteData,
+  Context,
+  DSpaceObject,
+  ListableObject,
+  AppliedFilter,
+  PaginatedSearchOptions,
+  SearchFilter,
+  SearchResult,
+  ViewMode,
+} from '@dspace/core'
+import { hasNoValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import {
-  fadeIn,
-  fadeInOut,
-} from '../../animations/fade';
+import { fadeIn, fadeInOut } from '../../animations/fade';
 import { ErrorComponent } from '../../error/error.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { SearchService } from '../search.service';
 import { SearchConfigurationService } from '../search-configuration.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
-import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
+import {
+  SearchResultsSkeletonComponent,
+} from './search-results-skeleton/search-results-skeleton.component';
 
 export interface SelectionConfig {
   repeatable: boolean;

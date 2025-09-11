@@ -1,25 +1,15 @@
+import { fakeAsync, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import {
-  fakeAsync,
-  TestBed,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import {
+  AuthService,
+  EpersonRegistrationService,
+  EPerson,
+  Registration,
+  RouterMock,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+} from '@dspace/core'
+import { Observable, of } from 'rxjs';
 
 import { registrationTokenGuard } from './registration-token-guard';
 

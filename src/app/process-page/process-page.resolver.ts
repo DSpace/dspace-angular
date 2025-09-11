@@ -1,14 +1,12 @@
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Process } from '@dspace/core/processes/process.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  ProcessDataService,
+  RemoteData,
+  Process,
+  followLink,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 
 export const PROCESS_PAGE_FOLLOW_LINKS = [

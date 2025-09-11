@@ -1,15 +1,14 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import { AbstractComponentLoaderComponent } from 'src/app/shared/abstract-component-loader/abstract-component-loader.component';
+import { PAGE_NOT_FOUND_PATH, GenericConstructor } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import {
+  AbstractComponentLoaderComponent,
+} from 'src/app/shared/abstract-component-loader/abstract-component-loader.component';
 
-import { getAdvancedComponentByWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
+import {
+  getAdvancedComponentByWorkflowTaskOption,
+} from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 
 /**

@@ -1,28 +1,34 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  DSONameService,
+  Collection,
+  CollectionSearchResult,
+  ViewMode,
+  DSONameServiceMock,
+  mockTruncatableService,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { CollectionSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import {
+  getCollectionEditRoute,
+} from '../../../../../collection-page/collection-page-routing-paths';
+import {
+  CollectionElementLinkType,
+} from '../../../../../shared/object-collection/collection-element-link.type';
+import {
+  CollectionSearchResultListElementComponent,
+} from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
+import {
+  CollectionAdminSearchResultListElementComponent,
+} from './collection-admin-search-result-list-element.component';
 
 describe('CollectionAdminSearchResultListElementComponent', () => {
   let component: CollectionAdminSearchResultListElementComponent;

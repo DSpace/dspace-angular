@@ -1,13 +1,6 @@
 import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Item } from '@dspace/core/shared/item.model';
-import { SubmissionObjectResolver } from '@dspace/core/submission/resolver/submission-object.resolver';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
+import { RemoteData, Item, SubmissionObjectResolver, WorkspaceitemDataService } from '@dspace/core'
 import { Observable } from 'rxjs';
 
 /**

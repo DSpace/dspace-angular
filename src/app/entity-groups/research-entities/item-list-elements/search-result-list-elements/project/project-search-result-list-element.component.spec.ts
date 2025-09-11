@@ -1,31 +1,30 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  DSONameService,
+  Item,
+  ItemSearchResult,
+  ActivatedRouteStub,
+  DSONameServiceMock,
+  mockTruncatableService,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
-import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
+import {
+  ThemedBadgesComponent,
+} from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
-import { ProjectSearchResultListElementComponent } from './project-search-result-list-element.component';
+import {
+  ProjectSearchResultListElementComponent,
+} from './project-search-result-list-element.component';
 
 let projectListElementComponent: ProjectSearchResultListElementComponent;
 let fixture: ComponentFixture<ProjectSearchResultListElementComponent>;

@@ -1,16 +1,10 @@
-import {
-  Inject,
-  Injectable,
-  Injector,
-  Optional,
-} from '@angular/core';
+import { Inject, Injectable, Injector, Optional } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  FormFieldMetadataValueObject,
+} from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
 import {
   AND_OPERATOR,
   DYNAMIC_MATCHERS,

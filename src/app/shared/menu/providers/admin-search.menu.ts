@@ -7,18 +7,11 @@
  */
 
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import {
-  map,
-  Observable,
-} from 'rxjs';
+import { AuthorizationDataService, FeatureID } from '@dspace/core'
+import { map, Observable } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';
-import {
-  AbstractMenuProvider,
-  PartialMenuSection,
-} from '../menu-provider.model';
+import { AbstractMenuProvider, PartialMenuSection } from '../menu-provider.model';
 
 /**
  * Menu provider to create the "Admin Search" menu in the admin sidebar

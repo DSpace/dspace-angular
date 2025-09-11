@@ -1,31 +1,19 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import {
   NotifyRequestsStatus,
   NotifyStatuses,
-} from '@dspace/core/coar-notify/notify-info/models/notify-requests-status.model';
-import { RequestStatusEnum } from '@dspace/core/coar-notify/notify-info/models/notify-status.enum';
-import { NotifyRequestsStatusDataService } from '@dspace/core/coar-notify/notify-info/notify-services-status-data.service';
-import {
+  RequestStatusEnum,
+  NotifyRequestsStatusDataService,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  filter,
-  map,
-  Observable,
-} from 'rxjs';
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { filter, map, Observable } from 'rxjs';
 
-import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
+import {
+  RequestStatusAlertBoxComponent,
+} from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({
   selector: 'ds-notify-requests-status',

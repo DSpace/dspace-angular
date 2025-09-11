@@ -1,17 +1,6 @@
-
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Optional,
-  Output,
-} from '@angular/core';
-import {
-  ControlContainer,
-  NgForm,
-} from '@angular/forms';
-import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { ScriptParameterType } from '@dspace/core/shared/scripts/script-parameter-type.model';
+import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { ScriptParameter, ScriptParameterType } from '@dspace/core'
 
 import { controlContainerFactory } from '../../process-form-factory';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';

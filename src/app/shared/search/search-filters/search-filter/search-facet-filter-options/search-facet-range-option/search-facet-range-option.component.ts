@@ -1,24 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  Params,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
-import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Params, Router, RouterLink } from '@angular/router';
+import { PaginationService, currentPath, FacetValue, SearchFilterConfig } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';

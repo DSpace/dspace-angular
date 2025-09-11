@@ -1,20 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { DSONameService, Item, DSONameServiceMock } from '@dspace/core'
 import { of } from 'rxjs';
 
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { JournalVolumeSearchResultListElementComponent } from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';
+import {
+  JournalVolumeSearchResultListElementComponent,
+} from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';
 import { JournalVolumeListElementComponent } from './journal-volume-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {

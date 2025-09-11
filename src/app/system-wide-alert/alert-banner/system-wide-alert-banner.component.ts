@@ -1,36 +1,17 @@
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import {
-  AsyncPipe,
-  isPlatformBrowser,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  PaginatedList,
+  SystemWideAlertDataService,
+  NotificationsService,
+  getAllSucceededRemoteDataPayload,
+  SystemWideAlert,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import {
-  BehaviorSubject,
-  EMPTY,
-  interval,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert

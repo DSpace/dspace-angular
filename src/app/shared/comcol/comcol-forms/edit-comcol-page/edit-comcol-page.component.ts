@@ -1,14 +1,7 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RemoteData, DSpaceObject } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

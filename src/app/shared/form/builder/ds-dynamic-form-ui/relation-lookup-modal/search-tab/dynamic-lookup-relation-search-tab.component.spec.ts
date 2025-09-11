@@ -1,32 +1,34 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { relatedRelationships } from '@dspace/core/testing/related-relationships.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  buildPaginatedList,
+  RelationshipDataService,
+  PaginationService,
+  Item,
+  RelationshipType,
+  ItemSearchResult,
+  RelationshipOptions,
+  PaginatedSearchOptions,
+  SearchObjects,
+  PaginationServiceStub,
+  relatedRelationships,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../../../object-list/selectable-list/selectable-list.service';
 import { SearchService } from '../../../../../search/search.service';
 import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { LookupRelationService } from '../lookup-relation.service';
-import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
+import {
+  DsDynamicLookupRelationSearchTabComponent,
+} from './dynamic-lookup-relation-search-tab.component';
 
 
 describe('DsDynamicLookupRelationSearchTabComponent', () => {

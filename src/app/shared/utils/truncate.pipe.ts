@@ -1,8 +1,5 @@
-import {
-  Pipe,
-  PipeTransform,
-} from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Pipe, PipeTransform } from '@angular/core';
+import { hasValue } from '@dspace/utils';
 
 /**
  * Pipe to truncate a value in Angular. (Take a substring, starting at 0)

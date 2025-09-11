@@ -1,20 +1,20 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  CollectionDataService,
+  NotificationsService,
+  Collection,
+  DSpaceObjectType,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchService } from '../../../search/search.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';

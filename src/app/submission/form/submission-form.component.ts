@@ -7,48 +7,47 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { VisibilityType } from '@dspace/core/submission/visibility-type';
 import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
+  AuthService,
+  SubmissionDefinitionsModel,
+  SubmissionSectionModel,
+  Collection,
+  HALEndpointService,
+  Item,
+  SectionVisibility,
+  SubmissionError,
+  SubmissionObject,
+  WorkspaceitemSectionsObject,
+  SectionsType,
+  VisibilityType,
+} from '@dspace/core'
+import { hasValue, isNotEmpty, isNotUndefined } from '@dspace/utils';
 import { TranslatePipe } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
-import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
+import {
+  ThemedSubmissionSectionContainerComponent,
+} from '../sections/container/themed-section-container.component';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
-import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
-import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
-import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
-import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
+import {
+  SubmissionFormCollectionComponent,
+} from './collection/submission-form-collection.component';
+import {
+  ThemedSubmissionFormFooterComponent,
+} from './footer/themed-submission-form-footer.component';
+import {
+  SubmissionFormSectionAddComponent,
+} from './section-add/submission-form-section-add.component';
+import {
+  ThemedSubmissionUploadFilesComponent,
+} from './submission-upload-files/themed-submission-upload-files.component';
 
 /**
  * This component represents the submission form.

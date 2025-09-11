@@ -1,34 +1,17 @@
-import {
-  ChangeDetectorRef,
-  DebugElement,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { ChangeDetectorRef, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Notification } from '@dspace/core/notification-system/models/notification.model';
-import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
-import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
-import { notificationsReducer } from '@dspace/core/notification-system/notifications.reducers';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  Notification,
+  NotificationOptions,
+  NotificationType,
+  notificationsReducer,
+  NotificationsService,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';

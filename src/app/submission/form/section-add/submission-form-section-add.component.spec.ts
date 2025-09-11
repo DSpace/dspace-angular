@@ -1,9 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -13,10 +8,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+import {
+  HostWindowServiceStub,
+  SectionsServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,10 +22,7 @@ import { of } from 'rxjs';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../utils/submission.mock';
+import { mockSubmissionCollectionId, mockSubmissionId } from '../../utils/submission.mock';
 import { SubmissionFormSectionAddComponent } from './submission-form-section-add.component';
 
 const mockAvailableSections: any = [

@@ -1,16 +1,13 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core'
 
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { TabulatableObjectsLoaderComponent } from '../object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
+import {
+  TabulatableObjectsLoaderComponent,
+} from '../object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectTableComponent } from './object-table.component';
 

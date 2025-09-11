@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Item, ViewMode } from '@dspace/core'
 
-import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { PersonSearchResultListElementComponent } from '../search-result-list-elements/person/person-search-result-list-element.component';
+import {
+  listableObjectComponent,
+} from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  AbstractListableElementComponent,
+} from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
+import {
+  PersonSearchResultListElementComponent,
+} from '../search-result-list-elements/person/person-search-result-list-element.component';
 
 @listableObjectComponent('Person', ViewMode.ListElement)
 @Component({

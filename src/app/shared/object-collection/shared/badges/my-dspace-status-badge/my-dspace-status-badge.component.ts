@@ -1,9 +1,5 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { Context } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 /**

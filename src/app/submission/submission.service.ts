@@ -1,45 +1,31 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ErrorResponse } from '@dspace/core/cache/response.models';
-import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
-import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
+  ErrorResponse,
+  SubmissionDefinitionsModel,
+  RemoteData,
+  RequestService,
+  HttpOptions,
+  NotificationsService,
+  RouteService,
+  Item,
+  SectionScope,
+  SubmissionError,
+  SubmissionObject,
+  SubmissionSectionObject,
+  WorkspaceitemSectionsObject,
+  SectionsType,
+  SubmissionJsonPatchOperationsService,
+  SubmissionRestService,
+  SubmissionScopeType,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  hasValue,
-  isEmpty,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
-import {
-  createSelector,
-  MemoizedSelector,
-  select,
-  Store,
-} from '@ngrx/store';
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotUndefined } from '@dspace/utils';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-  timer as observableTimer,
-} from 'rxjs';
+import { Observable, of, Subscription, timer as observableTimer } from 'rxjs';
 import {
   catchError,
   concatMap,
@@ -72,10 +58,7 @@ import {
 } from './objects/submission-objects.reducer';
 import { SectionDataObject } from './sections/models/section-data.model';
 import { submissionObjectFromIdSelector } from './selectors';
-import {
-  submissionSelector,
-  SubmissionState,
-} from './submission.reducers';
+import { submissionSelector, SubmissionState } from './submission.reducers';
 
 function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return createSelector(

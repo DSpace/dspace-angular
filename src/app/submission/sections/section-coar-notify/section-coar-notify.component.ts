@@ -1,48 +1,24 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-} from '@angular/core';
-import { LdnServicesService } from '@dspace/core/coar-notify/ldn-services/ldn-services-data.service';
-import {
+  LdnServicesService,
   LdnService,
   LdnServiceByPattern,
-} from '@dspace/core/coar-notify/ldn-services/models/ldn-services.model';
-import { LdnPattern } from '@dspace/core/coar-notify/notify-info/models/submission-coar-notify.model';
-import { CoarNotifyConfigDataService } from '@dspace/core/config/coar-notify-config-data.service';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import {
+  LdnPattern,
+  CoarNotifyConfigDataService,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbDropdown,
-  NgbDropdownModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  SubmissionSectionError,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty } from '@dspace/utils';
+import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';

@@ -1,27 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthMethod } from '@dspace/core/auth/models/auth.method';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import {
+  authReducer,
+  AuthService,
+  AuthMethod,
+  AuthMethodType,
+  AuthRegistrationType,
+  MetadataValue,
+  Registration,
+  AuthServiceMock,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
@@ -29,7 +25,9 @@ import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-method
 import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
-import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
+import {
+  OrcidConfirmationComponent,
+} from '../registration-types/orcid-confirmation/orcid-confirmation.component';
 import { ExternalLogInComponent } from './external-log-in.component';
 
 describe('ExternalLogInComponent', () => {

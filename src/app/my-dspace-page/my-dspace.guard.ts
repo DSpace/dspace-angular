@@ -6,12 +6,9 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { isEmpty } from '@dspace/utils';
 import { Observable } from 'rxjs';
-import {
-  first,
-  map,
-} from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';

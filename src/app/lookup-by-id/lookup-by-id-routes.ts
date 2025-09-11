@@ -1,8 +1,5 @@
-import {
-  Route,
-  UrlSegment,
-} from '@angular/router';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { Route, UrlSegment } from '@angular/router';
+import { isNotEmpty } from '@dspace/utils';
 
 import { lookupGuard } from './lookup-guard';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';

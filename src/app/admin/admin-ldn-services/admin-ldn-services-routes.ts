@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { navigationBreadcrumbResolver } from '@dspace/core/breadcrumbs/navigation-breadcrumb.resolver';
+import { i18nBreadcrumbResolver, navigationBreadcrumbResolver } from '@dspace/core'
 
 import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.component';
-import { LdnServicesOverviewComponent } from './ldn-services-directory/ldn-services-directory.component';
+import {
+  LdnServicesOverviewComponent,
+} from './ldn-services-directory/ldn-services-directory.component';
 
 const moduleRoutes: Routes = [
   {

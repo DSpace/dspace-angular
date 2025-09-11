@@ -7,11 +7,8 @@
  */
 
 import { Injectable } from '@angular/core';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { DSpaceObject } from '@dspace/core'
+import { Observable, of } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';

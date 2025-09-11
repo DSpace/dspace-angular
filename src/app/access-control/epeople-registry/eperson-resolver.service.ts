@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
-import {
+  RemoteData,
+  EPersonDataService,
+  EPerson,
+  ResolvedAction,
   followLink,
   FollowLinkConfig,
-} from '@dspace/core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

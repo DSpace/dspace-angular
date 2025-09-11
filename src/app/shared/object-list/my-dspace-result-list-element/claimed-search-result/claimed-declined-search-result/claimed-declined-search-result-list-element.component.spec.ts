@@ -1,25 +1,20 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  DSONameService,
+  LinkService,
+  Context,
+  Item,
+  ClaimedDeclinedTaskSearchResult,
+  WorkflowItem,
+  ClaimedTask,
+  DSONameServiceMock,
+  getMockLinkService,
+  mockTruncatableService,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -28,7 +23,9 @@ import { getMockThemeService } from '../../../../theme-support/test/theme-servic
 import { ThemeService } from '../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';
-import { ClaimedDeclinedSearchResultListElementComponent } from './claimed-declined-search-result-list-element.component';
+import {
+  ClaimedDeclinedSearchResultListElementComponent,
+} from './claimed-declined-search-result-list-element.component';
 
 let component: ClaimedDeclinedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedDeclinedSearchResultListElementComponent>;

@@ -1,18 +1,20 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Collection, Context, CollectionSearchResult, ViewMode } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { CollectionSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
-import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+import {
+  getCollectionEditRoute,
+} from '../../../../../collection-page/collection-page-routing-paths';
+import {
+  listableObjectComponent,
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  CollectionSearchResultListElementComponent,
+} from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import {
+  SearchResultListElementComponent,
+} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.AdminSearch)
 @Component({

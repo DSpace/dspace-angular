@@ -1,50 +1,26 @@
 /* eslint-disable max-classes-per-file */
+import { Inject, Injectable } from '@angular/core';
 import {
-  Inject,
-  Injectable,
-} from '@angular/core';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import {
+  CollectionDataService,
+  CommunityDataService,
+  FindListOptions,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import {
+  RemoteData,
   getCollectionPageRoute,
   getCommunityPageRoute,
-} from '@dspace/core/router/utils/dso-route.utils';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import {
+  Collection,
+  Community,
+  followLink,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  createSelector,
-  Store,
-} from '@ngrx/store';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-} from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
+  PageInfo,
+} from '@dspace/core'
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { createSelector, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppState } from '../app.reducer';

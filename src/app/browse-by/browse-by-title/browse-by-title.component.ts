@@ -1,27 +1,10 @@
-import {
-  AsyncPipe,
-  isPlatformServer,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, isPlatformServer } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions, PaginationComponentOptions } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';

@@ -1,30 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RegistryServiceStub } from '@dspace/core/testing/registry.service.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  ConfigurationDataService,
+  buildPaginatedList,
+  GroupDataService,
+  MetadataField,
+  MetadataSchema,
+  NotificationsService,
+  PaginationService,
+  ConfigurationProperty,
+  ActivatedRouteStub,
+  HostWindowServiceStub,
+  NotificationsServiceStub,
+  PaginationServiceStub,
+  RegistryServiceStub,
+  SearchConfigurationServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

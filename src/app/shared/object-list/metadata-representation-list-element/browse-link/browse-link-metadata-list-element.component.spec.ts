@@ -1,19 +1,16 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import {
+  MetadataRepresentationType,
+  MetadatumRepresentation,
+  ValueListBrowseDefinition,
+  ActivatedRouteStub,
+} from '@dspace/core'
 
-import { BrowseLinkMetadataListElementComponent } from './browse-link-metadata-list-element.component';
+import {
+  BrowseLinkMetadataListElementComponent,
+} from './browse-link-metadata-list-element.component';
 
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type'), {
   key: 'dc.contributor.author',

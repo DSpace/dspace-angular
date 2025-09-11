@@ -1,24 +1,17 @@
+import { inject, Injectable } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  inject,
-  Injectable,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
-import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+  IdentifiableDataService,
+  RemoteData,
+  RequestEntryState,
+  FollowLinkConfig,
+  HALEndpointService,
+  SubmissionObject,
+  SubmissionScopeType,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core'
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SubmissionService } from './submission.service';

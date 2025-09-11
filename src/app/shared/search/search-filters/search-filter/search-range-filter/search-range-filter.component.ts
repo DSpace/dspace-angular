@@ -1,31 +1,17 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { yearFromString } from '@dspace/shared/utils/date.util';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { RemoteDataBuildService, RouteService } from '@dspace/core'
+import { yearFromString, hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NouisliderComponent } from 'ng2-nouislider';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import {
-  map,
-  startWith,
-} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  SEARCH_CONFIG_SERVICE,
+} from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import { SearchService } from '../../../search.service';
 import { SearchConfigurationService } from '../../../search-configuration.service';
@@ -34,11 +20,10 @@ import {
   facetLoad,
   SearchFacetFilterComponent,
 } from '../search-facet-filter/search-facet-filter.component';
-import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import {
-  RANGE_FILTER_MAX_SUFFIX,
-  RANGE_FILTER_MIN_SUFFIX,
-} from './search-range-filter-constants';
+  SearchFacetRangeOptionComponent,
+} from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import { RANGE_FILTER_MAX_SUFFIX, RANGE_FILTER_MIN_SUFFIX } from './search-range-filter-constants';
 
 /**
  * This component renders a simple item page.

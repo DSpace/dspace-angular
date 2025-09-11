@@ -1,23 +1,19 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { DSpaceObject, MetadataValue } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  of,
-} from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { DsoEditMetadataForm } from '../dso-edit-metadata-form';
-import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
-import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
+import {
+  DsoEditMetadataValueComponent,
+} from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
+import {
+  DsoEditMetadataValueHeadersComponent,
+} from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values.component';
 
 describe('DsoEditMetadataFieldValuesComponent', () => {

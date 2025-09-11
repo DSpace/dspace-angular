@@ -1,42 +1,27 @@
 import { TestBed } from '@angular/core/testing';
-import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { StoreMock } from '@dspace/core/testing/store.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
-import { mockSubmissionObjectDataService } from '@dspace/core/testing/submission-oject-data-service.mock';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  SubmissionSectionModel,
+  NotificationsService,
+  HALEndpointService,
+  Item,
+  SubmissionJsonPatchOperationsService,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
+  NotificationsServiceStub,
+  SectionsServiceStub,
+  StoreMock,
+  SubmissionJsonPatchOperationsServiceStub,
+  mockSubmissionObjectDataService,
+  SubmissionServiceStub,
+  TranslateLoaderMock,
+} from '@dspace/core'
 import { provideMockActions } from '@ngrx/effects/testing';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  cold,
-  hot,
-} from 'jasmine-marbles';
-import {
-  Observable,
-  of,
-  throwError as observableThrowError,
-} from 'rxjs';
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { cold, hot } from 'jasmine-marbles';
+import { Observable, of, throwError as observableThrowError } from 'rxjs';
 
-import {
-  AppState,
-  storeModuleConfig,
-} from '../../app.reducer';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
 import { SubmissionObjectService } from '../submission-object.service';

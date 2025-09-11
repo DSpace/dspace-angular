@@ -1,28 +1,22 @@
 // eslint-disable-next-line max-classes-per-file
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  FieldChangeType,
+  ObjectUpdatesService,
+  Item,
+  Relationship,
+  RelationshipType,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';

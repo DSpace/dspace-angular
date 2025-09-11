@@ -7,17 +7,16 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
-import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
-import { getMockObjectCacheService } from '@dspace/core/testing/object-cache.service.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  BrowseService,
+  ObjectCacheService,
+  BrowseDefinition,
+  BrowseServiceStub,
+  getMockObjectCacheService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';

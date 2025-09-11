@@ -1,40 +1,23 @@
 import { CommonModule } from '@angular/common';
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ReactiveFormsModule,
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
 import {
+  AuthService,
+  buildPaginatedList,
+  SubscriptionsDataService,
+  EPerson,
+  NotificationsService,
+  Item,
+  PageInfo,
   subscriptionMock,
   subscriptionMock2,
-} from '@dspace/core/testing/subscriptions-data.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  NgbActiveModal,
-  NgbModalModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';

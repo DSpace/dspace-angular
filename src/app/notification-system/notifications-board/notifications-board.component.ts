@@ -8,27 +8,19 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
-import { CoreState } from '@dspace/core/core-state.model';
-import { INotification } from '@dspace/core/notification-system/models/notification.model';
-import { NotificationsState } from '@dspace/core/notification-system/notifications.reducers';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { notificationsStateSelector } from '@dspace/core/notification-system/selectors';
+import { INotificationBoardOptions } from '@dspace/config';
 import {
-  hasNoValue,
-  isNotEmptyOperator,
-} from '@dspace/shared/utils/empty.util';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+  CoreState,
+  INotification,
+  NotificationsState,
+  NotificationsService,
+  notificationsStateSelector,
+} from '@dspace/core'
+import { hasNoValue, isNotEmptyOperator } from '@dspace/utils';
+import { select, Store } from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
 import differenceWith from 'lodash/differenceWith';
-import {
-  BehaviorSubject,
-  of,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, of, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';

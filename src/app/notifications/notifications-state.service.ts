@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '@dspace/core/notifications/qa/models/quality-assurance-topic.model';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { QualityAssuranceSourceObject, QualityAssuranceTopicObject } from '@dspace/core'
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -1,66 +1,42 @@
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Bundle } from '@dspace/core/shared/bundle.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
 import {
+  DSONameService,
+  BundleDataService,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  ObjectUpdatesService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+  PaginationService,
+  PaginationComponentOptions,
+  getItemPageRoute,
+  Bitstream,
+  Bundle,
+  followLink,
+  Item,
   getAllSucceededRemoteData,
   paginatedListToArray,
-} from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbDropdownModule,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  PaginatedSearchOptions,
+} from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
+import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  shareReplay,
-  Subscription,
-  switchMap,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, shareReplay, Subscription, switchMap } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import {
+  ResponsiveColumnSizes,
+} from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import {
+  ResponsiveTableSizes,
+} from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
 import {
   BitstreamTableEntry,

@@ -9,34 +9,29 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import {
+  DSONameService,
+  FindListOptions,
+  PaginatedList,
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
-} from '@dspace/core/data-services-map-type';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { EPERSON } from '@dspace/core/eperson/models/eperson.resource-type';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { GROUP } from '@dspace/core/eperson/models/group.resource-type';
-import { lazyDataService } from '@dspace/core/lazy-data-service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
+  EPersonDataService,
+  GroupDataService,
+  EPerson,
+  EPERSON,
+  Group,
+  GROUP,
+  lazyDataService,
+  PaginationService,
+  PaginationComponentOptions,
+  DSpaceObject,
   getAllCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { ResourceType } from '@dspace/core/shared/resource-type';
+  ResourceType,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { fadeInOut } from '../animations/fade';

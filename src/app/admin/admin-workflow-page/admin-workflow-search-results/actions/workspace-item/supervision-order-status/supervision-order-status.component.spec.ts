@@ -1,19 +1,9 @@
-import {
-  NO_ERRORS_SCHEMA,
-  SimpleChange,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { supervisionOrderListMock } from '@dspace/core/testing/supervision-order.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { supervisionOrderListMock, TranslateLoaderMock } from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 import { SupervisionOrderStatusComponent } from './supervision-order-status.component';

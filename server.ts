@@ -40,24 +40,20 @@ import { enableProdMode } from '@angular/core';
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
-import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/config/config.server';
+import { hasValue } from '@dspace/utils';
 import {
   APP_CONFIG,
   AppConfig,
-} from './src/config/app-config.interface';
+  UIServerConfig,
+  SsrExcludePatterns,
+} from '@dspace/config';
+import bootstrap from './src/main.server';
+import { buildAppConfig } from './src/config/config.server';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
+import { TOKENITEM, REQUEST, RESPONSE } from '@dspace/core'
 import { CommonEngine } from '@angular/ssr';
 import { APP_BASE_HREF } from '@angular/common';
-import {
-  REQUEST,
-  RESPONSE,
-} from './src/express.tokens';
-import { SsrExcludePatterns } from './src/config/ssr-config.interface';
 
 /*
  * Set path for the browser application's dist folder
@@ -332,7 +328,7 @@ function initCache() {
     // Initialize a new "least-recently-used" item cache (where least recently used pages are removed first)
     // See https://www.npmjs.com/package/lru-cache
     // When enabled, each page defaults to expiring after 1 day (defined in default-app-config.ts)
-    botCache = new LRU( {
+    botCache = new LRU({
       max: environment.cache.serverSide.botCache.max,
       ttl: environment.cache.serverSide.botCache.timeToLive,
       allowStale: environment.cache.serverSide.botCache.allowStale,
@@ -344,7 +340,7 @@ function initCache() {
     // may expire pages more frequently.
     // When enabled, each page defaults to expiring after 10 seconds (defined in default-app-config.ts)
     // to minimize anonymous users seeing out-of-date content
-    anonymousCache = new LRU( {
+    anonymousCache = new LRU({
       max: environment.cache.serverSide.anonymousCache.max,
       ttl: environment.cache.serverSide.anonymousCache.timeToLive,
       allowStale: environment.cache.serverSide.anonymousCache.allowStale,
@@ -428,19 +424,25 @@ function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, r
   // Check if this page is in our cache
   const cachedCopy = cache.get(key);
   if (cachedCopy) {
-    if (environment.cache.serverSide.debug) { console.log(`CACHE HIT FOR ${key} in ${cacheName} cache`); }
+    if (environment.cache.serverSide.debug) {
+      console.log(`CACHE HIT FOR ${key} in ${cacheName} cache`);
+    }
 
     // Check if cached copy is expired (If expired, the key will now be gone from cache)
     // NOTE: This will only occur when "allowStale=true", as it means the "get(key)" above returned a stale value.
     if (!cache.has(key)) {
-      if (environment.cache.serverSide.debug) { console.log(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`); }
+      if (environment.cache.serverSide.debug) {
+        console.log(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`);
+      }
       // Update cached copy by rerendering server-side
       // NOTE: In this scenario the currently cached copy will be returned to the current user.
       // This re-render is performed behind the scenes to update cached copy for next user.
       serverSideRender(req, res, next, false);
     }
   } else {
-    if (environment.cache.serverSide.debug) { console.log(`CACHE MISS FOR ${key} in ${cacheName} cache.`); }
+    if (environment.cache.serverSide.debug) {
+      console.log(`CACHE MISS FOR ${key} in ${cacheName} cache.`);
+    }
   }
 
   // return page from cache
@@ -473,9 +475,13 @@ function saveToCache(req, page: any) {
   if (!isUserAuthenticated(req)) {
     const key = getCacheKey(req);
     // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
-    if (key.startsWith('/reload')) { return; }
+    if (key.startsWith('/reload')) {
+      return;
+    }
     // Avoid caching not successful responses (status code different from 2XX status)
-    if (hasNotSucceeded(req.res.statusCode)) { return; }
+    if (hasNotSucceeded(req.res.statusCode)) {
+      return;
+    }
 
     // Retrieve response headers to save, if any
     const headers = retrieveHeaders(req.res);
@@ -483,13 +489,17 @@ function saveToCache(req, page: any) {
     // (NOTE: has() will return false if page is expired in cache)
     if (botCacheEnabled() && !botCache.has(key)) {
       botCache.set(key, { page, headers });
-      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
+      if (environment.cache.serverSide.debug) {
+        console.log(`CACHE SAVE FOR ${key} in bot cache.`);
+      }
     }
 
     // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
     if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
       anonymousCache.set(key, { page, headers });
-      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
+      if (environment.cache.serverSide.debug) {
+        console.log(`CACHE SAVE FOR ${key} in anonymous cache.`);
+      }
     }
   }
 }
@@ -518,6 +528,7 @@ function retrieveHeaders(response) {
 
   return headers;
 }
+
 /**
  * Whether a user is authenticated or not
  */
@@ -548,9 +559,11 @@ function createHttpsServer(keys) {
   // Graceful shutdown when signalled
   const terminator = createHttpTerminator({ server: listener });
   process.on('SIGINT', () => {
-    void (async ()=> {
+    void (async () => {
       console.debug('Closing HTTPS server on signal');
-      await terminator.terminate().catch(e => { console.error(e); });
+      await terminator.terminate().catch(e => {
+        console.error(e);
+      });
       console.debug('HTTPS server closed');
     })();
   });
@@ -574,8 +587,11 @@ function run() {
   process.on('SIGINT', () => {
     void (async () => {
       console.debug('Closing HTTP server on signal');
-      await terminator.terminate().catch(e => { console.error(e); });
-      console.debug('HTTP server closed.');return undefined;
+      await terminator.terminate().catch(e => {
+        console.error(e);
+      });
+      console.debug('HTTP server closed.');
+      return undefined;
     })();
   });
 }
@@ -635,7 +651,7 @@ function start() {
  */
 function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
   const patterns = excludePathPattern.map(p =>
-    new RegExp(p.pattern, p.flag || '')
+    new RegExp(p.pattern, p.flag || ''),
   );
   return patterns.some((regex) => {
     return regex.test(path)
@@ -657,6 +673,7 @@ function healthCheck(req, res) {
       });
     });
 }
+
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.

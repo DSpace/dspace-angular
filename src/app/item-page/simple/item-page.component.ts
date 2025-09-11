@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformServer,
-} from '@angular/common';
+import { AsyncPipe, isPlatformServer } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,54 +7,48 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
-import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import {
-  LinkDefinition,
+  NotifyInfoService,
+  AuthorizationDataService,
+  FeatureID,
+  ItemDataService,
+  RemoteData,
+  SignpostingDataService,
+  SignpostingLink,
+  getItemPageRoute,
+  LinkTagDefinition,
   LinkHeadService,
-} from '@dspace/core/services/link-head.service';
-import { ServerResponseService } from '@dspace/core/services/server-response.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  ServerResponseService,
+  Item,
+  ItemRequest,
+  getAllSucceededRemoteDataPayload,
+  ViewMode,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
-import { AccessByTokenNotificationComponent } from './access-by-token-notification/access-by-token-notification.component';
-import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
-import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
+import {
+  AccessByTokenNotificationComponent,
+} from './access-by-token-notification/access-by-token-notification.component';
+import {
+  NotifyRequestsStatusComponent,
+} from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import {
+  QaEventNotificationComponent,
+} from './qa-event-notification/qa-event-notification.component';
 
 /**
  * This component renders a simple item page.
@@ -128,7 +119,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   /**
    * An array of LinkDefinition objects representing inbox links for the item page.
    */
-  inboxTags: LinkDefinition[] = [];
+  inboxTags: LinkTagDefinition[] = [];
 
   coarRestApiUrls: string[] = [];
 
@@ -180,7 +171,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
           signpostingLinks.forEach((link: SignpostingLink) => {
             links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ')
               + (isNotEmpty(link.profile) ? ` ; profile="${link.profile}" ` : '');
-            let tag: LinkDefinition = {
+            let tag: LinkTagDefinition = {
               href: link.href,
               rel: link.rel,
             };
@@ -235,7 +226,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
     coarRestApiUrls.forEach((coarRestApiUrl: string) => {
       // Add link to head
-      const tag: LinkDefinition = {
+      const tag: LinkTagDefinition = {
         href: coarRestApiUrl,
         rel: rel,
       };
@@ -252,7 +243,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     this.signpostingLinks.forEach((link: SignpostingLink) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
-    this.inboxTags.forEach((link: LinkDefinition) => {
+    this.inboxTags.forEach((link: LinkTagDefinition) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
   }

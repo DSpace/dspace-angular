@@ -1,28 +1,16 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  Injector,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgComponentOutlet } from '@angular/common';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbDropdownModule,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuID } from 'src/app/shared/menu/menu-id.model';
 import { MenuSection } from 'src/app/shared/menu/menu-section.model';
-import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
+import {
+  AbstractMenuSectionComponent,
+} from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { MenuService } from '../../../menu/menu.service';

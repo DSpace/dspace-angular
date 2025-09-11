@@ -1,26 +1,17 @@
-import {
-  ChangeDetectorRef,
-  ElementRef,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { MockElementRef } from '@dspace/core/testing/element-ref.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  CollectionDataService,
+  buildPaginatedList,
+  Collection,
+  Community,
+  PageInfo,
+  MockElementRef,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 

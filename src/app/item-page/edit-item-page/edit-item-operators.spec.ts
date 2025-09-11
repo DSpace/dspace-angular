@@ -1,10 +1,10 @@
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Item } from '@dspace/core/shared/item.model';
 import {
+  RemoteData,
+  Item,
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '@dspace/core/utilities/remote-data.utils';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { hot } from 'jasmine-marbles';
 
 import { findSuccessfulAccordingTo } from './edit-item-operators';

@@ -1,26 +1,23 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  DSONameService,
+  buildPaginatedList,
+  Item,
+  PageInfo,
+  DSONameServiceMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { JournalIssueSearchResultGridElementComponent } from '../search-result-grid-elements/journal-issue/journal-issue-search-result-grid-element.component';
+import {
+  JournalIssueSearchResultGridElementComponent,
+} from '../search-result-grid-elements/journal-issue/journal-issue-search-result-grid-element.component';
 import { JournalIssueGridElementComponent } from './journal-issue-grid-element.component';
-
 
 
 const mockItem = Object.assign(new Item(), {

@@ -1,10 +1,6 @@
 import 'altcha';
 
-import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {
   APP_ID,
   APP_INITIALIZER,
@@ -16,56 +12,41 @@ import {
 } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
-import { BrowserAuthRequestService } from '@dspace/core/auth/browser-auth-request.service';
-import { BrowserOrejimeService } from '@dspace/core/cookies/browser-orejime.service';
-import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { coreEffects } from '@dspace/core/core.effects';
-import { coreReducers } from '@dspace/core/core.reducers';
-import { CoreState } from '@dspace/core/core-state.model';
-import { LocaleService } from '@dspace/core/locale/locale.service';
-import { BrowserReferrerService } from '@dspace/core/services/browser.referrer.service';
 import {
+  AuthService,
+  AuthRequestService,
+  BrowserAuthRequestService,
+  BrowserOrejimeService,
+  ClientCookieService,
+  CookieService,
+  OrejimeService,
+  coreEffects,
+  coreReducers,
+  CoreState,
+  LocaleService,
+  BrowserReferrerService,
   BrowserHardRedirectService,
   locationProvider,
   LocationToken,
-} from '@dspace/core/services/browser-hard-redirect.service';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { ReferrerService } from '@dspace/core/services/referrer.service';
-import { ClientMathService } from '@dspace/core/shared/client-math.service';
-import { MathService } from '@dspace/core/shared/math.service';
-import { BrowserXSRFService } from '@dspace/core/xsrf/browser-xsrf.service';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+  HardRedirectService,
+  ReferrerService,
+  ClientMathService,
+  MathService,
+  BrowserXSRFService,
+  XSRFService,
+} from '@dspace/core'
 import { EffectsModule } from '@ngrx/effects';
-import {
-  Action,
-  StoreConfig,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  MissingTranslationHandler,
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  Angulartics2GoogleTagManager,
-  Angulartics2RouterlessModule,
-} from 'angulartics2';
-import {
-  provideMatomo,
-  withRouteData,
-  withRouter,
-} from 'ngx-matomo-client';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Angulartics2GoogleTagManager, Angulartics2RouterlessModule } from 'angulartics2';
+import { provideMatomo, withRouteData, withRouter } from 'ngx-matomo-client';
+import { REQUEST } from '@dspace/core';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';
-import { REQUEST } from '../../express.tokens';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
 

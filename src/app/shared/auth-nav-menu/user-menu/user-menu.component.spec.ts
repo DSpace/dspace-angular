@@ -1,35 +1,21 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config';
 import {
   authReducer,
   AuthState,
-} from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  AuthService,
+  AuthTokenInfo,
+  APP_DATA_SERVICES_MAP,
+  ActivatedRouteStub,
+  EPersonMock,
+  TranslateLoaderMock,
+  XSRFService,
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 

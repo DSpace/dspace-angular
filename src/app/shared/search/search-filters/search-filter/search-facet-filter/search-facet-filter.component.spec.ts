@@ -1,34 +1,28 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
-import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  RemoteDataBuildService,
+  PageInfo,
+  AppliedFilter,
+  FacetValues,
+  FilterType,
+  SearchFilterConfig,
+  RouterStub,
+  SearchConfigurationServiceStub,
+  SearchFilterServiceStub,
+  SearchServiceStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import {
-  BehaviorSubject,
-  of,
-} from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  SEARCH_CONFIG_SERVICE,
+} from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../../../search.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';

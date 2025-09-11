@@ -1,22 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
-import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { Bitstream, MediaViewerItem, MockBitstreamFormat1, TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';

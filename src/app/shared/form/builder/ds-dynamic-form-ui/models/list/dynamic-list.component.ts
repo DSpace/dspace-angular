@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -18,15 +15,14 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  PaginatedList,
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
@@ -36,14 +32,8 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import findKey from 'lodash/findKey';
-import {
-  BehaviorSubject,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { FormBuilderService } from '../../../form-builder.service';

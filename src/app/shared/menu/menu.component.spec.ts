@@ -1,42 +1,21 @@
 // eslint-disable-next-line max-classes-per-file
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  MockStore,
-  provideMockStore,
-} from '@ngrx/store/testing';
+  authReducer,
+  AuthorizationDataService,
+  Item,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  of,
-} from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
-import {
-  AppState,
-  storeModuleConfig,
-} from '../../app.reducer';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';

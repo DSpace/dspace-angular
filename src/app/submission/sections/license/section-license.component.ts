@@ -1,25 +1,16 @@
 import { AsyncPipe } from '@angular/common';
+import { AfterViewChecked, ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import {
-  AfterViewChecked,
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  ViewChild,
-} from '@angular/core';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { License } from '@dspace/core/shared/license.model';
-import { WorkspaceitemSectionLicenseObject } from '@dspace/core/submission/models/workspaceitem-section-license.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
+  CollectionDataService,
+  RemoteData,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  Collection,
+  followLink,
+  License,
+  WorkspaceitemSectionLicenseObject,
+} from '@dspace/core'
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '@dspace/utils';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -27,10 +18,7 @@ import {
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -49,10 +37,7 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import {
-  SECTION_LICENSE_FORM_LAYOUT,
-  SECTION_LICENSE_FORM_MODEL,
-} from './section-license.model';
+import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 
 /**
  * This component represents a section that contains the submission license form.

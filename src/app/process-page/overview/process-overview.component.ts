@@ -1,29 +1,15 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProcessStatus } from '@dspace/core/processes/process-status.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { ProcessStatus } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
-import {
-  ProcessOverviewService,
-  ProcessSortField,
-} from './process-overview.service';
+import { ProcessOverviewService, ProcessSortField } from './process-overview.service';
 import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
 
 @Component({

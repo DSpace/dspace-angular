@@ -1,13 +1,7 @@
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { StoreActionTypes } from '@dspace/core/ngrx/type';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { StoreActionTypes } from '@dspace/core'
 import { provideMockActions } from '@ngrx/effects/testing';
-import {
-  cold,
-  hot,
-} from 'jasmine-marbles';
+import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
 import { StoreAction } from '../../store.actions';

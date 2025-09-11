@@ -1,32 +1,34 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { FileService } from '@dspace/core/shared/file.service';
-import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
-import { FileServiceStub } from '@dspace/core/testing/file-service.stub';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import {
+  AuthService,
+  LinkService,
+  BitstreamDataService,
+  AuthorizationDataService,
+  Community,
+  FileService,
+  CommunitySearchResult,
+  ViewMode,
+  AuthServiceStub,
+  AuthorizationDataServiceStub,
+  FileServiceStub,
+  mockTruncatableService,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import {
+  CollectionElementLinkType,
+} from '../../../../../shared/object-collection/collection-element-link.type';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CommunityAdminSearchResultGridElementComponent } from './community-admin-search-result-grid-element.component';
+import {
+  CommunityAdminSearchResultGridElementComponent,
+} from './community-admin-search-result-grid-element.component';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
   let component: CommunityAdminSearchResultGridElementComponent;

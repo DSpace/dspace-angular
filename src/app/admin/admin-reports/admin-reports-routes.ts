@@ -1,7 +1,9 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core'
 
-import { FilteredCollectionsComponent } from './filtered-collections/filtered-collections.component';
+import {
+  FilteredCollectionsComponent,
+} from './filtered-collections/filtered-collections.component';
 import { FilteredItemsComponent } from './filtered-items/filtered-items.component';
 
 export const ROUTES: Route[] = [

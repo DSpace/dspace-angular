@@ -1,35 +1,16 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-} from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Params,
-} from '@angular/router';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  FacetValues,
+  PaginatedSearchOptions,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { GeospatialMapComponent } from '../../shared/geospatial-map/geospatial-map.component';

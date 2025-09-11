@@ -1,11 +1,7 @@
 import { NgClass } from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Item } from '@dspace/core/shared/item.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { Item, URLCombiner } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import {

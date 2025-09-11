@@ -1,44 +1,33 @@
 import { CommonModule } from '@angular/common';
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import {
+  AuthService,
+  buildPaginatedList,
+  SubscriptionsDataService,
+  PaginationService,
+  PageInfo,
+  MockActivatedRoute,
+  PaginationServiceStub,
   mockSubscriptionEperson,
   subscriptionMock,
   subscriptionMock2,
-} from '@dspace/core/testing/subscriptions-data.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
+import {
+  SubscriptionViewComponent,
+} from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 

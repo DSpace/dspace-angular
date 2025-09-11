@@ -1,8 +1,10 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core'
 
 import { browseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
-import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data/browse-by-geospatial-data.component';
+import {
+  BrowseByGeospatialDataComponent,
+} from './browse-by-geospatial-data/browse-by-geospatial-data.component';
 import { browseByGuard } from './browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from './browse-by-i18n-breadcrumb.resolver';
 import { BrowseByPageComponent } from './browse-by-page/browse-by-page.component';

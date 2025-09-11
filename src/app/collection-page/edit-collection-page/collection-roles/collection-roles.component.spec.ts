@@ -1,26 +1,20 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
+  DSONameService,
+  RequestService,
+  GroupDataService,
+  NotificationsService,
+  Collection,
+  DSONameServiceMock,
+  NotificationsServiceStub,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

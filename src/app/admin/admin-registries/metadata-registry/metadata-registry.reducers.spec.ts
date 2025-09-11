@@ -1,5 +1,4 @@
-import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { MetadataField, MetadataSchema } from '@dspace/core'
 
 import {
   MetadataRegistryCancelFieldAction,
@@ -13,10 +12,7 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
 } from './metadata-registry.actions';
-import {
-  metadataRegistryReducer,
-  MetadataRegistryState,
-} from './metadata-registry.reducers';
+import { metadataRegistryReducer, MetadataRegistryState } from './metadata-registry.reducers';
 
 class NullAction extends MetadataRegistryEditSchemaAction {
   type = null;

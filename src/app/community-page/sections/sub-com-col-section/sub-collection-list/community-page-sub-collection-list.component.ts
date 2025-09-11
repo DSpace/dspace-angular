@@ -1,35 +1,28 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  CollectionDataService,
+  PaginatedList,
+  RemoteData,
+  PaginationService,
+  PaginationComponentOptions,
+  Collection,
+  Community,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { fadeIn } from '../../../../shared/animations/fade';
 import { ErrorComponent } from '../../../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';
+import {
+  ObjectCollectionComponent,
+} from '../../../../shared/object-collection/object-collection.component';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 @Component({

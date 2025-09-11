@@ -1,19 +1,12 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterOutlet,
-} from '@angular/router';
-import { getCommunityPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Community } from '@dspace/core/shared/community.model';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { getCommunityPageRoute, Community } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import {
+  EditComColPageComponent,
+} from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 
 /**
  * Component that represents the page where a user can edit an existing Community

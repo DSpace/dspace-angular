@@ -1,25 +1,18 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
-import { CorrectionType } from '@dspace/core/submission/models/correctiontype.model';
-import { TranslateModule } from '@ngx-translate/core';
 import {
-  combineLatest,
-  map,
-  Observable,
-} from 'rxjs';
+  AuthorizationDataService,
+  FeatureID,
+  PaginatedList,
+  RemoteData,
+  Item,
+  getFirstCompletedRemoteData,
+  CorrectionTypeDataService,
+  CorrectionType,
+} from '@dspace/core'
+import { TranslateModule } from '@ngx-translate/core';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';

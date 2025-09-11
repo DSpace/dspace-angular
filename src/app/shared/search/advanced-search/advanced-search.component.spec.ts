@@ -1,13 +1,12 @@
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  RouterStub,
+  SearchConfigurationServiceStub,
+  SearchFilterServiceStub,
+  SearchServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';

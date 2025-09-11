@@ -1,21 +1,7 @@
-import {
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  hasValue,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  startWith,
-} from 'rxjs/operators';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { hasValue, isNotUndefined } from '@dspace/utils';
+import { Observable, Subscription } from 'rxjs';
+import { filter, startWith } from 'rxjs/operators';
 
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from './section-data.model';

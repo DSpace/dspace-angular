@@ -1,7 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
-import { type } from '@dspace/core/ngrx/type';
+import { MetadataField, MetadataSchema, type } from '@dspace/core'
 import { Action } from '@ngrx/store';
 
 /**

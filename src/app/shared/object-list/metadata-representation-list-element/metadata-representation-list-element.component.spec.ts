@@ -1,16 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { mockData } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MetadatumRepresentation, mockData } from '@dspace/core'
 
-import { MetadataRepresentationListElementComponent } from './metadata-representation-list-element.component';
+import {
+  MetadataRepresentationListElementComponent,
+} from './metadata-representation-list-element.component';
 
 // Mock metadata representation values
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type', mockData[1]), {

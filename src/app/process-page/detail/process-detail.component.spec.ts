@@ -11,35 +11,32 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterModule,
-} from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  AuthService,
+  DSONameService,
+  BitstreamDataService,
+  PaginatedList,
+  ProcessDataService,
+  NotificationsService,
+  Process,
+  Bitstream,
+  ActivatedRouteStub,
+  AuthServiceMock,
+  NotificationsServiceStub,
+  RouterStub,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
+import {
+  ThemedFileDownloadLinkComponent,
+} from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';

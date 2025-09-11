@@ -1,33 +1,29 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  NO_ERRORS_SCHEMA,
-  ViewContainerRef,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { Bundle } from '@dspace/core/shared/bundle.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  BundleDataService,
+  FieldChangeType,
+  FieldUpdate,
+  ObjectUpdatesService,
+  RequestService,
+  PaginationService,
+  Bundle,
+  Item,
+  PaginationServiceStub,
+  getMockRequestService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of,
-  Subject,
-} from 'rxjs';
+import { of, Subject } from 'rxjs';
 
-import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import {
+  ResponsiveColumnSizes,
+} from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import {
+  ResponsiveTableSizes,
+} from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import {
   BitstreamTableEntry,
   ItemBitstreamsService,

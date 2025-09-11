@@ -1,7 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -12,41 +9,47 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
-import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { APP_CONFIG } from '@dspace/config';
 import {
+  DSONameService,
+  LinkService,
+  ObjectCacheService,
+  ConfigurationDataService,
+  NotificationsService,
+  ConfigurationProperty,
+  Context,
+  Item,
+  ClaimedTaskSearchResult,
+  WorkflowItem,
+  SubmissionDuplicateDataService,
+  ClaimedTask,
+  DSONameServiceMock,
+  getMockLinkService,
+  mockTruncatableService,
+  NotificationsServiceStub,
+  SearchServiceStub,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
-import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
+import {
+  ClaimedTaskActionsComponent,
+} from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { SearchService } from '../../../search/search.service';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
-import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
+import {
+  ThemedItemListPreviewComponent,
+} from '../item-list-preview/themed-item-list-preview.component';
+import {
+  ClaimedSearchResultListElementComponent,
+} from './claimed-search-result-list-element.component';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;

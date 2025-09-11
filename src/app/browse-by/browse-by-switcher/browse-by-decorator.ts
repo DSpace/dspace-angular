@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
-import { Context } from '@dspace/core/shared/context.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { hasNoValue } from '@dspace/shared/utils/empty.util';
+import { BrowseByDataType, Context, GenericConstructor } from '@dspace/core'
+import { hasNoValue } from '@dspace/utils';
 
 import {
   DEFAULT_THEME,

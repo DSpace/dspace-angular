@@ -1,29 +1,19 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Item } from '@dspace/core/shared/item.model';
+import { APP_CONFIG } from '@dspace/config';
 import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  Item,
   MetadataMap,
   MetadataValue,
-} from '@dspace/core/shared/metadata.models';
-import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  ConfigurationDataServiceStub,
+  TranslateLoaderMock,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';

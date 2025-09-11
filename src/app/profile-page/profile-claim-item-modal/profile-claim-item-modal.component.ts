@@ -1,32 +1,31 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+  DSONameService,
+  RemoteData,
+  EPerson,
+  getItemPageRoute,
+  DSpaceObject,
+  Item,
+  getFirstCompletedRemoteData,
+  SearchObjects,
+  ViewMode,
+} from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
-import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
-import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  DSOSelectorModalWrapperComponent,
+} from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
+import {
+  CollectionElementLinkType,
+} from '../../shared/object-collection/collection-element-link.type';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 
 /**

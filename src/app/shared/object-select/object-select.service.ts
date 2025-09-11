@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  createSelector,
-  MemoizedSelector,
-  Store,
-} from '@ngrx/store';
+import { hasValue } from '@dspace/utils';
+import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

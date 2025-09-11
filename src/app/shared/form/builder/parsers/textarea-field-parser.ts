@@ -1,4 +1,4 @@
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core'
 
 import { environment } from '../../../../../environments/environment';
 import {

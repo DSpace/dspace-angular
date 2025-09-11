@@ -1,41 +1,34 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MediaViewerConfig } from '@dspace/config/media-viewer-config.interface';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { MediaViewerConfig } from '@dspace/config';
+import {
+  BitstreamDataService,
+  PaginatedList,
+  RemoteData,
+  Bitstream,
+  BitstreamFormat,
+  followLink,
+  Item,
+  ItemRequest,
+  MediaViewerItem,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
-import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
-import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
+import {
+  ThemedMediaViewerImageComponent,
+} from './media-viewer-image/themed-media-viewer-image.component';
+import {
+  ThemedMediaViewerVideoComponent,
+} from './media-viewer-video/themed-media-viewer-video.component';
 
 /**
  * This component renders the media viewers

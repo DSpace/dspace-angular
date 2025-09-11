@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
-  Observable,
-  of,
-} from 'rxjs';
+  ItemDataService,
+  Collection,
+  DSpaceObject,
+  followLink,
+  Item,
+  getFirstSucceededRemoteDataPayload,
+  Vocabulary,
+  VocabularyService,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 /**

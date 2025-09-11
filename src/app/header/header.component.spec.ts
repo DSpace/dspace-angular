@@ -1,23 +1,19 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { LocaleService } from '@dspace/core/locale/locale.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { LocaleService, ActivatedRouteStub, HostWindowServiceStub } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { HostWindowService } from '../shared/host-window.service';
-import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
+import {
+  ImpersonateNavbarComponent,
+} from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/menu/menu-service.stub';

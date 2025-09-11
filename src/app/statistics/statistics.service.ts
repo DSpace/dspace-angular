@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from '@dspace/core/data/request.service';
-import { RestRequest } from '@dspace/core/data/rest-request.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+  RequestService,
+  RestRequest,
+  DSpaceObject,
+  HALEndpointService,
+  SearchOptions,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { map, take } from 'rxjs/operators';
 
 import { TrackRequest } from './track-request.model';
 
@@ -83,7 +79,7 @@ export class StatisticsService {
       Object.assign(body, { configuration: searchOptions.configuration });
     }
     if (isNotEmpty(searchOptions.dsoTypes)) {
-      Object.assign(body, { dsoType: searchOptions.dsoTypes[0].toLowerCase()  });
+      Object.assign(body, { dsoType: searchOptions.dsoTypes[0].toLowerCase() });
     }
     if (hasValue(searchOptions.scope)) {
       Object.assign(body, { scope: searchOptions.scope });

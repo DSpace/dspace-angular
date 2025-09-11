@@ -1,13 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ExternalSourceEntry } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
+import {
+  ExternalSourceEntryListSubmissionElementComponent,
+} from './external-source-entry-list-submission-element.component';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   let component: ExternalSourceEntryListSubmissionElementComponent;

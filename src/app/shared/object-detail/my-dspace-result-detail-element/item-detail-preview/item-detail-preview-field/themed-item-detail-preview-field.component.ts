@@ -1,9 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { Component, Input } from '@angular/core';
+import { Item, SearchResult } from '@dspace/core'
 
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
@@ -15,9 +11,7 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.com
   selector: 'ds-item-detail-preview-field',
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    ItemDetailPreviewFieldComponent,
-  ],
+  imports: [],
 })
 export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<ItemDetailPreviewFieldComponent> {
 

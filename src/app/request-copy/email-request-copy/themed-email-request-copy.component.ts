@@ -1,10 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RequestCopyEmail } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
@@ -18,9 +13,7 @@ import { EmailRequestCopyComponent } from './email-request-copy.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    EmailRequestCopyComponent,
-  ],
+  imports: [],
 })
 export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailRequestCopyComponent> {
   /**

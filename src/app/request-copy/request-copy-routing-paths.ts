@@ -1,4 +1,4 @@
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { URLCombiner } from '@dspace/core'
 
 import { getRequestCopyModulePath } from '../app-routing-paths';
 

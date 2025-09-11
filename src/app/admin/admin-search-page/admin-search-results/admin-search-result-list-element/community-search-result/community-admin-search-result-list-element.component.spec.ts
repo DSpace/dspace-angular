@@ -1,26 +1,30 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  DSONameService,
+  Community,
+  CommunitySearchResult,
+  ViewMode,
+  DSONameServiceMock,
+  mockTruncatableService,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { CommunitySearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import {
+  CollectionElementLinkType,
+} from '../../../../../shared/object-collection/collection-element-link.type';
+import {
+  CommunitySearchResultListElementComponent,
+} from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CommunityAdminSearchResultListElementComponent } from './community-admin-search-result-list-element.component';
+import {
+  CommunityAdminSearchResultListElementComponent,
+} from './community-admin-search-result-list-element.component';
 
 describe('CommunityAdminSearchResultListElementComponent', () => {
   let component: CommunityAdminSearchResultListElementComponent;

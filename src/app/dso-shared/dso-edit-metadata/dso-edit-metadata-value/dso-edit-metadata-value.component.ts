@@ -1,11 +1,5 @@
-import {
-  CdkDrag,
-  CdkDragHandle,
-} from '@angular/cdk/drag-drop';
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -17,39 +11,43 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { MetadataService } from '@dspace/core/metadata/metadata.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { ConfidenceType } from '@dspace/core/shared/confidence-type';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import {
+  DSONameService,
+  RelationshipDataService,
+  MetadataService,
+  getItemPageRoute,
+  ConfidenceType,
+  Context,
+  DSpaceObject,
+  ItemMetadataRepresentation,
   MetadataRepresentation,
   MetadataRepresentationType,
-} from '@dspace/core/shared/metadata-representation/metadata-representation.model';
-import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  Vocabulary,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  Observable,
-} from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
-import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { DebounceDirective } from '../../../shared/utils/debounce.directive';
 import {
-  DsoEditMetadataChangeType,
-  DsoEditMetadataValue,
-} from '../dso-edit-metadata-form';
-import { DsoEditMetadataFieldService } from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
-import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
-import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
+  AuthorityConfidenceStateDirective,
+} from '../../../shared/form/directives/authority-confidence-state.directive';
+import {
+  ThemedTypeBadgeComponent,
+} from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { DebounceDirective } from '../../../shared/utils/debounce.directive';
+import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  DsoEditMetadataFieldService,
+} from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
+import {
+  EditMetadataValueFieldType,
+} from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
+import {
+  DsoEditMetadataValueFieldLoaderComponent,
+} from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',

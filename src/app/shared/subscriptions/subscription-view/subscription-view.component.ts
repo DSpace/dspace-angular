@@ -1,27 +1,22 @@
-
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
-import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Subscription } from '@dspace/core/shared/subscription.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  DSONameService,
+  SubscriptionsDataService,
+  getDSORoute,
+  DSpaceObject,
+  Subscription,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
-import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
+import {
+  ThemedTypeBadgeComponent,
+} from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
 
 @Component({

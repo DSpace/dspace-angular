@@ -1,12 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { RemoteData, Item, getFirstSucceededRemoteData } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

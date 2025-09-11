@@ -1,4 +1,3 @@
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   blue,
   bold,
@@ -12,12 +11,13 @@ import {
 } from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
+import { isNotEmpty } from '../../projects/dspace/utils/src/lib/empty.util';
 
-import { AppConfig } from './app-config.interface';
-import { Config } from './config.interface';
+import { AppConfig } from '../../projects/dspace/config/src/lib/app-config.interface';
+import { Config } from '../../projects/dspace/config/src/lib/config.interface';
 import { mergeConfig } from './config.util';
-import { DefaultAppConfig } from './default-app-config';
-import { ServerConfig } from './server-config.interface';
+import { DefaultAppConfig } from '../../projects/dspace/config/src/lib/default-app-config';
+import { ServerConfig } from '../../projects/dspace/config/src/lib/server-config.interface';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 

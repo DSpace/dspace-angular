@@ -1,29 +1,20 @@
-import {
-  CdkDragDrop,
-  CdkDropList,
-  moveItemInArray,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Context, DSpaceObject } from '@dspace/core'
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataForm,
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
-import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
-import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
+import {
+  DsoEditMetadataValueComponent,
+} from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
+import {
+  DsoEditMetadataValueHeadersComponent,
+} from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',

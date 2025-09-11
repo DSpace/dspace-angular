@@ -1,26 +1,16 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import {
-  hasValueOperator,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  PaginatedList,
+  getCollectionPageRoute,
+  Collection,
+  getAllSucceededRemoteDataPayload,
+} from '@dspace/core'
+import { hasValueOperator, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  map,
-  Observable,
-} from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ErrorComponent } from '../../error/error.component';

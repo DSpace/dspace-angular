@@ -1,5 +1,4 @@
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { WorkspaceitemDataService, createSuccessfulRemoteDataObject$ } from '@dspace/core'
 import { first } from 'rxjs/operators';
 
 import { workspaceItemPageResolver } from './workspace-item-page.resolver';

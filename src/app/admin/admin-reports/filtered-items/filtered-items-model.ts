@@ -1,5 +1,4 @@
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Item } from '@dspace/core/shared/item.model';
+import { Collection, Item } from '@dspace/core'
 
 export class FilteredItems {
 

@@ -1,10 +1,4 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -21,36 +15,25 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { LdnItemfiltersService } from '@dspace/core/coar-notify/ldn-services/ldn-itemfilters-data.service';
-import { LdnServicesService } from '@dspace/core/coar-notify/ldn-services/ldn-services-data.service';
-import { LDN_SERVICE } from '@dspace/core/coar-notify/ldn-services/models/ldn-service.resource-type';
-import { Itemfilter } from '@dspace/core/coar-notify/ldn-services/models/ldn-service-itemfilters';
-import { NotifyServicePattern } from '@dspace/core/coar-notify/ldn-services/models/ldn-service-patterns.model';
-import { LdnService } from '@dspace/core/coar-notify/ldn-services/models/ldn-services.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import {
-  NgbDropdownModule,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  LdnItemfiltersService,
+  LdnServicesService,
+  LDN_SERVICE,
+  Itemfilter,
+  NotifyServicePattern,
+  LdnService,
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  PaginationService,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import {
-  combineLatestWith,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { combineLatestWith, Observable, Subscription } from 'rxjs';
 
 import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';

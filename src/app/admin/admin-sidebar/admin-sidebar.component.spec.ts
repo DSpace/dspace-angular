@@ -1,30 +1,19 @@
-import {
-  ChangeDetectionStrategy,
-  Injector,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  AuthService,
+  AuthorizationDataService,
+  ScriptDataService,
+  Item,
+  AuthServiceStub,
+  CSSVariableServiceStub,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

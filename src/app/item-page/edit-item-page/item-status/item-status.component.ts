@@ -1,41 +1,24 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  RouterLink,
-} from '@angular/router';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Identifier } from '@dspace/core/shared/identifiers-data/identifier.model';
-import { IdentifierData } from '@dspace/core/shared/identifiers-data/identifier-data.model';
-import { Item } from '@dspace/core/shared/item.model';
-import {
+  ConfigurationDataService,
+  AuthorizationDataService,
+  FeatureID,
+  IdentifierDataService,
+  RemoteData,
+  OrcidAuthService,
+  getItemPageRoute,
+  ConfigurationProperty,
+  Identifier,
+  IdentifierData,
+  Item,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-} from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import {
   concatMap,
   distinctUntilChanged,
@@ -46,10 +29,7 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import {
-  fadeIn,
-  fadeInOut,
-} from '../../../shared/animations/fade';
+import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ItemOperationComponent } from '../item-operation/item-operation.component';
 import { ItemOperation } from '../item-operation/itemOperation.model';

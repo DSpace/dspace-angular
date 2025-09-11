@@ -1,19 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core/submission/models/workspaceitem-section-identifiers.model';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';

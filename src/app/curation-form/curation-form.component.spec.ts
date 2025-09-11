@@ -1,29 +1,20 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
+  ConfigurationDataService,
+  ProcessDataService,
+  ScriptDataService,
+  NotificationsService,
+  Process,
+  ConfigurationProperty,
+  NotificationsServiceStub,
+  RouterStub,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

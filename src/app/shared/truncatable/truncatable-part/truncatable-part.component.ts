@@ -1,4 +1,3 @@
-
 import {
   AfterViewChecked,
   Component,
@@ -8,7 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DragClickDirective } from '../../utils/drag-click.directive';

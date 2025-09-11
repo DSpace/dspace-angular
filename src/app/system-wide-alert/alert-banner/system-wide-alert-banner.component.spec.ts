@@ -7,12 +7,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  SystemWideAlertDataService,
+  NotificationsService,
+  SystemWideAlert,
+  NotificationsServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { utcToZonedTime } from 'date-fns-tz';
 import { getTestScheduler } from 'jasmine-marbles';

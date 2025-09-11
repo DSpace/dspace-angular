@@ -1,33 +1,23 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { LocationStub } from '@dspace/core/testing/location.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
+  RequestService,
+  NotificationsService,
+  RouteService,
+  WorkflowItem,
+  WorkflowItemDataService,
+  ActivatedRouteStub,
+  LocationStub,
+  NotificationsServiceStub,
+  getMockRequestService,
+  RouterStub,
+  TranslateLoaderMock,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { VarDirective } from '../../shared/utils/var.directive';

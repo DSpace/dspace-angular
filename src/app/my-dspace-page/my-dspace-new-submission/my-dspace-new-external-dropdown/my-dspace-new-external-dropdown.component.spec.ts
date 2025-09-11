@@ -1,27 +1,18 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
+  EntityTypeDataService,
+  ItemType,
+  PageInfo,
+  ResourceType,
+  RouterStub,
   createPaginatedList,
   createTestComponent,
-} from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

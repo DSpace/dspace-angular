@@ -8,24 +8,21 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import {
+  AuthService,
+  AuthRegistrationType,
+  RemoteData,
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
+  HardRedirectService,
   NativeWindowRef,
   NativeWindowService,
-} from '@dspace/core/services/window.service';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  Registration,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   combineLatest,
@@ -42,7 +39,9 @@ import {
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../shared/confirmation-modal/confirmation-modal.component';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 
 export interface ReviewAccountInfoData {

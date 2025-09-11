@@ -1,42 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthenticateAction } from '@dspace/core/auth/auth.actions';
-import { CoreState } from '@dspace/core/core-state.model';
 import {
+  AuthenticateAction,
+  CoreState,
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
-} from '@dspace/core/end-user-agreement/end-user-agreement.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import {
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
+  Registration,
+  NotificationsServiceStub,
+  RouterStub,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import {
+  ProfilePageSecurityFormComponent,
+} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { CreateProfileComponent } from './create-profile.component';
 
 describe('CreateProfileComponent', () => {

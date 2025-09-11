@@ -1,26 +1,24 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { LinkHeadService } from '@dspace/core/services/link-head.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  ConfigurationDataService,
+  AuthorizationDataService,
+  FeatureID,
+  GroupDataService,
+  PaginationService,
+  PaginationComponentOptions,
+  LinkHeadService,
+  ConfigurationProperty,
+  Item,
+  HostWindowServiceStub,
+  ObjectSelectServiceStub,
+  PaginationServiceStub,
+  SearchConfigurationServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

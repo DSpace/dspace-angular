@@ -6,11 +6,8 @@ import {
   qualityAssuranceTopicObjectMissingPid,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '@dspace/core/testing/notifications.mock';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 

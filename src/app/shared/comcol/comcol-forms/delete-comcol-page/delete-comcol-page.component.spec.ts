@@ -1,28 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ComColDataService } from '@dspace/core/data/comcol-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
+  ComColDataService,
+  CommunityDataService,
+  NotificationsService,
+  Community,
+  NotificationsServiceStub,
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 

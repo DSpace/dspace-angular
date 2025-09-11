@@ -1,8 +1,4 @@
-import {
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import {
   ActivatedRoute,
   convertToParamMap,
@@ -10,19 +6,16 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { RouterMock } from '@dspace/core/testing/router.mock';
 import {
+  AuthService,
+  AuthRegistrationType,
+  EpersonRegistrationService,
+  Registration,
+  RouterMock,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+} from '@dspace/core'
+import { Observable, of } from 'rxjs';
 
 import { ReviewAccountGuard } from './review-account.guard';
 

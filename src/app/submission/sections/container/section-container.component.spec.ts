@@ -1,28 +1,19 @@
 // Load the implementations that should be tested
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+import {
+  SectionsType,
+  SectionsServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SubmissionService } from '../../submission.service';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../utils/submission.mock';
+import { mockSubmissionCollectionId, mockSubmissionId } from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';

@@ -1,36 +1,27 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BulkAccessConfigDataService } from '@dspace/core/config/bulk-access-config-data.service';
-import { BulkAccessConditionOptions } from '@dspace/core/config/models/bulk-access-condition-options.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  BulkAccessConfigDataService,
+  BulkAccessConditionOptions,
+  RemoteData,
+  DSpaceObject,
+  Item,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  concatMap,
-  Observable,
-  shareReplay,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { concatMap, Observable, shareReplay } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
+import {
+  AccessControlArrayFormComponent,
+} from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
 import {

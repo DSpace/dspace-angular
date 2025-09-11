@@ -1,22 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { APP_CONFIG } from '@dspace/config';
+import { MetadataValue, TranslateLoaderMock } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';

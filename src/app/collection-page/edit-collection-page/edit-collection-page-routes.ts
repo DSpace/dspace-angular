@@ -1,14 +1,27 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { collectionAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
+import { i18nBreadcrumbResolver, collectionAdministratorGuard } from '@dspace/core'
 
-import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { resourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
-import { CollectionItemMapperComponent } from '../collection-item-mapper/collection-item-mapper.component';
-import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
-import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
+import {
+  ResourcePolicyCreateComponent,
+} from '../../shared/resource-policies/create/resource-policy-create.component';
+import {
+  ResourcePolicyEditComponent,
+} from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import {
+  resourcePolicyResolver,
+} from '../../shared/resource-policies/resolvers/resource-policy.resolver';
+import {
+  resourcePolicyTargetResolver,
+} from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import {
+  CollectionItemMapperComponent,
+} from '../collection-item-mapper/collection-item-mapper.component';
+import {
+  CollectionAccessControlComponent,
+} from './collection-access-control/collection-access-control.component';
+import {
+  CollectionAuthorizationsComponent,
+} from './collection-authorizations/collection-authorizations.component';
 import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';

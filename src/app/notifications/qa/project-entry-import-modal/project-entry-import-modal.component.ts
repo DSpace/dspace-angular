@@ -1,45 +1,38 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SourceQualityAssuranceEventMessageObject } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
 import {
+  PaginatedList,
+  RemoteData,
+  SourceQualityAssuranceEventMessageObject,
   ImportType,
   QualityAssuranceEventData,
-} from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  PaginationComponentOptions,
+  Context,
+  DSpaceObject,
+  ListableObject,
+  PaginatedSearchOptions,
+  SearchResult,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  CollectionElementLinkType,
+} from '../../../shared/object-collection/collection-element-link.type';
+import {
+  SelectableListService,
+} from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchService } from '../../../shared/search/search.service';
-import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import {
+  ThemedSearchResultsComponent,
+} from '../../../shared/search/search-results/themed-search-results.component';
 
 @Component({
   selector: 'ds-project-entry-import-modal',

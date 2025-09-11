@@ -1,38 +1,26 @@
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { License } from '@dspace/core/shared/license.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import {
+  SubmissionFormsConfigDataService,
+  CollectionDataService,
+  APP_DATA_SERVICES_MAP,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  NotificationsService,
+  Collection,
+  FormFieldMetadataValueObject,
+  License,
+  SectionsType,
+  NotificationsServiceStub,
+  SectionsServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+  XSRFService,
+} from '@dspace/core'
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
@@ -44,15 +32,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  DsDynamicTypeBindRelationService,
+} from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import {
+  dsDynamicFormControlMapFn,
+} from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import {
+  getMockFormOperationsService,
+} from '../../../shared/form/testing/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObjectService } from '../../submission-object.service';
@@ -375,10 +369,9 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    FormComponent,
     FormsModule,
     ReactiveFormsModule,
-    SubmissionSectionLicenseComponent,
+
   ],
 })
 class TestComponent {

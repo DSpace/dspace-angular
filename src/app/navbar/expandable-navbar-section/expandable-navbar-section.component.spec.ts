@@ -1,26 +1,14 @@
-import {
-  Component,
-  DebugElement,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { HostWindowServiceStub } from '@dspace/core'
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
-import {
-  MenuItemModels,
-  MenuSection,
-} from '../../shared/menu/menu-section.model';
+import { MenuItemModels, MenuSection } from '../../shared/menu/menu-section.model';
 import { MenuServiceStub } from '../../shared/menu/menu-service.stub';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';

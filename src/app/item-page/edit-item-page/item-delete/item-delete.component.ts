@@ -1,47 +1,29 @@
 // eslint-disable-next-line max-classes-per-file
 import { AsyncPipe } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  LinkService,
+  EntityTypeDataService,
+  ItemDataService,
+  ObjectUpdatesService,
+  RelationshipDataService,
+  RemoteData,
+  NotificationsService,
+  followLink,
+  Item,
+  Relationship,
+  RelationshipType,
+  MetadataValue,
+  NoContent,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  ViewMode,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -50,20 +32,20 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  defaultIfEmpty,
-  filter,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
-import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
-import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../modify-item-overview/modify-item-overview.component';
+import {
+  AbstractSimpleItemActionComponent,
+} from '../simple-item-action/abstract-simple-item-action.component';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
 
 /**

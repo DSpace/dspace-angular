@@ -1,16 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RestResponse } from '@dspace/core/cache/response.models';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RestResponse, EPersonDataService, NotificationsService } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

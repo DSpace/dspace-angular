@@ -1,10 +1,6 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { AuthService, ServerResponseService } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 /**

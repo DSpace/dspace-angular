@@ -1,41 +1,22 @@
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  ParamMap,
-  Router,
-} from '@angular/router';
-import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
-import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmptyOperator,
-  isNotNull,
-} from '@dspace/shared/utils/empty.util';
+  SubmissionDefinitionsModel,
+  ItemDataService,
+  RemoteData,
+  NotificationsService,
+  Collection,
+  Item,
+  getAllSucceededRemoteData,
+  SubmissionError,
+  SubmissionObject,
+  WorkspaceitemSectionsObject,
+  SubmissionJsonPatchOperationsService,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmptyOperator, isNotNull } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Subscription,
-} from 'rxjs';
-import {
-  debounceTime,
-  filter,
-  switchMap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { debounceTime, filter, switchMap } from 'rxjs/operators';
 
 import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
 import { SubmissionService } from '../submission.service';

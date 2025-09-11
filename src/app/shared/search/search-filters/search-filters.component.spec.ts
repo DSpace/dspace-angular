@@ -1,18 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  SearchConfigurationServiceStub,
+  SearchFilterServiceStub,
+  SearchServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';

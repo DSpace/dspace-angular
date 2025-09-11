@@ -1,40 +1,37 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  AuthService,
+  LinkService,
+  RemoteDataBuildService,
+  ObjectCacheService,
+  BitstreamDataService,
+  BitstreamFormatDataService,
+  CommunityDataService,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  NotificationsService,
+  Collection,
+  HALEndpointService,
+  CollectionSearchResult,
+  UUIDService,
+  ActivatedRouteStub,
+  AuthServiceStub,
+  XSRFService,
+} from '@dspace/core'
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
+import {
+  CollectionSearchResultGridElementComponent,
+} from './collection-search-result-grid-element.component';
 
 let collectionSearchResultGridElementComponent: CollectionSearchResultGridElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;

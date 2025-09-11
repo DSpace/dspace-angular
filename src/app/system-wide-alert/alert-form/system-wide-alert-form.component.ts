@@ -1,8 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -12,39 +9,26 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  PaginatedList,
+  RemoteData,
+  RequestService,
+  SystemWideAlertDataService,
+  NotificationsService,
+  getFirstCompletedRemoteData,
+  SystemWideAlert,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import {
   NgbDatepickerModule,
   NgbDateStruct,
   NgbTimepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  utcToZonedTime,
-  zonedTimeToUtc,
-} from 'date-fns-tz';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  map,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 

@@ -1,29 +1,22 @@
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { AccessConditionOption } from '@dspace/core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
-import { SubmissionUploadsModel } from '@dspace/core/config/models/config-submission-uploads.model';
-import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined,
-} from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  AccessConditionOption,
+  SubmissionFormsModel,
+  SubmissionUploadsModel,
+  SubmissionUploadsConfigDataService,
+  CollectionDataService,
+  RemoteData,
+  GroupDataService,
+  Group,
+  ResourcePolicyDataService,
+  Collection,
+  followLink,
+  getFirstSucceededRemoteData,
+  WorkspaceitemSectionUploadObject,
+} from '@dspace/core'
+import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -32,14 +25,7 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  mergeMap,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
@@ -48,8 +34,12 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
-import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
+import {
+  SubmissionSectionUploadAccessConditionsComponent,
+} from './accessConditions/submission-section-upload-access-conditions.component';
+import {
+  ThemedSubmissionSectionUploadFileComponent,
+} from './file/themed-section-upload-file.component';
 import { SectionUploadService } from './section-upload.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1

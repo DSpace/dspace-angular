@@ -1,42 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { LocaleService } from '@dspace/core/locale/locale.service';
-import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import {
+  authReducer,
+  AuthService,
+  LocaleService,
+  HeadTagService,
+  RouteService,
   NativeWindowRef,
   NativeWindowService,
-} from '@dspace/core/services/window.service';
-import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { AngularticsProviderMock } from '@dspace/core/testing/angulartics-provider.service.mock';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
-import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+  MockActivatedRoute,
+  AngularticsProviderMock,
+  AuthServiceMock,
+  CSSVariableServiceStub,
+  HeadTagServiceMock,
+  HostWindowServiceStub,
+  RouterMock,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../environments/environment';
 // Load the implementations that should be tested

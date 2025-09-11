@@ -9,32 +9,20 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-} from '@angular/router';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { LinkHeadService } from '@dspace/core/services/link-head.service';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
-import {
-  hasValue,
-  isUndefined,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  filter,
-  Subscription,
-} from 'rxjs';
+  SortOptions,
+  ConfigurationDataService,
+  RemoteData,
+  GroupDataService,
+  PaginationService,
+  LinkHeadService,
+  getFirstCompletedRemoteData,
+  SearchFilter,
+} from '@dspace/core'
+import { hasValue, isUndefined } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, filter, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';

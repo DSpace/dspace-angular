@@ -1,22 +1,21 @@
 import { CommonModule } from '@angular/common';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  RemoteDataBuildService,
+  ObjectCacheService,
+  RequestService,
+  APP_DATA_SERVICES_MAP,
+  NotificationsService,
+  QualityAssuranceSourceObject,
+  QualityAssuranceSourceDataService,
+  HALEndpointService,
+  ActivatedRouteStub,
+  HALEndpointServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

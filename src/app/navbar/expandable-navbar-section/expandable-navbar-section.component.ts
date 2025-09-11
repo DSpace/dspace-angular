@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgComponentOutlet } from '@angular/common';
 import {
   AfterViewChecked,
   Component,
@@ -12,12 +9,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { isNotEmpty } from '@dspace/utils';
 import { Observable } from 'rxjs';
-import {
-  first,
-  map,
-} from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';

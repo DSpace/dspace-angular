@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Collection } from '@dspace/core/shared/collection.model';
+import { AuthorizationDataService, Collection } from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 

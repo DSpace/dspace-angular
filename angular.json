@@ -82,8 +82,8 @@
                   "with": "src/environments/environment.production.ts"
                 },
                 {
-                  "replace": "src/config/store/devtools.ts",
-                  "with": "src/config/store/devtools.prod.ts"
+                  "replace": "projects/dspace/config/src/lib/store/devtools.ts",
+                  "with": "projects/dspace/config/src/lib/store/devtools.prod.ts"
                 }
               ],
               "optimization": true,
@@ -211,8 +211,8 @@
                   "with": "src/environments/environment.production.ts"
                 },
                 {
-                  "replace": "src/config/store/devtools.ts",
-                  "with": "src/config/store/devtools.prod.ts"
+                  "replace": "projects/dspace/config/src/lib/store/devtools.ts",
+                  "with": "projects/dspace/config/src/lib/store/devtools.prod.ts"
                 }
               ]
             }
@@ -272,6 +272,132 @@
               "lint/**/*.ts",
               "src/**/*.html",
               "src/**/*.json5"
+            ]
+          }
+        }
+      }
+    },
+    "@dspace/utils": {
+      "projectType": "library",
+      "root": "projects/dspace/utils",
+      "sourceRoot": "projects/dspace/utils/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/dspace/utils/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dspace/utils/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dspace/utils/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/dspace/utils/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/dspace/utils/**/*.ts",
+              "projects/dspace/utils/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "@dspace/config": {
+      "projectType": "library",
+      "root": "projects/dspace/config",
+      "sourceRoot": "projects/dspace/config/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/dspace/config/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dspace/config/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dspace/config/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/dspace/config/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/dspace/config/**/*.ts",
+              "projects/dspace/config/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "@dspace/core": {
+      "projectType": "library",
+      "root": "projects/dspace/core",
+      "sourceRoot": "projects/dspace/core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/dspace/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dspace/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dspace/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/dspace/core/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/dspace/core/**/*.ts",
+              "projects/dspace/core/**/*.html"
             ]
           }
         }

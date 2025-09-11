@@ -1,38 +1,30 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
-import { ClaimedTaskDataServiceStub } from '@dspace/core/testing/claimed-task-data-service.stub';
-import {
+  RequestService,
+  WorkflowActionDataService,
+  NotificationsService,
+  RouteService,
+  Item,
+  WorkflowItem,
+  WorkflowItemDataService,
+  ClaimedTaskDataService,
+  ProcessTaskResponse,
+  ClaimedTaskDataServiceStub,
   EPersonMock,
   EPersonMock2,
-} from '@dspace/core/testing/eperson.mock';
-import { LocationStub } from '@dspace/core/testing/location.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RequestServiceStub } from '@dspace/core/testing/request-service.stub';
-import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { WorkflowActionDataServiceStub } from '@dspace/core/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '@dspace/core/testing/workflow-item-data-service.stub';
-import {
+  LocationStub,
+  NotificationsServiceStub,
+  RequestServiceStub,
+  routeServiceStub,
+  RouterStub,
+  WorkflowActionDataServiceStub,
+  WorkflowItemDataServiceStub,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

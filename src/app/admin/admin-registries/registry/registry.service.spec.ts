@@ -1,30 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '@dspace/core/data/metadata-schema-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { StoreMock } from '@dspace/core/testing/store.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  FindListOptions,
+  MetadataFieldDataService,
+  MetadataSchemaDataService,
+  RemoteData,
+  MetadataField,
+  MetadataSchema,
+  NotificationsService,
+  NoContent,
+  NotificationsServiceStub,
+  StoreMock,
+  createPaginatedList,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { storeModuleConfig } from '../../../app.reducer';
 import {

@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
 import {
+  EntityTypeDataService,
+  ItemDataService,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '@dspace/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  ObjectUpdatesService,
+  RelationshipDataService,
+  RemoteData,
+  NotificationsService,
+  Item,
+  ItemType,
+  Relationship,
+  RelationshipType,
+  NoContent,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -31,13 +29,7 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import {
-  concatMap,
-  map,
-  switchMap,
-  take,
-  toArray,
-} from 'rxjs/operators';
+import { concatMap, map, switchMap, take, toArray } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

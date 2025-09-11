@@ -1,34 +1,11 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgTemplateOutlet,
-} from '@angular/common';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
-import { hasValueOperator } from '@dspace/shared/utils/empty.util';
-import {
-  NgbTooltip,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { hasValueOperator } from '@dspace/utils';
+import { NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  mergeMap,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 
 import { ContextHelp } from '../context-help.model';
 import { ContextHelpService } from '../context-help.service';

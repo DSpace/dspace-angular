@@ -1,27 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
+  BitstreamFormatDataService,
+  RemoteData,
+  NotificationsService,
+  BitstreamFormat,
+  BitstreamFormatSupportLevel,
+  NotificationsServiceStub,
+  RouterStub,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

@@ -1,22 +1,20 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { TruncatableServiceStub } from '@dspace/core/testing/truncatable-service.stub';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  AuthService,
+  DSONameService,
+  AuthorizationDataService,
+  Item,
+  ActivatedRouteStub,
+  AuthServiceStub,
+  AuthorizationDataServiceStub,
+  DSONameServiceMock,
+  TruncatableServiceStub,
+  XSRFService,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

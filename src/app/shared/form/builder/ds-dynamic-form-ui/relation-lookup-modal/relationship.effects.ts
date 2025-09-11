@@ -1,57 +1,37 @@
-
+import { Inject, Injectable } from '@angular/core';
 import {
-  Inject,
-  Injectable,
-} from '@angular/core';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { ServerSyncBufferActionTypes } from '@dspace/core/cache/server-sync-buffer.actions';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { JsonPatchOperationsActionTypes } from '@dspace/core/json-patch/json-patch-operations.actions';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import {
+  ObjectCacheService,
+  ServerSyncBufferActionTypes,
+  RelationshipDataService,
+  RelationshipTypeDataService,
+  RemoteData,
+  RequestService,
+  JsonPatchOperationsActionTypes,
+  NotificationsService,
+  followLink,
+  Item,
+  Relationship,
+  RelationshipType,
   DEBOUNCE_TIME_OPERATOR,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-} from '@dspace/shared/utils/empty.util';
-import {
-  Actions,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+  SubmissionObject,
+} from '@dspace/core'
+import { hasNoValue, hasValue, hasValueOperator } from '@dspace/utils';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-} from 'rxjs';
-import {
-  concatMap,
-  filter,
-  map,
-  mergeMap,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { concatMap, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
-import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
+import {
+  SaveSubmissionSectionFormSuccessAction,
+} from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionState } from '../../../../../submission/submission.reducers';
 import { SubmissionObjectService } from '../../../../../submission/submission-object.service';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../../object-list/selectable-list/selectable-list.service';
 import {
   AddRelationshipAction,
   RelationshipAction,

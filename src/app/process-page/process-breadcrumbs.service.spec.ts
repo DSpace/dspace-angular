@@ -1,9 +1,5 @@
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
-import { Process } from '@dspace/core/processes/process.model';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { Breadcrumb, Process } from '@dspace/core'
 import { getTestScheduler } from 'jasmine-marbles';
 
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';

@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import {
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
+import { EPerson } from '@dspace/core'
+import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 

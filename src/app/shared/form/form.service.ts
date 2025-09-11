@@ -5,26 +5,16 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import {
-  isEmpty,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
+import { isEmpty, isNotUndefined } from '@dspace/utils';
 import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
 } from '@ng-dynamic-forms/core';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
@@ -38,11 +28,7 @@ import {
   FormRemoveErrorAction,
   FormStatusChangeAction,
 } from './form.actions';
-import {
-  FormEntry,
-  FormError,
-  FormTouchedState,
-} from './form.reducer';
+import { FormEntry, FormError, FormTouchedState } from './form.reducer';
 import { formObjectFromIdSelector } from './selectors';
 
 @Injectable({ providedIn: 'root' })

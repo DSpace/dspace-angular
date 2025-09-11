@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -12,28 +9,20 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  FormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { ConfidenceType } from '@dspace/core/shared/confidence-type';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '@dspace/shared/utils/empty.util';
+  ConfidenceType,
+  FormFieldMetadataValueObject,
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  Vocabulary,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  VocabularyService,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '@dspace/utils';
 import {
   NgbModal,
   NgbModalRef,
@@ -41,17 +30,9 @@ import {
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subject,
-  Subscription,
-} from 'rxjs';
+import { Observable, of, Subject, Subscription } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -65,8 +46,12 @@ import {
 } from 'rxjs/operators';
 
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
-import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import {
+  AuthorityConfidenceStateDirective,
+} from '../../../../directives/authority-confidence-state.directive';
+import {
+  VocabularyTreeviewModalComponent,
+} from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 

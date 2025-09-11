@@ -1,9 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { HealthComponent } from '@dspace/core/shared/health-component.model';
+import { Component, Input } from '@angular/core';
+import { HealthComponent } from '@dspace/core'
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 

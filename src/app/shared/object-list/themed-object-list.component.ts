@@ -1,18 +1,13 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+  PaginatedList,
+  RemoteData,
+  PaginationComponentOptions,
+  Context,
+  ListableObject,
+} from '@dspace/core'
 
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../theme-support/themed.component';
@@ -26,9 +21,7 @@ import { ObjectListComponent } from './object-list.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    ObjectListComponent,
-  ],
+  imports: [],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 

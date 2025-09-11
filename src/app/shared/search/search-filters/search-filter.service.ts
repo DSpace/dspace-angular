@@ -3,42 +3,24 @@ import { Params } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  createSelector,
-  MemoizedSelector,
-  select,
-  Store,
-} from '@ngrx/store';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+  PaginatedList,
+  RemoteData,
+  PaginationComponentOptions,
+  RouteService,
+  getFirstSucceededRemoteData,
+  FacetValue,
+  SearchFilterConfig,
+  SearchOptions,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
 import { EmphasizePipe } from '../../utils/emphasize.pipe';
 import { SearchService } from '../search.service';
-import {
-  getFacetValueForType,
-  stripOperatorFromFilterValue,
-} from '../search.utils';
+import { getFacetValueForType, stripOperatorFromFilterValue } from '../search.utils';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -49,10 +31,7 @@ import {
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
 } from './search-filter/search-filter.actions';
-import {
-  SearchFiltersState,
-  SearchFilterState,
-} from './search-filter/search-filter.reducer';
+import { SearchFiltersState, SearchFilterState } from './search-filter/search-filter.reducer';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 

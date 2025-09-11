@@ -1,6 +1,5 @@
-import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { FacetValue, SearchFilterConfig } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 
 /**
  * Get a facet's value by matching its parameter in the search href, this will include the operator of the facet value

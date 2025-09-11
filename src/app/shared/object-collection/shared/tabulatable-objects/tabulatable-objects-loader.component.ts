@@ -11,22 +11,9 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { PaginatedList, Context, GenericConstructor, ListableObject, ViewMode } from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ThemeService } from '../../../theme-support/theme.service';

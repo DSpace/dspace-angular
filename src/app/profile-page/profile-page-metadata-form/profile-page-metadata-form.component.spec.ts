@@ -1,22 +1,14 @@
-import {
-  EventEmitter,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  ConfigurationDataService,
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import { of } from 'rxjs';
 

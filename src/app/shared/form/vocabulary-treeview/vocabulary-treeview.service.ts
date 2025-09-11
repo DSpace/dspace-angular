@@ -1,30 +1,18 @@
 import { Injectable } from '@angular/core';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import {
+  PaginatedList,
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
-} from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  PageInfo,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  VocabularyOptions,
+  VocabularyService,
+} from '@dspace/core'
+import { isEmpty, isNotEmpty } from '@dspace/utils';
 import findIndex from 'lodash/findIndex';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  merge,
-  mergeMap,
-  scan,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, merge, mergeMap, scan } from 'rxjs/operators';
 
 import {
   LOAD_MORE_NODE,

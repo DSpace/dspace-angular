@@ -1,24 +1,22 @@
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createTestComponent } from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
+import {
+  CollectionListEntry,
+} from '../../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  ThemedCollectionDropdownComponent,
+} from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
+import {
+  SubmissionImportExternalCollectionComponent,
+} from './submission-import-external-collection.component';
 
 describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let comp: SubmissionImportExternalCollectionComponent;

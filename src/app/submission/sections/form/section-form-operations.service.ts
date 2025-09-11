@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { FormFieldLanguageValueObject } from '@dspace/core/shared/form/models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { FormFieldPreviousValueObject } from '@dspace/core/shared/form/models/form-field-previous-value-object';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import {
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  FormFieldLanguageValueObject,
+  FormFieldMetadataValueObject,
+  FormFieldPreviousValueObject,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+} from '@dspace/core'
 import {
   dateToString,
   isNgbDateStruct,
-} from '@dspace/shared/utils/date.util';
-import {
   hasValue,
   isNotEmpty,
   isNotNull,
   isNotUndefined,
   isNull,
   isUndefined,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/utils';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -30,10 +30,18 @@ import { deepClone } from 'fast-json-patch';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
-import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {
+  DsDynamicInputModel,
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  DynamicQualdropModel,
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import {
+  DynamicRowArrayModel,
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import {
+  DynamicRelationGroupModel,
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 
 /**

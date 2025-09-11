@@ -1,23 +1,15 @@
 import { Injectable } from '@angular/core';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
 import {
-  Actions,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+  PaginatedList,
+  NotificationsService,
+  QualityAssuranceSourceObject,
+  QualityAssuranceSourceDataService,
+} from '@dspace/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import {
-  catchError,
-  map,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import {
   AddSourceAction,

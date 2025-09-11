@@ -1,56 +1,46 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
-import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
-import {
-  LinkDefinition,
+  NotifyInfoService,
+  AuthorizationDataService,
+  ItemDataService,
+  SignpostingDataService,
+  SignpostingLink,
+  LinkTagDefinition,
   LinkHeadService,
-} from '@dspace/core/services/link-head.service';
-import { ServerResponseService } from '@dspace/core/services/server-response.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import {
+  ServerResponseService,
+  Item,
+  ActivatedRouteStub,
+  TranslateLoaderMock,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ItemPageComponent } from './item-page.component';
 import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
-import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
-import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
+import {
+  NotifyRequestsStatusComponent,
+} from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import {
+  QaEventNotificationComponent,
+} from './qa-event-notification/qa-event-notification.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -206,7 +196,7 @@ describe('ItemPageComponent', () => {
 
       // Check if linkHeadService.addTag() was called with the correct arguments
       expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length + getCoarLdnLocalInboxUrls.length);
-      let expected: LinkDefinition = mockSignpostingLinks[0] as LinkDefinition;
+      let expected: LinkTagDefinition = mockSignpostingLinks[0] as LinkTagDefinition;
       expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
       expected = {
         href: 'http://test2.org',

@@ -1,40 +1,30 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { License } from '@dspace/core/shared/license.model';
-import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core/submission/models/workspaceitem-section-identifiers.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  SubmissionFormsConfigDataService,
+  CollectionDataService,
+  ConfigurationDataService,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  NotificationsService,
+  PaginationService,
+  Collection,
+  ConfigurationProperty,
+  Item,
+  License,
+  WorkspaceitemSectionIdentifiersObject,
+  SectionsType,
+  SubmissionScopeType,
+  NotificationsServiceStub,
+  PaginationServiceStub,
+  SectionsServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -42,15 +32,14 @@ import { of } from 'rxjs';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import {
+  getMockFormOperationsService,
+} from '../../../shared/form/testing/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../utils/submission.mock';
+import { mockSubmissionCollectionId, mockSubmissionId } from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';

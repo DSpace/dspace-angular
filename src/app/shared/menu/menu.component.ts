@@ -1,27 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '@dspace/shared/utils/empty.util';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { AuthorizationDataService, GenericConstructor } from '@dspace/core'
+import { hasValue, isNotEmptyOperator } from '@dspace/utils';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';

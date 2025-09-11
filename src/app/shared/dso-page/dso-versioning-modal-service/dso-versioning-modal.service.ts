@@ -1,30 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { VersionDataService } from '@dspace/core/data/version-data.service';
-import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
-import { Item } from '@dspace/core/shared/item.model';
 import {
+  ItemDataService,
+  RemoteData,
+  VersionDataService,
+  VersionHistoryDataService,
+  Item,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { Version } from '@dspace/core/shared/version.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+  Version,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 
-import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
-import { ItemVersionsSummaryModalComponent } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
+import {
+  ItemVersionsSharedService,
+} from '../../../item-page/versions/item-versions-shared.service';
+import {
+  ItemVersionsSummaryModalComponent,
+} from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 
 /**
  * Service to take care of all the functionality related to the version creation modal

@@ -1,16 +1,8 @@
 import { DebugElement } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { LoadingComponent } from './loading.component';
 

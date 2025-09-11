@@ -1,30 +1,30 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { ClaimedTaskDataServiceStub } from '@dspace/core/testing/claimed-task-data-service.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+  RequestService,
+  NotificationsService,
+  WorkflowItem,
+  ClaimedTaskDataService,
+  ClaimedTask,
+  ActivatedRouteStub,
+  ClaimedTaskDataServiceStub,
+  NotificationsServiceStub,
+  RouterStub,
+  SearchServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import {
+  ADVANCED_WORKFLOW_ACTION_RATING,
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { SearchService } from '../../../search/search.service';
-import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
+import {
+  AdvancedClaimedTaskActionRatingComponent,
+} from './advanced-claimed-task-action-rating.component';
 
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';

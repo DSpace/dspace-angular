@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import {
-  MockStore,
-  provideMockStore,
-} from '@ngrx/store/testing';
+import { EPerson } from '@dspace/core'
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
 import { AppState } from '../../app.reducer';
@@ -11,10 +8,7 @@ import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
 } from './epeople-registry.actions';
-import {
-  editEPersonSelector,
-  EpeopleRegistryService,
-} from './epeople-registry.service';
+import { editEPersonSelector, EpeopleRegistryService } from './epeople-registry.service';
 
 describe('EpeopleRegistryService', () => {
   let service: EpeopleRegistryService;

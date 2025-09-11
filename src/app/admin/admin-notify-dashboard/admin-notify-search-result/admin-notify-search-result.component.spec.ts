@@ -1,12 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { AdminNotifyMessagesDataService } from '@dspace/core/coar-notify/notify-info/admin-notify-messages-data.service';
-import { mockAdminNotifyMessages } from '@dspace/core/testing/admin-notify-messages.mock';
+import { AdminNotifyMessagesDataService, mockAdminNotifyMessages } from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -14,8 +10,12 @@ import { of } from 'rxjs';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
+import {
+  TruncatablePartComponent,
+} from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  AdminNotifyDetailModalComponent,
+} from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
 import { AdminNotifySearchResultComponent } from './admin-notify-search-result.component';
 
 describe('AdminNotifySearchResultComponent', () => {

@@ -1,23 +1,13 @@
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+  getItemModuleRoute,
+  Metadata,
+  WorkspaceitemSectionDuplicatesObject,
+  URLCombiner,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, of, Subscription } from 'rxjs';
 
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';

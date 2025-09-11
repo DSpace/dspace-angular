@@ -1,14 +1,7 @@
-import {
-  Component,
-  DebugElement,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MathService } from '@dspace/core/shared/math.service';
-import { MockMathService } from '@dspace/core/shared/math.service.spec';
+import { MathService, MockMathService } from '@dspace/core'
 
 import { environment } from '../../../environments/environment.test';
 import { MarkdownDirective } from './markdown.directive';

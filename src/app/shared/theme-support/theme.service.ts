@@ -1,77 +1,39 @@
 import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable, Injector } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveEnd, Router } from '@angular/router';
 import {
-  Inject,
-  Injectable,
-  Injector,
-} from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveEnd,
-  Router,
-} from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { BuildConfig } from '@dspace/config/build-config.interface';
-import { getDefaultThemeConfig } from '@dspace/config/config.util';
-import {
+  APP_CONFIG,
+  BuildConfig,
   BASE_THEME_NAME,
   HeadTagConfig,
   ThemeConfig,
-} from '@dspace/config/theme.config';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
+} from '@dspace/config';
 import {
+  LinkService,
+  DSpaceObjectDataService,
+  RemoteData,
   NO_OP_ACTION_TYPE,
   NoOpAction,
-} from '@dspace/core/ngrx/no-op.action';
-import { distinctNext } from '@dspace/core/shared/distinct-next';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import {
+  distinctNext,
+  DSpaceObject,
+  followLink,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  createFeatureSelector,
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
-import {
-  BehaviorSubject,
-  concatMap,
-  EMPTY,
-  from,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  defaultIfEmpty,
-  expand,
-  filter,
-  map,
-  switchMap,
-  take,
-  toArray,
-} from 'rxjs/operators';
+} from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
+import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
+import { BehaviorSubject, concatMap, EMPTY, from, Observable, of } from 'rxjs';
+import { defaultIfEmpty, expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 import {
-  SetThemeAction,
-  ThemeActionTypes,
-} from './theme.actions';
-import {
-  Theme,
-  themeFactory,
-} from './theme.model';
+  GET_THEME_CONFIG_FOR_FACTORY,
+} from '../object-collection/shared/listable-object/listable-object.decorator';
+import { SetThemeAction, ThemeActionTypes } from './theme.actions';
+import { Theme, themeFactory } from './theme.model';
 import { ThemeState } from './theme.reducer';
+import { getDefaultThemeConfig } from './theme.utils';
 
 export const themeStateSelector = createFeatureSelector<ThemeState>('theme');
 

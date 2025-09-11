@@ -1,24 +1,17 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormControl,
-  FormGroup,
-} from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormControl, FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
+  AuthorizationDataService,
+  ScriptDataService,
+  NotificationsService,
+  Process,
+  Script,
+  NotificationsServiceStub,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

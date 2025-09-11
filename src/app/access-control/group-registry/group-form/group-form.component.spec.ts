@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -13,53 +9,42 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import {
+  DSONameService,
+  RemoteDataBuildService,
+  ObjectCacheService,
+  DSOChangeAnalyzer,
+  DSpaceObjectDataService,
+  AuthorizationDataService,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import {
+  RemoteData,
+  EPersonDataService,
+  GroupDataService,
+  Group,
+  NotificationsService,
+  DSpaceObject,
+  HALEndpointService,
+  NoContent,
+  PageInfo,
+  UUIDService,
+  ActivatedRouteStub,
+  DSONameServiceMock,
   GroupMock,
   GroupMock2,
-} from '@dspace/core/testing/group-mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+  NotificationsServiceStub,
+  RouterMock,
+  createSuccessfulRemoteDataObject$,
+  XSRFService,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';

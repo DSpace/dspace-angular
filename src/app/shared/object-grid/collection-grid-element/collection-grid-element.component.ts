@@ -1,23 +1,17 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
+import { DSONameService, LinkService, Collection, followLink, ViewMode } from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
-import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import {
+  listableObjectComponent,
+} from '../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  AbstractListableElementComponent,
+} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 /**
  * Component representing a grid element for collection

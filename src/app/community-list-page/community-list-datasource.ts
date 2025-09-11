@@ -1,14 +1,7 @@
-import {
-  CollectionViewer,
-  DataSource,
-} from '@angular/cdk/collections';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { FindListOptions } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { CommunityListService } from './community-list-service';

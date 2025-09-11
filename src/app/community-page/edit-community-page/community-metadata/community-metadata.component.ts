@@ -1,15 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Community } from '@dspace/core/shared/community.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommunityDataService, NotificationsService, Community } from '@dspace/core'
 import { TranslateService } from '@ngx-translate/core';
 
-import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
+import {
+  ComcolMetadataComponent,
+} from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 
 /**

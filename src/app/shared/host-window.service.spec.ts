@@ -1,12 +1,8 @@
-import { WidthCategory } from '@dspace/core/shared/host-window-type';
-import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { WidthCategory, CSSVariableServiceStub } from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
 import { MockStore } from '@ngrx/store/testing/mock_store';
-import {
-  cold,
-  hot,
-} from 'jasmine-marbles';
+import { cold, hot } from 'jasmine-marbles';
 
 import { AppState } from '../app.reducer';
 import { HostWindowService } from './host-window.service';

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { SuggestionTarget } from '@dspace/core'
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -5,46 +5,32 @@
  *
  * http://www.dspace.org/license/
  */
-import {
-  Inject,
-  Injectable,
-  TransferState,
-} from '@angular/core';
-import {
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { Inject, Injectable, TransferState } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '@dspace/config/app-config.interface';
-import { BuildConfig } from '@dspace/config/build-config.interface';
-import { extendEnvironmentWithAppConfig } from '@dspace/config/config.util';
-import { DefaultAppConfig } from '@dspace/config/default-app-config';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { coreSelector } from '@dspace/core/core.selectors';
-import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { RootDataService } from '@dspace/core/data/root-data.service';
-import { LocaleService } from '@dspace/core/locale/locale.service';
-import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
-import { StoreActionTypes } from '@dspace/core/ngrx/type';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+  BuildConfig,
+  DefaultAppConfig,
+} from '@dspace/config';
+import {
+  AuthService,
+  OrejimeService,
+  coreSelector,
+  CorrelationIdService,
+  RequestService,
+  RootDataService,
+  LocaleService,
+  HeadTagService,
+  StoreActionTypes,
+  HALEndpointService,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  firstValueFrom,
-  lastValueFrom,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  find,
-  map,
-} from 'rxjs/operators';
+import { firstValueFrom, lastValueFrom, Subscription } from 'rxjs';
+import { filter, find, map } from 'rxjs/operators';
 
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
@@ -58,6 +44,7 @@ import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.se
 import { MatomoService } from '../../app/statistics/matomo.service';
 import { StoreAction } from '../../app/store.actions';
 import { environment } from '../../environments/environment';
+import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 
 /**
  * Performs client-side initialization.

@@ -1,9 +1,6 @@
 import { DatePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Metadata } from '@dspace/core/submission/models/sherpa-policies-details.model';
+import { Component, Input } from '@angular/core';
+import { SherpaMetadata } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
@@ -23,6 +20,6 @@ export class MetadataInformationComponent {
   /**
    * Metadata to show information from
    */
-  @Input() metadata: Metadata;
+  @Input() metadata: SherpaMetadata;
 
 }

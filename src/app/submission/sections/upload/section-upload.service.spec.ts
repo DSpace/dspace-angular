@@ -1,14 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { JsonPatchOperationPathCombiner, JsonPatchOperationsBuilder } from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
 
 import { SectionUploadService } from './section-upload.service';
 

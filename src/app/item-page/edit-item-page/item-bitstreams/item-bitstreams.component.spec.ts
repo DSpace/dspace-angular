@@ -1,41 +1,29 @@
-import {
-  ChangeDetectorRef,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import {
+  ObjectCacheService,
+  BitstreamDataService,
+  BundleDataService,
+  ItemDataService,
+  FieldChangeType,
+  ObjectUpdatesService,
+  RequestService,
   INotification,
   Notification,
-} from '@dspace/core/notification-system/models/notification.model';
-import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Bundle } from '@dspace/core/shared/bundle.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { BitstreamDataServiceStub } from '@dspace/core/testing/bitstream-data-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import {
+  NotificationType,
+  NotificationsService,
+  Bitstream,
+  Bundle,
+  Item,
+  BitstreamDataServiceStub,
+  getMockRequestService,
+  RouterStub,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -49,7 +37,9 @@ import {
   getItemBitstreamsServiceStub,
   ItemBitstreamsServiceStub,
 } from './item-bitstreams.service.stub';
-import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import {
+  ItemEditBitstreamBundleComponent,
+} from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;

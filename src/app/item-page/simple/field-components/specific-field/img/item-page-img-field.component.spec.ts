@@ -1,25 +1,20 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  BrowseService,
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataServiceStub,
+  BrowseServiceStub,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
+import {
+  MetadataValuesComponent,
+} from '../../../../field-components/metadata-values/metadata-values.component';
 import { GenericItemPageFieldComponent } from '../generic/generic-item-page-field.component';
 import { ImageField } from '../image-field';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';

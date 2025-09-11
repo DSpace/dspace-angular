@@ -1,16 +1,8 @@
 import { Injectable } from '@angular/core';
-import { NoOpAction } from '@dspace/core/ngrx/no-op.action';
-import {
-  Actions,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+import { NoOpAction } from '@dspace/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
-import {
-  first,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 
 import { HostWindowActionTypes } from '../shared/host-window.actions';
 import {

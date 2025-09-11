@@ -1,25 +1,17 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import {
+  ItemDataService,
+  PaginationService,
   getMockNotificationsStateService,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '@dspace/core/testing/notifications.mock';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+  PaginationServiceStub,
+  createTestComponent,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';

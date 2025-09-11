@@ -1,14 +1,7 @@
 import { NgClass } from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LinkMenuItemModel } from './models/link.model';

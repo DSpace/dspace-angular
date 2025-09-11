@@ -1,28 +1,18 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ComColDataService } from '@dspace/core/data/comcol-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  DSONameService,
+  ComColDataService,
+  RemoteData,
+  NotificationsService,
+  Collection,
+  Community,
+  NoContent,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  first,
-  map,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 
 /**
  * Component representing the delete page for communities and collections

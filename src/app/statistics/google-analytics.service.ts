@@ -1,17 +1,13 @@
 import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import {
-  Inject,
-  Injectable,
-} from '@angular/core';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { GOOGLE_ANALYTICS_OREJIME_KEY } from '@dspace/core/cookies/orejime-configuration';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  Angulartics2GoogleAnalytics,
-  Angulartics2GoogleGlobalSiteTag,
-} from 'angulartics2';
+  OrejimeService,
+  GOOGLE_ANALYTICS_OREJIME_KEY,
+  ConfigurationDataService,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
+import { Angulartics2GoogleAnalytics, Angulartics2GoogleGlobalSiteTag } from 'angulartics2';
 import { combineLatest } from 'rxjs';
 
 /**

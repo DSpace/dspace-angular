@@ -1,8 +1,5 @@
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { VocabularyOptions } from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

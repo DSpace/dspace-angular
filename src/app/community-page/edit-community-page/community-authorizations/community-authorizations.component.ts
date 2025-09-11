@@ -1,18 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { RemoteData, DSpaceObject } from '@dspace/core'
 import { Observable } from 'rxjs';
-import {
-  first,
-  map,
-} from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
-import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import {
+  ResourcePoliciesComponent,
+} from '../../../shared/resource-policies/resource-policies.component';
 
 @Component({
   selector: 'ds-community-authorizations',

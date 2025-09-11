@@ -1,24 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  MemoizedSelector,
-  select,
-  Store,
-} from '@ngrx/store';
+import { ListableObject } from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import {
-  AppState,
-  keySelector,
-} from '../../../app.reducer';
+import { AppState, keySelector } from '../../../app.reducer';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectAllAction,

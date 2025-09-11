@@ -1,31 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RestResponse } from '@dspace/core/cache/response.models';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { GoogleRecaptchaService } from '@dspace/core/google-recaptcha/google-recaptcha.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  RestResponse,
+  CookieService,
+  ConfigurationDataService,
+  EpersonRegistrationService,
+  GoogleRecaptchaService,
+  NotificationsService,
+  ConfigurationProperty,
+  CookieServiceMock,
+  NotificationsServiceStub,
+  RouterStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

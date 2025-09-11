@@ -1,46 +1,36 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import {
-  hasValue,
-  isEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  DSONameService,
+  BitstreamDataService,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
+  Bitstream,
+  followLink,
+  Item,
+} from '@dspace/core'
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { hasValue, isEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  switchMap,
-  tap,
-} from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
+import { switchMap, tap } from 'rxjs/operators';
 
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
-import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  ThemedFileDownloadLinkComponent,
+} from '../../../../shared/file-download-link/themed-file-download-link.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
+import {
+  FileSectionComponent,
+} from '../../../simple/field-components/file-section/file-section.component';
 
 /**
  * This component renders the file section of the item

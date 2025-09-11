@@ -1,21 +1,21 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+  AuthService,
+  OrejimeService,
+  OrejimeServiceStub,
+  NotificationsService,
+  AuthServiceStub,
+  NotificationsServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ContextHelpDirective } from 'src/app/shared/context-help.directive';
 
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
-import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
+import {
+  getAccessibilitySettingsServiceStub,
+} from '../../accessibility/accessibility-settings.service.stub';
 import { AccessibilitySettingsComponent } from './accessibility-settings.component';
 
 

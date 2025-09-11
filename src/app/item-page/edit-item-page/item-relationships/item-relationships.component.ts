@@ -1,53 +1,40 @@
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import {
+  ObjectCacheService,
+  EntityTypeDataService,
+  ItemDataService,
+  ObjectUpdatesService,
+  PaginatedList,
+  RelationshipDataService,
+  RelationshipTypeDataService,
+  RequestService,
+  NotificationsService,
+  followLink,
+  ItemType,
+  RelationshipType,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { compareArraysUsingIds } from '@dspace/core/utilities/item-relationships-utils';
+  compareArraysUsingIds,
+} from '@dspace/core'
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import {
+  AbstractItemUpdateComponent,
+} from '../abstract-item-update/abstract-item-update.component';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
-import { EditRelationshipListWrapperComponent } from './edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
+import {
+  EditRelationshipListWrapperComponent,
+} from './edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -93,6 +80,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
     public route: ActivatedRoute,
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
     public relationshipService: RelationshipDataService,
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
@@ -102,7 +90,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     protected modalService: NgbModal,
     protected editItemRelationshipsService: EditItemRelationshipsService,
   ) {
-    super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, route, appConfig);
   }
 
   /**

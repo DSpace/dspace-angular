@@ -1,13 +1,24 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { communityAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
+import { i18nBreadcrumbResolver, communityAdministratorGuard } from '@dspace/core'
 
-import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { resourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
-import { CommunityAccessControlComponent } from './community-access-control/community-access-control.component';
-import { CommunityAuthorizationsComponent } from './community-authorizations/community-authorizations.component';
+import {
+  ResourcePolicyCreateComponent,
+} from '../../shared/resource-policies/create/resource-policy-create.component';
+import {
+  ResourcePolicyEditComponent,
+} from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import {
+  resourcePolicyResolver,
+} from '../../shared/resource-policies/resolvers/resource-policy.resolver';
+import {
+  resourcePolicyTargetResolver,
+} from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import {
+  CommunityAccessControlComponent,
+} from './community-access-control/community-access-control.component';
+import {
+  CommunityAuthorizationsComponent,
+} from './community-authorizations/community-authorizations.component';
 import { CommunityCurateComponent } from './community-curate/community-curate.component';
 import { CommunityMetadataComponent } from './community-metadata/community-metadata.component';
 import { CommunityRolesComponent } from './community-roles/community-roles.component';

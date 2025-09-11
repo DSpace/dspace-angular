@@ -1,27 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+import { authReducer, AuthService, AuthTokenInfo, EPersonMock } from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  AppState,
-  storeModuleConfig,
-} from '../../app.reducer';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import { VarDirective } from '../utils/var.directive';
 import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
 

@@ -1,59 +1,38 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RequestService } from '@dspace/core/data/request.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
-import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Bundle } from '@dspace/core/shared/bundle.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
-import { GroupMock } from '@dspace/core/testing/group-mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { getMockResourcePolicyService } from '@dspace/core/testing/mock-resource-policy-service';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import {
+  DSONameService,
+  LinkService,
+  buildPaginatedList,
+  RequestService,
+  EPersonDataService,
+  GroupDataService,
+  NotificationsService,
+  ActionType,
+  PolicyType,
+  ResourcePolicyDataService,
+  Bitstream,
+  Bundle,
+  Item,
+  PageInfo,
+  EPersonMock,
+  GroupMock,
+  getMockLinkService,
+  getMockResourcePolicyService,
+  NotificationsServiceStub,
+  getMockRequestService,
+  RouterStub,
   createPaginatedList,
   createTestComponent,
-} from '@dspace/core/testing/utils.test';
-import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 

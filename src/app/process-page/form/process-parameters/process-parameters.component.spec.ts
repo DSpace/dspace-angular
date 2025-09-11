@@ -1,19 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { ProcessParameter, Script, ScriptParameter, TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { ProcessParametersComponent } from './process-parameters.component';

@@ -1,22 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { SortOptions, RemoteData, DSpaceObject, DSpaceObjectType } from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 export enum SelectorActionType {

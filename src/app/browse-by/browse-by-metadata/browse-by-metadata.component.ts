@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformServer,
-} from '@angular/common';
+import { AsyncPipe, isPlatformServer } from '@angular/common';
 import {
   Component,
   Inject,
@@ -12,36 +9,26 @@ import {
   PLATFORM_ID,
   SimpleChanges,
 } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  ActivatedRoute,
-  Params,
-  Router,
-} from '@angular/router';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
-import { BrowseEntrySearchOptions } from '@dspace/core/browse/browse-entry-search-options.model';
-import {
+  DSONameService,
+  BrowseService,
+  BrowseByDataType,
+  BrowseEntrySearchOptions,
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  DSpaceObjectDataService,
+  PaginatedList,
+  RemoteData,
+  PaginationService,
+  PaginationComponentOptions,
+  BrowseEntry,
+  Context,
+  Item,
+  getFirstSucceededRemoteData,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -50,10 +37,7 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import { environment } from '../../../environments/environment';

@@ -1,21 +1,18 @@
-
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   MetadataMap,
   MetadataValue,
-} from '@dspace/core/shared/metadata.models';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+  Metadata,
+  WorkspaceitemSectionUploadFileObject,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FileSizePipe } from '../../../../../shared/utils/file-size-pipe';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
+import {
+  SubmissionSectionUploadAccessConditionsComponent,
+} from '../../accessConditions/submission-section-upload-access-conditions.component';
 
 /**
  * This component allow to show bitstream's metadata

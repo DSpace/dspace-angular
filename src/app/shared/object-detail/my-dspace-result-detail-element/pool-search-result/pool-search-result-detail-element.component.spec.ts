@@ -1,7 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -12,23 +9,29 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  DSONameService,
+  LinkService,
+  ObjectCacheService,
+  Context,
+  Item,
+  PoolTaskSearchResult,
+  WorkflowItem,
+  PoolTask,
+  DSONameServiceMock,
+  getMockLinkService,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
-import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
+import {
+  PoolTaskActionsComponent,
+} from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
-import { PoolSearchResultDetailElementComponent } from './pool-search-result-detail-element.component';
+import {
+  PoolSearchResultDetailElementComponent,
+} from './pool-search-result-detail-element.component';
 
 let component: PoolSearchResultDetailElementComponent;
 let fixture: ComponentFixture<PoolSearchResultDetailElementComponent>;

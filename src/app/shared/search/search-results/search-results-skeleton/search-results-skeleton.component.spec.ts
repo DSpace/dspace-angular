@@ -1,8 +1,5 @@
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SearchServiceStub } from '@dspace/core'
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { SearchService } from '../../search.service';

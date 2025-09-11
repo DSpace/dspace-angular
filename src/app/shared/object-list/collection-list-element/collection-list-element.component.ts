@@ -1,11 +1,13 @@
-
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Collection, ViewMode } from '@dspace/core'
 
-import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import {
+  listableObjectComponent,
+} from '../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  AbstractListableElementComponent,
+} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
   selector: 'ds-collection-list-element',

@@ -1,9 +1,5 @@
-
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { HealthStatus } from '@dspace/core/shared/health-component.model';
+import { Component, Input } from '@angular/core';
+import { HealthStatus } from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

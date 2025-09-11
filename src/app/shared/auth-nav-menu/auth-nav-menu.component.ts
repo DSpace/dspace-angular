@@ -1,51 +1,24 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  RouterLink,
-  RouterLinkActive,
-} from '@angular/router';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   AuthService,
   LOGIN_ROUTE,
   LOGOUT_ROUTE,
-} from '@dspace/core/auth/auth.service';
-import {
   isAuthenticated,
   isAuthenticationLoading,
-} from '@dspace/core/auth/selectors';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { isNotUndefined } from '@dspace/shared/utils/empty.util';
+  EPerson,
+} from '@dspace/core'
+import { isNotUndefined } from '@dspace/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterReducerState } from '@ngrx/router-store';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-} from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
-import {
-  AppState,
-  routerStateSelector,
-} from '../../app.reducer';
-import {
-  fadeInOut,
-  fadeOut,
-} from '../animations/fade';
+import { AppState, routerStateSelector } from '../../app.reducer';
+import { fadeInOut, fadeOut } from '../animations/fade';
 import { HostWindowService } from '../host-window.service';
 import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';

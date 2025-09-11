@@ -1,17 +1,12 @@
+import { InMemoryScrollingOptions, Route, RouterConfigOptions } from '@angular/router';
 import {
-  InMemoryScrollingOptions,
-  Route,
-  RouterConfigOptions,
-} from '@angular/router';
-import { authBlockingGuard } from '@dspace/core/auth/auth-blocking.guard';
-import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
-import { groupAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { siteRegisterGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreement/end-user-agreement-current-user.guard';
-import { reloadGuard } from '@dspace/core/reload/reload.guard';
-import { forgotPasswordCheckGuard } from '@dspace/core/rest-property/forgot-password-check-guard.guard';
-import {
+  authBlockingGuard,
+  authenticatedGuard,
+  groupAdministratorGuard,
+  siteAdministratorGuard,
+  siteRegisterGuard,
+  reloadGuard,
+  forgotPasswordCheckGuard,
   BITSTREAM_MODULE_PATH,
   COLLECTION_MODULE_PATH,
   COMMUNITY_MODULE_PATH,
@@ -20,8 +15,8 @@ import {
   INTERNAL_SERVER_ERROR,
   ITEM_MODULE_PATH,
   LEGACY_BITSTREAM_MODULE_PATH,
-} from '@dspace/core/router/core-routing-paths';
-import { ServerCheckGuard } from '@dspace/core/server-check/server-check.guard';
+  ServerCheckGuard,
+} from '@dspace/core'
 
 import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-routing-paths';
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
@@ -35,11 +30,16 @@ import {
   REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
+import { endUserAgreementCurrentUserGuard } from './info/end-user-agreement/end-user-agreement-current-user.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
-import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
+import {
+  provideSuggestionNotificationsState,
+} from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
-import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import {
+  ThemedPageInternalServerErrorComponent,
+} from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { viewTrackerResolver } from './statistics/angulartics/dspace/view-tracker.resolver';

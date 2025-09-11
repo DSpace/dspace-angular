@@ -1,7 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -12,33 +9,37 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
-import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { APP_CONFIG } from '@dspace/config';
 import {
+  DSONameService,
+  LinkService,
+  ObjectCacheService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  Context,
+  Item,
+  PoolTaskSearchResult,
+  WorkflowItem,
+  SubmissionDuplicateDataService,
+  PoolTask,
+  DSONameServiceMock,
+  getMockLinkService,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { of } from 'rxjs';
 
-import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
+import {
+  PoolTaskActionsComponent,
+} from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
+import {
+  ThemedItemListPreviewComponent,
+} from '../item-list-preview/themed-item-list-preview.component';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
 
 let component: PoolSearchResultListElementComponent;

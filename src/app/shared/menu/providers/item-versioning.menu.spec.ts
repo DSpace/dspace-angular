@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { AuthorizationDataService, Item, ITEM } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
+import {
+  DsoVersioningModalService,
+} from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { VersioningMenuProvider } from './item-versioning.menu';

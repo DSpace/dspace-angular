@@ -1,34 +1,31 @@
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
-  NgbActiveModal,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+  NotificationsService,
+  ExternalSourceEntry,
+  Metadata,
+  NotificationsServiceStub,
+  RouterStub,
+  SubmissionServiceStub,
+  createTestComponent,
+} from '@dspace/core'
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  CollectionListEntry,
+} from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
-import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
+import {
+  SubmissionImportExternalCollectionComponent,
+} from '../import-external-collection/submission-import-external-collection.component';
+import {
+  SubmissionImportExternalPreviewComponent,
+} from './submission-import-external-preview.component';
 
 const externalEntry = Object.assign(new ExternalSourceEntry(), {
   id: '0001-0001-0001-0001',

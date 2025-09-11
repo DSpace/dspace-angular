@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { PageInfo, VocabularyEntryDetail } from '@dspace/core'
 import { BehaviorSubject } from 'rxjs';
 
 export const LOAD_MORE = 'LOAD_MORE';

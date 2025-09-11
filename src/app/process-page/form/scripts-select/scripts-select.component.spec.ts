@@ -1,28 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  buildPaginatedList,
+  ScriptDataService,
+  Script,
+  ActivatedRouteStub,
+  RouterStub,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ScriptsSelectComponent } from './scripts-select.component';
 

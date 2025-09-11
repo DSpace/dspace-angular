@@ -1,33 +1,17 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Params, Router } from '@angular/router';
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import {
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  Params,
-  Router,
-} from '@angular/router';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
+  RemoteDataBuildService,
+  currentPath,
+  getFirstSucceededRemoteDataPayload,
+  AppliedFilter,
+  FacetValue,
+  FacetValues,
+  SearchFilterConfig,
+  SearchOptions,
+} from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -35,15 +19,11 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  SEARCH_CONFIG_SERVICE,
+} from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { SearchService } from '../../../search.service';
 import { SearchConfigurationService } from '../../../search-configuration.service';

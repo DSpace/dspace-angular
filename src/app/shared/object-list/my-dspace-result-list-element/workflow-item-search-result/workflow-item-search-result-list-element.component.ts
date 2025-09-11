@@ -1,35 +1,35 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+  DSONameService,
+  LinkService,
+  Context,
+  followLink,
+  Item,
+  ItemSearchResult,
+  WorkflowItemSearchResult,
+  getFirstSucceededRemoteDataPayload,
+  ViewMode,
+  WorkflowItem,
+} from '@dspace/core'
 import { BehaviorSubject } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import {
+  WorkflowitemActionsComponent,
+} from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  listableObjectComponent,
+} from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent,
+} from '../../search-result-list-element/search-result-list-element.component';
 
 /**
  * This component renders workflowitem object for the search result in the list view.

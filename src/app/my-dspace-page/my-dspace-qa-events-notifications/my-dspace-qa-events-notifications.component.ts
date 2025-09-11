@@ -1,23 +1,15 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
 import {
+  QualityAssuranceSourceObject,
+  QualityAssuranceSourceDataService,
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  tap,
-} from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
 

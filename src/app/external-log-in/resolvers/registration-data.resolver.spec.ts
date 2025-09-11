@@ -1,14 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { Registration } from '@dspace/core/shared/registration.model';
-import {
+  EpersonRegistrationService,
+  Registration,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 
 import { RegistrationDataResolver } from './registration-data.resolver';
 

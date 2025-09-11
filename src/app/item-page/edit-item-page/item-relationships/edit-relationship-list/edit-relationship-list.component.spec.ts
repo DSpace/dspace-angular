@@ -1,58 +1,51 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  ActivatedRoute,
-  RouterModule,
-} from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { LinkHeadService } from '@dspace/core/services/link-head.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthRequestServiceStub } from '@dspace/core/testing/auth-request-service.stub';
-import { EditItemRelationshipsServiceStub } from '@dspace/core/testing/edit-item-relationships.service.stub';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+  AuthRequestService,
+  LinkService,
+  CookieService,
+  ConfigurationDataService,
+  FieldChangeType,
+  ObjectUpdatesService,
+  RelationshipDataService,
+  RelationshipTypeDataService,
+  GroupDataService,
+  PaginationService,
+  PaginationComponentOptions,
+  HardRedirectService,
+  LinkHeadService,
+  ConfigurationProperty,
+  Item,
+  ItemType,
+  Relationship,
+  RelationshipType,
+  ActivatedRouteStub,
+  AuthRequestServiceStub,
+  EditItemRelationshipsServiceStub,
+  HostWindowServiceStub,
+  PaginationServiceStub,
+  SearchConfigurationServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  XSRFService,
+} from '@dspace/core'
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import {
-  BehaviorSubject,
-  of,
-} from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment.test';
 import { REQUEST } from '../../../../../express.tokens';
-import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
+import {
+  NameVariantService,
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { SearchConfigurationService } from '../../../../shared/search/search-configuration.service';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';

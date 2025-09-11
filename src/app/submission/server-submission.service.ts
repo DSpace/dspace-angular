@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { RemoteData, SubmissionObject } from '@dspace/core'
+import { Observable, of } from 'rxjs';
 
 import { SubmissionService } from './submission.service';
 

@@ -1,12 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  Optional,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -17,40 +10,24 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
 import {
+  CookieService,
+  OrejimeService,
+  ConfigurationDataService,
+  EpersonRegistrationService,
+  RemoteData,
   CAPTCHA_NAME,
   GoogleRecaptchaService,
-} from '@dspace/core/google-recaptcha/google-recaptcha.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import {
+  NotificationsService,
+  ConfigurationProperty,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-  switchMap,
-} from 'rxjs';
-import {
-  map,
-  startWith,
-  take,
-} from 'rxjs/operators';
+  Registration,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription, switchMap } from 'rxjs';
+import { map, startWith, take } from 'rxjs/operators';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';

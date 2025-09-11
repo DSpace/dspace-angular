@@ -1,15 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import {
+  NotificationsService,
+  Collection,
+  Item,
+  NotificationsServiceStub,
+  SearchServiceStub,
+} from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

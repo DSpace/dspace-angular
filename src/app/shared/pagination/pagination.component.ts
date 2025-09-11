@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -18,35 +15,23 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { PaginationRouteParams } from '@dspace/core/pagination/pagination-route-params.interface';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@dspace/shared/utils/empty.util';
+  PaginatedList,
+  RemoteData,
+  PaginationService,
+  PaginationComponentOptions,
+  PaginationRouteParams,
+  ListableObject,
+  ViewMode,
+} from '@dspace/core'
+import { hasValue, hasValueOperator } from '@dspace/utils';
 import {
   NgbDropdownModule,
   NgbPaginationModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { HostWindowService } from '../host-window.service';

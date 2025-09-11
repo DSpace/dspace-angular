@@ -1,20 +1,13 @@
-import {
-  NO_ERRORS_SCHEMA,
-  Pipe,
-  PipeTransform,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { ScriptParameterType } from '@dspace/core/shared/scripts/script-parameter-type.model';
+import { ScriptParameter, ScriptParameterType } from '@dspace/core'
 import { of } from 'rxjs';
 
-import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
+import {
+  ParameterValueInputComponent,
+} from '../parameter-value-input/parameter-value-input.component';
 import { ParameterSelectComponent } from './parameter-select.component';
 
 describe('ParameterSelectComponent', () => {

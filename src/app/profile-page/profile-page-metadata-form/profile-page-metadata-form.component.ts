@@ -1,22 +1,14 @@
-
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { LangConfig } from '@dspace/config/lang-config.interface';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { LangConfig } from '@dspace/config';
 import {
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,

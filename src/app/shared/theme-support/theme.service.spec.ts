@@ -1,31 +1,25 @@
-import {
-  CommonModule,
-  DOCUMENT,
-} from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  ActivatedRouteSnapshot,
-  Router,
-} from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { NoOpAction } from '@dspace/core/ngrx/no-op.action';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
-import { Community } from '@dspace/core/shared/community.model';
-import { COMMUNITY } from '@dspace/core/shared/community.resource-type';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ITEM } from '@dspace/core/shared/item.resource-type';
-import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import {
+  LinkService,
+  ConfigurationDataService,
+  DSpaceObjectDataService,
+  NoOpAction,
+  Collection,
+  COLLECTION,
+  Community,
+  COMMUNITY,
+  DSpaceObject,
+  Item,
+  ITEM,
+  ConfigurationDataServiceStub,
+  RouterMock,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { provideMockActions } from '@ngrx/effects/testing';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { provideMockStore } from '@ngrx/store/testing';

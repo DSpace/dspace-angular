@@ -1,41 +1,26 @@
 import { Injectable } from '@angular/core';
-import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
-import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
-import { WorkspaceitemSectionDataType } from '@dspace/core/submission/models/workspaceitem-sections.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
+  SubmissionFormsModel,
+  JsonPatchOperationPathCombiner,
+  NotificationsService,
+  SectionScope,
+  SubmissionSectionError,
+  SubmissionSectionObject,
+  WorkspaceitemSectionDataType,
+  SectionsType,
+  normalizeSectionData,
+  SubmissionScopeType,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '@dspace/utils';
 import { parseReviver } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  ScrollToConfigOptions,
-  ScrollToService,
-} from '@nicky-lenaers/ngx-scroll-to';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import findIndex from 'lodash/findIndex';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  mergeMap,
-  take,
-} from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';

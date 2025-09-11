@@ -1,36 +1,22 @@
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
-import { dateToISOFormat } from '@dspace/shared/utils/date.util';
-import {
-  NgbActiveModal,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+  APP_DATA_SERVICES_MAP,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  FormFieldMetadataValueObject,
+  SubmissionJsonPatchOperationsService,
+  getMockSectionUploadService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+  XSRFService,
+} from '@dspace/core'
+import { dateToISOFormat } from '@dspace/utils';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -43,8 +29,12 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
-import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import {
+  DsDynamicTypeBindRelationService,
+} from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  DynamicCustomSwitchModel,
+} from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
@@ -400,10 +390,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    FormComponent,
     FormsModule,
     ReactiveFormsModule,
-    SubmissionSectionUploadFileEditComponent,
+
   ],
 })
 class TestComponent {

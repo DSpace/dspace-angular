@@ -1,23 +1,14 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import {
-  Component,
-  Inject,
-} from '@angular/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionSherpaPoliciesObject } from '@dspace/core/submission/models/workspaceitem-section-sherpa-policies.model';
-import {
-  hasValue,
-  isEmpty,
-} from '@dspace/shared/utils/empty.util';
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  WorkspaceitemSectionSherpaPoliciesObject,
+} from '@dspace/core'
+import { hasValue, isEmpty } from '@dspace/utils';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
@@ -26,8 +17,12 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
-import { PublicationInformationComponent } from './publication-information/publication-information.component';
+import {
+  MetadataInformationComponent,
+} from './metadata-information/metadata-information.component';
+import {
+  PublicationInformationComponent,
+} from './publication-information/publication-information.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
 
 /**

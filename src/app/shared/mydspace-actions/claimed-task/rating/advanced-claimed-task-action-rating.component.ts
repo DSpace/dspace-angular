@@ -1,22 +1,16 @@
-import {
-  Component,
-  Injector,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Component, Injector } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RequestService, NotificationsService } from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import {
+  ADVANCED_WORKFLOW_ACTION_RATING,
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { SearchService } from '../../../search/search.service';
-import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
+import {
+  AdvancedClaimedTaskActionsAbstractComponent,
+} from '../abstract/advanced-claimed-task-actions-abstract.component';
 
 /**
  * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionRatingComponent}

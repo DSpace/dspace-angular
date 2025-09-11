@@ -1,20 +1,7 @@
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  UrlTree,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
+import { AuthService, AuthorizationDataService, FeatureID, HALEndpointService } from '@dspace/core'
+import { Observable, of } from 'rxjs';
 
 import { groupPageGuard } from './group-page.guard';
 

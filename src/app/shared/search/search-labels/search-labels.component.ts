@@ -1,10 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { AppliedFilter } from '@dspace/core'
 import { BehaviorSubject } from 'rxjs';
 
 import { SearchService } from '../search.service';

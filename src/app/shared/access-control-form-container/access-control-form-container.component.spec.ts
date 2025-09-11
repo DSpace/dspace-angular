@@ -1,18 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { BulkAccessConfigDataService } from '@dspace/core/config/bulk-access-config-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import {
-  NgbDatepickerModule,
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+import { BulkAccessConfigDataService, Item } from '@dspace/core'
+import { NgbDatepickerModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { of } from 'rxjs';
@@ -21,7 +12,9 @@ import { SelectableListService } from '../object-list/selectable-list/selectable
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
-import { ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
+import {
+  ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
+} from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 
 describe('AccessControlFormContainerComponent', () => {
   let component: AccessControlFormContainerComponent<any>;

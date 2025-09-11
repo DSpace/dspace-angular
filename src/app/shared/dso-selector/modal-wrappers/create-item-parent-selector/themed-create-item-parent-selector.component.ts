@@ -1,11 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RemoteData, DSpaceObject } from '@dspace/core'
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
@@ -18,9 +12,7 @@ import { CreateItemParentSelectorComponent } from './create-item-parent-selector
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    CreateItemParentSelectorComponent,
-  ],
+  imports: [],
 })
 export class ThemedCreateItemParentSelectorComponent extends ThemedComponent<CreateItemParentSelectorComponent> {
 

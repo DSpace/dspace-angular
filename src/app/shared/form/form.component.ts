@@ -15,13 +15,8 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNull,
-} from '@dspace/shared/utils/empty.util';
+import { FormFieldMetadataValueObject } from '@dspace/core'
+import { hasValue, isNotEmpty, isNotNull, isNull } from '@dspace/utils';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -33,23 +28,13 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import {
-  FormEntry,
-  FormError,
-} from './form.reducer';
+import { FormEntry, FormError } from './form.reducer';
 import { FormService } from './form.service';
 
 /**

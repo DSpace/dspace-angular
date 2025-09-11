@@ -1,28 +1,19 @@
+import { Injectable, isDevMode } from '@angular/core';
 import {
-  Injectable,
-  isDevMode,
-} from '@angular/core';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import { Bundle } from '@dspace/core/shared/bundle.model';
-import {
+  BitstreamDataService,
+  BundleDataService,
+  PaginatedList,
+  RemoteData,
+  Bitstream,
+  BitstreamFormat,
+  Bundle,
   followLink,
   FollowLinkConfig,
-} from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  Item,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
-import {
-  filter,
-  last,
-  map,
-  mergeMap,
-  switchMap,
-} from 'rxjs/operators';
+import { filter, last, map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class MiradorViewerService {

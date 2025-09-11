@@ -1,25 +1,21 @@
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SupervisionOrder } from '@dspace/core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '@dspace/core/supervision-order/supervision-order-data.service';
-import {
-  NgbActiveModal,
-  NgbPaginationModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  Group,
+  NotificationsService,
+  SupervisionOrder,
+  SupervisionOrderDataService,
+} from '@dspace/core'
+import { NgbActiveModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
-import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
+import {
+  EpersonGroupListComponent,
+} from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
+import {
+  SupervisionOrderGroupSelectorComponent,
+} from './supervision-order-group-selector.component';
 
 describe('SupervisionOrderGroupSelectorComponent', () => {
   let component: SupervisionOrderGroupSelectorComponent;

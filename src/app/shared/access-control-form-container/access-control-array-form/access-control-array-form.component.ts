@@ -1,16 +1,7 @@
-
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormsModule,
-  NgForm,
-} from '@angular/forms';
-import { AccessesConditionOption } from '@dspace/core/config/models/config-accesses-conditions-options.model';
-import { dateToISOFormat } from '@dspace/shared/utils/date.util';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { AccessesConditionOption } from '@dspace/core'
+import { dateToISOFormat } from '@dspace/utils';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

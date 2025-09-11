@@ -1,15 +1,21 @@
-import { Context } from '@dspace/core/shared/context.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Context } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,
   resolveTheme,
 } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { DsoEditMetadataAuthorityFieldComponent } from '../dso-edit-metadata-authority-field/dso-edit-metadata-authority-field.component';
-import { DsoEditMetadataEntityFieldComponent } from '../dso-edit-metadata-entity-field/dso-edit-metadata-entity-field.component';
+import {
+  DsoEditMetadataAuthorityFieldComponent,
+} from '../dso-edit-metadata-authority-field/dso-edit-metadata-authority-field.component';
+import {
+  DsoEditMetadataEntityFieldComponent,
+} from '../dso-edit-metadata-entity-field/dso-edit-metadata-entity-field.component';
 import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
-import { DsoEditMetadataTextFieldComponent } from '../dso-edit-metadata-text-field/dso-edit-metadata-text-field.component';
+import {
+  DsoEditMetadataTextFieldComponent,
+} from '../dso-edit-metadata-text-field/dso-edit-metadata-text-field.component';
 
 export type MetadataValueFieldComponent =
   typeof DsoEditMetadataTextFieldComponent |

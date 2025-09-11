@@ -1,18 +1,15 @@
+import { Component, SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  Component,
-  SimpleChange,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
-import { FlatBrowseDefinition } from '@dspace/core/shared/flat-browse-definition.model';
-import { NonHierarchicalBrowseDefinition } from '@dspace/core/shared/non-hierarchical-browse-definition';
-import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
+  BrowseByDataType,
+  FlatBrowseDefinition,
+  NonHierarchicalBrowseDefinition,
+  ValueListBrowseDefinition,
+} from '@dspace/core'
 
-import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import {
+  DynamicComponentLoaderDirective,
+} from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';

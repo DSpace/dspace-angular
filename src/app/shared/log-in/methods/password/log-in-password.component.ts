@@ -1,9 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -15,37 +11,22 @@ import { RouterLink } from '@angular/router';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction,
-} from '@dspace/core/auth/auth.actions';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthMethod } from '@dspace/core/auth/models/auth.method';
-import {
+  AuthService,
+  AuthMethod,
   getAuthenticationError,
   getAuthenticationInfo,
-} from '@dspace/core/auth/selectors';
-import { CoreState } from '@dspace/core/core-state.model';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+  CoreState,
+  AuthorizationDataService,
+  FeatureID,
+  HardRedirectService,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { select, Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-  shareReplay,
-} from 'rxjs';
-import {
-  filter,
-  map,
-} from 'rxjs/operators';
+import { combineLatest, Observable, shareReplay } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
-import {
-  getForgotPasswordRoute,
-  getRegisterRoute,
-} from '../../../../app-routing-paths';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';

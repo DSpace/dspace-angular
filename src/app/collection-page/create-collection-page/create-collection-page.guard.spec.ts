@@ -1,9 +1,9 @@
-import { Community } from '@dspace/core/shared/community.model';
-import { RouterMock } from '@dspace/core/testing/router.mock';
 import {
+  Community,
+  RouterMock,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { first } from 'rxjs/operators';
 
 import { createCollectionPageGuard } from './create-collection-page.guard';

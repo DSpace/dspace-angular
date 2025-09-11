@@ -1,33 +1,26 @@
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { SubmissionUploadsModel } from '@dspace/core/config/models/config-submission-uploads.model';
-import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
-import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  SubmissionUploadsModel,
+  SubmissionFormsConfigDataService,
+  SubmissionUploadsConfigDataService,
+  CollectionDataService,
+  buildPaginatedList,
+  APP_DATA_SERVICES_MAP,
+  GroupDataService,
+  Group,
+  ResourcePolicy,
+  ResourcePolicyDataService,
+  Collection,
+  PageInfo,
+  SectionsType,
+  getMockSectionUploadService,
+  SectionsServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';

@@ -1,44 +1,25 @@
+import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
-  AsyncPipe,
-  NgClass,
-  NgTemplateOutlet,
-} from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  RouterLink,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import {
+  DSONameService,
+  AuthorizationDataService,
+  FeatureID,
   getBitstreamDownloadRoute,
   getBitstreamDownloadWithAccessTokenRoute,
   getBitstreamRequestACopyRoute,
-} from '@dspace/core/router/utils/dso-route.utils';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
+  Bitstream,
+  Item,
+  ItemRequest,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
+import {
+  ThemedAccessStatusBadgeComponent,
+} from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
 @Component({
   selector: 'ds-base-file-download-link',

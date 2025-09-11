@@ -1,11 +1,6 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -13,17 +8,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@dspace/core/data/processes/script-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import {
+  NotificationsService,
+  ProcessParameter,
+  NotificationsServiceStub,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
+import {
+  FileDropzoneNoUploaderComponent,
+} from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { BatchImportPageComponent } from './batch-import-page.component';

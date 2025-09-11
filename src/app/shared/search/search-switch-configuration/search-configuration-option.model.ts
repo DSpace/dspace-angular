@@ -1,7 +1,7 @@
 /**
  * Represents a search configuration select option
  */
-import { Context } from '@dspace/core/shared/context.model';
+import { Context } from '@dspace/core'
 
 export interface SearchConfigurationOption {
 

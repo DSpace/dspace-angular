@@ -1,30 +1,15 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  SimpleChange,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
-import { SubmissionRestServiceStub } from '@dspace/core/testing/submission-rest-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  SubmissionRestService,
+  SubmissionRestServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+} from '@dspace/core'
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 

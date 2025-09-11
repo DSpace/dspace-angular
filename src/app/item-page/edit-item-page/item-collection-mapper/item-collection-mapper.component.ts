@@ -1,64 +1,41 @@
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  DSONameService,
+  CollectionDataService,
+  ItemDataService,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  getItemPageRoute,
+  Collection,
+  DSpaceObjectType,
+  Item,
+  NoContent,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   toDSpaceObjectListRD,
-} from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  PaginatedSearchOptions,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
+import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import {
-  fadeIn,
-  fadeInOut,
-} from '../../../shared/animations/fade';
-import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
+  CollectionSelectComponent,
+} from '../../../shared/object-select/collection-select/collection-select.component';
 import { SearchService } from '../../../shared/search/search.service';
 import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
-import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
+import {
+  ThemedSearchFormComponent,
+} from '../../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 @Component({

@@ -1,15 +1,8 @@
 import { TitleCasePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { HealthResponse } from '@dspace/core/shared/health-component.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { HealthResponse } from '@dspace/core'
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from './health-component/health-component.component';

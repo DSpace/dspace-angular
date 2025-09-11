@@ -1,45 +1,30 @@
 import { Injectable } from '@angular/core';
-import { SuggestionConfig } from '@dspace/config/suggestion-config.interfaces';
+import { SuggestionConfig } from '@dspace/config';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionDataService } from '@dspace/core/notifications/suggestions/suggestion-data.service';
-import { SuggestionTargetDataService } from '@dspace/core/notifications/suggestions/target/suggestion-target-data.service';
-import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  Suggestion,
+  SuggestionTarget,
+  SuggestionDataService,
+  SuggestionTargetDataService,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+  followLink,
+  NoContent,
   getFinishedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
-} from '@dspace/core/shared/operators';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  forkJoin,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  catchError,
-  map,
-  mergeMap,
-  take,
-} from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { getSuggestionPageRoute } from '../../suggestions-page/suggestions-page-routing-paths';

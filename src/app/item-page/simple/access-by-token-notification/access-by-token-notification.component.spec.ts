@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import {
+  RemoteDataBuildService,
+  ObjectCacheService,
+  RequestService,
+  APP_DATA_SERVICES_MAP,
+  NotificationsService,
+  HALEndpointService,
+  ItemRequest,
+  ActivatedRouteStub,
+  HALEndpointServiceStub,
+} from '@dspace/core'
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';

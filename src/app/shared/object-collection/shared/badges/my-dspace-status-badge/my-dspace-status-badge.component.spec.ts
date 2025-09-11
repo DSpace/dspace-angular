@@ -1,23 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Context } from '@dspace/core/shared/context.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  Context,
+  WorkflowItem,
+  PoolTask,
+  EPersonMock,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';

@@ -1,30 +1,18 @@
+import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Router, RouterLink } from '@angular/router';
 import {
-  ChangeDetectionStrategy,
-  Injector,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  ItemDataService,
+  RequestService,
+  NotificationsService,
+  Item,
+  NotificationsServiceStub,
+  getMockRequestService,
+  RouterStub,
+  getMockSearchService,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SearchService } from '../../search/search.service';

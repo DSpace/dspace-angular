@@ -1,7 +1,9 @@
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  buildPaginatedList,
+  Community,
+  PageInfo,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import { CommunityListSaveAction } from './community-list.actions';

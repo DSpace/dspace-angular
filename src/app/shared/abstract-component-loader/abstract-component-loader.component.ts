@@ -8,11 +8,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { GenericConstructor } from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { Subscription } from 'rxjs';
 
 import { ThemeService } from '../theme-support/theme.service';

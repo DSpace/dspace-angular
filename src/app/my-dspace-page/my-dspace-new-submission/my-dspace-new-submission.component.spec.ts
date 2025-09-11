@@ -1,45 +1,34 @@
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { DragService } from '@dspace/core/drag.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
-import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { HttpXsrfTokenExtractorMock } from '@dspace/core/testing/http-xsrf-token-extractor.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { getMockScrollToService } from '@dspace/core/testing/scroll-to-service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  AuthService,
+  CookieService,
+  EntityTypeDataService,
+  DragService,
+  NotificationsService,
+  HALEndpointService,
+  AuthServiceStub,
+  CookieServiceMock,
+  HALEndpointServiceStub,
+  HostWindowServiceStub,
+  HttpXsrfTokenExtractorMock,
+  NotificationsServiceStub,
+  getMockScrollToService,
+  TranslateLoaderMock,
+  createTestComponent,
+} from '@dspace/core'
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { HostWindowService } from '../../shared/host-window.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
-import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
+import {
+  getMockEntityTypeService,
+} from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 

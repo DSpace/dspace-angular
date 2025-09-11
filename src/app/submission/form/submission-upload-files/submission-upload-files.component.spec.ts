@@ -1,31 +1,18 @@
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+  NotificationsService,
+  SubmissionJsonPatchOperationsService,
+  NotificationsServiceStub,
+  SectionsServiceStub,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionServiceStub,
+  getMockTranslateService,
+  createTestComponent,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  cold,
-  hot,
-} from 'jasmine-marbles';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { cold, hot } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';

@@ -6,15 +6,14 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+  AuthorizationDataService,
+  FeatureID,
+  getDSORoute,
+  DSpaceObject,
+  URLCombiner,
+} from '@dspace/core'
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { LinkMenuItemModel } from '../menu-item/models/link.model';

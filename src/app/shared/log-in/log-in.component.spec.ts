@@ -1,32 +1,21 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { NativeWindowService } from '@dspace/core/services/window.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import {
+  authReducer,
+  AuthService,
+  AuthorizationDataService,
+  HardRedirectService,
+  NativeWindowService,
+  ActivatedRouteStub,
   authMethodsMock,
   AuthServiceStub,
-} from '@dspace/core/testing/auth-service.stub';
-import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+  NativeWindowMockFactory,
+  createTestComponent,
+} from '@dspace/core'
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';

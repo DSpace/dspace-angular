@@ -1,5 +1,4 @@
-import { Item } from '@dspace/core/shared/item.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
+import { Item, SectionsType } from '@dspace/core'
 
 import {
   mockSubmissionCollectionId,
@@ -42,10 +41,7 @@ import {
   SubmissionObjectAction,
   UpdateSectionDataAction,
 } from './submission-objects.actions';
-import {
-  submissionObjectReducer,
-  SubmissionObjectState,
-} from './submission-objects.reducer';
+import { submissionObjectReducer, SubmissionObjectState } from './submission-objects.reducer';
 
 describe('submissionReducer test suite', () => {
 

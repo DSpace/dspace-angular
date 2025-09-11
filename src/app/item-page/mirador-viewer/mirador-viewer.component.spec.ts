@@ -1,20 +1,15 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataMap } from '@dspace/core/shared/metadata.models';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  BitstreamDataService,
+  BundleDataService,
+  Item,
+  MetadataMap,
+  TranslateLoaderMock,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';

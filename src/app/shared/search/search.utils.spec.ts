@@ -1,5 +1,4 @@
-import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { FacetValue, SearchFilterConfig } from '@dspace/core'
 
 import {
   addOperatorToFilterValue,

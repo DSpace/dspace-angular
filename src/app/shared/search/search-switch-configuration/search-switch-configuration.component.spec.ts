@@ -1,26 +1,20 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NavigationExtras, Router } from '@angular/router';
 import {
-  NavigationExtras,
-  Router,
-} from '@angular/router';
-import { Context } from '@dspace/core/shared/context.model';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  Context,
+  RouterStub,
+  SearchConfigurationServiceStub,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
+import {
+  MyDSpaceConfigurationValueType,
+} from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchService } from '../search.service';
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration.component';

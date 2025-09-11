@@ -1,27 +1,16 @@
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  startWith,
-  take,
-} from 'rxjs/operators';
+  DSONameService,
+  SortOptions,
+  AuthorizationDataService,
+  FeatureID,
+  PaginatedList,
+  RemoteData,
+  PaginationComponentOptions,
+  DSpaceObject,
+} from '@dspace/core'
+import { Observable, of } from 'rxjs';
+import { startWith, take } from 'rxjs/operators';
 
 import { ObjectSelectService } from '../object-select.service';
 

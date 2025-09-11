@@ -5,39 +5,31 @@ import {
   ElementRef,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
-import { MockElementRef } from '@dspace/core/testing/element-ref.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  CollectionDataService,
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  Collection,
+  Community,
+  FollowLinkConfig,
+  MockElementRef,
+  TranslateLoaderMock,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  CollectionDropdownComponent,
+} from '../../shared/collection-dropdown/collection-dropdown.component';
 import { CollectionSelectorComponent } from './collection-selector.component';
 
 describe('CollectionSelectorComponent', () => {

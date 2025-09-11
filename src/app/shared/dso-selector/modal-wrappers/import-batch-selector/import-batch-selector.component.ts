@@ -1,19 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { Collection, DSpaceObject, DSpaceObjectType } from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {

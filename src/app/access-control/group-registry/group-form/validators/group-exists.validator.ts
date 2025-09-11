@@ -1,10 +1,5 @@
-import {
-  AbstractControl,
-  ValidationErrors,
-} from '@angular/forms';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { GroupDataService, Group, getFirstSucceededRemoteListPayload } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

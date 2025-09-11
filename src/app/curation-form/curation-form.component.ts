@@ -1,11 +1,4 @@
-
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -13,29 +6,19 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import {
+  ConfigurationDataService,
+  ScriptDataService,
+  RemoteData,
+  NotificationsService,
+  Process,
+  ConfigurationProperty,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';

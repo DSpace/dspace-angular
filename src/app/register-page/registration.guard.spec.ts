@@ -1,16 +1,12 @@
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Registration } from '@dspace/core/shared/registration.model';
-import {
+  AuthService,
+  EpersonRegistrationService,
+  RemoteData,
+  Registration,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import { registrationGuard } from './registration.guard';

@@ -1,11 +1,6 @@
 import { KeyValuePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataMap } from '@dspace/core/shared/metadata.models';
+import { Component, Input, OnChanges } from '@angular/core';
+import { Item, MetadataMap } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({

@@ -1,19 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import {
+  AuthService,
+  CommunityDataService,
+  RequestService,
+  NotificationsService,
+  RouteService,
+  AuthServiceMock,
+  NotificationsServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

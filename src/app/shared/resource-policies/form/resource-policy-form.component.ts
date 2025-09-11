@@ -9,30 +9,26 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '@dspace/core/resource-policy/models/resource-policy.resource-type';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import {
+  DSONameService,
+  RemoteData,
+  RequestService,
+  EPersonDataService,
+  GroupDataService,
+  ResourcePolicy,
+  RESOURCE_POLICY,
+  DSpaceObject,
+  getFirstSucceededRemoteData,
+} from '@dspace/core'
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
-} from '@dspace/shared/utils/date.util';
-import {
   hasValue,
   hasValueOperator,
   isEmpty,
   isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbNavChangeEvent,
-  NgbNavModule,
-} from '@ng-bootstrap/ng-bootstrap';
+} from '@dspace/utils';
+import { NgbModal, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
   DynamicFormControlModel,
@@ -47,16 +43,16 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  filter,
-  map,
-  take,
-} from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
-import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import {
+  DsDynamicInputModel,
+} from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  DsDynamicTextAreaModel,
+} from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
 import {

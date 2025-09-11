@@ -1,4 +1,4 @@
-import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { BrowseByDataType } from '@dspace/core'
 
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by-decorator';
 

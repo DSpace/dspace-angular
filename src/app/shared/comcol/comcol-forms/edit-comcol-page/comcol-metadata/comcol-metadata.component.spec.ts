@@ -1,24 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ComColDataService } from '@dspace/core/data/comcol-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
+  ComColDataService,
+  NotificationsService,
+  Community,
+  NotificationsServiceStub,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

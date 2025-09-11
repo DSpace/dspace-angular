@@ -1,40 +1,24 @@
-import {
-  AsyncPipe,
-  Location,
-} from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { INotification } from '@dspace/core/notification-system/models/notification.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import {
+  CollectionDataService,
+  FieldUpdate,
+  FieldUpdates,
+  ObjectUpdatesService,
+  RemoteData,
+  RequestService,
+  INotification,
+  NotificationsService,
+  Collection,
   ContentSource,
   ContentSourceHarvestType,
-} from '@dspace/core/shared/content-source.model';
-import { MetadataConfig } from '@dspace/core/shared/metadata-config.model';
-import {
+  MetadataConfig,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '@dspace/core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -45,28 +29,19 @@ import {
   DynamicRadioGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  first,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { first, map, switchMap, take } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
-import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
+import {
+  CollectionSourceControlsComponent,
+} from './collection-source-controls/collection-source-controls.component';
 
 /**
  * Component for managing the content source of the collection

@@ -1,25 +1,13 @@
-
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationExtras,
-  Router,
-} from '@angular/router';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { SortDirection, SortOptions, DSpaceObject, DSpaceObjectType } from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
-import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import {
+  AuthorizedCollectionSelectorComponent,
+} from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,

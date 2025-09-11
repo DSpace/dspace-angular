@@ -1,13 +1,13 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Component, Input } from '@angular/core';
+import { Context, ViewMode } from '@dspace/core'
 
-import { CollectionElementLinkType } from '../shared/object-collection/collection-element-link.type';
+import {
+  CollectionElementLinkType,
+} from '../shared/object-collection/collection-element-link.type';
 import { SelectionConfig } from '../shared/search/search-results/search-results.component';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import {
+  SearchConfigurationOption,
+} from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 
@@ -18,9 +18,7 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
   selector: 'ds-configuration-search-page',
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    ConfigurationSearchPageComponent,
-  ],
+  imports: [],
 })
 export class ThemedConfigurationSearchPageComponent extends ThemedComponent<ConfigurationSearchPageComponent> {
   /**

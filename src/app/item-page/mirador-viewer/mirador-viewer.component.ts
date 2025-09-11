@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-} from '@angular/common';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,23 +7,11 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  DomSanitizer,
-  SafeResourceUrl,
-} from '@angular/platform-browser';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { WidthCategory } from '@dspace/core/shared/host-window-type';
-import { Item } from '@dspace/core/shared/item.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { BitstreamDataService, BundleDataService, WidthCategory, Item } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { HostWindowService } from '../../shared/host-window.service';

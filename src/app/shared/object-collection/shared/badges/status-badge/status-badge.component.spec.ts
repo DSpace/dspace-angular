@@ -1,14 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Item } from '@dspace/core/shared/item.model';
+import { Item } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatePipe } from '../../../../utils/truncate.pipe';

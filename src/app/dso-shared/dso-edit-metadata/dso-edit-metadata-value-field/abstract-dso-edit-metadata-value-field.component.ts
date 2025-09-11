@@ -1,11 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Context, DSpaceObject } from '@dspace/core'
 
 import { DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { EditMetadataValueFieldType } from './dso-edit-metadata-field-type.enum';

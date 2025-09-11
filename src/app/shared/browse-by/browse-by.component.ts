@@ -12,19 +12,16 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  PaginatedList,
+  RemoteData,
+  PaginationService,
+  PaginationComponentOptions,
+  RouteService,
+  ListableObject,
+  ViewMode,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -33,14 +30,13 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  fadeIn,
-  fadeInOut,
-} from '../animations/fade';
+import { fadeIn, fadeInOut } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../object-collection/object-collection.component';
-import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
+import {
+  ThemedResultsBackButtonComponent,
+} from '../results-back-button/themed-results-back-button.component';
 import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
 import { StartsWithType } from '../starts-with/starts-with-type';
 import { VarDirective } from '../utils/var.directive';

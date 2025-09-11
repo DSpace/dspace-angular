@@ -1,8 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Component, Input } from '@angular/core';
+import { DSpaceObject } from '@dspace/core'
 
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { StatusBadgeComponent } from './status-badge.component';
@@ -15,9 +12,7 @@ import { StatusBadgeComponent } from './status-badge.component';
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    StatusBadgeComponent,
-  ],
+  imports: [],
 })
 export class ThemedStatusBadgeComponent extends ThemedComponent<StatusBadgeComponent> {
   @Input() object: DSpaceObject;

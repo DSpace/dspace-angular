@@ -1,38 +1,25 @@
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { getMockExternalSourceService } from '@dspace/core/testing/external-source.service.mock';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import {
+  ExternalSourceDataService,
+  PaginationComponentOptions,
+  RouteService,
+  ExternalSourceEntry,
+  PaginatedSearchOptions,
+  ActivatedRouteStub,
+  getMockExternalSourceService,
+  HostWindowServiceStub,
+  routeServiceStub,
+  RouterStub,
   createPaginatedList,
   createTestComponent,
-} from '@dspace/core/testing/utils.test';
-import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -42,13 +29,19 @@ import { TestScheduler } from 'rxjs/testing';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import {
+  ObjectCollectionComponent,
+} from '../../shared/object-collection/object-collection.component';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
-import { SubmissionImportExternalSearchbarComponent } from './import-external-searchbar/submission-import-external-searchbar.component';
+import {
+  SubmissionImportExternalPreviewComponent,
+} from './import-external-preview/submission-import-external-preview.component';
+import {
+  SubmissionImportExternalSearchbarComponent,
+} from './import-external-searchbar/submission-import-external-searchbar.component';
 import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {

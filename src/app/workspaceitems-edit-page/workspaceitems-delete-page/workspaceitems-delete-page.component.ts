@@ -1,41 +1,24 @@
+import { AsyncPipe, Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 import {
-  AsyncPipe,
-  Location,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Data,
-  Params,
-  Router,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  RemoteData,
+  NotificationsService,
+  RouteService,
+  DSpaceObject,
+  NoContent,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  map,
-  Observable,
-  switchMap,
-  take,
-} from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { map, Observable, switchMap, take } from 'rxjs';
 
-import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 
 @Component({
   selector: 'ds-base-workspaceitems-delete-page',

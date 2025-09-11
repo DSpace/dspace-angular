@@ -7,9 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { AuthorizationDataService, FeatureID, AuthorizationDataServiceStub } from '@dspace/core'
 import { of } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';

@@ -1,23 +1,11 @@
-import {
-  Inject,
-  Injectable,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { getDefaultThemeConfig } from '@dspace/config/config.util';
-import { BASE_THEME_NAME } from '@dspace/config/theme.config';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  Actions,
-  createEffect,
-  ofType,
-  ROOT_EFFECTS_INIT,
-} from '@ngrx/effects';
+import { Inject, Injectable } from '@angular/core';
+import { APP_CONFIG, AppConfig, BASE_THEME_NAME } from '@dspace/config';
+import { hasValue } from '@dspace/utils';
+import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 
 import { SetThemeAction } from './theme.actions';
+import { getDefaultThemeConfig } from './theme.utils';
 
 @Injectable()
 export class ThemeEffects {

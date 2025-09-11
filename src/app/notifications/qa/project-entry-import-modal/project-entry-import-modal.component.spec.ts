@@ -1,39 +1,35 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { ImportType } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import {
+  buildPaginatedList,
+  ImportType,
+  PaginationComponentOptions,
+  Item,
+  PageInfo,
+  PaginatedSearchOptions,
+  ActivatedRouteStub,
   ItemMockPid10,
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
-} from '@dspace/core/testing/notifications.mock';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+  getMockSearchService,
+  createTestComponent,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchService } from '../../../shared/search/search.service';
-import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import {
+  ThemedSearchResultsComponent,
+} from '../../../shared/search/search-results/themed-search-results.component';
 import { ProjectEntryImportModalComponent } from './project-entry-import-modal.component';
 
 const eventData = {

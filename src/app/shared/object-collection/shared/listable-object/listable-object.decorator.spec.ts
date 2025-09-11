@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { Context } from '@dspace/core/shared/context.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Context, ViewMode } from '@dspace/core'
 
 import { environment } from '../../../../../environments/environment';
 import {

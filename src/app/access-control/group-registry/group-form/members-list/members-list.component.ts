@@ -1,44 +1,25 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import {
+  DSONameService,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '@dspace/core/eperson/models/eperson-dto.model';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import {
+  RemoteData,
+  EPersonDataService,
+  GroupDataService,
+  EPerson,
+  EpersonDtoModel,
+  Group,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -47,12 +28,7 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  defaultIfEmpty,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { defaultIfEmpty, map, switchMap, take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';

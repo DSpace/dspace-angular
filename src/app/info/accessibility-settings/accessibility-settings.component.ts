@@ -1,28 +1,12 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { AuthService, OrejimeService, NotificationsService } from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  BehaviorSubject,
-  Subscription,
-  take,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+import { BehaviorSubject, Subscription, take } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import {

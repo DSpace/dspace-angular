@@ -1,17 +1,7 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  ElementRef,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ElementRef } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { getMockTranslateService } from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { GeospatialMapComponent } from './geospatial-map.component';

@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -12,49 +8,37 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-  RouterModule,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import {
+  AuthService,
+  EpersonRegistrationService,
+  AuthorizationDataService,
+  FindListOptions,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import {
+  RemoteData,
+  RequestService,
+  EPersonDataService,
+  GroupDataService,
+  EPerson,
+  NotificationsService,
+  PaginationService,
+  FollowLinkConfig,
+  PageInfo,
+  ActivatedRouteStub,
+  AuthServiceStub,
   EPersonMock,
   EPersonMock2,
-} from '@dspace/core/testing/eperson.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  NotificationsServiceStub,
+  PaginationServiceStub,
+  RouterStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

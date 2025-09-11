@@ -1,8 +1,5 @@
-import {
-  Pipe,
-  PipeTransform,
-} from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Pipe, PipeTransform } from '@angular/core';
+import { hasValue } from '@dspace/utils';
 
 /**
  * Returns true if the passed value is not null or undefined.

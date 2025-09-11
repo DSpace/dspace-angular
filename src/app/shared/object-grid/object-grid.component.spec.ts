@@ -1,8 +1,5 @@
-import { WidthCategory } from '@dspace/core/shared/host-window-type';
-import {
-  cold,
-  hot,
-} from 'jasmine-marbles';
+import { WidthCategory } from '@dspace/core'
+import { cold, hot } from 'jasmine-marbles';
 import { map } from 'rxjs/operators';
 
 import { ObjectGridComponent } from './object-grid.component';

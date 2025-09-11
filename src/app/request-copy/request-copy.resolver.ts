@@ -1,13 +1,11 @@
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  ItemRequestDataService,
+  RemoteData,
+  ItemRequest,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 
 export const requestCopyResolver: ResolveFn<RemoteData<ItemRequest>> = (

@@ -1,17 +1,13 @@
 import { NgStyle } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { AdminNotifyMetricsBox } from '@dspace/config/admin-notify-metrics.config';
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AdminNotifyMetricsBox } from '@dspace/config';
+import { AdminNotifySearchResult, ViewMode } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { HoverClassDirective } from '../hover-class.directive';
-import { listableObjectComponent } from '../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  listableObjectComponent,
+} from '../object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent(AdminNotifySearchResult, ViewMode.ListElement)
 @Component({

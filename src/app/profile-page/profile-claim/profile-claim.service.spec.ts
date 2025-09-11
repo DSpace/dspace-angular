@@ -1,15 +1,12 @@
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
 import {
+  EPerson,
+  Item,
+  ItemSearchResult,
+  SearchObjects,
   createNoContentRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  cold,
-  getTestScheduler,
-} from 'jasmine-marbles';
+} from '@dspace/core'
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 

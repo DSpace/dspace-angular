@@ -1,20 +1,16 @@
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
-import { BreadcrumbConfig } from '@dspace/core/breadcrumbs/models/breadcrumb-config.model';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import {
+  DSOBreadcrumbsService,
+  BreadcrumbConfig,
+  DSpaceObjectDataService,
+  getDSORoute,
+  Collection,
+  Community,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

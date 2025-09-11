@@ -1,24 +1,16 @@
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthMethod } from '@dspace/core/auth/models/auth.method';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import {
+  AuthService,
+  AuthMethod,
+  AuthMethodType,
   getAuthenticationError,
   isAuthenticated,
   isAuthenticationLoading,
-} from '@dspace/core/auth/selectors';
-import { CoreState } from '@dspace/core/core-state.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+  CoreState,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';

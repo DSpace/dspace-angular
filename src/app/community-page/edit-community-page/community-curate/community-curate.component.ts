@@ -1,20 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Community } from '@dspace/core/shared/community.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { DSONameService, RemoteData, Community } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  filter,
-  map,
-  take,
-} from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 

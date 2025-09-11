@@ -1,21 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Data,
-} from '@angular/router';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { RemoteData, Collection, Community } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -1,22 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { ChangeDetectionStrategy, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { Metadata, createTestComponent } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { mockUploadFiles } from '../../../../utils/submission.mock';
-import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
+import {
+  SubmissionSectionUploadAccessConditionsComponent,
+} from '../../accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {

@@ -1,21 +1,17 @@
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { VersionDataService } from '@dspace/core/data/version-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { Version } from '@dspace/core/shared/version.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  AuthService,
+  VersionDataService,
+  Item,
+  Version,
+  ActivatedRouteStub,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';

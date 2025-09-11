@@ -1,39 +1,24 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  ConfigurationDataService,
+  AuthorizationDataService,
+  FeatureID,
+  ScriptDataService,
+  RemoteData,
+  NotificationsService,
+  Process,
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+  PaginatedSearchOptions,
+  SearchFilter,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  filter,
-  map,
-  startWith,
-  switchMap,
-} from 'rxjs/operators';
+import { filter, map, startWith, switchMap } from 'rxjs/operators';
 
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 

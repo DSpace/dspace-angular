@@ -1,33 +1,20 @@
 // Load the implementations that should be tested
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@dspace/core/testing/dynamic-form-mock-services';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  createTestComponent,
+  VocabularyServiceStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlLayout,
@@ -312,9 +299,7 @@ describe('DsDynamicListComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [
-    DsDynamicListComponent,
-  ],
+  imports: [],
 })
 class TestComponent {
 

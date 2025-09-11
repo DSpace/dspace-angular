@@ -5,10 +5,12 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  AuthService,
+  EpersonRegistrationService,
+  redirectOn4xx,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

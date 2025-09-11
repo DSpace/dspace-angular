@@ -1,26 +1,23 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { LogOutAction } from '@dspace/core/auth/auth.actions';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { EndUserAgreementService } from '@dspace/core/end-user-agreement/end-user-agreement.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+  LogOutAction,
+  AuthService,
+  EndUserAgreementService,
+  NotificationsService,
+  ActivatedRouteStub,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
-import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
+import {
+  EndUserAgreementContentComponent,
+} from './end-user-agreement-content/end-user-agreement-content.component';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;

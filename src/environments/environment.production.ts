@@ -1,4 +1,4 @@
-import { BuildConfig } from '@dspace/config/build-config.interface';
+import { BuildConfig } from '@dspace/config';
 
 export const environment: Partial<BuildConfig> = {
   production: true,

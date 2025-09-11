@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { i18nBreadcrumbResolver, siteAdministratorGuard } from '@dspace/core'
 
 import { HealthPageComponent } from './health-page.component';
 

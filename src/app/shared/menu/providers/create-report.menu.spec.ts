@@ -7,13 +7,15 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
-import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  ConfigurationDataService,
+  AuthorizationDataService,
+  FeatureID,
+  ConfigurationProperty,
+  AuthorizationDataServiceStub,
+  ConfigurationDataServiceStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import { LinkMenuItemModel } from '../menu-item/models/link.model';

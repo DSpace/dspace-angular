@@ -1,30 +1,27 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+  Context,
+  DSpaceObject,
+  Item,
+  RelationshipType,
+  ListableObject,
+  RelationshipOptions,
+  SearchObjects,
+  SearchResult,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
-import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
+import {
+  DsDynamicLookupRelationSearchTabComponent,
+} from './dynamic-lookup-relation-search-tab.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    DsDynamicLookupRelationSearchTabComponent,
-  ],
+  imports: [],
 })
 export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedComponent<DsDynamicLookupRelationSearchTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationSearchTabComponent & keyof this)[] = ['relationship', 'listId',

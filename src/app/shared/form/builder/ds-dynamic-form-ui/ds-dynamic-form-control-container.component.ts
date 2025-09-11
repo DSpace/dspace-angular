@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -30,50 +26,36 @@ import {
   UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { MetadataService } from '@dspace/core/metadata/metadata.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
-import {
+  PaginatedList,
+  RelationshipDataService,
+  RemoteData,
+  MetadataService,
+  Collection,
+  DSpaceObject,
+  followLink,
+  FormFieldMetadataValueObject,
+  Item,
+  Relationship,
+  ReorderableRelationship,
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
-} from '@dspace/core/shared/metadata.models';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import {
+  ItemSearchResult,
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { SUBMISSION_LINKS_TO_FOLLOW } from '@dspace/core/submission/resolver/submission-links-to-follow';
-import { paginatedRelationsToItems } from '@dspace/core/utilities/item-relationships-utils';
-import { itemLinksToFollow } from '@dspace/core/utilities/relation-query.utils';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  RelationshipOptions,
+  SearchResult,
+  SubmissionObject,
+  SUBMISSION_LINKS_TO_FOLLOW,
+  paginatedRelationsToItems,
+  itemLinksToFollow,
+} from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '@dspace/utils';
+import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
@@ -91,36 +73,35 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
+import {
+  DynamicFormControlMapFn,
+} from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
 import { Store } from '@ngrx/store';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  find,
-  map,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { AppState } from '../../../../app.reducer';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../object-list/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
-import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
-import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import {
+  ExistingMetadataListElementComponent,
+} from './existing-metadata-list-element/existing-metadata-list-element.component';
+import {
+  ExistingRelationListElementComponent,
+} from './existing-relation-list-element/existing-relation-list-element.component';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH,
+} from './models/custom-switch/custom-switch.model';
+import {
+  DsDynamicLookupRelationModalComponent,
+} from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
 @Component({

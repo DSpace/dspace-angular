@@ -1,17 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+  PaginatedList,
+  RemoteData,
+  PaginationComponentOptions,
+  ListableObject,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 
 import { StartsWithType } from '../starts-with/starts-with-type';
@@ -26,9 +21,7 @@ import { BrowseByComponent } from './browse-by.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    BrowseByComponent,
-  ],
+  imports: [],
 })
 export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> {
 

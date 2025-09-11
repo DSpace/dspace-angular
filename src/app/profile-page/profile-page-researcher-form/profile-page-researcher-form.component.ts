@@ -1,43 +1,34 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
+  AuthService,
+  RemoteData,
+  EPerson,
+  NotificationsService,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+  followLink,
+  NoContent,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { BehaviorSubject } from 'rxjs';
-import {
-  map,
-  mergeMap,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../shared/confirmation-modal/confirmation-modal.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
-import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
+import {
+  ProfileClaimItemModalComponent,
+} from '../profile-claim-item-modal/profile-claim-item-modal.component';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',

@@ -1,16 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core'
 
 import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { getMockThemeService } from '../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
-import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
+import {
+  ThemedSubmissionImportExternalComponent,
+} from '../submission/import-external/themed-submission-import-external.component';
 import { ImportExternalPageComponent } from './import-external-page.component';
 
 describe('ImportExternalPageComponent', () => {

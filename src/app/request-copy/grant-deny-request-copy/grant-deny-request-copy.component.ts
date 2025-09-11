@@ -1,38 +1,25 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import {
+  AuthService,
+  DSONameService,
+  ItemDataService,
+  RemoteData,
+  getItemPageRoute,
+  redirectOn4xx,
+  Item,
+  ItemRequest,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {
-  getRequestCopyDenyRoute,
-  getRequestCopyGrantRoute,
-} from '../request-copy-routing-paths';
+import { getRequestCopyDenyRoute, getRequestCopyGrantRoute } from '../request-copy-routing-paths';
 
 @Component({
   selector: 'ds-grant-deny-request-copy',

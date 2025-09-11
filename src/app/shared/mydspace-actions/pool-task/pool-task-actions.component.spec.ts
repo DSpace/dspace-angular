@@ -1,38 +1,26 @@
-import {
-  ChangeDetectionStrategy,
-  Injector,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
-import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
-import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  RequestService,
+  NotificationsService,
+  Item,
+  PoolTaskSearchResult,
+  WorkflowItem,
+  ClaimedTaskDataService,
+  PoolTask,
+  ProcessTaskResponse,
+  PoolTaskDataService,
+  ActivatedRouteStub,
+  NotificationsServiceStub,
+  getMockRequestService,
+  RouterStub,
+  getMockSearchService,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SearchService } from '../../search/search.service';

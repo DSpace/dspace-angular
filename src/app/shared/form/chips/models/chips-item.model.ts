@@ -1,10 +1,9 @@
-import { ConfidenceType } from '@dspace/core/shared/confidence-type';
-import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  ConfidenceType,
+  PLACEHOLDER_PARENT_METADATA,
+  FormFieldMetadataValueObject,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import isObject from 'lodash/isObject';
 import uniqueId from 'lodash/uniqueId';
 

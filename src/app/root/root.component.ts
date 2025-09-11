@@ -1,44 +1,22 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterOutlet,
-} from '@angular/router';
-import { ThemeConfig } from '@dspace/config/theme.config';
-import { getPageInternalServerErrorRoute } from '@dspace/core/router/core-routing-paths';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core/services/window.service';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { ThemeConfig, INotificationBoardOptions } from '@dspace/config';
+import { getPageInternalServerErrorRoute, NativeWindowRef, NativeWindowService } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as combineLatestObservable,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  first,
-  map,
-  skipWhile,
-  startWith,
-} from 'rxjs/operators';
-import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
+import { BehaviorSubject, combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
+import { first, map, skipWhile, startWith } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
-import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
-import { NotificationsBoardComponent } from '../notification-system/notifications-board/notifications-board.component';
+import {
+  ThemedHeaderNavbarWrapperComponent,
+} from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
+import {
+  NotificationsBoardComponent,
+} from '../notification-system/notifications-board/notifications-board.component';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { HostWindowService } from '../shared/host-window.service';
 import { LiveRegionComponent } from '../shared/live-region/live-region.component';
@@ -46,7 +24,9 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
-import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
+import {
+  SystemWideAlertBannerComponent,
+} from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
 @Component({
   selector: 'ds-base-root',

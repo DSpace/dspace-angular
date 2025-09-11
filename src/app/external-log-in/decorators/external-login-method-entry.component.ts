@@ -1,5 +1,5 @@
 import { Inject } from '@angular/core';
-import { Registration } from '@dspace/core/shared/registration.model';
+import { Registration } from '@dspace/core'
 
 /**
  * This component renders  a form to complete the registration process

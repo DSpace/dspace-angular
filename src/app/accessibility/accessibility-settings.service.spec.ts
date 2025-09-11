@@ -1,20 +1,17 @@
+import { fakeAsync, flush } from '@angular/core/testing';
+import { AppConfig } from '@dspace/config';
 import {
-  fakeAsync,
-  flush,
-} from '@angular/core/testing';
-import { AppConfig } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ACCESSIBILITY_COOKIE } from '@dspace/core/cookies/accessibility-cookie';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
-import {
+  AuthService,
+  ACCESSIBILITY_COOKIE,
+  CookieService,
+  OrejimeServiceStub,
+  EPersonDataService,
+  EPerson,
+  AuthServiceStub,
+  CookieServiceMock,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import {

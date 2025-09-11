@@ -1,20 +1,16 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { Observable } from 'rxjs';
 import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+  LinkService,
+  ProcessDataService,
+  Process,
+  followLink,
+  getFirstSucceededRemoteDataPayload,
+  Script,
+} from '@dspace/core'
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

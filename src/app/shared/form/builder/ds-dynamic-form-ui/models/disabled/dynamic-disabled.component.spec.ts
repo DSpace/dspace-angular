@@ -1,26 +1,9 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '@dspace/core/testing/dynamic-form-mock-services';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { mockDynamicFormLayoutService, mockDynamicFormValidationService } from '@dspace/core'
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DsDynamicDisabledComponent } from './dynamic-disabled.component';

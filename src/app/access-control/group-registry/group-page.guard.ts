@@ -1,19 +1,12 @@
 import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivateFn,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
 import {
   someFeatureAuthorizationGuard,
   StringGuardParamFn,
-} from '@dspace/core/data/feature-authorization/feature-authorization-guard/some-feature-authorization.guard';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+  FeatureID,
+  HALEndpointService,
+} from '@dspace/core'
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 const defaultGroupPageGetObjectUrl: StringGuardParamFn = (

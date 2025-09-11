@@ -1,7 +1,9 @@
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthMethodType } from '@dspace/core'
 
 import { AuthMethodTypeComponent } from './auth-methods.type';
-import { LogInExternalProviderComponent } from './log-in-external-provider/log-in-external-provider.component';
+import {
+  LogInExternalProviderComponent,
+} from './log-in-external-provider/log-in-external-provider.component';
 import { LogInPasswordComponent } from './password/log-in-password.component';
 
 export const AUTH_METHOD_FOR_DECORATOR_MAP = new Map<AuthMethodType, AuthMethodTypeComponent>([

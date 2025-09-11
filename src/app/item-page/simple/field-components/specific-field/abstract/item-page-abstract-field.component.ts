@@ -1,11 +1,10 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
+import { Component, Input } from '@angular/core';
+import { Item } from '@dspace/core'
 
-import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
+import {
+  MetadataValuesComponent,
+} from '../../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({

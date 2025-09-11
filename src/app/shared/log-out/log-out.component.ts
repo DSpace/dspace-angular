@@ -1,15 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LogOutAction } from '@dspace/core/auth/auth.actions';
-import { getLogOutError } from '@dspace/core/auth/selectors';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { LogOutAction, getLogOutError } from '@dspace/core'
+import { select, Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 

@@ -1,21 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HealthResponseObj } from '@dspace/core/testing/health-endpoint.mocks';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  NgbAccordionModule,
-  NgbNavModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { HealthResponseObj, TranslateLoaderMock } from '@dspace/core'
+import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from './health-component/health-component.component';

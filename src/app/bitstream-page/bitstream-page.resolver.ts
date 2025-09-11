@@ -1,16 +1,12 @@
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import {
+  BitstreamDataService,
+  RemoteData,
   Bitstream,
   BITSTREAM_PAGE_LINKS_TO_FOLLOW,
-} from '@dspace/core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 
 /**

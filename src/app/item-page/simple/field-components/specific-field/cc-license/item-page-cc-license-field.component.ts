@@ -1,29 +1,18 @@
+import { AsyncPipe, NgClass, NgStyle } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import {
-  AsyncPipe,
-  NgClass,
-  NgStyle,
-} from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { Item } from '@dspace/core/shared/item.model';
-import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  Item,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import { parseCcCode } from '@dspace/shared/utils/license.utils';
+} from '@dspace/core'
+import { hasValue, parseCcCode } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { map, Observable, of } from 'rxjs';
 import {
-  map,
-  Observable,
-  of,
-} from 'rxjs';
-import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+  MetadataFieldWrapperComponent,
+} from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 
 @Component({

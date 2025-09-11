@@ -1,13 +1,11 @@
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Community } from '@dspace/core/shared/community.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { Community, createSuccessfulRemoteDataObject } from '@dspace/core'
 import { of } from 'rxjs';
 
-import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
+import {
+  AccessControlFormContainerComponent,
+} from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { CollectionAccessControlComponent } from './collection-access-control.component';
 
 describe('CollectionAccessControlComponent', () => {

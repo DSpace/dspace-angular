@@ -1,29 +1,18 @@
-import {
-  NO_ERRORS_SCHEMA,
-  ViewContainerRef,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  ItemDataService,
+  NotificationsService,
+  ActivatedRouteStub,
+  NotificationsServiceStub,
+  RouterStub,
+  SubmissionServiceStub,
+  getMockTranslateService,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SubmissionService } from '../submission.service';

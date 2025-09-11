@@ -1,24 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import {
+  MetadataField,
+  MetadataSchema,
+  NotificationsService,
+  followLink,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';

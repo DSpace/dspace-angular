@@ -1,14 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DSONameService, Context, DSpaceObject, ListableObject, ViewMode } from '@dspace/core'
 
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 

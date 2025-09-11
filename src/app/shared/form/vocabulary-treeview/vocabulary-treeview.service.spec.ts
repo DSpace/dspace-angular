@@ -1,31 +1,18 @@
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+  buildPaginatedList,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  VocabularyOptions,
+  VocabularyService,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { from as observableFrom } from 'rxjs';
-import {
-  expand,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { expand, map, switchMap } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';

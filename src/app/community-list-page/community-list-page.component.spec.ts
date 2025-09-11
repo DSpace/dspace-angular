@@ -1,15 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { getMockThemeService } from '../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';

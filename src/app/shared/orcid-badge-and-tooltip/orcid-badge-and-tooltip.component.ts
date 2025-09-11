@@ -1,10 +1,6 @@
 import { NgClass } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Component, Input, OnInit } from '@angular/core';
+import { MetadataValue } from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 

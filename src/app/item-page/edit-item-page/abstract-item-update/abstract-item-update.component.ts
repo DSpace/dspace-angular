@@ -1,41 +1,23 @@
+import { Component, Input, OnDestroy, OnInit, Inject } from '@angular/core';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Data,
-  Router,
-} from '@angular/router';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import {
+  ItemDataService,
+  FieldUpdate,
+  FieldUpdates,
+  ObjectUpdatesService,
+  RemoteData,
+  NotificationsService,
+  getItemPageRoute,
   getItemPageLinksToFollow,
   Item,
-} from '@dspace/core/shared/item.model';
-import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  getAllSucceededRemoteData,
+} from '@dspace/core'
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { hasValue } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 
 @Component({
@@ -75,6 +57,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
     public route: ActivatedRoute,
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
   ) {
     super(objectUpdatesService, notificationsService, translateService, router);
   }
@@ -94,7 +77,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
           this.item = rd.payload;
         }),
         switchMap((rd: RemoteData<Item>) => {
-          return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...getItemPageLinksToFollow());
+          return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...getItemPageLinksToFollow(this.appConfig.item.showAccessStatuses));
         }),
         getAllSucceededRemoteData(),
       ).subscribe((rd: RemoteData<Item>) => {
@@ -103,7 +86,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     }
     super.ngOnInit();
 
-    this.discardTimeOut = environment.item.edit.undoTimeout;
+    this.discardTimeOut = this.appConfig.item.edit.undoTimeout;
     this.hasChanges().pipe(take(1)).subscribe((hasChanges) => {
       if (!hasChanges) {
         this.initializeOriginalFields();

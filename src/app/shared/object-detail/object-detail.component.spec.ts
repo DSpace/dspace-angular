@@ -1,28 +1,20 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  buildPaginatedList,
+  DSpaceObject,
+  PageInfo,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectDetailComponent } from './object-detail.component';
 

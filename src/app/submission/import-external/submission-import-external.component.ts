@@ -1,57 +1,38 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import {
+  ExternalSourceDataService,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
-import { NONE_ENTITY_TYPE } from '@dspace/core/shared/item-relationships/item-type.resource-type';
-import { getFinishedRemoteData } from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  RemoteData,
+  PaginationComponentOptions,
+  RouteService,
+  Context,
+  ExternalSourceEntry,
+  NONE_ENTITY_TYPE,
+  getFinishedRemoteData,
+  PageInfo,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  mergeMap,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
+import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import {
+  ObjectCollectionComponent,
+} from '../../shared/object-collection/object-collection.component';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import {
+  SubmissionImportExternalPreviewComponent,
+} from './import-external-preview/submission-import-external-preview.component';
 import {
   ExternalSourceData,
   SubmissionImportExternalSearchbarComponent,

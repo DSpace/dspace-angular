@@ -1,18 +1,8 @@
 /* eslint-disable max-classes-per-file */
 // Load the implementations that should be tested
 import { CdkTreeModule } from '@angular/cdk/tree';
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  inject,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -20,21 +10,18 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
+  FormFieldMetadataValueObject,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@dspace/core/testing/dynamic-form-mock-services';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  createTestComponent,
+  VocabularyServiceStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormsCoreModule,
@@ -47,8 +34,12 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
-import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
+import {
+  AuthorityConfidenceStateDirective,
+} from '../../../../directives/authority-confidence-state.directive';
+import {
+  VocabularyTreeviewComponent,
+} from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 

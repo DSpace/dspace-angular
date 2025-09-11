@@ -1,8 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { Component, Input } from '@angular/core';
+import { SortOptions } from '@dspace/core'
 
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchSettingsComponent } from './search-settings.component';
@@ -15,9 +12,7 @@ import { SearchSettingsComponent } from './search-settings.component';
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    SearchSettingsComponent,
-  ],
+  imports: [],
 })
 export class ThemedSearchSettingsComponent extends ThemedComponent<SearchSettingsComponent> {
   @Input() currentSortOption: SortOptions;

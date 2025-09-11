@@ -1,30 +1,28 @@
 import { TestBed } from '@angular/core/testing';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
 import {
+  EntityTypeDataService,
+  ItemDataService,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '@dspace/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { EntityTypeDataServiceStub } from '@dspace/core/testing/entity-type-data.service.stub';
-import { ItemDataServiceStub } from '@dspace/core/testing/item-data.service.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { ObjectUpdatesServiceStub } from '@dspace/core/testing/object-updates.service.stub';
-import { RelationshipDataServiceStub } from '@dspace/core/testing/relationship-data.service.stub';
-import {
+  ObjectUpdatesService,
+  RelationshipDataService,
+  NotificationsService,
+  Item,
+  ItemType,
+  Relationship,
+  RelationshipType,
+  EntityTypeDataServiceStub,
+  ItemDataServiceStub,
+  NotificationsServiceStub,
+  ObjectUpdatesServiceStub,
+  RelationshipDataServiceStub,
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';

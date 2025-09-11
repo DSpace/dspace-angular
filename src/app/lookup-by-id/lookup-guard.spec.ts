@@ -1,4 +1,4 @@
-import { IdentifierType } from '@dspace/core/data/request.models';
+import { IdentifierType } from '@dspace/core'
 import { of } from 'rxjs';
 
 import { lookupGuard } from './lookup-guard';

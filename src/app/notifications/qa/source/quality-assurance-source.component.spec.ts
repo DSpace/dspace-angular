@@ -1,33 +1,22 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import {
+  PaginationService,
   getMockNotificationsStateService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '@dspace/core/testing/notifications.mock';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+  PaginationServiceStub,
+  createTestComponent,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NotificationsStateService } from '../../notifications-state.service';
-import {
-  SourceListComponent,
-  SourceObject,
-} from '../../shared/source-list.component';
+import { SourceListComponent, SourceObject } from '../../shared/source-list.component';
 import { QualityAssuranceSourceComponent } from './quality-assurance-source.component';
 
 describe('QualityAssuranceSourceComponent test suite', () => {

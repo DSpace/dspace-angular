@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import {
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
+import { BitstreamFormat } from '@dspace/core'
+import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';

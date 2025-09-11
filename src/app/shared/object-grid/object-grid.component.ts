@@ -11,36 +11,27 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { WidthCategory } from '@dspace/core/shared/host-window-type';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
+  PaginatedList,
+  RemoteData,
+  PaginationComponentOptions,
+  Context,
+  WidthCategory,
+  ListableObject,
+  ViewMode,
+} from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  startWith,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 
 import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import { HostWindowService } from '../host-window.service';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 

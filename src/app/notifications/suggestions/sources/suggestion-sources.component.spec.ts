@@ -1,29 +1,18 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  provideRouter,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, provideRouter, Router } from '@angular/router';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SuggestionSource } from '@dspace/core/notifications/suggestions/models/suggestion-source.model';
-import { SuggestionSourceDataService } from '@dspace/core/notifications/suggestions/source/suggestion-source-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  RemoteData,
+  SuggestionSource,
+  SuggestionSourceDataService,
+  PaginationService,
+  PageInfo,
+  PaginationServiceStub,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';

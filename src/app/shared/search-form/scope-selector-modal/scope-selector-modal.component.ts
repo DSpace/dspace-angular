@@ -1,16 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { SortDirection, SortOptions, Context, DSpaceObject, DSpaceObjectType } from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

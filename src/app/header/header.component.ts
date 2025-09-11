@@ -1,10 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { WidthCategory } from '@dspace/core/shared/host-window-type';
+import { WidthCategory } from '@dspace/core'
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -12,7 +9,9 @@ import { Observable } from 'rxjs';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { HostWindowService } from '../shared/host-window.service';
-import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
+import {
+  ImpersonateNavbarComponent,
+} from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';

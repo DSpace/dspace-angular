@@ -1,12 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  HealthInfoResponse,
-  HealthResponse,
-} from '@dspace/core/shared/health-component.model';
+import { Component, OnInit } from '@angular/core';
+import { HealthInfoResponse, HealthResponse } from '@dspace/core'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';

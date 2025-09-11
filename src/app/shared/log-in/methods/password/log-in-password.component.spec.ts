@@ -1,29 +1,20 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthMethod } from '@dspace/core/auth/models/auth.method';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+  authReducer,
+  AuthService,
+  AuthMethod,
+  AuthMethodType,
+  AuthorizationDataService,
+  HardRedirectService,
+  ActivatedRouteStub,
+  AuthServiceStub,
+  AuthorizationDataServiceStub,
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 

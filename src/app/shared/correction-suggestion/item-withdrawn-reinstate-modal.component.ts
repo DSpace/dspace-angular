@@ -1,11 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';

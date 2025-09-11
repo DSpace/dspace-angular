@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  QualityAssuranceSourceObject,
+  QualityAssuranceSourceDataService,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

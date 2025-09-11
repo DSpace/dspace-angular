@@ -1,15 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthMethod } from '@dspace/core/auth/models/auth.method';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  MockStore,
-  provideMockStore,
-} from '@ngrx/store/testing';
+import { authReducer, AuthMethod, AuthMethodType } from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { storeModuleConfig } from '../../../app.reducer';
 import { AuthMethodTypeComponent } from '../methods/auth-methods.type';

@@ -1,29 +1,34 @@
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import { MyDSpaceResponseParsingService } from '@dspace/core/data/mydspace-response-parsing.service';
-import { MyDSpaceRequest } from '@dspace/core/data/request.models';
-import { RoleType } from '@dspace/core/roles/role-types';
-import { Context } from '@dspace/core/shared/context.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+  MyDSpaceResponseParsingService,
+  MyDSpaceRequest,
+  RoleType,
+  Context,
+  ViewMode,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import {
+  SuggestionsNotificationComponent,
+} from '../notifications/suggestions/notification/suggestions-notification.component';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { SearchService } from '../shared/search/search.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import {
+  SearchConfigurationOption,
+} from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
 import {
   MyDSpaceConfigurationService,
   SEARCH_CONFIG_SERVICE,
 } from './my-dspace-configuration.service';
-import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
-import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
+import {
+  MyDSpaceNewSubmissionComponent,
+} from './my-dspace-new-submission/my-dspace-new-submission.component';
+import {
+  MyDspaceQaEventsNotificationsComponent,
+} from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 

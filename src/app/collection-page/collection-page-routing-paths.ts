@@ -1,6 +1,4 @@
-import { getCollectionModuleRoute } from '@dspace/core/router/core-routing-paths';
-import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { getCollectionModuleRoute, getCollectionPageRoute, URLCombiner } from '@dspace/core'
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 

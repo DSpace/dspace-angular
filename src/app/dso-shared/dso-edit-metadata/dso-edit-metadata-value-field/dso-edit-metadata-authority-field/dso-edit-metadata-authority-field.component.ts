@@ -1,62 +1,45 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  FormsModule,
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ConfidenceType } from '@dspace/core/shared/confidence-type';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import {
+  ItemDataService,
+  NotificationsService,
+  ConfidenceType,
+  followLink,
+  FormFieldMetadataValueObject,
   getFirstCompletedRemoteData,
   metadataFieldsToString,
-} from '@dspace/core/shared/operators';
-import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+  Vocabulary,
+  VocabularyOptions,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { RegistryService } from '../../../../admin/admin-registries/registry/registry.service';
-import { DsDynamicOneboxComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
+import {
+  DsDynamicOneboxComponent,
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
   DsDynamicOneboxModelConfig,
   DynamicOneboxModel,
 } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { DsDynamicScrollableDropdownComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import {
+  DsDynamicScrollableDropdownComponent,
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { AuthorityConfidenceStateDirective } from '../../../../shared/form/directives/authority-confidence-state.directive';
+import {
+  AuthorityConfidenceStateDirective,
+} from '../../../../shared/form/directives/authority-confidence-state.directive';
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
-import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
+import {
+  AbstractDsoEditMetadataValueFieldComponent,
+} from '../abstract-dso-edit-metadata-value-field.component';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service';
 
 /**

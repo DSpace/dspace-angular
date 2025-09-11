@@ -1,19 +1,7 @@
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { createTestComponent } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchEvent } from '../eperson-group-list-event-type';

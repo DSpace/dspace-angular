@@ -1,34 +1,28 @@
-import {
-  NO_ERRORS_SCHEMA,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { FileService } from '@dspace/core/shared/file.service';
-import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  AuthService,
+  BitstreamDataService,
+  AuthorizationDataService,
+  Bitstream,
+  FileService,
+  MediaViewerItem,
+  ActivatedRouteStub,
+  AuthServiceMock,
+  MockBitstreamFormat1,
+  TranslateLoaderMock,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';

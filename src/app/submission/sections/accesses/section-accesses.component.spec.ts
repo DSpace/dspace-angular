@@ -1,20 +1,17 @@
 import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import { SubmissionAccessesConfigDataService } from '@dspace/core/config/submission-accesses-config-data.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { getSectionAccessesService } from '@dspace/core/testing/section-accesses.service.mock';
-import {
+  SubmissionAccessesConfigDataService,
+  APP_DATA_SERVICES_MAP,
+  JsonPatchOperationsBuilder,
+  SubmissionJsonPatchOperationsService,
+  getSectionAccessesService,
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService,
-} from '@dspace/core/testing/section-accesses-config.service.mock';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+  SectionsServiceStub,
+  SubmissionJsonPatchOperationsServiceStub,
+  XSRFService,
+} from '@dspace/core'
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
@@ -30,8 +27,12 @@ import { LiveRegionService } from 'src/app/shared/live-region/live-region.servic
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
-import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  dsDynamicFormControlMapFn,
+} from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import {
+  DsDynamicTypeBindRelationService,
+} from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
@@ -40,7 +41,9 @@ import {
   accessConditionChangeEvent,
   checkboxChangeEvent,
 } from '../../../shared/form/testing/form-event.stub';
-import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import {
+  getMockFormOperationsService,
+} from '../../../shared/form/testing/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { SubmissionService } from '../../submission.service';

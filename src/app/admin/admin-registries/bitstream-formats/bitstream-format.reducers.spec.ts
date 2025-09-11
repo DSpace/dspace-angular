@@ -1,4 +1,4 @@
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormat } from '@dspace/core'
 import { Action } from '@ngrx/store';
 
 import {
@@ -6,10 +6,7 @@ import {
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
 } from './bitstream-format.actions';
-import {
-  bitstreamFormatReducer,
-  BitstreamFormatRegistryState,
-} from './bitstream-format.reducers';
+import { bitstreamFormatReducer, BitstreamFormatRegistryState } from './bitstream-format.reducers';
 
 const bitstreamFormat1: BitstreamFormat = new BitstreamFormat();
 bitstreamFormat1.id = 'test-uuid-1';

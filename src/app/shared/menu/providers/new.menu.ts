@@ -7,19 +7,19 @@
  */
 
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { AuthorizationDataService, FeatureID } from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  map,
-  Observable,
-  of,
-} from 'rxjs';
+import { combineLatest, map, Observable, of } from 'rxjs';
 
-import { ThemedCreateCollectionParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
-import { ThemedCreateCommunityParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
-import { ThemedCreateItemParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import {
+  ThemedCreateCollectionParentSelectorComponent,
+} from '../../dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
+import {
+  ThemedCreateCommunityParentSelectorComponent,
+} from '../../dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
+import {
+  ThemedCreateItemParentSelectorComponent,
+} from '../../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';

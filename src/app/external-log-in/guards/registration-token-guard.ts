@@ -5,16 +5,14 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
-  map,
-  Observable,
-  of,
-} from 'rxjs';
+  EpersonRegistrationService,
+  RemoteData,
+  getFirstCompletedRemoteData,
+  Registration,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { map, Observable, of } from 'rxjs';
 
 /**
  * Determines if a user can activate a route based on the registration token.

@@ -1,36 +1,28 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MathService } from '@dspace/core/shared/math.service';
+import { APP_CONFIG } from '@dspace/config';
 import {
+  BrowseService,
+  BrowseDefinitionDataService,
+  Item,
+  MathService,
   MetadataMap,
   MetadataValue,
-} from '@dspace/core/shared/metadata.models';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  BrowseDefinitionDataServiceStub,
+  BrowseServiceStub,
+  TranslateLoaderMock,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
-import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import {
+  MetadataValuesComponent,
+} from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';
 
 let comp: ItemPageFieldComponent;

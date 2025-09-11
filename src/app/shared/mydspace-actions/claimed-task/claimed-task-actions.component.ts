@@ -1,35 +1,30 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Injector,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
-import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
+  RemoteData,
+  RequestService,
+  WorkflowActionDataService,
+  NotificationsService,
+  Item,
+  WorkflowItem,
+  ClaimedTaskDataService,
+  ClaimedTask,
+  WorkflowAction,
+} from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import {
+  getWorkflowItemViewRoute,
+} from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SearchService } from '../../search/search.service';
 import { VarDirective } from '../../utils/var.directive';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actions-loader.component';
+import {
+  ClaimedTaskActionsLoaderComponent,
+} from './switcher/claimed-task-actions-loader.component';
 
 /**
  * This component represents actions related to ClaimedTask object.

@@ -1,22 +1,8 @@
-import {
-  ChangeDetectorRef,
-  Directive,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '@dspace/shared/utils/empty.util';
+import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
+import { SubmissionSectionError, SectionsType } from '@dspace/core'
+import { hasValue, isNotEmpty, isNotNull } from '@dspace/utils';
 import uniq from 'lodash/uniq';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SubmissionService } from '../submission.service';

@@ -1,14 +1,5 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -16,44 +7,30 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
+  AuthService,
+  DSONameService,
+  PaginatedList,
+  RemoteData,
+  SubscriptionsDataService,
+  NotificationsService,
+  DSpaceObject,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { Subscription } from '@dspace/core/shared/subscription.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  NgbActiveModal,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  Subscription,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
-import {
-  BehaviorSubject,
-  combineLatest,
-  from,
-  shareReplay,
-} from 'rxjs';
-import {
-  map,
-  mergeMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
+import { map, mergeMap, take, tap } from 'rxjs/operators';
 
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
+import {
+  ThemedTypeBadgeComponent,
+} from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 
 @Component({
   selector: 'ds-subscription-modal',

@@ -7,11 +7,13 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
-import { ScriptServiceStub } from '@dspace/core/testing/script-service.stub';
+import {
+  AuthorizationDataService,
+  FeatureID,
+  ScriptDataService,
+  AuthorizationDataServiceStub,
+  ScriptServiceStub,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';

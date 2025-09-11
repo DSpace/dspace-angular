@@ -1,14 +1,10 @@
-
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { Component, Input } from '@angular/core';
+import { Item, Metadata, SearchResult } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**
  * This component show values for the given item metadata

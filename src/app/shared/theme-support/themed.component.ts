@@ -11,13 +11,9 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { BASE_THEME_NAME } from '@dspace/config/theme.config';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { BASE_THEME_NAME } from '@dspace/config';
+import { GenericConstructor } from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
 import {
   BehaviorSubject,
   combineLatest,
@@ -26,12 +22,7 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  catchError,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { ThemeService } from './theme.service';
 

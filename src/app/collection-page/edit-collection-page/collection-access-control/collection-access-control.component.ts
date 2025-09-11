@@ -1,16 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Community } from '@dspace/core/shared/community.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { RemoteData, Community, getFirstSucceededRemoteData } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
+import {
+  AccessControlFormContainerComponent,
+} from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({
   selector: 'ds-collection-access-control',

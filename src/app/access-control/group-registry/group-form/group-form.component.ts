@@ -8,40 +8,30 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  AbstractControl,
-  UntypedFormGroup,
-} from '@angular/forms';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  DSONameService,
+  DSpaceObjectDataService,
+  AuthorizationDataService,
+  FeatureID,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+  GroupDataService,
+  Group,
+  NotificationsService,
+  Collection,
+  Community,
+  DSpaceObject,
+  followLink,
+  NoContent,
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasValue, hasValueOperator, isNotEmpty } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -49,36 +39,25 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  debounceTime,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { debounceTime, map, switchMap, take } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
+import {
+  getCollectionEditRolesRoute,
+} from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
-import {
-  getGroupEditRoute,
-  getGroupsRoute,
-} from '../../access-control-routing-paths';
+import { getGroupEditRoute, getGroupsRoute } from '../../access-control-routing-paths';
 import { GroupRegistryService } from '../group-registry.service';
 import { MembersListComponent } from './members-list/members-list.component';
 import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';

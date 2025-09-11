@@ -1,16 +1,9 @@
 import { DebugElement } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { SherpaDataResponse, TranslateLoaderMock } from '@dspace/core'
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ContentAccordionComponent } from './content-accordion.component';
 

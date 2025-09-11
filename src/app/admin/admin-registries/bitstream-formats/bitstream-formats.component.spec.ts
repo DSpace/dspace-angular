@@ -1,25 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  BitstreamFormatDataService,
+  NotificationsService,
+  PaginationService,
+  BitstreamFormat,
+  BitstreamFormatSupportLevel,
+  NotificationsServiceStub,
+  PaginationServiceStub,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';

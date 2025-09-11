@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -14,31 +10,26 @@ import {
   Output,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
-import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
+  PaginatedList,
+  RemoteData,
+  PaginationComponentOptions,
+  Context,
+  ListableObject,
+  PageInfo,
+  ViewMode,
+} from '@dspace/core'
+import { isEmpty, setPlaceHolderAttributes } from '@dspace/utils';
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
-import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
+import {
+  ObjectGeospatialMapComponent,
+} from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';

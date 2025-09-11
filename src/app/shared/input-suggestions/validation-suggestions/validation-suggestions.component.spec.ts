@@ -1,22 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { MetadataFieldDataService, ObjectUpdatesService } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ValidationSuggestionsComponent } from './validation-suggestions.component';

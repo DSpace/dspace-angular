@@ -1,25 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import {
+  ConfigurationDataService,
   getCollectionModuleRoute,
   getCommunityModuleRoute,
   getItemModuleRoute,
-} from '@dspace/core/router/core-routing-paths';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
-import { Community } from '@dspace/core/shared/community.model';
-import { COMMUNITY } from '@dspace/core/shared/community.resource-type';
-import { Item } from '@dspace/core/shared/item.model';
-import { ITEM } from '@dspace/core/shared/item.resource-type';
-import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
+  Collection,
+  COLLECTION,
+  Community,
+  COMMUNITY,
+  Item,
+  ITEM,
+  ConfigurationDataServiceStub,
+} from '@dspace/core'
 
 import { HandleService } from '../handle.service';
-import {
-  HandleTheme,
-  RegExTheme,
-  Theme,
-  UUIDTheme,
-} from './theme.model';
+import { HandleTheme, RegExTheme, Theme, UUIDTheme } from './theme.model';
 
 
 describe('Theme Models', () => {

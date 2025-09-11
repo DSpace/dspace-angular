@@ -1,30 +1,15 @@
-
+import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-} from '@angular/core';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  NotificationsService,
+  WorkspaceItem,
+  SectionsType,
+  SubmissionJsonPatchOperationsService,
+  normalizeSectionData,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  first,
-  take,
-} from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { first, take } from 'rxjs/operators';
 
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';

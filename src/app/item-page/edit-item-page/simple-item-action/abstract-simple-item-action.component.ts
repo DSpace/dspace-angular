@@ -1,32 +1,22 @@
+import { Component, OnInit, Predicate } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  OnInit,
-  Predicate,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  ItemDataService,
+  RemoteData,
+  NotificationsService,
+  getItemPageRoute,
+  Item,
+  getFirstSucceededRemoteData,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  first,
-  map,
-} from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
-import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../modify-item-overview/modify-item-overview.component';
 
 /**
  * Component to render and handle simple item edit actions such as withdrawal and reinstatement.

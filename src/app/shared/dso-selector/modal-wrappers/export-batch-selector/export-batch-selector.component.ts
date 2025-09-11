@@ -1,47 +1,31 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import {
+  DSONameService,
+  AuthorizationDataService,
+  FeatureID,
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@dspace/core/data/processes/script-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  NgbActiveModal,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+  RemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  Collection,
+  DSpaceObject,
+  DSpaceObjectType,
+  getFirstCompletedRemoteData,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../../confirmation-modal/confirmation-modal.component';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

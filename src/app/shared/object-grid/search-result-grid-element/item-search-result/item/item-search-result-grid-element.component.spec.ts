@@ -1,44 +1,41 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  RemoteDataBuildService,
+  ObjectCacheService,
+  BitstreamDataService,
+  CommunityDataService,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  buildPaginatedList,
+  RemoteData,
+  NotificationsService,
+  Bitstream,
+  HALEndpointService,
+  Item,
+  ItemSearchResult,
+  PageInfo,
+  UUIDService,
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
-import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
+import {
+  ThemedBadgesComponent,
+} from '../../../../object-collection/shared/badges/themed-badges.component';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 

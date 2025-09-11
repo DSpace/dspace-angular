@@ -1,26 +1,21 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RestRequestMethod } from '@dspace/config/rest-request-method';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { RestRequestMethod } from '@dspace/config';
+import {
+  AuthService,
+  ObjectCacheService,
+  RequestService,
+  NotificationsService,
+  Community,
+  AuthServiceMock,
+  NotificationsServiceStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import {
   DynamicFormControlModel,
   DynamicFormService,

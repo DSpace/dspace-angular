@@ -1,33 +1,28 @@
 import { CommonModule } from '@angular/common';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  DSONameService,
+  BitstreamDataService,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  Bitstream,
+  followLink,
+  Item,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
+import {
+  ThemedFileDownloadLinkComponent,
+} from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 

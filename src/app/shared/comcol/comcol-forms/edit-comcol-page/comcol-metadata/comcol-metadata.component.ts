@@ -1,29 +1,20 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ComColDataService } from '@dspace/core/data/comcol-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
+  ComColDataService,
+  RemoteData,
+  NotificationsService,
+  Collection,
+  Community,
+  DSpaceObject,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '@dspace/core/shared/operators';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+  ResourceType,
+} from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-comcol-metadata',

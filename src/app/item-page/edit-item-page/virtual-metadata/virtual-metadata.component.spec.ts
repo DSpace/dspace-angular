@@ -1,20 +1,15 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { Item } from '@dspace/core/shared/item.model';
+import { APP_CONFIG } from '@dspace/config';
+import { ObjectUpdatesService, Item } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';

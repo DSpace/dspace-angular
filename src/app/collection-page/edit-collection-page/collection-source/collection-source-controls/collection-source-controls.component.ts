@@ -1,43 +1,26 @@
 import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessStatus } from '@dspace/core/processes/process-status.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { ContentSource } from '@dspace/core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '@dspace/core/shared/content-source-set-serializer';
-import {
+  BitstreamDataService,
+  CollectionDataService,
+  ProcessDataService,
+  ScriptDataService,
+  RequestService,
+  NotificationsService,
+  Process,
+  ProcessStatus,
+  Collection,
+  ContentSource,
+  ContentSourceSetSerializer,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VarDirective } from '../../../../shared/utils/var.directive';

@@ -1,14 +1,12 @@
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { SUBMISSION_LINKS_TO_FOLLOW } from '@dspace/core/submission/resolver/submission-links-to-follow';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+  RemoteData,
+  getFirstCompletedRemoteData,
+  WorkflowItem,
+  SUBMISSION_LINKS_TO_FOLLOW,
+  WorkflowItemDataService,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 
 export const workflowItemPageResolver: ResolveFn<RemoteData<WorkflowItem>> = (

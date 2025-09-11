@@ -1,39 +1,26 @@
 // Import modules
 import { CommonModule } from '@angular/common';
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  ComponentFixtureAutoDetect,
-  TestBed,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
 // Import utils
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ITEM } from '@dspace/core/shared/item.resource-type';
-import { Subscription } from '@dspace/core/shared/subscription.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+// Import mocks
 import {
+  SubscriptionsDataService,
+  NotificationsService,
+  Item,
+  ITEM,
+  Subscription,
+  NotificationsServiceStub,
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
-} from '@dspace/core/testing/subscriptions-data.mock';
-// Import mocks
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getMockThemeService } from '../../theme-support/test/theme-service.mock';

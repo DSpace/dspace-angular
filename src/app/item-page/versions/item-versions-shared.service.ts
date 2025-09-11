@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Version } from '@dspace/core/shared/version.model';
+import { RemoteData, NotificationsService, Version } from '@dspace/core'
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({

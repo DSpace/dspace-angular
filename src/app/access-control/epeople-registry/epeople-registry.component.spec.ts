@@ -1,55 +1,32 @@
 import { CommonModule } from '@angular/common';
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
+  AuthorizationDataService,
+  FindListOptions,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import {
+  RemoteData,
+  RequestService,
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
+  PaginationService,
+  PageInfo,
   EPersonMock,
   EPersonMock2,
-} from '@dspace/core/testing/eperson.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  NotificationsServiceStub,
+  PaginationServiceStub,
+  RouterMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';

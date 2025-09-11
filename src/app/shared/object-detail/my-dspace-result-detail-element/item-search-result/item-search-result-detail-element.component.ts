@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Context, Item, ItemSearchResult, ViewMode } from '@dspace/core'
 
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  listableObjectComponent,
+} from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 

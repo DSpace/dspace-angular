@@ -1,32 +1,21 @@
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { RequestParam } from '@dspace/core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import {
+  RequestParam,
+  ExternalSourceDataService,
+  FindListOptions,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { ExternalSource } from '@dspace/core/shared/external-source.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import {
+  ExternalSource,
+  PageInfo,
   externalSourceCiencia,
   externalSourceMyStaffDb,
   externalSourceOrcid,
   getMockExternalSourceService,
-} from '@dspace/core/testing/external-source.service.mock';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+  HostWindowServiceStub,
+  createTestComponent,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';

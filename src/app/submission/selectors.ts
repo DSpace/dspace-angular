@@ -1,15 +1,8 @@
-import {
-  keySelector,
-  subStateSelector,
-} from '@dspace/core/ngrx/selectors-utils';
-import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
+import { keySelector, subStateSelector, SubmissionSectionObject } from '@dspace/core'
 import { MemoizedSelector } from '@ngrx/store';
 
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
-import {
-  submissionSelector,
-  SubmissionState,
-} from './submission.reducers';
+import { submissionSelector, SubmissionState } from './submission.reducers';
 
 export function submissionObjectFromIdSelector(submissionId: string): MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return keySelector<SubmissionState, SubmissionObjectEntry>(submissionSelector, 'objects', submissionId);

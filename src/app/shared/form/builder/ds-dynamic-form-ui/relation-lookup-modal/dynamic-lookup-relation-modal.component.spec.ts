@@ -1,51 +1,38 @@
-import {
-  DebugElement,
-  NgZone,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { ExternalSource } from '@dspace/core/shared/external-source.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  NgbActiveModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  RemoteDataBuildService,
+  ExternalSourceDataService,
+  APP_DATA_SERVICES_MAP,
+  Collection,
+  ExternalSource,
+  Item,
+  ItemSearchResult,
+  RelationshipOptions,
+  PaginatedSearchOptions,
+  WorkspaceItem,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  XSRFService,
+} from '@dspace/core'
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of,
-  Subscription,
-} from 'rxjs';
+import { of, Subscription } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { LookupRelationService } from './lookup-relation.service';
 import { NameVariantService } from './name-variant.service';
-import {
-  AddRelationshipAction,
-  RemoveRelationshipAction,
-} from './relationship.actions';
+import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;

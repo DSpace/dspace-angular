@@ -1,63 +1,51 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Data,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import {
+  AuthService,
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import {
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  Suggestion,
+  SuggestionTarget,
+  PaginationService,
+  PaginationComponentOptions,
+  redirectOn4xx,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 
-import { SuggestionActionsComponent } from '../notifications/suggestions/actions/suggestion-actions.component';
-import { SuggestionApproveAndImport } from '../notifications/suggestions/list-element/suggestion-approve-and-import';
-import { SuggestionListElementComponent } from '../notifications/suggestions/list-element/suggestion-list-element.component';
+import {
+  SuggestionActionsComponent,
+} from '../notifications/suggestions/actions/suggestion-actions.component';
+import {
+  SuggestionApproveAndImport,
+} from '../notifications/suggestions/list-element/suggestion-approve-and-import';
+import {
+  SuggestionListElementComponent,
+} from '../notifications/suggestions/list-element/suggestion-list-element.component';
 import {
   SuggestionBulkResult,
   SuggestionsService,
 } from '../notifications/suggestions/suggestions.service';
-import { SuggestionTargetsStateService } from '../notifications/suggestions/targets/suggestion-targets.state.service';
+import {
+  SuggestionTargetsStateService,
+} from '../notifications/suggestions/targets/suggestion-targets.state.service';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
-import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import {
+  getWorkspaceItemEditRoute,
+} from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 @Component({
   selector: 'ds-suggestion-page',

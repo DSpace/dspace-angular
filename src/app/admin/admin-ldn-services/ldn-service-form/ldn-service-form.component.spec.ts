@@ -1,13 +1,5 @@
-import {
-  ChangeDetectorRef,
-  EventEmitter,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import {
   FormArray,
   FormBuilder,
@@ -16,27 +8,20 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { LdnItemfiltersService } from '@dspace/core/coar-notify/ldn-services/ldn-itemfilters-data.service';
-import { LdnServicesService } from '@dspace/core/coar-notify/ldn-services/ldn-services-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  NgbDropdownModule,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+  LdnItemfiltersService,
+  LdnServicesService,
+  NotificationsService,
+  RouteService,
+  MockActivatedRoute,
+  NotificationsServiceStub,
+  RouterStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaginationService } from 'ngx-pagination';
 import { of } from 'rxjs';
 

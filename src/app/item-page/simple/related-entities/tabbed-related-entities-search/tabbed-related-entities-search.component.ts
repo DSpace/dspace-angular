@@ -1,21 +1,16 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { Item } from '@dspace/core/shared/item.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '@dspace/core'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
+import {
+  RelatedEntitiesSearchComponent,
+} from '../related-entities-search/related-entities-search.component';
 
 @Component({
   selector: 'ds-tabbed-related-entities-search',

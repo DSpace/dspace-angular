@@ -1,12 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ServerResponseService } from '@dspace/core/services/server-response.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { ServerResponseService, ActivatedRouteStub } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

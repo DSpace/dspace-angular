@@ -1,12 +1,10 @@
-
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Component, Input } from '@angular/core';
+import { MetadataValue } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 
 /**

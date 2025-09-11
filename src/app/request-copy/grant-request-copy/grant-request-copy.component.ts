@@ -1,43 +1,31 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import {
+  AuthService,
+  ItemRequestDataService,
+  RemoteData,
+  NotificationsService,
+  getItemModuleRoute,
+  HardRedirectService,
+  redirectOn4xx,
+  ItemRequest,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslatePipe,
-  TranslateService,
-} from '@ngx-translate/core';
+  RequestCopyEmail,
+  URLCombiner,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
+import {
+  ThemedEmailRequestCopyComponent,
+} from '../email-request-copy/themed-email-request-copy.component';
 
 @Component({
   selector: 'ds-base-grant-request-copy',

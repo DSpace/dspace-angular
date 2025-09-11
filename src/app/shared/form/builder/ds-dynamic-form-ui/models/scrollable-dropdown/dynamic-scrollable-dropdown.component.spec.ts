@@ -1,10 +1,5 @@
 // Load the implementations that should be tested
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Injector,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, Injector } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -20,19 +15,17 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
+  APP_DATA_SERVICES_MAP,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@dspace/core/testing/dynamic-form-mock-services';
-import {
   createTestComponent,
   hasClass,
-} from '@dspace/core/testing/utils.test';
-import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+  VocabularyServiceStub,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,

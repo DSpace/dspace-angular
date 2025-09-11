@@ -1,21 +1,17 @@
-
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Suggestion, Item } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { ItemSearchResultListElementComponent } from '../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import {
+  ItemSearchResultListElementComponent,
+} from '../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
-import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
+import {
+  SuggestionEvidencesComponent,
+} from './suggestion-evidences/suggestion-evidences.component';
 
 /**
  * Show all the suggestions by researcher

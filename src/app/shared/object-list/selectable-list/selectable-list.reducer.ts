@@ -1,5 +1,5 @@
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { hasNoValue } from '@dspace/shared/utils/empty.util';
+import { ListableObject } from '@dspace/core'
+import { hasNoValue } from '@dspace/utils';
 
 import {
   SelectableListAction,

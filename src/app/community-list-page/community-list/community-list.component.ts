@@ -1,27 +1,17 @@
-import {
-  CdkTreeModule,
-  FlatTreeControl,
-} from '@angular/cdk/tree';
+import { CdkTreeModule, FlatTreeControl } from '@angular/cdk/tree';
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { DSONameService, SortDirection, SortOptions, FindListOptions } from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { CommunityListDatasource } from '../community-list-datasource';
 import { CommunityListService } from '../community-list-service';
 import { FlatNode } from '../flat-node.model';

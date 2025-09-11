@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -12,22 +9,15 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { ObjectUpdatesService, Item, MetadataValue } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 
 interface ItemDTO {

@@ -1,19 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { Item } from '@dspace/core/shared/item.model';
-import { mockSuggestionPublicationOne } from '@dspace/core/testing/publication-claim.mock';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Item, mockSuggestionPublicationOne } from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ItemSearchResultListElementComponent } from '../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import {
+  ItemSearchResultListElementComponent,
+} from '../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../actions/suggestion-actions.component';
-import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
+import {
+  SuggestionEvidencesComponent,
+} from './suggestion-evidences/suggestion-evidences.component';
 import { SuggestionListElementComponent } from './suggestion-list-element.component';
 
 describe('SuggestionListElementComponent', () => {

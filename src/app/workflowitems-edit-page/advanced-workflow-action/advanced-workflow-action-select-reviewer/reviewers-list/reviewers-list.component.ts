@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -12,39 +9,31 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import {
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '@dspace/core/eperson/models/eperson-dto.model';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+  DSONameService,
+  PaginatedList,
+  EPersonDataService,
+  GroupDataService,
+  EPerson,
+  EpersonDtoModel,
+  Group,
+  NotificationsService,
+  PaginationService,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 import {
   EPersonListActionConfig,
   MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { GroupRegistryService } from '../../../../access-control/group-registry/group-registry.service';
+import {
+  GroupRegistryService,
+} from '../../../../access-control/group-registry/group-registry.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

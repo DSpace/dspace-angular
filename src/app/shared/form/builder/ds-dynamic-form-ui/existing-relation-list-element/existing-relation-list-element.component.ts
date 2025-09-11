@@ -9,32 +9,29 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
+  Item,
+  ReorderableRelationship,
+  ItemSearchResult,
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  RelationshipOptions,
+  ViewMode,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { Store } from '@ngrx/store';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  SelectableListService,
+} from '../../../../object-list/selectable-list/selectable-list.service';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
 /**

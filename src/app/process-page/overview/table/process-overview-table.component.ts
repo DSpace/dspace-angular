@@ -1,69 +1,34 @@
+import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
+import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  AsyncPipe,
-  isPlatformBrowser,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessStatus } from '@dspace/core/processes/process-status.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import {
+  AuthService,
+  DSONameService,
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  EPersonDataService,
+  EPerson,
+  PaginationService,
+  PaginationComponentOptions,
+  Process,
+  ProcessStatus,
+  RouteService,
+  redirectOn4xx,
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  from as observableFrom,
-  mergeMap,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  take,
-  toArray,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, from as observableFrom, mergeMap, Observable, Subscription } from 'rxjs';
+import { filter, map, switchMap, take, toArray } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
-import {
-  ProcessOverviewService,
-  ProcessSortField,
-} from '../process-overview.service';
+import { ProcessOverviewService, ProcessSortField } from '../process-overview.service';
 
 const NEW_PROCESS_PARAM = 'new_process_id';
 

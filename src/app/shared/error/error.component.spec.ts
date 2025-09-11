@@ -1,18 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { DebugElement } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { ErrorComponent } from './error.component';
 

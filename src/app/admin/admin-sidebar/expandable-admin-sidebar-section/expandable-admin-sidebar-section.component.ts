@@ -1,21 +1,9 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgComponentOutlet,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  Injector,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass, NgComponentOutlet } from '@angular/common';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest as combineLatestObservable,
-  Observable,
-} from 'rxjs';
+import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { bgColor } from '../../../shared/animations/bgColor';
@@ -26,7 +14,9 @@ import { MenuID } from '../../../shared/menu/menu-id.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
-import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
+import {
+  AdminSidebarSectionComponent,
+} from '../admin-sidebar-section/admin-sidebar-section.component';
 
 /**
  * Represents a expandable section in the sidebar

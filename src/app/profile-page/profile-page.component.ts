@@ -1,62 +1,50 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
+  AuthService,
+  DSONameService,
+  ConfigurationDataService,
+  AuthorizationDataService,
+  FeatureID,
+  PaginatedList,
+  RemoteData,
+  EPersonDataService,
+  EPerson,
+  Group,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
+  ConfigurationProperty,
+  followLink,
   getAllCompletedRemoteData,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
-import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import {
+  SuggestionsNotificationComponent,
+} from '../notifications/suggestions/notification/suggestions-notification.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
-import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
-import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
+import {
+  ThemedProfilePageMetadataFormComponent,
+} from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
+import {
+  ProfilePageResearcherFormComponent,
+} from './profile-page-researcher-form/profile-page-researcher-form.component';
+import {
+  ProfilePageSecurityFormComponent,
+} from './profile-page-security-form/profile-page-security-form.component';
 
 @Component({
   selector: 'ds-base-profile-page',

@@ -6,36 +6,20 @@
  * http://www.dspace.org/license/
  */
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
+  DSONameService,
+  RemoteData,
+  GroupDataService,
+  Group,
+  ResourcePolicy,
+  DSpaceObject,
   getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  dateToString,
-  stringToNgbDateStruct,
-} from '@dspace/shared/utils/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { dateToString, stringToNgbDateStruct, hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

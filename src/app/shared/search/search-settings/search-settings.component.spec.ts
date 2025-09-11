@@ -1,22 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
-import { SidebarServiceStub } from '@dspace/core/testing/sidebar-service.stub';
+  PaginationService,
+  PaginationComponentOptions,
+  ActivatedRouteStub,
+  PaginationServiceStub,
+  SearchServiceStub,
+  SidebarServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

@@ -1,40 +1,34 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  NgbAccordionModule,
-  NgbNavModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  RemoteData,
+  PaginationComponentOptions,
+  ListableObject,
+  PageInfo,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
-import {
-  BehaviorSubject,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  SelectableListItemControlComponent,
+} from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import {
+  SelectableListState,
+} from '../../../shared/object-list/selectable-list/selectable-list.reducer';
+import {
+  SelectableListService,
+} from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';

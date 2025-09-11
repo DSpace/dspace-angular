@@ -1,32 +1,39 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { FileService } from '@dspace/core/shared/file.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  BitstreamDataService,
+  Bitstream,
+  Context,
+  FileService,
+  HALEndpointService,
+  Item,
+  getFirstSucceededRemoteListPayload,
+  SearchResult,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
+import {
+  ThemedItemPageTitleFieldComponent,
+} from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
-import { MetadataFieldWrapperComponent } from '../../../metadata-field-wrapper/metadata-field-wrapper.component';
-import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
-import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  ThemedBadgesComponent,
+} from '../../../object-collection/shared/badges/themed-badges.component';
+import {
+  ItemSubmitterComponent,
+} from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
-import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-field/themed-item-detail-preview-field.component';
+import {
+  ThemedItemDetailPreviewFieldComponent,
+} from './item-detail-preview-field/themed-item-detail-preview-field.component';
 
 /**
  * This component show metadata for the given item object in the detail view.

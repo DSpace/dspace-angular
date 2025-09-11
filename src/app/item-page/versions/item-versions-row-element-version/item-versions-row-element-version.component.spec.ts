@@ -1,44 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  RouterModule,
-} from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { VersionDataService } from '@dspace/core/data/version-data.service';
-import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { Version } from '@dspace/core/shared/version.model';
-import { VersionHistory } from '@dspace/core/shared/version-history.model';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  AuthorizationDataService,
+  ItemDataService,
+  VersionDataService,
+  VersionHistoryDataService,
+  NotificationsService,
+  Item,
+  Version,
+  VersionHistory,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
+  ActivatedRouteStub,
+  NotificationsServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  of,
-} from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 
 import { ItemVersionsComponent } from '../item-versions.component';
-import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version.component';
+import {
+  ItemVersionsRowElementVersionComponent,
+} from './item-versions-row-element-version.component';
 
 describe('ItemVersionsRowElementVersionComponent', () => {
   let component: ItemVersionsRowElementVersionComponent;

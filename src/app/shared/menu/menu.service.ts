@@ -1,35 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { compareArraysUsingIds } from '@dspace/core/utilities/item-relationships-utils';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  createSelector,
-  MemoizedSelector,
-  select,
-  Store,
-} from '@ngrx/store';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { compareArraysUsingIds } from '@dspace/core'
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '@dspace/utils';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 
-import {
-  AppState,
-  keySelector,
-} from '../../app.reducer';
+import { AppState, keySelector } from '../../app.reducer';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

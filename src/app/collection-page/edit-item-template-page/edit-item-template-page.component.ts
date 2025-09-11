@@ -1,27 +1,21 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  RouterLink,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+  DSONameService,
+  ItemTemplateDataService,
+  RemoteData,
+  Collection,
+  Item,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  first,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 
-import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import {
+  ThemedDsoEditMetadataComponent,
+} from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

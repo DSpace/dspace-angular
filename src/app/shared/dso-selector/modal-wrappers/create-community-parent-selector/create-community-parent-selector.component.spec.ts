@@ -1,28 +1,22 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+  AuthorizationDataService,
+  Community,
+  MetadataValue,
+  RouterStub,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
-import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
+import {
+  CreateCommunityParentSelectorComponent,
+} from './create-community-parent-selector.component';
 
 describe('CreateCommunityParentSelectorComponent', () => {
   let component: CreateCommunityParentSelectorComponent;

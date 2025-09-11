@@ -1,29 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
+import { CSSVariableServiceStub, HostWindowServiceStub, RouterMock } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessibilitySettingsService } from '../accessibility/accessibility-settings.service';
-import { AccessibilitySettingsServiceStub } from '../accessibility/accessibility-settings.service.stub';
+import {
+  AccessibilitySettingsServiceStub,
+} from '../accessibility/accessibility-settings.service.stub';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
-import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
-import { NotificationsBoardComponent } from '../notification-system/notifications-board/notifications-board.component';
+import {
+  ThemedHeaderNavbarWrapperComponent,
+} from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
+import {
+  NotificationsBoardComponent,
+} from '../notification-system/notifications-board/notifications-board.component';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
-import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
+import {
+  SystemWideAlertBannerComponent,
+} from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 import { RootComponent } from './root.component';
 
 describe('RootComponent', () => {

@@ -1,34 +1,13 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  RouterLink,
-  RouterLinkActive,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { isAuthenticationLoading } from '@dspace/core/auth/selectors';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService, isAuthenticationLoading, DSONameService, EPerson } from '@dspace/core'
+import { select, Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
-import {
-  getProfileModuleRoute,
-  getSubscriptionsModuleRoute,
-} from '../../../app-routing-paths';
+import { getProfileModuleRoute, getSubscriptionsModuleRoute } from '../../../app-routing-paths';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';

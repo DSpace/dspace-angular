@@ -1,11 +1,10 @@
-import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { FormFieldModel, FormFieldMetadataValueObject, getMockTranslateService } from '@dspace/core'
 
-import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
+import {
+  DynamicDsDatePickerModel,
+} from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DateFieldParser } from './date-field-parser';
 import { ParserOptions } from './parser-options';
-
 
 
 describe('DateFieldParser test suite', () => {

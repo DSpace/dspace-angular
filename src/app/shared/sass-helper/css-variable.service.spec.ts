@@ -1,11 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { KeyValuePair } from '@dspace/core/utilities/key-value-pair.model';
-import {
-  MockStore,
-  provideMockStore,
-} from '@ngrx/store/testing';
+import { buildPaginatedList, PageInfo, KeyValuePair } from '@dspace/core'
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
 import { CSSVariableService } from './css-variable.service';

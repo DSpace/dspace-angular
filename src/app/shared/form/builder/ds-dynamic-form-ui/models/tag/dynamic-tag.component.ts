@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -8,36 +7,24 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  FormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import {
   NgbTypeahead,
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import isEqual from 'lodash/isEqual';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   catchError,
   debounceTime,

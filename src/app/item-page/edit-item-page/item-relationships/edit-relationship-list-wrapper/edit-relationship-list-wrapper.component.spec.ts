@@ -1,19 +1,14 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { Item, ItemType, RelationshipType, createSuccessfulRemoteDataObject$ } from '@dspace/core'
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
-import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
+import {
+  EditRelationshipListComponent,
+} from '../edit-relationship-list/edit-relationship-list.component';
 import { EditRelationshipListWrapperComponent } from './edit-relationship-list-wrapper.component';
 
 describe('EditRelationshipListWrapperComponent', () => {

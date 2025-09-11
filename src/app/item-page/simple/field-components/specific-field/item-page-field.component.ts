@@ -1,26 +1,21 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import {
-  Component,
-  Input,
-} from '@angular/core';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
-import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
-import { Item } from '@dspace/core/shared/item.model';
-import {
+  BrowseService,
+  BrowseDefinitionDataService,
+  BrowseDefinition,
+  Item,
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
+} from '@dspace/core'
 import intersectionWith from 'lodash/intersectionWith';
 import { Observable } from 'rxjs';
-import {
-  filter,
-  mergeAll,
-  take,
-} from 'rxjs/operators';
+import { filter, mergeAll, take } from 'rxjs/operators';
 
-import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import {
+  MetadataValuesComponent,
+} from '../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from './image-field';
 
 /**

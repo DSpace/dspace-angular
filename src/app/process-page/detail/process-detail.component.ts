@@ -1,67 +1,36 @@
-import {
-  AsyncPipe,
-  DatePipe,
-  isPlatformBrowser,
-} from '@angular/common';
+import { AsyncPipe, DatePipe, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Component, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Inject,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessStatus } from '@dspace/core/processes/process-status.model';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
+  AuthService,
+  DSONameService,
+  BitstreamDataService,
+  PaginatedList,
+  ProcessDataService,
+  RemoteData,
+  NotificationsService,
+  Process,
+  ProcessStatus,
+  redirectOn4xx,
+  Bitstream,
+  DSpaceObject,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  finalize,
-  find,
-  map,
-  startWith,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+  URLCombiner,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, finalize, find, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 
 import { AlertType } from '../../shared/alert/alert-type';
-import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
+import {
+  ThemedFileDownloadLinkComponent,
+} from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';

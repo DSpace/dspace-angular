@@ -6,17 +6,14 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { AuthorizationDataService, FeatureID, DSpaceObject } from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
+import {
+  SubscriptionModalComponent,
+} from '../../subscriptions/subscription-modal/subscription-modal.component';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';

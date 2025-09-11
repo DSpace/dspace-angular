@@ -1,38 +1,24 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RequestParam } from '@dspace/core/cache/models/request-param.model';
-import { ComColDataService } from '@dspace/core/data/comcol-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getHomePageRoute } from '@dspace/core/router/core-routing-paths';
-import { RouteService } from '@dspace/core/services/route.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { ResourceType } from '@dspace/core/shared/resource-type';
 import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  RequestParam,
+  ComColDataService,
+  CommunityDataService,
+  RemoteData,
+  RequestService,
+  NotificationsService,
+  getHomePageRoute,
+  RouteService,
+  Collection,
+  Community,
+  getFirstSucceededRemoteDataPayload,
+  ResourceType,
+} from '@dspace/core'
+import { hasValue, isNotEmpty, isNotUndefined } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  mergeMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, mergeMap, take, tap } from 'rxjs/operators';
 
 /**
  * Component representing the create page for communities and collections

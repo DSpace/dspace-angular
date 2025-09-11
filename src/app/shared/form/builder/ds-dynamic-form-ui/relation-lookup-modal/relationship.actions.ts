@@ -2,9 +2,7 @@
 /**
  * The list of RelationshipAction type definitions
  */
-import { type } from '@dspace/core/ngrx/type';
-import { Item } from '@dspace/core/shared/item.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { type, Item, Relationship } from '@dspace/core'
 import { Action } from '@ngrx/store';
 
 export const RelationshipActionTypes = {

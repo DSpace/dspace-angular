@@ -1,33 +1,23 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import {
+  AuthService,
+  DSONameService,
+  ItemDataService,
+  ItemRequestDataService,
+  EPerson,
+  NotificationsService,
+  Item,
+  ItemRequest,
+  RequestCopyEmail,
+  DSONameServiceMock,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';

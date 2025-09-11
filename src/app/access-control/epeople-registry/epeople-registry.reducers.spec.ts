@@ -1,13 +1,10 @@
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { EPersonMock } from '@dspace/core'
 
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
 } from './epeople-registry.actions';
-import {
-  ePeopleRegistryReducer,
-  EPeopleRegistryState,
-} from './epeople-registry.reducers';
+import { ePeopleRegistryReducer, EPeopleRegistryState } from './epeople-registry.reducers';
 
 const initialState: EPeopleRegistryState = {
   editEPerson: null,

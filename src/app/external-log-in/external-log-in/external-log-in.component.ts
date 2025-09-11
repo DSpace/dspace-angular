@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgComponentOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,22 +7,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
-import { Registration } from '@dspace/core/shared/registration.model';
-import {
-  hasValue,
-  isEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { AuthService, AuthMethodType, AuthRegistrationType, Registration } from '@dspace/core'
+import { hasValue, isEmpty } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

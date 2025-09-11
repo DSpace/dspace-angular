@@ -1,23 +1,17 @@
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
+  PaginationService,
+  ActivatedRouteStub,
+  PaginationServiceStub,
+  RouterStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
+import {
+  DynamicComponentLoaderDirective,
+} from '../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { StartsWithLoaderComponent } from './starts-with-loader.component';

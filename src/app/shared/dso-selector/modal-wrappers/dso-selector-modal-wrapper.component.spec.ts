@@ -1,25 +1,15 @@
-import {
-  Component,
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-  OnInit,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, DebugElement, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  DSpaceObject,
+  DSpaceObjectType,
+  Item,
+  MetadataValue,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';

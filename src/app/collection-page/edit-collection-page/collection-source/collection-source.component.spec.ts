@@ -1,51 +1,36 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RequestService } from '@dspace/core/data/request.service';
 import {
+  CollectionDataService,
+  FieldUpdate,
+  ObjectUpdatesService,
+  RequestService,
   INotification,
   Notification,
-} from '@dspace/core/notification-system/models/notification.model';
-import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import {
+  NotificationType,
+  NotificationsService,
+  Collection,
   ContentSource,
   ContentSourceHarvestType,
-} from '@dspace/core/shared/content-source.model';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import {
+  RouterStub,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-} from '@ng-dynamic-forms/core';
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionSourceComponent } from './collection-source.component';
-import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
+import {
+  CollectionSourceControlsComponent,
+} from './collection-source-controls/collection-source-controls.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');

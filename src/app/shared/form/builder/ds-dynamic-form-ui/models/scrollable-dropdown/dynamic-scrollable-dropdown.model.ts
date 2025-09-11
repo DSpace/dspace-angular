@@ -1,15 +1,7 @@
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import {
-  AUTOCOMPLETE_OFF,
-  DynamicFormControlLayout,
-  serializable,
-} from '@ng-dynamic-forms/core';
+import { ResourceType, VocabularyOptions } from '@dspace/core'
+import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 
-import {
-  DsDynamicInputModel,
-  DsDynamicInputModelConfig,
-} from '../ds-dynamic-input.model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN = 'SCROLLABLE_DROPDOWN';
 

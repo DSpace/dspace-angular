@@ -1,23 +1,16 @@
+import { Injectable, Optional } from '@angular/core';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import {
-  Injectable,
-  Optional,
-} from '@angular/core';
-import {
-  AbstractControl,
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
-import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { VIRTUAL_METADATA_PREFIX } from '@dspace/core/shared/metadata.models';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  SubmissionFormsModel,
+  ConfigurationDataService,
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  FormFieldMetadataValueObject,
+  VIRTUAL_METADATA_PREFIX,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import {
   dateToString,
   isNgbDateStruct,
-} from '@dspace/shared/utils/date.util';
-import {
   hasNoValue,
   hasValue,
   isEmpty,
@@ -25,7 +18,7 @@ import {
   isNotNull,
   isNotUndefined,
   isNull,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/utils';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -54,7 +47,9 @@ import {
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {
+  DynamicRelationGroupModel,
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
 

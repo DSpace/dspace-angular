@@ -42,9 +42,15 @@
     "useDefineForClassFields": false,
     "useUnknownInCatchVariables": true,
     "paths": {
-      "@dspace/core/*": ["src/app/core/*"],
-      "@dspace/config/*": ["src/config/*"],
-      "@dspace/shared/utils/*": ["src/app/utils/*"]
+      "@dspace/core": [
+        "./dist/dspace/core"
+      ],
+      "@dspace/config": [
+        "./dist/dspace/config"
+      ],
+      "@dspace/utils": [
+        "./dist/dspace/utils"
+      ]
     }
   },
   "angularCompilerOptions": {

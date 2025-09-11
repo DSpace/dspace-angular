@@ -1,32 +1,11 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgComponentOutlet,
-} from '@angular/common';
-import {
-  Component,
-  HostListener,
-  Injector,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass, NgComponentOutlet } from '@angular/common';
+import { Component, HostListener, Injector, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { AuthService, AuthorizationDataService } from '@dspace/core'
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  first,
-  map,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
 
 import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';

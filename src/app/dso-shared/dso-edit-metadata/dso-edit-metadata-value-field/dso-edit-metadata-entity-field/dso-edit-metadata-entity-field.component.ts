@@ -1,16 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
+import { EntityTypeDataService, ItemType, getFirstSucceededRemoteListPayload } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
+import {
+  AbstractDsoEditMetadataValueFieldComponent,
+} from '../abstract-dso-edit-metadata-value-field.component';
 
 /**
  * The component used to gather input for entity-type metadata fields

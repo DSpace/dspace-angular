@@ -1,29 +1,30 @@
+import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
-  Component,
-  ComponentRef,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  BitstreamDataService,
+  Context,
+  GenericConstructor,
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 
-import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import {
+  DynamicComponentLoaderDirective,
+} from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   getListableObjectComponent,
   listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
+import {
+  SearchResultGridElementComponent,
+} from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-result-actions.component';
+import {
+  ItemAdminSearchResultActionsComponent,
+} from '../../item-admin-search-result-actions.component';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({

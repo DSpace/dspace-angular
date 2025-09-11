@@ -1,21 +1,16 @@
+import { Component, Injector, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import {
-  Component,
-  Injector,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationExtras,
-  Params,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+  RequestService,
+  NotificationsService,
+  getFirstSucceededRemoteDataPayload,
+  WorkflowItem,
+} from '@dspace/core'
 import { TranslateService } from '@ngx-translate/core';
 
-import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import {
+  getAdvancedWorkflowRoute,
+} from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 

@@ -1,16 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { RouterStub } from '@dspace/core/testing/router.stub';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ViewMode, RouterStub } from '@dspace/core'
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 

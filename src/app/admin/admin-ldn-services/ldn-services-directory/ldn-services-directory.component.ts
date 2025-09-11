@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -12,34 +9,29 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LdnServicesService } from '@dspace/core/coar-notify/ldn-services/ldn-services-data.service';
-import { LdnService } from '@dspace/core/coar-notify/ldn-services/models/ldn-services.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  LdnServicesService,
+  LdnService,
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 
 /**
  * The `LdnServicesOverviewComponent` is a component that provides an overview of LDN (Linked Data Notifications) services.

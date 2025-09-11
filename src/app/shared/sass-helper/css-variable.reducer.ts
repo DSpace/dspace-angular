@@ -1,9 +1,6 @@
-import { KeyValuePair } from '@dspace/core/utilities/key-value-pair.model';
+import { KeyValuePair } from '@dspace/core'
 
-import {
-  CSSVariableAction,
-  CSSVariableActionTypes,
-} from './css-variable.actions';
+import { CSSVariableAction, CSSVariableActionTypes } from './css-variable.actions';
 
 export interface CSSVariablesState {
   [name: string]: string;

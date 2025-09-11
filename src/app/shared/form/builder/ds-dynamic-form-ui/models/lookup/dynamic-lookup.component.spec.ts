@@ -1,9 +1,5 @@
 // Load the implementations that should be tested
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -19,16 +15,16 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
+  FormFieldMetadataValueObject,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@dspace/core/testing/dynamic-form-mock-services';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+  createTestComponent,
+  VocabularyServiceStub,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -42,12 +38,11 @@ import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
-import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { DsDynamicLookupComponent } from './dynamic-lookup.component';
 import {
-  DynamicLookupModel,
-  DynamicLookupModelConfig,
-} from './dynamic-lookup.model';
+  AuthorityConfidenceStateDirective,
+} from '../../../../directives/authority-confidence-state.directive';
+import { DsDynamicLookupComponent } from './dynamic-lookup.component';
+import { DynamicLookupModel, DynamicLookupModelConfig } from './dynamic-lookup.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {

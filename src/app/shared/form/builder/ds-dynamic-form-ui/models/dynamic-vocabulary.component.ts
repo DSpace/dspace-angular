@@ -1,24 +1,18 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  FormFieldMetadataValueObject,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DsDynamicInputModel } from './ds-dynamic-input.model';

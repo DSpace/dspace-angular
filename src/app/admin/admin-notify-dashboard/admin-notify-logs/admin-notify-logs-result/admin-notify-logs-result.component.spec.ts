@@ -1,18 +1,12 @@
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MockActivatedRoute, RouterStub, SearchConfigurationServiceStub } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
+import {
+  SearchLabelsComponent,
+} from '../../../../shared/search/search-labels/search-labels.component';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
 

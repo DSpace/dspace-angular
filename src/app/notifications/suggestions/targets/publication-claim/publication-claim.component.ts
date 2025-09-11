@@ -1,32 +1,17 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { AfterViewInit, Component, input, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { SuggestionTarget, PaginationService, PaginationComponentOptions } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  take,
-} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, take } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { getSuggestionPageRoute } from '../../../../suggestions-page/suggestions-page-routing-paths';
+import {
+  getSuggestionPageRoute,
+} from '../../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../../suggestions.service';
 import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
 

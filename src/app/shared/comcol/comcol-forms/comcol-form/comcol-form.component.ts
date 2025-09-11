@@ -9,40 +9,31 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { ComColDataService } from '@dspace/core/data/comcol-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
+  AuthService,
+  ObjectCacheService,
+  ComColDataService,
+  RemoteData,
+  RequestService,
+  NotificationsService,
+  Bitstream,
+  Collection,
+  Community,
+  followLink,
   MetadataMap,
   MetadataValue,
-} from '@dspace/core/shared/metadata.models';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  NoContent,
+  getFirstCompletedRemoteData,
+  ResourceType,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { FileUploader } from 'ng2-file-upload';
 import {
@@ -52,12 +43,11 @@ import {
   Subscription,
   switchMap,
 } from 'rxjs';
-import {
-  filter,
-  take,
-} from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 
-import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../../confirmation-modal/confirmation-modal.component';
 import { FormComponent } from '../../../form/form.component';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';

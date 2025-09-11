@@ -1,21 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
+import { Item, MetadataValue, ItemMetadataRepresentation } from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
-import { OrgUnitItemMetadataListElementComponent } from './org-unit-item-metadata-list-element.component';
+import {
+  OrgUnitItemMetadataListElementComponent,
+} from './org-unit-item-metadata-list-element.component';
 
 const description = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
 const organisation = 'Anonymous';

@@ -1,16 +1,14 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Collection, Context, CollectionSearchResult, ViewMode } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import {
+  listableObjectComponent,
+} from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  TruncatablePartComponent,
+} from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)

@@ -1,32 +1,18 @@
+import { Injector, runInInjectionContext } from '@angular/core';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import {
-  Injector,
-  runInInjectionContext,
-} from '@angular/core';
-import {
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import {
+  OrejimeService,
+  ConfigurationDataService,
   NativeWindowRef,
   NativeWindowService,
-} from '@dspace/core/services/window.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import {
+  ConfigurationProperty,
   MATOMO_ENABLED,
   MATOMO_SITE_ID,
   MATOMO_TRACKER_URL,
-} from '@dspace/core/statistics/models/matomo-type';
-import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  MatomoInitializerService,
-  MatomoTracker,
-} from 'ngx-matomo-client';
+} from '@dspace/core'
+import { MatomoInitializerService, MatomoTracker } from 'ngx-matomo-client';
 import { MatomoTestingModule } from 'ngx-matomo-client/testing';
 import { of } from 'rxjs';
 

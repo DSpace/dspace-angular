@@ -1,30 +1,36 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { SupervisionOrderDataService } from '@dspace/core/supervision-order/supervision-order-data.service';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { supervisionOrderEntryMock } from '@dspace/core/testing/supervision-order.mock';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import {
+  DSONameService,
+  RemoteData,
+  RequestEntryState,
+  NotificationsService,
+  Item,
+  WorkspaceItem,
+  SupervisionOrderDataService,
+  DSONameServiceMock,
+  NotificationsServiceStub,
+  supervisionOrderEntryMock,
+  URLCombiner,
+} from '@dspace/core'
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
-import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';
+import {
+  ConfirmationModalComponent,
+} from '../../../../../shared/confirmation-modal/confirmation-modal.component';
+import {
+  getWorkspaceItemDeleteRoute,
+} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import {
+  SupervisionOrderGroupSelectorComponent,
+} from './supervision-order-group-selector/supervision-order-group-selector.component';
+import {
+  WorkspaceItemAdminWorkflowActionsComponent,
+} from './workspace-item-admin-workflow-actions.component';
 
 describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
   let component: WorkspaceItemAdminWorkflowActionsComponent;

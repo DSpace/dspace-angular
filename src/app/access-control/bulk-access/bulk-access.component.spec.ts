@@ -1,22 +1,24 @@
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  NotificationsService,
+  Process,
+  NotificationsServiceStub,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
-import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  BulkAccessControlService,
+} from '../../shared/access-control-form-container/bulk-access-control.service';
+import {
+  SelectableListState,
+} from '../../shared/object-list/selectable-list/selectable-list.reducer';
+import {
+  SelectableListService,
+} from '../../shared/object-list/selectable-list/selectable-list.service';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BulkAccessComponent } from './bulk-access.component';

@@ -1,41 +1,39 @@
-
+import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
-  Component,
-  ComponentRef,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Context } from '@dspace/core/shared/context.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
-import {
+  DSONameService,
+  LinkService,
+  BitstreamDataService,
+  RemoteData,
+  Context,
+  followLink,
+  GenericConstructor,
+  Item,
+  WorkflowItemSearchResult,
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  ViewMode,
+  WorkflowItem,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import {
+  DynamicComponentLoaderDirective,
+} from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   getListableObjectComponent,
   listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
+import {
+  SearchResultGridElementComponent,
+} from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
+import {
+  WorkflowItemAdminWorkflowActionsComponent,
+} from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({

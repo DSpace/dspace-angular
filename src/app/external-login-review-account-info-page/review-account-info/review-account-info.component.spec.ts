@@ -1,39 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { NativeWindowService } from '@dspace/core/services/window.service';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
-import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  AuthService,
+  RemoteData,
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
+  HardRedirectService,
+  NativeWindowService,
+  Registration,
+  AuthServiceMock,
+  EPersonMock,
+  NativeWindowMockFactory,
+  NotificationsServiceStub,
+  RouterMock,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, of, Subscription } from 'rxjs';
 
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';

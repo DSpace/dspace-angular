@@ -1,42 +1,22 @@
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import {
-  AsyncPipe,
-  isPlatformBrowser,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  ParamMap,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { Item } from '@dspace/core/shared/item.model';
-import {
+  AuthService,
+  ItemDataService,
+  RemoteData,
+  OrcidAuthService,
+  ResearcherProfile,
+  getItemPageRoute,
+  redirectOn4xx,
+  Item,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';

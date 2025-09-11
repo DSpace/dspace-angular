@@ -1,19 +1,16 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Data,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Community } from '@dspace/core/shared/community.model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
+import { RemoteData, Community } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ThemedCollectionPageSubCollectionListComponent } from './sub-collection-list/themed-community-page-sub-collection-list.component';
-import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-list/themed-community-page-sub-community-list.component';
+import {
+  ThemedCollectionPageSubCollectionListComponent,
+} from './sub-collection-list/themed-community-page-sub-collection-list.component';
+import {
+  ThemedCommunityPageSubCommunityListComponent,
+} from './sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
   selector: 'ds-sub-com-col-section',

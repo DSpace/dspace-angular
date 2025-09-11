@@ -1,26 +1,22 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { Params } from '@angular/router';
-import { AppConfig } from '@dspace/config/app-config.interface';
+import { AppConfig } from '@dspace/config';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestEntry } from '@dspace/core/data/request-entry.model';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
-import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
+  RemoteData,
+  RequestEntry,
+  PaginationComponentOptions,
+  AppliedFilter,
+  PaginatedSearchOptions,
+  SearchFilter,
+  SearchObjects,
+  ActivatedRouteStub,
+  PaginationServiceStub,
+  getMockRequestService,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SearchConfigurationService } from './search-configuration.service';

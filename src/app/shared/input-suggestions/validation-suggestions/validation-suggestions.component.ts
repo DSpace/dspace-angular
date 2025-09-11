@@ -1,13 +1,5 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  forwardRef,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import {
   FormsModule,
   NG_VALUE_ACCESSOR,
@@ -16,8 +8,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { MetadatumViewModel } from '@dspace/core/shared/metadata.models';
+import { ObjectUpdatesService, MetadatumViewModel } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';

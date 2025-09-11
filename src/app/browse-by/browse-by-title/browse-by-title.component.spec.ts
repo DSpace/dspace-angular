@@ -1,43 +1,43 @@
-import {
-  AsyncPipe,
-  CommonModule,
-} from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  BrowseService,
+  DSpaceObjectDataService,
+  ItemDataService,
+  PaginationService,
+  BrowseEntry,
+  Community,
+  Item,
+  ActivatedRouteStub,
+  PaginationServiceStub,
+  RouterMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
-import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
-import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import {
+  ThemedComcolPageBrowseByComponent,
+} from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import {
+  ComcolPageContentComponent,
+} from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import {
+  ThemedComcolPageHandleComponent,
+} from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import {
+  ComcolPageHeaderComponent,
+} from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import {
+  ComcolPageLogoComponent,
+} from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';

@@ -1,34 +1,23 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
-import { NativeWindowService } from '@dspace/core/services/window.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  NotificationsService,
+  OrcidAuthService,
+  ResearcherProfile,
+  NativeWindowService,
+  Item,
+  NativeWindowMockFactory,
+  NotificationsServiceStub,
+  TranslateLoaderMock,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';

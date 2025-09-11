@@ -1,13 +1,21 @@
-import { buildAppConfig } from '@dspace/config/config.server';
 import { join } from 'path';
 
 import { commonExports } from './webpack.common';
 
+import { buildAppConfig } from '../src/config/config.server';
 const CompressionPlugin = require('compression-webpack-plugin');
 const zlib = require('zlib');
 
 module.exports = Object.assign({}, commonExports, {
   target: 'web',
+  // // Tell webpack not to polyfill Node's modules (only needed for buildAppConfig,
+  // // which runs on the command line, not the browser)
+  // resolve: {
+  //   fallback: {
+  //     "os": false,
+  //     "util": false
+  //   },
+  // },
   plugins: [
     ...commonExports.plugins,
     new CompressionPlugin({

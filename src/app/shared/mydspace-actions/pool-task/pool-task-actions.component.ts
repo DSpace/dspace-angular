@@ -1,36 +1,26 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Injector, Input, OnDestroy } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Injector,
-  Input,
-  OnDestroy,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
-import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
-import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
+  RemoteData,
+  RequestService,
+  NotificationsService,
+  DSpaceObject,
+  Item,
+  WorkflowItem,
+  ClaimedTaskDataService,
+  PoolTask,
+  ProcessTaskResponse,
+  PoolTaskDataService,
+} from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 
-import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import {
+  getWorkflowItemViewRoute,
+} from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { SearchService } from '../../search/search.service';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';

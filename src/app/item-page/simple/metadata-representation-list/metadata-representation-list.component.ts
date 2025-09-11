@@ -1,29 +1,31 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import {
-  Component,
-  Input,
-} from '@angular/core';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { MetadataService } from '@dspace/core/metadata/metadata.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+  BrowseService,
+  BrowseDefinitionDataService,
+  RelationshipDataService,
+  MetadataService,
+  Item,
+  MetadataValue,
+  MetadataRepresentation,
+  MetadatumRepresentation,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  zip as observableZip,
-} from 'rxjs';
+import { Observable, zip as observableZip } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataRepresentationLoaderComponent,
+} from '../../../shared/metadata-representation/metadata-representation-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
+import {
+  AbstractIncrementalListComponent,
+} from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-base-metadata-representation-list',

@@ -1,13 +1,13 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { Component, Input } from '@angular/core';
+import { GenericConstructor, SearchFilterConfig } from '@dspace/core'
 import { BehaviorSubject } from 'rxjs';
 
-import { AbstractComponentLoaderComponent } from '../../../../abstract-component-loader/abstract-component-loader.component';
-import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
+import {
+  AbstractComponentLoaderComponent,
+} from '../../../../abstract-component-loader/abstract-component-loader.component';
+import {
+  DynamicComponentLoaderDirective,
+} from '../../../../abstract-component-loader/dynamic-component-loader.directive';
 import { renderFilterType } from '../search-filter-type-decorator';
 
 @Component({

@@ -1,36 +1,24 @@
 import { CommonModule } from '@angular/common';
+import { APP_INITIALIZER, Injectable } from '@angular/core';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  APP_INITIALIZER,
-  Injectable,
-} from '@angular/core';
-import {
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
-import { LocaleService } from '@dspace/core/locale/locale.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { AngularticsProviderMock } from '@dspace/core/testing/angulartics-provider.service.mock';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+  authReducer,
+  AuthService,
+  CorrelationIdService,
+  LocaleService,
+  RouteService,
+  MockActivatedRoute,
+  AngularticsProviderMock,
+  AuthServiceMock,
+  RouterMock,
+  TranslateLoaderMock,
+  HeadTagService,
+  HeadTagServiceMock,
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { environment } from '../environments/environment';
@@ -43,12 +31,10 @@ import { MenuService } from './shared/menu/menu.service';
 import { getMockThemeService } from './shared/theme-support/test/theme-service.mock';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { getTestScheduler } from 'jasmine-marbles';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
-import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
-import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
-import { getTestScheduler } from 'jasmine-marbles';
 
 let spy: SpyObj<any>;
 

@@ -1,23 +1,19 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import {
+  AuthService,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { getAllCompletedRemoteData } from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { Subscription } from '@dspace/core/shared/subscription.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  RemoteData,
+  SubscriptionsDataService,
+  EPerson,
+  PaginationService,
+  PaginationComponentOptions,
+  getAllCompletedRemoteData,
+  PageInfo,
+  Subscription,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -26,18 +22,15 @@ import {
   shareReplay,
   Subscription as rxjsSubscription,
 } from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
+import {
+  SubscriptionViewComponent,
+} from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { VarDirective } from '../shared/utils/var.directive';
 
 @Component({

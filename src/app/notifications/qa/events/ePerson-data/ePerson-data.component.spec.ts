@@ -1,12 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { EPersonDataService, EPerson, createSuccessfulRemoteDataObject$ } from '@dspace/core'
 
 import { EPersonDataComponent } from './ePerson-data.component';
 

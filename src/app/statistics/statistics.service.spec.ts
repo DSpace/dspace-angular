@@ -1,9 +1,11 @@
-import { RequestService } from '@dspace/core/data/request.service';
-import { RestRequest } from '@dspace/core/data/rest-request.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
-import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import {
+  RequestService,
+  RestRequest,
+  DSpaceObjectType,
+  SearchOptions,
+  HALEndpointServiceStub,
+  getMockRequestService,
+} from '@dspace/core'
 import isEqual from 'lodash/isEqual';
 
 import { StatisticsService } from './statistics.service';

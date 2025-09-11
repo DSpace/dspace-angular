@@ -1,36 +1,28 @@
-import {
-  ChangeDetectorRef,
-  EventEmitter,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { LdnServicesService } from '@dspace/core/coar-notify/ldn-services/ldn-services-data.service';
-import { LdnService } from '@dspace/core/coar-notify/ldn-services/models/ldn-services.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  LdnServicesService,
+  LdnService,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  PaginationService,
+  ActivatedRouteStub,
+  NotificationsServiceStub,
+  PaginationServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { LdnServicesOverviewComponent } from './ldn-services-directory.component';
 
 describe('LdnServicesOverviewComponent', () => {

@@ -1,25 +1,22 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { RatingAdvancedWorkflowInfo } from '@dspace/core/tasks/models/rating-advanced-workflow-info.model';
-import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
+import { RatingAdvancedWorkflowInfo, WorkflowAction } from '@dspace/core'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
+import {
+  AdvancedWorkflowActionComponent,
+} from '../advanced-workflow-action/advanced-workflow-action.component';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_RATING = 'submit_score';
 export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';

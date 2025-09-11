@@ -10,25 +10,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteWithNotEmptyData } from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  EntityTypeDataService,
+  FindListOptions,
+  PaginatedList,
+  RemoteData,
+  ItemType,
+  getFirstSucceededRemoteWithNotEmptyData,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  reduce,
-  startWith,
-  switchMap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { reduce, startWith, switchMap } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 

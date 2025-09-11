@@ -1,11 +1,6 @@
-
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, Input, OnInit } from '@angular/core';
+import { DSpaceObject } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({

@@ -1,10 +1,7 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
+import { Breadcrumb } from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';

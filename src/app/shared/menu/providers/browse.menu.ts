@@ -6,23 +6,16 @@
  * http://www.dspace.org/license/
  */
 
+import { Inject, Injectable } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  Inject,
-  Injectable,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+  BrowseService,
+  PaginatedList,
+  RemoteData,
+  BrowseDefinition,
+  getFirstSucceededRemoteData,
+} from '@dspace/core'
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { TextMenuItemModel } from '../menu-item/models/text.model';

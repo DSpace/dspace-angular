@@ -1,20 +1,17 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Community } from '@dspace/core/shared/community.model';
+import { Component, Input } from '@angular/core';
+import { Community } from '@dspace/core'
 
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
-import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
+import {
+  CommunityPageSubCommunityListComponent,
+} from './community-page-sub-community-list.component';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',
   styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    CommunityPageSubCommunityListComponent,
-  ],
+  imports: [],
 })
 export class ThemedCommunityPageSubCommunityListComponent extends ThemedComponent<CommunityPageSubCommunityListComponent> {
 

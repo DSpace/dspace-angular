@@ -9,38 +9,35 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
+  Item,
+  ReorderableRelationship,
+  MetadataValue,
+  ItemMetadataRepresentation,
+  MetadataRepresentation,
+  ItemSearchResult,
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  RelationshipOptions,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
+import {
+  SubmissionObjectEntry,
+} from '../../../../../submission/objects/submission-objects.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import {
+  MetadataRepresentationLoaderComponent,
+} from '../../../../metadata-representation/metadata-representation-loader.component';
+import {
+  SelectableListService,
+} from '../../../../object-list/selectable-list/selectable-list.service';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
 /**

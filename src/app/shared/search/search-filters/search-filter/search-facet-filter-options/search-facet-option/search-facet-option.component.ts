@@ -1,22 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  Params,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
-import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Params, Router, RouterLink } from '@angular/router';
+import { PaginationService, currentPath, FacetValue, SearchFilterConfig } from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

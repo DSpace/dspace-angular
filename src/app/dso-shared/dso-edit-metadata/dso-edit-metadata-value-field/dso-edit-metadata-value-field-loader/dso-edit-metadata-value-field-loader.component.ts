@@ -1,15 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Context, DSpaceObject, GenericConstructor } from '@dspace/core'
 
-import { AbstractComponentLoaderComponent } from '../../../../shared/abstract-component-loader/abstract-component-loader.component';
-import { DynamicComponentLoaderDirective } from '../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import {
+  AbstractComponentLoaderComponent,
+} from '../../../../shared/abstract-component-loader/abstract-component-loader.component';
+import {
+  DynamicComponentLoaderDirective,
+} from '../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { DsoEditMetadataValue } from '../../dso-edit-metadata-form';
 import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
 import { getDsoEditMetadataValueFieldComponent } from './dso-edit-metadata-value-field.decorator';

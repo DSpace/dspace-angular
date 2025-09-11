@@ -1,21 +1,14 @@
 // Load the implementations that should be tested
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { DragService } from '@dspace/core/drag.service';
-import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '@dspace/core/testing/http-xsrf-token-extractor.mock';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+  CookieService,
+  DragService,
+  CookieServiceMock,
+  HttpXsrfTokenExtractorMock,
+  createTestComponent,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -75,7 +68,7 @@ describe('Chips component', () => {
   standalone: true,
   imports: [
     FileUploadModule,
-    UploaderComponent,
+
   ],
 })
 class TestComponent {

@@ -5,16 +5,13 @@ import {
   RouterStateSnapshot,
   UrlSegment,
 } from '@angular/router';
-import { COMMUNITY_MODULE_PATH } from '@dspace/core/router/core-routing-paths';
+import { COMMUNITY_MODULE_PATH } from '@dspace/core'
 import { of } from 'rxjs';
 
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
 import { MenuItemType } from './menu-item-type.model';
-import {
-  AbstractMenuProvider,
-  PartialMenuSection,
-} from './menu-provider.model';
+import { AbstractMenuProvider, PartialMenuSection } from './menu-provider.model';
 import { MenuProviderService } from './menu-provider.service';
 import { MenuRoute } from './menu-route.model';
 

@@ -1,24 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Item, ItemType, RelationshipType } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
-import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
+import {
+  EditRelationshipListComponent,
+} from '../edit-relationship-list/edit-relationship-list.component';
 
 @Component({
   selector: 'ds-edit-relationship-list-wrapper',

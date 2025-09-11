@@ -5,20 +5,10 @@
  *
  * http://www.dspace.org/license/
  */
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { RemoteData, DSpaceObject } from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
+import { Observable, of } from 'rxjs';
 
 import { AbstractRouteContextMenuProvider } from './route-context.menu';
 

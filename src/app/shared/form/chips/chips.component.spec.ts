@@ -1,10 +1,6 @@
 // Load the implementations that should be tested
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -14,14 +10,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ConfidenceType } from '@dspace/core/shared/confidence-type';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { ConfidenceType, FormFieldMetadataValueObject, createTestComponent } from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
+import {
+  AuthorityConfidenceStateDirective,
+} from '../directives/authority-confidence-state.directive';
 import { ChipsComponent } from './chips.component';
 import { Chips } from './models/chips.model';
 

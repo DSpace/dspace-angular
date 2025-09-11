@@ -1,30 +1,17 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { SupervisionOrder } from '@dspace/core/supervision-order/models/supervision-order.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  RemoteData,
+  Group,
+  getFirstCompletedRemoteData,
+  SupervisionOrder,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  from,
-  Observable,
-} from 'rxjs';
-import {
-  map,
-  mergeMap,
-  reduce,
-} from 'rxjs/operators';
+import { BehaviorSubject, from, Observable } from 'rxjs';
+import { map, mergeMap, reduce } from 'rxjs/operators';
 
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 

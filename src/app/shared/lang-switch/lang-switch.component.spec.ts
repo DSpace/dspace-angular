@@ -1,32 +1,12 @@
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { LangConfig } from '@dspace/config/lang-config.interface';
-import { LocaleService } from '@dspace/core/locale/locale.service';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { LangConfig } from '@dspace/config';
+import { LocaleService } from '@dspace/core'
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 import { LangSwitchComponent } from './lang-switch.component';
 

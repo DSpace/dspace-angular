@@ -7,20 +7,12 @@
  */
 
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import {
-  combineLatest,
-  map,
-  Observable,
-} from 'rxjs';
+import { AuthorizationDataService, FeatureID } from '@dspace/core'
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { MenuItemType } from '../menu-item-type.model';
-import {
-  AbstractMenuProvider,
-  PartialMenuSection,
-} from '../menu-provider.model';
+import { AbstractMenuProvider, PartialMenuSection } from '../menu-provider.model';
 
 /**
  * Menu provider to create the "Curation Task" menu in the admin sidebar

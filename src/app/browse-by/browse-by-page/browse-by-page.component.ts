@@ -1,11 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
-import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { BrowseByDataType, BrowseDefinition } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -1,25 +1,12 @@
 import { trigger } from '@angular/animations';
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { SuggestionTarget } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-  of,
-  Subject,
-  Subscription,
-} from 'rxjs';
-import {
-  take,
-  takeUntil,
-} from 'rxjs/operators';
+import { combineLatest, Observable, of, Subject, Subscription } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { fromTopEnter } from '../../../shared/animations/fromTop';
 import { SuggestionsService } from '../suggestions.service';

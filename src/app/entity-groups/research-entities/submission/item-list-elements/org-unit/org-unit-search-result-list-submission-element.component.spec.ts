@@ -1,48 +1,46 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  DSONameService,
+  RemoteDataBuildService,
+  ObjectCacheService,
+  BitstreamDataService,
+  CommunityDataService,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  ItemDataService,
+  buildPaginatedList,
+  RemoteData,
+  NotificationsService,
+  Bitstream,
+  HALEndpointService,
+  Item,
+  ItemSearchResult,
+  UUIDService,
+  DSONameServiceMock,
+  mockTruncatableService,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment';
-import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
-import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  NameVariantService,
+} from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
+import {
+  SelectableListService,
+} from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';
+import {
+  OrgUnitSearchResultListSubmissionElementComponent,
+} from './org-unit-search-result-list-submission-element.component';
 
 let personListElementComponent: OrgUnitSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListSubmissionElementComponent>;

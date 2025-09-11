@@ -1,14 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { mockTruncatableService } from '@dspace/core'
 
 import { TruncatableComponent } from './truncatable.component';
 import { TruncatableService } from './truncatable.service';

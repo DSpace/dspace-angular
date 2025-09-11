@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { type } from '@dspace/core/ngrx/type';
+import { type } from '@dspace/core'
 import { Action } from '@ngrx/store';
 
 import { MenuID } from './menu-id.model';

@@ -1,6 +1,8 @@
-import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { AuthRegistrationType } from '@dspace/core'
 
-import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
+import {
+  OrcidConfirmationComponent,
+} from '../registration-types/orcid-confirmation/orcid-confirmation.component';
 
 export type ExternalLoginTypeComponent =
   typeof OrcidConfirmationComponent;

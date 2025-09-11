@@ -1,31 +1,18 @@
+import { Directive, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Directive,
-  inject,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
+  AuthService,
+  DSONameService,
+  RemoteData,
+  redirectOn4xx,
+  DSpaceObject,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { UsageReport } from '@dspace/core/statistics/models/usage-report.model';
-import { UsageReportDataService } from '@dspace/core/statistics/usage-report-data.service';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+  UsageReport,
+  UsageReportDataService,
+} from '@dspace/core'
+import { combineLatest, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Directive()
 /**

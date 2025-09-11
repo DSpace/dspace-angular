@@ -1,23 +1,19 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Community } from '@dspace/core/shared/community.model';
-import { HALLink } from '@dspace/core/shared/hal-link.model';
 import {
+  RemoteData,
+  Community,
+  HALLink,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
+} from '@dspace/core'
 import { Observable } from 'rxjs';
-import {
-  first,
-  map,
-} from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
-import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
+import {
+  ComcolRoleComponent,
+} from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 
 /**
  * Component for managing a community's roles

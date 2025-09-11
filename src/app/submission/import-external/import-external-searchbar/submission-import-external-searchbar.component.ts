@@ -9,34 +9,25 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RequestParam } from '@dspace/core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
+  RequestParam,
+  ExternalSourceDataService,
+  FindListOptions,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { ExternalSource } from '@dspace/core/shared/external-source.model';
-import {
+  RemoteData,
+  ExternalSource,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  PageInfo,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  catchError,
-  tap,
-} from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';

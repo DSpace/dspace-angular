@@ -1,9 +1,12 @@
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { PaginationComponentOptions, createSuccessfulRemoteDataObject$ } from '@dspace/core'
 import { of } from 'rxjs';
 
-import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
+import {
+  ResponsiveColumnSizes,
+} from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import {
+  ResponsiveTableSizes,
+} from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 export function getItemBitstreamsServiceStub(): ItemBitstreamsServiceStub {
   return new ItemBitstreamsServiceStub();

@@ -1,22 +1,16 @@
 import { NgClass } from '@angular/common';
-import {
-  Component,
-  Inject,
-  Injector,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { isEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
-import { AbstractMenuSectionComponent } from '../../../shared/menu/menu-section/abstract-menu-section.component';
+import {
+  AbstractMenuSectionComponent,
+} from '../../../shared/menu/menu-section/abstract-menu-section.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**

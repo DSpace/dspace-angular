@@ -1,32 +1,24 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessStatus } from '@dspace/core/processes/process-status.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  NgbCollapse,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  AuthService,
+  ProcessDataService,
+  EPersonDataService,
+  EPerson,
+  PaginationService,
+  Process,
+  ProcessStatus,
+  RouteService,
+  AuthServiceMock,
+  PaginationServiceStub,
+  routeServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { NgbCollapse, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 

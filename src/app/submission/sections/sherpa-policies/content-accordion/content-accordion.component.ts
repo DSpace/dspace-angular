@@ -1,9 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { PermittedVersions } from '@dspace/core/submission/models/sherpa-policies-details.model';
+import { Component, Input } from '@angular/core';
+import { PermittedVersions } from '@dspace/core'
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

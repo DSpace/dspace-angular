@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { HostWindowServiceStub } from '@dspace/core'
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';

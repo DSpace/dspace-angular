@@ -1,24 +1,16 @@
+import { inject, Injector } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot } from '@angular/router';
 import {
-  inject,
-  Injector,
-} from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import {
+  IdentifiableDataService,
+  RemoteData,
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
-} from '@dspace/core/data-services-map-type';
-import { lazyDataService } from '@dspace/core/lazy-data-service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+  lazyDataService,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  ResourceType,
+} from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 

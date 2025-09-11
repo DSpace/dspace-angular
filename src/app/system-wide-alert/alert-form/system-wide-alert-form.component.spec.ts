@@ -1,26 +1,19 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  RequestService,
+  SystemWideAlertDataService,
+  NotificationsService,
+  SystemWideAlert,
+  NotificationsServiceStub,
+  RouterStub,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  utcToZonedTime,
-  zonedTimeToUtc,
-} from 'date-fns-tz';
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';

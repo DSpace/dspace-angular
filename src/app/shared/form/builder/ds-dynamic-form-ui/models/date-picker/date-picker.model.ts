@@ -1,8 +1,5 @@
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import {
-  isEmpty,
-  isNotUndefined,
-} from '@dspace/shared/utils/empty.util';
+import { MetadataValue } from '@dspace/core'
+import { isEmpty, isNotUndefined } from '@dspace/utils';
 import {
   DynamicDateControlModel,
   DynamicDatePickerModelConfig,
@@ -11,10 +8,7 @@ import {
   DynamicFormControlRelation,
   serializable,
 } from '@ng-dynamic-forms/core';
-import {
-  BehaviorSubject,
-  Subject,
-} from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 

@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-  Location,
-} from '@angular/common';
+import { AsyncPipe, KeyValuePipe, Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,31 +7,22 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
 import {
-  ActivatedRoute,
-  Data,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
-import { LinkHeadService } from '@dspace/core/services/link-head.service';
-import { ServerResponseService } from '@dspace/core/services/server-response.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataMap } from '@dspace/core/shared/metadata.models';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  NotifyInfoService,
+  AuthorizationDataService,
+  ItemDataService,
+  RemoteData,
+  SignpostingDataService,
+  LinkHeadService,
+  ServerResponseService,
+  Item,
+  MetadataMap,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  map,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -44,11 +31,15 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { CollectionsComponent } from '../field-components/collections/collections.component';
-import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
+import {
+  ThemedItemPageTitleFieldComponent,
+} from '../simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageComponent } from '../simple/item-page.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
-import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
+import {
+  ThemedFullFileSectionComponent,
+} from './field-components/file-section/themed-full-file-section.component';
 
 /**
  * This component renders a full item page.

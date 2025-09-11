@@ -1,13 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
@@ -16,17 +8,9 @@ import {
   RouterModule,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Item } from '@dspace/core/shared/item.model';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Item, TranslateLoaderMock, createSuccessfulRemoteDataObject } from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 import { EditItemPageComponent } from './edit-item-page.component';
 

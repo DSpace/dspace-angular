@@ -1,27 +1,26 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  DSONameService,
+  LinkService,
+  Context,
+  Item,
+  WorkflowItemSearchResult,
+  WorkflowItem,
+  DSONameServiceMock,
+  getMockLinkService,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
-import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import {
+  WorkflowitemActionsComponent,
+} from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
-import { WorkflowItemSearchResultDetailElementComponent } from './workflow-item-search-result-detail-element.component';
+import {
+  WorkflowItemSearchResultDetailElementComponent,
+} from './workflow-item-search-result-detail-element.component';
 
 let component: WorkflowItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultDetailElementComponent>;

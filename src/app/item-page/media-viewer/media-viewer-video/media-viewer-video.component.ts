@@ -1,12 +1,6 @@
-
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, Input } from '@angular/core';
+import { DSONameService, Bitstream, MediaViewerItem } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

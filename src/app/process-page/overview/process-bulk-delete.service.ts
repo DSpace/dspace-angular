@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  ProcessDataService,
+  RemoteData,
+  NotificationsService,
+  Process,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  count,
-  from,
-} from 'rxjs';
-import {
-  concatMap,
-  filter,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, count, from } from 'rxjs';
+import { concatMap, filter, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

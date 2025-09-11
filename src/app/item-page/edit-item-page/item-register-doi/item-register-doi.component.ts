@@ -1,34 +1,27 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Identifier } from '@dspace/core/shared/identifiers-data/identifier.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  IdentifierDataService,
+  ItemDataService,
+  RemoteData,
+  NotificationsService,
+  getItemPageRoute,
+  Identifier,
+  Item,
+  getFirstSucceededRemoteData,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  first,
-  map,
-} from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
-import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
-import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../modify-item-overview/modify-item-overview.component';
+import {
+  AbstractSimpleItemActionComponent,
+} from '../simple-item-action/abstract-simple-item-action.component';
 
 @Component({
   selector: 'ds-item-register-doi',

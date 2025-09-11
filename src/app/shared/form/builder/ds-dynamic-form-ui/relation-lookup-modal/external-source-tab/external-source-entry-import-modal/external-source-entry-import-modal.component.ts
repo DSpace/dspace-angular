@@ -1,50 +1,46 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import {
-  Component,
-  EventEmitter,
-  OnInit,
-} from '@angular/core';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import {
+  ItemDataService,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  PaginationComponentOptions,
+  Context,
+  ExternalSourceEntry,
+  Item,
+  ItemType,
+  MetadataValue,
+  Metadata,
+  ItemSearchResult,
+  ListableObject,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import {
-  NgbActiveModal,
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  RelationshipOptions,
+  PaginatedSearchOptions,
+  SearchResult,
+} from '@dspace/core'
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 
-import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
+import {
+  SubmissionImportExternalCollectionComponent,
+} from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
-import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
-import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
+import {
+  CollectionListEntry,
+} from '../../../../../../collection-dropdown/collection-dropdown.component';
+import {
+  CollectionElementLinkType,
+} from '../../../../../../object-collection/collection-element-link.type';
+import {
+  SelectableListService,
+} from '../../../../../../object-list/selectable-list/selectable-list.service';
+import {
+  ThemedSearchResultsComponent,
+} from '../../../../../../search/search-results/themed-search-results.component';
 import { LookupRelationService } from '../../lookup-relation.service';
 
 /**

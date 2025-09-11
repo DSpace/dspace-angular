@@ -1,32 +1,20 @@
-
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import {
-  hasValue,
-  isEmpty,
-} from '@dspace/shared/utils/empty.util';
+  EPersonDataService,
+  NotificationsService,
+  debounceTimeWorkaround as debounceTime,
+} from '@dspace/core'
+import { hasValue, isEmpty } from '@dspace/utils';
 import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormComponent } from '../../shared/form/form.component';
 

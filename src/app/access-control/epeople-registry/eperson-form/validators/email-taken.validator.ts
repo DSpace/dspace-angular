@@ -1,9 +1,5 @@
-import {
-  AbstractControl,
-  ValidationErrors,
-} from '@angular/forms';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { EPersonDataService, getFirstSucceededRemoteData } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

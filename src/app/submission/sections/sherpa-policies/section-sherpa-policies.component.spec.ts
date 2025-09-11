@@ -1,34 +1,30 @@
 import { DebugElement } from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-} from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
-import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  APP_DATA_SERVICES_MAP,
+  JsonPatchOperationsBuilder,
+  SherpaDataResponse,
+  SectionsServiceStub,
+  SubmissionServiceStub,
+  TranslateLoaderMock,
+} from '@dspace/core'
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
-import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
-import { PublicationInformationComponent } from './publication-information/publication-information.component';
+import {
+  MetadataInformationComponent,
+} from './metadata-information/metadata-information.component';
+import {
+  PublicationInformationComponent,
+} from './publication-information/publication-information.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
 import { SubmissionSectionSherpaPoliciesComponent } from './section-sherpa-policies.component';
 

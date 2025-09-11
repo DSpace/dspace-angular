@@ -1,9 +1,6 @@
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { isEmpty } from '@dspace/utils';
 
-import {
-  ObjectSelectionAction,
-  ObjectSelectionActionTypes,
-} from './object-select.actions';
+import { ObjectSelectionAction, ObjectSelectionActionTypes } from './object-select.actions';
 
 /**
  * Interface that represents the state for a single selection of an object

@@ -1,52 +1,37 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import {
+  DSONameService,
+  DSpaceObjectDataService,
+  AuthorizationDataService,
+  FeatureID,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { GroupDtoModel } from '@dspace/core/eperson/models/group-dto.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  RemoteData,
+  RequestService,
+  EPersonDataService,
+  GroupDataService,
+  EPerson,
+  Group,
+  GroupDtoModel,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
+  RouteService,
+  DSpaceObject,
+  followLink,
+  NoContent,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  PageInfo,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -55,17 +40,12 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  catchError,
-  defaultIfEmpty,
-  map,
-  switchMap,
-  takeUntil,
-  tap,
-} from 'rxjs/operators';
+import { catchError, defaultIfEmpty, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { getGroupEditPageRouterLink } from '../access-control-routing-paths';

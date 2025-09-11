@@ -1,5 +1,4 @@
-import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
-import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { ActionType, PolicyType } from '@dspace/core'
 import {
   DynamicDatePickerModelConfig,
   DynamicFormControlLayout,
@@ -8,8 +7,12 @@ import {
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
-import { DsDynamicInputModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { DsDynamicTextAreaModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import {
+  DsDynamicInputModelConfig,
+} from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  DsDynamicTextAreaModelConfig,
+} from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 
 const policyTypeList: DynamicFormOptionConfig<any>[] = [
   {

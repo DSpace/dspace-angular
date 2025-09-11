@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -13,28 +10,19 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormControl,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import {
+  FindListOptions,
+  NotificationsService,
+  followLink,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   metadataFieldsToString,
-} from '@dspace/core/shared/operators';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
@@ -43,14 +31,7 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  debounceTime,
-  map,
-  startWith,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { debounceTime, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 
 import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

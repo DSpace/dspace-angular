@@ -1,5 +1,4 @@
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { Group, URLCombiner } from '@dspace/core'
 
 export const EPERSON_PATH = 'epeople';
 

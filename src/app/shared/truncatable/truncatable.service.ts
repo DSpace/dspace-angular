@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  createSelector,
-  MemoizedSelector,
-  select,
-  Store,
-} from '@ngrx/store';
+import { hasValue } from '@dspace/utils';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,10 +9,7 @@ import {
   TruncatableExpandAction,
   TruncatableToggleAction,
 } from './truncatable.actions';
-import {
-  TruncatablesState,
-  TruncatableState,
-} from './truncatable.reducer';
+import { TruncatablesState, TruncatableState } from './truncatable.reducer';
 
 const truncatableStateSelector = (state: TruncatablesState) => state.truncatable;
 

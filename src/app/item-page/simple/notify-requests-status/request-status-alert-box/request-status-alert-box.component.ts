@@ -1,16 +1,12 @@
 import { NgClass } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  type OnInit,
-} from '@angular/core';
-import { NotifyStatuses } from '@dspace/core/coar-notify/notify-info/models/notify-requests-status.model';
-import { RequestStatusEnum } from '@dspace/core/coar-notify/notify-info/models/notify-status.enum';
+import { ChangeDetectionStrategy, Component, Input, type OnInit } from '@angular/core';
+import { NotifyStatuses, RequestStatusEnum } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 
 @Component({
   selector: 'ds-request-status-alert-box',

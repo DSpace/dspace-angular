@@ -1,14 +1,21 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { statisticsAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { i18nBreadcrumbResolver, statisticsAdministratorGuard } from '@dspace/core'
 
 import { collectionPageResolver } from '../collection-page/collection-page.resolver';
 import { communityPageResolver } from '../community-page/community-page.resolver';
 import { itemResolver } from '../item-page/item.resolver';
-import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
-import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
-import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
-import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import {
+  ThemedCollectionStatisticsPageComponent,
+} from './collection-statistics-page/themed-collection-statistics-page.component';
+import {
+  ThemedCommunityStatisticsPageComponent,
+} from './community-statistics-page/themed-community-statistics-page.component';
+import {
+  ThemedItemStatisticsPageComponent,
+} from './item-statistics-page/themed-item-statistics-page.component';
+import {
+  ThemedSiteStatisticsPageComponent,
+} from './site-statistics-page/themed-site-statistics-page.component';
 
 export const ROUTES: Route[] = [
   {

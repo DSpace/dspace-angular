@@ -1,20 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import {
+  DSONameService,
+  PaginationService,
+  RouteService,
+  BrowseEntry,
+  ActivatedRouteStub,
+  DSONameServiceMock,
+} from '@dspace/core'
 import { of } from 'rxjs';
 
 import { TruncatePipe } from '../../utils/truncate.pipe';

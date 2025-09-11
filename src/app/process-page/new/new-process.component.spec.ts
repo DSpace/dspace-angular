@@ -1,26 +1,21 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  LinkService,
+  ProcessDataService,
+  ScriptDataService,
+  RequestService,
+  NotificationsService,
+  ProcessParameter,
+  Script,
+  ScriptParameter,
+  NotificationsServiceStub,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';

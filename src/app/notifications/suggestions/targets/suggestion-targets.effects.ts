@@ -2,28 +2,19 @@ import { Injectable } from '@angular/core';
 import {
   AuthActionTypes,
   RetrieveAuthenticatedEpersonSuccessAction,
-} from '@dspace/core/auth/auth.actions';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import {
-  Actions,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+  ConfigurationDataService,
+  PaginatedList,
+  RemoteData,
+  NotificationsService,
+  SuggestionTarget,
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import {
-  catchError,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { SuggestionsService } from '../suggestions.service';
 import {

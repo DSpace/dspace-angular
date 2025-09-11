@@ -1,22 +1,16 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { Item } from '@dspace/core/shared/item.model';
-import { RouterMock } from '@dspace/core/testing/router.mock';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Item, RouterMock } from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
+import {
+  RelatedEntitiesSearchComponent,
+} from '../related-entities-search/related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
 
 describe('TabbedRelatedEntitiesSearchComponent', () => {

@@ -1,44 +1,34 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { LinkHeadService } from '@dspace/core/services/link-head.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { ITEM } from '@dspace/core/shared/item.resource-type';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  ConfigurationDataService,
+  buildPaginatedList,
+  GroupDataService,
+  PaginationService,
+  PaginationComponentOptions,
+  LinkHeadService,
+  RouteService,
+  BrowseEntry,
+  ConfigurationProperty,
+  ITEM,
+  PageInfo,
+  ViewMode,
+  HostWindowServiceStub,
+  PaginationServiceStub,
+  routeServiceStub,
+  SearchConfigurationServiceStub,
+  TranslateLoaderMock,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../host-window.service';
@@ -46,8 +36,12 @@ import {
   DEFAULT_CONTEXT,
   listableObjectComponent,
 } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  BrowseEntryListElementComponent,
+} from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../search/search-configuration.service';
 import { getMockThemeService } from '../theme-support/test/theme-service.mock';

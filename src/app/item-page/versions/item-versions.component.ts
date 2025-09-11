@@ -1,61 +1,40 @@
-import {
-  AsyncPipe,
-  DatePipe,
-} from '@angular/common';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { VersionDataService } from '@dspace/core/data/version-data.service';
-import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
 import {
+  ConfigurationDataService,
+  AuthorizationDataService,
+  FeatureID,
+  PaginatedList,
+  RemoteData,
+  VersionDataService,
+  VersionHistoryDataService,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
+  followLink,
+  Item,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { Version } from '@dspace/core/shared/version.model';
-import { VersionHistory } from '@dspace/core/shared/version-history.model';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+  PaginatedSearchOptions,
+  Version,
+  VersionHistory,
+} from '@dspace/core'
+import { hasValue, hasValueOperator } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { combineLatest, Observable, Subscription } from 'rxjs';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
+import {
+  ItemVersionsRowElementVersionComponent,
+} from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 interface VersionsDTO {
   totalElements: number;

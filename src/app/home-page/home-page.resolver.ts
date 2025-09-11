@@ -1,11 +1,6 @@
 import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { SiteDataService } from '@dspace/core/data/site-data.service';
-import { Site } from '@dspace/core/shared/site.model';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
+import { SiteDataService, Site } from '@dspace/core'
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 

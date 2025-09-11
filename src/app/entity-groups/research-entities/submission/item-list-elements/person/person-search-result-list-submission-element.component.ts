@@ -1,35 +1,37 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+  DSONameService,
+  ItemDataService,
+  Context,
+  Item,
+  MetadataValue,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
-import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
-import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  NameVariantService,
+} from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
+import {
+  listableObjectComponent,
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  SearchResultListElementComponent,
+} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+import {
+  SelectableListService,
+} from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
-import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
+import {
+  PersonInputSuggestionsComponent,
+} from './person-suggestions/person-input-suggestions.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({

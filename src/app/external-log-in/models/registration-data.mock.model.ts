@@ -1,6 +1,4 @@
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { Registration } from '@dspace/core/shared/registration.model';
+import { AuthMethodType, MetadataValue, Registration } from '@dspace/core'
 
 export const mockRegistrationDataModel: Registration = Object.assign(
   new Registration(),

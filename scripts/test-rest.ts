@@ -1,8 +1,9 @@
 import { request } from 'http';
 import { request as https_request } from 'https';
 
-import { AppConfig } from '@dspace/config/app-config.interface';
-import { buildAppConfig } from '@dspace/config/config.server';
+import { AppConfig } from '../projects/dspace/config/src/lib/app-config.interface';
+import { buildAppConfig } from '../src/config/config.server';
+
 
 const appConfig: AppConfig = buildAppConfig();
 

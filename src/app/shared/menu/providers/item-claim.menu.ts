@@ -6,19 +6,18 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  AuthorizationDataService,
+  FeatureID,
+  NotificationsService,
+  ResearcherProfileDataService,
+  DSpaceObject,
+  Item,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { MenuService } from '../menu.service';

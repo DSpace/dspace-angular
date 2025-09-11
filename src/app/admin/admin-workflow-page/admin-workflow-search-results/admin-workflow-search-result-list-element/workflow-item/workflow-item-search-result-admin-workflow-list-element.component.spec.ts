@@ -1,35 +1,37 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  AuthService,
+  DSONameService,
+  LinkService,
+  AuthorizationDataService,
+  followLink,
+  Item,
+  WorkflowItemSearchResult,
+  ViewMode,
+  WorkflowItem,
+  AuthServiceMock,
+  DSONameServiceMock,
+  getMockLinkService,
+  mockTruncatableService,
+  createSuccessfulRemoteDataObject$,
+  XSRFService,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import {
+  CollectionElementLinkType,
+} from '../../../../../shared/object-collection/collection-element-link.type';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';
+import {
+  WorkflowItemSearchResultAdminWorkflowListElementComponent,
+} from './workflow-item-search-result-admin-workflow-list-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowListElementComponent;

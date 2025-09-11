@@ -1,9 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { Component, Input } from '@angular/core';
+import { RemoteData, SearchFilterConfig } from '@dspace/core'
 import { Observable } from 'rxjs';
 
 import { ThemedComponent } from '../../theme-support/themed.component';
@@ -16,9 +12,7 @@ import { SearchFiltersComponent } from './search-filters.component';
   selector: 'ds-search-filters',
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    SearchFiltersComponent,
-  ],
+  imports: [],
 })
 export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersComponent> {
 

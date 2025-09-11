@@ -1,47 +1,29 @@
-import {
-  DebugElement,
-  NgModule,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { DebugElement, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import {
+  AuthorizationDataService,
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@dspace/core/data/processes/script-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
+  NotificationsService,
+  ProcessParameter,
+  Collection,
+  Community,
+  Item,
+  NotificationsServiceStub,
+  TranslateLoaderMock,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
-import {
-  NgbActiveModal,
-  NgbModal,
-  NgbModalModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+} from '@dspace/core'
+import { NgbActiveModal, NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../../confirmation-modal/confirmation-modal.component';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 

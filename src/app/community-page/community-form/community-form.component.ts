@@ -1,17 +1,13 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChange,
-  SimpleChanges,
-} from '@angular/core';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Community } from '@dspace/core/shared/community.model';
+  AuthService,
+  ObjectCacheService,
+  CommunityDataService,
+  RequestService,
+  NotificationsService,
+  Community,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -19,14 +15,15 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
-import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import {
+  ComColFormComponent,
+} from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import {
+  ComcolPageLogoComponent,
+} from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';

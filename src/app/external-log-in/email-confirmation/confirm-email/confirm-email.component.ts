@@ -6,40 +6,23 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import {
+  AuthService,
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
+  HardRedirectService,
   NativeWindowRef,
   NativeWindowService,
-} from '@dspace/core/services/window.service';
-import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { Registration } from '@dspace/core/shared/registration.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  Registration,
+} from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import {
-  combineLatest,
-  Subscription,
-  take,
-} from 'rxjs';
+import { combineLatest, Subscription, take } from 'rxjs';
 
 import { ExternalLoginService } from '../../services/external-login.service';
 

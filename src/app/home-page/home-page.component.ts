@@ -1,26 +1,25 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Site } from '@dspace/core/shared/site.model';
+import { Site } from '@dspace/core'
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
-import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
-import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
+import {
+  SuggestionsPopupComponent,
+} from '../notifications/suggestions/popup/suggestions-popup.component';
+import {
+  ThemedConfigurationSearchPageComponent,
+} from '../search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
-import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
+import {
+  ThemedTopLevelCommunityListComponent,
+} from './top-level-community-list/themed-top-level-community-list.component';
 
 @Component({
   selector: 'ds-base-home-page',

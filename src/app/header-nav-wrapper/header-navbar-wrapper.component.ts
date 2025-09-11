@@ -1,12 +1,6 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import { WidthCategory } from '@dspace/core/shared/host-window-type';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { WidthCategory } from '@dspace/core'
 import { Observable } from 'rxjs';
 
 import { ThemedHeaderComponent } from '../header/themed-header.component';

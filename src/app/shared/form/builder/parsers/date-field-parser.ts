@@ -1,7 +1,9 @@
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { FormFieldMetadataValueObject } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 
-import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';
+import {
+  DS_DATE_PICKER_SEPARATOR,
+} from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import {
   DynamicDsDateControlModelConfig,
   DynamicDsDatePickerModel,

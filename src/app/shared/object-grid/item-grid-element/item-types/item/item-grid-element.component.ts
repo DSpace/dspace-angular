@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Item, ViewMode } from '@dspace/core'
 
 import { focusShadow } from '../../../../animations/focus';
-import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
-import { AbstractListableElementComponent } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ItemSearchResultGridElementComponent } from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
+import {
+  listableObjectComponent,
+} from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  AbstractListableElementComponent,
+} from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import {
+  ItemSearchResultGridElementComponent,
+} from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 
 @listableObjectComponent('Publication', ViewMode.GridElement)
 @listableObjectComponent(Item, ViewMode.GridElement)

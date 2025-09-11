@@ -1,20 +1,12 @@
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+  Collection,
+  MetadataValue,
+  RouterStub,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 

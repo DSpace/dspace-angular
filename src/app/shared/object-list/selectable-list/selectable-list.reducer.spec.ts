@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { ListableObject } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 
 import {
   SelectableListAction,

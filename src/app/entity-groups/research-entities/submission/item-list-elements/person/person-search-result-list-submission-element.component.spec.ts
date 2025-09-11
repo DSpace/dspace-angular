@@ -1,50 +1,48 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, Component, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  AuthService,
+  RemoteDataBuildService,
+  ObjectCacheService,
+  CommunityDataService,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  ItemDataService,
+  buildPaginatedList,
+  RemoteData,
+  Bitstream,
+  HALEndpointService,
+  Item,
+  ItemSearchResult,
+  UUIDService,
+  createSuccessfulRemoteDataObject$,
+  XSRFService,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { REQUEST } from '../../../../../../express.tokens';
-import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  NameVariantService,
+} from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
+import {
+  CollectionElementLinkType,
+} from '../../../../../shared/object-collection/collection-element-link.type';
+import {
+  SelectableListService,
+} from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { PersonSearchResultListSubmissionElementComponent } from './person-search-result-list-submission-element.component';
+import {
+  PersonSearchResultListSubmissionElementComponent,
+} from './person-search-result-list-submission-element.component';
 
 let personListElementComponent: PersonSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListSubmissionElementComponent>;

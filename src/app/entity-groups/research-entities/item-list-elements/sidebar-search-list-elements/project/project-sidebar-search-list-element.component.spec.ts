@@ -1,9 +1,11 @@
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { Collection, Item, ItemSearchResult } from '@dspace/core'
 
-import { createSidebarSearchListElementTests } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
-import { ProjectSidebarSearchListElementComponent } from './project-sidebar-search-list-element.component';
+import {
+  createSidebarSearchListElementTests,
+} from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
+import {
+  ProjectSidebarSearchListElementComponent,
+} from './project-sidebar-search-list-element.component';
 
 const object = Object.assign(new ItemSearchResult(), {
   indexableObject: Object.assign(new Item(), {

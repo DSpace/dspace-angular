@@ -1,33 +1,20 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '@dspace/core/resource-policy/models/resource-policy.resource-type';
-import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+  RemoteData,
+  NotificationsService,
+  ResourcePolicy,
+  RESOURCE_POLICY,
+  ResourcePolicyDataService,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
-import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
+import {
+  ITEM_EDIT_AUTHORIZATIONS_PATH,
+} from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,

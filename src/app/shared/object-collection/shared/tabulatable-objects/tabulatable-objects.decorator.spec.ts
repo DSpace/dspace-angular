@@ -1,8 +1,8 @@
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { AdminNotifySearchResult, Context, ViewMode } from '@dspace/core'
 
-import { AdminNotifySearchResultComponent } from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
+import {
+  AdminNotifySearchResultComponent,
+} from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';
 
 describe('TabulatableObject decorator function', () => {

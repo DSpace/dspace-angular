@@ -1,37 +1,33 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+  RemoteData,
+  PaginationService,
+  PaginationComponentOptions,
+  Context,
+  DSpaceObject,
+  ListableObject,
+  PageInfo,
+  PaginatedSearchOptions,
+  SearchResult,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
-import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import {
+  SEARCH_CONFIG_SERVICE,
+} from '../../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  ObjectCollectionComponent,
+} from '../../../../../object-collection/object-collection.component';
+import {
+  PageSizeSelectorComponent,
+} from '../../../../../page-size-selector/page-size-selector.component';
 import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
+import { Suggestion } from '@dspace/core'
 
 /**
  * A simple interface to unite a specific suggestion and the id of the chosen collection

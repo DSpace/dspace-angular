@@ -1,16 +1,12 @@
+import { Injectable, Injector } from '@angular/core';
 import {
-  Injectable,
-  Injector,
-} from '@angular/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
-import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionFieldScopeType } from '@dspace/core/submission/submission-field-scope-type';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  FormFieldModel,
+  SectionVisibility,
+  SubmissionFieldScopeType,
+  SubmissionScopeType,
+} from '@dspace/core'
+import { isEmpty, isNotEmpty } from '@dspace/utils';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DynamicFormGroupModelConfig,

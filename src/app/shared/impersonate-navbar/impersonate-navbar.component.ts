@@ -1,21 +1,10 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  OnInit,
-} from '@angular/core';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { isAuthenticated } from '@dspace/core/auth/selectors';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { AuthService, isAuthenticated } from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';

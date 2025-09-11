@@ -1,50 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { LinkHeadService } from '@dspace/core/services/link-head.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import {
+  ConfigurationDataService,
+  AuthorizationDataService,
+  ItemDataService,
+  RemoteData,
+  GroupDataService,
+  NotificationsService,
+  PaginationComponentOptions,
+  LinkHeadService,
+  RouteService,
+  Collection,
+  ConfigurationProperty,
+  PaginatedSearchOptions,
+  HostWindowServiceStub,
+  NotificationsServiceStub,
+  ObjectSelectServiceStub,
+  RouterStub,
+  SearchConfigurationServiceStub,
+  SearchServiceStub,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';

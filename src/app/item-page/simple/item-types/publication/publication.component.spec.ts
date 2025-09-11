@@ -1,58 +1,51 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { VersionDataService } from '@dspace/core/data/version-data.service';
-import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { MetadataMap } from '@dspace/core/shared/metadata.models';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  BrowseDefinitionDataService,
+  RemoteDataBuildService,
+  ObjectCacheService,
+  BitstreamDataService,
+  CommunityDataService,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  ItemDataService,
+  RelationshipDataService,
+  RemoteData,
+  VersionDataService,
+  VersionHistoryDataService,
+  APP_DATA_SERVICES_MAP,
+  NotificationsService,
+  RouteService,
+  Bitstream,
+  HALEndpointService,
+  Item,
+  MetadataMap,
+  UUIDService,
+  WorkspaceitemDataService,
+  BrowseDefinitionDataServiceStub,
+  mockTruncatableService,
+  TranslateLoaderMock,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment.test';
-import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
+import {
+  DsoEditMenuComponent,
+} from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  ThemedResultsBackButtonComponent,
+} from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { SearchService } from '../../../../shared/search/search.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
@@ -60,13 +53,27 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
 import { CollectionsComponent } from '../../../field-components/collections/collections.component';
 import { ThemedMediaViewerComponent } from '../../../media-viewer/themed-media-viewer.component';
 import { MiradorViewerComponent } from '../../../mirador-viewer/mirador-viewer.component';
-import { ThemedFileSectionComponent } from '../../field-components/file-section/themed-file-section.component';
-import { ItemPageAbstractFieldComponent } from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
-import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
-import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
-import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
-import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
+import {
+  ThemedFileSectionComponent,
+} from '../../field-components/file-section/themed-file-section.component';
+import {
+  ItemPageAbstractFieldComponent,
+} from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
+import {
+  ItemPageDateFieldComponent,
+} from '../../field-components/specific-field/date/item-page-date-field.component';
+import {
+  GenericItemPageFieldComponent,
+} from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import {
+  ThemedItemPageTitleFieldComponent,
+} from '../../field-components/specific-field/title/themed-item-page-field.component';
+import {
+  ItemPageUriFieldComponent,
+} from '../../field-components/specific-field/uri/item-page-uri-field.component';
+import {
+  ThemedMetadataRepresentationListComponent,
+} from '../../metadata-representation-list/themed-metadata-representation-list.component';
 import { RelatedItemsComponent } from '../../related-items/related-items-component';
 import {
   createRelationshipsObservable,

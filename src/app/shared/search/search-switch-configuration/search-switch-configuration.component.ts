@@ -1,26 +1,16 @@
-
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  NavigationExtras,
-  Router,
-} from '@angular/router';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { NavigationExtras, Router } from '@angular/router';
+import { currentPath } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import { Subscription } from 'rxjs';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
+import {
+  MyDSpaceConfigurationValueType,
+} from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { SearchService } from '../search.service';
 import { SearchConfigurationService } from '../search-configuration.service';
 import { SearchConfigurationOption } from './search-configuration-option.model';

@@ -1,11 +1,10 @@
+import { Component, Input } from '@angular/core';
 import {
-  Component,
-  Input,
-} from '@angular/core';
-import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
-import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+  SubmissionDefinitionsModel,
+  Item,
+  SubmissionError,
+  WorkspaceitemSectionsObject,
+} from '@dspace/core'
 
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { SubmissionFormComponent } from './submission-form.component';
@@ -15,9 +14,7 @@ import { SubmissionFormComponent } from './submission-form.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    SubmissionFormComponent,
-  ],
+  imports: [],
 })
 export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFormComponent> {
   @Input() collectionId: string;

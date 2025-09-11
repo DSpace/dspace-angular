@@ -1,26 +1,23 @@
-
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import {
-  NgbActiveModal,
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  NotificationsService,
+  ExternalSourceEntry,
+  MetadataValue,
+  Metadata,
+  SubmissionObject,
+} from '@dspace/core'
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  CollectionListEntry,
+} from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
+import {
+  SubmissionImportExternalCollectionComponent,
+} from '../import-external-collection/submission-import-external-collection.component';
 
 /**
  * This component display a preview of an external source item.

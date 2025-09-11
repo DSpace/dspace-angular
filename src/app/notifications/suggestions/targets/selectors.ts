@@ -1,19 +1,11 @@
-import { subStateSelector } from '@dspace/core/ngrx/selectors-utils';
-import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
-import {
-  createFeatureSelector,
-  createSelector,
-  MemoizedSelector,
-} from '@ngrx/store';
+import { subStateSelector, SuggestionTarget } from '@dspace/core'
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 
 import {
   suggestionNotificationsSelector,
   SuggestionNotificationsState,
 } from '../../notifications.reducer';
-import {
-  SuggestionTargetEntry,
-  SuggestionTargetState,
-} from './suggestion-targets.reducer';
+import { SuggestionTargetEntry, SuggestionTargetState } from './suggestion-targets.reducer';
 
 /**
  * Returns the Reciter Suggestion Target state.

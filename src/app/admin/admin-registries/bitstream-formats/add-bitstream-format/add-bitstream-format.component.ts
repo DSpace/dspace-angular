@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  BitstreamFormatDataService,
+  RemoteData,
+  NotificationsService,
+  BitstreamFormat,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { FormatFormComponent } from '../format-form/format-form.component';

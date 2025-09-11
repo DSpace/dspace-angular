@@ -1,23 +1,18 @@
-import {
-  CommonModule,
-  Location,
-} from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  RequestService,
+  NotificationsService,
+  RouteService,
+  WorkflowItemDataService,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';
 

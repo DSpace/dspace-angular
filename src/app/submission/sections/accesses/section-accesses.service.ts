@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { WorkspaceitemSectionAccessesObject } from '@dspace/core/submission/models/workspaceitem-section-accesses.model';
-import { isNotUndefined } from '@dspace/shared/utils/empty.util';
+import { WorkspaceitemSectionAccessesObject } from '@dspace/core'
+import { isNotUndefined } from '@dspace/utils';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter } from 'rxjs/operators';
 
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { SubmissionState } from '../../submission.reducers';

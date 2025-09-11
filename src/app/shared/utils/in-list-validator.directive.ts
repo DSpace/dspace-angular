@@ -1,14 +1,6 @@
-import {
-  Directive,
-  Input,
-} from '@angular/core';
-import {
-  NG_VALIDATORS,
-  UntypedFormControl,
-  ValidationErrors,
-  Validator,
-} from '@angular/forms';
-import { inListValidator } from '@dspace/shared/utils/validator.functions';
+import { Directive, Input } from '@angular/core';
+import { NG_VALIDATORS, UntypedFormControl, ValidationErrors, Validator } from '@angular/forms';
+import { inListValidator } from '@dspace/utils';
 
 /**
  * Directive for validating if a ngModel value is in a given list

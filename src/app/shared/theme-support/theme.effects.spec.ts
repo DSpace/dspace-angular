@@ -1,13 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { BASE_THEME_NAME } from '@dspace/config/theme.config';
+import { APP_CONFIG, BASE_THEME_NAME } from '@dspace/config';
 import { ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  cold,
-  hot,
-} from 'jasmine-marbles';
+import { cold, hot } from 'jasmine-marbles';
 
 import { SetThemeAction } from './theme.actions';
 import { ThemeEffects } from './theme.effects';

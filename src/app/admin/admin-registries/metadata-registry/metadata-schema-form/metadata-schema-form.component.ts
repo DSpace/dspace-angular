@@ -1,32 +1,16 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { MetadataSchema } from '@dspace/core'
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, Subscription } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';

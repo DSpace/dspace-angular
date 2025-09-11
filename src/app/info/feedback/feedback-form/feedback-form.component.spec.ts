@@ -1,27 +1,22 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { FeedbackDataService } from '@dspace/core/feedback/feedback-data.service';
-import { Feedback } from '@dspace/core/feedback/models/feedback.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { NativeWindowService } from '@dspace/core/services/window.service';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { EPersonMock } from '@dspace/core/testing/eperson.mock';
-import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
+import {
+  AuthService,
+  FeedbackDataService,
+  Feedback,
+  NotificationsService,
+  RouteService,
+  NativeWindowService,
+  AuthServiceStub,
+  EPersonMock,
+  NativeWindowMockFactory,
+  NotificationsServiceStub,
+  routeServiceStub,
+  RouterMock,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

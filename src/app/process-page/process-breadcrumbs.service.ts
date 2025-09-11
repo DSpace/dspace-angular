@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BreadcrumbsProviderService } from '@dspace/core/breadcrumbs/breadcrumbsProviderService';
-import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
-import { Process } from '@dspace/core/processes/process.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { BreadcrumbsProviderService, Breadcrumb, Process } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { Observable, of } from 'rxjs';
 
 /**
  * Service to calculate process breadcrumbs for a single part of the route

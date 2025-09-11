@@ -1,11 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { Component, Input } from '@angular/core';
+import { Context, Item, SearchResult, WorkflowItem } from '@dspace/core'
 
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
@@ -18,9 +12,7 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    ItemListPreviewComponent,
-  ],
+  imports: [],
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
   protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem'];

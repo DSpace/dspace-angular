@@ -1,23 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
-import {
-  NgbAccordionModule,
-  NgbNavModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { buildPaginatedList, PageInfo, createSuccessfulRemoteDataObject } from '@dspace/core'
+import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { SelectableObject } from '../../../shared/object-list/selectable-list/selectable-list.service.spec';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  SelectableListItemControlComponent,
+} from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import {
+  SelectableListService,
+} from '../../../shared/object-list/selectable-list/selectable-list.service';
+import {
+  SelectableObject,
+} from '../../../shared/object-list/selectable-list/selectable-list.service.spec';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';

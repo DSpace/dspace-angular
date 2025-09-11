@@ -1,24 +1,15 @@
-import {
-  DebugElement,
-  Pipe,
-  PipeTransform,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, Pipe, PipeTransform, PLATFORM_ID } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { FileService } from '@dspace/core/shared/file.service';
 import {
+  AuthService,
+  AuthorizationDataService,
+  RemoteData,
+  Bitstream,
+  FileService,
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

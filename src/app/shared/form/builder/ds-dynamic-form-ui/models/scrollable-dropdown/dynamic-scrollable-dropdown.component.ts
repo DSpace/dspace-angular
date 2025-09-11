@@ -12,47 +12,27 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
-import { FindAllDataImpl } from '@dspace/core/data/base/find-all-data';
 import {
+  CacheableObject,
+  FindAllDataImpl,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import {
+  RemoteData,
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
-} from '@dspace/core/data-services-map-type';
-import { lazyDataService } from '@dspace/core/lazy-data-service';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbDropdown,
-  NgbDropdownModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+  lazyDataService,
+  FormFieldMetadataValueObject,
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  VocabularyService,
+} from '@dspace/core'
+import { hasValue, isEmpty } from '@dspace/utils';
+import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
-import {
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  catchError,
-  distinctUntilChanged,
-  map,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, distinctUntilChanged, map, take, tap } from 'rxjs/operators';
 
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';

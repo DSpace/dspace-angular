@@ -1,15 +1,20 @@
 import { Routes } from '@angular/router';
-import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { authenticatedGuard, i18nBreadcrumbResolver } from '@dspace/core'
 
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
-import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
+import {
+  AdvancedWorkflowActionPageComponent,
+} from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 import { itemFromWorkflowResolver } from './item-from-workflow.resolver';
 import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcrumb.resolver';
-import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
+import {
+  ThemedWorkflowItemDeleteComponent,
+} from './workflow-item-delete/themed-workflow-item-delete.component';
 import { workflowItemPageResolver } from './workflow-item-page.resolver';
-import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
+import {
+  ThemedWorkflowItemSendBackComponent,
+} from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import {
   ADVANCED_WORKFLOW_PATH,
   WORKFLOW_ITEM_DELETE_PATH,

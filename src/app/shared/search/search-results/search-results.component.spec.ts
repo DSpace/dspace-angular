@@ -1,21 +1,16 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { Community } from '@dspace/core/shared/community.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { QueryParamsDirectiveStub } from '@dspace/core/testing/query-params-directive.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
-import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  Community,
+  ActivatedRouteStub,
+  QueryParamsDirectiveStub,
+  SearchConfigurationServiceStub,
+  SearchServiceStub,
+  createFailedRemoteDataObject,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ErrorComponent } from '../../error/error.component';
@@ -26,7 +21,9 @@ import { SearchService } from '../search.service';
 import { SearchConfigurationService } from '../search-configuration.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
-import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
+import {
+  SearchResultsSkeletonComponent,
+} from './search-results-skeleton/search-results-skeleton.component';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;

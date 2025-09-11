@@ -1,33 +1,12 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { RemoteData, currentPath, AppliedFilter, SearchFilterConfig } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../search.service';

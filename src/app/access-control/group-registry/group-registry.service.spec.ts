@@ -1,19 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import {
-  MockStore,
-  provideMockStore,
-} from '@ngrx/store/testing';
+import { Group } from '@dspace/core'
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { AppState } from '../../app.reducer';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction,
 } from './group-registry.actions';
-import {
-  editGroupSelector,
-  GroupRegistryService,
-} from './group-registry.service';
+import { editGroupSelector, GroupRegistryService } from './group-registry.service';
 
 describe('GroupRegistryService', () => {
   let service: GroupRegistryService;

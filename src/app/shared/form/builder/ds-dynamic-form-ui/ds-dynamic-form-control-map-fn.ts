@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core'
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
@@ -28,10 +28,14 @@ import {
 
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH,
+} from './models/custom-switch/custom-switch.model';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
-import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import {
+  DsDatePickerInlineComponent,
+} from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
@@ -43,9 +47,15 @@ import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
-import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
-import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import {
+  DsDynamicRelationGroupComponent,
+} from './models/relation-group/dynamic-relation-group.components';
+import {
+  DsDynamicScrollableDropdownComponent,
+} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN,
+} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 

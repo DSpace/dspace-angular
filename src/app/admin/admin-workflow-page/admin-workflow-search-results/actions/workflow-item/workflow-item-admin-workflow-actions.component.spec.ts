@@ -1,16 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { RemoteData, RequestEntryState, Item, WorkflowItem, URLCombiner } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -18,7 +10,9 @@ import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
+import {
+  WorkflowItemAdminWorkflowActionsComponent,
+} from './workflow-item-admin-workflow-actions.component';
 
 describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   let component: WorkflowItemAdminWorkflowActionsComponent;

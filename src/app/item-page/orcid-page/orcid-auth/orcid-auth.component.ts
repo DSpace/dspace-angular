@@ -9,26 +9,19 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
 import {
+  RemoteData,
+  NotificationsService,
+  OrcidAuthService,
+  ResearcherProfile,
   NativeWindowRef,
   NativeWindowService,
-} from '@dspace/core/services/window.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { createFailedRemoteDataObjectFromError$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  catchError,
-  Observable,
-} from 'rxjs';
+  Item,
+  getFirstCompletedRemoteData,
+  createFailedRemoteDataObjectFromError$,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, catchError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';

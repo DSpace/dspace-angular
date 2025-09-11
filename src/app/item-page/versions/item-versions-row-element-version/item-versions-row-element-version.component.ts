@@ -1,62 +1,40 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { VersionDataService } from '@dspace/core/data/version-data.service';
-import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import {
+  AuthorizationDataService,
+  FeatureID,
+  ItemDataService,
+  RemoteData,
+  VersionDataService,
+  VersionHistoryDataService,
+  NotificationsService,
+  Item,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { Version } from '@dspace/core/shared/version.model';
-import { VersionHistory } from '@dspace/core/shared/version-history.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+  Version,
+  VersionHistory,
+  WorkspaceItem,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  combineLatest,
-  concatMap,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  mergeMap,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { combineLatest, concatMap, Observable, of } from 'rxjs';
+import { map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   getItemEditVersionhistoryRoute,
   getItemVersionRoute,
 } from '../../item-page-routing-paths';
-import { ItemVersionsDeleteModalComponent } from '../item-versions-delete-modal/item-versions-delete-modal.component';
+import {
+  ItemVersionsDeleteModalComponent,
+} from '../item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSharedService } from '../item-versions-shared.service';
-import { ItemVersionsSummaryModalComponent } from '../item-versions-summary-modal/item-versions-summary-modal.component';
+import {
+  ItemVersionsSummaryModalComponent,
+} from '../item-versions-summary-modal/item-versions-summary-modal.component';
 
 @Component({
   selector: 'ds-item-versions-row-element-version',

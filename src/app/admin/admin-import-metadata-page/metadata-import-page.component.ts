@@ -5,20 +5,19 @@ import { Router } from '@angular/router';
 import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@dspace/core/data/processes/script-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  RemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
+import {
+  FileDropzoneNoUploaderComponent,
+} from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
   selector: 'ds-base-metadata-import-page',

@@ -1,27 +1,19 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router, RouterLink } from '@angular/router';
 import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
-import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+  PaginationService,
+  PaginationComponentOptions,
+  FacetValue,
+  FilterType,
+  SearchFilterConfig,
+  PaginationServiceStub,
+  RouterStub,
+  SearchServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

@@ -1,8 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { Component, Input } from '@angular/core';
+import { SubmissionFormsModel } from '@dspace/core'
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
@@ -12,9 +9,7 @@ import { SubmissionSectionUploadFileComponent } from './section-upload-file.comp
   styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [
-    SubmissionSectionUploadFileComponent,
-  ],
+  imports: [],
 })
 export class ThemedSubmissionSectionUploadFileComponent
   extends ThemedComponent<SubmissionSectionUploadFileComponent> {

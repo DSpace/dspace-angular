@@ -1,27 +1,24 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { DSONameService, ViewMode } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import {
+  ThemedBadgesComponent,
+} from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
+import {
+  listableObjectComponent,
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  ItemSearchResultListElementComponent,
+} from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)

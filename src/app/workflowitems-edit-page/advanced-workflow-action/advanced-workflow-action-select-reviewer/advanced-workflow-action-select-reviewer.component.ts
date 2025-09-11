@@ -1,37 +1,30 @@
+import { AsyncPipe, Location, NgClass } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
-  AsyncPipe,
-  Location,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Params,
-  Router,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
-import { SelectReviewerAdvancedWorkflowInfo } from '@dspace/core/tasks/models/select-reviewer-advanced-workflow-info.model';
-import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  RequestService,
+  WorkflowActionDataService,
+  EPerson,
+  NotificationsService,
+  RouteService,
+  WorkflowItemDataService,
+  ClaimedTaskDataService,
+  SelectReviewerAdvancedWorkflowInfo,
+  WorkflowAction,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
+import {
+  EPersonListActionConfig,
+} from '../../../access-control/group-registry/group-form/members-list/members-list.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import {
+  AdvancedWorkflowActionComponent,
+} from '../advanced-workflow-action/advanced-workflow-action.component';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';

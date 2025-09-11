@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { ViewMode } from '@dspace/core'
 
-import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  MetadataRepresentationListElementComponent,
+} from '../metadata-representation-list-element.component';
 
 @Component({
   selector: 'ds-item-metadata-list-element',

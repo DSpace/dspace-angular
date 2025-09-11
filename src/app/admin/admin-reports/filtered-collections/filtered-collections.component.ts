@@ -1,20 +1,9 @@
 import { KeyValuePipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-} from '@angular/forms';
-import { RestRequestMethod } from '@dspace/config/rest-request-method';
-import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
-import {
-  NgbAccordion,
-  NgbAccordionModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { RestRequestMethod } from '@dspace/config';
+import { DspaceRestService, RawRestResponse } from '@dspace/core'
+import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';

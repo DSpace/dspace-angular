@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 
-import { AdminNotificationsPublicationClaimPageComponent } from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
-import { SuggestionSourcesComponent } from '../../notifications/suggestions/sources/suggestion-sources.component';
-import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page.component';
+import {
+  AdminNotificationsPublicationClaimPageComponent,
+} from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+import {
+  SuggestionSourcesComponent,
+} from '../../notifications/suggestions/sources/suggestion-sources.component';
+import {
+  NotificationsSuggestionTargetsPageComponent,
+} from './notifications-suggestion-targets-page.component';
 
 describe('NotificationsSuggestionTargetsPageComponent', () => {
   let component: NotificationsSuggestionTargetsPageComponent;

@@ -1,17 +1,14 @@
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { RouteService } from '@dspace/core/services/route.service';
-import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
-import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+  RouteService,
+  FilterType,
+  SearchFilterConfig,
+  SearchOptions,
+  routeServiceStub,
+  SearchServiceStub,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 

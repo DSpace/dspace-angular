@@ -1,4 +1,4 @@
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthMethodType } from '@dspace/core'
 
 import { AuthMethodTypeComponent } from './auth-methods.type';
 

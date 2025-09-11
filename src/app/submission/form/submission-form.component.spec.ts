@@ -1,32 +1,24 @@
+import { ChangeDetectorRef, Component, SimpleChange } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  ChangeDetectorRef,
-  Component,
-  SimpleChange,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { VisibilityType } from '@dspace/core/submission/visibility-type';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
+  AuthService,
+  HALEndpointService,
+  Item,
+  VisibilityType,
+  AuthServiceStub,
+  HALEndpointServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
+import {
+  ThemedSubmissionSectionContainerComponent,
+} from '../sections/container/themed-section-container.component';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
 import {
@@ -39,11 +31,19 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
 } from '../utils/submission.mock';
-import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
-import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
-import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
+import {
+  SubmissionFormCollectionComponent,
+} from './collection/submission-form-collection.component';
+import {
+  ThemedSubmissionFormFooterComponent,
+} from './footer/themed-submission-form-footer.component';
+import {
+  SubmissionFormSectionAddComponent,
+} from './section-add/submission-form-section-add.component';
 import { SubmissionFormComponent } from './submission-form.component';
-import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
+import {
+  ThemedSubmissionUploadFilesComponent,
+} from './submission-upload-files/themed-submission-upload-files.component';
 
 describe('SubmissionFormComponent', () => {
 

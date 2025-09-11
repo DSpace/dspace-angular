@@ -1,38 +1,20 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { toFindListOptions } from '@dspace/core/pagination/pagination.utils';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-  zip,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+  PaginatedList,
+  RemoteData,
+  MetadataSchema,
+  NotificationsService,
+  PaginationService,
+  toFindListOptions,
+  PaginationComponentOptions,
+  NoContent,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, Subscription, zip } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { RegistryService } from '../registry/registry.service';

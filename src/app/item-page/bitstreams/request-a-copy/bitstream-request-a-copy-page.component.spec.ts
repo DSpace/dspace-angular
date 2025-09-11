@@ -1,46 +1,33 @@
-import {
-  CommonModule,
-  Location,
-} from '@angular/common';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { CommonModule, Location } from '@angular/common';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RestResponse } from '@dspace/core/cache/response.models';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { RequestEntry } from '@dspace/core/data/request-entry.model';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ITEM } from '@dspace/core/shared/item.resource-type';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import {
+  AuthService,
+  DSONameService,
+  RestResponse,
+  BitstreamDataService,
+  AuthorizationDataService,
+  ItemRequestDataService,
+  RequestService,
+  RequestEntry,
+  APP_DATA_SERVICES_MAP,
+  EPerson,
+  NotificationsService,
+  Bitstream,
+  Item,
+  ITEM,
+  ItemRequest,
+  DSONameServiceMock,
+  NotificationsServiceStub,
+  getMockRequestService,
+  RouterStub,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -49,7 +36,7 @@ import { of } from 'rxjs';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('@dspace/core/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('../../../../projects/dspace/core/src/lib/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 describe('BitstreamRequestACopyPageComponent', () => {

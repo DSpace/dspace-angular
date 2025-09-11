@@ -1,49 +1,31 @@
 import { HttpHeaders } from '@angular/common/http';
+import { fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  fakeAsync,
-  flush,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ErrorResponse } from '@dspace/core/cache/response.models';
-import { RequestService } from '@dspace/core/data/request.service';
-import { RequestError } from '@dspace/core/data/request-error.model';
-import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
-import { SubmissionRestServiceStub } from '@dspace/core/testing/submission-rest-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+  ErrorResponse,
+  RequestService,
+  RequestError,
+  HttpOptions,
+  NotificationsService,
+  RouteService,
+  Item,
+  SectionScope,
+  SubmissionJsonPatchOperationsService,
+  SubmissionRestService,
+  SubmissionScopeType,
+  MockActivatedRoute,
+  getMockRequestService,
+  RouterMock,
+  getMockSearchService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionRestServiceStub,
+  TranslateLoaderMock,
+  createFailedRemoteDataObject,
+} from '@dspace/core'
 import { StoreModule } from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
-import {
-  of,
-  throwError as observableThrowError,
-} from 'rxjs';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { of, throwError as observableThrowError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../environments/environment';
@@ -63,10 +45,7 @@ import {
 } from './objects/submission-objects.actions';
 import { submissionReducers } from './submission.reducers';
 import { SubmissionService } from './submission.service';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse,
-} from './utils/submission.mock';
+import { mockSubmissionDefinition, mockSubmissionRestResponse } from './utils/submission.mock';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';

@@ -1,23 +1,17 @@
+import { Component, Injector, Input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Injector,
-  Input,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+  RequestService,
+  NotificationsService,
+  WorkflowItem,
+  WorkflowItemDataService,
+} from '@dspace/core'
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import {
+  getWorkflowItemViewRoute,
+} from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SearchService } from '../../search/search.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 

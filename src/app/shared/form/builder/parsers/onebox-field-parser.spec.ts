@@ -1,5 +1,4 @@
-import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { FormFieldModel, getMockTranslateService } from '@dspace/core'
 
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';

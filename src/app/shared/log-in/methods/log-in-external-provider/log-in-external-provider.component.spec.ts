@@ -1,23 +1,18 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthMethod } from '@dspace/core/auth/models/auth.method';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { NativeWindowService } from '@dspace/core/services/window.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
-import { RouterStub } from '@dspace/core/testing/router.stub';
+  authReducer,
+  AuthService,
+  AuthMethod,
+  AuthMethodType,
+  HardRedirectService,
+  NativeWindowService,
+  ActivatedRouteStub,
+  AuthServiceStub,
+  NativeWindowMockFactory,
+  RouterStub,
+} from '@dspace/core'
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';

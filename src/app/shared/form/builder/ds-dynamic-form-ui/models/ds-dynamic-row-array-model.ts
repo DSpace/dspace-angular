@@ -1,5 +1,5 @@
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { RelationshipOptions } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import {
   DynamicFormArrayModel,
   DynamicFormArrayModelConfig,

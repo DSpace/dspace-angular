@@ -1,45 +1,37 @@
 import { Injectable } from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { getBitstreamDownloadRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import { Bundle } from '@dspace/core/shared/bundle.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
+  DSONameService,
+  BitstreamDataService,
+  BundleDataService,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  ObjectUpdatesService,
+  RemoteData,
+  RequestService,
+  NotificationsService,
+  PaginationComponentOptions,
+  getBitstreamDownloadRoute,
+  Bitstream,
+  BitstreamFormat,
+  Bundle,
+  NoContent,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { MoveOperation } from 'fast-json-patch';
-import {
-  BehaviorSubject,
-  Observable,
-  zip as observableZip,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, zip as observableZip } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
-import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
+import {
+  ResponsiveColumnSizes,
+} from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import {
+  ResponsiveTableSizes,
+} from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 export const MOVE_KEY = 'item.edit.bitstreams.notifications.move';
 

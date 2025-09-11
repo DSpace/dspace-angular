@@ -1,17 +1,13 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  NotifyInfoService,
+  AuthorizationDataService,
+  ActivatedRouteStub,
+  AuthorizationDataServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

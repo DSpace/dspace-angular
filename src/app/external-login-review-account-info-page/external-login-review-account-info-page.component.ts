@@ -1,18 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { hasNoValue } from '@dspace/shared/utils/empty.util';
-import {
-  first,
-  map,
-  Observable,
-  tap,
-} from 'rxjs';
+import { RemoteData, Registration } from '@dspace/core'
+import { hasNoValue } from '@dspace/utils';
+import { first, map, Observable, tap } from 'rxjs';
 
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';

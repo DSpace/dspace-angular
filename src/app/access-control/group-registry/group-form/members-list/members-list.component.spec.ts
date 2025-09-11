@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -12,59 +9,43 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RestResponse } from '@dspace/core/cache/response.models';
-import {
+  DSONameService,
+  RestResponse,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import {
+  RemoteData,
+  EPersonDataService,
+  GroupDataService,
+  EPerson,
+  Group,
+  NotificationsService,
+  PaginationService,
+  PageInfo,
+  ActivatedRouteStub,
+  DSONameServiceMock,
   EPersonMock,
   EPersonMock2,
-} from '@dspace/core/testing/eperson.mock';
-import { GroupMock } from '@dspace/core/testing/group-mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  GroupMock,
+  NotificationsServiceStub,
+  PaginationServiceStub,
+  RouterMock,
+  getMockTranslateService,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../shared/form/testing/form-builder-service.mock';
+import {
+  getMockFormBuilderService,
+} from '../../../../shared/form/testing/form-builder-service.mock';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { GroupRegistryService } from '../../group-registry.service';
 import { MembersListComponent } from './members-list.component';

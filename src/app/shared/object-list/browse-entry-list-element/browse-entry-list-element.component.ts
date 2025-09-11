@@ -1,23 +1,25 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Params, RouterLink } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  Params,
-  RouterLink,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { RouteService } from '@dspace/core/services/route.service';
-import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+  DSONameService,
+  PaginationService,
+  RouteService,
+  BrowseEntry,
+  ViewMode,
+} from '@dspace/core'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata/browse-by-metadata.component';
-import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import {
+  BBM_PAGINATION_ID,
+} from '../../../browse-by/browse-by-metadata/browse-by-metadata.component';
+import {
+  listableObjectComponent,
+} from '../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  AbstractListableElementComponent,
+} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
   selector: 'ds-browse-entry-list-element',

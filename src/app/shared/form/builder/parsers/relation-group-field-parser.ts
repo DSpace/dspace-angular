@@ -1,8 +1,10 @@
-import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
-import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  FormRowModel,
+  PLACEHOLDER_PARENT_METADATA,
+  FormFieldModel,
+  FormFieldMetadataValueObject,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 
 import {
   DynamicRelationGroupModel,

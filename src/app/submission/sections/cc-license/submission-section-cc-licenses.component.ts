@@ -8,48 +8,28 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import {
+  ConfigurationDataService,
+  FindListOptions,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
   Field,
   Option,
   SubmissionCcLicence,
-} from '@dspace/core/submission/models/submission-cc-license.model';
-import { WorkspaceitemSectionCcLicenseObject } from '@dspace/core/submission/models/workspaceitem-section-cc-license.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { SubmissionCcLicenseDataService } from '@dspace/core/submission/submission-cc-license-data.service';
-import { SubmissionCcLicenseUrlDataService } from '@dspace/core/submission/submission-cc-license-url-data.service';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbDropdownModule,
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  WorkspaceitemSectionCcLicenseObject,
+  SectionsType,
+  SubmissionCcLicenseDataService,
+  SubmissionCcLicenseUrlDataService,
+} from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
+import { NgbDropdownModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
 
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

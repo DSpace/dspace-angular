@@ -1,36 +1,23 @@
 import { CommonModule } from '@angular/common';
-import {
-  EventEmitter,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { NativeWindowService } from '@dspace/core/services/window.service';
-import { Registration } from '@dspace/core/shared/registration.model';
 import {
+  AuthService,
+  AuthMethodType,
+  EPersonDataService,
+  EPerson,
+  NotificationsService,
+  HardRedirectService,
+  NativeWindowService,
+  Registration,
   MockWindow,
   NativeWindowMockFactory,
-} from '@dspace/core/testing/mock-native-window-ref';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ExternalLoginService } from '../../services/external-login.service';

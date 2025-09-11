@@ -1,29 +1,28 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Item } from '@dspace/core/shared/item.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { Store } from '@ngrx/store';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  Item,
+  Relationship,
+  ReorderableRelationship,
+  ItemSearchResult,
+  RelationshipOptions,
+  ActivatedRouteStub,
+  SubmissionServiceStub,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { Store } from '@ngrx/store';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SubmissionService } from '../../../../../submission/submission.service';
-import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import {
+  ItemSearchResultListElementComponent,
+} from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import {
+  SelectableListService,
+} from '../../../../object-list/selectable-list/selectable-list.service';
 import { getMockThemeService } from '../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';

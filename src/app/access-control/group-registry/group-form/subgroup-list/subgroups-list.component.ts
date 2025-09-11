@@ -1,47 +1,25 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  DSONameService,
+  PaginatedList,
+  RemoteData,
+  GroupDataService,
+  Group,
+  NotificationsService,
+  PaginationService,
+  PaginationComponentOptions,
+  followLink,
+  NoContent,
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+  PageInfo,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

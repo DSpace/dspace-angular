@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  DOCUMENT,
-  isPlatformBrowser,
-} from '@angular/common';
+import { AsyncPipe, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,38 +8,19 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import {
-  NavigationCancel,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { isAuthenticationBlocking } from '@dspace/core/auth/selectors';
-import {
+  AuthService,
+  isAuthenticationBlocking,
   NativeWindowRef,
   NativeWindowService,
-} from '@dspace/core/services/window.service';
-import { distinctNext } from '@dspace/core/shared/distinct-next';
-import {
-  NgbModal,
-  NgbModalConfig,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+  distinctNext,
+} from '@dspace/core'
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
-import {
-  delay,
-  distinctUntilChanged,
-  take,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { delay, distinctUntilChanged, take, withLatestFrom } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { ThemedRootComponent } from './root/themed-root.component';

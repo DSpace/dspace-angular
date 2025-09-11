@@ -1,23 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { ViewMode, SearchServiceStub, TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { SearchService } from '../search/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';

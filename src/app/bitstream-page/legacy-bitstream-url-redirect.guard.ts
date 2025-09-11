@@ -6,13 +6,15 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
-import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { hasNoValue } from '@dspace/shared/utils/empty.util';
+import {
+  BitstreamDataService,
+  RemoteData,
+  PAGE_NOT_FOUND_PATH,
+  HardRedirectService,
+  Bitstream,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { hasNoValue } from '@dspace/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

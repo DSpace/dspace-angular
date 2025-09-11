@@ -7,22 +7,21 @@
  */
 
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import {
+  AuthorizationDataService,
+  FeatureID,
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '@dspace/core/data/processes/script-data.service';
+} from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest as observableCombineLatest,
-  map,
-  Observable,
-  of,
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, map, Observable, of } from 'rxjs';
 
-import { ExportBatchSelectorComponent } from '../../dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
-import { ExportMetadataSelectorComponent } from '../../dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import {
+  ExportBatchSelectorComponent,
+} from '../../dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import {
+  ExportMetadataSelectorComponent,
+} from '../../dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';

@@ -1,13 +1,10 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFilterByRelation } from '@dspace/core/utilities/relation-query.utils';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { Component, Input, OnInit } from '@angular/core';
+import { Item, getFilterByRelation } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 
-import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
+import {
+  ThemedConfigurationSearchPageComponent,
+} from '../../../../search-page/themed-configuration-search-page.component';
 
 @Component({
   selector: 'ds-related-entities-search',

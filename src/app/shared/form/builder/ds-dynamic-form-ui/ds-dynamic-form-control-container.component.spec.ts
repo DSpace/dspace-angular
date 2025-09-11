@@ -1,15 +1,5 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement,
-  NgZone,
-  SimpleChange,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -17,13 +7,15 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { Item } from '@dspace/core/shared/item.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  RelationshipDataService,
+  APP_DATA_SERVICES_MAP,
+  Item,
+  WorkspaceItem,
+  VocabularyOptions,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -67,15 +59,21 @@ import { of } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../object-list/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';
-import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
+import {
+  DsDynamicFormControlContainerComponent,
+} from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
-import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import {
+  DsDatePickerInlineComponent,
+} from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
@@ -86,10 +84,16 @@ import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
 import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
 import { DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
-import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
+import {
+  DsDynamicRelationGroupComponent,
+} from './models/relation-group/dynamic-relation-group.components';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
-import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import {
+  DsDynamicScrollableDropdownComponent,
+} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import {
+  DynamicScrollableDropdownModel,
+} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
 

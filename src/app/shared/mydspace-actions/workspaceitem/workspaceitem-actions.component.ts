@@ -1,43 +1,27 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Injector,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
+  AuthService,
+  AuthorizationDataService,
+  FeatureID,
+  RemoteData,
+  RequestService,
+  NotificationsService,
+  Item,
+  NoContent,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
-import {
-  NgbModal,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  switchMap,
-} from 'rxjs';
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core'
+import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
-import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
+import {
+  getWorkspaceItemViewRoute,
+} from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 import { SearchService } from '../../search/search.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 

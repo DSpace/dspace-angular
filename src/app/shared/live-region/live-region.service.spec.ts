@@ -1,12 +1,11 @@
-import {
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { fakeAsync, tick } from '@angular/core/testing';
+import { UUIDService } from '@dspace/core'
 import { of } from 'rxjs';
 
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
-import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
+import {
+  getAccessibilitySettingsServiceStub,
+} from '../../accessibility/accessibility-settings.service.stub';
 import { LiveRegionService } from './live-region.service';
 
 describe('liveRegionService', () => {

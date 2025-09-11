@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UUIDService } from '@dspace/core/shared/uuid.service';
-import {
-  BehaviorSubject,
-  map,
-  Observable,
-  switchMap,
-  take,
-  timer,
-} from 'rxjs';
+import { UUIDService } from '@dspace/core'
+import { BehaviorSubject, map, Observable, switchMap, take, timer } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';

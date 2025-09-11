@@ -1,32 +1,23 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { LogOutAction } from '@dspace/core/auth/auth.actions';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { EndUserAgreementService } from '@dspace/core/end-user-agreement/end-user-agreement.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+  LogOutAction,
+  AuthService,
+  EndUserAgreementService,
+  NotificationsService,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { Store } from '@ngrx/store';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
+import {
+  EndUserAgreementContentComponent,
+} from './end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
   selector: 'ds-base-end-user-agreement',

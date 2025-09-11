@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  ItemDataService,
+  RemoteData,
+  NotificationsService,
+  Item,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
-import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../modify-item-overview/modify-item-overview.component';
+import {
+  AbstractSimpleItemActionComponent,
+} from '../simple-item-action/abstract-simple-item-action.component';
 
 @Component({
   selector: 'ds-item-withdraw',

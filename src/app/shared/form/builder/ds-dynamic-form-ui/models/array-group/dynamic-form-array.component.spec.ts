@@ -1,14 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter } from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { APP_CONFIG } from '@dspace/config';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core'
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,
@@ -17,10 +13,7 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
@@ -28,7 +21,9 @@ import { LiveRegionService } from 'src/app/shared/live-region/live-region.servic
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
-import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
+import {
+  DsDynamicFormControlContainerComponent,
+} from '../../ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { DsDynamicFormArrayComponent } from './dynamic-form-array.component';

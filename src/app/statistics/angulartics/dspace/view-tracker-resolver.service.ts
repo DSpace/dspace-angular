@@ -1,17 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveEnd,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { ReferrerService } from '@dspace/core/services/referrer.service';
+import { ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot } from '@angular/router';
+import { ReferrerService } from '@dspace/core'
 import { Angulartics2 } from 'angulartics2';
 import { switchMap } from 'rxjs';
-import {
-  filter,
-  take,
-} from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 
 /**
  * This component triggers a page view statistic

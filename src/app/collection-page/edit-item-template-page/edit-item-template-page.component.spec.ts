@@ -1,24 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
+  ItemTemplateDataService,
+  NotificationsService,
+  Collection,
+  NotificationsServiceStub,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import {
+  ThemedDsoEditMetadataComponent,
+} from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';

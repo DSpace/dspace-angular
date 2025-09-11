@@ -1,40 +1,44 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { FileService } from '@dspace/core/shared/file.service';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { FileServiceStub } from '@dspace/core/testing/file-service.stub';
-import { TruncatableServiceStub } from '@dspace/core/testing/truncatable-service.stub';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  AuthService,
+  DSONameService,
+  AuthorizationDataService,
+  Context,
+  FileService,
+  GenericConstructor,
+  ListableObject,
+  ViewMode,
+  ActivatedRouteStub,
+  AuthServiceStub,
+  AuthorizationDataServiceStub,
+  DSONameServiceMock,
+  FileServiceStub,
+  TruncatableServiceStub,
+  XSRFService,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment.test';
-import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import {
+  DynamicComponentLoaderDirective,
+} from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { ListableModule } from '../../../listable.module';
-import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
-import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
+import {
+  ItemListElementComponent,
+} from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
+import {
+  SearchResultListElementComponent,
+} from '../../../object-list/search-result-list-element/search-result-list-element.component';
 import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from './listable-object-component-loader.component';
 
 const testType = 'TestType';
 const testContext = Context.Search;

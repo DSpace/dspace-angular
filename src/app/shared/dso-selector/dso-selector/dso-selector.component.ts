@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -13,43 +10,29 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormControl,
-} from '@angular/forms';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
-import {
+  DSONameService,
+  SortOptions,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import { ListableNotificationObject } from '@dspace/core/shared/listable-notification-object.model';
-import { LISTABLE_NOTIFICATION_OBJECT } from '@dspace/core/shared/object-collection/listable-notification-object.resource-type';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import {
+  RemoteData,
+  NotificationType,
+  NotificationsService,
+  Context,
+  DSpaceObject,
+  DSpaceObjectType,
+  ListableNotificationObject,
+  LISTABLE_NOTIFICATION_OBJECT,
+  ListableObject,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  PaginatedSearchOptions,
+  SearchResult,
+  ViewMode,
+} from '@dspace/core'
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
@@ -58,18 +41,14 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import {
-  debounceTime,
-  map,
-  startWith,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchService } from '../../search/search.service';
 
 @Component({

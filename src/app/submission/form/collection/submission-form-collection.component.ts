@@ -11,37 +11,31 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  CollectionDataService,
+  RemoteData,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  Collection,
+  getFirstSucceededRemoteDataPayload,
+  SubmissionObject,
+  SectionsType,
+  SubmissionJsonPatchOperationsService,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  find,
-  map,
-  mergeMap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { find, map, mergeMap } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
+import {
+  CollectionDropdownComponent,
+} from '../../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  ThemedCollectionDropdownComponent,
+} from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 

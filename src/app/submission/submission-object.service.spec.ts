@@ -1,11 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  RemoteData,
+  HALEndpointService,
+  SubmissionObject,
+  SubmissionScopeType,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core'
 
 import { SubmissionService } from './submission.service';
 import { SubmissionObjectService } from './submission-object.service';

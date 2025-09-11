@@ -1,26 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '@dspace/core/services/window.service';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  mockTruncatableService,
+  getMockTranslateService,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { TruncatableService } from '../truncatable.service';

@@ -1,32 +1,22 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
-  ActivatedRoute,
-  RouterLink,
-} from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import {
+  AuthorizationDataService,
+  FeatureID,
+  APP_DATA_SERVICES_MAP,
   getBitstreamModuleRoute,
   getItemModuleRoute,
-} from '@dspace/core/router/core-routing-paths';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { RouterLinkDirectiveStub } from '@dspace/core/testing/router-link-directive.stub';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+  Bitstream,
+  Item,
+  ItemRequest,
+  ActivatedRouteStub,
+  RouterLinkDirectiveStub,
+  URLCombiner,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 

@@ -1,27 +1,19 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  DSONameService,
+  LinkService,
+  RemoteData,
+  Collection,
+  followLink,
+  getFirstCompletedRemoteData,
+  WorkflowItem,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  Observable,
-} from 'rxjs';
-import {
-  map,
-  mergeMap,
-} from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 /**
  * This component represents a badge with collection information.

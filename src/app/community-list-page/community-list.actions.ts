@@ -1,4 +1,4 @@
-import { type } from '@dspace/core/ngrx/type';
+import { type } from '@dspace/core'
 import { Action } from '@ngrx/store';
 
 import { FlatNode } from './flat-node.model';

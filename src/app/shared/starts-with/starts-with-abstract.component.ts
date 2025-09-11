@@ -1,19 +1,8 @@
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PaginationService } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { Subscription } from 'rxjs';
 
 import { StartsWithType } from './starts-with-type';

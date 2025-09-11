@@ -1,20 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  NO_ERRORS_SCHEMA,
-  Pipe,
-  PipeTransform,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  EntityTypeDataService,
+  ItemType,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';

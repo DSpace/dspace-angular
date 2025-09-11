@@ -1,4 +1,4 @@
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormat } from '@dspace/core'
 
 import {
   BitstreamFormatsRegistryAction,

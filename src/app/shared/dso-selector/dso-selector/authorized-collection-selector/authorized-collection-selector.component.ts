@@ -1,42 +1,32 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import {
+  DSONameService,
+  CollectionDataService,
+  FindListOptions,
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  RemoteData,
+  NotificationsService,
+  Collection,
+  DSpaceObject,
+  followLink,
+  CollectionSearchResult,
+  getFirstCompletedRemoteData,
+  SearchResult,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchService } from '../../../search/search.service';
 import { DSOSelectorComponent } from '../dso-selector.component';
 

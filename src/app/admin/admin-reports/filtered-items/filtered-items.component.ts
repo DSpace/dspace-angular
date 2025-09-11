@@ -1,9 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -11,44 +7,35 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RestRequestMethod } from '@dspace/config/rest-request-method';
-import { CollectionDataService } from '@dspace/core/data/collection-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '@dspace/core/data/metadata-schema-data.service';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
-import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { RestRequestMethod } from '@dspace/config';
 import {
-  NgbAccordion,
-  NgbAccordionModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  map,
-  Observable,
-} from 'rxjs';
+  CollectionDataService,
+  CommunityDataService,
+  AuthorizationDataService,
+  MetadataFieldDataService,
+  MetadataSchemaDataService,
+  ScriptDataService,
+  DspaceRestService,
+  RawRestResponse,
+  MetadataField,
+  MetadataSchema,
+  Collection,
+  Community,
+  getFirstSucceededRemoteListPayload,
+} from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
+import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
-import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv/filtered-items-export-csv.component';
 import {
-  FilteredItem,
-  FilteredItems,
-} from './filtered-items-model';
+  FilteredItemsExportCsvComponent,
+} from './filtered-items-export-csv/filtered-items-export-csv.component';
+import { FilteredItem, FilteredItems } from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';

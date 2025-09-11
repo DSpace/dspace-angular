@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,13 +9,13 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+  PaginatedList,
+  RemoteData,
+  PaginationComponentOptions,
+  Context,
+  ListableObject,
+  ViewMode,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -24,7 +23,9 @@ import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { TabulatableObjectsLoaderComponent } from '../object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
+import {
+  TabulatableObjectsLoaderComponent,
+} from '../object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({

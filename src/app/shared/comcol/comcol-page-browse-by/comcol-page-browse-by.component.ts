@@ -1,47 +1,21 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { EventType, NavigationEnd, Router, RouterLink, Scroll } from '@angular/router';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  EventType,
-  NavigationEnd,
-  Router,
-  RouterLink,
-  Scroll,
-} from '@angular/router';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { BrowseService } from '@dspace/core/browse/browse.service';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import {
+  BrowseService,
+  PaginatedList,
+  RemoteData,
   getCollectionPageRoute,
   getCommunityPageRoute,
-} from '@dspace/core/router/utils/dso-route.utils';
-import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+  BrowseDefinition,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  startWith,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, startWith, take } from 'rxjs/operators';
 
 export interface ComColPageNavOption {
   id: string;

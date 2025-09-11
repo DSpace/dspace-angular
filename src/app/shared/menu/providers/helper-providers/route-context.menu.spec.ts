@@ -7,15 +7,9 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CacheableObject } from '@dspace/core'
+import { Observable, of } from 'rxjs';
 
 import { MenuID } from '../../menu-id.model';
 import { MenuItemType } from '../../menu-item-type.model';

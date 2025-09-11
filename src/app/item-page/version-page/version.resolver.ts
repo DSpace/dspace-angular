@@ -1,18 +1,14 @@
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { VersionDataService } from '@dspace/core/data/version-data.service';
-import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
-import {
+  RemoteData,
+  VersionDataService,
+  ResolvedAction,
   followLink,
   FollowLinkConfig,
-} from '@dspace/core/shared/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { Version } from '@dspace/core/shared/version.model';
+  getFirstCompletedRemoteData,
+  Version,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

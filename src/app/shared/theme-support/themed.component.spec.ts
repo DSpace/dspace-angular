@@ -1,14 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { ThemeConfig } from '@dspace/config/theme.config';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ThemeConfig } from '@dspace/config';
 
 import { VarDirective } from '../utils/var.directive';
 import { TestComponent } from './test/test.component.spec';

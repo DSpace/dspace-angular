@@ -1,16 +1,17 @@
+import { Component, OnInit } from '@angular/core';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Metadata } from '@dspace/core/shared/metadata.utils';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  BitstreamDataService,
+  DSpaceObject,
+  Metadata,
+  SearchResult,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { Observable } from 'rxjs';
 
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import {
+  AbstractListableElementComponent,
+} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 
 @Component({

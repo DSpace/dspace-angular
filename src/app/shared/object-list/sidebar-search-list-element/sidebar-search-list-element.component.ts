@@ -1,36 +1,27 @@
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  DSONameService,
+  LinkService,
+  RemoteData,
+  ChildHALResource,
+  Context,
+  DSpaceObject,
+  followLink,
+  SearchResult,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  find,
-  map,
-} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { find, map } from 'rxjs/operators';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';
-import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
-import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
+import {
+  TruncatablePartComponent,
+} from '../../truncatable/truncatable-part/truncatable-part.component';
+import {
+  SearchResultListElementComponent,
+} from '../search-result-list-element/search-result-list-element.component';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',

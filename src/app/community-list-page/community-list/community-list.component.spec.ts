@@ -1,8 +1,5 @@
 import { CdkTreeModule } from '@angular/cdk/tree';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement,
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -14,31 +11,25 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  buildPaginatedList,
+  Collection,
+  Community,
+  PageInfo,
+  TranslateLoaderMock,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { isEmpty, isNotEmpty } from '@dspace/utils';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 import {
-  CommunityListService,
-  showMoreFlatNode,
-  toFlatNode,
-} from '../community-list-service';
+  TruncatablePartComponent,
+} from '../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { CommunityListService, showMoreFlatNode, toFlatNode } from '../community-list-service';
 import { FlatNode } from '../flat-node.model';
 import { CommunityListComponent } from './community-list.component';
 

@@ -1,21 +1,23 @@
-import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { Item } from '@dspace/core/shared/item.model';
-import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
-import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
-import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
-import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
-import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
-import { WorkspaceItemSearchResult } from '@dspace/core/shared/object-collection/workspace-item-search-result.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
-import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import {
+  AdminNotifyMessage,
+  AdminNotifySearchResult,
+  Collection,
+  Community,
+  GenericConstructor,
+  Item,
+  ClaimedTaskSearchResult,
+  CollectionSearchResult,
+  CommunitySearchResult,
+  ItemSearchResult,
+  ListableObject,
+  PoolTaskSearchResult,
+  WorkflowItemSearchResult,
+  WorkspaceItemSearchResult,
+  WorkflowItem,
+  WorkspaceItem,
+  ClaimedTask,
+  PoolTask,
+} from '@dspace/core'
 
 /**
  * Contains the mapping between a search result component and a DSpaceObject

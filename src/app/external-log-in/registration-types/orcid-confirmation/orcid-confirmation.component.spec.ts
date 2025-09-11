@@ -1,20 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import {
-  FormBuilder,
-  FormGroup,
-} from '@angular/forms';
-import { Registration } from '@dspace/core/shared/registration.model';
-import { BrowserOnlyMockPipe } from '@dspace/core/testing/browser-only-mock.pipe';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Registration, BrowserOnlyMockPipe, TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
 import { OrcidConfirmationComponent } from './orcid-confirmation.component';

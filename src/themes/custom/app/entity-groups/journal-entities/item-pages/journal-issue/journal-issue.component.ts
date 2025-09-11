@@ -1,19 +1,36 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Context } from '@dspace/core/shared/context.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { Context, ViewMode } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
-import { JournalIssueComponent as BaseComponent } from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
-import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
-import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
-import { RelatedItemsComponent } from '../../../../../../../app/item-page/simple/related-items/related-items-component';
-import { DsoEditMenuComponent } from '../../../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ThemedResultsBackButtonComponent } from '../../../../../../../app/shared/results-back-button/themed-results-back-button.component';
-import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
+import {
+  JournalIssueComponent as BaseComponent,
+} from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
+import {
+  GenericItemPageFieldComponent,
+} from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import {
+  ThemedItemPageTitleFieldComponent,
+} from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
+import {
+  RelatedItemsComponent,
+} from '../../../../../../../app/item-page/simple/related-items/related-items-component';
+import {
+  DsoEditMenuComponent,
+} from '../../../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  MetadataFieldWrapperComponent,
+} from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  listableObjectComponent,
+} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  ThemedResultsBackButtonComponent,
+} from '../../../../../../../app/shared/results-back-button/themed-results-back-button.component';
+import {
+  ThemedThumbnailComponent,
+} from '../../../../../../../app/thumbnail/themed-thumbnail.component';
 
 @listableObjectComponent('JournalIssue', ViewMode.StandalonePage, Context.Any, 'custom')
 @Component({

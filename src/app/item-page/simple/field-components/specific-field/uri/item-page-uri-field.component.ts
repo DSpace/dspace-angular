@@ -1,10 +1,9 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { Item } from '@dspace/core/shared/item.model';
+import { Component, Input } from '@angular/core';
+import { Item } from '@dspace/core'
 
-import { MetadataUriValuesComponent } from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
+import {
+  MetadataUriValuesComponent,
+} from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({

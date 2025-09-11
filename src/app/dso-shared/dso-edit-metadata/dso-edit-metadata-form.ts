@@ -1,23 +1,15 @@
 /* eslint-disable max-classes-per-file */
-import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
-import { MetadataPatchAddOperation } from '@dspace/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
-import { MetadataPatchMoveOperation } from '@dspace/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
-import { MetadataPatchRemoveOperation } from '@dspace/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
-import { MetadataPatchReplaceOperation } from '@dspace/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
 import {
+  ArrayMoveChangeAnalyzer,
+  MetadataPatchAddOperation,
+  MetadataPatchMoveOperation,
+  MetadataPatchRemoveOperation,
+  MetadataPatchReplaceOperation,
   MetadataMap,
   MetadataValue,
-} from '@dspace/core/shared/metadata.models';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  MoveOperation,
-  Operation,
-} from 'fast-json-patch';
+} from '@dspace/core'
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '@dspace/utils';
+import { MoveOperation, Operation } from 'fast-json-patch';
 
 /**
  * Enumeration for the type of change occurring on a metadata value

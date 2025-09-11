@@ -1,48 +1,48 @@
-import {
-  EventEmitter,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { ExternalSource } from '@dspace/core/shared/external-source.model';
-import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  ExternalSourceDataService,
+  PaginationService,
+  Collection,
+  ExternalSource,
+  ExternalSourceEntry,
+  Item,
+  ItemType,
+  RelationshipOptions,
+  PaginatedSearchOptions,
+  PaginationServiceStub,
+  createPaginatedList,
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  of,
-} from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
-import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import {
+  ObjectCollectionComponent,
+} from '../../../../../object-collection/object-collection.component';
+import {
+  SelectableListService,
+} from '../../../../../object-list/selectable-list/selectable-list.service';
+import {
+  PageSizeSelectorComponent,
+} from '../../../../../page-size-selector/page-size-selector.component';
 import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
-import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import {
+  DsDynamicLookupRelationExternalSourceTabComponent,
+} from './dynamic-lookup-relation-external-source-tab.component';
+import {
+  ThemedExternalSourceEntryImportModalComponent,
+} from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;

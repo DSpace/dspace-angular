@@ -1,8 +1,10 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core'
 
 import { configurationSearchPageGuard } from './configuration-search-page.guard';
-import { ThemedConfigurationSearchPageComponent } from './themed-configuration-search-page.component';
+import {
+  ThemedConfigurationSearchPageComponent,
+} from './themed-configuration-search-page.component';
 import { ThemedSearchPageComponent } from './themed-search-page.component';
 
 export const ROUTES: Route[] = [{

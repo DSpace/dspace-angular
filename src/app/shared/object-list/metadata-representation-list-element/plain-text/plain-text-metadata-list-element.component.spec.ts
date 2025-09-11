@@ -1,19 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { mockData } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { MetadatumRepresentation, ActivatedRouteStub, mockData } from '@dspace/core'
 
-import { PlainTextMetadataListElementComponent } from './plain-text-metadata-list-element.component';
+import {
+  PlainTextMetadataListElementComponent,
+} from './plain-text-metadata-list-element.component';
 
 // Render the mock representation with the default mock author browse definition so it is also rendered as a link
 // without affecting other tests

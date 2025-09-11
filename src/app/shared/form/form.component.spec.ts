@@ -5,22 +5,16 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { APP_CONFIG } from '@dspace/config';
 import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { StoreMock } from '@dspace/core/testing/store.mock';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+  APP_DATA_SERVICES_MAP,
+  FormFieldMetadataValueObject,
+  StoreMock,
+  createTestComponent,
+  XSRFService,
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -30,20 +24,14 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import {
-  FormChangeAction,
-  FormStatusChangeAction,
-} from './form.actions';
+import { FormChangeAction, FormStatusChangeAction } from './form.actions';
 import { FormComponent } from './form.component';
 import { FormState } from './form.reducer';
 import { FormService } from './form.service';
@@ -478,9 +466,7 @@ describe('FormComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    DsDynamicFormComponent,
     DynamicFormsCoreModule,
-    FormComponent,
     FormsModule,
     NgbModule,
     ReactiveFormsModule,

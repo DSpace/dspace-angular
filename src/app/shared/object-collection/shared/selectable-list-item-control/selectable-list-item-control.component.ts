@@ -1,22 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ListableObject } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  map,
-  skip,
-  take,
-} from 'rxjs/operators';
+import { map, skip, take } from 'rxjs/operators';
 
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListService,
+} from '../../../object-list/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
 
 @Component({

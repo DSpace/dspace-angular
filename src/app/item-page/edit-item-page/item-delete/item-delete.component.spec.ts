@@ -1,48 +1,42 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
-import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  LinkService,
+  EntityTypeDataService,
+  ItemDataService,
+  ObjectUpdatesService,
+  RelationshipDataService,
+  RelationshipTypeDataService,
+  NotificationsService,
+  Item,
+  ItemType,
+  Relationship,
+  RelationshipType,
+  NotificationsServiceStub,
+  RouterStub,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  of,
-} from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
-import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
+import {
+  ModifyItemOverviewComponent,
+} from '../modify-item-overview/modify-item-overview.component';
 import { ItemDeleteComponent } from './item-delete.component';
 
 let comp: ItemDeleteComponent;

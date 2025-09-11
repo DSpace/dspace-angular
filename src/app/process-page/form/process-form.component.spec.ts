@@ -1,28 +1,20 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterMock } from '@dspace/core/testing/router.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+  ScriptDataService,
+  RequestService,
+  NotificationsService,
+  ProcessParameter,
+  Script,
+  ScriptParameter,
+  ActivatedRouteStub,
+  NotificationsServiceStub,
+  RouterMock,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ProcessFormComponent } from './process-form.component';

@@ -1,19 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { Registration } from '@dspace/core/shared/registration.model';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Registration } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
-import { ExternalLoginMethodEntryComponent } from '../../decorators/external-login-method-entry.component';
+import {
+  ExternalLoginMethodEntryComponent,
+} from '../../decorators/external-login-method-entry.component';
 
 @Component({
   selector: 'ds-orcid-confirmation',

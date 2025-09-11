@@ -1,44 +1,31 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemRequest } from '@dspace/core/shared/item-request.model';
-import {
+  AuthService,
+  DSONameService,
+  ItemDataService,
+  ItemRequestDataService,
+  RemoteData,
+  EPerson,
+  NotificationsService,
+  redirectOn4xx,
+  Item,
+  ItemRequest,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+  RequestCopyEmail,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
+import {
+  ThemedEmailRequestCopyComponent,
+} from '../email-request-copy/themed-email-request-copy.component';
 
 @Component({
   selector: 'ds-base-deny-request-copy',

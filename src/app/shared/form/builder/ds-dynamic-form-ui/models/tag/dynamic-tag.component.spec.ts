@@ -1,9 +1,5 @@
 // Load the implementations that should be tested
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -18,20 +14,17 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
+  FormFieldMetadataValueObject,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '@dspace/core/testing/dynamic-form-mock-services';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
-import {
-  NgbModule,
-  NgbTypeaheadSelectItemEvent,
-} from '@ng-bootstrap/ng-bootstrap';
+  createTestComponent,
+  VocabularyServiceStub,
+} from '@dspace/core'
+import { NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormsCoreModule,

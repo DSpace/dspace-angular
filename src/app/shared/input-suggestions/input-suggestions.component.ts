@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -14,14 +11,8 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  FormsModule,
-} from '@angular/forms';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { ControlValueAccessor, FormsModule } from '@angular/forms';
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 

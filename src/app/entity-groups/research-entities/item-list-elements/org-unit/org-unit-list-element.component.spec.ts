@@ -1,22 +1,18 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { Item } from '@dspace/core/shared/item.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
-import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
-import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { APP_CONFIG } from '@dspace/config';
+import {
+  AuthService,
+  DSONameService,
+  AuthorizationDataService,
+  Item,
+  ActivatedRouteStub,
+  AuthServiceMock,
+  DSONameServiceMock,
+  mockTruncatableService,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 

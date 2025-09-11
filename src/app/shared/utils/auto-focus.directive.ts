@@ -1,10 +1,5 @@
-import {
-  AfterViewInit,
-  Directive,
-  ElementRef,
-  Input,
-} from '@angular/core';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import { isNotEmpty } from '@dspace/utils';
 
 /**
  * Directive to set focus on an element when it is rendered

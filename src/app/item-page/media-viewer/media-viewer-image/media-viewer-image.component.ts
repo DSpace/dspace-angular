@@ -1,13 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-} from '@angular/core';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { AuthService, MediaViewerItem } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import {
   NgxGalleryAnimation,
   NgxGalleryImage,

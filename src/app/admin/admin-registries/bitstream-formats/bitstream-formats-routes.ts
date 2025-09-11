@@ -1,10 +1,12 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core'
 
 import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstream-format.component';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 import { bitstreamFormatsResolver } from './bitstream-formats.resolver';
-import { EditBitstreamFormatComponent } from './edit-bitstream-format/edit-bitstream-format.component';
+import {
+  EditBitstreamFormatComponent,
+} from './edit-bitstream-format/edit-bitstream-format.component';
 
 const BITSTREAMFORMAT_EDIT_PATH = ':id/edit';
 const BITSTREAMFORMAT_ADD_PATH = 'add';

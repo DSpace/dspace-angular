@@ -1,11 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Component, Input, OnInit } from '@angular/core';
+import { ViewMode } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Observable } from 'rxjs';
 

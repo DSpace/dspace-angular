@@ -1,7 +1,4 @@
-import {
-  NgClass,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -11,48 +8,30 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  FormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '@dspace/core/data/paginated-list.model';
-import { ConfidenceType } from '@dspace/core/shared/confidence-type';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbDropdown,
-  NgbDropdownModule,
-  NgbTooltipModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+  ConfidenceType,
+  FormFieldMetadataValueObject,
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty } from '@dspace/utils';
+import { NgbDropdown, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import {
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  catchError,
-  distinctUntilChanged,
-} from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { catchError, distinctUntilChanged } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
-import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
+import {
+  AuthorityConfidenceStateDirective,
+} from '../../../../directives/authority-confidence-state.directive';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 

@@ -1,48 +1,21 @@
 import { AsyncPipe } from '@angular/common';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RequestService } from '@dspace/core/data/request.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  from as observableFrom,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  concatMap,
-  distinctUntilChanged,
-  filter,
-  map,
-  reduce,
-  scan,
-  take,
-} from 'rxjs/operators';
+  DSONameService,
+  RequestService,
+  EPersonDataService,
+  GroupDataService,
+  NotificationsService,
+  ResourcePolicy,
+  ResourcePolicyDataService,
+  followLink,
+  getAllSucceededRemoteData,
+} from '@dspace/core'
+import { hasValue, isEmpty, isNotEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, from as observableFrom, Observable, Subscription } from 'rxjs';
+import { concatMap, distinctUntilChanged, filter, map, reduce, scan, take } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {

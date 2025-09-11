@@ -1,39 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
-import { Bundle } from '@dspace/core/shared/bundle.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  AuthService,
+  BundleDataService,
+  ItemDataService,
+  buildPaginatedList,
+  RequestService,
+  NotificationsService,
+  Bitstream,
+  Bundle,
+  Item,
+  PageInfo,
+  AuthServiceStub,
+  NotificationsServiceStub,
+  RouterStub,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
+} from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
+import {
+  DsoInputSuggestionsComponent,
+} from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { UploadBitstreamComponent } from './upload-bitstream.component';

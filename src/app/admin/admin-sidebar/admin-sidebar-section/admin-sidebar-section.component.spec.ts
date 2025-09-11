@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { CSSVariableServiceStub } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';

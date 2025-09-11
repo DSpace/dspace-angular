@@ -1,18 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import {
+  ObjectUpdatesService,
   INotification,
   Notification,
-} from '@dspace/core/notification-system/models/notification.model';
-import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { RouterStub } from '@dspace/core/testing/router.stub';
+  NotificationType,
+  NotificationsService,
+  RouterStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';

@@ -1,11 +1,6 @@
 import { NgComponentOutlet } from '@angular/common';
-import {
-  Component,
-  Injector,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { AuthMethod } from '@dspace/core'
 
 import { AuthMethodTypeComponent } from '../methods/auth-methods.type';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../methods/log-in.methods-decorator';

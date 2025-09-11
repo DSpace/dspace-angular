@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { StoreActionTypes } from '@dspace/core/ngrx/type';
-import {
-  Actions,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+import { StoreActionTypes } from '@dspace/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 
 import { ReinitMenuAction } from './menu.actions';

@@ -1,31 +1,20 @@
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { getMockScrollToService } from '@dspace/core/testing/scroll-to-service.mock';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  NotificationsService,
+  SectionScope,
+  SubmissionSectionError,
+  SectionsType,
+  SubmissionScopeType,
+  NotificationsServiceStub,
+  getMockScrollToService,
+  SubmissionServiceStub,
+  getMockTranslateService,
+  TranslateLoaderMock,
+} from '@dspace/core'
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import {
-  cold,
-  getTestScheduler,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';

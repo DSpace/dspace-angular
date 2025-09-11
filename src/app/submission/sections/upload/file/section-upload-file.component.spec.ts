@@ -1,36 +1,26 @@
-import {
-  AsyncPipe,
-  CommonModule,
-} from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
-import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
-import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  APP_DATA_SERVICES_MAP,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  HALEndpointService,
+  SubmissionJsonPatchOperationsService,
+  HALEndpointServiceStub,
+  getMockSectionUploadService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionServiceStub,
+  createTestComponent,
+} from '@dspace/core'
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
+import {
+  ThemedFileDownloadLinkComponent,
+} from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
@@ -46,10 +36,13 @@ import {
 } from '../../../utils/submission.mock';
 import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
-import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
+import {
+  SubmissionSectionUploadFileEditComponent,
+} from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
-import { ThemedSubmissionSectionUploadFileComponent } from './themed-section-upload-file.component';
-import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
+import {
+  SubmissionSectionUploadFileViewComponent,
+} from './view/section-upload-file-view.component';
 
 const configMetadataFormMock = {
   rows: [{
@@ -282,9 +275,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    AsyncPipe,
     NgbModule,
-    ThemedSubmissionSectionUploadFileComponent,
+
   ],
 })
 class TestComponent {

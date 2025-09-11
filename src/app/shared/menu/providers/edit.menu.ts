@@ -7,19 +7,19 @@
  */
 
 import { Injectable } from '@angular/core';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { AuthorizationDataService, FeatureID } from '@dspace/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  map,
-  Observable,
-  of,
-} from 'rxjs';
+import { combineLatest, map, Observable, of } from 'rxjs';
 
-import { ThemedEditCollectionSelectorComponent } from '../../dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
-import { ThemedEditCommunitySelectorComponent } from '../../dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
-import { ThemedEditItemSelectorComponent } from '../../dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
+import {
+  ThemedEditCollectionSelectorComponent,
+} from '../../dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
+import {
+  ThemedEditCommunitySelectorComponent,
+} from '../../dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
+import {
+  ThemedEditItemSelectorComponent,
+} from '../../dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';

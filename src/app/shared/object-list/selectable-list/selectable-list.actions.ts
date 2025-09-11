@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { type } from '@dspace/core/ngrx/type';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { type, ListableObject } from '@dspace/core'
 import { Action } from '@ngrx/store';
 
 /**

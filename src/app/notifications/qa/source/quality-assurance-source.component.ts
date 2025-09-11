@@ -1,37 +1,23 @@
 import { AsyncPipe } from '@angular/common';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
-import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+  SortOptions,
+  QualityAssuranceSourceObject,
+  PaginationService,
+  PaginationComponentOptions,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  take,
-} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, take } from 'rxjs/operators';
 
-import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import {
+  QualityAssuranceSourcePageParams,
+} from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NotificationsStateService } from '../../notifications-state.service';
-import {
-  SourceListComponent,
-  SourceObject,
-} from '../../shared/source-list.component';
+import { SourceListComponent, SourceObject } from '../../shared/source-list.component';
 
 /**
  * Component to display the Quality Assurance source list.

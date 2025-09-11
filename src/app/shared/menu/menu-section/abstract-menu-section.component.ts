@@ -1,23 +1,8 @@
-import {
-  Component,
-  Injector,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  switchMap,
-} from 'rxjs/operators';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { GenericConstructor } from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';

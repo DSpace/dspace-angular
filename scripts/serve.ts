@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
 
-import { AppConfig } from '../src/config/app-config.interface';
+import { AppConfig } from '../projects/dspace/config/src/lib/app-config.interface';
 import { buildAppConfig } from '../src/config/config.server';
 
 const appConfig: AppConfig = buildAppConfig();

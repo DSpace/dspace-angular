@@ -1,10 +1,9 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Component, Input } from '@angular/core';
+import { GenericConstructor } from '@dspace/core'
 
-import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
+import {
+  AbstractComponentLoaderComponent,
+} from '../abstract-component-loader/abstract-component-loader.component';
 import { StartsWithAbstractComponent } from './starts-with-abstract.component';
 import { getStartsWithComponent } from './starts-with-decorator';
 import { StartsWithType } from './starts-with-type';

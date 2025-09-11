@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,23 +14,14 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Item } from '@dspace/core/shared/item.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { RemoteData, getItemPageRoute, Item } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of,
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  fadeIn,
-  fadeInOut,
-} from '../../shared/animations/fade';
+import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 
 @Component({
   selector: 'ds-edit-item-page',

@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,39 +8,33 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
   SortDirection,
   SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
-import {
+  PaginatedList,
+  RemoteData,
+  PaginationService,
+  PaginationComponentOptions,
+  DSpaceObjectType,
   followLink,
   FollowLinkConfig,
-} from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { toDSpaceObjectListRD } from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
+  Item,
+  toDSpaceObjectListRD,
+  PaginatedSearchOptions,
+  ViewMode,
+} from '@dspace/core'
+import { setPlaceHolderAttributes } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import {
-  fadeIn,
-  fadeInOut,
-} from '../../shared/animations/fade';
+import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchService } from '../../shared/search/search.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { VarDirective } from '../../shared/utils/var.directive';

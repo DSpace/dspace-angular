@@ -1,24 +1,14 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
-import {
-  Component,
-  forwardRef,
-  Input,
-} from '@angular/core';
-import {
-  FormsModule,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, forwardRef, Input } from '@angular/core';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DSONameService, DSpaceObject, ViewMode } from '@dspace/core'
+import { hasValue } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent,
+} from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';

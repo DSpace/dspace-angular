@@ -1,29 +1,26 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { Item } from '@dspace/core/shared/item.model';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { APP_CONFIG } from '@dspace/config';
+import { Item, TranslateLoaderMock } from '@dspace/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
-import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
-import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import {
+  ThemedBadgesComponent,
+} from '../../../object-collection/shared/badges/themed-badges.component';
+import {
+  ItemCollectionComponent,
+} from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import {
+  ItemSubmitterComponent,
+} from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  ScriptDataService,
+  RemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

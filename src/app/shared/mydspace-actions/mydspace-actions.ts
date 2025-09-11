@@ -1,28 +1,18 @@
-import {
-  Component,
-  EventEmitter,
-  Injector,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Injector, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
-import { ResourceType } from '@dspace/core/shared/resource-type';
+import {
+  IdentifiableDataService,
+  RemoteData,
+  RequestService,
+  NotificationOptions,
+  NotificationsService,
+  DSpaceObject,
+  getFirstSucceededRemoteData,
+  ResourceType,
+} from '@dspace/core'
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Subscription,
-} from 'rxjs';
-import {
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 
 import { SearchService } from '../search/search.service';
 import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';

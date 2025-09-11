@@ -1,31 +1,18 @@
-
+import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { NavigationExtras, Router, RouterLink } from '@angular/router';
 import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  FormsModule,
-  NgForm,
-} from '@angular/forms';
-import {
-  NavigationExtras,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Process } from '@dspace/core/processes/process.model';
-import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { Script } from '@dspace/core/shared/scripts/script.model';
-import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
-import { isEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  ScriptDataService,
+  RemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  getFirstCompletedRemoteData,
+  Script,
+  ScriptParameter,
+} from '@dspace/core'
+import { isEmpty } from '@dspace/utils';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';

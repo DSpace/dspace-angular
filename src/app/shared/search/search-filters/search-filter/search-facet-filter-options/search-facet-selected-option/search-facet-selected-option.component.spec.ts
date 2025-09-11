@@ -1,25 +1,20 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
-import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+  PaginationService,
+  PaginationComponentOptions,
+  AppliedFilter,
+  FilterType,
+  SearchFilterConfig,
+  ActivatedRouteStub,
+  PaginationServiceStub,
+  RouterStub,
+  SearchConfigurationServiceStub,
+  SearchFilterServiceStub,
+  SearchServiceStub,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchService } from '../../../../search.service';

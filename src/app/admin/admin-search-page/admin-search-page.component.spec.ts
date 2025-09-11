@@ -1,13 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core'
 
-import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
+import {
+  ThemedConfigurationSearchPageComponent,
+} from '../../search-page/themed-configuration-search-page.component';
 import { AdminSearchPageComponent } from './admin-search-page.component';
 
 describe('AdminSearchPageComponent', () => {

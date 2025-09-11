@@ -1,36 +1,19 @@
+import { Inject, Injectable, Optional } from '@angular/core';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
-  Inject,
-  Injectable,
-  Optional,
-} from '@angular/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { ACCESSIBILITY_COOKIE } from '@dspace/core/cookies/accessibility-cookie';
-import { CookieService } from '@dspace/core/cookies/cookie.service';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
-import { EPerson } from '@dspace/core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  AuthService,
+  ACCESSIBILITY_COOKIE,
+  CookieService,
+  OrejimeService,
+  EPersonDataService,
+  EPerson,
+  getFirstCompletedRemoteData,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
 import cloneDeep from 'lodash/cloneDeep';
-import {
-  combineLatest,
-  Observable,
-  of,
-  switchMap,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { combineLatest, Observable, of, switchMap } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 

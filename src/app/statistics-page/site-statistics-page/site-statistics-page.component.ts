@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { SiteDataService } from '@dspace/core/data/site-data.service';
-import { Site } from '@dspace/core/shared/site.model';
+import { SiteDataService, Site } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
 

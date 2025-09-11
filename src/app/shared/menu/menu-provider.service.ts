@@ -6,40 +6,16 @@
  * http://www.dspace.org/license/
  */
 
-import {
-  Inject,
-  Injectable,
-  Optional,
-} from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveEnd,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  combineLatest,
-  map,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  find,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot } from '@angular/router';
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { combineLatest, map, Observable } from 'rxjs';
+import { filter, find, switchMap, take } from 'rxjs/operators';
 
 import { MenuService } from './menu.service';
 import { MENU_PROVIDER } from './menu.structure';
 import { MenuID } from './menu-id.model';
-import {
-  AbstractMenuProvider,
-  PartialMenuSection,
-} from './menu-provider.model';
+import { AbstractMenuProvider, PartialMenuSection } from './menu-provider.model';
 import { MenuRoute } from './menu-route.model';
 import { MenuState } from './menu-state.model';
 

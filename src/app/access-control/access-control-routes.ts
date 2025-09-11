@@ -1,17 +1,16 @@
 import { AbstractControl } from '@angular/forms';
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { groupAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  i18nBreadcrumbResolver,
+  groupAdministratorGuard,
+  siteAdministratorGuard,
+} from '@dspace/core'
 import {
   DYNAMIC_ERROR_MESSAGES_MATCHER,
   DynamicErrorMessagesMatcher,
 } from '@ng-dynamic-forms/core';
 
-import {
-  EPERSON_PATH,
-  GROUP_PATH,
-} from './access-control-routing-paths';
+import { EPERSON_PATH, GROUP_PATH } from './access-control-routing-paths';
 import { BulkAccessComponent } from './bulk-access/bulk-access.component';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';

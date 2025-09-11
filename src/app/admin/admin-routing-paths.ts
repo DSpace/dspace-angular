@@ -1,7 +1,9 @@
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { URLCombiner } from '@dspace/core'
 
 import { getAdminModuleRoute } from '../app-routing-paths';
-import { getQualityAssuranceEditRoute } from './admin-notifications/admin-notifications-routing-paths';
+import {
+  getQualityAssuranceEditRoute,
+} from './admin-notifications/admin-notifications-routing-paths';
 
 export const REGISTRIES_MODULE_PATH = 'registries';
 export const NOTIFICATIONS_MODULE_PATH = 'notifications';

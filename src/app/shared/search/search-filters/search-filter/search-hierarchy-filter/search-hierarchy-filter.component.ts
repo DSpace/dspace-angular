@@ -1,47 +1,29 @@
-import {
-  AsyncPipe,
-  LowerCasePipe,
-} from '@angular/common';
-import {
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, LowerCasePipe } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Params, Router } from '@angular/router';
+import { APP_CONFIG, AppConfig, FilterVocabularyConfig } from '@dspace/config';
 import {
-  Params,
-  Router,
-} from '@angular/router';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/config/app-config.interface';
-import { FilterVocabularyConfig } from '@dspace/config/filter-vocabulary-config';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { PageInfo } from '@dspace/core/shared/page-info.model';
-import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+  RemoteDataBuildService,
+  PageInfo,
+  VocabularyEntryDetail,
+  VocabularyService,
+} from '@dspace/core'
+import { hasValue } from '@dspace/utils';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  from,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
-import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import {
+  SEARCH_CONFIG_SERVICE,
+} from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  VocabularyTreeviewModalComponent,
+} from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import {
+  FilterInputSuggestionsComponent,
+} from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { SearchService } from '../../../search.service';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { SearchConfigurationService } from '../../../search-configuration.service';
@@ -50,8 +32,12 @@ import {
   facetLoad,
   SearchFacetFilterComponent,
 } from '../search-facet-filter/search-facet-filter.component';
-import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
-import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import {
+  SearchFacetOptionComponent,
+} from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
+import {
+  SearchFacetSelectedOptionComponent,
+} from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',

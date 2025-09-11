@@ -1,17 +1,8 @@
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
-import { RouterStub } from '@dspace/core/testing/router.stub';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRouteStub, CSSVariableServiceStub, RouterStub } from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';

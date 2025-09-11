@@ -1,40 +1,27 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
-import { RequestParam } from '@dspace/core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
-import { FindListOptions } from '@dspace/core/data/find-list-options.model';
-import { PaginatedList } from '@dspace/core/data/paginated-list.model';
-import { Context } from '@dspace/core/shared/context.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { ExternalSource } from '@dspace/core/shared/external-source.model';
-import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import { Item } from '@dspace/core/shared/item.model';
-import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import {
+  RemoteDataBuildService,
+  RequestParam,
+  ExternalSourceDataService,
+  FindListOptions,
+  PaginatedList,
+  Context,
+  DSpaceObject,
+  ExternalSource,
+  followLink,
+  Item,
+  RelationshipType,
+  ItemSearchResult,
+  ListableObject,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
-import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  NgbActiveModal,
-  NgbNavModule,
-} from '@ng-bootstrap/ng-bootstrap';
+  RelationshipOptions,
+  SearchResult,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
+import { NgbActiveModal, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -43,21 +30,24 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import {
-  map,
-  skip,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { map, skip, switchMap, take } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  SEARCH_CONFIG_SERVICE,
+} from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import {
+  SelectableListState,
+} from '../../../../object-list/selectable-list/selectable-list.reducer';
+import {
+  SelectableListService,
+} from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
-import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
+import {
+  ThemedDynamicLookupRelationExternalSourceTabComponent,
+} from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import { LookupRelationService } from './lookup-relation.service';
 import { NameVariantService } from './name-variant.service';
 import {
@@ -65,8 +55,12 @@ import {
   RemoveRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
-import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
-import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
+import {
+  ThemedDynamicLookupRelationSearchTabComponent,
+} from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
+import {
+  DsDynamicLookupRelationSelectionTabComponent,
+} from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',

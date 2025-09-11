@@ -1,11 +1,21 @@
 import { Route } from '@angular/router';
-import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core'
 
-import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
-import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { resourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import {
+  ThemedDsoEditMetadataComponent,
+} from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import {
+  ResourcePolicyCreateComponent,
+} from '../../shared/resource-policies/create/resource-policy-create.component';
+import {
+  ResourcePolicyEditComponent,
+} from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import {
+  resourcePolicyResolver,
+} from '../../shared/resource-policies/resolvers/resource-policy.resolver';
+import {
+  resourcePolicyTargetResolver,
+} from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { EditItemPageComponent } from './edit-item-page.component';
 import {
   ITEM_EDIT_AUTHORIZATIONS_PATH,
@@ -20,7 +30,9 @@ import {
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
-import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
+import {
+  ItemCollectionMapperComponent,
+} from './item-collection-mapper/item-collection-mapper.component';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemMoveComponent } from './item-move/item-move.component';

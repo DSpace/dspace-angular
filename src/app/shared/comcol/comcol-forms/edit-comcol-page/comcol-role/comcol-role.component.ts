@@ -1,48 +1,31 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { RequestService } from '@dspace/core/data/request.service';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
-import { Community } from '@dspace/core/shared/community.model';
-import { HALLink } from '@dspace/core/shared/hal-link.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
+  DSONameService,
+  RemoteData,
+  RequestService,
+  GroupDataService,
+  Group,
+  NotificationsService,
+  Collection,
+  Community,
+  HALLink,
+  NoContent,
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '@dspace/core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
+} from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  takeUntil,
-} from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
 import { AlertComponent } from '../../../../alert/alert.component';
-import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
+import {
+  ConfirmationModalComponent,
+} from '../../../../confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';
 import { VarDirective } from '../../../../utils/var.directive';

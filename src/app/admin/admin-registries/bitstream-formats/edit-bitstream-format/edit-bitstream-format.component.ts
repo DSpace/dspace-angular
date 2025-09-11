@@ -1,21 +1,14 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+  BitstreamFormatDataService,
+  RemoteData,
+  NotificationsService,
+  BitstreamFormat,
+  getFirstCompletedRemoteData,
+} from '@dspace/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

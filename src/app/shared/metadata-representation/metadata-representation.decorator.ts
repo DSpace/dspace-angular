@@ -1,23 +1,30 @@
 import { InjectionToken } from '@angular/core';
-import { Context } from '@dspace/core/shared/context.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
-import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '@dspace/shared/utils/empty.util';
+import { Context, GenericConstructor, MetadataRepresentationType } from '@dspace/core'
+import { hasNoValue, hasValue } from '@dspace/utils';
 
-import { OrgUnitItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
-import { PersonItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/person/person-item-metadata-list-element.component';
-import { ProjectItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/project/project-item-metadata-list-element.component';
+import {
+  OrgUnitItemMetadataListElementComponent,
+} from '../../entity-groups/research-entities/metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
+import {
+  PersonItemMetadataListElementComponent,
+} from '../../entity-groups/research-entities/metadata-representations/person/person-item-metadata-list-element.component';
+import {
+  ProjectItemMetadataListElementComponent,
+} from '../../entity-groups/research-entities/metadata-representations/project/project-item-metadata-list-element.component';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,
   resolveTheme,
 } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { BrowseLinkMetadataListElementComponent } from '../object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
-import { ItemMetadataListElementComponent } from '../object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
-import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import {
+  BrowseLinkMetadataListElementComponent,
+} from '../object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
+import {
+  ItemMetadataListElementComponent,
+} from '../object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
+import {
+  PlainTextMetadataListElementComponent,
+} from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 
 export const METADATA_REPRESENTATION_COMPONENT_FACTORY = new InjectionToken<(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>>('getMetadataRepresentationComponent', {
   providedIn: 'root',

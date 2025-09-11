@@ -1,27 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-} from '@angular/router';
-import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
-import {
-  hasNoValue,
-  hasValue,
-  isUndefined,
-} from '@dspace/shared/utils/empty.util';
-import {
-  combineLatest,
-  Observable,
-  of,
-  ReplaySubject,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Breadcrumb } from '@dspace/core'
+import { hasNoValue, hasValue, isUndefined } from '@dspace/utils';
+import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

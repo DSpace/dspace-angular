@@ -1,7 +1,4 @@
-import {
-  DOCUMENT,
-  NgClass,
-} from '@angular/common';
+import { DOCUMENT, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -12,11 +9,8 @@ import {
   Output,
   Renderer2,
 } from '@angular/core';
-import {
-  FormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
+import { hasValue } from '@dspace/utils';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,

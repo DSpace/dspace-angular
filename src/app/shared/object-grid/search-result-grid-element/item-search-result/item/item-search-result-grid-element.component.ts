@@ -1,24 +1,29 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Item } from '@dspace/core/shared/item.model';
-import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  DSONameService,
+  BitstreamDataService,
+  getItemPageRoute,
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core'
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';
-import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
-import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  ThemedBadgesComponent,
+} from '../../../../object-collection/shared/badges/themed-badges.component';
+import {
+  listableObjectComponent,
+} from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
+import {
+  TruncatablePartComponent,
+} from '../../../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultGridElementComponent } from '../../search-result-grid-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)

@@ -1,35 +1,20 @@
 import { AsyncPipe } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
-import { Item } from '@dspace/core/shared/item.model';
-import {
+  RemoteData,
+  VersionHistoryDataService,
+  getItemPageRoute,
+  Item,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { Version } from '@dspace/core/shared/version.model';
-import { VersionHistory } from '@dspace/core/shared/version-history.model';
-import {
-  hasValue,
-  hasValueOperator,
-} from '@dspace/shared/utils/empty.util';
+  Version,
+  VersionHistory,
+} from '@dspace/core'
+import { hasValue, hasValueOperator } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  startWith,
-  switchMap,
-} from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';

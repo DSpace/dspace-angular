@@ -1,7 +1,6 @@
 import { Inject } from '@angular/core';
-import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
-import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { FormFieldModel, FormFieldMetadataValueObject } from '@dspace/core'
+import { isNotEmpty } from '@dspace/utils';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 

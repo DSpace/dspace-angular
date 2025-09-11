@@ -1,16 +1,8 @@
 import { Injectable } from '@angular/core';
-import { URLBaser } from '@dspace/core/url-baser/url-baser';
-import {
-  Actions,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
+import { URLBaser } from '@dspace/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
-import {
-  filter,
-  map,
-  tap,
-} from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { SidebarCollapseAction } from './sidebar.actions';
 

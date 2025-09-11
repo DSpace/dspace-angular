@@ -6,24 +6,11 @@ import {
   RegExThemeConfig,
   ThemeConfig,
   UUIDThemeConfig,
-} from '@dspace/config/theme.config';
-import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { HandleObject } from '@dspace/core/shared/handle-object.model';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import {
-  combineLatest,
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+} from '@dspace/config';
+import { getDSORoute, DSpaceObject, HandleObject } from '@dspace/core'
+import { hasNoValue, hasValue, isNotEmpty } from '@dspace/utils';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { HandleService } from '../handle.service';
 

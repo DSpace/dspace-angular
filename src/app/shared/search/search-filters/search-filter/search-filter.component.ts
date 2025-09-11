@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  LowerCasePipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe, LowerCasePipe, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -13,16 +9,15 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
-import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
-import { SequenceService } from '@dspace/core/shared/sequence.service';
 import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+  RemoteData,
+  AppliedFilter,
+  FacetValues,
+  SearchFilterConfig,
+  SearchOptions,
+  SequenceService,
+} from '@dspace/core'
+import { hasValue, isNotEmpty } from '@dspace/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -43,7 +38,9 @@ import { SearchService } from '../../search.service';
 import { SearchConfigurationService } from '../../search-configuration.service';
 import { SearchFilterService } from '../search-filter.service';
 import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
-import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import {
+  SearchFacetFilterWrapperComponent,
+} from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
 @Component({
   selector: 'ds-search-filter',

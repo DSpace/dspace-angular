@@ -1,12 +1,6 @@
-import { hasNoValue } from '@dspace/shared/utils/empty.util';
 import { all } from 'deepmerge';
 
-import { AppConfig } from './app-config.interface';
-import {
-  BASE_THEME_NAME,
-  NamedThemeConfig,
-  ThemeConfig,
-} from './theme.config';
+import { AppConfig } from '../../projects/dspace/config/src/lib/app-config.interface';
 
 /**
  * Extend Angular environment with app config.
@@ -35,23 +29,7 @@ const mergeConfig = (destinationConfig: any, sourceConfig: AppConfig): void => {
   ], mergeOptions));
 };
 
-/**
- * Get default theme config from environment.
- *
- * @returns default theme config
- */
-const getDefaultThemeConfig = (environment: AppConfig): ThemeConfig => {
-  return environment.themes.find((themeConfig: any) =>
-    hasNoValue(themeConfig.regex) &&
-    hasNoValue(themeConfig.handle) &&
-    hasNoValue(themeConfig.uuid),
-  ) ?? {
-    name: BASE_THEME_NAME,
-  } as NamedThemeConfig;
-};
-
 export {
   extendEnvironmentWithAppConfig,
-  getDefaultThemeConfig,
   mergeConfig,
 };

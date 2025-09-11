@@ -1,22 +1,18 @@
 import { TestBed } from '@angular/core/testing';
+import { Router, UrlTree } from '@angular/router';
 import {
-  Router,
-  UrlTree,
-} from '@angular/router';
-import { AuthService } from '@dspace/core/auth/auth.service';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { ItemDataService } from '@dspace/core/data/item-data.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { Item } from '@dspace/core/shared/item.model';
-import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+  AuthService,
+  AuthorizationDataService,
+  FeatureID,
+  ItemDataService,
+  APP_DATA_SERVICES_MAP,
+  Item,
+  getMockTranslateService,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core'
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { itemPagePrivateGuard } from './item-page-private.guard';
 

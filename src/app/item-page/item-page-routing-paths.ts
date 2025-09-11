@@ -1,10 +1,10 @@
-import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
 import {
+  getItemModuleRoute,
   getEntityPageRoute,
   getItemPageRoute,
-} from '@dspace/core/router/utils/dso-route.utils';
-import { Item } from '@dspace/core/shared/item.model';
-import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+  Item,
+  URLCombiner,
+} from '@dspace/core'
 
 export function getItemEditRoute(item: Item) {
   return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH).toString();
