@@ -10,8 +10,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../../../core/data/request.service';
@@ -23,7 +24,6 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
-import { ComcolModule } from '../../../comcol.module';
 import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {
@@ -37,18 +37,22 @@ describe('ComcolRoleComponent', () => {
   let comcolRole;
   let notificationsService;
 
-  const requestService = { hasByHref$: () => observableOf(true) };
+  const requestService = {
+    hasByHref$: () => of(true),
+    setStaleByHrefSubstring: () => of(true),
+  };
 
   const groupService = {
     findByHref: jasmine.createSpy('findByHref'),
-    createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(observableOf({})),
-    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({})),
+    createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(of({})),
+    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(of({})),
+    clearGroupsRequests: jasmine.createSpy('clearGroupsRequests'),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        ComcolModule,
+        NgbModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,
@@ -84,7 +88,7 @@ describe('ComcolRoleComponent', () => {
         href: 'test role link',
       };
       comp.comcolRole = comcolRole;
-      comp.roleName$ = observableOf(comcolRole.name);
+      comp.roleName$ = of(comcolRole.name);
 
       fixture.detectChanges();
     });
@@ -180,13 +184,17 @@ describe('ComcolRoleComponent', () => {
       fixture.detectChanges();
     });
 
+    afterEach(() => {
+      const modal = document.querySelector('ds-confirmation-modal');
+      if (modal) {
+        modal.remove();
+      }
+    });
+
     it('should have a delete button but no create or restrict button', (done) => {
-      expect(de.query(By.css('.btn.create')))
-        .toBeNull();
-      expect(de.query(By.css('.btn.restrict')))
-        .toBeNull();
-      expect(de.query(By.css('.btn.delete')))
-        .toBeTruthy();
+      expect(de.query(By.css('.btn.create'))).toBeNull();
+      expect(de.query(By.css('.btn.restrict'))).toBeNull();
+      expect(de.query(By.css('.btn.delete'))).toBeTruthy();
       done();
     });
 
@@ -197,6 +205,7 @@ describe('ComcolRoleComponent', () => {
       });
 
       it('should call the groupService delete method', (done) => {
+        (document as any).querySelector('.modal-footer .confirm').click();
         expect(groupService.deleteComcolGroup).toHaveBeenCalled();
         done();
       });
@@ -209,9 +218,11 @@ describe('ComcolRoleComponent', () => {
       });
 
       it('should show an error notification', (done) => {
+        (document as any).querySelector('.modal-footer .confirm').click();
         expect(notificationsService.error).toHaveBeenCalled();
         done();
       });
     });
+
   });
 });

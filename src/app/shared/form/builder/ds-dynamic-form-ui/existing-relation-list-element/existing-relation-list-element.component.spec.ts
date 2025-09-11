@@ -5,12 +5,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
@@ -58,7 +60,7 @@ describe('ExistingRelationListElementComponent', () => {
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace: () => observableOf({}),
+      updatePlace: () => of({}),
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
@@ -69,7 +71,10 @@ describe('ExistingRelationListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ExistingRelationListElementComponent],
+      imports: [
+        TranslateModule.forRoot(),
+        ExistingRelationListElementComponent,
+      ],
       providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
@@ -77,6 +82,9 @@ describe('ExistingRelationListElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(ExistingRelationListElementComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent] },
+      })
       .compileComponents();
   }));
 

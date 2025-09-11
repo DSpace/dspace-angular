@@ -1,7 +1,9 @@
+
 import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -11,27 +13,38 @@ import {
   DynamicFormService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import {
   hasValue,
   isEmpty,
 } from '../../shared/empty.util';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-security-form',
   templateUrl: './profile-page-security-form.component.html',
+  imports: [
+    AlertComponent,
+    FormComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component for a user to edit their security information
  * Displays a form containing a password field and a confirmation of the password
  */
-export class ProfilePageSecurityFormComponent implements OnInit {
+export class ProfilePageSecurityFormComponent implements OnDestroy, OnInit {
 
   /**
    * Emits the validity of the password
@@ -73,13 +86,13 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Indicates whether the "checkPasswordEmpty" needs to be added or not
    */
   @Input()
-    passwordCanBeEmpty = true;
+  passwordCanBeEmpty = true;
 
   /**
    * Prefix for the form's label messages of this component
    */
   @Input()
-    FORM_PREFIX: string;
+  FORM_PREFIX: string;
 
   private subs: Subscription[] = [];
 

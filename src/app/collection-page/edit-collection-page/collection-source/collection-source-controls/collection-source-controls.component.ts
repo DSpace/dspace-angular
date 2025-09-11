@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -5,7 +6,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -33,8 +37,10 @@ import {
 } from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
  * Component that contains the controls to run, reset and test the harvest
@@ -43,6 +49,13 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
   selector: 'ds-collection-source-controls',
   styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
 
@@ -80,7 +93,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // ensure the contentSource gets updated after being set to stale
     this.contentSource$ = this.collectionService.findByHref(this.collection._links.self.href, false).pipe(
       getAllSucceededRemoteDataPayload(),

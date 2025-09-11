@@ -1,7 +1,9 @@
+
 import {
   Component,
   Input,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Journal } from '../../../../core/submission/models/sherpa-policies-details.model';
 
@@ -12,6 +14,10 @@ import { Journal } from '../../../../core/submission/models/sherpa-policies-deta
   selector: 'ds-publication-information',
   templateUrl: './publication-information.component.html',
   styleUrls: ['./publication-information.component.scss'],
+  imports: [
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class PublicationInformationComponent {
   /**

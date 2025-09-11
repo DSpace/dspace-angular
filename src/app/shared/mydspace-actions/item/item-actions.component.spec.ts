@@ -8,12 +8,15 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -35,7 +38,7 @@ let mockObject: Item;
 const mockDataService = {};
 
 mockObject = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -69,8 +72,8 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 describe('ItemActionsComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -78,8 +81,8 @@ describe('ItemActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ItemActionsComponent,
       ],
-      declarations: [ItemActionsComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
@@ -90,7 +93,8 @@ describe('ItemActionsComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [RouterLink] },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

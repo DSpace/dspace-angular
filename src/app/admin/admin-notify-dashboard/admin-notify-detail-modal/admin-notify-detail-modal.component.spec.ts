@@ -15,8 +15,7 @@ describe('AdminNotifyDetailModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyDetailModalComponent ],
+      imports: [TranslateModule.forRoot(), AdminNotifyDetailModalComponent],
       providers: [{ provide: NgbActiveModal, useValue: modalStub }],
     })
       .compileComponents();

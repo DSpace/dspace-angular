@@ -12,7 +12,7 @@ import {
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
@@ -106,21 +106,21 @@ describe('RelationshipEffects', () => {
 
     mockRelationshipService = {
       getRelationshipByItemsAndLabel:
-        () => observableOf(relationship),
-      deleteRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
-      addRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
+        () => of(relationship),
+      deleteRelationship: () => of(new RestResponse(true, 200, 'OK')),
+      addRelationship: () => of(new RestResponse(true, 200, 'OK')),
 
     };
     mockRelationshipTypeService = {
       getRelationshipTypeByLabelAndTypes:
-        () => observableOf(relationshipType),
+        () => of(relationshipType),
     };
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     translateService = jasmine.createSpyObj('translateService', {
       instant: 'translated-message',
     });
     selectableListService = jasmine.createSpyObj('selectableListService', {
-      findSelectedByCondition: observableOf({}),
+      findSelectedByCondition: of({}),
       deselectSingle: {},
     });
   }
@@ -137,7 +137,7 @@ describe('RelationshipEffects', () => {
           provide: SubmissionObjectDataService, useValue: {
             findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()),
           },
-          getHrefByID: () => observableOf(''),
+          getHrefByID: () => of(''),
         },
         { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) },
         { provide: ObjectCacheService, useValue: {} },
@@ -197,6 +197,8 @@ describe('RelationshipEffects', () => {
         let action;
         describe('When the last value in the debounceMap is also an ADD_RELATIONSHIP action', () => {
           beforeEach(() => {
+            jasmine.getEnv().allowRespy(true);
+            spyOn((relationEffects as any), 'addRelationship').and.returnValue(createSuccessfulRemoteDataObject$(relationship));
             (relationEffects as any).initialActionMap[identifier] = RelationshipActionTypes.ADD_RELATIONSHIP;
             ((relationEffects as any).debounceTime as jasmine.Spy).and.returnValue((v) => v);
           });
@@ -262,6 +264,8 @@ describe('RelationshipEffects', () => {
         let action;
         describe('When the last value in the debounceMap is also an REMOVE_RELATIONSHIP action', () => {
           beforeEach(() => {
+            jasmine.getEnv().allowRespy(true);
+            spyOn((relationEffects as any), 'removeRelationship').and.returnValue(createSuccessfulRemoteDataObject$(undefined));
             ((relationEffects as any).debounceTime as jasmine.Spy).and.returnValue((v) => v);
             (relationEffects as any).initialActionMap[identifier] = RelationshipActionTypes.REMOVE_RELATIONSHIP;
           });
@@ -271,7 +275,7 @@ describe('RelationshipEffects', () => {
             actions = hot('--a-|', { a: action });
             const expected = cold('--b-|', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
-            expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, '1234');
+            expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType);
           });
         });
 

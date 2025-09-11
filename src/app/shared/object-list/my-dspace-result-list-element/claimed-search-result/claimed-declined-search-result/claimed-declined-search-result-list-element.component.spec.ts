@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
@@ -21,8 +21,11 @@ import { WorkflowItem } from '../../../../../core/submission/models/workflowitem
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../../mocks/link-service.mock';
+import { mockTruncatableService } from '../../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
+import { ThemeService } from '../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';
 import { ClaimedDeclinedSearchResultListElementComponent } from './claimed-declined-search-result-list-element.component';
@@ -34,7 +37,7 @@ const mockResultObject: ClaimedDeclinedTaskSearchResult = new ClaimedDeclinedTas
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -63,9 +66,9 @@ const item = Object.assign(new Item(), {
   },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: of(rdWorkflowitem) });
 const linkService = getMockLinkService();
 
 describe('ClaimedDeclinedSearchResultListElementComponent', () => {
@@ -74,10 +77,12 @@ describe('ClaimedDeclinedSearchResultListElementComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         NoopAnimationsModule,
+        VarDirective,
+        ClaimedDeclinedSearchResultListElementComponent,
       ],
-      declarations: [ClaimedDeclinedSearchResultListElementComponent, VarDirective],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },

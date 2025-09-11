@@ -10,17 +10,16 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { MenuService } from '../../menu/menu.service';
-import { MenuItemModel } from '../../menu/menu-item/models/menu-item.model';
+import { TextMenuItemModel } from '../../menu/menu-item/models/text.model';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { MenuServiceStub } from '../../testing/menu-service.stub';
 import { ThemeService } from '../../theme-support/theme.service';
-import { DsoPageModule } from '../dso-page.module';
 import { DsoEditMenuComponent } from './dso-edit-menu.component';
 
 describe('DsoEditMenuComponent', () => {
@@ -38,9 +37,10 @@ describe('DsoEditMenuComponent', () => {
     active: false,
     visible: true,
     model: {
+      text: 'section-text',
       type: null,
       disabled: false,
-    } as MenuItemModel,
+    } as TextMenuItemModel,
     icon: 'pencil-alt',
     index: 1,
   };
@@ -48,12 +48,11 @@ describe('DsoEditMenuComponent', () => {
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
-    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([section]));
+    spyOn(menuService, 'getMenuTopSections').and.returnValue(of([section]));
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule, DsoPageModule],
-      declarations: [DsoEditMenuComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, DsoEditMenuComponent],
       providers: [
         Injector,
         { provide: MenuService, useValue: menuService },
@@ -69,7 +68,7 @@ describe('DsoEditMenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DsoEditMenuComponent);
     comp = fixture.componentInstance;
-    comp.sections = observableOf([]);
+    comp.sections = of([]);
     fixture.detectChanges();
   });
 

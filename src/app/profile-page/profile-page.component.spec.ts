@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -5,7 +6,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,7 +17,7 @@ import {
 } from 'jasmine-marbles';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
@@ -28,7 +30,11 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -40,6 +46,9 @@ import {
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -86,12 +95,12 @@ describe('ProfilePageComponent', () => {
     };
     authorizationService = jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword });
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user),
+      getAuthenticatedUserFromStore: of(user),
       getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$,
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
-      patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success'))),
+      patch: of(Object.assign(new RestResponse(true, 200, 'Success'))),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
@@ -106,11 +115,13 @@ describe('ProfilePageComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageComponent, VarDirective],
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([]),
+        RouterModule.forRoot([]),
+        ProfilePageComponent,
+        VarDirective,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
@@ -121,7 +132,22 @@ describe('ProfilePageComponent', () => {
         provideMockStore({ initialState }),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ProfilePageComponent, {
+        remove: {
+          imports: [
+            ThemedProfilePageMetadataFormComponent,
+            ProfilePageSecurityFormComponent,
+            ProfilePageResearcherFormComponent,
+            SuggestionsNotificationComponent,
+            NgTemplateOutlet,
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -139,9 +165,13 @@ describe('ProfilePageComponent', () => {
     describe('updateProfile', () => {
       describe('when the metadata form returns false and the security form returns true', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => false,
+              },
+            },
+          } as any;
           spyOn(component, 'updateSecurity').and.returnValue(true);
           component.updateProfile();
         });
@@ -153,9 +183,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns true and the security form returns false', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => true,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -166,9 +200,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns true and the security form returns true', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => true,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -179,9 +217,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns false and the security form returns false', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => false,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -255,7 +297,7 @@ describe('ProfilePageComponent', () => {
         let operations;
 
         it('should return call epersonService.patch', (done) => {
-          epersonService.patch.and.returnValue(observableOf(Object.assign(new RestResponse(false, 403, 'Error'))));
+          epersonService.patch.and.returnValue(of(Object.assign(new RestResponse(false, 403, 'Error'))));
           component.setPasswordValue('testest');
           component.setInvalid(false);
           component.setCurrentPasswordValue('current-password');
@@ -337,7 +379,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return true', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: true,
         });
@@ -353,7 +395,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });
@@ -369,7 +411,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });

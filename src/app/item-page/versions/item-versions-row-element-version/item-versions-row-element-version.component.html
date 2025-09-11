@@ -1,0 +1,60 @@
+<div class="left-column">
+  @if ((workspaceId$ | async) || (workflowId$ | async)) {
+    {{version.version}}
+  } @else {
+    <a [routerLink]="getVersionRoute(version.id)">{{version.version}}</a>
+  }
+  @if (version?.id === itemVersion?.id) {
+    <span>*</span>
+  }
+
+  @if (workspaceId$ | async) {
+    <span class="text-light badge bg-primary ms-3">
+      {{ "item.version.history.table.workspaceItem" | translate }}
+    </span>
+  }
+
+  @if (workflowId$ | async) {
+    <span class="text-light badge bg-info ms-3">
+      {{ "item.version.history.table.workflowItem" | translate }}
+    </span>
+  }
+
+</div>
+
+<div class="right-column">
+
+  @if (displayActions) {
+    <div class="btn-group edit-field space-children-mr">
+      <!--EDIT WORKSPACE ITEM-->
+      @if (workspaceId$ | async) {
+        <button class="btn btn-outline-primary btn-sm version-row-element-edit"
+          (click)="editWorkspaceItem(workspaceId$)"
+          title="{{'item.version.history.table.action.editWorkspaceItem' | translate }}">
+          <i class="fas fa-pencil-alt fa-fw"></i>
+        </button>
+      }
+      <!--CREATE-->
+      @if (canCreateVersion$ | async) {
+        <button class="btn btn-outline-primary btn-sm version-row-element-create"
+          [dsBtnDisabled]="isAnyBeingEdited() || hasDraftVersion"
+          (click)="createNewVersion(version)"
+          title="{{createVersionTitle | translate }}">
+          <i class="fas fa-code-branch fa-fw"></i>
+        </button>
+      }
+      <!--DELETE-->
+      @if (canDeleteVersion$ | async) {
+        <button class="btn btn-sm version-row-element-delete"
+          [ngClass]="isAnyBeingEdited() ? 'btn-outline-primary' : 'btn-outline-danger'"
+          [dsBtnDisabled]="isAnyBeingEdited()"
+          (click)="deleteVersion(version, version.id === itemVersion.id)"
+          title="{{'item.version.history.table.action.deleteVersion' | translate}}">
+          <i class="fas fa-trash fa-fw"></i>
+        </button>
+      }
+    </div>
+  }
+
+</div>
+

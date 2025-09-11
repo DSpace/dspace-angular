@@ -1,4 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -9,12 +12,15 @@ import {
   ActivatedRoute,
   ParamMap,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
 } from 'rxjs';
 import {
+  filter,
   map,
   take,
 } from 'rxjs/operators';
@@ -30,8 +36,14 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
 import { isNotEmpty } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
+import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
+import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';
 
 /**
  * A component that represents the orcid settings page
@@ -40,8 +52,20 @@ import { getItemPageRoute } from '../item-page-routing-paths';
   selector: 'ds-orcid-page',
   templateUrl: './orcid-page.component.html',
   styleUrls: ['./orcid-page.component.scss'],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    OrcidAuthComponent,
+    OrcidQueueComponent,
+    OrcidSyncSettingsComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class OrcidPageComponent implements OnInit {
+  protected readonly AlertType = AlertType;
 
   /**
    * A boolean representing if the connection operation with orcid profile is in progress
@@ -164,7 +188,20 @@ export class OrcidPageComponent implements OnInit {
    */
   private clearRouteParams(): void {
     // update route removing the code from query params
-    const redirectUrl = this.router.url.split('?')[0];
-    this.router.navigate([redirectUrl]);
+    this.route.queryParamMap
+      .pipe(
+        filter((paramMap: ParamMap) => isNotEmpty(paramMap.keys)),
+        map(_ => Object.assign({})),
+        take(1),
+      ).subscribe(queryParams =>
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.route,
+            queryParams,
+          },
+        ),
+      );
   }
+
 }

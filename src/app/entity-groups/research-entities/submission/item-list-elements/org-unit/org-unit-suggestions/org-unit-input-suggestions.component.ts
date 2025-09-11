@@ -1,12 +1,22 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   Component,
   forwardRef,
   Input,
   OnInit,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { InputSuggestionsComponent } from '../../../../../../shared/input-suggestions/input-suggestions.component';
+import { ClickOutsideDirective } from '../../../../../../shared/utils/click-outside.directive';
+import { DebounceDirective } from '../../../../../../shared/utils/debounce.directive';
 
 @Component({
   selector: 'ds-org-unit-input-suggestions',
@@ -20,6 +30,15 @@ import { InputSuggestionsComponent } from '../../../../../../shared/input-sugges
       useExisting: forwardRef(() => OrgUnitInputSuggestionsComponent),
       multi: true,
     },
+  ],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    NgClass,
+    TranslateModule,
   ],
 })
 

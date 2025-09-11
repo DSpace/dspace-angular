@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
-import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { BrowseByTaxonomyComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
-import { Context } from '../../../../../app/core/shared/context.model';
+import { VocabularyTreeviewComponent } from '../../../../../app/shared/form/vocabulary-treeview/vocabulary-treeview.component';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
@@ -11,7 +11,12 @@ import { Context } from '../../../../../app/core/shared/context.model';
   templateUrl: '../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component.html',
   // styleUrls: ['./browse-by-taxonomy.component.scss'],
   styleUrls: ['../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component.scss'],
+  standalone: true,
+  imports: [
+    RouterLink,
+    TranslatePipe,
+    VocabularyTreeviewComponent,
+  ],
 })
-@rendersBrowseBy(BrowseByDataType.Hierarchy, Context.Any, 'custom')
 export class BrowseByTaxonomyComponent extends BaseComponent {
 }

@@ -18,6 +18,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { CreateCollectionParentSelectorComponent } from './create-collection-parent-selector.component';
 
 describe('CreateCollectionParentSelectorComponent', () => {
@@ -41,8 +42,7 @@ describe('CreateCollectionParentSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [CreateCollectionParentSelectorComponent],
+      imports: [TranslateModule.forRoot(), CreateCollectionParentSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -62,7 +62,11 @@ describe('CreateCollectionParentSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CreateCollectionParentSelectorComponent, {
+        remove: { imports: [DSOSelectorComponent] },
+      })
+      .compileComponents();
 
   }));
 

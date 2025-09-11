@@ -9,12 +9,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
@@ -32,6 +35,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { VarDirective } from '../../utils/var.directive';
@@ -65,7 +69,7 @@ function init() {
   requestServce = getMockRequestService();
 
   item = Object.assign(new Item(), {
-    bundles: observableOf({}),
+    bundles: of({}),
     metadata: {
       'dc.title': [
         {
@@ -94,9 +98,9 @@ function init() {
     },
   });
   rdItem = createSuccessfulRemoteDataObject(item);
-  workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem), id: '333' });
+  workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem), id: '333' });
   rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-  mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
+  mockObject = Object.assign(new ClaimedTask(), { workflowitem: of(rdWorkflowitem), id: '1234' });
   workflowAction = Object.assign(new WorkflowAction(), { id: 'action-1', options: ['option-1', 'option-2'] });
 
   workflowActionService = jasmine.createSpyObj('workflowActionService', {
@@ -115,12 +119,13 @@ describe('ClaimedTaskActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsComponent, VarDirective,
       ],
-      declarations: [ClaimedTaskActionsComponent, VarDirective],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ClaimedTaskDataService, useValue: mockDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },

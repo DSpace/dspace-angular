@@ -151,7 +151,7 @@ export class DspaceRestService {
     return form;
   }
 
-  protected handleHttpError(err: unknown): RequestError | unknown {
+  protected handleHttpError(err: unknown): unknown {
     if (err instanceof HttpErrorResponse) {
       const error = new RequestError(
         (isNotEmpty(err?.error?.message)) ? err.error.message : err.message,

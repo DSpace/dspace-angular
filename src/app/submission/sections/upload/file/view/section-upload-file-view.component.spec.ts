@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { FormComponent } from '../../../../../shared/form/form.component';
 import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {
@@ -25,12 +27,10 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 
   const fileData: any = mockUploadFiles[0];
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         TruncatePipe,
         FormComponent,
         SubmissionSectionUploadFileViewComponent,
@@ -40,7 +40,16 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
         SubmissionSectionUploadFileViewComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .overrideComponent(SubmissionSectionUploadFileViewComponent, {
+        remove: {
+          imports: [SubmissionSectionUploadAccessConditionsComponent],
+        },
+        add: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
+      .compileComponents().then();
   }));
 
   describe('', () => {
@@ -100,6 +109,7 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

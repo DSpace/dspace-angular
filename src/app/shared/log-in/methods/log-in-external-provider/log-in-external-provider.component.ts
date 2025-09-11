@@ -7,12 +7,12 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import {
   isAuthenticated,
   isAuthenticationLoading,
@@ -23,21 +23,17 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../../../../core/services/window.service';
-import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
-import {
-  isEmpty,
-  isNotNull,
-} from '../../../empty.util';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
+import { isEmpty } from '../../../empty.util';
 
 @Component({
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
+  standalone: true,
+  imports: [
+    TranslateModule,
+  ],
 })
-@renderAuthMethodFor(AuthMethodType.Oidc)
-@renderAuthMethodFor(AuthMethodType.Shibboleth)
-@renderAuthMethodFor(AuthMethodType.Orcid)
 export class LogInExternalProviderComponent implements OnInit {
 
   /**
@@ -106,24 +102,14 @@ export class LogInExternalProviderComponent implements OnInit {
       } else if (isEmpty(redirectRoute)) {
         redirectRoute = '/';
       }
-      const correctRedirectUrl = new URLCombiner(this._window.nativeWindow.origin, redirectRoute).toString();
-
-      let externalServerUrl = this.location;
-      const myRegexp = /\?redirectUrl=(.*)/g;
-      const match = myRegexp.exec(this.location);
-      const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
-
-      // Check whether the current page is different from the redirect url received from rest
-      if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
-        // change the redirect url with the current page url
-        const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
-        externalServerUrl = this.location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
-      }
-
-      // redirect to shibboleth authentication url
+      const externalServerUrl = this.authService.getExternalServerRedirectUrl(
+        this._window.nativeWindow.origin,
+        redirectRoute,
+        this.location,
+      );
+      // redirect to shibboleth/orcid/(external) authentication url
       this.hardRedirectService.redirect(externalServerUrl);
     });
-
   }
 
   getButtonLabel() {

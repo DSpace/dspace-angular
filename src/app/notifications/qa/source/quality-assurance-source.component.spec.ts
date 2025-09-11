@@ -12,9 +12,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   getMockNotificationsStateService,
   qualityAssuranceSourceObjectMoreAbstract,
@@ -23,6 +24,10 @@ import {
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
+import {
+  SourceListComponent,
+  SourceObject,
+} from '../../shared/source-list.component';
 import { QualityAssuranceSourceComponent } from './quality-assurance-source.component';
 
 describe('QualityAssuranceSourceComponent test suite', () => {
@@ -43,30 +48,37 @@ describe('QualityAssuranceSourceComponent test suite', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceSourceComponent,
         TestComponent,
       ],
       providers: [
         { provide: NotificationsStateService, useValue: mockNotificationsStateService },
-        { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
+        { provide: ActivatedRoute, useValue: { data: of(activatedRouteParams), params: of({}) } },
         { provide: PaginationService, useValue: paginationService },
         QualityAssuranceSourceComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then(() => {
-      mockNotificationsStateService.getQualityAssuranceSource.and.returnValue(observableOf([
-        qualityAssuranceSourceObjectMorePid,
-        qualityAssuranceSourceObjectMoreAbstract,
-      ]));
-      mockNotificationsStateService.getQualityAssuranceSourceTotalPages.and.returnValue(observableOf(1));
-      mockNotificationsStateService.getQualityAssuranceSourceCurrentPage.and.returnValue(observableOf(0));
-      mockNotificationsStateService.getQualityAssuranceSourceTotals.and.returnValue(observableOf(2));
-      mockNotificationsStateService.isQualityAssuranceSourceLoaded.and.returnValue(observableOf(true));
-      mockNotificationsStateService.isQualityAssuranceSourceLoading.and.returnValue(observableOf(false));
-      mockNotificationsStateService.isQualityAssuranceSourceProcessing.and.returnValue(observableOf(false));
-    });
+    })
+      .overrideComponent(QualityAssuranceSourceComponent, {
+        remove: {
+          imports: [
+            AlertComponent,
+            SourceListComponent,
+          ],
+        },
+      })
+      .compileComponents().then(() => {
+        mockNotificationsStateService.getQualityAssuranceSource.and.returnValue(of([
+          qualityAssuranceSourceObjectMorePid,
+          qualityAssuranceSourceObjectMoreAbstract,
+        ]));
+        mockNotificationsStateService.getQualityAssuranceSourceTotalPages.and.returnValue(of(1));
+        mockNotificationsStateService.getQualityAssuranceSourceCurrentPage.and.returnValue(of(0));
+        mockNotificationsStateService.getQualityAssuranceSourceTotals.and.returnValue(of(2));
+        mockNotificationsStateService.isQualityAssuranceSourceLoaded.and.returnValue(of(true));
+        mockNotificationsStateService.isQualityAssuranceSourceLoading.and.returnValue(of(false));
+        mockNotificationsStateService.isQualityAssuranceSourceProcessing.and.returnValue(of(false));
+      });
   }));
 
   // First test to check the correct component creation
@@ -108,12 +120,19 @@ describe('QualityAssuranceSourceComponent test suite', () => {
     it(('Should init component properly'), () => {
       comp.ngOnInit();
       fixture.detectChanges();
+      const expected: SourceObject[] = [
+        { id: qualityAssuranceSourceObjectMorePid.id,
+          lastEvent: qualityAssuranceSourceObjectMorePid.lastEvent,
+          total: qualityAssuranceSourceObjectMorePid.totalEvents,
+        },
+        { id: qualityAssuranceSourceObjectMoreAbstract.id,
+          lastEvent: qualityAssuranceSourceObjectMoreAbstract.lastEvent,
+          total: qualityAssuranceSourceObjectMoreAbstract.totalEvents,
+        },
+      ];
 
       expect(comp.sources$).toBeObservable(cold('(a|)', {
-        a: [
-          qualityAssuranceSourceObjectMorePid,
-          qualityAssuranceSourceObjectMoreAbstract,
-        ],
+        a: expected,
       }));
       expect(comp.totalElements$).toBeObservable(cold('(a|)', {
         a: 2,
@@ -155,6 +174,8 @@ describe('QualityAssuranceSourceComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [],
 })
 class TestComponent {
 

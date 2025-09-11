@@ -12,7 +12,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   mockSubmissionCollectionId,
@@ -66,10 +66,10 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   const collectionId = mockSubmissionCollectionId;
 
   function init() {
-    sectionsServiceStub.isSectionValid.and.returnValue(observableOf(true));
-    sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
-    sectionsServiceStub.getShownSectionErrors.and.returnValue(observableOf([]));
-    submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('traditionalpageone'));
+    sectionsServiceStub.isSectionValid.and.returnValue(of(true));
+    sectionsServiceStub.getSectionState.and.returnValue(of(sectionState));
+    sectionsServiceStub.getShownSectionErrors.and.returnValue(of([]));
+    submissionServiceStub.getActiveSectionId.and.returnValue(of('traditionalpageone'));
   }
 
   // waitForAsync beforeEach
@@ -79,12 +79,10 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       imports: [
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionContainerComponent,
         SectionsDirective,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
@@ -139,7 +137,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     });
 
     it('should inject section properly', () => {
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
       spyOn(comp.sectionRef, 'hasGenericErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -168,7 +166,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       let sectionErrorsDiv = fixture.debugElement.query(By.css('[id^=\'sectionGenericError_\']'));
       expect(sectionErrorsDiv).toBeNull();
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
       spyOn(comp.sectionRef, 'hasGenericErrors').and.returnValue(true);
 
       comp.ngOnInit();
@@ -180,8 +178,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display warning icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(observableOf(false));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(false));
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -197,8 +195,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display error icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(observableOf(false));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(false));
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(true);
 
       comp.ngOnInit();
@@ -214,8 +212,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display success icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(observableOf(true));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(true));
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -237,6 +235,10 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ``,
+  standalone: true,
+  imports: [
+    NgbModule,
+  ],
 })
 class TestComponent {
 

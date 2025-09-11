@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -14,6 +15,7 @@ import {
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -26,6 +28,11 @@ import {
 @Component({
   selector: 'ds-import-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;
@@ -35,7 +42,7 @@ export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
    * An event fired when the modal is closed
    */
   @Output()
-    response = new EventEmitter<DSpaceObject>();
+  response = new EventEmitter<DSpaceObject>();
 
   constructor(protected activeModal: NgbActiveModal,
               protected route: ActivatedRoute) {

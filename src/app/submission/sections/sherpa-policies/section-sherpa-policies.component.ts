@@ -1,7 +1,10 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
 } from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -12,27 +15,40 @@ import {
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionSherpaPoliciesObject } from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   isEmpty,
 } from '../../../shared/empty.util';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
+import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
+import { PublicationInformationComponent } from './publication-information/publication-information.component';
+import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
 
 /**
- * This component represents a section for the sherpa policy informations structure.
+ * This component represents a section for the sherpa policy information structure.
  */
 @Component({
   selector: 'ds-section-sherpa-policies',
   templateUrl: './section-sherpa-policies.component.html',
   styleUrls: ['./section-sherpa-policies.component.scss'],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    MetadataInformationComponent,
+    NgbCollapseModule,
+    PublicationInformationComponent,
+    PublisherPolicyComponent,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 
   /**

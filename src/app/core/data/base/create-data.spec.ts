@@ -7,7 +7,7 @@
  */
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
@@ -78,7 +78,7 @@ class TestService extends CreateDataImpl<any> {
   }
 
   public getEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
 }
 
@@ -161,7 +161,7 @@ describe('CreateDataImpl', () => {
       const params = [
         new RequestParam('abc', 123), new RequestParam('def', 456),
       ];
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Success));
+      buildFromRequestUUIDSpy.and.returnValue(of(remoteDataMocks.Success));
 
       service.create(obj, ...params).subscribe(out => {
         expect(createOnEndpointSpy).toHaveBeenCalledWith(obj, jasmine.anything());
@@ -180,11 +180,11 @@ describe('CreateDataImpl', () => {
 
   describe('createOnEndpoint', () => {
     beforeEach(() => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Success));
+      buildFromRequestUUIDSpy.and.returnValue(of(remoteDataMocks.Success));
     });
 
     it('should send a POST request with the object as JSON', (done) => {
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           body: JSON.stringify(obj),
@@ -195,7 +195,7 @@ describe('CreateDataImpl', () => {
 
     it('should send the POST request to the given endpoint', (done) => {
 
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           href: 'https://rest.api/core/custom?search',
@@ -205,7 +205,7 @@ describe('CreateDataImpl', () => {
     });
 
     it('should return the remote data for the sent request', (done) => {
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           uuid: requestService.generateRequestId(),
@@ -218,9 +218,9 @@ describe('CreateDataImpl', () => {
     });
 
     it('should show an error notification if the request fails', (done) => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Error));
+      buildFromRequestUUIDSpy.and.returnValue(of(remoteDataMocks.Error));
 
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           uuid: requestService.generateRequestId(),

@@ -1,19 +1,35 @@
+
 import {
   Component,
   Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { dateToISOFormat } from '../../date.util';
+import { ToDatePipe } from './to-date.pipe';
 
 @Component({
   selector: 'ds-access-control-array-form',
   templateUrl: './access-control-array-form.component.html',
   styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm',
+  standalone: true,
+  imports: [
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDatepickerModule,
+    ToDatePipe,
+    TranslateModule,
+  ],
 })
 export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];
@@ -123,6 +139,10 @@ export class AccessControlArrayFormComponent implements OnInit {
 
   trackById(index: number, item: AccessControlItem) {
     return item.id;
+  }
+
+  isValid() {
+    return this.ngForm.valid;
   }
 
 }

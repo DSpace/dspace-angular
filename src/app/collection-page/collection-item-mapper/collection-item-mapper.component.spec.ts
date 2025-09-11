@@ -17,13 +17,12 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -35,10 +34,11 @@ import { Collection } from '../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
@@ -58,6 +58,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';
@@ -86,7 +87,7 @@ describe('CollectionItemMapperComponent', () => {
     },
   });
   const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -108,11 +109,11 @@ describe('CollectionItemMapperComponent', () => {
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
-    findListByHref: () => observableOf(emptyList),
+    findListByHref: () => of(emptyList),
   };
   const activatedRouteStub = {
     parent: {
-      data: observableOf({
+      data: of({
         dso: mockCollectionRD,
       }),
     },
@@ -123,42 +124,42 @@ describe('CollectionItemMapperComponent', () => {
     },
   };
   const translateServiceStub = {
-    get: () => observableOf('test-message of collection ' + mockCollection.name),
+    get: () => of('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter(),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => observableOf(emptyList),
+    search: () => of(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   const collectionDataServiceStub = {
-    getMappedItems: () => observableOf(emptyList),
+    getMappedItems: () => of(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearMappedItemsRequests: () => {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const routeServiceStub = {
     getRouteParameterValue: () => {
-      return observableOf('');
+      return of('');
     },
     getQueryParameterValue: () => {
-      return observableOf('');
+      return of('');
     },
     getQueryParamsWithPrefix: () => {
-      return observableOf('');
+      return of('');
     },
   };
   const fixedFilterServiceStub = {
     getQueryByFilterName: () => {
-      return observableOf('');
+      return of('');
     },
   };
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
@@ -182,8 +183,7 @@ describe('CollectionItemMapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
@@ -191,7 +191,6 @@ describe('CollectionItemMapperComponent', () => {
         { provide: SearchService, useValue: searchServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ItemDataService, useValue: itemDataServiceStub },
-        { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
@@ -200,6 +199,7 @@ describe('CollectionItemMapperComponent', () => {
         { provide: GroupDataService, useValue: groupDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
     }).overrideComponent(CollectionItemMapperComponent, {
       set: {

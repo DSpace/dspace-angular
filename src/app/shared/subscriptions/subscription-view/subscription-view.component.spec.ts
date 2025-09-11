@@ -20,10 +20,11 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 // Import mocks
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 // Import utils
@@ -34,6 +35,7 @@ import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
 } from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionViewComponent } from './subscription-view.component';
@@ -45,7 +47,7 @@ describe('SubscriptionViewComponent', () => {
   let modalService;
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
-    getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoResEmpty),
+    getSubscriptionByPersonDSO: of(findByEPersonAndDsoResEmpty),
     deleteSubscription: createSuccessfulRemoteDataObject$({}),
     updateSubscription: createSuccessfulRemoteDataObject$({}),
   });
@@ -77,12 +79,13 @@ describe('SubscriptionViewComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        SubscriptionViewComponent,
       ],
-      declarations: [ SubscriptionViewComponent ],
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -104,7 +107,7 @@ describe('SubscriptionViewComponent', () => {
   });
 
   it('should have dso object info', () => {
-    expect(de.query(By.css('.dso-info > ds-themed-type-badge'))).toBeTruthy();
+    expect(de.query(By.css('.dso-info > ds-type-badge'))).toBeTruthy();
     expect(de.query(By.css('.dso-info > p > a'))).toBeTruthy();
   });
 
@@ -112,7 +115,7 @@ describe('SubscriptionViewComponent', () => {
     expect(de.query(By.css('.subscription-type'))).toBeTruthy();
   });
 
-  it('should have subscription paramenter info', () => {
+  it('should have subscription parameter info', () => {
     expect(de.query(By.css('.subscription-parameters > span'))).toBeTruthy();
   });
 

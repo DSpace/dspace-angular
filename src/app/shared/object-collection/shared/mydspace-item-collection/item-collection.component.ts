@@ -1,8 +1,11 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   Observable,
@@ -28,6 +31,12 @@ import { followLink } from '../../../utils/follow-link-config.model';
   selector: 'ds-item-collection',
   styleUrls: ['./item-collection.component.scss'],
   templateUrl: './item-collection.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ItemCollectionComponent implements OnInit {
 

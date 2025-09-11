@@ -1,8 +1,10 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -13,14 +15,24 @@ import {
 } from 'rxjs/operators';
 
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { BulkAccessBrowseComponent } from './browse/bulk-access-browse.component';
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 
 @Component({
   selector: 'ds-bulk-access',
   templateUrl: './bulk-access.component.html',
   styleUrls: ['./bulk-access.component.scss'],
+  imports: [
+    BtnDisabledDirective,
+    BulkAccessBrowseComponent,
+    BulkAccessSettingsComponent,
+    TranslateModule,
+  ],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BulkAccessComponent implements OnInit {
 
@@ -60,7 +72,7 @@ export class BulkAccessComponent implements OnInit {
   }
 
   canExport(): boolean {
-    return this.objectsSelected$.value?.length > 0;
+    return this.objectsSelected$.value?.length > 0  && this.settings?.isFormValid();
   }
 
   /**

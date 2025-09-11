@@ -1,4 +1,5 @@
 /* eslint-disable max-classes-per-file */
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -11,6 +12,7 @@ import {
 import { UntypedFormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -36,6 +38,8 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
@@ -158,6 +162,13 @@ export class ReorderableRelationship extends Reorderable {
   selector: 'ds-existing-metadata-list-element',
   templateUrl: './existing-metadata-list-element.component.html',
   styleUrls: ['./existing-metadata-list-element.component.scss'],
+  imports: [
+    AsyncPipe,
+    MetadataRepresentationLoaderComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;

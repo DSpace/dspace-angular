@@ -24,38 +24,38 @@ export class QualityAssuranceTopicObject implements CacheableObject {
    * The Quality Assurance topic id
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The Quality Assurance topic name to display
    */
   @autoserialize
-    name: string;
+  name: string;
 
   /**
    * The date of the last udate from Notifications
    */
   @autoserialize
-    lastEvent: string;
+  lastEvent: string;
 
   /**
    * The total number of suggestions provided by Notifications for this topic
    */
   @autoserialize
-    totalEvents: number;
+  totalEvents: number;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
   };
 }

@@ -1,4 +1,6 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { BrowseEntry } from '../../../../../../app/core/shared/browse-entry.model';
 import { Context } from '../../../../../../app/core/shared/context.model';
@@ -12,6 +14,11 @@ import { BrowseEntryListElementComponent as BaseComponent } from '../../../../..
   styleUrls: ['../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component.scss'],
   // templateUrl: './browse-entry-list-element.component.html',
   templateUrl: '../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    RouterLink,
+  ],
 })
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, Context.Any, 'custom')
 export class BrowseEntryListElementComponent extends BaseComponent {

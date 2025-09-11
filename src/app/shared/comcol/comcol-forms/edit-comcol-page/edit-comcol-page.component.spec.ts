@@ -11,11 +11,10 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SharedModule } from '../../../shared.module';
 import { EditComColPageComponent } from './edit-comcol-page.component';
 
 describe('EditComColPageComponent', () => {
@@ -38,12 +37,12 @@ describe('EditComColPageComponent', () => {
 
     routerStub = {
       navigate: (commands) => commands,
-      events: observableOf({}),
+      events: of({}),
       url: 'mockUrl',
     };
 
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: community,
       }),
       routeConfig: {
@@ -70,7 +69,7 @@ describe('EditComColPageComponent', () => {
   beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule],
       providers: [
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },

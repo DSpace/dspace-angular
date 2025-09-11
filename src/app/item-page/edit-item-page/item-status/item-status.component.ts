@@ -1,9 +1,18 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -44,21 +53,30 @@ import {
   getItemEditRoute,
   getItemPageRoute,
 } from '../../item-page-routing-paths';
+import { ItemOperationComponent } from '../item-operation/item-operation.component';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
-  selector: 'ds-item-status',
+  selector: 'ds-base-item-status',
   templateUrl: './item-status.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [
     fadeIn,
     fadeInOut,
   ],
+  imports: [
+    AsyncPipe,
+    ItemOperationComponent,
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying an item's status
  */
-export class ItemStatusComponent implements OnInit {
+export class ItemStatusComponent implements OnInit, OnDestroy {
 
   /**
    * The item to display the status for

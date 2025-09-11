@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -14,6 +15,10 @@ import {
 @Component({
   selector: 'ds-eperson-data',
   templateUrl: './ePerson-data.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+  ],
   styleUrls: ['./ePerson-data.component.scss'],
 })
 /**

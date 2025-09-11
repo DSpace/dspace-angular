@@ -1,9 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -31,6 +34,7 @@ import {
   getPaginatedListPayload,
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**
  * This component renders the parent collections section of the item
@@ -40,6 +44,13 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-item-page-collections',
   templateUrl: './collections.component.html',
+  imports: [
+    AsyncPipe,
+    MetadataFieldWrapperComponent,
+    RouterLink,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class CollectionsComponent implements OnInit {
 

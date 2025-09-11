@@ -1,24 +1,36 @@
 import {
+  AsyncPipe,
+  isPlatformServer,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Inject,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
   Params,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
+  of,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import {
@@ -34,27 +46,31 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-date',
   styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component for browsing items by metadata definition of type 'date'
  * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
-@rendersBrowseBy(BrowseByDataType.Date)
 export class BrowseByDateComponent extends BrowseByMetadataComponent implements OnInit {
 
   /**
@@ -71,24 +87,34 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     @Inject(APP_CONFIG) public appConfig: AppConfig,
     public dsoNameService: DSONameService,
     protected cdRef: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService, platformId);
   }
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
+      this.loading$ = of(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
-    // include the thumbnail configuration in browse search options
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    const routeParams$: Observable<Params> = observableCombineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
+      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
+      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.startsWith === curr.startsWith),
+    );
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.route.data,
-        this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, scope, data, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams, data), scope, currentPage, currentSort];
-        }),
-      ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
+      observableCombineLatest([
+        routeParams$,
+        this.scope$,
+        this.currentPagination$,
+        this.currentSort$,
+      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;

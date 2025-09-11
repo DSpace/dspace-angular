@@ -1,10 +1,14 @@
+import { TitleCasePipe } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { HealthComponent } from '../../models/health-component.model';
 
 /**
@@ -18,6 +22,13 @@ import { HealthComponent } from '../../models/health-component.model';
   selector: 'ds-health-component',
   templateUrl: './health-component.component.html',
   styleUrls: ['./health-component.component.scss'],
+  standalone: true,
+  imports: [
+    AlertComponent,
+    NgbCollapseModule,
+    ObjNgFor,
+    TitleCasePipe,
+  ],
 })
 export class HealthComponentComponent {
 

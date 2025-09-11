@@ -1,3 +1,4 @@
+
 import {
   ChangeDetectorRef,
   Component,
@@ -23,6 +24,8 @@ import { UploaderComponent } from '../../shared/upload/uploader/uploader.compone
 import { UploaderError } from '../../shared/upload/uploader/uploader-error.model';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
+import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
+import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
 
 /**
  * This component represents the whole mydspace page header
@@ -31,6 +34,12 @@ import { CollectionSelectorComponent } from '../collection-selector/collection-s
   selector: 'ds-my-dspace-new-submission',
   styleUrls: ['./my-dspace-new-submission.component.scss'],
   templateUrl: './my-dspace-new-submission.component.html',
+  imports: [
+    MyDSpaceNewExternalDropdownComponent,
+    MyDSpaceNewSubmissionDropdownComponent,
+    UploaderComponent,
+  ],
+  standalone: true,
 })
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**
@@ -130,7 +139,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     } else {
       const modalRef = this.modalService.open(CollectionSelectorComponent);
       // When the dialog are closes its takes the collection selected and
-      // uploads choosed file after adds owningCollection parameter
+      // uploads chosen file after adds owningCollection parameter
       modalRef.result.then( (result) => {
         uploader.onBuildItemForm = (fileItem: any, form: any) => {
           form.append('owningCollection', result.uuid);

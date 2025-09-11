@@ -21,9 +21,11 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MockElementRef } from '../testing/element-ref.mock';
+import { ThemeService } from '../theme-support/theme.service';
 import { CollectionDropdownComponent } from './collection-dropdown.component';
 
 const community: Community = Object.assign(new Community(), {
@@ -110,6 +112,8 @@ describe('CollectionDropdownComponent', () => {
   let fixture: ComponentFixture<CollectionDropdownComponent>;
   let scheduler: TestScheduler;
 
+  let themeService = getMockThemeService();
+
   const collectionDataServiceMock: any = jasmine.createSpyObj('CollectionDataService', {
     getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection'),
     getAuthorizedCollectionByEntityType: jasmine.createSpy('getAuthorizedCollectionByEntityType'),
@@ -130,12 +134,13 @@ describe('CollectionDropdownComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        CollectionDropdownComponent,
       ],
-      declarations: [CollectionDropdownComponent],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
         { provide: ElementRef, useClass: MockElementRef },
         ChangeDetectorRef,
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

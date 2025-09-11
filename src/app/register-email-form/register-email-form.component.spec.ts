@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  FormsModule,
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
@@ -15,10 +16,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -26,6 +24,8 @@ import { EpersonRegistrationService } from '../core/data/eperson-registration.se
 import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../core/services/cookie.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
@@ -74,8 +74,7 @@ describe('RegisterEmailFormComponent', () => {
     jasmine.getEnv().allowRespy(true);
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [RegisterEmailFormComponent],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailFormComponent, FormsModule],
       providers: [
         { provide: Router, useValue: router },
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
@@ -85,8 +84,11 @@ describe('RegisterEmailFormComponent', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: GoogleRecaptchaService, useValue: googleRecaptchaService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(RegisterEmailFormComponent, {
+      remove: { imports: [GoogleRecaptchaComponent, AlertComponent] },
+    })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailFormComponent);
@@ -166,7 +168,7 @@ describe('RegisterEmailFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
     it('should send a registration to the service and on error display a message', () => {
-      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
+      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(of(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({ email: 'valid@email.org' });
 
@@ -194,7 +196,7 @@ describe('RegisterEmailFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     }));
     it('should send a registration to the service and on error display a message', fakeAsync(() => {
-      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
+      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(of(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({ email: 'valid@email.org' });
 

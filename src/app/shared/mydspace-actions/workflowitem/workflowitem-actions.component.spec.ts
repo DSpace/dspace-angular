@@ -9,12 +9,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { Item } from '../../../core/shared/item.model';
@@ -26,6 +29,7 @@ import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
@@ -42,7 +46,7 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -71,7 +75,7 @@ const item = Object.assign(new Item(), {
   },
 });
 const rd = createSuccessfulRemoteDataObject(item);
-mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
+mockObject = Object.assign(new WorkflowItem(), { item: of(rd), id: '1234', uuid: '1234' });
 
 describe('WorkflowitemActionsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -83,8 +87,8 @@ describe('WorkflowitemActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        WorkflowitemActionsComponent,
       ],
-      declarations: [WorkflowitemActionsComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
@@ -92,6 +96,7 @@ describe('WorkflowitemActionsComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkflowitemActionsComponent, {

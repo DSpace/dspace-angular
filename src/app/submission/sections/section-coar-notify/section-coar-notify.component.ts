@@ -1,9 +1,18 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Inject,
 } from '@angular/core';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdown,
+  NgbDropdownModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
   Subscription,
@@ -36,8 +45,6 @@ import { SubmissionSectionError } from '../../objects/submission-section-error.m
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { LdnPattern } from './submission-coar-notify.config';
 
@@ -48,9 +55,16 @@ import { LdnPattern } from './submission-coar-notify.config';
   selector: 'ds-submission-section-coar-notify',
   templateUrl: './section-coar-notify.component.html',
   styleUrls: ['./section-coar-notify.component.scss'],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    NgClass,
+    TranslateModule,
+  ],
   providers: [NgbDropdown],
 })
-@renderSectionFor(SectionsType.CoarNotify)
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
   hasSectionData = false;
@@ -117,7 +131,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   /**
    * Method called when section is initialized
-   * Retriev available NotifyConfigs
+   * Retrieve available NotifyConfigs
    */
   setCoarNotifyConfig() {
     this.subs.push(

@@ -1,21 +1,27 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 
+import { QualityAssuranceEventsComponent } from '../../notifications/qa/events/quality-assurance-events.component';
 import { QualityAssuranceEventsPageComponent } from './quality-assurance-events-page.component';
 
 describe('QualityAssuranceEventsPageComponent', () => {
   let component: QualityAssuranceEventsPageComponent;
   let fixture: ComponentFixture<QualityAssuranceEventsPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ QualityAssuranceEventsPageComponent ],
+      imports: [QualityAssuranceEventsPageComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(QualityAssuranceEventsPageComponent, {
+        remove: {
+          imports: [QualityAssuranceEventsComponent],
+        },
+      })
       .compileComponents();
   }));
 

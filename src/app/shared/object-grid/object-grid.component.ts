@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,6 +8,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -31,13 +33,18 @@ import {
   hasNoValue,
   hasValue,
 } from '../empty.util';
+import { ErrorComponent } from '../error/error.component';
 import {
   HostWindowService,
   WidthCategory,
 } from '../host-window.service';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -46,6 +53,16 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   styleUrls: ['./object-grid.component.scss'],
   templateUrl: './object-grid.component.html',
   animations: [fadeIn],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 
 export class ObjectGridComponent implements OnInit {
@@ -171,7 +188,7 @@ export class ObjectGridComponent implements OnInit {
   @Output() next = new EventEmitter<boolean>();
 
   data: any = {};
-  columns$: Observable<ListableObject[]>;
+  columns$: Observable<ListableObject[][]>;
 
   constructor(private hostWindow: HostWindowService) {
     this._objects$ = new BehaviorSubject(undefined);

@@ -1,10 +1,21 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   forwardRef,
   Input,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { ClickOutsideDirective } from '../../utils/click-outside.directive';
+import { DebounceDirective } from '../../utils/debounce.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { InputSuggestion } from '../input-suggestions.model';
 
@@ -20,6 +31,16 @@ import { InputSuggestion } from '../input-suggestions.model';
       useExisting: forwardRef(() => FilterInputSuggestionsComponent),
       multi: true,
     },
+  ],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    NgClass,
+    NgTemplateOutlet,
+    TranslateModule,
   ],
 })
 

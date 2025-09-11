@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
@@ -25,13 +25,18 @@ import { ExternalSourceEntry } from '../../../../../../core/shared/external-sour
 import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../testing/utils.test';
 import { VarDirective } from '../../../../../utils/var.directive';
@@ -110,12 +115,12 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, BrowserAnimationsModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule,
+        BrowserAnimationsModule, DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions),
+            paginatedSearchOptions: of(pSearchOptions),
           },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
@@ -123,7 +128,19 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
         { provide: PaginationService, useValue: new PaginationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(DsDynamicLookupRelationExternalSourceTabComponent, {
+        remove: {
+          imports: [
+            ThemedSearchFormComponent,
+            PageSizeSelectorComponent,
+            ObjectCollectionComponent,
+            ErrorComponent,
+            ThemedLoadingComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -157,7 +174,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     });
 
     it('should display a ds-themed-loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading).not.toBeNull();
     });
   });

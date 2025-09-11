@@ -6,12 +6,12 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../shared/remote-data.utils';
 import { RouterStub } from '../shared/testing/router.stub';
-import { BrowseByGuard } from './browse-by-guard';
+import { browseByGuard } from './browse-by-guard';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 
-describe('BrowseByGuard', () => {
+describe('browseByGuard', () => {
   describe('canActivate', () => {
-    let guard: BrowseByGuard;
+    let guard: any;
     let translateService: any;
     let browseDefinitionService: any;
     let router: any;
@@ -35,7 +35,7 @@ describe('BrowseByGuard', () => {
 
       router = new RouterStub() as any;
 
-      guard = new BrowseByGuard(translateService, browseDefinitionService, router);
+      guard = browseByGuard;
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {
@@ -53,7 +53,7 @@ describe('BrowseByGuard', () => {
           value,
         },
       };
-      guard.canActivate(scopedRoute as any, undefined)
+      guard(scopedRoute as any, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe(
           (canActivate) => {
@@ -86,7 +86,7 @@ describe('BrowseByGuard', () => {
         },
       };
 
-      guard.canActivate(scopedNoValueRoute as any, undefined)
+      guard(scopedNoValueRoute, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe(
           (canActivate) => {
@@ -123,7 +123,7 @@ describe('BrowseByGuard', () => {
         },
       };
 
-      guard.canActivate(scopedNoValueRoute as any, undefined).pipe(
+      guard(scopedNoValueRoute as any, undefined, browseDefinitionService, router, translateService).pipe(
         first(),
       ).subscribe((canActivate) => {
         const result = {
@@ -154,7 +154,8 @@ describe('BrowseByGuard', () => {
           value,
         },
       };
-      guard.canActivate(route as any, undefined)
+
+      guard(route as any, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe(
           (canActivate) => {
@@ -189,7 +190,8 @@ describe('BrowseByGuard', () => {
           value,
         },
       };
-      guard.canActivate(scopedRoute as any, undefined)
+
+      guard(scopedRoute as any, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe((canActivate) => {
           expect(router.navigate).toHaveBeenCalled();

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -9,7 +10,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   from as observableFrom,
@@ -33,6 +37,7 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -40,12 +45,22 @@ import {
 } from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
-import { ResourcePolicyCheckboxEntry } from './entry/resource-policy-entry.component';
+import {
+  ResourcePolicyCheckboxEntry,
+  ResourcePolicyEntryComponent,
+} from './entry/resource-policy-entry.component';
 
 @Component({
   selector: 'ds-resource-policies',
   styleUrls: ['./resource-policies.component.scss'],
   templateUrl: './resource-policies.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    ResourcePolicyEntryComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component that shows the policies for given resource

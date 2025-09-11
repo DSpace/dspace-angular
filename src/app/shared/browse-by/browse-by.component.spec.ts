@@ -16,10 +16,8 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
-import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
 import {
   SortDirection,
   SortOptions,
@@ -48,7 +46,6 @@ import { BrowseEntryListElementComponent } from '../object-list/browse-entry-lis
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SharedModule } from '../shared.module';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { routeServiceStub } from '../testing/route-service.stub';
@@ -61,6 +58,7 @@ import { BrowseByComponent } from './browse-by.component';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-browse-entry-list-element',
+  standalone: true,
   template: '',
 })
 class MockThemedBrowseEntryListElementComponent {
@@ -103,10 +101,7 @@ describe('BrowseByComponent', () => {
     themeService = getMockThemeService('base');
     void TestBed.configureTestingModule({
       imports: [
-        BrowseByRoutingModule,
-        AccessControlRoutingModule,
         CommonModule,
-        SharedModule,
         NgbModule,
         TranslateModule.forRoot({
           loader: {
@@ -116,8 +111,8 @@ describe('BrowseByComponent', () => {
         }),
         RouterTestingModule,
         NoopAnimationsModule,
+        BrowseByComponent,
       ],
-      declarations: [BrowseByComponent],
       providers: [
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: ConfigurationDataService, useValue: configurationDataService },
@@ -141,7 +136,7 @@ describe('BrowseByComponent', () => {
   it('should display a loading message when objects is empty', () => {
     (comp as any).objects = undefined;
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('ds-themed-loading'))).not.toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-loading'))).not.toBeNull();
   });
 
   it('should display results when objects is not empty', () => {
@@ -189,7 +184,7 @@ describe('BrowseByComponent', () => {
     describe('when theme is base', () => {
       beforeEach(async () => {
         themeService.getThemeName.and.returnValue('base');
-        themeService.getThemeName$.and.returnValue(observableOf('base'));
+        themeService.getThemeName$.and.returnValue(of('base'));
         fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
@@ -208,7 +203,7 @@ describe('BrowseByComponent', () => {
     describe('when theme is dspace', () => {
       beforeEach(async () => {
         themeService.getThemeName.and.returnValue('dspace');
-        themeService.getThemeName$.and.returnValue(observableOf('dspace'));
+        themeService.getThemeName$.and.returnValue(of('dspace'));
         fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
@@ -240,7 +235,7 @@ describe('BrowseByComponent', () => {
           count: 1,
         }),
       ]));
-      comp.shouldDisplayResetButton$ = observableOf(true);
+      comp.shouldDisplayResetButton$ = of(true);
       fixture.detectChanges();
 
       const button = fixture.debugElement.query(By.css('.reset'));

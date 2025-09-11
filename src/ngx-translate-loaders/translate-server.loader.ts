@@ -1,9 +1,10 @@
-import { TransferState } from '@angular/platform-browser';
+import { readFileSync } from 'node:fs';
+
+import { TransferState } from '@angular/core';
 import { TranslateLoader } from '@ngx-translate/core';
-import { readFileSync } from 'fs';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { environment } from '../environments/environment';
@@ -40,7 +41,7 @@ export class TranslateServerLoader implements TranslateLoader {
     // app loads on the client
     this.storeInTransferState(lang, messages);
     // Return the parsed messages to translate things server side
-    return observableOf(messages);
+    return of(messages);
   }
 
   /**

@@ -1,12 +1,17 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  forwardRef,
   Input,
   Output,
   QueryList,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
@@ -20,10 +25,18 @@ import {
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 
+import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
+
 @Component({
   selector: 'ds-dynamic-form-group',
   templateUrl: './dynamic-form-group.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    forwardRef(() => DsDynamicFormControlContainerComponent),
+    NgClass,
+    ReactiveFormsModule,
+  ],
+  standalone: true,
 })
 export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
 

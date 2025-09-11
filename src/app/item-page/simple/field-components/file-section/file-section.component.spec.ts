@@ -6,24 +6,33 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { FileSectionComponent } from './file-section.component';
@@ -34,14 +43,14 @@ describe('FileSectionComponent', () => {
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-    findPrimaryBitstreamByItemAndName: observableOf(null),
+    findPrimaryBitstreamByItemAndName: of(null),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),
     {
       sizeBytes: 10201,
       content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-      format: observableOf(MockBitstreamFormat1),
+      format: of(MockBitstreamFormat1),
       bundleName: 'ORIGINAL',
       _links: {
         self: {
@@ -72,16 +81,27 @@ describe('FileSectionComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
-      declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
+      }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe],
       providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        provideMockStore(),
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(FileSectionComponent, {
+        remove: {
+          imports: [
+            MetadataFieldWrapperComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
@@ -91,17 +111,17 @@ describe('FileSectionComponent', () => {
   }));
 
   it('should set the id of primary bitstream', () => {
-    comp.primaryBitsreamId = undefined;
-    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(mockBitstream));
+    comp.primaryBitstreamId = undefined;
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(mockBitstream));
     comp.ngOnInit();
-    expect(comp.primaryBitsreamId).toBe(mockBitstream.id);
+    expect(comp.primaryBitstreamId).toBe(mockBitstream.id);
   });
 
   it('should not set the id of primary bitstream', () => {
-    comp.primaryBitsreamId = undefined;
-    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(null));
+    comp.primaryBitstreamId = undefined;
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));
     comp.ngOnInit();
-    expect(comp.primaryBitsreamId).toBeUndefined();
+    expect(comp.primaryBitstreamId).toBeUndefined();
   });
 
   describe('when the bitstreams are loading', () => {
@@ -112,7 +132,7 @@ describe('FileSectionComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });
@@ -135,7 +155,7 @@ describe('FileSectionComponent', () => {
     it('one bitstream should be on the page', () => {
       const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
       viewMore.triggerEventHandler('click', null);
-      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
+      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
       expect(fileDownloadLink.length).toEqual(1);
     });
 
@@ -148,7 +168,7 @@ describe('FileSectionComponent', () => {
 
       });
       it('should contain another bitstream', () => {
-        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
+        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
         expect(fileDownloadLink.length).toEqual(2);
       });
     });

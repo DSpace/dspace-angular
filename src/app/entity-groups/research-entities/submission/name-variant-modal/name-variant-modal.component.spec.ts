@@ -24,8 +24,7 @@ describe('NameVariantModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [NameVariantModalComponent],
-      imports: [NgbModule, TranslateModule.forRoot()],
+      imports: [NgbModule, TranslateModule.forRoot(), NameVariantModalComponent],
       providers: [{ provide: NgbActiveModal, useValue: modal }],
     })
       .compileComponents();
@@ -44,7 +43,7 @@ describe('NameVariantModalComponent', () => {
   });
 
   it('when close button is clicked, dismiss should be called on the modal', () => {
-    debugElement.query(By.css('button.close')).triggerEventHandler('click', {});
+    debugElement.query(By.css('button.btn-close')).triggerEventHandler('click', {});
     expect(modal.dismiss).toHaveBeenCalled();
   });
 

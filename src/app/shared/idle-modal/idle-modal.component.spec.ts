@@ -32,8 +32,7 @@ describe('IdleModalComponent', () => {
     authServiceStub = jasmine.createSpyObj('authService', ['setIdle']);
     storeStub = jasmine.createSpyObj('store', ['dispatch']);
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [IdleModalComponent],
+      imports: [TranslateModule.forRoot(), IdleModalComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: AuthService, useValue: authServiceStub },
@@ -131,7 +130,7 @@ describe('IdleModalComponent', () => {
   describe('when the click method emits on close button', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'closePressed');
-      debugElement.query(By.css('.close')).triggerEventHandler('click', {
+      debugElement.query(By.css('.btn-close')).triggerEventHandler('click', {
         preventDefault: () => {/**/
         },
       });

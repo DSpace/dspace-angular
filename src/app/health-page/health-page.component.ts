@@ -1,12 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { HealthService } from './health.service';
+import { HealthInfoComponent } from './health-info/health-info.component';
+import { HealthPanelComponent } from './health-panel/health-panel.component';
 import {
   HealthInfoResponse,
   HealthResponse,
@@ -16,6 +22,15 @@ import {
   selector: 'ds-health-page',
   templateUrl: './health-page.component.html',
   styleUrls: ['./health-page.component.scss'],
+  standalone: true,
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    HealthInfoComponent,
+    HealthPanelComponent,
+    NgbNavModule,
+    TranslateModule,
+  ],
 })
 export class HealthPageComponent implements OnInit {
 

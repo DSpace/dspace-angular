@@ -37,9 +37,8 @@ describe('CustomSwitchComponent', () => {
         ReactiveFormsModule,
         NoopAnimationsModule,
         DynamicFormsCoreModule.forRoot(),
+        CustomSwitchComponent,
       ],
-      declarations: [CustomSwitchComponent],
-
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(CustomSwitchComponent);
 

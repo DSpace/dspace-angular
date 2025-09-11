@@ -14,12 +14,13 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 
 describe('BitstreamAuthorizationsComponent', () => {
@@ -44,7 +45,7 @@ describe('BitstreamAuthorizationsComponent', () => {
   const bitstreamRD = createSuccessfulRemoteDataObject(bitstream);
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       bitstream: bitstreamRD,
     }),
   };
@@ -59,15 +60,19 @@ describe('BitstreamAuthorizationsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        BitstreamAuthorizationsComponent,
       ],
-      declarations: [BitstreamAuthorizationsComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         BitstreamAuthorizationsComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(BitstreamAuthorizationsComponent, {
+        remove: { imports: [ResourcePoliciesComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

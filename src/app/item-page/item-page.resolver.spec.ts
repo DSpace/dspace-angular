@@ -1,17 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataValueFilter } from '../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ItemPageResolver } from './item-page.resolver';
+import { AuthServiceStub } from '../shared/testing/auth-service.stub';
+import { itemPageResolver } from './item-page.resolver';
 
-describe('ItemPageResolver', () => {
+describe('itemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{
+      imports: [RouterModule.forRoot([{
         path: 'entities/:entity-type/:id',
         component: {} as any,
       }])],
@@ -19,10 +22,11 @@ describe('ItemPageResolver', () => {
   });
 
   describe('resolve', () => {
-    let resolver: ItemPageResolver;
+    let resolver: any;
     let itemService: any;
     let store: any;
-    let router: any;
+    let router: Router;
+    let authService: AuthServiceStub;
 
     const uuid = '1234-65487-12354-1235';
     let item: DSpaceObject;
@@ -42,15 +46,21 @@ describe('ItemPageResolver', () => {
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
-        resolver = new ItemPageResolver(itemService, store, router);
+        authService = new AuthServiceStub();
+        resolver = itemPageResolver;
       });
 
       it('should redirect to the correct route for the entity type', (done) => {
         spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
         spyOn(router, 'navigateByUrl').and.callThrough();
 
-        resolver.resolve({ params: { id: uuid } } as any, { url: router.parseUrl(`/items/${uuid}`).toString() } as any)
-          .pipe(first())
+        resolver({ params: { id: uuid } } as any,
+          { url: router.parseUrl(`/items/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+          authService,
+        ).pipe(first())
           .subscribe(
             () => {
               expect(router.navigateByUrl).toHaveBeenCalledWith(router.parseUrl(`/entities/${entityType}/${uuid}`).toString());
@@ -63,8 +73,14 @@ describe('ItemPageResolver', () => {
         spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
         spyOn(router, 'navigateByUrl').and.callThrough();
 
-        resolver.resolve({ params: { id: uuid } } as any, { url: router.parseUrl(`/entities/${entityType}/${uuid}`).toString() } as any)
-          .pipe(first())
+        resolver(
+          { params: { id: uuid } } as any,
+          { url: router.parseUrl(`/entities/${entityType}/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+          authService,
+        ).pipe(first())
           .subscribe(
             () => {
               expect(router.navigateByUrl).not.toHaveBeenCalled();

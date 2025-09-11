@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -5,7 +6,10 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   concatMap,
   Observable,
@@ -22,7 +26,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
@@ -35,8 +41,18 @@ import {
 @Component({
   selector: 'ds-access-control-form-container',
   templateUrl: './access-control-form-container.component.html',
-  styleUrls: [ './access-control-form-container.component.scss' ],
+  styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
+  standalone: true,
+  imports: [
+    AccessControlArrayFormComponent,
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    TranslateModule,
+    UiSwitchModule,
+  ],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 
@@ -166,6 +182,10 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
 
   ngOnDestroy(): void {
     this.selectableListService.deselectAll(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID);
+  }
+
+  isValid() {
+    return this.bitstreamAccessCmp.isValid() || this.itemAccessCmp.isValid();
   }
 
 }

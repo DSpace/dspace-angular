@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -10,6 +11,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -20,8 +22,10 @@ import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 
@@ -31,6 +35,13 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 @Component({
   selector: 'ds-profile-claim-item-modal',
   templateUrl: './profile-claim-item-modal.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    ListableObjectComponentLoaderComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { TransferState } from '@angular/platform-browser';
+import { TransferState } from '@angular/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -39,7 +39,7 @@ export class TranslateBrowserLoader implements TranslateLoader {
     const state = this.transferState.get<NgxTranslateState>(NGX_TRANSLATE_STATE, {});
     const messages = state[lang];
     if (hasValue(messages)) {
-      return observableOf(messages);
+      return of(messages);
     } else {
       let translationHash = '';
       if (environment.production) {

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -5,6 +6,8 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -23,18 +26,34 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Item } from '../../core/shared/item.model';
+import { ItemRequest } from '../../core/shared/item-request.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
 /**
  * This component renders the media viewers
  */
 @Component({
-  selector: 'ds-media-viewer',
+  selector: 'ds-base-media-viewer',
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
+  imports: [
+    AsyncPipe,
+    ThemedLoadingComponent,
+    ThemedMediaViewerImageComponent,
+    ThemedMediaViewerVideoComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;
@@ -53,9 +72,12 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
 
   subs: Subscription[] = [];
 
+  itemRequest: ItemRequest;
+
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected changeDetectorRef: ChangeDetectorRef,
+    protected route: ActivatedRoute,
   ) {
   }
 
@@ -67,6 +89,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
    * This method loads all the Bitstreams and Thumbnails and converts it to {@link MediaViewerItem}s
    */
   ngOnInit(): void {
+    this.itemRequest = this.route.snapshot.data.itemRequest;
     const types: string[] = [
       ...(this.mediaOptions.image ? ['image'] : []),
       ...(this.mediaOptions.video ? ['audio', 'video'] : []),
@@ -103,6 +126,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
         }));
       }
     }));
+
   }
 
   /**
@@ -143,6 +167,18 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
     mediaItem.format = format.mimetype.split('/')[0];
     mediaItem.mimetype = format.mimetype;
     mediaItem.thumbnail = thumbnail ? thumbnail._links.content.href : null;
+    mediaItem.accessToken = this.accessToken;
     return mediaItem;
   }
+
+  /**
+   * Get access token, if this is accessed via a Request-a-Copy link
+   */
+  get accessToken() {
+    if (hasValue(this.itemRequest) && this.itemRequest.accessToken && !this.itemRequest.accessExpired) {
+      return this.itemRequest.accessToken;
+    }
+    return null;
+  }
+
 }

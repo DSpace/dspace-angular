@@ -37,8 +37,7 @@ describe('StartsWithTextComponent', () => {
     router = new RouterStub();
 
     await TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [StartsWithTextComponent, EnumKeysPipe],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithTextComponent, EnumKeysPipe],
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: route },
@@ -75,8 +74,8 @@ describe('StartsWithTextComponent', () => {
       expect(comp.startsWith).toEqual(expectedValue);
     });
 
-    it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
+    it('should add a startsWith query parameter and clear all others', () => {
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue }, undefined, { queryParamsHandling: '' });
     });
   });
 

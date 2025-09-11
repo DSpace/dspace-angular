@@ -1,20 +1,31 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+// eslint-disable-next-line max-classes-per-file
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 import { EditRelationshipComponent } from './edit-relationship.component';
 
 let objectUpdatesService;
@@ -28,6 +39,7 @@ let fieldUpdate1;
 let fieldUpdate2;
 let relationships;
 let relationshipType;
+let mockNgbModal;
 
 let fixture: ComponentFixture<EditRelationshipComponent>;
 let comp: EditRelationshipComponent;
@@ -119,23 +131,29 @@ describe('EditRelationshipComponent', () => {
       saveRemoveFieldUpdate: jasmine.createSpy('saveRemoveFieldUpdate'),
     };
 
-    spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: of({}) } as NgbModalRef,
+      ),
+    };
+
+    spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => of(itemSelection[uuid]));
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditRelationshipComponent],
+      imports: [TranslateModule.forRoot(), EditRelationshipComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            },
-          },
-        },
+        { provide: NgbModal, useValue: mockNgbModal },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(EditRelationshipComponent, {
+        remove: { imports: [ VirtualMetadataComponent, ListableObjectComponentLoaderComponent ] },
+        add: { imports: [ MockVirtualMetadataComponent, MockListableObjectComponentLoaderComponent ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -148,7 +166,7 @@ describe('EditRelationshipComponent', () => {
     comp.url = url;
     comp.fieldUpdate = fieldUpdate1;
     comp.editItem = item;
-    comp.relatedItem$ = observableOf(relatedItem);
+    comp.relatedItem$.next(relatedItem);
 
     fixture.detectChanges();
   });
@@ -219,3 +237,17 @@ describe('EditRelationshipComponent', () => {
     });
   });
 });
+
+@Component({
+  selector: 'ds-virtual-metadata',
+  template: ``,
+  standalone: true,
+})
+class MockVirtualMetadataComponent {}
+
+@Component({
+  selector: 'ds-listable-object-component-loader',
+  template: ``,
+  standalone: true,
+})
+export class MockListableObjectComponentLoaderComponent {}

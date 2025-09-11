@@ -11,6 +11,7 @@ import {
   providers: [
     { provide: NG_VALIDATORS, useExisting: IpV4Validator, multi: true },
   ],
+  standalone: true,
 })
 /**
  * Validator to validate if an Ip is in the right format

@@ -1,12 +1,25 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -40,16 +53,30 @@ import {
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   getEPersonEditRoute,
   getEPersonsRoute,
 } from '../access-control-routing-paths';
+import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 
 @Component({
   selector: 'ds-epeople-registry',
   templateUrl: './epeople-registry.component.html',
+  imports: [
+    AsyncPipe,
+    EPersonFormComponent,
+    NgClass,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * A component used for managing all existing epeople within the repository.
@@ -68,6 +95,8 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * as the result of the search
    */
   ePeopleDto$: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject<PaginatedList<EpersonDtoModel>>({} as any);
+
+  activeEPerson$: Observable<EPerson>;
 
   /**
    * An observable for the pageInfo, needed to pass to the pagination component
@@ -134,6 +163,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   initialisePage() {
     this.searching$.next(true);
     this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
+    this.activeEPerson$ = this.epersonService.getActiveEPerson();
     this.subs.push(this.ePeople$.pipe(
       switchMap((epeople: PaginatedList<EPerson>) => {
         if (epeople.pageInfo.totalElements > 0) {
@@ -199,23 +229,6 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
       this.pageInfoState$.next(peopleRD.payload.pageInfo);
     },
     );
-  }
-
-  /**
-   * Checks whether the given EPerson is active (being edited)
-   * @param eperson
-   */
-  isActive(eperson: EPerson): Observable<boolean> {
-    return this.getActiveEPerson().pipe(
-      map((activeEPerson) => eperson === activeEPerson),
-    );
-  }
-
-  /**
-   * Gets the active eperson (being edited)
-   */
-  getActiveEPerson(): Observable<EPerson> {
-    return this.epersonService.getActiveEPerson();
   }
 
   /**

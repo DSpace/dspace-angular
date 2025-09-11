@@ -20,7 +20,10 @@ import {
   BrowserModule,
   By,
 } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -29,7 +32,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -45,13 +48,16 @@ import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import {
   EPersonMock,
   EPersonMock2,
@@ -107,7 +113,7 @@ describe('MembersListComponent', () => {
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
       getActiveGroup(): Observable<Group> {
-        return observableOf(activeGroup);
+        return of(activeGroup);
       },
       getEPersonMembers() {
         return this.epersonMembers;
@@ -121,7 +127,7 @@ describe('MembersListComponent', () => {
             this.epersonNonMembers.splice(index, 1);
           }
         });
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
         // empty
@@ -141,7 +147,7 @@ describe('MembersListComponent', () => {
         });
         // Add eperson to list of non-members
         this.epersonNonMembers = [...this.epersonNonMembers, epersonToDelete];
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
     };
     builderService = getMockFormBuilderService();
@@ -155,9 +161,7 @@ describe('MembersListComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [MembersListComponent],
+        }), MembersListComponent],
       providers: [MembersListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
@@ -166,9 +170,16 @@ describe('MembersListComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(MembersListComponent, {
+        remove: {
+          imports: [PaginationComponent, ContextHelpDirective],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -211,13 +222,13 @@ describe('MembersListComponent', () => {
 
     describe('if first delete button is pressed', () => {
       beforeEach(() => {
+        spyOn(component, 'search').and.callThrough();
         const deleteButton: DebugElement = fixture.debugElement.query(By.css('#ePeopleMembersOfGroup tbody .fa-trash-alt'));
         deleteButton.nativeElement.click();
         fixture.detectChanges();
       });
-      it('then no ePerson remains as a member of the active group.', () => {
-        const epersonsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tbody tr'));
-        expect(epersonsFound.length).toEqual(0);
+      it('should trigger the search to add the user back to the search table', () => {
+        expect(component.search).toHaveBeenCalled();
       });
     });
   });
@@ -253,13 +264,13 @@ describe('MembersListComponent', () => {
 
       describe('if first add button is pressed', () => {
         beforeEach(() => {
+          spyOn(component, 'search').and.callThrough();
           const addButton: DebugElement = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-plus'));
           addButton.nativeElement.click();
           fixture.detectChanges();
         });
-        it('then all (two) ePersons are member of the active group. No non-members left', () => {
-          epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
-          expect(epersonsFound.length).toEqual(0);
+        it('should trigger the search to remove the user from the search table', () => {
+          expect(component.search).toHaveBeenCalled();
         });
       });
     });

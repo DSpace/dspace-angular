@@ -1,18 +1,20 @@
 import {
-  blue,
-  bold,
-  green,
-  red,
-} from 'colors';
-import {
   existsSync,
   readdirSync,
   readFileSync,
   statSync,
   writeFileSync,
-} from 'fs';
+} from 'node:fs';
+import { join } from 'node:path';
+
+import {
+  blue,
+  bold,
+  green,
+  red,
+} from 'colors';
+
 import { load } from 'js-yaml';
-import { join } from 'path';
 
 import { isNotEmpty } from '../app/shared/empty.util';
 import { AppConfig } from './app-config.interface';
@@ -239,6 +241,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   appConfig.rest.port = isNotEmpty(ENV('REST_PORT', true)) ? getNumberFromString(ENV('REST_PORT', true)) : appConfig.rest.port;
   appConfig.rest.nameSpace = isNotEmpty(ENV('REST_NAMESPACE', true)) ? ENV('REST_NAMESPACE', true) : appConfig.rest.nameSpace;
   appConfig.rest.ssl = isNotEmpty(ENV('REST_SSL', true)) ? getBooleanFromString(ENV('REST_SSL', true)) : appConfig.rest.ssl;
+  appConfig.rest.ssrBaseUrl = isNotEmpty(ENV('REST_SSRBASEURL', true)) ? ENV('REST_SSRBASEURL', true) : appConfig.rest.ssrBaseUrl;
 
   // apply build defined production
   appConfig.production = env === 'production';

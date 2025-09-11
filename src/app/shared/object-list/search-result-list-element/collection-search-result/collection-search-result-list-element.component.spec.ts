@@ -9,22 +9,26 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
+import { getMockThemeService } from './../../../../shared/mocks/theme-service.mock';
+import { ThemeService } from './../../../../shared/theme-support/theme.service';
 import { CollectionSearchResultListElementComponent } from './collection-search-result-list-element.component';
 
 let collectionSearchResultListElementComponent: CollectionSearchResultListElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultListElementComponent>;
 
 const truncatableServiceStub: any = {
-  isCollapsed: (id: number) => observableOf(true),
+  isCollapsed: (id: number) => of(true),
 };
 
 const mockCollectionWithAbstract: CollectionSearchResult = new CollectionSearchResult();
@@ -62,11 +66,13 @@ const environmentUseThumbs = {
 describe('CollectionSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CollectionSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, CollectionSearchResultListElementComponent],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionSearchResultListElementComponent, {

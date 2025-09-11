@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Injector,
@@ -7,8 +11,8 @@ import {
 
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
-import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
+import { MenuSection } from '../../shared/menu/menu-section.model';
+import { AbstractMenuSectionComponent } from '../../shared/menu/menu-section/abstract-menu-section.component';
 
 /**
  * Represents a non-expandable section in the navbar
@@ -17,19 +21,24 @@ import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-sectio
   selector: 'ds-navbar-section',
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss'],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgComponentOutlet,
+  ],
 })
-@rendersSectionForMenu(MenuID.PUBLIC, false)
-export class NavbarSectionComponent extends MenuSectionComponent implements OnInit {
+export class NavbarSectionComponent extends AbstractMenuSectionComponent implements OnInit {
   /**
    * This section resides in the Public Navbar
    */
   menuID = MenuID.PUBLIC;
 
-  constructor(@Inject('sectionDataProvider') menuSection,
-              protected menuService: MenuService,
+  constructor(
+    @Inject('sectionDataProvider') protected section: MenuSection,
+    protected menuService: MenuService,
               protected injector: Injector,
   ) {
-    super(menuSection, menuService, injector);
+    super(menuService, injector);
   }
 
   ngOnInit() {

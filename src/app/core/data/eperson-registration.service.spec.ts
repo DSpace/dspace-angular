@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
@@ -48,8 +48,8 @@ describe('EpersonRegistrationService', () => {
         { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) }),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildSingle: observableOf(rd),
-      buildFromRequestUUID: observableOf(rd),
+      buildSingle: of(rd),
+      buildFromRequestUUID: of(rd),
     });
     service = new EpersonRegistrationService(
       requestService,
@@ -95,7 +95,7 @@ describe('EpersonRegistrationService', () => {
       const expected = service.registerEmail('test@mail.org', 'afreshcaptchatoken');
       let headers = new HttpHeaders();
       const options: HttpOptions = Object.create({});
-      headers = headers.append('x-recaptcha-token', 'afreshcaptchatoken');
+      headers = headers.append('x-captcha-payload', 'afreshcaptchatoken');
       options.headers = headers;
 
       expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
@@ -105,7 +105,7 @@ describe('EpersonRegistrationService', () => {
 
   describe('searchByToken', () => {
     it('should return a registration corresponding to the provided token', () => {
-      const expected = service.searchByToken('test-token');
+      const expected = service.searchByTokenAndUpdateData('test-token');
 
       expect(expected).toBeObservable(cold('(a|)', {
         a: jasmine.objectContaining({
@@ -123,7 +123,7 @@ describe('EpersonRegistrationService', () => {
       testScheduler.run(({ cold, expectObservable }) => {
         rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));
 
-        service.searchByToken('test-token');
+        service.searchByTokenAndUpdateData('test-token');
 
         expect(requestService.send).toHaveBeenCalledWith(
           jasmine.objectContaining({

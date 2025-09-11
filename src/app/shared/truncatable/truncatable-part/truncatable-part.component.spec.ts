@@ -14,7 +14,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   NativeWindowRef,
@@ -33,18 +33,19 @@ describe('TruncatablePartComponent', () => {
   const id1 = '123';
   const id2 = '456';
 
-  let truncatableService;
-  const truncatableServiceStub: any = {
-    isCollapsed: (id: string) => {
-      if (id === id1) {
-        return observableOf(true);
-      } else {
-        return observableOf(false);
-      }
-    },
-  };
+  let truncatableService: any;
+
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
+    truncatableService = {
+      isCollapsed: (id: string) => {
+        if (id === id1) {
+          return of(true);
+        } else {
+          return of(false);
+        }
+      },
+    };
     void TestBed.configureTestingModule({
       imports: [NoopAnimationsModule,
         TranslateModule.forRoot({
@@ -52,12 +53,10 @@ describe('TruncatablePartComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [TruncatablePartComponent],
+        }), TruncatablePartComponent],
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: TruncatableService, useValue: truncatableService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TruncatablePartComponent, {
@@ -88,6 +87,11 @@ describe('TruncatablePartComponent', () => {
       const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).toBeNull();
     });
+
+    it('expandButton aria-expanded should be false', () => {
+      const btn = fixture.debugElement.query(By.css('.expandButton'));
+      expect(btn.nativeElement.getAttribute('aria-expanded')).toEqual('false');
+    });
   });
 
   describe('When the item is expanded', () => {
@@ -116,6 +120,14 @@ describe('TruncatablePartComponent', () => {
       const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).not.toBeNull();
     });
+
+    it('collapseButton aria-expanded should be true', () => {
+      (comp as any).setLines();
+      (comp as any).expandable = true;
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('.collapseButton'));
+      expect(btn.nativeElement.getAttribute('aria-expanded')).toEqual('true');
+    });
   });
 });
 
@@ -136,8 +148,8 @@ describe('TruncatablePartComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        TruncatablePartComponent,
       ],
-      declarations: [TruncatablePartComponent],
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: mockTruncatableService },

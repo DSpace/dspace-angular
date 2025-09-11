@@ -11,20 +11,18 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Community } from '../../../core/shared/community.model';
-import { ComcolModule } from '../../../shared/comcol/comcol.module';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { SharedModule } from '../../../shared/shared.module';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommunityRolesComponent } from './community-roles.component';
 
@@ -38,7 +36,7 @@ describe('CommunityRolesComponent', () => {
 
     const route = {
       parent: {
-        data: observableOf({
+        data: of({
           dso: createSuccessfulRemoteDataObject(
             Object.assign(new Community(), {
               _links: {
@@ -56,7 +54,7 @@ describe('CommunityRolesComponent', () => {
     };
 
     const requestService = {
-      hasByHref$: () => observableOf(true),
+      hasByHref$: () => of(true),
     };
 
     const groupDataService = {
@@ -65,13 +63,9 @@ describe('CommunityRolesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ComcolModule,
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,
-      ],
-      declarations: [
         CommunityRolesComponent,
       ],
       providers: [

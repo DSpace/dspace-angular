@@ -1,3 +1,4 @@
+
 import {
   ChangeDetectorRef,
   Component,
@@ -6,11 +7,16 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -43,6 +49,12 @@ export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 @Component({
   selector: 'ds-curation-form',
   templateUrl: './curation-form.component.html',
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class CurationFormComponent implements OnDestroy, OnInit {
 
@@ -51,7 +63,7 @@ export class CurationFormComponent implements OnDestroy, OnInit {
   form: UntypedFormGroup;
 
   @Input()
-    dsoHandle: string;
+  dsoHandle: string;
 
   subs: Subscription[] = [];
 

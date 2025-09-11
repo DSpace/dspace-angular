@@ -8,7 +8,12 @@ import {
 import {
   ActivatedRoute,
   Params,
+  RouterLink,
 } from '@angular/router';
+import {
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -22,18 +27,23 @@ import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-bro
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { hasValue } from '../../shared/empty.util';
+import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
   templateUrl: './browse-by-taxonomy.component.html',
   styleUrls: ['./browse-by-taxonomy.component.scss'],
+  imports: [
+    RouterLink,
+    TranslatePipe,
+    VocabularyTreeviewComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
-@rendersBrowseBy(BrowseByDataType.Hierarchy)
 export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
@@ -94,12 +104,18 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
   browseDefinition$: Observable<BrowseDefinition>;
 
   /**
+   * Browse description
+   */
+  description: string;
+
+  /**
    * Subscriptions to track
    */
   subs: Subscription[] = [];
 
   public constructor(
     protected route: ActivatedRoute,
+    protected translate: TranslateService,
   ) {
   }
 
@@ -110,9 +126,11 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       }),
     );
     this.subs.push(this.browseDefinition$.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
+      this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, closed: true };
+      this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.description`);
     }));
     this.subs.push(this.scope$.subscribe(() => {
       this.updateQueryParams();

@@ -46,11 +46,10 @@ describe('MetadataUriValuesComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
+      }), MetadataUriValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
       ],
-      declarations: [MetadataUriValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataUriValuesComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

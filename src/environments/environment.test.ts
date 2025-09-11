@@ -7,14 +7,37 @@ import { NotificationAnimationsType } from '../app/shared/notifications/models/n
 export const environment: BuildConfig = {
   production: false,
 
-  // Angular Universal settings
-  universal: {
-    preboot: true,
-    async: true,
-    time: false,
+  // Angular SSR (Server Side Rendering) settings
+  ssr: {
+    enabled: true,
+    enablePerformanceProfiler: false,
+    inlineCriticalCss: false,
+    transferState: true,
+    replaceRestUrl: false,
+    excludePathPatterns: [
+      {
+        pattern: '^/communities/[a-f0-9-]{36}/browse(/.*)?$',
+        flag: 'i',
+      },
+      {
+        pattern: '^/collections/[a-f0-9-]{36}/browse(/.*)?$',
+        flag: 'i',
+      },
+      { pattern: '^/browse/' },
+      { pattern: '^/search' },
+      { pattern: '^/community-list$' },
+      { pattern: '^/statistics/?' },
+      { pattern: '^/admin/' },
+      { pattern: '^/processes/?' },
+      { pattern: '^/notifications/' },
+      { pattern: '^/access-control/' },
+      { pattern: '^/health$' },
+    ],
+    enableSearchComponent: false,
+    enableBrowseComponent: false,
   },
 
-  // Angular Universal server settings.
+  // Angular express server settings.
   ui: {
     ssl: false,
     host: 'dspace.com',
@@ -37,7 +60,7 @@ export const environment: BuildConfig = {
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/api',
-    baseUrl: 'https://rest.com/api',
+    baseUrl: 'https://rest.com/server',
   },
 
   actuators: {
@@ -266,14 +289,18 @@ export const environment: BuildConfig = {
       // Rounded to the nearest size in the list of selectable sizes on the
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
       pageSize: 5,
+      // Show the bitstream access status label
+      showAccessStatuses: false,
     },
   },
   community: {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
   },
   collection: {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
@@ -316,6 +343,7 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    enableCOARNotifySupport: true,
   },
   markdown: {
     enabled: false,
@@ -423,4 +451,32 @@ export const environment: BuildConfig = {
       ],
     },
   ],
+
+  liveRegion: {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  },
+
+  // Leaflet tile providers and other configurable attributes
+  geospatialMapViewer: {
+    spatialMetadataFields: [
+      'dcterms.spatial',
+    ],
+    spatialFacetDiscoveryConfiguration: 'geospatial',
+    spatialPointFilterName: 'point',
+    enableItemPageFields: true,
+    enableSearchViewMode: true,
+    enableBrowseMap: true,
+    tileProviders: [
+      'OpenStreetMap.Mapnik',
+    ],
+    defaultCentrePoint: {
+      lat: 41.015137,
+      lng: 28.979530,
+    },
+  },
+
+  accessibility: {
+    cookieExpirationDuration: 7,
+  },
 };

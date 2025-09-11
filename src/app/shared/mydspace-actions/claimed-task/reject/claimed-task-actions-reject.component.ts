@@ -1,9 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Injector,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
@@ -12,8 +15,12 @@ import { Router } from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -23,27 +30,31 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
 
-@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_REJECT)
 @Component({
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbTooltipModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item
  */
 export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
-  /**
-   * This component represents the reject option
-   */
-  option = WORKFLOW_TASK_OPTION_REJECT;
 
   /**
    * The reject form group

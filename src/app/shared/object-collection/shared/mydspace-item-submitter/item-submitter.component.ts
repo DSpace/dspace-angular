@@ -1,8 +1,10 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   Observable,
@@ -28,6 +30,11 @@ import { followLink } from '../../../utils/follow-link-config.model';
   selector: 'ds-item-submitter',
   styleUrls: ['./item-submitter.component.scss'],
   templateUrl: './item-submitter.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class ItemSubmitterComponent implements OnInit {
 

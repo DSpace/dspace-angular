@@ -9,13 +9,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { Item } from '../../../core/shared/item.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
 import { RelatedItemsComponent } from './related-items-component';
@@ -63,15 +68,22 @@ describe('RelatedItemsComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [RelatedItemsComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RelatedItemsComponent, VarDirective],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(RelatedItemsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          MetadataFieldWrapperComponent,
+          ListableObjectComponentLoaderComponent,
+          ThemedLoadingComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -114,7 +126,7 @@ describe('RelatedItemsComponent', () => {
   describe('when decrease is called', () => {
     beforeEach(() => {
       // Add a second page
-      comp.objects.push(observableOf(undefined));
+      comp.objects.push(of(undefined));
       comp.decrease();
     });
 
@@ -136,15 +148,22 @@ describe('RelatedItemsComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [RelatedItemsComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RelatedItemsComponent, VarDirective],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(RelatedItemsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          MetadataFieldWrapperComponent,
+          ListableObjectComponentLoaderComponent,
+          ThemedLoadingComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

@@ -1,29 +1,36 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
 
+import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionDataService } from '../data/collection-data.service';
 import { Collection } from '../shared/collection.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 
 /**
- * The class that resolves the BreadcrumbConfig object for a Collection
+ * The resolve function that resolves the BreadcrumbConfig object for a Collection
  */
-@Injectable({
-  providedIn: 'root',
-})
-export class CollectionBreadcrumbResolver extends DSOBreadcrumbResolver<Collection> {
-  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: CollectionDataService) {
-    super(breadcrumbService, dataService);
-  }
+export const collectionBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Collection>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  breadcrumbService: DSOBreadcrumbsService = inject(DSOBreadcrumbsService),
+  dataService: CollectionDataService = inject(CollectionDataService),
+): Observable<BreadcrumbConfig<Collection>> => {
+  const linksToFollow: FollowLinkConfig<DSpaceObject>[] = COLLECTION_PAGE_LINKS_TO_FOLLOW as FollowLinkConfig<DSpaceObject>[];
+  return DSOBreadcrumbResolver(
+    route,
+    state,
+    breadcrumbService,
+    dataService,
+    ...linksToFollow,
+  ) as Observable<BreadcrumbConfig<Collection>>;
+};
 
-  /**
-   * Method that returns the follow links to already resolve
-   * The self links defined in this list are expected to be requested somewhere in the near future
-   * Requesting them as embeds will limit the number of requests
-   */
-  get followLinks(): FollowLinkConfig<Collection>[] {
-    return COLLECTION_PAGE_LINKS_TO_FOLLOW;
-  }
-}

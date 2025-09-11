@@ -15,7 +15,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
@@ -25,7 +25,6 @@ import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
 } from '../../../remote-data.utils';
-import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
@@ -88,7 +87,7 @@ describe('DeleteComColPageComponent', () => {
     };
 
     routeStub = {
-      data: observableOf(community),
+      data: of(community),
     };
 
     translateServiceStub = jasmine.createSpyObj('TranslateService', {
@@ -100,7 +99,7 @@ describe('DeleteComColPageComponent', () => {
   beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule],
       providers: [
         { provide: ComColDataService, useValue: dsoDataService },
         { provide: Router, useValue: routerStub },

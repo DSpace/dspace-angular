@@ -10,11 +10,12 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations.component';
 
 describe('CollectionAuthorizationsComponent', () => {
@@ -34,7 +35,7 @@ describe('CollectionAuthorizationsComponent', () => {
   const routeStub = {
     parent: {
       parent: {
-        data: observableOf({
+        data: of({
           dso: collectionRD,
         }),
       },
@@ -45,15 +46,19 @@ describe('CollectionAuthorizationsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
+        CollectionAuthorizationsComponent,
       ],
-      declarations: [CollectionAuthorizationsComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         CollectionAuthorizationsComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CollectionAuthorizationsComponent, {
+        remove: { imports: [ResourcePoliciesComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

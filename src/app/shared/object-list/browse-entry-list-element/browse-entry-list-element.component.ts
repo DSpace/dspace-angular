@@ -1,8 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
-import { Params } from '@angular/router';
+import {
+  Params,
+  RouterLink,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RouteService } from 'src/app/core/services/route.service';
@@ -19,6 +23,11 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   selector: 'ds-browse-entry-list-element',
   styleUrls: ['./browse-entry-list-element.component.scss'],
   templateUrl: './browse-entry-list-element.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    RouterLink,
+  ],
 })
 
 /**

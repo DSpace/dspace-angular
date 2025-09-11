@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,9 +8,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -31,6 +36,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../shared/empty.util';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
@@ -59,6 +65,15 @@ export interface ExternalSourceData {
   selector: 'ds-submission-import-external-searchbar',
   styleUrls: ['./submission-import-external-searchbar.component.scss'],
   templateUrl: './submission-import-external-searchbar.component.html',
+  imports: [
+    BtnDisabledDirective,
+    CommonModule,
+    FormsModule,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**
@@ -139,7 +154,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
         const pageInfo = new PageInfo();
         const paginatedList = buildPaginatedList(pageInfo, []);
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-        return observableOf(paginatedListRD);
+        return of(paginatedListRD);
       }),
       getFirstSucceededRemoteDataPayload(),
     ).subscribe((externalSource: PaginatedList<ExternalSource>) => {
@@ -184,7 +199,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
           const pageInfo = new PageInfo();
           const paginatedList = buildPaginatedList(pageInfo, []);
           const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-          return observableOf(paginatedListRD);
+          return of(paginatedListRD);
         }),
         getFirstSucceededRemoteData(),
         tap(() => this.sourceListLoading = false),

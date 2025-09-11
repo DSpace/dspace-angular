@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -5,7 +6,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   switchMap,
@@ -27,9 +31,15 @@ import {
   hasValue,
   isEmpty,
 } from '../../../../shared/empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
 
 /**
@@ -38,9 +48,20 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
  */
 
 @Component({
-  selector: 'ds-item-page-full-file-section',
+  selector: 'ds-base-item-page-full-file-section',
   styleUrls: ['./full-file-section.component.scss'],
   templateUrl: './full-file-section.component.html',
+  imports: [
+    AsyncPipe,
+    FileSizePipe,
+    MetadataFieldWrapperComponent,
+    PaginationComponent,
+    ThemedFileDownloadLinkComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class FullFileSectionComponent extends FileSectionComponent implements OnDestroy, OnInit {
 
@@ -88,6 +109,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         true,
         followLink('format'),
         followLink('thumbnail'),
+        followLink('accessStatus'),
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
         if (hasValue(rd.errorMessage)) {
@@ -106,6 +128,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
         true,
         followLink('format'),
         followLink('thumbnail'),
+        followLink('accessStatus'),
       )),
       tap((rd: RemoteData<PaginatedList<Bitstream>>) => {
         if (hasValue(rd.errorMessage)) {

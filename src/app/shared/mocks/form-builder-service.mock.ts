@@ -15,6 +15,7 @@ export function getMockFormBuilderService(): FormBuilderService {
     getFormControlById: new UntypedFormControl(),
     hasMappedGroupValue: false,
     findById: {},
+    fromJSON: {},
     getPath: ['test', 'path'],
     getId: 'path',
     clearAllModelsValue : {},
@@ -45,5 +46,4 @@ export function getMockFormBuilderService(): FormBuilderService {
     },
     ),
   });
-
 }

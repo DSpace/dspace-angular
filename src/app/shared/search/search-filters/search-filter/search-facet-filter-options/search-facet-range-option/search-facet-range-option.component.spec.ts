@@ -10,9 +10,12 @@ import {
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -29,7 +32,7 @@ import { SearchFilterConfig } from '../../../../models/search-filter-config.mode
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
-} from '../../search-range-filter/search-range-filter.component';
+} from '../../search-range-filter/search-range-filter-constants';
 import { SearchFacetRangeOptionComponent } from './search-facet-range-option.component';
 
 describe('SearchFacetRangeOptionComponent', () => {
@@ -64,28 +67,27 @@ describe('SearchFacetRangeOptionComponent', () => {
   let filterService;
   let searchService;
   let router;
-  const page = observableOf(0);
+  const page = of(0);
 
   const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
   const paginationService = new PaginationServiceStub(pagination);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetRangeOptionComponent, ShortNumberPipe],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetRangeOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         {
           provide: SearchConfigurationService, useValue: {
-            searchOptions: observableOf({}),
+            searchOptions: of({}),
             paginationId: 'page-id',
           },
         },
         {
           provide: SearchFilterService, useValue: {
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => of(true),
             getPage: (paramName: string) => page,
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
@@ -98,7 +100,10 @@ describe('SearchFacetRangeOptionComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetRangeOptionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [RouterLink],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -113,7 +118,7 @@ describe('SearchFacetRangeOptionComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the updateChangeParams method is called wih a value', () => {
+  describe('when the updateChangeParams method is called with a value', () => {
     it('should update the changeQueryParams with the new parameter values', () => {
       comp.changeQueryParams = {};
       comp.filterValue = {
@@ -131,8 +136,8 @@ describe('SearchFacetRangeOptionComponent', () => {
       };
       (comp as any).updateChangeParams();
       expect(comp.changeQueryParams).toEqual({
-        [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: ['50'],
-        [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: ['60'],
+        [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [50],
+        [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [60],
         ['page-id.page']: 1,
       });
     });
@@ -140,7 +145,7 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   describe('when isVisible emits true', () => {
     it('the facet option should be visible', () => {
-      comp.isVisible = observableOf(true);
+      comp.isVisible = of(true);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).not.toBeNull();
@@ -149,7 +154,7 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   describe('when isVisible emits false', () => {
     it('the facet option should not be visible', () => {
-      comp.isVisible = observableOf(false);
+      comp.isVisible = of(false);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).toBeNull();

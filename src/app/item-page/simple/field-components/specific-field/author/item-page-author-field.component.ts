@@ -1,14 +1,21 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
+import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
   selector: 'ds-item-page-author-field',
   templateUrl: '../item-page-field.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    MetadataValuesComponent,
+  ],
 })
 /**
  * This component is used for displaying the author (dc.contributor.author, dc.creator and
@@ -43,6 +50,6 @@ export class ItemPageAuthorFieldComponent extends ItemPageFieldComponent {
   /**
    * Label i18n key for the rendered metadata
    */
-  label = 'item.page.author';
+  label = 'item.page.authors';
 
 }

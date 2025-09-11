@@ -1,4 +1,8 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  DatePipe,
+  isPlatformBrowser,
+} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -11,12 +15,16 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -50,15 +58,34 @@ import {
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/alert-type';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
 import { ProcessStatus } from '../processes/process-status.model';
+import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 
 @Component({
   selector: 'ds-process-detail',
   templateUrl: './process-detail.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    DatePipe,
+    FileSizePipe,
+    HasNoValuePipe,
+    ProcessDetailFieldComponent,
+    RouterLink,
+    ThemedFileDownloadLinkComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * A component displaying detailed information about a DSpace Process

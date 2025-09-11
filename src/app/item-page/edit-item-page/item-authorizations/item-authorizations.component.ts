@@ -1,20 +1,22 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
   catchError,
   filter,
-  first,
   map,
   mergeMap,
   take,
@@ -33,10 +35,13 @@ import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   isNotEmpty,
 } from '../../../shared/empty.util';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 /**
@@ -50,7 +55,15 @@ interface BundleBitstreamsMapEntry {
 @Component({
   selector: 'ds-item-authorizations',
   templateUrl: './item-authorizations.component.html',
-  styleUrls:['./item-authorizations.component.scss'],
+  styleUrls: ['./item-authorizations.component.scss'],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    NgbCollapseModule,
+    ResourcePoliciesComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component that handles the item Authorizations
@@ -73,7 +86,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * The target editing item
    * @type {Observable<Item>}
    */
-  private item$: Observable<Item>;
+  item$: Observable<Item>;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -112,16 +125,13 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   private bitstreamPageSize = 4;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {LinkService} linkService
-   * @param {ActivatedRoute} route
-   * @param nameService
-   */
+  itemName$: Observable<string>;
+
+  readonly AlertType = AlertType;
+
   constructor(
-    private linkService: LinkService,
-    private route: ActivatedRoute,
+    protected linkService: LinkService,
+    protected route: ActivatedRoute,
     public nameService: DSONameService,
   ) {
   }
@@ -131,34 +141,16 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.getBundlesPerItem();
+    this.itemName$ = this.getItemName();
   }
 
   /**
-   * Return the item's UUID
+   * Return the item's name
    */
-  getItemUUID(): Observable<string> {
-    return this.item$.pipe(
-      map((item: Item) => item.id),
-      first((UUID: string) => isNotEmpty(UUID)),
-    );
-  }
-
-  /**
- * Return the item's name
- */
-  getItemName(): Observable<string> {
+  private getItemName(): Observable<string> {
     return this.item$.pipe(
       map((item: Item) => this.nameService.getName(item)),
     );
-  }
-
-  /**
-   * Return all item's bundles
-   *
-   * @return an observable that emits all item's bundles
-   */
-  getItemBundles(): Observable<Bundle[]> {
-    return this.bundles$.asObservable();
   }
 
   /**
@@ -182,7 +174,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       catchError((error: unknown) => {
         console.error(error);
-        return observableOf(buildPaginatedList(null, []));
+        return of(buildPaginatedList(null, []));
       }),
     );
 
@@ -231,7 +223,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataPayload(),
       catchError((error: unknown) => {
         console.error(error);
-        return observableOf(buildPaginatedList(null, []));
+        return of(buildPaginatedList(null, []));
       }),
     );
   }

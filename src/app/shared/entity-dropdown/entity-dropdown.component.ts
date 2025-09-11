@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -9,6 +10,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   Observable,
@@ -27,11 +30,19 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
 import { hasValue } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    InfiniteScrollModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
@@ -93,7 +104,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    *
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {EntityTypeDataService} entityTypeService
-   * @param {ElementRef} el
+   * @param el
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -136,7 +147,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method used from infitity scroll for retrive more data on scroll down
+   * Method used from infitity scroll for retrieve more data on scroll down
    */
   public onScrollDown() {
     if ( this.hasNextPage ) {

@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  KeyValuePipe,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
@@ -21,12 +25,19 @@ import {
   NotifyStatuses,
 } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
+import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({
   selector: 'ds-notify-requests-status',
   templateUrl: './notify-requests-status.component.html',
   styleUrls: ['./notify-requests-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    KeyValuePipe,
+    RequestStatusAlertBoxComponent,
+  ],
 })
 
 /**

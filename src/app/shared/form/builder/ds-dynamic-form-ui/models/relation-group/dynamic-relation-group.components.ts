@@ -1,7 +1,12 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  forwardRef,
   Input,
   OnDestroy,
   OnInit,
@@ -9,6 +14,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormControlModel,
@@ -17,12 +23,13 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -38,13 +45,16 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
   isNotNull,
 } from '../../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
+import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { FormComponent } from '../../../../form.component';
@@ -62,6 +72,17 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
   styleUrls: ['./dynamic-relation-group.component.scss'],
   templateUrl: './dynamic-relation-group.component.html',
   animations: [shrinkInOut],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    ChipsComponent,
+    forwardRef(() => FormComponent),
+    NgbTooltipModule,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
@@ -74,7 +95,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public chips: Chips;
-  public formCollapsed = observableOf(false);
+  public formCollapsed = of(false);
   public formModel: DynamicFormControlModel[];
   public editMode = false;
 
@@ -96,7 +117,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   ngOnInit() {
     const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     if (!this.model.isEmpty()) {
-      this.formCollapsed = observableOf(true);
+      this.formCollapsed = of(true);
     }
     this.model.valueChanges.subscribe((value: any[]) => {
       if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
@@ -161,12 +182,12 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   collapseForm() {
-    this.formCollapsed = observableOf(true);
+    this.formCollapsed = of(true);
     this.clear();
   }
 
   expandForm() {
-    this.formCollapsed = observableOf(false);
+    this.formCollapsed = of(false);
   }
 
   clear() {
@@ -177,7 +198,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     }
     this.resetForm();
     if (!this.model.isEmpty()) {
-      this.formCollapsed = observableOf(true);
+      this.formCollapsed = of(true);
     }
   }
 
@@ -246,7 +267,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
-      initChipsValue$ = observableOf(this.model.value as any[]);
+      initChipsValue$ = of(this.model.value as any[]);
 
       // If authority
       this.subs.push(initChipsValue$.pipe(
@@ -271,7 +292,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
                     }),
                   ));
               } else {
-                return$ = observableOf(valueObj[fieldName]);
+                return$ = of(valueObj[fieldName]);
               }
               return return$.pipe(map((entry) => ({ [fieldName]: entry })));
             });

@@ -49,8 +49,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [TestComponent, MockComponent(DSOSelectorComponent)],
+      imports: [TranslateModule.forRoot(), TestComponent, MockComponent(DSOSelectorComponent)],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -137,7 +136,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   describe('when the click method emits on close button', () => {
     beforeEach(() => {
       spyOn(component, 'close');
-      debugElement.query(By.css('button.close')).triggerEventHandler('click', {});
+      debugElement.query(By.css('button.btn-close')).triggerEventHandler('click', {});
       fixture.detectChanges();
     });
     it('should call the close method on the component', () => {
@@ -162,6 +161,11 @@ describe('DSOSelectorModalWrapperComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   templateUrl: './dso-selector-modal-wrapper.component.html',
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

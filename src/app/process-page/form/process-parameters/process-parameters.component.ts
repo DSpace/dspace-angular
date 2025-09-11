@@ -1,8 +1,10 @@
+
 import {
   Component,
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Optional,
   Output,
   SimpleChanges,
@@ -11,12 +13,14 @@ import {
   ControlContainer,
   NgForm,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { hasValue } from '../../../shared/empty.util';
 import { ProcessParameter } from '../../processes/process-parameter.model';
 import { Script } from '../../scripts/script.model';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
-import { controlContainerFactory } from '../process-form.component';
+import { controlContainerFactory } from '../process-form-factory';
+import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 
 /**
  * Component that represents the selected list of parameters for a script
@@ -30,8 +34,13 @@ import { controlContainerFactory } from '../process-form.component';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]],
   }],
+  standalone: true,
+  imports: [
+    ParameterSelectComponent,
+    TranslateModule,
+  ],
 })
-export class ProcessParametersComponent implements OnChanges {
+export class ProcessParametersComponent implements OnChanges, OnInit {
   /**
    * The currently selected script
    */
@@ -51,7 +60,7 @@ export class ProcessParametersComponent implements OnChanges {
    */
   parameterValues: ProcessParameter[];
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (hasValue(this.initialParams)) {
       this.parameterValues = this.initialParams;
     }

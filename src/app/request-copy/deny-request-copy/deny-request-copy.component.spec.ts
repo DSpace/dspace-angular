@@ -13,7 +13,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -23,12 +23,14 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { DenyRequestCopyComponent } from './deny-request-copy.component';
@@ -93,13 +95,13 @@ describe('DenyRequestCopyComponent', () => {
       navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     route = jasmine.createSpyObj('route', {}, {
-      data: observableOf({
+      data: of({
         request: createSuccessfulRemoteDataObject(itemRequest),
       }),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      getAuthenticatedUserFromStore: observableOf(user),
+      isAuthenticated: of(true),
+      getAuthenticatedUserFromStore: of(user),
     });
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
@@ -110,8 +112,7 @@ describe('DenyRequestCopyComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
 
     return TestBed.configureTestingModule({
-      declarations: [DenyRequestCopyComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DenyRequestCopyComponent, VarDirective],
       providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
@@ -120,6 +121,7 @@ describe('DenyRequestCopyComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -131,7 +133,7 @@ describe('DenyRequestCopyComponent', () => {
     fixture.detectChanges();
 
     translateService = (component as any).translateService;
-    spyOn(translateService, 'get').and.returnValue(observableOf('translated-message'));
+    spyOn(translateService, 'get').and.returnValue(of('translated-message'));
   });
 
   it('message$ should be parameterized correctly', (done) => {

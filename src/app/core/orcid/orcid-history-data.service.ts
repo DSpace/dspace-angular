@@ -8,7 +8,6 @@ import {
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
@@ -18,14 +17,12 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { sendRequest } from '../shared/request.operators';
 import { OrcidHistory } from './model/orcid-history.model';
-import { ORCID_HISTORY } from './model/orcid-history.resource-type';
 import { OrcidQueue } from './model/orcid-queue.model';
 
 /**
  * A service that provides methods to make REST requests with Orcid History endpoint.
  */
-@Injectable()
-@dataService(ORCID_HISTORY)
+@Injectable({ providedIn: 'root' })
 export class OrcidHistoryDataService extends IdentifiableDataService<OrcidHistory> {
 
   constructor(

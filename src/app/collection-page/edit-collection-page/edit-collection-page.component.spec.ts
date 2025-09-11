@@ -8,10 +8,9 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { SharedModule } from '../../shared/shared.module';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 
 describe('EditCollectionPageComponent', () => {
@@ -19,7 +18,7 @@ describe('EditCollectionPageComponent', () => {
   let fixture: ComponentFixture<EditCollectionPageComponent>;
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: { payload: {} },
     }),
     routeConfig: {
@@ -43,8 +42,7 @@ describe('EditCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [EditCollectionPageComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCollectionPageComponent],
       providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },

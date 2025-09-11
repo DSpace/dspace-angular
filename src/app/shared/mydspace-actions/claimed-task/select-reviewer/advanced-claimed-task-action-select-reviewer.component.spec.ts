@@ -9,9 +9,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -27,13 +26,14 @@ import { RouterStub } from '../../../testing/router.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './advanced-claimed-task-action-select-reviewer.component';
 
+
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';
 
 describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
   const object = Object.assign(new ClaimedTask(), {
     id: taskId,
-    workflowitem: observableOf(Object.assign(new WorkflowItem(), {
+    workflowitem: of(Object.assign(new WorkflowItem(), {
       id: workflowId,
     })),
   });
@@ -56,10 +56,7 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedClaimedTaskActionSelectReviewerComponent,
-        NgbTooltip,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: route },

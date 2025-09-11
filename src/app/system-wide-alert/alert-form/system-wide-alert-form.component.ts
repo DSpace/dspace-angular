@@ -1,20 +1,31 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NgbDatepickerModule,
+  NgbDateStruct,
+  NgbTimepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   utcToZonedTime,
   zonedTimeToUtc,
 } from 'date-fns-tz';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,
   Observable,
@@ -29,6 +40,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -44,6 +56,17 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   selector: 'ds-system-wide-alert-form',
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    UiSwitchModule,
+  ],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 
@@ -236,15 +259,17 @@ export class SystemWideAlertFormComponent implements OnInit {
     alert.active = this.formActive.value;
     if (this.counterEnabled$.getValue()) {
       const countDownTo = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute);
-      alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
     } else {
       alert.countdownTo = null;
     }
-    if (hasValue(this.currentAlert)) {
-      const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
-      this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update', navigateToHomePage);
-    } else {
-      this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create', navigateToHomePage);
+    if (this.alertForm.valid) {
+      if (hasValue(this.currentAlert)) {
+        const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
+        this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update', navigateToHomePage);
+      } else {
+        this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create', navigateToHomePage);
+      }
     }
   }
 
@@ -259,7 +284,7 @@ export class SystemWideAlertFormComponent implements OnInit {
           this.back();
         }
       } else {
-        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`, response.errorMessage));
+        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`));
       }
     });
   }

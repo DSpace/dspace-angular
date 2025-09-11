@@ -1,12 +1,22 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -30,7 +40,9 @@ import {
   getFirstCompletedRemoteData,
 } from '../../../../core/shared/operators';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
@@ -46,6 +58,15 @@ enum SubKey {
 @Component({
   selector: 'ds-subgroups-list',
   templateUrl: './subgroups-list.component.html',
+  imports: [
+    AsyncPipe,
+    ContextHelpDirective,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * The list of subgroups in the edit group page
@@ -53,7 +74,7 @@ enum SubKey {
 export class SubgroupsListComponent implements OnInit, OnDestroy {
 
   @Input()
-    messagePrefix: string;
+  messagePrefix: string;
 
   /**
    * Result of search groups, initially all groups

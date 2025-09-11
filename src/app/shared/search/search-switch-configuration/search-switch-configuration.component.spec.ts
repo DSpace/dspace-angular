@@ -13,15 +13,13 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Context } from '../../../core/shared/context.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import {
-  MYDSPACE_ROUTE,
-  SEARCH_CONFIG_SERVICE,
-} from '../../../my-dspace-page/my-dspace-page.component';
+import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { RouterStub } from '../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
@@ -59,8 +57,8 @@ describe('SearchSwitchConfigurationComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        SearchSwitchConfigurationComponent,
       ],
-      declarations: [SearchSwitchConfigurationComponent],
       providers: [
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchServiceStub },
@@ -75,7 +73,7 @@ describe('SearchSwitchConfigurationComponent', () => {
     comp = fixture.componentInstance;
     searchConfService = TestBed.inject(SEARCH_CONFIG_SERVICE as any);
 
-    spyOn(searchConfService, 'getCurrentConfiguration').and.returnValue(observableOf(MyDSpaceConfigurationValueType.Workspace));
+    spyOn(searchConfService, 'getCurrentConfiguration').and.returnValue(of(MyDSpaceConfigurationValueType.Workspace));
 
     comp.configurationList = configurationList;
 
@@ -89,7 +87,7 @@ describe('SearchSwitchConfigurationComponent', () => {
   });
 
   it('should display select field properly', () => {
-    const selectField = fixture.debugElement.query(By.css('.form-control'));
+    const selectField = fixture.debugElement.query(By.css('.form-select'));
     expect(selectField).not.toBeNull();
 
     const childElements = selectField.children;

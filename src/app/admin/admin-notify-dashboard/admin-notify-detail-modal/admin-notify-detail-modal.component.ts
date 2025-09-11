@@ -1,3 +1,4 @@
+
 import {
   Component,
   EventEmitter,
@@ -5,7 +6,10 @@ import {
   Output,
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
@@ -16,6 +20,10 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
   templateUrl: './admin-notify-detail-modal.component.html',
   animations: [
     fadeIn,
+  ],
+  standalone: true,
+  imports: [
+    TranslateModule,
   ],
 })
 /**
@@ -30,7 +38,7 @@ export class AdminNotifyDetailModalComponent {
    * An event fired when the modal is closed
    */
   @Output()
-    response = new EventEmitter<boolean>();
+  response = new EventEmitter<boolean>();
 
   public isCoarMessageVisible = false;
 

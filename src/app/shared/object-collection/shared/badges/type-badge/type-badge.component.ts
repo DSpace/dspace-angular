@@ -1,7 +1,9 @@
+
 import {
   Component,
   Input,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { getResourceTypeValueFor } from '../../../../../core/cache/object-cache.reducer';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
@@ -11,8 +13,12 @@ import {
 } from '../../../../empty.util';
 
 @Component({
-  selector: 'ds-type-badge',
+  selector: 'ds-base-type-badge',
   templateUrl: './type-badge.component.html',
+  standalone: true,
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering the type of an item as a badge

@@ -1,9 +1,10 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowseByDateComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-date/browse-by-date.component';
-import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
-import { Context } from '../../../../../app/core/shared/context.model';
+import { ThemedBrowseByComponent } from '../../../../../app/shared/browse-by/themed-browse-by.component';
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 
 @Component({
   selector: 'ds-browse-by-date',
@@ -11,7 +12,13 @@ import { Context } from '../../../../../app/core/shared/context.model';
   styleUrls: ['../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component.scss'],
   // templateUrl: './browse-by-date.component.html',
   templateUrl: '../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
-@rendersBrowseBy(BrowseByDataType.Date, Context.Any, 'custom')
 export class BrowseByDateComponent extends BaseComponent {
 }

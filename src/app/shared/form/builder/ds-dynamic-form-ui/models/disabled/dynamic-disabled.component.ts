@@ -10,7 +10,9 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { DynamicDisabledModel } from './dynamic-disabled.model';
 
 /**
@@ -19,6 +21,11 @@ import { DynamicDisabledModel } from './dynamic-disabled.model';
 @Component({
   selector: 'ds-dynamic-disabled',
   templateUrl: './dynamic-disabled.component.html',
+  imports: [
+    BtnDisabledDirective,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying a form input with a disabled property

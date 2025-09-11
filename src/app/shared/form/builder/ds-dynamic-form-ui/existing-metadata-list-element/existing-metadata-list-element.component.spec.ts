@@ -4,21 +4,26 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
 import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
+import { ThemeService } from '../../../../theme-support/theme.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import {
@@ -66,14 +71,14 @@ describe('ExistingMetadataListElementComponent', () => {
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace: () => observableOf({}),
+      updatePlace: () => of({}),
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
     submissionId = '1234';
     reoRel = new ReorderableRelationship(relationship, true, {} as any, {} as any, submissionId);
     submissionServiceStub = new SubmissionServiceStub();
-    submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
+    submissionServiceStub.getSubmissionObject.and.returnValue(of({}));
   }
 
   beforeEach(waitForAsync(() => {
@@ -86,15 +91,20 @@ describe('ExistingMetadataListElementComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ExistingMetadataListElementComponent,
       ],
-      declarations: [ExistingMetadataListElementComponent],
       providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
         { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(ExistingMetadataListElementComponent, {
+        remove: { imports: [ItemSearchResultListElementComponent] },
+      })
       .compileComponents();
   }));
 

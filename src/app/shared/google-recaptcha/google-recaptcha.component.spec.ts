@@ -25,7 +25,7 @@ describe('GoogleRecaptchaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GoogleRecaptchaComponent ],
+      imports: [GoogleRecaptchaComponent],
       providers: [
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },

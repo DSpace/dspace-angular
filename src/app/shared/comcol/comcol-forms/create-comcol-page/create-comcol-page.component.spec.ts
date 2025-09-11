@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
@@ -21,7 +21,6 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
-import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 
@@ -82,7 +81,7 @@ describe('CreateComColPageComponent', () => {
         }],
       })),
       create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
-      getLogoEndpoint: () => observableOf(logoEndpoint),
+      getLogoEndpoint: () => of(logoEndpoint),
       findByHref: () => null,
       refreshCache: () => {
         return;
@@ -90,7 +89,7 @@ describe('CreateComColPageComponent', () => {
     };
 
     routeServiceStub = {
-      getQueryParameterValue: (param) => observableOf(community.uuid),
+      getQueryParameterValue: (param) => of(community.uuid),
     };
     routerStub = {
       navigate: (commands) => commands,
@@ -105,7 +104,7 @@ describe('CreateComColPageComponent', () => {
   beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule],
       providers: [
         { provide: ComColDataService, useValue: communityDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },

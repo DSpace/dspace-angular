@@ -5,14 +5,17 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
+import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -28,8 +31,16 @@ import {
   selector: 'ds-scope-selector-modal',
   styleUrls: ['./scope-selector-modal.component.scss'],
   templateUrl: './scope-selector-modal.component.html',
+  standalone: true,
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+
+  readonly Context = Context;
+
   objectType = DSpaceObjectType.COMMUNITY;
   /**
    * The types of DSO that can be selected from this list

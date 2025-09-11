@@ -19,7 +19,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -43,7 +43,10 @@ import {
   createPaginatedList,
   createTestComponent,
 } from '../../testing/utils.test';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
 import { ResourcePolicyCreateComponent } from './resource-policy-create.component';
 
@@ -76,8 +79,8 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
-    eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
+    eperson: of(createSuccessfulRemoteDataObject({})),
+    group: of(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const item = Object.assign(new Item(), {
@@ -97,7 +100,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
   const resourcePolicyService: any = getMockResourcePolicyService();
   const linkService: any = getMockLinkService();
   const routeStub = {
-    data: observableOf({
+    data: of({
       resourcePolicyTarget: createSuccessfulRemoteDataObject(item),
     }),
   };
@@ -109,8 +112,6 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ResourcePolicyCreateComponent,
         TestComponent,
       ],
@@ -127,7 +128,13 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ResourcePolicyCreateComponent, {
+        remove: {
+          imports: [ResourcePolicyFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -214,7 +221,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify success when creation is successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -225,7 +232,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -252,7 +259,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify success when creation is successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -263,7 +270,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -281,6 +288,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

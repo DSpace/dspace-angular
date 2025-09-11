@@ -31,8 +31,7 @@ describe('ItemPageTitleFieldComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [ItemPageTitleFieldComponent, MetadataValuesComponent],
+      }), ItemPageTitleFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageTitleFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

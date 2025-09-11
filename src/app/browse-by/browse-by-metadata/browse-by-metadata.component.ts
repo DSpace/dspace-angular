@@ -1,29 +1,41 @@
 import {
+  AsyncPipe,
+  isPlatformServer,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
+  SimpleChanges,
 } from '@angular/core';
 import {
   ActivatedRoute,
   Params,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
@@ -43,10 +55,10 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -54,6 +66,13 @@ export const BBM_PAGINATION_ID = 'bbm';
   selector: 'ds-browse-by-metadata',
   styleUrls: ['./browse-by-metadata.component.scss'],
   templateUrl: './browse-by-metadata.component.html',
+  imports: [
+    AsyncPipe,
+    ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component for browsing (items) by metadata definition.
@@ -61,7 +80,6 @@ export const BBM_PAGINATION_ID = 'bbm';
  * or multiple metadata fields.  An example would be 'author' for
  * 'dc.contributor.*'
  */
-@rendersBrowseBy(BrowseByDataType.Metadata)
 export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
@@ -83,6 +101,11 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * Display the h1 title in the section
    */
   @Input() displayTitle = true;
+
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide: boolean;
 
   scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
@@ -163,7 +186,11 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Observable determining if the loading animation needs to be shown
    */
-  loading$ = observableOf(true);
+  loading$ = of(true);
+  /**
+   * Whether this component should be rendered or not in SSR
+   */
+  ssrRenderingDisabled = false;
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -172,6 +199,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
                      protected router: Router,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
@@ -179,25 +207,36 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       currentPage: 1,
       pageSize: this.appConfig.browseBy.pageSize,
     });
+    this.ssrRenderingDisabled = !this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId);
   }
 
 
   ngOnInit(): void {
-
+    if (this.ssrRenderingDisabled) {
+      this.loading$ = of(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    const routeParams$: Observable<Params> = observableCombineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
+      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
+      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.authority === curr.authority && prev.value === curr.value && prev.startsWith === curr.startsWith),
+    );
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        }),
-      ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
+      observableCombineLatest([
+        routeParams$,
+        this.scope$,
+        this.currentPagination$,
+        this.currentSort$,
+      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.browseId = params.id || this.defaultBrowseId;
         this.authority = params.authority;
 
-        if (typeof params.value === 'string'){
+        if (typeof params.value === 'string') {
           this.value = params.value.trim();
         } else {
           this.value = '';
@@ -207,8 +246,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
           this.startsWith = undefined;
         }
 
-        if (typeof params.startsWith === 'string'){
+        if (typeof params.startsWith === 'string') {
           this.startsWith = params.startsWith.trim();
+        } else {
+          this.startsWith = '';
         }
 
         if (isNotEmpty(this.value)) {
@@ -221,8 +262,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  ngOnChanges(): void {
-    this.scope$.next(this.scope);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (hasValue(changes.scope)) {
+      this.scope$.next(this.scope);
+    }
   }
 
   /**
@@ -299,7 +342,6 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
     this.subs.filter((sub: Subscription) => hasValue(sub)).forEach((sub: Subscription) => sub.unsubscribe());
     this.paginationService.clearPagination(this.paginationConfig.id);
   }
-
 
 }
 

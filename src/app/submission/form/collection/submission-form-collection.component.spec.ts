@@ -30,6 +30,8 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { Collection } from '../../../core/shared/collection.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import {
   mockSubmissionId,
@@ -149,10 +151,9 @@ describe('SubmissionFormCollectionComponent Component', () => {
         ReactiveFormsModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionFormCollectionComponent,
         TestComponent,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
@@ -167,7 +168,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
         SubmissionFormCollectionComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(SubmissionFormCollectionComponent, {
+        remove: { imports: [ThemedCollectionDropdownComponent] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -272,7 +277,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
       it('the dropdown button should be disabled when isReadonly is true', () => {
         comp.isReadonly = true;
         fixture.detectChanges();
-        expect(dropdowBtn.nativeNode.attributes.disabled).toBeDefined();
+        expect(dropdowBtn.nativeNode.getAttribute('aria-disabled')).toBe('true');
+        expect(dropdowBtn.nativeNode.classList.contains('disabled')).toBeTrue();
       });
 
       it('should be simulated when the drop-down menu is closed', () => {
@@ -310,6 +316,12 @@ describe('SubmissionFormCollectionComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

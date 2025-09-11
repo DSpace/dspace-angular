@@ -1,19 +1,29 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
+  HostListener,
   NgZone,
   OnDestroy,
 } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
+  BehaviorSubject,
+  combineLatest,
   Observable,
   Subscription,
-  zip as observableZip,
 } from 'rxjs';
 import {
   filter,
@@ -21,72 +31,83 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
 } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { ItemBitstreamsService } from './item-bitstreams.service';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 
 @Component({
   selector: 'ds-item-bitstreams',
   styleUrls: ['./item-bitstreams.component.scss'],
   templateUrl: './item-bitstreams.component.html',
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    ItemEditBitstreamBundleComponent,
+    NgClass,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
+  providers: [ObjectValuesPipe],
+  standalone: true,
 })
 /**
  * Component for displaying an item's bitstreams edit page
  */
 export class ItemBitstreamsComponent extends AbstractItemUpdateComponent implements OnDestroy {
 
+  // Declared for use in template
+  protected readonly AlertType = AlertType;
+
   /**
-   * The currently listed bundles
+   * All bundles for the current item
    */
-  bundles$: Observable<Bundle[]>;
+  private bundlesSubject = new BehaviorSubject<Bundle[]>([]);
 
   /**
    * The page options to use for fetching the bundles
    */
-  bundlesOptions = {
+  bundlesOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'bundles-pagination-options',
     currentPage: 1,
-    pageSize: 9999,
-  } as any;
+    pageSize: 10,
+  });
 
   /**
    * The bootstrap sizes used for the columns within this table
    */
-  columnSizes = new ResponsiveTableSizes([
-    // Name column
-    new ResponsiveColumnSizes(2, 2, 3, 4, 4),
-    // Description column
-    new ResponsiveColumnSizes(2, 3, 3, 3, 3),
-    // Format column
-    new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-    // Actions column
-    new ResponsiveColumnSizes(6, 5, 4, 3, 3),
-  ]);
+  columnSizes: ResponsiveTableSizes;
 
   /**
    * Are we currently submitting the changes?
@@ -99,6 +120,23 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * This is used to update the item in cache after bitstreams are deleted
    */
   itemUpdateSubscription: Subscription;
+
+  /**
+   * The flag indicating to show the load more link
+   */
+  showLoadMoreLink$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * The list of bundles for the current item as an observable
+   */
+  get bundles$(): Observable<Bundle[]> {
+    return this.bundlesSubject.asObservable();
+  }
+
+  /**
+   * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
+   */
+  isProcessingMoveRequest: Observable<boolean>;
 
   constructor(
     public itemService: ItemDataService,
@@ -113,19 +151,73 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public cdRef: ChangeDetectorRef,
     public bundleService: BundleDataService,
     public zone: NgZone,
+    public itemBitstreamsService: ItemBitstreamsService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
+
+    this.columnSizes = this.itemBitstreamsService.getColumnSizes();
   }
 
   /**
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
-    );
+    this.loadBundles(1);
+  }
+
+  /**
+   * Handles keyboard events that should move the currently selected bitstream up
+   */
+  @HostListener('document:keydown.arrowUp', ['$event'])
+  moveUp(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.moveSelectedBitstreamUp();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should move the currently selected bitstream down
+   */
+  @HostListener('document:keydown.arrowDown', ['$event'])
+  moveDown(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.moveSelectedBitstreamDown();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should cancel the currently selected bitstream.
+   * A cancel means that the selected bitstream is returned to its original position and is no longer selected.
+   * @param event
+   */
+  @HostListener('document:keyup.escape', ['$event'])
+  cancelSelection(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.cancelSelection();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should clear the currently selected bitstream.
+   * A clear means that the selected bitstream remains in its current position but is no longer selected.
+   */
+  @HostListener('document:keydown.enter', ['$event'])
+  @HostListener('document:keydown.space', ['$event'])
+  clearSelection(event: KeyboardEvent) {
+    // Only when no specific element is in focus do we want to clear the currently selected bitstream
+    // Otherwise we might clear the selection when a different action was intended, e.g. clicking a button or selecting
+    // a different bitstream.
+    if (
+      this.itemBitstreamsService.hasSelectedBitstream() &&
+      event.target instanceof Element &&
+      event.target.tagName === 'BODY'
+    ) {
+      event.preventDefault();
+      this.itemBitstreamsService.clearSelection();
+    }
   }
 
   /**
@@ -133,6 +225,39 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   initializeNotificationsPrefix(): void {
     this.notificationsPrefix = 'item.edit.bitstreams.notifications.';
+  }
+
+  /**
+   * Load bundles for the current item
+   * @param currentPage The current page to load
+   */
+  loadBundles(currentPage?: number) {
+    this.bundlesOptions = Object.assign(new PaginationComponentOptions(), this.bundlesOptions, {
+      currentPage: currentPage || this.bundlesOptions.currentPage + 1,
+    });
+    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ).subscribe((bundles: PaginatedList<Bundle>) => {
+      this.updateBundles(bundles);
+    });
+  }
+
+  /**
+   * Update the subject containing the bundles with the provided bundles.
+   * Also updates the showLoadMoreLink observable so it does not show up when it is no longer necessary.
+   */
+  updateBundles(newBundlesPL: PaginatedList<Bundle>) {
+    const currentBundles = this.bundlesSubject.getValue();
+
+    // Only add bundles to the bundle subject if they are not present yet
+    const bundlesToAdd = newBundlesPL.page
+      .filter(bundleToAdd => !currentBundles.some(currentBundle => currentBundle.id === bundleToAdd.id));
+
+    const updatedBundles = [...currentBundles, ...bundlesToAdd];
+
+    this.showLoadMoreLink$.next(updatedBundles.length < newBundlesPL.totalElements);
+    this.bundlesSubject.next(updatedBundles);
   }
 
 
@@ -143,30 +268,12 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   submit() {
     this.submitting = true;
-    const bundlesOnce$ = this.bundles$.pipe(take(1));
 
-    // Fetch all removed bitstreams from the object update service
-    const removedBitstreams$ = bundlesOnce$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(
-        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true)),
-      )),
-      map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
-        ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
-      )),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field)),
-    );
-
-    // Send out delete requests for all deleted bitstreams
-    const removedResponses$: Observable<RemoteData<NoContent>> = removedBitstreams$.pipe(
-      take(1),
-      switchMap((removedBitstreams: Bitstream[]) => {
-        return this.bitstreamService.removeMultiple(removedBitstreams);
-      }),
-    );
+    const removedResponses$ = this.itemBitstreamsService.removeMarkedBitstreams(this.bundles$.pipe(take(1)));
 
     // Perform the setup actions from above in order and display notifications
     removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
-      this.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
+      this.itemBitstreamsService.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
       this.submitting = false;
     });
   }
@@ -246,7 +353,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   isReinstatable(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
+      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
       map((reinstatable: boolean[]) => reinstatable.includes(true)),
     );
   }
@@ -256,7 +363,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   hasChanges(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
+      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
       map((hasChanges: boolean[]) => hasChanges.includes(true)),
     );
   }

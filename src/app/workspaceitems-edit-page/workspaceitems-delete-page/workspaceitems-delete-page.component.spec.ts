@@ -17,7 +17,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -37,7 +37,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   let fixture: ComponentFixture<WorkspaceItemsDeletePageComponent>;
 
   const workspaceitemDataServiceSpy = jasmine.createSpyObj('WorkspaceitemDataService', {
-    delete: observableOf(createSuccessfulRemoteDataObject({})),
+    delete: of(createSuccessfulRemoteDataObject({})),
   });
 
   const wsi = new WorkspaceItem();
@@ -46,7 +46,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   dso.uuid = '1234';
 
   const translateServiceStub = {
-    get: () => observableOf('test-message'),
+    get: () => of('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter(),
@@ -57,17 +57,15 @@ describe('WorkspaceitemsDeletePageComponent', () => {
       imports: [
         NgbModalModule,
         TranslateModule.forRoot(),
+        WorkspaceItemsDeletePageComponent,
       ],
-      declarations: [WorkspaceItemsDeletePageComponent],
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: new ActivatedRouteStub(
-            {},
-            {
-              wsi: createSuccessfulRemoteDataObject(wsi),
-              dso: createSuccessfulRemoteDataObject(dso),
-            },
+          useValue: new ActivatedRouteStub({}, {
+            wsi: createSuccessfulRemoteDataObject(wsi),
+            dso: createSuccessfulRemoteDataObject(dso),
+          },
           ),
         },
         { provide: Router, useValue: new RouterMock() },

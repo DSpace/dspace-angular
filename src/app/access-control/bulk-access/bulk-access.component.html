@@ -7,10 +7,10 @@
   <hr>
 
   <div class="d-flex justify-content-end">
-    <button class="btn btn-outline-primary mr-3" (click)="reset()">
+    <button class="btn btn-outline-primary me-3" (click)="reset()">
       {{ 'access-control-cancel' | translate }}
     </button>
-    <button class="btn btn-primary" [disabled]="!canExport()" (click)="submit()">
+    <button class="btn btn-primary" [dsBtnDisabled]="!canExport()" (click)="submit()">
       {{ 'access-control-execute' | translate }}
     </button>
   </div>

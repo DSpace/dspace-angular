@@ -1,17 +1,25 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
+  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
   switchMap,
+  takeUntil,
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
@@ -28,11 +36,16 @@ import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../../../../../core/shared/operators';
+import { AlertComponent } from '../../../../alert/alert.component';
+import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
 import {
   hasNoValue,
   hasValue,
 } from '../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
+import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';
+import { VarDirective } from '../../../../utils/var.directive';
 
 /**
  * Component for managing a community or collection role.
@@ -41,6 +54,16 @@ import { NotificationsService } from '../../../../notifications/notifications.se
   selector: 'ds-comcol-role',
   styleUrls: ['./comcol-role.component.scss'],
   templateUrl: './comcol-role.component.html',
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    HasNoValuePipe,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {
 
@@ -48,7 +71,7 @@ export class ComcolRoleComponent implements OnInit {
    * The community or collection to manage.
    */
   @Input()
-    dso: Community | Collection;
+  dso: Community | Collection;
 
   /**
    * The role to manage
@@ -96,6 +119,7 @@ export class ComcolRoleComponent implements OnInit {
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     public dsoNameService: DSONameService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -195,5 +219,32 @@ export class ComcolRoleComponent implements OnInit {
     );
 
     this.roleName$ = this.translateService.get(`comcol-role.edit.${this.comcolRole.name}.name`);
+  }
+
+  confirmDelete(groupName: string): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+
+    modalRef.componentInstance.name = groupName;
+    modalRef.componentInstance.headerLabel = 'comcol-role.edit.delete.modal.header';
+    modalRef.componentInstance.infoLabel = 'comcol-role.edit.delete.modal.info';
+    modalRef.componentInstance.cancelLabel = 'comcol-role.edit.delete.modal.cancel';
+    modalRef.componentInstance.confirmLabel = 'comcol-role.edit.delete.modal.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+
+    const modalSub: Subscription = modalRef.componentInstance.response.pipe(
+      takeUntil(modalRef.closed),
+    ).subscribe((result: boolean) => {
+      if (result === true) {
+        this.delete();
+      }
+    });
+
+    void modalRef.result.then().finally(() => {
+      modalRef.close();
+      if (modalSub && !modalSub.closed) {
+        modalSub.unsubscribe();
+      }
+    });
   }
 }

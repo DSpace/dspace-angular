@@ -1,6 +1,10 @@
 import {
-  HttpClientTestingModule,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import {
   DebugElement,
@@ -83,16 +87,15 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
-            loader: { provide: TranslateLoader, useClass: CustomLoader },
-          },
-        )],
-        declarations: [LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
+        imports: [TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
+        }), LangSwitchComponent],
         providers: [
           TranslateService,
           { provide: LocaleService, useValue: getMockLocaleService() },
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
         ],
       }).compileComponents()
         .then(() => {
@@ -125,7 +128,7 @@ describe('LangSwitchComponent', () => {
     }));
 
     it('should define the main A HREF in the UI', (() => {
-      expect(langSwitchElement.querySelector('a')).not.toBeNull();
+      expect(langSwitchElement.querySelector('button.dropdown-toggle')).not.toBeNull();
     }));
 
     describe('when selecting a language', () => {
@@ -169,16 +172,15 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
-            loader: { provide: TranslateLoader, useClass: CustomLoader },
-          },
-        )],
-        declarations: [LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
+        imports: [TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
+        }), LangSwitchComponent],
         providers: [
           TranslateService,
           { provide: LocaleService, useValue: getMockLocaleService() },
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
         ],
       }).compileComponents();
       translate = TestBed.inject(TranslateService);

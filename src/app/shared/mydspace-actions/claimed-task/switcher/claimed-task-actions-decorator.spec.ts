@@ -29,13 +29,13 @@ describe('ClaimedTaskActions decorator function', () => {
   describe('If there\'s an exact match', () => {
     it('should return the matching class', () => {
       const component = getComponentByWorkflowTaskOption(option1);
-      expect(component).toEqual(Test1Action);
+      expect(component).toEqual(Test1Action as any);
 
       const component2 = getComponentByWorkflowTaskOption(option2);
-      expect(component2).toEqual(Test2Action);
+      expect(component2).toEqual(Test2Action as any);
 
       const component3 = getComponentByWorkflowTaskOption(option3);
-      expect(component3).toEqual(Test3Action);
+      expect(component3).toEqual(Test3Action as any);
     });
   });
 

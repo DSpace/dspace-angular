@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { RoleType } from './role-types';
 /**
  * A service that provides methods to identify user role.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RoleService {
 
   /**
@@ -36,7 +36,7 @@ export class RoleService {
    */
   isController(): Observable<boolean> {
     // TODO find a way to check if user is a controller
-    return observableOf(true);
+    return of(true);
   }
 
   /**
@@ -44,7 +44,7 @@ export class RoleService {
    */
   isAdmin(): Observable<boolean> {
     // TODO find a way to check if user is an admin
-    return observableOf(false);
+    return of(false);
   }
 
   /**

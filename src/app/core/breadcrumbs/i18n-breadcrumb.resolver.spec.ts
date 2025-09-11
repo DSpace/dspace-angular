@@ -1,9 +1,9 @@
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { I18nBreadcrumbResolver } from './i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from './i18n-breadcrumb.resolver';
 
-describe('I18nBreadcrumbResolver', () => {
+describe('i18nBreadcrumbResolver', () => {
   describe('resolve', () => {
-    let resolver: I18nBreadcrumbResolver;
+    let resolver: any;
     let i18nBreadcrumbService: any;
     let i18nKey: string;
     let route: any;
@@ -27,18 +27,18 @@ describe('I18nBreadcrumbResolver', () => {
       };
       expectedPath = new URLCombiner(parentSegment, segment).toString();
       i18nBreadcrumbService = {};
-      resolver = new I18nBreadcrumbResolver(i18nBreadcrumbService);
+      resolver = i18nBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', () => {
-      const resolvedConfig = resolver.resolve(route, {} as any);
+      const resolvedConfig = resolver(route, {} as any, i18nBreadcrumbService);
       const expectedConfig = { provider: i18nBreadcrumbService, key: i18nKey, url: expectedPath };
       expect(resolvedConfig).toEqual(expectedConfig);
     });
 
     it('should resolve throw an error when no breadcrumbKey is defined', () => {
       expect(() => {
-        resolver.resolve({ data: {} } as any, undefined);
+        resolver({ data: {} } as any, undefined, i18nBreadcrumbService);
       }).toThrow();
     });
   });

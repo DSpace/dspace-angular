@@ -12,5 +12,6 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   selector: 'ds-bitstream-list-item',
   template: ` {{object.name}} `,
   styleUrls: ['./bitstream-list-item.component.scss'],
+  standalone: true,
 })
 export class BitstreamListItemComponent extends AbstractListableElementComponent<Bitstream>{}

@@ -1,37 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 
-import { NotificationsSuggestionTargetsPageComponent } from '../../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page.component';
+import { SuggestionSourcesComponent } from '../../../notifications/suggestions/sources/suggestion-sources.component';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page.component';
 
-describe('NotificationsSuggestionTargetsPageComponent', () => {
-  let component: NotificationsSuggestionTargetsPageComponent;
-  let fixture: ComponentFixture<NotificationsSuggestionTargetsPageComponent>;
+describe('AdminNotificationsPublicationClaimPageComponent', () => {
+  let component: AdminNotificationsPublicationClaimPageComponent;
+  let fixture: ComponentFixture<AdminNotificationsPublicationClaimPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        NotificationsSuggestionTargetsPageComponent,
-      ],
-      providers: [
-        NotificationsSuggestionTargetsPageComponent,
+        AdminNotificationsPublicationClaimPageComponent,
+        MockComponent(SuggestionSourcesComponent),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NotificationsSuggestionTargetsPageComponent);
+    fixture = TestBed.createComponent(AdminNotificationsPublicationClaimPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

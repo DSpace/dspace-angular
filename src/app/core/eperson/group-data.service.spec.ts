@@ -6,6 +6,7 @@ import {
   Store,
   StoreModule,
 } from '@ngrx/store';
+import { createMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -14,7 +15,7 @@ import {
   compare,
   Operation,
 } from 'fast-json-patch';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   GroupRegistryCancelGroupAction,
@@ -83,7 +84,6 @@ describe('GroupDataService', () => {
           },
         }),
       ],
-      declarations: [],
       providers: [],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -105,7 +105,7 @@ describe('GroupDataService', () => {
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(groups));
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = createMockStore({});
     service = initTestService();
     spyOn(store, 'dispatch');
     spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
@@ -159,7 +159,7 @@ describe('GroupDataService', () => {
 
   describe('addSubGroupToGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -189,7 +189,7 @@ describe('GroupDataService', () => {
 
   describe('deleteSubGroupFromGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -215,7 +215,7 @@ describe('GroupDataService', () => {
 
   describe('addMemberToGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -244,7 +244,7 @@ describe('GroupDataService', () => {
 
   describe('deleteMemberFromGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));

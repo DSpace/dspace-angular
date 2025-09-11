@@ -10,10 +10,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -30,12 +27,9 @@ describe('AlertComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AlertComponent,
         TestComponent,
       ],
@@ -97,7 +91,7 @@ describe('AlertComponent test suite', () => {
 
     it('should dismiss alert when click on close icon', () => {
       spyOn(comp, 'dismiss');
-      const btn = fixture.debugElement.query(By.css('.close'));
+      const btn = fixture.debugElement.query(By.css('.btn-close'));
 
       btn.nativeElement.click();
 
@@ -116,6 +110,8 @@ describe('AlertComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [],
 })
 class TestComponent {
 

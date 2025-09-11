@@ -10,7 +10,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { VarDirective } from '../shared/utils/var.directive';
@@ -38,19 +38,15 @@ describe('BreadcrumbsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     breadcrumbsServiceMock = {
-      breadcrumbs$: observableOf([
+      breadcrumbs$: of([
         // NOTE: a root breadcrumb is automatically rendered
         new Breadcrumb('bc 1', 'example.com'),
         new Breadcrumb('bc 2', 'another.com'),
       ]),
-      showBreadcrumbs$: observableOf(true),
+      showBreadcrumbs$: of(true),
     } as BreadcrumbsService;
 
     TestBed.configureTestingModule({
-      declarations: [
-        BreadcrumbsComponent,
-        VarDirective,
-      ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -59,6 +55,8 @@ describe('BreadcrumbsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        BreadcrumbsComponent,
+        VarDirective,
       ],
       providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },

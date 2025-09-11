@@ -10,7 +10,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
@@ -18,9 +18,11 @@ import { ScriptDataService } from '../../core/data/processes/script-data.service
 import { RequestService } from '../../core/data/request.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessFormComponent } from '../form/process-form.component';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { Script } from '../scripts/script.model';
 import { ScriptParameter } from '../scripts/script-parameter.model';
@@ -45,12 +47,13 @@ describe('NewProcessComponent', () => {
     scriptService = jasmine.createSpyObj(
       'scriptService',
       {
-        invoke: observableOf({
+        invoke: of({
           response:
-            {
-              isSuccessful: true,
-            },
+          {
+            isSuccessful: true,
+          },
         }),
+        findAll: createSuccessfulRemoteDataObject$(script),
       },
     );
   }
@@ -65,10 +68,9 @@ describe('NewProcessComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [
-        NewProcessComponent,
-        VarDirective,
+        }),
+        NewProcessComponent, VarDirective
+        ,
         HasValuePipe,
       ],
       providers: [
@@ -81,6 +83,11 @@ describe('NewProcessComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(NewProcessComponent, {
+        remove: {
+          imports: [ProcessFormComponent],
+        },
+      })
       .compileComponents();
   }));
 

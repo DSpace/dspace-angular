@@ -64,8 +64,6 @@ describe('LogInExternalProviderComponent', () => {
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         LogInExternalProviderComponent,
       ],
       providers: [
@@ -110,8 +108,7 @@ describe('LogInExternalProviderComponent', () => {
 
     component.redirectToExternalProvider();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl);
-
+    expect(hardRedirectService.redirect).toHaveBeenCalled();
   });
 
   it('should not set a new redirectUrl', () => {

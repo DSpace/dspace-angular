@@ -39,7 +39,8 @@ describe('MetadataFieldSelectorComponent', () => {
     metadataSchema = Object.assign(new MetadataSchema(), {
       id: 0,
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/',
+      namespace: 'https://schema.org/CreativeWork',
+      field: '.',
     });
     metadataFields = [
       Object.assign(new MetadataField(), {
@@ -62,8 +63,7 @@ describe('MetadataFieldSelectorComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
     TestBed.configureTestingModule({
-      declarations: [MetadataFieldSelectorComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), MetadataFieldSelectorComponent, VarDirective],
       providers: [
         { provide: RegistryService, useValue: registryService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -79,10 +79,10 @@ describe('MetadataFieldSelectorComponent', () => {
   });
 
   describe('when a query is entered', () => {
-    const query = 'test query';
+    const query = 'dc.d';
 
     beforeEach(() => {
-      component.showInvalid = true;
+      component.showInvalid = false;
       component.query$.next(query);
     });
 
@@ -91,7 +91,7 @@ describe('MetadataFieldSelectorComponent', () => {
     });
 
     it('should query the registry service for metadata fields and include the schema', () => {
-      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, { elementsPerPage: 10, sort: new SortOptions('fieldName', SortDirection.ASC) }, true, false, followLink('schema'));
+      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, { elementsPerPage: 20, sort: new SortOptions('fieldName', SortDirection.ASC), currentPage: 1 }, true, false, followLink('schema'));
     });
   });
 
@@ -114,6 +114,14 @@ describe('MetadataFieldSelectorComponent', () => {
         expect(fixture.debugElement.query(By.css('.invalid-feedback'))).toBeTruthy();
         done();
       });
+    });
+
+    it('should sort the fields by name to ensure the one without a qualifier is first', () => {
+      component.mdField = 'dc.relation';
+
+      component.validate();
+
+      expect(registryService.queryMetadataFields).toHaveBeenCalledWith('dc.relation', { elementsPerPage: 20, sort: new SortOptions('fieldName', SortDirection.ASC), currentPage: 1 }, true, false, followLink('schema'));
     });
 
     describe('when querying the metadata fields returns an error response', () => {

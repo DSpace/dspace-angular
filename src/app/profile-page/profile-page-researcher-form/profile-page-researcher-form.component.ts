@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -5,11 +6,12 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { BehaviorSubject } from 'rxjs';
 import {
   map,
   mergeMap,
@@ -28,16 +30,26 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
   templateUrl: './profile-page-researcher-form.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    TranslateModule,
+    UiSwitchModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 /**
  * Component for a user to create/delete or change their researcher profile.
@@ -170,24 +182,6 @@ export class ProfilePageResearcherFormComponent implements OnInit {
         this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
       }
     });
-  }
-
-  /**
-   * Return a boolean representing if a delete operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingDelete(): Observable<boolean> {
-    return this.processingDelete$.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if a create operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingCreate(): Observable<boolean> {
-    return this.processingCreate$.asObservable();
   }
 
   /**

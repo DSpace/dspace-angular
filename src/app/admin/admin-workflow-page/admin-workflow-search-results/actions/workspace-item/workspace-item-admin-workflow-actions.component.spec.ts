@@ -56,8 +56,8 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
         NgbModalModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        WorkspaceItemAdminWorkflowActionsComponent,
       ],
-      declarations: [WorkspaceItemAdminWorkflowActionsComponent],
       providers: [
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: NotificationsService, useValue: notificationService },

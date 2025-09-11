@@ -46,11 +46,11 @@ describe('AccessStatusDataService', () => {
       createService();
     });
 
-    describe('when calling findAccessStatusFor', () => {
+    describe('when calling findItemAccessStatusFor', () => {
       let contentSource$;
 
       beforeEach(() => {
-        contentSource$ = service.findAccessStatusFor(mockItem);
+        contentSource$ = service.findItemAccessStatusFor(mockItem);
       });
 
       it('should send a new GetRequest', fakeAsync(() => {
@@ -63,12 +63,12 @@ describe('AccessStatusDataService', () => {
 
   /**
    * Create an AccessStatusDataService used for testing
-   * @param reponse$   Supply a RemoteData to be returned by the REST API (optional)
+   * @param response$   Supply a RemoteData to be returned by the REST API (optional)
    */
-  function createService(reponse$?: Observable<RemoteData<any>>) {
+  function createService(response$?: Observable<RemoteData<any>>) {
     requestService = getMockRequestService();
-    let buildResponse$ = reponse$;
-    if (hasNoValue(reponse$)) {
+    let buildResponse$ = response$;
+    if (hasNoValue(response$)) {
       buildResponse$ = createSuccessfulRemoteDataObject$({});
     }
     rdbService = jasmine.createSpyObj('rdbService', {

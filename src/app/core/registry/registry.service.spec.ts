@@ -8,7 +8,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -41,7 +41,11 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { NoContent } from '../shared/NoContent.model';
 import { RegistryService } from './registry.service';
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: true,
+  imports: [],
+})
 class DummyComponent {
 }
 
@@ -138,7 +142,7 @@ describe('RegistryService', () => {
       findById: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       createOrUpdateMetadataSchema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       delete: createNoContentRemoteDataObject$(),
-      clearRequests: observableOf('href'),
+      clearRequests: of('href'),
     });
 
     metadataFieldService = jasmine.createSpyObj('metadataFieldService', {
@@ -147,16 +151,14 @@ describe('RegistryService', () => {
       create: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       put: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       delete: createNoContentRemoteDataObject$(),
-      clearRequests: observableOf('href'),
+      clearRequests: of('href'),
     });
   }
 
   beforeEach(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot()],
-      declarations: [
-        DummyComponent,
+      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot(), DummyComponent,
       ],
       providers: [
         { provide: Store, useClass: StoreMock },

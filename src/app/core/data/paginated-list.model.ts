@@ -73,13 +73,13 @@ export class PaginatedList<T> extends CacheableObject {
    * The type of the list
    */
   @excludeFromEquals
-    type = PAGINATED_LIST;
+  type = PAGINATED_LIST;
 
   /**
    * The type of objects in the list
    */
   @autoserialize
-    objectType?: ResourceType;
+  objectType?: ResourceType;
 
   /**
    * The list of objects that represents the current page
@@ -90,13 +90,13 @@ export class PaginatedList<T> extends CacheableObject {
    * the {@link PageInfo} object
    */
   @autoserialize
-    pageInfo?: PageInfo;
+  pageInfo?: PageInfo;
 
   /**
    * The {@link HALLink}s for this PaginatedList
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     page: HALLink[];
     first?: HALLink;

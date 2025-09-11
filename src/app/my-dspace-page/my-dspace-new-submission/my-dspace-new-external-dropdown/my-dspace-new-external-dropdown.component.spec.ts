@@ -13,14 +13,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import {
   createPaginatedList,
@@ -54,7 +53,7 @@ export function getMockEntityTypeService(): EntityTypeDataService {
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
-    hasMoreThanOneAuthorizedImport: observableOf(true),
+    hasMoreThanOneAuthorizedImport: of(true),
   });
 }
 
@@ -70,7 +69,7 @@ export function getMockEmptyEntityTypeService(): EntityTypeDataService {
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
-    hasMoreThanOneAuthorizedImport: observableOf(false),
+    hasMoreThanOneAuthorizedImport: of(false),
   });
 }
 
@@ -94,11 +93,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
@@ -146,11 +142,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
@@ -197,6 +190,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [],
 })
 class TestComponent {
   reload = (event) => {

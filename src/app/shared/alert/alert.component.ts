@@ -7,6 +7,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   fadeOutLeave,
@@ -27,6 +28,10 @@ import { AlertType } from './alert-type';
   ],
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
+  standalone: true,
+  imports: [
+    TranslateModule,
+  ],
 })
 export class AlertComponent {
 
@@ -43,7 +48,7 @@ export class AlertComponent {
   /**
    * The alert type
    */
-  @Input() type: AlertType;
+  @Input() type: AlertType | string;
 
   /**
    * An event fired when alert is dismissed.

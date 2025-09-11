@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../../core/shared/community.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { RouterStub } from '../../testing/router.stub';
 import { ScopeSelectorModalComponent } from './scope-selector-modal.component';
@@ -37,10 +38,9 @@ describe('ScopeSelectorModalComponent', () => {
   const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ScopeSelectorModalComponent],
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), ScopeSelectorModalComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -56,12 +56,18 @@ describe('ScopeSelectorModalComponent', () => {
           },
         },
         {
-          provide: Router, useValue: router,
+          provide: Router,
+          useValue: router,
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-
+    })
+      .overrideComponent(ScopeSelectorModalComponent, {
+        remove: {
+          imports: [DSOSelectorComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -28,10 +28,10 @@ describe('StringValueInputComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [StringValueInputComponent],
-      providers: [
+        }),
+        StringValueInputComponent,
       ],
+      providers: [],
     })
       .compileComponents();
   }));

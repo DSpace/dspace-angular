@@ -17,7 +17,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { CoreState } from '../../core/core-state.model';
@@ -28,6 +28,7 @@ import {
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Registration } from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
@@ -121,7 +122,7 @@ describe('CreateProfileComponent', () => {
     };
     epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
 
-    route = { data: observableOf({ registration: createSuccessfulRemoteDataObject(registration) }) };
+    route = { data: of({ registration: createSuccessfulRemoteDataObject(registration) }) };
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
@@ -139,8 +140,7 @@ describe('CreateProfileComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [CreateProfileComponent],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, CreateProfileComponent],
       providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
@@ -151,7 +151,11 @@ describe('CreateProfileComponent', () => {
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CreateProfileComponent, {
+        remove: { imports: [ProfilePageSecurityFormComponent] },
+      })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateProfileComponent);

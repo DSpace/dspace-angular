@@ -1,4 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -6,6 +9,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import {
   BehaviorSubject,
@@ -36,6 +40,11 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   selector: 'ds-system-wide-alert-banner',
   styleUrls: ['./system-wide-alert-banner.component.scss'],
   templateUrl: './system-wide-alert-banner.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 

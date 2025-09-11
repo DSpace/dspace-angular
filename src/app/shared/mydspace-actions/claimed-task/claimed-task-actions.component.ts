@@ -1,11 +1,19 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Injector,
   Input,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { RemoteData } from '../../../core/data/remote-data';
@@ -19,7 +27,9 @@ import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.mode
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { VarDirective } from '../../utils/var.directive';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
+import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actions-loader.component';
 
 /**
  * This component represents actions related to ClaimedTask object.
@@ -28,6 +38,15 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   selector: 'ds-claimed-task-actions',
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    ClaimedTaskActionsLoaderComponent,
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit {
 

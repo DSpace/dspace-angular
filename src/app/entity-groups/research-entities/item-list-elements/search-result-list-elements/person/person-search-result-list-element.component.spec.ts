@@ -8,18 +8,26 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { PersonSearchResultListElementComponent } from './person-search-result-list-element.component';
@@ -31,7 +39,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -52,7 +60,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -84,15 +92,16 @@ describe('PersonSearchResultListElementComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      },
-      )],
-      declarations: [PersonSearchResultListElementComponent, TruncatePipe],
+      }), TruncatePipe, PersonSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
@@ -154,15 +163,16 @@ describe('PersonSearchResultListElementComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      },
-      )],
-      declarations: [PersonSearchResultListElementComponent, TruncatePipe],
+      }), TruncatePipe],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

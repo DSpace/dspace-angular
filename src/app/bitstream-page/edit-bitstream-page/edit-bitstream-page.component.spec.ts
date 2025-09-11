@@ -21,7 +21,7 @@ import {
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -215,15 +215,14 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
           { provide: NotificationsService, useValue: notificationsService },
           { provide: DynamicFormService, useValue: formService },
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
           },
@@ -262,7 +261,7 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       it('should select the correct format', () => {
-        expect(rawForm.formatContainer.selectedFormat).toEqual(selectedFormat.id);
+        expect(rawForm.formatContainer.selectedFormat).toEqual(selectedFormat.shortDescription);
       });
 
       it('should put the \"New Format\" input on invisible', () => {
@@ -293,7 +292,13 @@ describe('EditBitstreamPageComponent', () => {
 
     describe('when an unknown format is selected', () => {
       beforeEach(() => {
-        comp.updateNewFormatLayout(allFormats[0].id);
+        comp.onChange({
+          model: {
+            id: 'selectedFormat',
+            value: allFormats[0],
+          },
+        });
+        comp.updateNewFormatLayout();
       });
 
       it('should remove the invisible class from the \"New Format\" input', () => {
@@ -395,9 +400,10 @@ describe('EditBitstreamPageComponent', () => {
 
       describe('when selected format has changed', () => {
         beforeEach(() => {
-          comp.formGroup.patchValue({
-            formatContainer: {
-              selectedFormat: allFormats[2].id,
+          comp.onChange({
+            model: {
+              id: 'selectedFormat',
+              value: allFormats[2],
             },
           });
           fixture.detectChanges();
@@ -504,15 +510,14 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
           { provide: NotificationsService, useValue: notificationsService },
           { provide: DynamicFormService, useValue: formService },
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
           },
@@ -629,14 +634,13 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
           { provide: NotificationsService, useValue: notificationsService },
           { provide: DynamicFormService, useValue: formService },
           { provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
           },

@@ -22,7 +22,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
@@ -42,6 +42,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -52,10 +53,8 @@ import { ExportMetadataSelectorComponent } from './export-metadata-selector.comp
         provide: TranslateLoader,
         useClass: TranslateLoaderMock,
       },
-    }),
-  ],
+    }), ConfirmationModalComponent],
   exports: [],
-  declarations: [ConfirmationModalComponent],
   providers: [],
 })
 class ModelTestModule {
@@ -120,11 +119,10 @@ describe('ExportMetadataSelectorComponent', () => {
       },
     );
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportMetadataSelectorComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
@@ -147,7 +145,11 @@ describe('ExportMetadataSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ExportMetadataSelectorComponent, {
+        remove: { imports: [DSOSelectorComponent] },
+      })
+      .compileComponents();
 
   }));
 
@@ -157,7 +159,7 @@ describe('ExportMetadataSelectorComponent', () => {
     debugElement = fixture.debugElement;
     const modalService = TestBed.inject(NgbModal);
     modalRef = modalService.open(ConfirmationModalComponent);
-    modalRef.componentInstance.response = observableOf(true);
+    modalRef.componentInstance.response = of(true);
     fixture.detectChanges();
   });
 
@@ -205,7 +207,7 @@ describe('ExportMetadataSelectorComponent', () => {
   describe('if collection is selected and is not admin', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
-      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCollection).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
@@ -254,7 +256,7 @@ describe('ExportMetadataSelectorComponent', () => {
   describe('if community is selected and is not an admin', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
-      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;

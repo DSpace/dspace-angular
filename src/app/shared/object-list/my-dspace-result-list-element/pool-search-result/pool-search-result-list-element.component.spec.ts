@@ -12,7 +12,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -27,14 +27,18 @@ import { SubmissionDuplicateDataService } from '../../../../core/submission/subm
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
 
 let component: PoolSearchResultListElementComponent;
@@ -54,13 +58,13 @@ const configurationDataService = jasmine.createSpyObj('configurationDataService'
   })),
 });
 const duplicateDataServiceStub = {
-  findListByHref: () => observableOf(emptyList),
+  findListByHref: () => of(emptyList),
   findDuplicates: () => createSuccessfulRemoteDataObject$({}),
 };
 
 const item = Object.assign(new Item(), {
-  duplicates: observableOf([]),
-  bundles: observableOf({}),
+  duplicates: of([]),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -96,9 +100,9 @@ const environmentUseThumbs = {
 };
 
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem) });
 const linkService = getMockLinkService();
 const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
   remove: jasmine.createSpy('remove'),
@@ -107,8 +111,7 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('PoolSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [PoolSearchResultListElementComponent, VarDirective],
+      imports: [NoopAnimationsModule, VarDirective, PoolSearchResultListElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
@@ -117,10 +120,14 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: ObjectCacheService, useValue: objectCacheServiceMock },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SubmissionDuplicateDataService, useValue: duplicateDataServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PoolSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedItemListPreviewComponent, PoolTaskActionsComponent],
+      },
     }).compileComponents();
   }));
 

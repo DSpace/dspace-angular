@@ -18,7 +18,7 @@ import {
   cold,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import {
@@ -32,7 +32,6 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
@@ -66,10 +65,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionUploadFilesComponent,
         TestComponent,
       ],
@@ -120,7 +116,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       sectionsServiceStub = TestBed.inject(SectionsService as any);
-      sectionsServiceStub.isSectionTypeAvailable.and.returnValue(observableOf(true));
+      sectionsServiceStub.isSectionTypeAvailable.and.returnValue(of(true));
       notificationsServiceStub = TestBed.inject(NotificationsService as any);
       translateService = TestBed.inject(TranslateService);
       comp.submissionId = submissionId;
@@ -163,8 +159,8 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
     describe('on upload complete', () => {
       beforeEach(() => {
-        sectionsServiceStub.isSectionType.and.callFake((_, sectionId, __) => observableOf(sectionId === 'upload'));
-        compAsAny.uploadEnabled = observableOf(true);
+        sectionsServiceStub.isSectionType.and.callFake((_, sectionId, __) => of(sectionId === 'upload'));
+        compAsAny.uploadEnabled = of(true);
       });
 
       it('should show a success notification and call updateSectionData if successful', () => {
@@ -218,6 +214,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

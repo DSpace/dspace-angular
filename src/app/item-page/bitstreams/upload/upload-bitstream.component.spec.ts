@@ -12,7 +12,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -24,6 +24,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -33,6 +34,7 @@ import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { UploadBitstreamComponent } from './upload-bitstream.component';
 
@@ -93,12 +95,12 @@ describe('UploadBitstreamComponent', () => {
   const routerStub = new RouterStub();
   const restEndpoint = 'fake-rest-endpoint';
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint),
+    getBitstreamsEndpoint: of(restEndpoint),
     createBundle: createSuccessfulRemoteDataObject$(createdBundle),
     getBundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])),
   });
   const bundleService = jasmine.createSpyObj('bundleService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint),
+    getBitstreamsEndpoint: of(restEndpoint),
     findById: createSuccessfulRemoteDataObject$(bundle),
   });
   const authToken = 'fake-auth-token';
@@ -285,10 +287,10 @@ describe('UploadBitstreamComponent', () => {
    */
   function createUploadBitstreamTestingModule(queryParams) {
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(mockItem),
       }),
-      queryParams: observableOf(queryParams),
+      queryParams: of(queryParams),
       snapshot: {
         queryParams: queryParams,
         params: {
@@ -298,8 +300,7 @@ describe('UploadBitstreamComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [UploadBitstreamComponent, VarDirective],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, UploadBitstreamComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -311,7 +312,13 @@ describe('UploadBitstreamComponent', () => {
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(UploadBitstreamComponent, {
+        remove: {
+          imports: [UploaderComponent, DsoInputSuggestionsComponent],
+        },
+      })
+      .compileComponents();
   }
 
   /**

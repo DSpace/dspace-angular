@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -11,6 +12,7 @@ import {
 import {
   NgbModal,
   NgbNavChangeEvent,
+  NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
@@ -18,11 +20,12 @@ import {
   DynamicFormGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -40,6 +43,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
@@ -50,8 +54,10 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../empty.util';
+import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
 import {
   RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG,
@@ -78,6 +84,15 @@ export interface ResourcePolicyEvent {
 @Component({
   selector: 'ds-resource-policy-form',
   templateUrl: './resource-policy-form.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    EpersonGroupListComponent,
+    FormComponent,
+    NgbNavModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component that show form for adding/editing a resource policy
@@ -94,7 +109,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * A boolean representing if form submit operation is processing
    * @type {boolean}
    */
-  @Input() isProcessing: Observable<boolean> = observableOf(false);
+  @Input() isProcessing: Observable<boolean> = of(false);
 
   /**
    * An event fired when form is canceled.

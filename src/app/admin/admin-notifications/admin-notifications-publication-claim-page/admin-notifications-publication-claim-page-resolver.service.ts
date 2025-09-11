@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 
@@ -17,8 +16,8 @@ export interface NotificationsSuggestionTargetsPageParams {
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
-@Injectable()
-export class NotificationsSuggestionTargetsPageResolver implements Resolve<NotificationsSuggestionTargetsPageParams> {
+@Injectable({ providedIn: 'root' })
+export class NotificationsSuggestionTargetsPageResolver {
 
   /**
    * Method for resolving the parameters in the current route.

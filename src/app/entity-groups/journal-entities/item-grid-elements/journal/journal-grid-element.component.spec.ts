@@ -8,7 +8,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
@@ -18,6 +18,7 @@ import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mo
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalSearchResultGridElementComponent } from '../search-result-grid-elements/journal/journal-search-result-grid-element.component';
 import { JournalGridElementComponent } from './journal-grid-element.component';
 
 const mockItem = Object.assign(new Item(), {
@@ -55,20 +56,22 @@ describe('JournalGridElementComponent', () => {
   let fixture;
 
   const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
+    isCollapsed: (id: number) => of(true),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [JournalGridElementComponent, TruncatePipe],
+      imports: [NoopAnimationsModule, TruncatePipe, JournalGridElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [JournalSearchResultGridElementComponent],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

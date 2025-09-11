@@ -1,4 +1,8 @@
 import {
+  NgClass,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,14 +11,23 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbDropdown,
+  NgbDropdownModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -31,11 +44,14 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
 } from '../../../../../empty.util';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
@@ -47,6 +63,19 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
   templateUrl: './dynamic-lookup.component.html',
+  imports: [
+    AuthorityConfidenceStateDirective,
+    BtnDisabledDirective,
+    FormsModule,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    NgbTooltipModule,
+    NgClass,
+    NgTemplateOutlet,
+    ObjNgFor,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
@@ -245,7 +274,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
     ).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() =>
-        observableOf(buildPaginatedList(
+        of(buildPaginatedList(
           new PageInfo(),
           [],
         )),

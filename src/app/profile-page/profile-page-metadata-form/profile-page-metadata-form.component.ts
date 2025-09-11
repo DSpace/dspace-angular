@@ -1,3 +1,4 @@
+
 import {
   Component,
   Input,
@@ -26,11 +27,16 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
-  selector: 'ds-profile-page-metadata-form',
+  selector: 'ds-base-profile-page-metadata-form',
   templateUrl: './profile-page-metadata-form.component.html',
+  imports: [
+    FormComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component for a user to edit their metadata

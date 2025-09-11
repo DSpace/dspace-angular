@@ -16,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -29,7 +29,9 @@ import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -37,8 +39,10 @@ import {
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { ItemDeleteComponent } from './item-delete.component';
 
 let comp: ItemDeleteComponent;
@@ -121,7 +125,7 @@ describe('ItemDeleteComponent', () => {
     });
 
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(mockItem),
       }),
     };
@@ -142,12 +146,12 @@ describe('ItemDeleteComponent', () => {
       initialize: () => {
         // do nothing
       },
-      isSelectedVirtualMetadata: (type) => observableOf(typesSelection[type]),
+      isSelectedVirtualMetadata: (type) => of(typesSelection[type]),
     };
 
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getItemRelationshipsArray: observableOf(relationships),
+        getItemRelationshipsArray: of(relationships),
       },
     );
 
@@ -160,8 +164,7 @@ describe('ItemDeleteComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemDeleteComponent, VarDirective],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -172,10 +175,15 @@ describe('ItemDeleteComponent', () => {
         { provide: EntityTypeDataService, useValue: entityTypeService },
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ItemDeleteComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent, ModifyItemOverviewComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,10 +1,14 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   type OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { NotifyStatuses } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
 
@@ -13,6 +17,13 @@ import { RequestStatusEnum } from '../notify-status.enum';
   templateUrl: './request-status-alert-box.component.html',
   styleUrls: ['./request-status-alert-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgClass,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Represents a component that displays the status of a request.
@@ -54,6 +65,13 @@ export class RequestStatusAlertBoxComponent implements OnInit {
         this.displayOptions = {
           alertType: 'alert-danger',
           text: 'request-status-alert-box.rejected',
+        };
+        break;
+
+      case RequestStatusEnum.TENTATIVE_REJECT:
+        this.displayOptions = {
+          alertType: 'alert-warning',
+          text: 'request-status-alert-box.tentative_rejected',
         };
         break;
 

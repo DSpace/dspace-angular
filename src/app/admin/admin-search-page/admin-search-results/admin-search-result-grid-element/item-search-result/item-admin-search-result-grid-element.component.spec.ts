@@ -10,21 +10,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../../../../core/auth/auth.service';
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
@@ -44,12 +42,6 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     },
   };
 
-  const mockAccessStatusDataService = {
-    findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
-      return createSuccessfulRemoteDataObject$(new AccessStatusObject());
-    },
-  };
-
   const mockThemeService = getMockThemeService();
 
   function init() {
@@ -63,18 +55,17 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [ItemAdminSearchResultGridElementComponent],
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
-          SharedModule,
+          ListableModule,
+          ItemAdminSearchResultGridElementComponent,
         ],
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: ThemeService, useValue: mockThemeService },
-          { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: FileService, useClass: FileServiceStub },
           { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },

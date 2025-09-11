@@ -1,10 +1,10 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 /**
  * Mock for [[RouterService]]
  */
 export class RouterMock {
-  public events = observableOf({});
+  public events = of({});
   public routerState = {
     snapshot: {
       url: '',
@@ -32,5 +32,9 @@ export class RouterMock {
 
   get url() {
     return this.routerState.snapshot.url;
+  }
+
+  serializeUrl(commands, navExtras = {}) {
+    return '/testing-url';
   }
 }

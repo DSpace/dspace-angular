@@ -14,7 +14,7 @@ import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { ContextHelp } from '../context-help.model';
@@ -36,6 +36,11 @@ import { PlacementDir } from './placement-dir.model';
     >
     </ds-context-help-wrapper>
   `,
+  standalone: true,
+  imports: [
+    ContextHelpWrapperComponent,
+    NgbTooltipModule,
+  ],
 })
 class TemplateComponent {
   @Input() content: string;
@@ -84,12 +89,11 @@ describe('ContextHelpWrapperComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [ NgbTooltipModule ],
+      imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },
       ],
-      declarations: [ TemplateComponent, ContextHelpWrapperComponent ],
     }).compileComponents();
   }));
 
@@ -99,7 +103,7 @@ describe('ContextHelpWrapperComponent', () => {
     shouldShowIcons$ = new BehaviorSubject<boolean>(false);
     contextHelpService.getContextHelp$.and.returnValue(getContextHelp$);
     contextHelpService.shouldShowIcons$.and.returnValue(shouldShowIcons$);
-    translateService.get.and.callFake((content) => observableOf(messages[content]));
+    translateService.get.and.callFake((content) => of(messages[content]));
 
     getContextHelp$.next(exampleContextHelp);
     shouldShowIcons$.next(false);

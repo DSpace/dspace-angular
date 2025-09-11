@@ -27,7 +27,6 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { SharedModule } from '../../shared/shared.module';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
@@ -146,12 +145,11 @@ describe('TopLevelCommunityListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,
+        TopLevelCommunityListComponent,
       ],
-      declarations: [TopLevelCommunityListComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: CommunityDataService, useValue: communityDataServiceStub },

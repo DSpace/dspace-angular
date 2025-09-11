@@ -1,10 +1,12 @@
+import { Component } from '@angular/core';
 import {
   ComponentFixture,
+  MetadataOverride,
   TestBed,
 } from '@angular/core/testing';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -36,10 +38,12 @@ export const hasClass = (element: any, className: string): boolean => {
  *    the component's template as html
  * @param type
  *    the type of the component to instantiate
+ * @param override
  */
-export const createTestComponent = <T>(html: string, type: new (...args: any[]) => T ): ComponentFixture<T> => {
+export const createTestComponent = <T>(html: string, type: new (...args: any[]) => T, override: MetadataOverride<Component> = {}): ComponentFixture<T> => {
   TestBed.overrideComponent(type, {
     set: { template: html },
+    ...override,
   });
   const fixture = TestBed.createComponent(type);
 
@@ -93,7 +97,7 @@ export function spyOnExported<T>(target: T, prop: keyof T): jasmine.Spy {
  * @param errorMessage
  */
 export function createRequestEntry$(unCacheableObject?: UnCacheableObject, statusCode = 200, errorMessage?: string): Observable<RequestEntry> {
-  return observableOf({
+  return of({
     request: undefined,
     state: RequestEntryState.Success,
     response: {

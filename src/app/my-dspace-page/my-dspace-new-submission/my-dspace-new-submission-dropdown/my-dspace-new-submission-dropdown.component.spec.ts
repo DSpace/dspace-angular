@@ -13,14 +13,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import {
   createPaginatedList,
   createTestComponent,
@@ -52,7 +51,7 @@ export function getMockEntityTypeService(): EntityTypeDataService {
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(true),
+    hasMoreThanOneAuthorized: of(true),
   });
 }
 
@@ -68,7 +67,7 @@ export function getMockEmptyEntityTypeService(): EntityTypeDataService {
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(false),
+    hasMoreThanOneAuthorized: of(false),
   });
 }
 
@@ -98,11 +97,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
@@ -150,11 +146,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
@@ -202,6 +195,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [],
 })
 class TestComponent {
   reload = (event) => {

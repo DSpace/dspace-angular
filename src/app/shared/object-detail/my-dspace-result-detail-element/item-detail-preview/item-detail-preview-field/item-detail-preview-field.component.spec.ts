@@ -13,7 +13,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
@@ -24,7 +24,7 @@ let component: ItemDetailPreviewFieldComponent;
 let fixture: ComponentFixture<ItemDetailPreviewFieldComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.contributor.author': [
       {
@@ -64,13 +64,11 @@ describe('ItemDetailPreviewFieldComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ItemDetailPreviewFieldComponent, TruncatePipe,
       ],
-      declarations: [ItemDetailPreviewFieldComponent, TruncatePipe],
       providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
-
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemDetailPreviewFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

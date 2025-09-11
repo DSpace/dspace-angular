@@ -1,7 +1,15 @@
-import { Component } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   find,
@@ -20,19 +28,27 @@ import {
 } from '../../empty.util';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { followLink } from '../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
   templateUrl: './sidebar-search-list-element.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgClass,
+    TranslateModule,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal
  * It displays the name of the parent, title and description of the object. All of which are customizable in the child
  * component by overriding the relevant methods of this component
  */
-export class SidebarSearchListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends SearchResultListElementComponent<T, K> {
+export class SidebarSearchListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends SearchResultListElementComponent<T, K> implements OnInit {
   /**
    * Observable for the title of the parent object (displayed above the object's title)
    */
@@ -90,7 +106,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
         find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
       );
     }
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   /**

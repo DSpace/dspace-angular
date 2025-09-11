@@ -22,13 +22,13 @@ export class StatisticsEndpoint implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The {@link HALLink}s for the statistics endpoint
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     searchevents: HALLink;
     viewevents: HALLink;

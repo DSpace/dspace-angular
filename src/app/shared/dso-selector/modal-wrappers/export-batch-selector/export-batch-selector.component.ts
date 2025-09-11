@@ -10,10 +10,13 @@ import {
   NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -39,6 +42,7 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -49,8 +53,13 @@ import {
  * Used to choose a dso from to export metadata of
  */
 @Component({
-  selector: 'ds-export-metadata-selector',
+  selector: 'ds-export-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;
@@ -84,7 +93,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
           const startScriptSucceeded$ = this.startScriptNotifyAndRedirect(dso);
           return startScriptSucceeded$.pipe(
             switchMap((r: boolean) => {
-              return observableOf(r);
+              return of(r);
             }),
           );
         } else {
@@ -95,7 +104,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
       resp$.subscribe();
       return resp$;
     } else {
-      return observableOf(false);
+      return of(false);
     }
   }
 

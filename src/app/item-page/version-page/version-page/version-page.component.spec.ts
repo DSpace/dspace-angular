@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { VersionDataService } from '../../../core/data/version-data.service';
@@ -33,7 +33,10 @@ const mockVersion: Version = Object.assign(new Version(), {
   version: 1,
 });
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: true,
+})
 class DummyComponent {
 }
 
@@ -43,17 +46,16 @@ describe('VersionPageComponent', () => {
   let authService: AuthService;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockVersion) }),
+    data: of({ dso: createSuccessfulRemoteDataObject(mockVersion) }),
   });
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
       setRedirectUrl: {},
     });
     TestBed.configureTestingModule({
-      declarations: [VersionPageComponent, DummyComponent],
-      imports: [RouterTestingModule.withRoutes([{ path: 'items/item-uuid', component: DummyComponent, pathMatch: 'full' }])],
+      imports: [RouterTestingModule.withRoutes([{ path: 'items/item-uuid', component: DummyComponent, pathMatch: 'full' }]), VersionPageComponent, DummyComponent],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: VersionDataService, useValue: {} },

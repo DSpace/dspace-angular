@@ -17,7 +17,6 @@ import { HeaderComponent } from './header/header.component';
 import { ThemedHeaderComponent } from './header/themed-header.component';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
-import { NavbarModule } from './navbar/navbar.module';
 import { PageErrorComponent } from './page-error/page-error.component';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
@@ -29,14 +28,9 @@ import { ThemedRootComponent } from './root/themed-root.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
-import { SharedModule } from './shared/shared.module';
-import { SystemWideAlertModule } from './system-wide-alert/system-wide-alert.module';
 
 const IMPORTS = [
   CommonModule,
-  SharedModule.withEntryComponents(),
-  NavbarModule,
-  SystemWideAlertModule,
   NgbModule,
 ];
 
@@ -78,12 +72,10 @@ const EXPORTS = [
 @NgModule({
   imports: [
     ...IMPORTS,
+    ...DECLARATIONS,
   ],
   providers: [
     ...PROVIDERS,
-  ],
-  declarations: [
-    ...DECLARATIONS,
   ],
   exports: [
     ...EXPORTS,

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,9 +8,13 @@ import {
   ActivatedRoute,
   NavigationEnd,
   Router,
+  RouterLink,
   Scroll,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
   Observable,
@@ -33,6 +38,8 @@ import {
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { CollectionFormComponent } from '../../collection-form/collection-form.component';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 
 /**
@@ -41,6 +48,14 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
 @Component({
   selector: 'ds-collection-metadata',
   templateUrl: './collection-metadata.component.html',
+  imports: [
+    AsyncPipe,
+    CollectionFormComponent,
+    RouterLink,
+    TranslateModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {
   protected frontendURL = '/collections/';
@@ -65,7 +80,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
   }
 
   /**
-   * Cheking if the navigation is done and if so, initialize the collection's item template,
+   * Checking if the navigation is done and if so, initialize the collection's item template,
    * to ensure that the item template is always up to date.
    * Check when a NavigationEnd event (URL change) or a Scroll event followed by a NavigationEnd event (refresh event), occurs
    */

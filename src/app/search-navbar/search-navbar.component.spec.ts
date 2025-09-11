@@ -23,7 +23,6 @@ import {
 
 import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { BrowserOnlyMockPipe } from '../shared/testing/browser-only-mock.pipe';
 import { SearchNavbarComponent } from './search-navbar.component';
 
 describe('SearchNavbarComponent', () => {
@@ -50,10 +49,8 @@ describe('SearchNavbarComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [
+        }),
         SearchNavbarComponent,
-        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: SearchService, useValue: mockSearchService },

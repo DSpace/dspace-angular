@@ -1,18 +1,22 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -30,7 +34,9 @@ import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import {
   hasValue,
   isNotEmpty,
@@ -46,8 +52,16 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
   templateUrl: './submission-form-collection.component.html',
+  standalone: true,
+  imports: [
+    BtnDisabledDirective,
+    CommonModule,
+    NgbDropdownModule,
+    ThemedCollectionDropdownComponent,
+    TranslateModule,
+  ],
 })
-export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
+export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, OnInit {
 
   /**
    * The current collection id this submission belonging to
@@ -155,7 +169,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
-    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.collection);
+    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Collection);
   }
 
   /**
@@ -187,7 +201,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       }),
     ).subscribe((submissionObject: SubmissionObject) => {
       this.selectedCollectionId = event.collection.id;
-      this.selectedCollectionName$ = observableOf(event.collection.name);
+      this.selectedCollectionName$ = of(event.collection.name);
       this.collectionChange.emit(submissionObject);
       this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
       this.processingChange$.next(false);

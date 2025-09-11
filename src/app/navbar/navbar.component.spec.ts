@@ -17,7 +17,7 @@ import {
 } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   AppState,
@@ -52,7 +52,7 @@ let store: Store<AppState>;
 let initialState: any;
 
 const authorizationService = jasmine.createSpyObj('authorizationService', {
-  isAuthorized: observableOf(true),
+  isAuthorized: of(true),
 });
 
 const mockItem = Object.assign(new Item(), {
@@ -68,7 +68,7 @@ const mockItem = Object.assign(new Item(), {
 });
 
 const routeStub = {
-  data: observableOf({
+  data: of({
     dso: createSuccessfulRemoteDataObject(mockItem),
   }),
   children: [],
@@ -133,8 +133,9 @@ describe('NavbarComponent', () => {
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule],
-      declarations: [NavbarComponent],
+        RouterTestingModule,
+        NavbarComponent,
+      ],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },

@@ -1,24 +1,32 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Injector,
   OnInit,
+  runInInjectionContext,
 } from '@angular/core';
 import {
   ActivatedRoute,
-  CanActivate,
+  CanActivateFn,
   Route,
   Router,
+  RouterLink,
+  RouterOutlet,
 } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
 import {
   fadeIn,
@@ -35,6 +43,15 @@ import { getItemPageRoute } from '../item-page-routing-paths';
     fadeIn,
     fadeInOut,
   ],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    NgClass,
+    RouterLink,
+    RouterOutlet,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Page component for editing an item
@@ -65,11 +82,12 @@ export class EditItemPageComponent implements OnInit {
     this.pages = this.route.routeConfig.children
       .filter((child: Route) => isNotEmpty(child.path))
       .map((child: Route) => {
-        let enabled = observableOf(true);
+        let enabled = of(true);
         if (isNotEmpty(child.canActivate)) {
-          enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<CanActivate>) => {
-            const guard: CanActivate = this.injector.get<CanActivate>(guardConstructor);
-            return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
+          enabled = observableCombineLatest(child.canActivate.map((guardFn: CanActivateFn) => {
+            return runInInjectionContext(this.injector, () => {
+              return guardFn(this.route.snapshot, this.router.routerState.snapshot);
+            });
           }),
           ).pipe(
             map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),

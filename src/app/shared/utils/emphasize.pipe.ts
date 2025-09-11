@@ -3,7 +3,10 @@ import {
   PipeTransform,
 } from '@angular/core';
 
-@Pipe({ name: 'dsEmphasize' })
+@Pipe({
+  name: 'dsEmphasize',
+  standalone: true,
+})
 /**
  * Pipe for emphasizing a part of a string by surrounding it with <em> tags
  */

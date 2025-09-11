@@ -14,7 +14,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
@@ -24,7 +23,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
@@ -49,6 +48,7 @@ import {
   mockSubmissionId,
   mockUploadResponse1ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -56,6 +56,7 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
@@ -163,6 +164,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
   let submissionServiceStub: SubmissionServiceStub;
   let notificationsServiceStub: NotificationsServiceStub;
   let formService: any = getMockFormService();
+  let themeService = getMockThemeService();
 
   let formOperationsService: any;
   let formBuilderService: any;
@@ -177,13 +179,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FormComponent,
         SubmissionSectionFormComponent,
         TestComponent,
@@ -195,14 +194,17 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: SubmissionFormsConfigDataService, useValue: formConfigService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
+        { provide: ThemeService, useValue: themeService },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
-        { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
-        { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHref$: () => observableOf(false) } },
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        { provide: ObjectCacheService, useValue: { remove: () => { }, hasBySelfLinkObservable: () => of(false), hasByHref$: () => of(false) } },
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        { provide: RequestService, useValue: { removeByHrefSubstring: () => { }, hasByHref$: () => of(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
+        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => of('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionFormComponent,
       ],
@@ -217,10 +219,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const sectionData = {};
-      formService.isValid.and.returnValue(observableOf(true));
-      formConfigService.findByHref.and.returnValue(observableOf(testFormConfiguration));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      formService.isValid.and.returnValue(of(true));
+      formConfigService.findByHref.and.returnValue(of(testFormConfiguration));
+      sectionsServiceStub.getSectionData.and.returnValue(of(sectionData));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
 
       const html = `
         <ds-submission-section-form></ds-submission-section-form>`;
@@ -252,7 +254,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       translateService = TestBed.inject(TranslateService);
       notificationsServiceStub = TestBed.inject(NotificationsService as any);
 
-      translateService.get.and.returnValue(observableOf('test'));
+      translateService.get.and.returnValue(of('test'));
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
     });
 
@@ -264,11 +266,11 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should init section properly', () => {
       const sectionData = {};
-      formService.isValid.and.returnValue(observableOf(true));
+      formService.isValid.and.returnValue(of(true));
       formConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(testFormConfiguration));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionData.and.returnValue(of(sectionData));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
 
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');
@@ -280,7 +282,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       expect(comp.sectionData.errorsToShow).toEqual([]);
       expect(comp.sectionData.data).toEqual(sectionData);
       expect(comp.isLoading).toBeFalsy();
-      expect(comp.initForm).toHaveBeenCalledWith(sectionData);
+      expect(comp.initForm).toHaveBeenCalledWith(sectionData, [], []);
       expect(comp.subscriptions).toHaveBeenCalled();
     });
 
@@ -288,7 +290,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formBuilderService.modelFromConfiguration.and.returnValue(testFormModel);
       const sectionData = {};
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toEqual(testFormModel);
 
@@ -303,7 +305,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         path: '/sections/' + sectionObject.id,
       };
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toBeUndefined();
       expect(sectionsServiceStub.setSectionError).toHaveBeenCalledWith(submissionId, sectionObject.id, sectionError);
@@ -462,7 +464,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, sectionError);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionError } as any);
 
       expect(comp.isUpdating).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalled();
@@ -474,15 +476,19 @@ describe('SubmissionSectionFormComponent test suite', () => {
     it('should update form error properly', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
-      const sectionData: any = {
+      const sectionData = {
         'dc.title': [new FormFieldMetadataValueObject('test')],
       };
+      const sectionState = {
+        data: sectionData,
+        errorsToShow: [{ path: '/test', message: 'test' }],
+      } as any;
       comp.sectionData.data = {};
       comp.sectionData.errorsToShow = [];
       compAsAny.formData = sectionData;
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm(sectionState);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -493,8 +499,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
       const sectionData: any = {};
+      const sectionErrors: any = [{ path: '/test', message: 'test' }];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionErrors } as any);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -520,8 +527,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
     });
 
     it('should return a valid status when form is valid and there are no server validation errors', () => {
-      formService.isValid.and.returnValue(observableOf(true));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      formService.isValid.and.returnValue(of(true));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
       const expected = cold('(b|)', {
         b: true,
       });
@@ -530,8 +537,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
     });
 
     it('should return an invalid status when form is valid and there are server validation errors', () => {
-      formService.isValid.and.returnValue(observableOf(true));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf(parsedSectionErrors));
+      formService.isValid.and.returnValue(of(true));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of(parsedSectionErrors));
       const expected = cold('(b|)', {
         b: false,
       });
@@ -540,8 +547,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
     });
 
     it('should return an invalid status when form is not valid and there are no server validation errors', () => {
-      formService.isValid.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      formService.isValid.and.returnValue(of(false));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
       const expected = cold('(b|)', {
         b: false,
       });
@@ -560,16 +567,16 @@ describe('SubmissionSectionFormComponent test suite', () => {
       const sectionState = {
         data: sectionData,
         errorsToShow: parsedSectionErrors,
-      };
+      } as any;
 
-      formService.getFormData.and.returnValue(observableOf(formData));
-      sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
+      formService.getFormData.and.returnValue(of(formData));
+      sectionsServiceStub.getSectionState.and.returnValue(of(sectionState));
 
       comp.subscriptions();
 
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.formData).toEqual(formData);
-      expect(comp.updateForm).toHaveBeenCalledWith(sectionState.data, sectionState.errorsToShow);
+      expect(comp.updateForm).toHaveBeenCalledWith(sectionState);
 
     });
 
@@ -651,7 +658,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
-class TestComponent {
-
-}
+class TestComponent {}

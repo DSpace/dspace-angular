@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -21,12 +21,17 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
+
 
 let component: WorkflowItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultListElementComponent>;
@@ -35,7 +40,7 @@ const mockResultObject: WorkflowItemSearchResult = new WorkflowItemSearchResult(
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -71,7 +76,7 @@ const environmentUseThumbs = {
 };
 
 const rd = createSuccessfulRemoteDataObject(item);
-mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
+mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: of(rd) });
 
 let linkService;
 
@@ -79,10 +84,9 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [WorkflowItemSearchResultListElementComponent],
+      imports: [NoopAnimationsModule, WorkflowItemSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -90,7 +94,10 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ListableObjectComponentLoaderComponent, WorkflowitemActionsComponent, ThemedLoadingComponent],
+      },
     }).compileComponents();
   }));
 

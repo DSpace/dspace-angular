@@ -1,5 +1,5 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -10,13 +10,16 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Context } from '../../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 
 @Component({
   selector: 'ds-admin-notify-logs-result',
@@ -27,6 +30,13 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page
       useClass: SearchConfigurationService,
     },
   ],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    SearchLabelsComponent,
+    ThemedSearchComponent,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -36,7 +46,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page
 export class AdminNotifyLogsResultComponent implements OnInit {
 
   @Input()
-    defaultConfiguration: string;
+  defaultConfiguration: string;
 
 
   public selectedSearchConfig$: Observable<string>;
@@ -44,10 +54,11 @@ export class AdminNotifyLogsResultComponent implements OnInit {
 
   protected readonly context = Context.CoarNotify;
 
-  constructor(@Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              private router: Router,
-              private route: ActivatedRoute,
-              protected cdRef: ChangeDetectorRef) {
+  constructor(
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    protected router: Router,
+    protected route: ActivatedRoute,
+  ) {
   }
 
   ngOnInit() {

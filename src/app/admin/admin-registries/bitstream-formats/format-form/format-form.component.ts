@@ -1,3 +1,4 @@
+
 import {
   Component,
   EventEmitter,
@@ -11,12 +12,10 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlLayout,
   DynamicFormControlModel,
-  DynamicFormService,
   DynamicInputModel,
   DynamicSelectModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
@@ -25,6 +24,7 @@ import {
   hasValue,
   isEmpty,
 } from '../../../../shared/empty.util';
+import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
@@ -33,6 +33,10 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
 @Component({
   selector: 'ds-bitstream-format-form',
   templateUrl: './format-form.component.html',
+  imports: [
+    FormComponent,
+  ],
+  standalone: true,
 })
 export class FormatFormComponent implements OnInit {
 
@@ -59,7 +63,7 @@ export class FormatFormComponent implements OnInit {
    */
   arrayElementLayout: DynamicFormControlLayout = {
     grid: {
-      group: 'form-row',
+      group: 'row',
     },
   };
 
@@ -132,9 +136,7 @@ export class FormatFormComponent implements OnInit {
     }, this.arrayElementLayout),
   ];
 
-  constructor(private dynamicFormService: DynamicFormService,
-              private translateService: TranslateService,
-              private router: Router) {
+  constructor(private router: Router) {
 
   }
 
@@ -151,12 +153,12 @@ export class FormatFormComponent implements OnInit {
       (fieldModel: DynamicFormControlModel) => {
         if (fieldModel.name === 'extensions') {
           if (hasValue(this.bitstreamFormat.extensions)) {
-            const extenstions = this.bitstreamFormat.extensions;
+            const extensions = this.bitstreamFormat.extensions;
             const formArray = (fieldModel as DynamicFormArrayModel);
-            for (let i = 0; i < extenstions.length; i++) {
+            for (let i = 0; i < extensions.length; i++) {
               formArray.insertGroup(i).group[0] = new DynamicInputModel({
                 id: `extension-${i}`,
-                value: extenstions[i],
+                value: extensions[i],
               }, this.arrayInputElementLayout);
             }
           }
@@ -169,7 +171,7 @@ export class FormatFormComponent implements OnInit {
   }
 
   /**
-   * Creates an updated bistream format based on the current values in the form
+   * Creates an updated bitstream format based on the current values in the form
    * Emits the updated bitstream format trouhg the updatedFormat emitter
    */
   onSubmit() {

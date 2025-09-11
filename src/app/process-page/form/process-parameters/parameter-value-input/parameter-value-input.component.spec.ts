@@ -49,8 +49,7 @@ describe('ParameterValueInputComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [
+        }),
         ParameterValueInputComponent,
         BooleanValueInputComponent,
         StringValueInputComponent,

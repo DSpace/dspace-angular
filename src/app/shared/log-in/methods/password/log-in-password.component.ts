@@ -1,17 +1,22 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -32,7 +37,6 @@ import {
 } from '../../../../core/auth/auth.actions';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   getAuthenticationInfo,
@@ -42,8 +46,9 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { isNotEmpty } from '../../../empty.util';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
+import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 
 /**
  * /users/sign-in
@@ -54,8 +59,17 @@ import { renderAuthMethodFor } from '../log-in.methods-decorator';
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
-@renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
 
   /**
@@ -159,11 +173,11 @@ export class LogInPasswordComponent implements OnInit {
       shareReplay({ refCount: false, bufferSize: 1 }),
     );
     this.canShowDivider$ =
-        combineLatest([this.canRegister$, this.canForgot$])
-          .pipe(
-            map(([canRegister, canForgot]) => canRegister || canForgot),
-            filter(Boolean),
-          );
+      combineLatest([this.canRegister$, this.canForgot$])
+        .pipe(
+          map(([canRegister, canForgot]) => canRegister || canForgot),
+          filter(Boolean),
+        );
   }
 
   getRegisterRoute() {

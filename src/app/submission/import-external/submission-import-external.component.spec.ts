@@ -10,18 +10,26 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { RouteService } from '../../core/services/route.service';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { HostWindowService } from '../../shared/host-window.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   createFailedRemoteDataObject$,
@@ -29,14 +37,18 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
 } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import { SubmissionImportExternalSearchbarComponent } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {
@@ -45,7 +57,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
   let fixture: ComponentFixture<SubmissionImportExternalComponent>;
   let scheduler: TestScheduler;
   const ngbModal = jasmine.createSpyObj('modal', ['open']);
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       pageSize: 10,
       currentPage: 0,
@@ -62,8 +74,6 @@ describe('SubmissionImportExternalComponent test suite', () => {
       imports: [
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
-      ],
-      declarations: [
         SubmissionImportExternalComponent,
         TestComponent,
         VarDirective,
@@ -73,11 +83,25 @@ describe('SubmissionImportExternalComponent test suite', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: NgbModal, useValue: ngbModal },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: ThemeService, useValue: getMockThemeService() },
         SubmissionImportExternalComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .overrideComponent(SubmissionImportExternalComponent, {
+        remove: {
+          imports: [
+            ObjectCollectionComponent,
+            ThemedLoadingComponent,
+            AlertComponent,
+            SubmissionImportExternalSearchbarComponent,
+          ],
+        },
+      })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -120,7 +144,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should init component properly (without route data)', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
       comp.routeData = { entity: '', sourceId: '', query: '' };
-      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf(''));
+      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(of(''));
       fixture.detectChanges();
 
       expect(comp.routeData).toEqual({ entity: '', sourceId: '', query: '' });
@@ -131,7 +155,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should init component properly (with route data)', () => {
       comp.routeData = { entity: '', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources');
-      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('entity'), observableOf('source'), observableOf('dummy'));
+      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(of('entity'), of('source'), of('dummy'));
       fixture.detectChanges();
 
       expect(compAsAny.retrieveExternalSources).toHaveBeenCalled();
@@ -140,11 +164,11 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should call \'getExternalSourceEntries\' properly', () => {
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'sourceId') {
-          return observableOf('orcidV2');
+          return of('orcidV2');
         } else if (param === 'query') {
-          return observableOf('test');
+          return of('test');
         }
-        return observableOf({});
+        return of({});
       });
 
       fixture.detectChanges();
@@ -456,13 +480,13 @@ describe('SubmissionImportExternalComponent test suite', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(paginatedData.payload);
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
-          return observableOf('Publication');
+          return of('Publication');
         } else if (param === 'sourceId') {
-          return observableOf('scopus');
+          return of('scopus');
         } else if (param === 'query') {
-          return observableOf('test');
+          return of('test');
         }
-        return observableOf({});
+        return of({});
       });
       fixture.detectChanges();
 
@@ -477,9 +501,15 @@ describe('SubmissionImportExternalComponent test suite', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
-          return observableOf('Publication');
+          return of('Publication');
         }
-        return observableOf({});
+        if (param === 'query') {
+          return of('test');
+        }
+        if (param === 'sourceId') {
+          return of('pubmed');
+        }
+        return of({});
       });
       fixture.detectChanges();
 
@@ -497,13 +527,13 @@ describe('SubmissionImportExternalComponent test suite', () => {
       ));
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
-          return observableOf('Publication');
+          return of('Publication');
         } else if (param === 'sourceId') {
-          return observableOf('pubmed');
+          return of('pubmed');
         } else if (param === 'query') {
-          return observableOf('test');
+          return of('test');
         }
-        return observableOf({});
+        return of({});
       });
       fixture.detectChanges();
 
@@ -520,6 +550,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 
