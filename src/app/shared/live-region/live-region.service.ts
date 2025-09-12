@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
 import {
   BehaviorSubject,
   map,
@@ -10,7 +11,6 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
-import { UUIDService } from '../../core/shared/uuid.service';
 
 export const MIN_MESSAGE_DURATION = 200;
 

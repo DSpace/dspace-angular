@@ -1,18 +1,18 @@
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import {
+  MetadataMap,
+  MetadataMapSerializer,
+} from '@dspace/core/shared/metadata.models';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   autoserializeAs,
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { HALLink } from '../../../shared/hal-link.model';
-import {
-  MetadataMap,
-  MetadataMapSerializer,
-} from '../../../shared/metadata.models';
-import { ResourceType } from '../../../shared/resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { SUGGESTION } from './suggestion-objects.resource-type';
 
 /**

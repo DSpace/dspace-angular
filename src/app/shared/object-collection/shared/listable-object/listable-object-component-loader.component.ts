@@ -5,16 +5,16 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { take } from 'rxjs/operators';
 
-import { Context } from '../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { ListableObject } from '../listable-object.model';
 import { getListableObjectComponent } from './listable-object.decorator';
 
 @Component({

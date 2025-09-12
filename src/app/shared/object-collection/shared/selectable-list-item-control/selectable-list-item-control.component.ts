@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -17,7 +18,6 @@ import {
 
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-selectable-list-item-control',

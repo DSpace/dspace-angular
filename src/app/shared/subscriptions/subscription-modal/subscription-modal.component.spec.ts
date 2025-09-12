@@ -14,6 +14,19 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import {
+  subscriptionMock,
+  subscriptionMock2,
+} from '@dspace/core/testing/subscriptions-data.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbActiveModal,
   NgbModalModule,
@@ -23,21 +36,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { getMockThemeService } from '../../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import {
-  subscriptionMock,
-  subscriptionMock2,
-} from '../../testing/subscriptions-data.mock';
+import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 
 describe('SubscriptionModalComponent', () => {

@@ -6,14 +6,14 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { Context } from '../../../../core/shared/context.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { TabulatableResultListElementsComponent } from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { ThemeService } from '../../../theme-support/theme.service';
-import { ListableObject } from '../listable-object.model';
 import { TestType } from '../listable-object/listable-object-component-loader.component.spec';
 import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
 import { TabulatableObjectsLoaderComponent } from './tabulatable-objects-loader.component';

@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ConfigObject } from './models/config.model';
 

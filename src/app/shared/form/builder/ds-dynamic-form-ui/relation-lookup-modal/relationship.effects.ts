@@ -3,6 +3,29 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ServerSyncBufferActionTypes } from '@dspace/core/cache/server-sync-buffer.actions';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { JsonPatchOperationsActionTypes } from '@dspace/core/json-patch/json-patch-operations.actions';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import {
+  DEBOUNCE_TIME_OPERATOR,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -25,33 +48,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestService } from '../../../../../core/data/request.service';
-import { JsonPatchOperationsActionTypes } from '../../../../../core/json-patch/json-patch-operations.actions';
-import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import {
-  DEBOUNCE_TIME_OPERATOR,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionState } from '../../../../../submission/submission.reducers';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-} from '../../../../empty.util';
-import { NotificationsService } from '../../../../notifications/notifications.service';
+import { SubmissionObjectService } from '../../../../../submission/submission-object.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { followLink } from '../../../../utils/follow-link-config.model';
 import {
   AddRelationshipAction,
   RelationshipAction,
@@ -211,7 +211,7 @@ export class RelationshipEffects {
   constructor(private actions$: Actions,
               private relationshipService: RelationshipDataService,
               private relationshipTypeService: RelationshipTypeDataService,
-              private submissionObjectService: SubmissionObjectDataService,
+              private submissionObjectService: SubmissionObjectService,
               private store: Store<SubmissionState>,
               private objectCache: ObjectCacheService,
               private requestService: RequestService,

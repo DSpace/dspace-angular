@@ -1,6 +1,6 @@
+import { buildAppConfig } from '@dspace/config/config.server';
 import { join } from 'path';
 
-import { buildAppConfig } from '../src/config/config.server';
 import { commonExports } from './webpack.common';
 
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -34,13 +34,13 @@ module.exports = Object.assign({}, commonExports, {
     setupMiddlewares(middlewares, server) {
       buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
       return middlewares;
-    }
+    },
   },
   watchOptions: {
     // Ignore directories that should not be watched for recompiling angular
     ignored: [
       '**/node_modules', '**/_build', '**/.git', '**/docker',
-      '**/.angular', '**/.idea', '**/.vscode', '**/.history', '**/.vsix'
-    ]
+      '**/.angular', '**/.idea', '**/.vscode', '**/.history', '**/.vsix',
+    ],
   },
 });

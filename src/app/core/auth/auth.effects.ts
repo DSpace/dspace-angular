@@ -1,8 +1,14 @@
 import {
+  inject,
   Injectable,
   NgZone,
   Type,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 // import @ngrx
 import {
   Actions,
@@ -32,14 +38,12 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { AppState } from '../../app.reducer';
-import { hasValue } from '../../shared/empty.util';
-import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
-import { StoreActionTypes } from '../../store.actions';
+import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { RequestActionTypes } from '../data/request.actions';
 import { EPerson } from '../eperson/models/eperson.model';
+import { StoreActionTypes } from '../ngrx/type';
+import { NotificationsActionTypes } from '../notification-system/notifications.actions';
 import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
 import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
 // import actions
@@ -95,7 +99,7 @@ export function errorToAuthAction$<T extends AuthErrorActionsWithErrorPayload>(a
 
 @Injectable()
 export class AuthEffects {
-
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
   /**
    * Authenticate user.
    * @method authenticate
@@ -303,7 +307,7 @@ export class AuthEffects {
     // in, and start a new timer
     switchMap(() =>
       // Start a timer outside of Angular's zone
-      timer(environment.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler)),
+      timer(this.appConfig.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler)),
     ),
     // Re-enter the zone to dispatch the action
     observeOn(new EnterZoneScheduler(this.zone, queueScheduler)),
@@ -322,6 +326,6 @@ export class AuthEffects {
               private zone: NgZone,
               private authorizationsService: AuthorizationDataService,
               private authService: AuthService,
-              private store: Store<AppState>) {
+              private store: Store<CoreState>) {
   }
 }

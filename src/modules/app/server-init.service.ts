@@ -10,6 +10,19 @@ import {
   Injectable,
   TransferState,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
@@ -17,24 +30,11 @@ import { take } from 'rxjs/operators';
 
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { HeadTagService } from '../../app/core/metadata/head-tag.service';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
-import {
-  APP_CONFIG,
-  APP_CONFIG_STATE,
-  AppConfig,
-} from '../../config/app-config.interface';
-import { BuildConfig } from '../../config/build-config.interface';
 import { environment } from '../../environments/environment';
 
 /**

@@ -3,6 +3,10 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
   Observable,
   of,
 } from 'rxjs';
@@ -11,10 +15,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { SignpostingLink } from './signposting-links.model';
