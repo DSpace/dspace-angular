@@ -22,7 +22,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -34,10 +34,10 @@ import {
 
 @Component({
   selector: 'ds-base-create-collection-parent-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './create-collection-parent-selector.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    AuthorizedCommunitySelectorComponent,
     TranslateModule,
   ],
 })

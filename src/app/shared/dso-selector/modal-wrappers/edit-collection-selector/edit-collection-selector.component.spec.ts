@@ -18,7 +18,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 
 describe('EditCollectionSelectorComponent', () => {
@@ -64,7 +64,7 @@ describe('EditCollectionSelectorComponent', () => {
     })
       .overrideComponent(EditCollectionSelectorComponent, {
         remove: {
-          imports: [DSOSelectorComponent],
+          imports: [AuthorizedCollectionSelectorComponent],
         },
       })
       .compileComponents();
