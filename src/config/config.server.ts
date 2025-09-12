@@ -13,7 +13,6 @@ import {
   green,
   red,
 } from 'colors';
-
 import { load } from 'js-yaml';
 
 import { isNotEmpty } from '../app/shared/empty.util';
