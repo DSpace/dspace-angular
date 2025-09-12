@@ -27,16 +27,14 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
-import {
-  ResourcePolicyEvent,
-  ResourcePolicyFormComponent,
-} from '../form/resource-policy-form.component';
+import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import { ThemedResourcePolicyFormComponent } from '../form/themed-resource-policy-form.component';
 
 @Component({
   selector: 'ds-resource-policy-create',
   templateUrl: './resource-policy-create.component.html',
   imports: [
-    ResourcePolicyFormComponent,
+    ThemedResourcePolicyFormComponent,
     TranslateModule,
   ],
   standalone: true,
