@@ -15,6 +15,7 @@ import { LoginPageComponent } from './app/login-page/login-page.component';
 import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
+import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
 import { SubmissionSectionLicenseComponent } from './app/submission/sections/license/section-license.component';
 // END TAMU Customizations
 
@@ -38,6 +39,7 @@ const DECLARATIONS = [
   LogoutPageComponent,
   SearchPageComponent,
   SearchResultsComponent,
+  StartsWithTextComponent,
   SubmissionSectionLicenseComponent,
   // END TAMU Customizations
 ];

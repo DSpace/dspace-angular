@@ -1,4 +1,4 @@
-<div class="dso-edit-menu d-flex" role="menubar">
+<div class="dso-edit-menu d-flex" [attr.role]="(hasSubSections | async) ? 'menubar' : null">
   @for (section of (sections | async); track section) {
     <div class="ms-1">
       <ng-container
