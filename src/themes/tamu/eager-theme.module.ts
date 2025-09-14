@@ -8,11 +8,13 @@ import { HomeNewsComponent } from './app/home-page/home-news/home-news.component
 import { NavbarComponent } from './app/navbar/navbar.component';
 
 // TAMU Customizations
-import { LoginPageComponent } from './app/login-page/login-page.component';
-import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityPageSubCollectionListComponent } from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
 import { CommunityPageSubCommunityListComponent } from './app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
+import { LoginPageComponent } from './app/login-page/login-page.component';
+import { LogoutPageComponent } from './app/logout-page/logout-page.component';
+import { SearchPageComponent } from './app/search-page/search-page.component';
+import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { SubmissionSectionLicenseComponent } from './app/submission/sections/license/section-license.component';
 // END TAMU Customizations
 
@@ -34,6 +36,8 @@ const DECLARATIONS = [
   CommunityPageSubCommunityListComponent,
   LoginPageComponent,
   LogoutPageComponent,
+  SearchPageComponent,
+  SearchResultsComponent,
   SubmissionSectionLicenseComponent,
   // END TAMU Customizations
 ];
