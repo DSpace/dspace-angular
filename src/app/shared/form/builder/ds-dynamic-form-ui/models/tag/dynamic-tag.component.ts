@@ -219,13 +219,15 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   }
 
   /**
-   * Add a new tag with typed text when typing 'Enter' or ',' or ';'
+   * Add a new tag with typed text when typing 'Enter' or ','
+   * Tests the key rather than keyCode as keyCodes can vary
+   * based on keyboard layout (and do not consider Shift mod)
    * @param event the keyUp event
    */
   onKeyUp(event) {
-    if (event.keyCode === 13 || event.keyCode === 188) {
+    if (event.key === 'Enter' || event.key === ',') {
       event.preventDefault();
-      // Key: 'Enter' or ',' or ';'
+      // Key: 'Enter' or ','
       this.addTagsToChips();
       event.stopPropagation();
     }

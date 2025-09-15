@@ -1,17 +1,18 @@
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import { join } from 'node:path';
+
+import {
   blue,
   bold,
   green,
   red,
 } from 'colors';
-import {
-  existsSync,
-  readFileSync,
-  writeFileSync,
-} from 'fs';
 import { load } from 'js-yaml';
-import { join } from 'path';
 
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';

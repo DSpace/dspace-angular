@@ -18,7 +18,7 @@ import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 
 describe('EditCommunitySelectorComponent', () => {
@@ -64,7 +64,7 @@ describe('EditCommunitySelectorComponent', () => {
     })
       .overrideComponent(EditCommunitySelectorComponent, {
         remove: {
-          imports: [DSOSelectorComponent],
+          imports: [AuthorizedCommunitySelectorComponent],
         },
       })
       .compileComponents();

@@ -153,13 +153,19 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
     this.map = L.map(el, {
       center: this.DEFAULT_CENTRE_POINT,
       zoom: 11,
+      worldCopyJump: true,
+      maxBoundsViscosity: 1.0,
+      maxBounds: [
+        [-85, -Infinity],
+        [85, Infinity],
+      ],
     });
     const tileProviders = environment.geospatialMapViewer.tileProviders;
     for (let i = 0; i < tileProviders.length; i++) {
       // Add tiles to the map
       const tiles = L.tileLayer.provider(tileProviders[i], {
         maxZoom: 18,
-        minZoom: 3,
+        minZoom: 1,
       });
       tiles.addTo(this.map);
     }

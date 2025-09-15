@@ -17,7 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../community-page/community-page-routing-paths';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -30,10 +30,10 @@ import {
 
 @Component({
   selector: 'ds-base-edit-community-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './edit-community-selector.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    AuthorizedCommunitySelectorComponent,
     TranslateModule,
   ],
 })

@@ -83,5 +83,19 @@ describe('AuthorizedCollectionSelectorComponent', () => {
         });
       });
     });
+
+    describe('when using searchHref', () => {
+      it('should call getAuthorizedCollection with "findAdminAuthorized" when overridden', (done) => {
+        component.searchHref = 'findAdminAuthorized';
+
+        component.search('', 1).subscribe(() => {
+          expect(collectionService.getAuthorizedCollection).toHaveBeenCalledWith(
+            '', jasmine.any(Object), true, false, 'findAdminAuthorized', jasmine.anything(),
+          );
+          done();
+        });
+      });
+    });
+
   });
 });

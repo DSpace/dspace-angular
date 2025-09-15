@@ -18,7 +18,7 @@ import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { CreateCollectionParentSelectorComponent } from './create-collection-parent-selector.component';
 
 describe('CreateCollectionParentSelectorComponent', () => {
@@ -64,7 +64,7 @@ describe('CreateCollectionParentSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateCollectionParentSelectorComponent, {
-        remove: { imports: [DSOSelectorComponent] },
+        remove: { imports: [AuthorizedCommunitySelectorComponent] },
       })
       .compileComponents();
 

@@ -22,7 +22,7 @@ import {
   COLLECTION_PARENT_PARAMETER,
   getCollectionCreateRoute,
 } from '../../../../collection-page/collection-page-routing-paths';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -34,10 +34,10 @@ import {
 
 @Component({
   selector: 'ds-base-create-collection-parent-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './create-collection-parent-selector.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    AuthorizedCommunitySelectorComponent,
     TranslateModule,
   ],
 })

@@ -21,7 +21,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 
 describe('CreateCommunityParentSelectorComponent', () => {
@@ -69,7 +69,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateCommunityParentSelectorComponent, {
-        remove: { imports: [DSOSelectorComponent] },
+        remove: { imports: [AuthorizedCommunitySelectorComponent] },
       })
       .compileComponents();
 
