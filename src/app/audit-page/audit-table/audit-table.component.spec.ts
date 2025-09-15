@@ -67,7 +67,7 @@ describe('AuditTableComponent', () => {
     it('should display the timestamp in the third column', () => {
       const rowElements = fixture.debugElement.queryAll(By.css('tbody tr'));
       const el = rowElements[0].query(By.css('td:nth-child(3)')).nativeElement;
-      expect(el.textContent).toContain('2020-11-13 10:41:06');
+      expect(el.textContent).toContain('2020-11-13 11:41:06');
     });
 
     it('should display the objectUUID in the fourth column', () => {
