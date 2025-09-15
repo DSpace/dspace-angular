@@ -6,10 +6,11 @@
  * http://www.dspace.org/license/
  */
 
+import { readFileSync } from 'node:fs';
+import { basename } from 'node:path';
+
 import { TSESTree } from '@typescript-eslint/utils';
 import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
-import { readFileSync } from 'fs';
-import { basename } from 'path';
 import ts, { Identifier } from 'typescript';
 
 import {
