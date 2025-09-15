@@ -47,7 +47,7 @@
                 }
               </td>
               <td>{{ audit.epersonName }}</td>
-              <td>{{ audit.timeStamp | date:dateFormat}}</td>
+              <td>{{ audit.timeStamp | date:dateFormat:'UTC' }}</td>
               @if (isOverviewPage) {
                 <td>
                   @if (audit.objectUUID) {
