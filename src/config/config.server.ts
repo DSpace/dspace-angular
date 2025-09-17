@@ -1,4 +1,3 @@
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   existsSync,
   readFileSync,
@@ -6,6 +5,7 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   blue,
   bold,
