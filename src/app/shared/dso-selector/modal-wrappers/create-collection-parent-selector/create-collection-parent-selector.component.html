@@ -1,0 +1,12 @@
+<div>
+  <div class="modal-header">{{'dso-selector.'+ action + '.' + objectType.toString().toLowerCase() + '.head' | translate}}
+    <button type="button" class="btn-close" (click)="close()" aria-label="Close">
+    </button>
+  </div>
+  <div class="modal-body">
+    <span *ngIf="header" class="h5 px-2">{{header | translate}}</span>
+    <ds-authorized-community-selector [currentDSOId]="dsoRD?.payload.uuid"
+      [types]="selectorTypes"
+    (onSelect)="selectObject($event)"></ds-authorized-community-selector>
+  </div>
+</div>

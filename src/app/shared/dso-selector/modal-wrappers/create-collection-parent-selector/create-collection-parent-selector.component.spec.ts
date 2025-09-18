@@ -18,7 +18,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { CreateCollectionParentSelectorComponent } from './create-collection-parent-selector.component';
 
 describe('CreateCollectionParentSelectorComponent', () => {
@@ -64,7 +64,7 @@ describe('CreateCollectionParentSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateCollectionParentSelectorComponent, {
-        remove: { imports: [DSOSelectorComponent] },
+        remove: { imports: [AuthorizedCommunitySelectorComponent] },
       })
       .compileComponents();
 
