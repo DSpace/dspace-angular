@@ -5,6 +5,8 @@ import {
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
+  MATCH_DISABLED,
+  MATCH_ENABLED,
   MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
@@ -381,11 +383,18 @@ export abstract class FieldParser {
     // Example: Field [x] will be VISIBLE if item type = book OR item type = book_part
     //
     // The opposing match value will be the dc.type for the workspace item
-    return [{
-      match: MATCH_VISIBLE,
-      operator: OR_OPERATOR,
-      when: bindValues,
-    }];
+    return [
+      {
+        match: MATCH_ENABLED,
+        operator: OR_OPERATOR,
+        when: bindValues,
+      },
+      {
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: bindValues,
+      },
+    ];
   }
 
   protected hasRegex() {

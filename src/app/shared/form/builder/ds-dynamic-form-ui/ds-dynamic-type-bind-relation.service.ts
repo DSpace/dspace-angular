@@ -13,6 +13,8 @@ import {
   DynamicFormControlModel,
   DynamicFormControlRelation,
   DynamicFormRelationService,
+  MATCH_DISABLED,
+  MATCH_ENABLED,
   MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
@@ -217,9 +219,9 @@ export class DsDynamicTypeBindRelationService {
   }
 
   /**
-   * Helper function to construct a typeBindRelations array
-   * @param configuredTypeBindValues
-   */
+    * Helper function to construct a typeBindRelations array
+  * @param configuredTypeBindValues
+  */
   public getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormControlRelation[] {
     const bindValues = [];
     configuredTypeBindValues.forEach((value) => {
@@ -228,11 +230,18 @@ export class DsDynamicTypeBindRelationService {
         value: value,
       });
     });
-    return [{
-      match: MATCH_VISIBLE,
-      operator: OR_OPERATOR,
-      when: bindValues,
-    }];
+    return [
+      {
+        match: MATCH_ENABLED,
+        operator: OR_OPERATOR,
+        when: bindValues,
+      },
+      {
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: bindValues,
+      },
+    ];
   }
 
 }
