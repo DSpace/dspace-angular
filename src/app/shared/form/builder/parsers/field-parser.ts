@@ -15,7 +15,6 @@ import {
   isNotNull,
   isNotUndefined,
 } from '../../../empty.util';
-import { DsDynamicTypeBindRelationService } from '../ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -24,6 +23,7 @@ import {
   DynamicRowArrayModel,
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { getTypeBindRelations } from '../ds-dynamic-form-ui/type-bind.utils';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../models/relationship-options.model';
@@ -94,7 +94,7 @@ export abstract class FieldParser {
         metadataFields: this.getAllFieldIds(),
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         isDraggable,
-        typeBindRelations: isNotEmpty(this.configData.typeBind) ? DsDynamicTypeBindRelationService.getTypeBindRelations(this.configData.typeBind,
+        typeBindRelations: isNotEmpty(this.configData.typeBind) ? getTypeBindRelations(this.configData.typeBind,
           this.parserOptions.typeField) : null,
         groupFactory: () => {
           let model;
@@ -323,7 +323,7 @@ export abstract class FieldParser {
 
     // If typeBind is configured
     if (isNotEmpty(this.configData.typeBind)) {
-      (controlModel as DsDynamicInputModel).typeBindRelations = DsDynamicTypeBindRelationService.getTypeBindRelations(this.configData.typeBind,
+      (controlModel as DsDynamicInputModel).typeBindRelations = getTypeBindRelations(this.configData.typeBind,
         this.parserOptions.typeField);
     }
 
