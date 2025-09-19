@@ -77,7 +77,7 @@ describe('BrowseByTitleComponent', () => {
   const mockBrowseService = {
     getBrowseItemsFor: () => toRemoteData(mockItems),
     getBrowseEntriesFor: () => toRemoteData([]),
-    getConfiguredSortDirection: () => observableOf(SortDirection.ASC),
+    getConfiguredSortDirection: () => of(SortDirection.ASC),
   };
 
   const mockDsoService = {

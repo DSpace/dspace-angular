@@ -20,9 +20,8 @@ import {
   of,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   map,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 

@@ -25,7 +25,6 @@ import {
   Subscription,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   map,
   switchMap,
 } from 'rxjs/operators';

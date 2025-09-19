@@ -9,11 +9,9 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
-  Observable,
   of,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   map,
   switchMap,
 } from 'rxjs/operators';
@@ -25,7 +23,6 @@ import {
 } from '../../core/cache/models/sort-options.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,

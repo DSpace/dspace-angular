@@ -89,7 +89,7 @@ describe('BrowseByDateComponent', () => {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
     getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null,
-    getConfiguredSortDirection: () => observableOf(SortDirection.DESC),
+    getConfiguredSortDirection: () => of(SortDirection.DESC),
   };
 
   const mockDsoService = {
