@@ -13,6 +13,7 @@ import { IDENTIFIERS } from '../shared/object-list/identifier-data/identifier-da
 import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from '../submission/sections/section-coar-notify/section-coar-notify-service.resource-type';
 import { SYSTEMWIDEALERT } from '../system-wide-alert/system-wide-alert.resource-type';
+import { AUDIT } from './audit/model/audit.resource-type';
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,
@@ -136,4 +137,5 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUGGESTION_TARGET.value, () => import('./notifications/suggestions/target/suggestion-target-data.service').then(m => m.SuggestionTargetDataService)],
   [DUPLICATE.value, () => import('./submission/submission-duplicate-data.service').then(m => m.SubmissionDuplicateDataService)],
   [CorrectionType.type.value, () => import('./submission/correctiontype-data.service').then(m => m.CorrectionTypeDataService)],
+  [AUDIT.value, () => import('./audit/audit-data.service').then(m => m.AuditDataService)],
 ]);
