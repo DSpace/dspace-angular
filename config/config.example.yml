@@ -368,6 +368,7 @@ themes:
   # - name: BASE_THEME_NAME
   #
   - name: dspace
+    prefetch: true
     headTags:
     - tagName: link
       attributes:
