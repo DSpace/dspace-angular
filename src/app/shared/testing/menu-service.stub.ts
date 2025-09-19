@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { MenuID } from '../menu/menu-id.model';
@@ -70,42 +70,42 @@ export class MenuServiceStub {
   }
 
   isMenuVisible(id: MenuID): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   isMenuVisibleWithVisibleSections(id: MenuID): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   isMenuCollapsed(id: MenuID): Observable<boolean> {
-    return observableOf(false);
+    return of(false);
   }
 
   isMenuPreviewCollapsed(id: MenuID): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   hasSubSections(id: MenuID, sectionID: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   getMenu(id: MenuID): Observable<MenuState> {  // todo: resolve import
-    return observableOf({} as MenuState);
+    return of({} as MenuState);
   }
 
   getMenuTopSections(id: MenuID): Observable<MenuSection[]> {
-    return observableOf([this.visibleSection1, this.visibleSection2]);
+    return of([this.visibleSection1, this.visibleSection2]);
   }
 
   getSubSectionsByParentID(id: MenuID): Observable<MenuSection[]> {
-    return observableOf([this.subSection4]);
+    return of([this.subSection4]);
   }
 
   isSectionActive(id: MenuID, sectionID: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   isSectionVisible(id: MenuID, sectionID: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 }

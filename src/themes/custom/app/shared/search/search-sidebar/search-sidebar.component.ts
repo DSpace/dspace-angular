@@ -1,14 +1,4 @@
-/**
- * The contents of this file are subject to the license and copyright
- * detailed in the LICENSE_ATMIRE and NOTICE_ATMIRE files at the root of the source
- * tree and available online at
- *
- * https://www.atmire.com/software-license/
- */
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,7 +10,6 @@ import { ThemedSearchSettingsComponent } from '../../../../../../app/shared/sear
 import { SearchSidebarComponent as BaseComponent } from '../../../../../../app/shared/search/search-sidebar/search-sidebar.component';
 import { SearchSwitchConfigurationComponent } from '../../../../../../app/shared/search/search-switch-configuration/search-switch-configuration.component';
 import { ViewModeSwitchComponent } from '../../../../../../app/shared/view-mode-switch/view-mode-switch.component';
-
 
 @Component({
   selector: 'ds-themed-search-sidebar',
@@ -35,7 +24,15 @@ import { ViewModeSwitchComponent } from '../../../../../../app/shared/view-mode-
     },
   ],
   standalone: true,
-  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule, AdvancedSearchComponent, AsyncPipe],
+  imports: [
+    AdvancedSearchComponent,
+    AsyncPipe,
+    SearchSwitchConfigurationComponent,
+    ThemedSearchFiltersComponent,
+    ThemedSearchSettingsComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
 export class SearchSidebarComponent extends BaseComponent {
 }

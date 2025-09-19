@@ -17,7 +17,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -41,7 +41,12 @@ import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action
   selector: 'ds-simple-action',
   templateUrl: './abstract-simple-item-action.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgbModule, TranslateModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgbModule,
+    TranslateModule,
+  ],
 })
 export class MySimpleItemActionComponent extends AbstractSimpleItemActionComponent {
 
@@ -86,7 +91,7 @@ describe('AbstractSimpleItemActionComponent', () => {
     });
 
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
           id: 'fake-id',
         })),

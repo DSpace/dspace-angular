@@ -16,7 +16,9 @@ import { SearchFormComponent } from './search-form.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SearchFormComponent],
+  imports: [
+    SearchFormComponent,
+  ],
 })
 export class ThemedSearchFormComponent extends ThemedComponent<SearchFormComponent> {
 

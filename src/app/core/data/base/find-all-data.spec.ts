@@ -7,7 +7,7 @@
  */
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -75,7 +75,7 @@ class TestService extends FindAllDataImpl<any> {
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
 }
 

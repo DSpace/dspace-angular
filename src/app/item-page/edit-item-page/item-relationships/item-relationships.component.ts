@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -42,6 +40,7 @@ import {
 } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -59,14 +58,13 @@ import { EditRelationshipListWrapperComponent } from './edit-relationship-list-w
   imports: [
     AlertComponent,
     AsyncPipe,
+    BtnDisabledDirective,
     EditRelationshipListComponent,
-    NgForOf,
-    NgIf,
+    EditRelationshipListWrapperComponent,
     NgTemplateOutlet,
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
-    EditRelationshipListWrapperComponent,
   ],
   standalone: true,
 })

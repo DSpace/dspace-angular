@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -29,7 +26,7 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { hasValue } from '../../../empty.util';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -47,7 +44,11 @@ import {
   styleUrls: ['./create-community-parent-selector.component.scss'],
   templateUrl: './create-community-parent-selector.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule, NgIf, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    AuthorizedCommunitySelectorComponent,
+    TranslateModule,
+  ],
 })
 export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;

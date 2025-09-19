@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   KeyValuePipe,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -23,12 +21,6 @@ import { DsoEditMenuComponent } from '../../../../../app/shared/dso-page/dso-edi
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
-
-/**
- * This component renders a full item page.
- * The route parameter 'id' is used to request the item it represents.
- */
 
 @Component({
   selector: 'ds-themed-full-item-page',
@@ -40,22 +32,19 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
   animations: [fadeInOut],
   standalone: true,
   imports: [
-    ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
-    ThemedFullFileSectionComponent,
-    CollectionsComponent,
-    ItemVersionsComponent,
-    NgIf,
-    NgForOf,
     AsyncPipe,
+    CollectionsComponent,
+    DsoEditMenuComponent,
+    ErrorComponent,
+    ItemVersionsComponent,
+    ItemVersionsNoticeComponent,
     KeyValuePipe,
     RouterLink,
-    ThemedItemPageTitleFieldComponent,
-    DsoEditMenuComponent,
-    ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
+    ThemedFullFileSectionComponent,
     ThemedItemAlertsComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
 })

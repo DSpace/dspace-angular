@@ -13,7 +13,7 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -133,11 +133,11 @@ describe('EditRelationshipComponent', () => {
 
     mockNgbModal = {
       open: jasmine.createSpy('open').and.returnValue(
-        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+        { componentInstance: {}, closed: of({}) } as NgbModalRef,
       ),
     };
 
-    spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
+    spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => of(itemSelection[uuid]));
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), EditRelationshipComponent],

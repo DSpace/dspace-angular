@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -76,13 +75,12 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
   styleUrls: ['./comcol-form.component.scss'],
   templateUrl: './comcol-form.component.html',
   imports: [
-    FormComponent,
-    TranslateModule,
-    UploaderComponent,
     AsyncPipe,
     ComcolPageLogoComponent,
-    NgIf,
+    FormComponent,
     NgClass,
+    TranslateModule,
+    UploaderComponent,
     VarDirective,
   ],
   standalone: true,

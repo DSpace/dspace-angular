@@ -8,7 +8,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -44,7 +44,7 @@ import { RegistryService } from './registry.service';
 @Component({
   template: '',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
 })
 class DummyComponent {
 }
@@ -142,7 +142,7 @@ describe('RegistryService', () => {
       findById: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       createOrUpdateMetadataSchema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       delete: createNoContentRemoteDataObject$(),
-      clearRequests: observableOf('href'),
+      clearRequests: of('href'),
     });
 
     metadataFieldService = jasmine.createSpyObj('metadataFieldService', {
@@ -151,7 +151,7 @@ describe('RegistryService', () => {
       create: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       put: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       delete: createNoContentRemoteDataObject$(),
-      clearRequests: observableOf('href'),
+      clearRequests: of('href'),
     });
   }
 

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -74,13 +71,12 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     fadeInOut,
   ],
   imports: [
-    NgbNavModule,
-    CollectionSelectComponent,
-    ThemedSearchFormComponent,
     AsyncPipe,
-    TranslateModule,
-    NgIf,
     BrowserOnlyPipe,
+    CollectionSelectComponent,
+    NgbNavModule,
+    ThemedSearchFormComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

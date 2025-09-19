@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
@@ -25,7 +25,7 @@ export const endUserAgreementGuard = (
   return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> => {
     const router = inject(Router);
     if (!environment.info.enableEndUserAgreement) {
-      return observableOf(true);
+      return of(true);
     }
     return hasAccepted().pipe(
       returnEndUserAgreementUrlTreeOnFalse(router, state.url),

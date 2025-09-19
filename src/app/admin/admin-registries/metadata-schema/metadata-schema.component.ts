@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -21,7 +19,7 @@ import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
   zip,
 } from 'rxjs';
@@ -55,14 +53,12 @@ import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field
   styleUrls: ['./metadata-schema.component.scss'],
   imports: [
     AsyncPipe,
-    VarDirective,
     MetadataFieldFormComponent,
-    TranslateModule,
-    PaginationComponent,
-    NgIf,
-    NgForOf,
     NgClass,
+    PaginationComponent,
     RouterLink,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })
@@ -130,7 +126,7 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
    */
   private updateFields() {
     this.metadataFields$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination)])),
+      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, of(currentPagination)])),
       switchMap(([schema, update, currentPagination]: [MetadataSchema, boolean, PaginationComponentOptions]) => {
         if (update) {
           this.needsUpdate$.next(false);

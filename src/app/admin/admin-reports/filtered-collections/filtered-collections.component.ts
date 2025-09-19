@@ -1,7 +1,4 @@
-import {
-  KeyValuePipe,
-  NgForOf,
-} from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -33,11 +30,10 @@ import { FilteredCollections } from './filtered-collections.model';
   templateUrl: './filtered-collections.component.html',
   styleUrls: ['./filtered-collections.component.scss'],
   imports: [
-    TranslateModule,
-    NgbAccordionModule,
     FiltersComponent,
     KeyValuePipe,
-    NgForOf,
+    NgbAccordionModule,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -4,7 +4,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import {
@@ -124,9 +124,9 @@ describe('QualityAssuranceEventDataService', () => {
 
   describe('getEventsByTopic', () => {
     beforeEach(() => {
-      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
+      serviceASAny.requestService.getByHref.and.returnValue(of(responseCacheEntry));
+      serviceASAny.requestService.getByUUID.and.returnValue(of(responseCacheEntry));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(of(qaEventObjectRD));
     });
 
     it('should proxy the call to searchData.searchBy', () => {
@@ -150,9 +150,9 @@ describe('QualityAssuranceEventDataService', () => {
 
   describe('getEvent', () => {
     beforeEach(() => {
-      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
+      serviceASAny.requestService.getByHref.and.returnValue(of(responseCacheEntry));
+      serviceASAny.requestService.getByUUID.and.returnValue(of(responseCacheEntry));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(of(qaEventObjectRD));
     });
 
     it('should call findById', () => {
@@ -174,10 +174,10 @@ describe('QualityAssuranceEventDataService', () => {
 
   describe('patchEvent', () => {
     beforeEach(() => {
-      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntry));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectRD));
-      serviceASAny.rdbService.buildFromRequestUUIDAndAwait.and.returnValue(observableOf(qaEventObjectRD));
+      serviceASAny.requestService.getByHref.and.returnValue(of(responseCacheEntry));
+      serviceASAny.requestService.getByUUID.and.returnValue(of(responseCacheEntry));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(of(qaEventObjectRD));
+      serviceASAny.rdbService.buildFromRequestUUIDAndAwait.and.returnValue(of(qaEventObjectRD));
     });
 
     it('should proxy the call to patchData.patch', () => {
@@ -199,9 +199,9 @@ describe('QualityAssuranceEventDataService', () => {
 
   describe('boundProject', () => {
     beforeEach(() => {
-      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntryB));
-      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntryB));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(qaEventObjectMissingProjectRD));
+      serviceASAny.requestService.getByHref.and.returnValue(of(responseCacheEntryB));
+      serviceASAny.requestService.getByUUID.and.returnValue(of(responseCacheEntryB));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(of(qaEventObjectMissingProjectRD));
     });
 
     it('should call postOnRelated', () => {
@@ -223,9 +223,9 @@ describe('QualityAssuranceEventDataService', () => {
 
   describe('removeProject', () => {
     beforeEach(() => {
-      serviceASAny.requestService.getByHref.and.returnValue(observableOf(responseCacheEntryC));
-      serviceASAny.requestService.getByUUID.and.returnValue(observableOf(responseCacheEntryC));
-      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(observableOf(createSuccessfulRemoteDataObject({})));
+      serviceASAny.requestService.getByHref.and.returnValue(of(responseCacheEntryC));
+      serviceASAny.requestService.getByUUID.and.returnValue(of(responseCacheEntryC));
+      serviceASAny.rdbService.buildFromRequestUUID.and.returnValue(of(createSuccessfulRemoteDataObject({})));
     });
 
     it('should call deleteOnRelated', () => {

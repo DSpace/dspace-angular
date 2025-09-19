@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import {
   skip,
   take,
@@ -56,7 +56,7 @@ describe('LookupRelationService', () => {
     });
     searchService = jasmine.createSpyObj('searchService', {
       search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
-      getEndpoint: observableOf(searchServiceEndpoint),
+      getEndpoint: of(searchServiceEndpoint),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
     service = new LookupRelationService(externalSourceService, searchService, requestService);

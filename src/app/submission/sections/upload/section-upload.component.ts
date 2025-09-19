@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -72,13 +68,11 @@ export interface AccessConditionGroupsMapEntry {
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
   imports: [
-    ThemedSubmissionSectionUploadFileComponent,
-    SubmissionSectionUploadAccessConditionsComponent,
-    NgIf,
     AlertComponent,
-    TranslateModule,
-    NgForOf,
     AsyncPipe,
+    SubmissionSectionUploadAccessConditionsComponent,
+    ThemedSubmissionSectionUploadFileComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

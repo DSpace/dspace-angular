@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   Observable,
-  of as observableOf,
+  of,
   throwError as observableThrowError,
 } from 'rxjs';
 import {
@@ -129,11 +129,23 @@ export class AuthInterceptor implements HttpInterceptor {
    */
   private sortAuthMethods(authMethodModels: AuthMethod[]): AuthMethod[] {
     const sortedAuthMethodModels: AuthMethod[] = [];
+    let passwordAuthFound = false;
+    let ldapAuthFound = false;
+
     authMethodModels.forEach((method) => {
       if (method.authMethodType === AuthMethodType.Password) {
         sortedAuthMethodModels.push(method);
+        passwordAuthFound = true;
+      }
+      if (method.authMethodType === AuthMethodType.Ldap) {
+        ldapAuthFound = true;
       }
     });
+
+    // Using password authentication method to provide UI for LDAP authentication even if password auth is not present in server
+    if (ldapAuthFound && !(passwordAuthFound)) {
+      sortedAuthMethodModels.push(new AuthMethod(AuthMethodType.Password,0));
+    }
 
     authMethodModels.forEach((method) => {
       if (method.authMethodType !== AuthMethodType.Password) {
@@ -245,7 +257,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let authorization: string;
 
     if (authService.isTokenExpired()) {
-      return observableOf(null);
+      return of(null);
     } else if ((!this.isAuthRequest(req) || this.isLogoutResponse(req)) && isNotEmpty(token)) {
       // Get the auth header from the service.
       authorization = authService.buildAuthHeader(token);
@@ -313,7 +325,7 @@ export class AuthInterceptor implements HttpInterceptor {
               statusText: error.statusText,
               url: error.url,
             });
-            return observableOf(authResponse);
+            return of(authResponse);
           } else if (this.isUnauthorized(error) && isNotNull(token) && authService.isTokenExpired()) {
             // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route

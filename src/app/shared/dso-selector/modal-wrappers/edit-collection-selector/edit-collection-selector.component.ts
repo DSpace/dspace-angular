@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -18,7 +17,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -31,9 +30,12 @@ import {
 
 @Component({
   selector: 'ds-base-edit-collection-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './edit-collection-selector.component.html',
   standalone: true,
-  imports: [NgIf, DSOSelectorComponent, TranslateModule],
+  imports: [
+    AuthorizedCollectionSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

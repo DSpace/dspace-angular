@@ -8,7 +8,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
@@ -49,7 +49,7 @@ describe('VirtualMetadataComponent', () => {
     });
 
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
-      isSelectedVirtualMetadata: observableOf(false),
+      isSelectedVirtualMetadata: of(false),
       setSelectedVirtualMetadata: null,
     });
 
@@ -99,7 +99,7 @@ describe('VirtualMetadataComponent', () => {
 
       spyOn(comp.close, 'emit');
       fixture.debugElement
-        .query(By.css('button.close'))
+        .query(By.css('button.btn-close'))
         .triggerEventHandler('click', null);
       expect(comp.close.emit).toHaveBeenCalled();
     });

@@ -25,7 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
@@ -43,6 +43,7 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -90,7 +91,7 @@ describe('EPersonFormComponent', () => {
       activeEPerson: null,
       allEpeople: mockEPeople,
       getActiveEPerson(): Observable<EPerson> {
-        return observableOf(this.activeEPerson);
+        return of(this.activeEPerson);
       },
       searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (scope === 'email') {
@@ -114,7 +115,7 @@ describe('EPersonFormComponent', () => {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
           return (ePerson2.uuid !== ePerson.uuid);
         });
-        return observableOf(true);
+        return of(true);
       },
       create(ePerson: EPerson): Observable<RemoteData<EPerson>> {
         this.allEpeople = [...this.allEpeople, ePerson];
@@ -209,7 +210,7 @@ describe('EPersonFormComponent', () => {
     });
     authService = new AuthServiceStub();
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
 
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
@@ -221,7 +222,7 @@ describe('EPersonFormComponent', () => {
     route = new ActivatedRouteStub();
     router = new RouterStub();
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BtnDisabledDirective, BrowserModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
         EPersonFormComponent,
@@ -388,7 +389,7 @@ describe('EPersonFormComponent', () => {
     });
     describe('without active EPerson', () => {
       beforeEach(() => {
-        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(undefined));
+        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(of(undefined));
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -428,7 +429,7 @@ describe('EPersonFormComponent', () => {
             },
           },
         });
-        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
+        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(of(expectedWithId));
         component.ngOnInit();
         component.onSubmit();
         fixture.detectChanges();
@@ -484,10 +485,10 @@ describe('EPersonFormComponent', () => {
       spyOn(authService, 'impersonate').and.callThrough();
       eperson = EPersonMock;
       component.epersonInitial = eperson;
-      component.canDelete$ = observableOf(true);
-      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(eperson));
+      component.canDelete$ = of(true);
+      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(of(eperson));
       modalService = (component as any).modalService;
-      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: of(true) }) }));
       component.ngOnInit();
       fixture.detectChanges();
     });
@@ -498,7 +499,7 @@ describe('EPersonFormComponent', () => {
     });
 
     it('the delete button should be hidden if the ePerson cannot be deleted', () => {
-      component.canDelete$ = observableOf(false);
+      component.canDelete$ = of(false);
       fixture.detectChanges();
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
       expect(deleteButton).toBeNull();
@@ -516,7 +517,8 @@ describe('EPersonFormComponent', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBeNull();
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);

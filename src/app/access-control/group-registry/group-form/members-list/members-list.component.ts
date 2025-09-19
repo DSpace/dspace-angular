@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -27,7 +25,7 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
   ObservedValueOf,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -54,6 +52,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
@@ -104,15 +103,14 @@ export interface EPersonListActionConfig {
   selector: 'ds-members-list',
   templateUrl: './members-list.component.html',
   imports: [
-    TranslateModule,
-    ContextHelpDirective,
-    ReactiveFormsModule,
-    PaginationComponent,
-    NgIf,
     AsyncPipe,
-    RouterLink,
+    BtnDisabledDirective,
+    ContextHelpDirective,
     NgClass,
-    NgForOf,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -262,7 +260,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param possibleMember  EPerson that is a possible member (being tested) of the group currently being edited
    */
   isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   /**

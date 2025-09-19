@@ -11,7 +11,9 @@ import { RootComponent } from './root.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [RootComponent],
+  imports: [
+    RootComponent,
+  ],
 })
 export class ThemedRootComponent extends ThemedComponent<RootComponent> {
   /**

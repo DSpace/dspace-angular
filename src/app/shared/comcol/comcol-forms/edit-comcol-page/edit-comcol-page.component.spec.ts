@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -37,12 +37,12 @@ describe('EditComColPageComponent', () => {
 
     routerStub = {
       navigate: (commands) => commands,
-      events: observableOf({}),
+      events: of({}),
       url: 'mockUrl',
     };
 
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: community,
       }),
       routeConfig: {

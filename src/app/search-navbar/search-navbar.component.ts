@@ -25,7 +25,13 @@ import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';
   styleUrls: ['./search-navbar.component.scss'],
   animations: [expandSearchInput],
   standalone: true,
-  imports: [ClickOutsideDirective, FormsModule, ReactiveFormsModule, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    ClickOutsideDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class SearchNavbarComponent {
 

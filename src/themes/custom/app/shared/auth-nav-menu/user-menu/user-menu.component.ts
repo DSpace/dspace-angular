@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -14,9 +13,6 @@ import { LogOutComponent } from 'src/app/shared/log-out/log-out.component';
 
 import { UserMenuComponent as BaseComponent } from '../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component';
 
-/**
- * Component representing the {@link UserMenuComponent} of a page
- */
 @Component({
   selector: 'ds-themed-user-menu',
   // templateUrl: 'user-menu.component.html',
@@ -24,8 +20,15 @@ import { UserMenuComponent as BaseComponent } from '../../../../../../app/shared
   // styleUrls: ['user-menu.component.scss'],
   styleUrls: ['../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, RouterLinkActive, NgClass, RouterLink, LogOutComponent, AsyncPipe, TranslateModule],
-
+  imports: [
+    AsyncPipe,
+    LogOutComponent,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class UserMenuComponent extends BaseComponent {
 }

@@ -2,7 +2,7 @@ import { Params } from '@angular/router';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -23,43 +23,47 @@ export class SearchConfigurationServiceStub {
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject(new PaginatedSearchOptions({}));
 
   getCurrentFrontendFilters() {
-    return observableOf([]);
+    return of([]);
+  }
+
+  getCurrentFilters() {
+    return of([]);
   }
 
   getCurrentScope(a) {
-    return observableOf('test-id');
+    return of('test-id');
   }
 
   getCurrentQuery(a) {
-    return observableOf(a);
+    return of(a);
   }
 
   getCurrentConfiguration(a) {
-    return observableOf(a);
+    return of(a);
   }
 
   getConfigurationAdvancedSearchFilters(_configuration: string, _scope?: string): Observable<FilterConfig[]> {
-    return observableOf([]);
+    return of([]);
   }
 
   getConfig () {
-    return observableOf({ hasSucceeded: true, payload: [] });
+    return of({ hasSucceeded: true, payload: [] });
   }
 
   getConfigurationSearchConfig(_configuration: string, _scope?: string): Observable<SearchConfig> {
-    return observableOf(new SearchConfig());
+    return of(new SearchConfig());
   }
 
   getAvailableConfigurationOptions() {
-    return observableOf([{ value: 'test', label: 'test' }]);
+    return of([{ value: 'test', label: 'test' }]);
   }
 
   unselectAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
-    return observableOf({});
+    return of({});
   }
 
   selectNewAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
-    return observableOf({});
+    return of({});
   }
 
 }

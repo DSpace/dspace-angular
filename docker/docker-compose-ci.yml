@@ -33,7 +33,7 @@ services:
       # This allows us to generate statistics in e2e tests so that statistics pages can be tested thoroughly.
       solr__D__statistics__P__autoCommit: 'false'
       LOGGING_CONFIG: /dspace/config/log4j2-container.xml
-    image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
     depends_on:
     - dspacedb
     networks:
@@ -60,13 +60,15 @@ services:
   # NOTE: This is customized to use our loadsql image, so that we are using a database with existing test data
   dspacedb:
     container_name: dspacedb
-    image: "${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}-loadsql"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-postgres-loadsql:${DSPACE_VER:-latest}"
     environment:
       # This LOADSQL should be kept in sync with the LOADSQL in
       # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
       LOADSQL: https://github.com/DSpace-Labs/AIP-Files/releases/download/demo-entities-data/dspace7-entities-data.sql
       PGDATA: /pgdata
+      POSTGRES_DB: dspace
+      POSTGRES_USER: dspace
       POSTGRES_PASSWORD: dspace
     networks:
       - dspacenet
@@ -81,7 +83,7 @@ services:
   # DSpace Solr container
   dspacesolr:
     container_name: dspacesolr
-    image: "${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-latest}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-latest}"
     networks:
       - dspacenet
     ports:
@@ -93,7 +95,10 @@ services:
     volumes:
     # Keep Solr data directory between reboots
     - solr_data:/var/solr/data
-    # Initialize all DSpace Solr cores using the mounted configsets (see above), then start Solr
+    # NOTE: We are not running Solr as "root", but we need root permissions to copy our cores to the mounted
+    # /var/solr/data directory. Then we start Solr as the "solr" user.
+    user: root
+    # Initialize all DSpace Solr cores, then start Solr
     entrypoint:
     - /bin/bash
     - '-c'
@@ -111,7 +116,8 @@ services:
       cp -r /opt/solr/server/solr/configsets/qaevent/* qaevent
       precreate-core suggestion /opt/solr/server/solr/configsets/suggestion
       cp -r /opt/solr/server/solr/configsets/suggestion/* suggestion
-      exec solr -f
+      chown -R solr:solr /var/solr
+      runuser -u solr -- solr-foreground
 volumes:
   assetstore:
   pgdata:

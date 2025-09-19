@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -14,10 +11,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {
   map,
   mergeMap,
@@ -36,6 +30,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -48,8 +43,8 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
   selector: 'ds-profile-page-researcher-form',
   templateUrl: './profile-page-researcher-form.component.html',
   imports: [
-    NgIf,
     AsyncPipe,
+    BtnDisabledDirective,
     TranslateModule,
     UiSwitchModule,
     VarDirective,
@@ -187,24 +182,6 @@ export class ProfilePageResearcherFormComponent implements OnInit {
         this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
       }
     });
-  }
-
-  /**
-   * Return a boolean representing if a delete operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingDelete(): Observable<boolean> {
-    return this.processingDelete$.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if a create operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingCreate(): Observable<boolean> {
-    return this.processingCreate$.asObservable();
   }
 
   /**

@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -34,13 +33,12 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
   styleUrls: ['./advanced-workflow-action-rating.component.scss'],
   preserveWhitespaces: false,
   imports: [
-    ModifyItemOverviewComponent,
-    NgIf,
     AsyncPipe,
-    TranslateModule,
+    ModifyItemOverviewComponent,
     NgbRatingModule,
     NgClass,
     ReactiveFormsModule,
+    TranslateModule,
     VarDirective,
   ],
   standalone: true,

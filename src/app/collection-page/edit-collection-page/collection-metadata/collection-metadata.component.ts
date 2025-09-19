@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -52,11 +49,10 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
   selector: 'ds-collection-metadata',
   templateUrl: './collection-metadata.component.html',
   imports: [
+    AsyncPipe,
     CollectionFormComponent,
     RouterLink,
-    AsyncPipe,
     TranslateModule,
-    NgIf,
     VarDirective,
   ],
   standalone: true,

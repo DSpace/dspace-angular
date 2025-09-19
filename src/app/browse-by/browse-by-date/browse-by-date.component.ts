@@ -1,12 +1,13 @@
 import {
   AsyncPipe,
-  NgIf,
+  isPlatformServer,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
   Inject,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -16,10 +17,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
+  of,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   map,
-  switchMap,
+  switchMap
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
@@ -27,6 +30,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import {
@@ -37,20 +41,13 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
-import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
-import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { isValidDate } from '../../shared/date.util';
-import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
@@ -62,18 +59,10 @@ import {
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
   standalone: true,
   imports: [
-    VarDirective,
     AsyncPipe,
-    ComcolPageHeaderComponent,
-    ComcolPageLogoComponent,
-    NgIf,
-    ThemedComcolPageHandleComponent,
-    ThemedComcolPageContentComponent,
-    DsoEditMenuComponent,
-    ThemedComcolPageBrowseByComponent,
-    TranslateModule,
-    ThemedLoadingComponent,
     ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
 })
 /**
@@ -97,11 +86,16 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     @Inject(APP_CONFIG) public appConfig: AppConfig,
     public dsoNameService: DSONameService,
     protected cdRef: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService, platformId);
   }
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
+      this.loading$ = of(false);
+      return;
+    }
     this.browseId = this.route.snapshot.params.id;
     this.startsWithType = StartsWithType.date;
 

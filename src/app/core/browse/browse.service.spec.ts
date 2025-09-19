@@ -3,7 +3,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
@@ -111,7 +111,7 @@ describe('BrowseService', () => {
   let hrefOnlyDataService;
 
   const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
+    return of({
       response: { isSuccessful: successful, payload: browseDefinitions } as any,
     } as RequestEntry);
   };

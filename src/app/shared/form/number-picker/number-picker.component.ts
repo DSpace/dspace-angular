@@ -20,6 +20,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { isEmpty } from '../../empty.util';
 
 @Component({
@@ -30,8 +31,9 @@ import { isEmpty } from '../../empty.util';
     { provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true },
   ],
   imports: [
-    NgClass,
+    BtnDisabledDirective,
     FormsModule,
+    NgClass,
     TranslateModule,
   ],
   standalone: true,

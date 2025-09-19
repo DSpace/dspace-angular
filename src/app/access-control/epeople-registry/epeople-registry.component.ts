@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -69,16 +67,14 @@ import { EPersonFormComponent } from './eperson-form/eperson-form.component';
   selector: 'ds-epeople-registry',
   templateUrl: './epeople-registry.component.html',
   imports: [
-    TranslateModule,
-    RouterModule,
     AsyncPipe,
-    NgIf,
     EPersonFormComponent,
-    ReactiveFormsModule,
-    ThemedLoadingComponent,
-    PaginationComponent,
     NgClass,
-    NgForOf,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterModule,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

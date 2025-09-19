@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
 } from '@angular/common';
 import {
   Component,
@@ -43,12 +42,11 @@ interface ItemDTO {
   selector: 'ds-virtual-metadata',
   templateUrl: './virtual-metadata.component.html',
   imports: [
-    NgClass,
-    TranslateModule,
-    NgForOf,
-    VarDirective,
     AsyncPipe,
     ListableObjectComponentLoaderComponent,
+    NgClass,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })

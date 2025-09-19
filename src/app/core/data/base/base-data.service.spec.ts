@@ -5,6 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
+// eslint-disable-next-line max-classes-per-file
 import {
   fakeAsync,
   tick,
@@ -12,7 +13,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -26,12 +27,20 @@ import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-ser
 import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { BITSTREAM } from '../../shared/bitstream.resource-type';
+import { COLLECTION } from '../../shared/collection.resource-type';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
 import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
@@ -52,8 +61,27 @@ class TestService extends BaseDataService<any> {
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
+}
+
+@typedObject
+class BaseData {
+  static type = new ResourceType('test');
+
+  foo: string;
+
+  _links: {
+    followLink1: HALLink;
+    followLink2: HALLink[];
+    self: HALLink;
+  };
+
+  @link(COLLECTION)
+  followLink1: Observable<any>;
+
+  @link(BITSTREAM, true, 'followLink2')
+  followLink2CustomVariableName: Observable<PaginatedList<any>>;
 }
 
 describe('BaseDataService', () => {
@@ -66,8 +94,8 @@ describe('BaseDataService', () => {
   let linksToFollow;
   let testScheduler;
   let remoteDataTimestamp: number;
-  let remoteDataMocks: { [responseType: string]: RemoteData<any> };
-  let remoteDataPageMocks: { [responseType: string]: RemoteData<any> };
+  let remoteDataMocks: { [responseType: string]: RemoteData<BaseData> };
+  let remoteDataPageMocks: { [responseType: string]: RemoteData<PaginatedList<BaseData>> };
 
   function initTestService(): TestService {
     requestService = getMockRequestService();
@@ -90,10 +118,10 @@ describe('BaseDataService', () => {
     // as cached values.
     remoteDataTimestamp = new Date().getTime() + 60 * 1000;
     const msToLive = 15 * 60 * 1000;
-    const payload = {
+    const payload: BaseData = Object.assign(new BaseData(), {
       foo: 'bar',
-      followLink1: {},
-      followLink2: {},
+      followLink1: of({}),
+      followLink2CustomVariableName: of(createPaginatedList()),
       _links: {
         self: Object.assign(new HALLink(), {
           href: 'self-test-link',
@@ -110,7 +138,7 @@ describe('BaseDataService', () => {
           }),
         ],
       },
-    };
+    });
     const statusCodeSuccess = 200;
     const statusCodeError = 404;
     const errorMessage = 'not found';
@@ -682,7 +710,7 @@ describe('BaseDataService', () => {
     let getByHrefSpy: jasmine.Spy;
 
     beforeEach(() => {
-      getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
+      getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(of({
         requestUUIDs: ['request1', 'request2', 'request3'],
         dependentRequestUUIDs: ['request4', 'request5'],
       } as ObjectCacheEntry));
@@ -782,7 +810,7 @@ describe('BaseDataService', () => {
 
   describe('hasCachedErrorResponse', () => {
     it('should return false when no response is cached', (done) => {
-      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(false));
+      spyOn(service,'hasCachedResponse').and.returnValue(of(false));
       const result = service.hasCachedErrorResponse('test-href');
 
       result.subscribe((hasCachedErrorResponse) => {
@@ -791,7 +819,7 @@ describe('BaseDataService', () => {
       });
     });
     it('should return false when no error response is cached', (done) => {
-      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(true));
+      spyOn(service,'hasCachedResponse').and.returnValue(of(true));
       spyOn(rdbService,'buildSingle').and.returnValue(createSuccessfulRemoteDataObject$({}));
 
       const result = service.hasCachedErrorResponse('test-href');
@@ -803,7 +831,7 @@ describe('BaseDataService', () => {
     });
 
     it('should return true when an error response is cached', (done) => {
-      spyOn(service,'hasCachedResponse').and.returnValue(observableOf(true));
+      spyOn(service,'hasCachedResponse').and.returnValue(of(true));
       spyOn(rdbService,'buildSingle').and.returnValue(createFailedRemoteDataObject$());
 
       const result = service.hasCachedErrorResponse('test-href');
@@ -832,7 +860,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
-        observableOf('dependsOnHref'),
+        of('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });
@@ -847,7 +875,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createFailedRemoteDataObject$('something went wrong'),
-        observableOf('dependsOnHref'),
+        of('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });

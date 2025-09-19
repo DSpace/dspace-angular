@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgFor,
 } from '@angular/common';
 import {
   Component,
@@ -33,7 +32,14 @@ import { DebounceDirective } from '../utils/debounce.directive';
   selector: 'ds-input-suggestions',
   templateUrl: './input-suggestions.component.html',
   standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    NgClass,
+    TranslateModule,
+  ],
 })
 
 /**

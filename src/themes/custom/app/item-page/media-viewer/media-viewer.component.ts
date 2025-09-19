@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,13 +17,12 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
   styleUrls: ['../../../../../app/item-page/media-viewer/media-viewer.component.scss'],
   standalone: true,
   imports: [
-    ThemedMediaViewerImageComponent,
-    ThemedThumbnailComponent,
     AsyncPipe,
-    NgIf,
-    ThemedMediaViewerVideoComponent,
-    TranslateModule,
     ThemedLoadingComponent,
+    ThemedMediaViewerImageComponent,
+    ThemedMediaViewerVideoComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
     VarDirective,
   ],
 })

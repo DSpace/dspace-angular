@@ -1,7 +1,4 @@
-import {
-  DatePipe,
-  NgIf,
-} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -18,9 +15,8 @@ import { Metadata } from '../../../../core/submission/models/sherpa-policies-det
   templateUrl: './metadata-information.component.html',
   styleUrls: ['./metadata-information.component.scss'],
   imports: [
-    NgIf,
-    TranslateModule,
     DatePipe,
+    TranslateModule,
   ],
   standalone: true,
 })

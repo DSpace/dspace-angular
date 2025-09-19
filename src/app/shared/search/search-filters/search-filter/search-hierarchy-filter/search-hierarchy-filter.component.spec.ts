@@ -19,7 +19,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
@@ -52,7 +52,7 @@ describe('SearchHierarchyFilterComponent', () => {
 
   let searchService: SearchServiceStub;
   const searchFilterService = {
-    getPage: () => observableOf(0),
+    getPage: () => of(0),
   };
   let searchConfigService: SearchConfigurationServiceStub;
   let router: RouterStub;
@@ -107,7 +107,7 @@ describe('SearchHierarchyFilterComponent', () => {
   describe('if the vocabulary doesn\'t exist', () => {
 
     beforeEach(() => {
-      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
+      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(of(new RemoteData(
         undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404,
       )));
       init();
@@ -121,7 +121,7 @@ describe('SearchHierarchyFilterComponent', () => {
   describe('if the vocabulary exists', () => {
 
     beforeEach(() => {
-      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
+      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(of(new RemoteData(
         undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200,
       )));
       init();
@@ -133,7 +133,7 @@ describe('SearchHierarchyFilterComponent', () => {
 
     describe('when clicking the vocabulary tree link', () => {
       beforeEach(async () => {
-        spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(observableOf({
+        spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(of({
           'f.subject': [
             'definedBy_selectNewAppliedFilterParams',
           ],

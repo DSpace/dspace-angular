@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -59,13 +57,11 @@ import { LdnPattern } from './submission-coar-notify.config';
   styleUrls: ['./section-coar-notify.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    NgForOf,
     AsyncPipe,
-    TranslateModule,
+    InfiniteScrollModule,
     NgbDropdownModule,
     NgClass,
-    InfiniteScrollModule,
+    TranslateModule,
   ],
   providers: [NgbDropdown],
 })

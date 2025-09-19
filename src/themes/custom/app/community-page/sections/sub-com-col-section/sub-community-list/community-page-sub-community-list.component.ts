@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -19,16 +16,11 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
   templateUrl: '../../../../../../../app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component.html',
   standalone: true,
   imports: [
-    ErrorComponent,
-    ThemedLoadingComponent,
-    VarDirective,
-    NgIf,
-    ObjectCollectionComponent,
     AsyncPipe,
-    TranslateModule,
-    ObjectCollectionComponent,
     ErrorComponent,
+    ObjectCollectionComponent,
     ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
 })

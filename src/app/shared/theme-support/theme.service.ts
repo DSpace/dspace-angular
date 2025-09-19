@@ -21,7 +21,7 @@ import {
   EMPTY,
   from,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   defaultIfEmpty,
@@ -346,7 +346,7 @@ export class ThemeService {
             const dsoRD: RemoteData<DSpaceObject> = snapshotWithData.data.dso;
             if (dsoRD.hasSucceeded) {
               // Start with the resolved dso and go recursively through its parents until you reach the top-level community
-              return observableOf(dsoRD.payload).pipe(
+              return of(dsoRD.payload).pipe(
                 this.getAncestorDSOs(),
                 switchMap((dsos: DSpaceObject[]) => {
                   return this.matchThemeToDSOs(dsos, currentRouteUrl);
@@ -385,7 +385,7 @@ export class ThemeService {
           );
         } else {
           // If there are no themes configured, do nothing
-          return observableOf(new NoOpAction());
+          return of(new NoOpAction());
         }
       }),
       take(1),

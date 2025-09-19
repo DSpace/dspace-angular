@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -28,13 +25,13 @@ import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotUndefined,
 } from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
@@ -48,12 +45,11 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
   styleUrls: ['./section-upload-file.component.scss'],
   templateUrl: './section-upload-file.component.html',
   imports: [
-    TranslateModule,
-    SubmissionSectionUploadFileViewComponent,
-    NgIf,
     AsyncPipe,
+    BtnDisabledDirective,
+    SubmissionSectionUploadFileViewComponent,
     ThemedFileDownloadLinkComponent,
-    FileSizePipe,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -269,7 +269,8 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    * @param newEPerson
    */
   private generateOperations(oldEPerson: EPerson, newEPerson: EPerson): Operation[] {
-    let operations = this.comparator.diff(oldEPerson, newEPerson).filter((operation: Operation) => operation.op === 'replace');
+    let operations = this.comparator.diff(oldEPerson, newEPerson)
+      .filter((operation: Operation) => ['replace', 'add'].includes(operation.op));
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
         op: 'replace', path: '/email', value: newEPerson.email,
@@ -394,6 +395,32 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     return this.rdbService.buildFromRequestUUID(requestId);
   }
 
+  /**
+   * Sends a POST request to merge registration data related to the provided registration-token,
+   * into the eperson related to the provided uuid
+   * @param uuid the user uuid
+   * @param token registration-token
+   * @param metadataKey metadata key of the metadata field that should be overriden
+   */
+  mergeEPersonDataWithToken(uuid: string, token: string, metadataKey?: string): Observable<RemoteData<EPerson>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBrowseEndpoint().pipe(
+      map((href: string) =>
+        hasValue(metadataKey)
+          ? `${href}/${uuid}?token=${token}&override=${metadataKey}`
+          : `${href}/${uuid}?token=${token}`,
+      ),
+    );
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href);
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
 
   /**
    * Create a new object on the server, and store the response in the object cache
