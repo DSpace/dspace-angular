@@ -45,7 +45,7 @@
       [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
       [dsBtnDisabled]="selectedIds?.length === 0"
       (click)="confirmSelected()">
-      <i class="fas fa-trash"></i> {{confirmButton | translate}}
+      <i class="fas" [ngClass]="{'fa-trash': dangerConfirm, 'fa-save': !dangerConfirm}"></i> {{confirmButton | translate}}
     </button>
   </div>
 </ng-container>
