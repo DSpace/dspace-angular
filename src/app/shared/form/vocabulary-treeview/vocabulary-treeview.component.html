@@ -139,3 +139,20 @@
     </cdk-tree-node>
   </cdk-tree>
 </div>
+<!-- Show previous/next results pagination -->
+@if ((showPreviousPage$ | async) || (showNextPage$ | async)) {
+  <div class="mb-3 d-flex gap-2">
+    @if (showPreviousPage$ | async) {
+      <button class="btn btn-outline-secondary"
+              (click)="loadPreviousPage()">
+        {{ 'browse.taxonomy.show_previous_results' | translate }}
+      </button>
+    }
+    @if (showNextPage$ | async) {
+      <button class="btn btn-outline-secondary"
+              (click)="loadNextPage()">
+        {{ 'browse.taxonomy.show_next_results' | translate }}
+      </button>
+    }
+  </div>
+}
