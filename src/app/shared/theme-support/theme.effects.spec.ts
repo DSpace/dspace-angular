@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BASE_THEME_NAME } from '@dspace/config/theme.config';
 import { ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -8,12 +10,39 @@ import {
 } from 'jasmine-marbles';
 
 import { SetThemeAction } from './theme.actions';
-import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeEffects } from './theme.effects';
 
 describe('ThemeEffects', () => {
   let themeEffects: ThemeEffects;
   let initialState;
+
+  const appConfigMock = {
+    themes: [
+      {
+        name: 'full-item-page-theme',
+        regex: 'items/aa6c6c83-3a83-4953-95d1-2bc2e67854d2/full',
+      },
+      {
+        name: 'error-theme',
+        regex: 'collections/aaaa.*',
+      },
+      {
+        name: 'handle-theme',
+        handle: '10673/1233',
+      },
+      {
+        name: 'regex-theme',
+        regex: 'collections\/e8043bc2.*',
+      },
+      {
+        name: 'uuid-theme',
+        uuid: '0958c910-2037-42a9-81c7-dca80e3892b4',
+      },
+      {
+        name: 'base',
+      },
+    ],
+  };
 
   function init() {
     initialState = {
@@ -30,6 +59,7 @@ describe('ThemeEffects', () => {
         ThemeEffects,
         provideMockStore({ initialState }),
         provideMockActions(() => mockActions),
+        { provide: APP_CONFIG, useValue: appConfigMock },
       ],
     });
 

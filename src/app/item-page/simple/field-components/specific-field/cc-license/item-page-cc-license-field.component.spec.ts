@@ -8,24 +8,24 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
+import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { Item } from 'src/app/core/shared/item.model';
-import {
-  MetadataMap,
-  MetadataValue,
-} from 'src/app/core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';
 
 

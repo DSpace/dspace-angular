@@ -15,6 +15,12 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { StoreMock } from '@dspace/core/testing/store.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -31,14 +37,9 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
-import { StoreMock } from '../testing/store.mock';
-import { createTestComponent } from '../testing/utils.test';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import {
   FormChangeAction,
   FormStatusChangeAction,
@@ -178,6 +179,10 @@ describe('FormComponent test suite', () => {
         FormService,
         { provide: Store, useClass: StoreMock },
         { provide: XSRFService, useValue: {} },
+        { provide: APP_CONFIG, useValue: {
+          cache: { msToLive: { default: 15 * 60 * 1000 } },
+          rest: { baseUrl: 'https://rest.com/server' },
+        } },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

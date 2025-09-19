@@ -1,4 +1,4 @@
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 
 /**
  * Serializer to create convert the 'all' value supported by the server to an empty string and vice versa.

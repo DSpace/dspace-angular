@@ -4,10 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionsService } from '../suggestions.service';
 import { SuggestionTargetsStateService } from '../targets/suggestion-targets.state.service';
 

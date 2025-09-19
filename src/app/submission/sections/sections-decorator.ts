@@ -1,3 +1,5 @@
+import { SectionsType } from '@dspace/core/submission/sections-type';
+
 import { SubmissionSectionAccessesComponent } from './accesses/section-accesses.component';
 import { SubmissionSectionCcLicensesComponent } from './cc-license/submission-section-cc-licenses.component';
 import { SubmissionSectionDuplicatesComponent } from './duplicates/section-duplicates.component';
@@ -5,7 +7,6 @@ import { SubmissionSectionFormComponent } from './form/section-form.component';
 import { SubmissionSectionIdentifiersComponent } from './identifiers/section-identifiers.component';
 import { SubmissionSectionLicenseComponent } from './license/section-license.component';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify/section-coar-notify.component';
-import { SectionsType } from './sections-type';
 import { SubmissionSectionSherpaPoliciesComponent } from './sherpa-policies/section-sherpa-policies.component';
 import { SubmissionSectionUploadComponent } from './upload/section-upload.component';
 

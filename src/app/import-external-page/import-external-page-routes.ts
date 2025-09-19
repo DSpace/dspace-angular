@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
 
 export const ROUTES: Route[] = [

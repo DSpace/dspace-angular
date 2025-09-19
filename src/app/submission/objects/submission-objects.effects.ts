@@ -1,4 +1,25 @@
 import { Injectable } from '@angular/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core/submission/models/workspaceitem-section-duplicates.model';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   Actions,
   createEffect,
@@ -26,30 +47,11 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionDuplicatesObject } from '../../core/submission/models/workspaceitem-section-duplicates.model';
-import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import {
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { FormState } from '../../shared/form/form.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { SectionsService } from '../sections/sections.service';
-import { SectionsType } from '../sections/sections-type';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
+import { SubmissionObjectService } from '../submission-object.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import {
@@ -78,8 +80,6 @@ import {
   UpdateSectionDataSuccessAction,
 } from './submission-objects.actions';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
-import { SubmissionSectionError } from './submission-section-error.model';
-import { SubmissionSectionObject } from './submission-section-object.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -367,7 +367,7 @@ export class SubmissionObjectEffects {
     private sectionService: SectionsService,
     private store$: Store<any>,
     private submissionService: SubmissionService,
-    private submissionObjectService: SubmissionObjectDataService,
+    private submissionObjectService: SubmissionObjectService,
     private translate: TranslateService,
     private workspaceItemDataService: WorkspaceitemDataService,
   ) {
