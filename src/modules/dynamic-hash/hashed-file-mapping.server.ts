@@ -22,7 +22,6 @@ import {
 } from 'path';
 import zlib from 'zlib';
 import { hasValue } from '../../app/shared/empty.util';
-import { ThemeConfig } from '../../config/theme.model';
 import {
   HashedFileMapping,
   ID,
@@ -45,7 +44,7 @@ export class ServerHashedFileMapping extends HashedFileMapping {
   public readonly indexPath: string;
   private readonly indexContent: string;
 
-  protected readonly headLinks: Set<HeadLink> = new Set();
+  protected readonly headLinks: Map<string, HeadLink> = new Map();
 
   constructor(
     private readonly root: string,
@@ -70,7 +69,7 @@ export class ServerHashedFileMapping extends HashedFileMapping {
 
     // remove previous files
     const ext = extname(path);
-    glob.GlobSync(path.replace(`${ext}`, `.*${ext}*`))
+    new glob.GlobSync(path.replace(`${ext}`, `.*${ext}*`))
         .found
         .forEach(p => rmSync(p));
 
@@ -111,15 +110,11 @@ export class ServerHashedFileMapping extends HashedFileMapping {
     return hashPath;
   }
 
-  /**
-   * Add CSS for all configured themes to the mapping
-   * @param themeConfigurations
-   */
-  addThemeStyles(themeConfigurations: ThemeConfig[]) {
-    for (const themeConfiguration of themeConfigurations) {
-      const path = `${this.root}/${themeConfiguration.name}-theme.css`;
-      const hashPath = this.add(path);
+  addThemeStyle(theme: string, prefetch = true) {
+    const path = `${this.root}/${theme}-theme.css`;
+    const hashPath = this.add(path);
 
+    if (prefetch) {
       // We know this CSS is likely needed, so we can avoid a FOUC by retrieving it in advance
       // Angular does the same for global styles, but doesn't "know" about our themes
       this.addHeadLink({
@@ -127,17 +122,18 @@ export class ServerHashedFileMapping extends HashedFileMapping {
         rel: 'prefetch',
         as: 'style',
       });
-
-      this.ensureCompressedFilesAssumingUnchangedContent(path, hashPath, '.br');
-      this.ensureCompressedFilesAssumingUnchangedContent(path, hashPath, '.gz');
     }
+
+    // We know theme CSS has been compressed already
+    this.ensureCompressedFilesAssumingUnchangedContent(path, hashPath, '.br');
+    this.ensureCompressedFilesAssumingUnchangedContent(path, hashPath, '.gz');
   }
 
   /**
    * Include a head link for a given resource to the index HTML.
    */
   addHeadLink(headLink: HeadLink) {
-    this.headLinks.add(headLink);
+    this.headLinks.set(headLink.path, headLink);
   }
 
   private renderHeadLink(link: HeadLink): string {
@@ -175,7 +171,7 @@ export class ServerHashedFileMapping extends HashedFileMapping {
     root.querySelector('head')
         .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
 
-    for (const headLink of this.headLinks) {
+    for (const headLink of this.headLinks.values()) {
       root.querySelector('head')
           .appendChild(this.renderHeadLink(headLink) as any);
     }

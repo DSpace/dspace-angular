@@ -71,7 +71,7 @@ const cookieParser = require('cookie-parser');
 const configJson = join(DIST_FOLDER, 'assets/config.json');
 const hashedFileMapping = new ServerHashedFileMapping(DIST_FOLDER, 'index.html');
 const appConfig: AppConfig = buildAppConfig(configJson, hashedFileMapping);
-hashedFileMapping.addThemeStyles(appConfig.themes);
+appConfig.themes.forEach(themeConfig => hashedFileMapping.addThemeStyle(themeConfig.name, themeConfig.prefetch));
 hashedFileMapping.save();
 
 // cache of SSR pages for known bots, only enabled in production mode
