@@ -25,17 +25,29 @@ import { RouterStub } from '../testing/router.stub';
 import { SearchFilterServiceStub } from '../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { SearchFormComponent } from './search-form.component';
+import { of as observableOf } from 'rxjs';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
   let fixture: ComponentFixture<SearchFormComponent>;
   let de: DebugElement;
 
+  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+    pagination: Object.assign(new PaginationComponentOptions(), {
+      id: 'test-id',
+      pageSize: 10,
+      currentPage: 1
+    }),
+    scope: 'MCU'
+  }));
+
   const router = new RouterStub();
   const searchService = new SearchServiceStub();
   let searchFilterService: SearchFilterServiceStub;
   const paginationService = new PaginationServiceStub();
-  const searchConfigService = { paginationID: 'test-id' };
+  const searchConfigService = { paginationID: 'test-id', paginatedSearchOptions: mockSearchOptions};
   const firstPage = { 'spc.page': 1 };
   const dspaceObjectService = {
     findById: () => createSuccessfulRemoteDataObject$(undefined),
@@ -112,12 +124,10 @@ describe('SearchFormComponent', () => {
     let searchQuery = {};
 
     it('should navigate to the search first page even when no parameters are provided', () => {
+      searchQuery = {};
       comp.updateSearch(searchQuery);
 
-      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
-        queryParamsHandling: 'merge',
-      });
+      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {}, {}, false);
     });
 
     it('should navigate to the search first page with parameters only query if only query is provided', () => {
@@ -127,10 +137,7 @@ describe('SearchFormComponent', () => {
 
       comp.updateSearch(searchQuery);
 
-      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
-        queryParamsHandling: 'merge',
-      });
+      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {}, { query: 'THOR' }, false);
     });
 
     it('should navigate to the search first page with parameters only query if only scope is provided', () => {
@@ -140,10 +147,7 @@ describe('SearchFormComponent', () => {
 
       comp.updateSearch(searchQuery);
 
-      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: { ...searchQuery, ...firstPage },
-        queryParamsHandling: 'merge',
-      });
+      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {}, { scope: 'MCU' }, false);
     });
   });
 

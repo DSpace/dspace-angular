@@ -42,7 +42,7 @@
     @for (page of (facetValues$ | async); track page) {
       <div [@facetLoad]="animationState">
         @for (value of page.page; track trackUpdate($index, value)) {
-          <ds-search-facet-range-option [filterConfig]="filterConfig" [filterValue]="value" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-range-option>
+          <ds-search-facet-range-option [filterConfig]="filterConfig" [filterValue]="value" [inPlaceSearch]="inPlaceSearch" [retainScrollPosition]="retainScrollPosition"></ds-search-facet-range-option>
         }
       </div>
     }

@@ -32,6 +32,15 @@ import { FacetValues } from '../../../models/facet-values.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../testing/pagination-service.stub';
+import { PaginationService } from 'ngx-pagination';
+import { RouteService } from '../../../../../core/services/route.service';
+import { routeServiceStub } from '../../../../testing/route-service.stub';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -104,6 +113,9 @@ describe('SearchFacetFilterComponent', () => {
         { provide: Router, useValue: router },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => of({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
+        { provide: RETAIN_SCROLL_POSITION, useValue: new BehaviorSubject<boolean>(false) },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetFilterComponent, {
@@ -197,7 +209,9 @@ describe('SearchFacetFilterComponent', () => {
       comp.onSubmit(testValue + ',equals');
       expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalledWith(filterName1, testValue, 'equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
+        queryParams: jasmine.objectContaining({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }),
+        queryParamsHandling: 'merge',
+        fragment: 'prevent-scroll',
       });
     });
 

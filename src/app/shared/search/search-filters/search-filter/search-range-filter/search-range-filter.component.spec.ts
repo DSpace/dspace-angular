@@ -35,6 +35,7 @@ import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -115,6 +116,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: RemoteDataBuildService, useValue: { aggregate: () => of({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: RETAIN_SCROLL_POSITION, useValue: new BehaviorSubject<boolean>(false) },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideComponent(SearchRangeFilterComponent, {
@@ -147,11 +149,12 @@ describe('SearchRangeFilterComponent', () => {
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: {
+        queryParams: jasmine.objectContaining({
           [mockFilterConfig.paramName + minSuffix]: [1900],
           [mockFilterConfig.paramName + maxSuffix]: [1950],
-        },
+        }),
         queryParamsHandling: 'merge',
+        fragment: 'prevent-scroll',
       });
     });
   });

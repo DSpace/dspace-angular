@@ -29,6 +29,7 @@
         [selectionConfig]="{ repeatable: false, listId: entityListId }"
         [linkType]="linkTypes.ExternalLink"
         [context]="context"
+        [retainScrollPosition]="retainScrollPosition"
         (deselectObject)="deselectEntity()"
         (selectObject)="selectEntity($event)">
       </ds-search-results>

@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import {
   NavigationExtras,
   Router,
 } from '@angular/router';
 import {
   combineLatest as observableCombineLatest,
-  Observable,
+  Observable, BehaviorSubject,
 } from 'rxjs';
 import {
   filter,
@@ -28,6 +28,9 @@ import {
 import { FindListOptions } from '../data/find-list-options.model';
 import { RouteService } from '../services/route.service';
 import { PaginationRouteParams } from './pagination-route-params.interface';
+import { ScrollService } from '../scroll/scroll.service';
+
+export const RETAIN_SCROLL_POSITION: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('retainScrollPosition');
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +56,7 @@ export class PaginationService {
 
   constructor(protected routeService: RouteService,
               protected router: Router,
+              protected scrollService: ScrollService,
   ) {
   }
 
@@ -124,9 +128,10 @@ export class PaginationService {
   /**
    * Reset the current page for the provided pagination ID to 1.
    * @param paginationId - The pagination id for which to reset the page
+   * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
    */
-  resetPage(paginationId: string) {
-    this.updateRoute(paginationId, { page: 1 });
+  resetPage(paginationId: string, retainScrollPosition?: boolean): void {
+    this.updateRoute(paginationId, { page: 1 }, undefined, retainScrollPosition);
   }
 
 
@@ -155,7 +160,7 @@ export class PaginationService {
    * @param url - The url to navigate to
    * @param params - The page related params to update in the route
    * @param extraParams - Addition params unrelated to the pagination that need to be added to the route
-   * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
+   * @param retainScrollPosition - Scroll to the active fragment after updating the route instead of the top of the page
    * @param navigationExtras - Extra parameters to pass on to `router.navigate`. Can be used to override values set by this service.
    */
   updateRouteWithUrl(
@@ -170,16 +175,26 @@ export class PaginationService {
       const currentParametersWithIdName = this.getParametersWithIdName(paginationId, currentFindListOptions);
       const parametersWithIdName = this.getParametersWithIdName(paginationId, params);
       if (isNotEmpty(difference(parametersWithIdName, currentParametersWithIdName)) || isNotEmpty(extraParams) || isNotEmpty(this.clearParams)) {
-        const queryParams = Object.assign({}, this.clearParams, currentParametersWithIdName,
-          parametersWithIdName, extraParams);
+        const queryParams = Object.assign({}, currentParametersWithIdName,
+          parametersWithIdName, extraParams, this.clearParams);
         if (retainScrollPosition) {
+          // By navigating to a non-existing ID, like "prevent-scroll", the browser won't perform any scroll operations
+          const fragment: string = this.scrollService.activeFragment ?? 'prevent-scroll';
+          this.scrollService.setFragment(fragment);
           this.router.navigate(url, {
             queryParams: queryParams,
             queryParamsHandling: 'merge',
-            fragment: `p-${paginationId}`,
+            fragment: fragment,
             ...navigationExtras,
+          }).then((success: boolean) => {
+            setTimeout(() => {
+              if (success) {
+                this.scrollService.scrollToActiveFragment();
+              }
+            });
           });
         } else {
+          this.scrollService.setFragment(null);
           this.router.navigate(url, {
             queryParams: queryParams,
             queryParamsHandling: 'merge',
@@ -230,16 +245,16 @@ export class PaginationService {
 
   private getParametersWithIdName(paginationId: string, params: PaginationRouteParams) {
     const paramsWithIdName = {};
-    if (hasValue(params.page)) {
+    if (hasValue(params?.page)) {
       paramsWithIdName[`${paginationId}.page`] = `${params.page}`;
     }
-    if (hasValue(params.pageSize)) {
+    if (hasValue(params?.pageSize)) {
       paramsWithIdName[`${paginationId}.rpp`] = `${params.pageSize}`;
     }
-    if (hasValue(params.sortField)) {
+    if (hasValue(params?.sortField)) {
       paramsWithIdName[`${paginationId}.sf`] = `${params.sortField}`;
     }
-    if (hasValue(params.sortDirection)) {
+    if (hasValue(params?.sortDirection)) {
       paramsWithIdName[`${paginationId}.sd`] = `${params.sortDirection}`;
     }
     return paramsWithIdName;

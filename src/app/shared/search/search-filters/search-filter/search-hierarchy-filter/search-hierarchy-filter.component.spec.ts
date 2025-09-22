@@ -39,6 +39,9 @@ import { SearchConfigurationServiceStub } from '../../../../testing/search-confi
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
+import { routeServiceStub } from '../../../../testing/route-service.stub';
+import { RouteService } from '../../../../../core/services/route.service';
 
 describe('SearchHierarchyFilterComponent', () => {
   let comp: SearchHierarchyFilterComponent;
@@ -89,6 +92,8 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: APP_CONFIG, useValue: environment },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: RETAIN_SCROLL_POSITION, useValue: new BehaviorSubject<boolean>(false) },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

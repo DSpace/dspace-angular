@@ -43,6 +43,7 @@ export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarC
   @Input() searchOptions: PaginatedSearchOptions;
   @Input() sortOptionsList: SortOptions[];
   @Input() refreshFilters: BehaviorSubject<boolean>;
+  @Input() retainScrollPosition: boolean;
   @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter();
   @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter();
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter();
@@ -51,7 +52,7 @@ export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarC
     'configuration', 'configurationList', 'currentScope', 'currentSortOption',
     'resultCount', 'filters', 'viewModeList', 'showViewModes', 'inPlaceSearch',
     'searchOptions', 'sortOptionsList', 'refreshFilters', 'toggleSidebar', 'changeConfiguration',
-    'changeViewMode',
+    'changeViewMode', 'retainScrollPosition',
   ];
 
   protected getComponentName(): string {

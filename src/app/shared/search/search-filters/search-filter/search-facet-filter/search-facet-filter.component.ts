@@ -46,6 +46,7 @@ import { currentPath } from '../../../../utils/route.utils';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FacetValues } from '../../../models/facet-values.model';
+import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchOptions } from '../../../models/search-options.model';
 
@@ -147,9 +148,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean,
   ) {
   }
 
@@ -274,9 +277,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.filterService.minimizeAll();
       const valueParts = data.split(',');
       this.subs.push(this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, valueParts.slice(0, valueParts.length - 1).join(), valueParts[valueParts.length - 1]).pipe(take(1)).subscribe((params: Params) => {
-        void this.router.navigate(this.getSearchLinkParts(), {
-          queryParams: params,
-        });
+        this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), { page: 1 }, params, this.retainScrollPosition);
         this.filter = '';
         this.filterSearchResults$ = of([]);
       }));

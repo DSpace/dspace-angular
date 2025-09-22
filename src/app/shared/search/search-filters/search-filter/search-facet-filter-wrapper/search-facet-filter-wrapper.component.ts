@@ -3,6 +3,7 @@ import {
   Input,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { RETAIN_SCROLL_POSITION } from '../../../../../core/pagination/pagination.service';
 
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { AbstractComponentLoaderComponent } from '../../../../abstract-component-loader/abstract-component-loader.component';
@@ -38,6 +39,11 @@ export class SearchFacetFilterWrapperComponent extends AbstractComponentLoaderCo
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
 
   /**
    * The current scope

@@ -52,6 +52,7 @@ import {
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
 import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -77,19 +78,23 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               protected modalService: NgbModal,
               protected vocabularyService: VocabularyService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean
   ) {
     super(
       searchService,
       filterService,
+      paginationService,
       rdbs,
       router,
       searchConfigService,
+      retainScrollPosition,
     );
   }
 
@@ -137,12 +142,8 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       switchMap((detail: VocabularyEntryDetail) => this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, detail.value, 'equals')),
       take(1),
     ).subscribe((params: Params) => {
-      void this.router.navigate(
-        [this.searchService.getSearchLink()],
-        {
-          queryParams: params,
-        },
-      );
+      this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), {},
+        params, this.retainScrollPosition);
     }));
   }
 
