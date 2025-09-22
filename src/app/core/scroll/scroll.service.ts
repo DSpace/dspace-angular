@@ -1,5 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 
 /**
  * Service used to scroll to a specific fragment/ID on the page

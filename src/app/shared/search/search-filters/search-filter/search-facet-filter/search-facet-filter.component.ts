@@ -32,6 +32,7 @@ import {
 } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -46,7 +47,6 @@ import { currentPath } from '../../../../utils/route.utils';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FacetValues } from '../../../models/facet-values.model';
-import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchOptions } from '../../../models/search-options.model';
 
@@ -89,6 +89,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * The current scope
    */
   @Input() scope: string;
+
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
 
   /**
    * Emits an array of pages with values found for this facet
@@ -152,7 +157,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean,
   ) {
   }
 

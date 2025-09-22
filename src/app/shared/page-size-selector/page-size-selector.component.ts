@@ -2,7 +2,8 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
-  OnInit, Input,
+  Input,
+  OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {

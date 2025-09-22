@@ -35,6 +35,7 @@ import {
 } from '../../../../../../config/app-config.interface';
 import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -52,7 +53,6 @@ import {
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
 import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
-import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -85,7 +85,6 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               protected vocabularyService: VocabularyService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean
   ) {
     super(
       searchService,
@@ -94,7 +93,6 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       rdbs,
       router,
       searchConfigService,
-      retainScrollPosition,
     );
   }
 

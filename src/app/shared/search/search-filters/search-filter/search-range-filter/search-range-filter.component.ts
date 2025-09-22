@@ -23,6 +23,7 @@ import {
 import { yearFromString } from 'src/app/shared/date.util';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -39,7 +40,6 @@ import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
 } from './search-range-filter-constants';
-import { RETAIN_SCROLL_POSITION, PaginationService } from '../../../../../core/pagination/pagination.service';
 
 /**
  * This component renders a simple item page.
@@ -117,7 +117,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               private translateService: TranslateService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(PLATFORM_ID) private platformId: any,
-              @Inject(RETAIN_SCROLL_POSITION) protected retainScrollPosition: boolean,
   ) {
     super(
       searchService,
@@ -126,7 +125,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       rdbs,
       router,
       searchConfigService,
-      retainScrollPosition,
     );
   }
 
@@ -181,7 +179,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
     this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), {}, {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
-      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax,
     }, this.retainScrollPosition);
     this.filter = '';
   }

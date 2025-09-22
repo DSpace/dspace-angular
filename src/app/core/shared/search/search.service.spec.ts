@@ -107,7 +107,7 @@ describe('SearchService', () => {
       service.setViewMode(ViewMode.GridElement);
 
       expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
-        'page-id',
+        'test-id',
         ['/search'],
         { page: 1 },
         { view: ViewMode.GridElement },

@@ -2,14 +2,14 @@ import { of } from 'rxjs';
 
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RouterStub } from '../../shared/testing/router.stub';
+import { ScrollServiceStub } from '../../shared/testing/scroll-service.stub';
 import {
   SortDirection,
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
-import { PaginationService } from './pagination.service';
 import { ScrollService } from '../scroll/scroll.service';
-import { ScrollServiceStub } from '../../shared/testing/scroll-service.stub';
+import { PaginationService } from './pagination.service';
 
 
 describe('PaginationService', () => {

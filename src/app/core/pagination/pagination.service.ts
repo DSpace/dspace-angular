@@ -1,11 +1,15 @@
-import { Injectable, InjectionToken } from '@angular/core';
+import {
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import {
   NavigationExtras,
   Router,
 } from '@angular/router';
 import {
+  BehaviorSubject,
   combineLatest as observableCombineLatest,
-  Observable, BehaviorSubject,
+  Observable,
 } from 'rxjs';
 import {
   filter,
@@ -26,9 +30,9 @@ import {
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { ScrollService } from '../scroll/scroll.service';
 import { RouteService } from '../services/route.service';
 import { PaginationRouteParams } from './pagination-route-params.interface';
-import { ScrollService } from '../scroll/scroll.service';
 
 export const RETAIN_SCROLL_POSITION: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('retainScrollPosition');
 

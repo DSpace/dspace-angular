@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -34,11 +35,16 @@ import { FindListOptions } from '../../../../../core/data/find-list-options.mode
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
@@ -52,6 +58,7 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../search/models/search-result.model';
+import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import {
@@ -59,9 +66,6 @@ import {
   RemoveRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
-import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { followLink } from '../../../../utils/follow-link-config.model';
-import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
