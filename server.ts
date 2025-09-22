@@ -268,6 +268,12 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
       ],
     })
     .then((html) => {
+      // If headers were already sent, then do nothing else, it is probably a
+      // redirect response
+      if (res.headersSent) {
+        return;
+      }
+
       if (hasValue(html)) {
         // Replace REST URL with UI URL
         if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
