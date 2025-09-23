@@ -54,7 +54,7 @@ describe(`DSONameService`, () => {
 
       const result = service.getName(mockPerson);
 
-      expect((service as any).factories.Person).toHaveBeenCalledWith(mockPerson);
+      expect((service as any).factories.Person).toHaveBeenCalledWith(mockPerson, undefined);
       expect(result).toBe('Bingo!');
     });
 
@@ -63,7 +63,7 @@ describe(`DSONameService`, () => {
 
       const result = service.getName(mockOrgUnit);
 
-      expect((service as any).factories.OrgUnit).toHaveBeenCalledWith(mockOrgUnit);
+      expect((service as any).factories.OrgUnit).toHaveBeenCalledWith(mockOrgUnit, undefined);
       expect(result).toBe('Bingo!');
     });
 
@@ -72,7 +72,7 @@ describe(`DSONameService`, () => {
 
       const result = service.getName(mockDSO);
 
-      expect((service as any).factories.Default).toHaveBeenCalledWith(mockDSO);
+      expect((service as any).factories.Default).toHaveBeenCalledWith(mockDSO, undefined);
       expect(result).toBe('Bingo!');
     });
   });
@@ -86,9 +86,9 @@ describe(`DSONameService`, () => {
       it(`should return 'person.familyName, person.givenName'`, () => {
         const result = (service as any).factories.Person(mockPerson);
         expect(result).toBe(mockPersonName);
-        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.familyName');
-        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.givenName');
-        expect(mockPerson.firstMetadataValue).not.toHaveBeenCalledWith('dc.title');
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.familyName', undefined, undefined);
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.givenName', undefined, undefined);
+        expect(mockPerson.firstMetadataValue).not.toHaveBeenCalledWith('dc.title', undefined, undefined);
       });
     });
 
@@ -100,9 +100,9 @@ describe(`DSONameService`, () => {
       it(`should return dc.title`, () => {
         const result = (service as any).factories.Person(mockPerson);
         expect(result).toBe(mockPersonName);
-        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.familyName');
-        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.givenName');
-        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('dc.title');
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.familyName', undefined, undefined);
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.givenName', undefined, undefined);
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('dc.title', undefined, undefined);
       });
     });
   });
@@ -115,7 +115,7 @@ describe(`DSONameService`, () => {
     it(`should return 'organization.legalName'`, () => {
       const result = (service as any).factories.OrgUnit(mockOrgUnit);
       expect(result).toBe(mockOrgUnitName);
-      expect(mockOrgUnit.firstMetadataValue).toHaveBeenCalledWith('organization.legalName');
+      expect(mockOrgUnit.firstMetadataValue).toHaveBeenCalledWith('organization.legalName', undefined, undefined);
     });
   });
 
@@ -127,7 +127,7 @@ describe(`DSONameService`, () => {
     it(`should return 'dc.title'`, () => {
       const result = (service as any).factories.Default(mockDSO);
       expect(result).toBe(mockDSOName);
-      expect(mockDSO.firstMetadataValue).toHaveBeenCalledWith('dc.title');
+      expect(mockDSO.firstMetadataValue).toHaveBeenCalledWith('dc.title', undefined, undefined);
     });
   });
 });
