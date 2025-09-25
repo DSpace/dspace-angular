@@ -38,7 +38,7 @@ import { cold } from 'jasmine-marbles';
 import { BehaviorSubject, of } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment.test';
-import { REQUEST } from '../../../../../express.tokens';
+import { REQUEST } from '@dspace/core';
 import {
   NameVariantService,
 } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';

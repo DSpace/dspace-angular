@@ -4,7 +4,9 @@
 
 export * from './notifications.actions';
 export * from './notifications.effects';
+export * from './notifications.reducers.spec';
 export * from './notifications.reducers';
+export * from './notifications.service.spec';
 export * from './notifications.service';
 export * from './selectors';
 export * from './models/index';

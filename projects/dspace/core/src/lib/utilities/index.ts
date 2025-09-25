@@ -4,9 +4,11 @@
 
 export * from './enter-zone.scheduler';
 export * from './equals.decorators';
+export * from './equatable.spec';
 export * from './item-iiif-utils';
 export * from './item-relationships-utils';
 export * from './key-value-pair.model';
 export * from './leave-zone.scheduler';
+export * from './relation-query.utils.spec';
 export * from './relation-query.utils';
 export * from './remote-data.utils';

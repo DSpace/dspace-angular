@@ -34,8 +34,8 @@ import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-b
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 
 const mockDataServiceMap: LazyDataServicesMap = new Map([
-  [EPERSON.value, () => import('../../core/eperson/eperson-data.service').then(m => m.EPersonDataService)],
-  [GROUP.value, () => import('../../core/eperson/group-data.service').then(m => m.GroupDataService)],
+  [EPERSON.value, () => import('@dspace/core').then(m => m.EPersonDataService)],
+  [GROUP.value, () => import('@dspace/core').then(m => m.GroupDataService)],
 ]);
 
 describe('EpersonGroupListComponent', () => {

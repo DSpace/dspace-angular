@@ -19,7 +19,7 @@ import {
 import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';

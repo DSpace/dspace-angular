@@ -4,6 +4,7 @@
 
 export * from './pagination-component-options.model';
 export * from './pagination-route-params.interface';
+export * from './pagination.service.spec';
 export * from './pagination.service';
 export * from './pagination.utils';
 export * from './paginationChangeEvent.interface';

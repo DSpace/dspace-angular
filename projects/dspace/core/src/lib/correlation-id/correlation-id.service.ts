@@ -76,7 +76,6 @@ export class CorrelationIdService {
     let correlationId;
 
     this.store.pipe(
-      tap(console.log),
       select(correlationIdSelector),
       take(1),
     ).subscribe((storeId: string) => {

@@ -26,7 +26,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 
-import { REQUEST } from '../../../../../../express.tokens';
+import { REQUEST } from '@dspace/core';
 import {
   NameVariantService,
 } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';

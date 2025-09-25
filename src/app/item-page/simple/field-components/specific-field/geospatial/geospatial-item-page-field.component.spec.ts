@@ -28,7 +28,7 @@ const mockLabel = 'Test location';
 const mockFields = [mockField];
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('../../../../projects/dspace/core/src/lib/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('@dspace/core').then(m => m.TestDataService)],
 ]);
 describe('GeospatialItemPageFieldComponent', () => {
   beforeEach(waitForAsync(() => {

@@ -24,7 +24,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config';
 import { environment } from 'src/environments/environment.test';
 
 import {

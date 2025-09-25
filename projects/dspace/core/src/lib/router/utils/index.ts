@@ -3,4 +3,5 @@
  */
 
 export * from './dso-route.utils';
+export * from './route.utils.spec';
 export * from './route.utils';

@@ -35,7 +35,7 @@ import { take } from 'rxjs/operators';
 import {
   DsDynamicTypeBindRelationService,
 } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config';
 import { environment } from 'src/environments/environment.test';
 
 import {

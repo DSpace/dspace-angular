@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree } from '@angular/router';
 import { APP_CONFIG, AppConfig } from '@dspace/config';
+import { EndUserAgreementService } from '@dspace/core';
 import { Observable, of } from 'rxjs';
 
-import { EndUserAgreementService } from './end-user-agreement.service';
 import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 
 describe('endUserAgreementGuard', () => {

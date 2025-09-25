@@ -34,7 +34,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config';
 import { environment } from 'src/environments/environment.test';
 
 import { SubmissionService } from '../../../submission/submission.service';

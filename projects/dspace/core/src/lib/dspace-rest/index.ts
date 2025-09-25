@@ -3,9 +3,13 @@
  */
 
 export * from './dspace-not-null.serializer';
+export * from './dspace-rest.interceptor.spec';
 export * from './dspace-rest.interceptor';
+export * from './dspace-rest.service.spec';
 export * from './dspace-rest.service';
+export * from './dspace.serializer.spec';
 export * from './dspace.serializer';
+export * from './endpoint-mocking-rest.service.spec';
 export * from './endpoint-mocking-rest.service';
 export * from './raw-rest-response.model';
 export * from './mocks/index';

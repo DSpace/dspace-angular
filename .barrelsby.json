@@ -6,7 +6,6 @@
   ],
   "delete": true,
   "exclude": [
-    "^.*\\.spec\\.ts$"
   ],
   "location": "all",
   "structure": "flat",

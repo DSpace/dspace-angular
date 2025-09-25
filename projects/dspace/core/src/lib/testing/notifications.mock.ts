@@ -31,7 +31,7 @@ import {
 // Items
 // -------------------------------------------------------------------------------
 
-const ItemMockPid1: Item = Object.assign(
+export const ItemMockPid1: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -150,7 +150,7 @@ const ItemMockPid1: Item = Object.assign(
   },
 );
 
-const ItemMockPid2: Item = Object.assign(
+export const ItemMockPid2: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -269,7 +269,7 @@ const ItemMockPid2: Item = Object.assign(
   },
 );
 
-const ItemMockPid3: Item = Object.assign(
+export const ItemMockPid3: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -388,7 +388,7 @@ const ItemMockPid3: Item = Object.assign(
   },
 );
 
-const ItemMockPid4: Item = Object.assign(
+export const ItemMockPid4: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -507,7 +507,7 @@ const ItemMockPid4: Item = Object.assign(
   },
 );
 
-const ItemMockPid5: Item = Object.assign(
+export const ItemMockPid5: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -626,7 +626,7 @@ const ItemMockPid5: Item = Object.assign(
   },
 );
 
-const ItemMockPid6: Item = Object.assign(
+export const ItemMockPid6: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -745,7 +745,7 @@ const ItemMockPid6: Item = Object.assign(
   },
 );
 
-const ItemMockPid7: Item = Object.assign(
+export const ItemMockPid7: Item = Object.assign(
   new Item(),
   {
     handle: '10077/21486',
@@ -1102,7 +1102,7 @@ export const ItemMockPid9: Item = Object.assign(
   },
 );
 
-const ItemMockPid10: Item = Object.assign(
+export const ItemMockPid10: Item = Object.assign(
   new Item(),
   {
     handle: '10713/29832',

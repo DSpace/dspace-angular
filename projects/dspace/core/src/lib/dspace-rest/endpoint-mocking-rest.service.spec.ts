@@ -28,7 +28,7 @@ describe('EndpointMockingRestService', () => {
       request: of(serverHttpResponse),
     });
 
-    service = new EndpointMockingRestService(mockResponseMap, httpStub);
+    service = new EndpointMockingRestService(mockResponseMap, httpStub, {} as any);
   });
 
   describe('get', () => {

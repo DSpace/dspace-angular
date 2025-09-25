@@ -4,6 +4,9 @@
 
 export * from './index-name.model';
 export * from './index.actions';
+export * from './index.effects.spec';
 export * from './index.effects';
+export * from './index.reducer.spec';
 export * from './index.reducer';
+export * from './index.selectors.spec';
 export * from './index.selectors';

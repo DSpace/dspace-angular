@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config';
 
 import { FileDownloadLinkComponent } from './file-download-link.component';
 

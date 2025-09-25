@@ -22,7 +22,7 @@ import {
 } from '@dspace/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config';
 import { environment } from 'src/environments/environment.test';
 
 import { HostWindowService } from '../../shared/host-window.service';

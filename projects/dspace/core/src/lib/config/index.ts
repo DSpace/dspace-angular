@@ -3,7 +3,9 @@
  */
 
 export * from './bulk-access-config-data.service';
+export * from './coar-notify-config-data.service.spec';
 export * from './coar-notify-config-data.service';
+export * from './config-data.service.spec';
 export * from './config-data.service';
 export * from './submission-accesses-config-data.service';
 export * from './submission-forms-config-data.service';
