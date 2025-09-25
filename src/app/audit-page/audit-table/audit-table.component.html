@@ -14,10 +14,10 @@
           <th>{{ 'audit.overview.table.eperson' | translate }}</th>
           <th>{{ 'audit.overview.table.timestamp' | translate }}</th>
           @if (isOverviewPage) {
-            <th>{{ 'audit.overview.table.objectUUID' | translate }}</th>
-            <th>{{ 'audit.overview.table.objectType' | translate }}</th>
             <th>{{ 'audit.overview.table.subjectUUID' | translate }}</th>
             <th>{{ 'audit.overview.table.subjectType' | translate }}</th>
+            <th>{{ 'audit.overview.table.objectUUID' | translate }}</th>
+            <th>{{ 'audit.overview.table.objectType' | translate }}</th>
           } @else {
             <th>{{ 'audit.overview.table.other' | translate }}</th>
           }
@@ -55,7 +55,11 @@
                   }
                 </td>
                 <td>{{ audit.objectType }}</td>
-                <td>{{ audit.subjectUUID }}</td>
+                <td>
+                  @if (audit.subjectUUID) {
+                    <a [routerLink]="['/auditlogs/object/', audit.subjectUUID]">{{audit.subjectUUID}}</a>
+                  }
+                </td>
                 <td>{{ audit.subjectType }}</td>
               } @else {
                 <td>

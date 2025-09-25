@@ -21,7 +21,7 @@ import {
   filter,
   map,
   mergeMap,
-  switchMap,
+  switchMap, tap,
 } from 'rxjs/operators';
 
 import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
@@ -92,7 +92,7 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
-  owningCollection$: Observable<Collection>;
+  objectId: string;
 
   dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
 
@@ -108,19 +108,9 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.route.paramMap.pipe(
-      switchMap((paramMap: ParamMap) => this.itemService.findById(paramMap.get('objectId'))),
-      getFirstCompletedRemoteData(),
-    ).subscribe((rd) => {
-      this.object = rd.payload;
-      this.owningCollection$ = this.collectionDataService.findOwningCollectionFor(
-        this.object,
-        true,
-        false,
-        ...COLLECTION_PAGE_LINKS_TO_FOLLOW,
-      ).pipe(
-        getFirstCompletedRemoteData(),
-        map(data => data?.payload),
-      );
+      map((paramMap: ParamMap) => paramMap.get('objectId')),
+    ).subscribe((id) => {
+      this.objectId = id;
       this.setAudits();
     });
   }
@@ -136,15 +126,11 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
    */
   setAudits() {
     const config$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config);
-    const parentCommunity$ = this.owningCollection$.pipe(
-      switchMap(collection => collection.parentCommunity),
-      getFirstCompletedRemoteData(),
-      map(data => data?.payload),
-    );
 
-    this.auditsRD$ = combineLatest([ config$, this.owningCollection$, parentCommunity$]).pipe(
-      switchMap(([config,  owningCollection, parentCommunity]) =>
-        this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id).pipe(
+    this.auditsRD$ = config$.pipe(
+      tap(console.log),
+      switchMap((config) =>
+        this.auditService.findByObject(this.objectId, config).pipe(
           getFirstCompletedRemoteData(),
         ),
       ),
@@ -160,7 +146,7 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
         const updatedAudits$ = auditsRD.payload.page.map(audit => {
           return forkJoin({
             epersonName: this.auditService.getEpersonName(audit),
-            otherAuditObject: this.auditService.getOtherObject(audit, this.object.id),
+            otherAuditObject: this.auditService.getOtherObject(audit, this.objectId),
           }).pipe(
             map(({ epersonName, otherAuditObject }) =>
               Object.assign(new Audit(), audit, { epersonName, otherAuditObject }),

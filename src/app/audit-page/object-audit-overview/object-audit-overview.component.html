@@ -3,8 +3,8 @@
     <h1 class="flex-grow-1">{{'audit.object.overview.title' | translate}}</h1>
   </div>
 
-  @if (object) {
-    <h2 class="h4 mt-4 mb-4">{{ object.name }} (<em>{{object.type}}</em>)</h2>
+  @if (objectId) {
+    <!--<h2 class="h4 mt-4 mb-4">{{ object.name }} (<em>{{object.type}}</em>)</h2>-->
     @if ((auditsRD$ | async)?.payload; as audits) {
       <ds-audit-table
         [audits]="audits"
@@ -12,7 +12,7 @@
         [object]="object"
       ></ds-audit-table>
     }
-    <a class="btn btn-light mt-3" [routerLink]="['/items', object.id]"><i class="fas fa-arrow-left"></i>{{ 'audit.object.back' | translate }}</a>
+    <a class="btn btn-light mt-3" [routerLink]="['/items', objectId]"><i class="fas fa-arrow-left"></i>{{ 'audit.object.back' | translate }}</a>
     @if ((auditsRD$ | async)?.statusCode === 404) {
       <h2 class="h4 mt-4 mb-4">{{'audit.object.overview.disabled.message' | translate}}</h2>
     }

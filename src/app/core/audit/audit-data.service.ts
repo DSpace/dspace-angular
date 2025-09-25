@@ -66,17 +66,10 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    * @param commUuid The Uuid of the community
    * @return Observable<RemoteData<PaginatedList<Audit>>>
    */
-  findByObject(objectId: string, options: FindListOptions = {}, collUuid?: string, commUuid?: string): Observable<RemoteData<PaginatedList<Audit>>> {
+  findByObject(objectId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Audit>>> {
     const searchMethod = AUDIT_FIND_BY_OBJECT_SEARCH_METHOD;
     const searchParams = [new RequestParam('object', objectId)];
 
-    if (hasValue(commUuid)) {
-      searchParams.push(new RequestParam('commUuid', commUuid));
-    }
-
-    if (hasValue(collUuid)) {
-      searchParams.push(new RequestParam('collUuid', collUuid));
-    }
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams,
     });
