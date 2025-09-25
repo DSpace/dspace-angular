@@ -1,0 +1,15 @@
+{
+  "directory": [
+    "projects/dspace/config/src/lib/",
+    "projects/dspace/core/src/lib/",
+    "projects/dspace/utils/src/lib/"
+  ],
+  "delete": true,
+  "exclude": [
+    "^.*\\.spec\\.ts$"
+  ],
+  "location": "all",
+  "structure": "flat",
+  "singleQuotes": true,
+  "noSemicolon": false
+}

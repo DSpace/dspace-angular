@@ -10,7 +10,7 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
-import { APP_CONFIG, AppConfig, StoreDevModules } from '@dspace/config';
+import { APP_CONFIG, AppConfig } from '@dspace/config';
 import {
   AuthInterceptor,
   ClientCookieService,
@@ -52,6 +52,7 @@ import {
   WORKFLOW_TASK_OPTION_DECORATOR_MAP,
 } from './shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { STARTS_WITH_DECORATOR_MAP } from './shared/starts-with/starts-with-decorator';
+import { StoreDevModules } from './ngrx-devtools/devtools';
 
 export function getConfig() {
   return environment;

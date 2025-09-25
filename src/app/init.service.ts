@@ -22,6 +22,7 @@ import {
   APP_DATA_SERVICES_MAP,
   LocaleService,
   HeadTagService,
+  models
 } from '@dspace/core'
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { select, Store } from '@ngrx/store';
@@ -57,6 +58,10 @@ export abstract class InitService {
    * @protected
    */
   protected static NGRX_STATE = makeStateKey('NGRX_STATE');
+
+  // This is simply here to ensure our models are all referenced somewhere so they don't get
+  // tree-shaken out. (they can be referenced indirectly due to their decorators)
+  private static MODELS = models;
 
   protected constructor(
     protected store: Store<AppState>,

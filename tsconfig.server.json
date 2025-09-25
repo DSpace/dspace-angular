@@ -1,11 +1,12 @@
 {
-  "extends": "./tsconfig.app.json",
+  "extends": "./tsconfig.browser.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app-server",
     "target": "ES2022",
     "types": [
       "node",
-      "grecaptcha"
+      "grecaptcha",
+      "jasmine"
     ]
   },
   "files": [

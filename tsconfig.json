@@ -43,13 +43,13 @@
     "useUnknownInCatchVariables": true,
     "paths": {
       "@dspace/core": [
-        "./dist/dspace/core"
+        "./projects/dspace/core/src/public-api.ts"
       ],
       "@dspace/config": [
-        "./dist/dspace/config"
+        "./projects/dspace/config/src/public-api.ts"
       ],
       "@dspace/utils": [
-        "./dist/dspace/utils"
+        "./projects/dspace/utils/src/public-api.ts"
       ]
     }
   },

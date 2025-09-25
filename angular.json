@@ -36,7 +36,7 @@
             "index": "src/index.html",
             "main": "src/main.browser.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "tsconfig.browser.json",
             "aot": true,
             "assets": [
               "src/assets",
@@ -82,8 +82,8 @@
                   "with": "src/environments/environment.production.ts"
                 },
                 {
-                  "replace": "projects/dspace/config/src/lib/store/devtools.ts",
-                  "with": "projects/dspace/config/src/lib/store/devtools.prod.ts"
+                  "replace": "src/app/ngrx-devtools/devtools.ts",
+                  "with": "src/app/ngrx-devtools/devtools.prod.ts"
                 }
               ],
               "optimization": true,
@@ -211,8 +211,8 @@
                   "with": "src/environments/environment.production.ts"
                 },
                 {
-                  "replace": "projects/dspace/config/src/lib/store/devtools.ts",
-                  "with": "projects/dspace/config/src/lib/store/devtools.prod.ts"
+                  "replace": "src/app/ngrx-devtools/devtools.ts",
+                  "with": "src/app/ngrx-devtools/devtools.prod.ts"
                 }
               ]
             }

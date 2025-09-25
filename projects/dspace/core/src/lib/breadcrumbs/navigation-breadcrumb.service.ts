@@ -3,11 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { Breadcrumb } from './models/breadcrumb.model';
-
-/**
- * The postfix for i18n breadcrumbs
- */
-export const BREADCRUMB_MESSAGE_POSTFIX = '.breadcrumbs';
+import { BREADCRUMB_MESSAGE_POSTFIX } from './i18n-breadcrumbs.service';
 
 /**
  * Service to calculate i18n breadcrumbs for a single part of the route

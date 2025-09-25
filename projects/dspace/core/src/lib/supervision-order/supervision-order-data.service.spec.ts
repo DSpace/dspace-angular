@@ -16,7 +16,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PageInfo } from '../shared/page-info.model';
 import { ObjectCacheServiceStub } from '../testing/object-cache-service.stub';
 import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
-import { ActionType } from './models/action-type.model';
+import { SupervisionOrderActionType } from './models/action-type.model';
 import { SupervisionOrderDataService } from './supervision-order-data.service';
 
 describe('SupervisionOrderService', () => {
@@ -33,7 +33,7 @@ describe('SupervisionOrderService', () => {
     id: '1',
     name: null,
     description: null,
-    action: ActionType.READ,
+    action: SupervisionOrderActionType.READ,
     startDate: null,
     endDate: null,
     type: 'supervisionOrder',
@@ -52,7 +52,7 @@ describe('SupervisionOrderService', () => {
     id: '2',
     name: null,
     description: null,
-    action: ActionType.WRITE,
+    action: SupervisionOrderActionType.WRITE,
     startDate: null,
     endDate: null,
     type: 'supervisionOrder',
