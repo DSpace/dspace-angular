@@ -4,7 +4,7 @@
   </div>
 
   @if (objectId) {
-    <!--<h2 class="h4 mt-4 mb-4">{{ object.name }} (<em>{{object.type}}</em>)</h2>-->
+    <h2 class="h4 mt-4 mb-4">{{ objectName }}</h2>
     @if ((auditsRD$ | async)?.payload; as audits) {
       <ds-audit-table
         [audits]="audits"

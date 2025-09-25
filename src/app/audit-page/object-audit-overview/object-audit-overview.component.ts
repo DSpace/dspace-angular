@@ -39,9 +39,11 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload} from '../../core/shared/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AuditTableComponent } from '../audit-table/audit-table.component';
+import {DSONameService} from '../../core/breadcrumbs/dso-name.service';
+import {DSpaceObjectDataService} from '../../core/data/dspace-object-data.service';
 /**
  * Component displaying a list of all audit about a object in a paginated table
  */
@@ -94,6 +96,8 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
 
   objectId: string;
 
+  objectName: string;
+
   dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
 
   sub: Subscription;
@@ -104,13 +108,18 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
               protected itemService: ItemDataService,
               protected paginationService: PaginationService,
               protected collectionDataService: CollectionDataService,
+              protected dsoNameService: DSONameService,
+              protected dSpaceObjectDataService: DSpaceObjectDataService,
   ) {}
 
   ngOnInit(): void {
     this.sub = this.route.paramMap.pipe(
       map((paramMap: ParamMap) => paramMap.get('objectId')),
-    ).subscribe((id) => {
-      this.objectId = id;
+      switchMap((id: string) => this.dSpaceObjectDataService.findById(id, true, true)),
+      getFirstSucceededRemoteDataPayload(),
+    ).subscribe((dso) => {
+      this.objectId = dso.id;
+      this.objectName = this.dsoNameService.getName(dso);
       this.setAudits();
     });
   }
@@ -128,7 +137,6 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
     const config$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config);
 
     this.auditsRD$ = config$.pipe(
-      tap(console.log),
       switchMap((config) =>
         this.auditService.findByObject(this.objectId, config).pipe(
           getFirstCompletedRemoteData(),
