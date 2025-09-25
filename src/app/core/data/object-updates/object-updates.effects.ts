@@ -6,7 +6,7 @@ import {
 } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import {
-  of as observableOf,
+  of,
   race as observableRace,
   Subject,
 } from 'rxjs';
@@ -122,7 +122,7 @@ export class ObjectUpdatesEffects {
 
         return observableRace(
           // Either wait for the delay and perform a remove action
-          observableOf(removeAction).pipe(delay(timeOut)),
+          of(removeAction).pipe(delay(timeOut)),
           // Or wait for a a user action
           this.actionMap$[url].pipe(
             take(1),

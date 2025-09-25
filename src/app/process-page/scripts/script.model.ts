@@ -23,37 +23,37 @@ export class Script implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The identifier of this script
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The name of this script
    */
   @autoserialize
-    name: string;
+  name: string;
 
   /**
    * A short description of this script
    */
   @autoserialize
-    description: string;
+  description: string;
 
   /**
    * The available parameters for this script
    */
   @autoserialize
-    parameters: ScriptParameter[];
+  parameters: ScriptParameter[];
 
   /**
    * The {@link HALLink}s for this Script
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
   };
 }

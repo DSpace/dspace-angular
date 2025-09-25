@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,7 +15,7 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
-  selector: 'ds-edit-bitstream-page',
+  selector: 'ds-themed-edit-bitstream-page',
   // styleUrls: ['./edit-bitstream-page.component.scss'],
   styleUrls: ['../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component.scss'],
   // templateUrl: './edit-bitstream-page.component.html',
@@ -26,16 +23,15 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    FormComponent,
-    NgIf,
-    VarDirective,
-    ThemedThumbnailComponent,
     AsyncPipe,
-    RouterLink,
     ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
     FileSizePipe,
+    FormComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class EditBitstreamPageComponent extends BaseComponent {

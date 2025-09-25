@@ -34,6 +34,7 @@ import { MyDSpaceActionsComponent } from './mydspace-actions';
  */
 @Component({
   selector: 'ds-mydspace-reloadable-actions',
+  standalone: true,
   template: '',
 })
 export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject, TService extends IdentifiableDataService<T>>
@@ -105,6 +106,8 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     if (result) {
       if (reloadedObject) {
         this.processCompleted.emit({ result, reloadedObject });
+        // Ensure that next time the page is requested the objects have the correct render type.
+        this.invalidateCacheForCurrentSearchUrl();
       } else {
         this.reload();
       }

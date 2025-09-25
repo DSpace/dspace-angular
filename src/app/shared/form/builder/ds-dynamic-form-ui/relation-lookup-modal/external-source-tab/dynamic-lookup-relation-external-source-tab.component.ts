@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ComponentRef,
@@ -63,7 +60,7 @@ import { ExternalSourceEntryImportModalComponent } from './external-source-entry
 import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-external-source-tab',
+  selector: 'ds-base-dynamic-lookup-relation-external-source-tab',
   styleUrls: ['./dynamic-lookup-relation-external-source-tab.component.scss'],
   templateUrl: './dynamic-lookup-relation-external-source-tab.component.html',
   providers: [
@@ -77,15 +74,14 @@ import { ThemedExternalSourceEntryImportModalComponent } from './external-source
     fadeInOut,
   ],
   imports: [
-    ThemedSearchFormComponent,
-    PageSizeSelectorComponent,
-    ObjectCollectionComponent,
-    VarDirective,
     AsyncPipe,
-    TranslateModule,
     ErrorComponent,
-    NgIf,
+    ObjectCollectionComponent,
+    PageSizeSelectorComponent,
     ThemedLoadingComponent,
+    ThemedSearchFormComponent,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })

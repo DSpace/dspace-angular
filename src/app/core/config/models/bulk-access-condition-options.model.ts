@@ -25,19 +25,19 @@ export class BulkAccessConditionOptions extends ConfigObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   @autoserializeAs(String, 'name')
-    uuid: string;
+  uuid: string;
 
   @autoserialize
-    id: string;
+  id: string;
 
   @autoserialize
-    itemAccessConditionOptions: AccessesConditionOption[];
+  itemAccessConditionOptions: AccessesConditionOption[];
 
   @autoserialize
-    bitstreamAccessConditionOptions: AccessesConditionOption[];
+  bitstreamAccessConditionOptions: AccessesConditionOption[];
 
   _links: { self: HALLink };
 }

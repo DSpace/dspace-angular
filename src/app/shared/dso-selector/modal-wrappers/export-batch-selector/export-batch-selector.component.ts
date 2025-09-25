@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -17,7 +16,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -54,10 +53,13 @@ import {
  * Used to choose a dso from to export metadata of
  */
 @Component({
-  selector: 'ds-export-metadata-selector',
+  selector: 'ds-export-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [NgIf, DSOSelectorComponent, TranslateModule],
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;
@@ -91,7 +93,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
           const startScriptSucceeded$ = this.startScriptNotifyAndRedirect(dso);
           return startScriptSucceeded$.pipe(
             switchMap((r: boolean) => {
-              return observableOf(r);
+              return of(r);
             }),
           );
         } else {
@@ -102,7 +104,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
       resp$.subscribe();
       return resp$;
     } else {
-      return observableOf(false);
+      return of(false);
     }
   }
 

@@ -16,6 +16,7 @@ import {
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
@@ -143,14 +144,8 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
       'byEntityType',
       {
         searchParams: [
-          {
-            fieldName: 'type',
-            fieldValue: type,
-          },
-          {
-            fieldName: 'size',
-            fieldValue: 100,
-          },
+          new RequestParam('type', type),
+          new RequestParam('size', 100),
         ],
       }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow,
     ).pipe(

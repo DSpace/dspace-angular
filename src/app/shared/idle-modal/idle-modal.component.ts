@@ -18,7 +18,9 @@ import { hasValue } from '../empty.util';
   selector: 'ds-idle-modal',
   templateUrl: 'idle-modal.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class IdleModalComponent implements OnInit {
 
@@ -37,7 +39,7 @@ export class IdleModalComponent implements OnInit {
    * An event fired when the modal is closed
    */
   @Output()
-    response = new EventEmitter<boolean>();
+  response = new EventEmitter<boolean>();
 
   constructor(private activeModal: NgbActiveModal,
               private authService: AuthService,

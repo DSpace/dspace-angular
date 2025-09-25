@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -12,6 +8,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
@@ -30,7 +27,7 @@ import {
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { Collection } from '../../core/shared/collection.model';
@@ -58,13 +55,11 @@ import {
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
   standalone: true,
   imports: [
+    AsyncPipe,
+    ComcolPageLogoComponent,
     FormComponent,
     TranslateModule,
     UploaderComponent,
-    AsyncPipe,
-    ComcolPageLogoComponent,
-    NgIf,
-    NgClass,
     VarDirective,
   ],
 })
@@ -95,12 +90,13 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
-                     protected dsoService: CommunityDataService,
+                     protected dsoService: CollectionDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
-                     protected chd: ChangeDetectorRef) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+                     protected chd: ChangeDetectorRef,
+                     protected modalService: NgbModal) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
   ngOnInit(): void {

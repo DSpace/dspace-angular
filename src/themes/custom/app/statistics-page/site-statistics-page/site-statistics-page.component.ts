@@ -8,17 +8,19 @@ import { SiteStatisticsPageComponent as BaseComponent } from '../../../../../app
 import { StatisticsTableComponent } from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
 
 @Component({
-  selector: 'ds-site-statistics-page',
+  selector: 'ds-themed-site-statistics-page',
   // styleUrls: ['./site-statistics-page.component.scss'],
   styleUrls: ['../../../../../app/statistics-page/site-statistics-page/site-statistics-page.component.scss'],
   // templateUrl: './site-statistics-page.component.html',
   templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html',
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-
-/**
- * Component representing the site-wide statistics page.
- */
-export class SiteStatisticsPageComponent extends BaseComponent {}
-
+export class SiteStatisticsPageComponent extends BaseComponent {
+}

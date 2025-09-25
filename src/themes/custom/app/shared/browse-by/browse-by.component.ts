@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgComponentOutlet,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ErrorComponent } from 'src/app/shared/error/error.component';
@@ -20,7 +15,7 @@ import { BrowseByComponent as BaseComponent } from '../../../../../app/shared/br
 import { StartsWithLoaderComponent } from '../../../../../app/shared/starts-with/starts-with-loader.component';
 
 @Component({
-  selector: 'ds-browse-by',
+  selector: 'ds-themed-browse-by',
   // styleUrls: ['./browse-by.component.scss'],
   styleUrls: ['../../../../../app/shared/browse-by/browse-by.component.scss'],
   // templateUrl: './browse-by.component.html',
@@ -30,7 +25,16 @@ import { StartsWithLoaderComponent } from '../../../../../app/shared/starts-with
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    StartsWithLoaderComponent,
+    ThemedLoadingComponent,
+    ThemedResultsBackButtonComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class BrowseByComponent extends BaseComponent {
 }

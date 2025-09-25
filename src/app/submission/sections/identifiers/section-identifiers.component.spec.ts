@@ -18,7 +18,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -202,9 +202,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(identifierData));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.getSectionData.and.returnValue(of(identifierData));
       const html = `<ds-submission-section-identifiers></ds-submission-section-identifiers>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -241,11 +241,11 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     // Test initialisation of the submission section
     it('Should init section properly', () => {
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
-      spyOn(comp, 'getSectionStatus').and.returnValue(observableOf(true));
-      spyOn(comp, 'getIdentifierData').and.returnValue(observableOf(identifierData));
+      spyOn(comp, 'getSectionStatus').and.returnValue(of(true));
+      spyOn(comp, 'getIdentifierData').and.returnValue(of(identifierData));
       expect(comp.isLoading).toBeTruthy();
       comp.onSectionInit();
       fixture.detectChanges();
@@ -276,10 +276,10 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
-    NgxPaginationModule],
+  ],
 })
 class TestComponent {
 

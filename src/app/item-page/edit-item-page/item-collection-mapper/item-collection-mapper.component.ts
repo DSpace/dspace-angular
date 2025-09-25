@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -61,6 +58,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
@@ -73,12 +71,12 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     fadeInOut,
   ],
   imports: [
-    NgbNavModule,
-    CollectionSelectComponent,
-    ThemedSearchFormComponent,
     AsyncPipe,
+    BrowserOnlyPipe,
+    CollectionSelectComponent,
+    NgbNavModule,
+    ThemedSearchFormComponent,
     TranslateModule,
-    NgIf,
   ],
   standalone: true,
 })

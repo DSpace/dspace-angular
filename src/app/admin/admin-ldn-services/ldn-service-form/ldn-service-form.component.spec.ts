@@ -30,10 +30,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { PaginationService } from 'ngx-pagination';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { RouteService } from '../../../core/services/route.service';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
@@ -94,8 +91,8 @@ describe('LdnServiceFormEditComponent', () => {
 
   beforeEach(async () => {
     ldnServicesService = jasmine.createSpyObj('ldnServicesService', {
-      create: observableOf(null),
-      update: observableOf(null),
+      create: of(null),
+      update: of(null),
       findById: createSuccessfulRemoteDataObject$({}),
     });
 
@@ -145,7 +142,7 @@ describe('LdnServiceFormEditComponent', () => {
 
   it('should init properties correctly', fakeAsync(() => {
     spyOn(component, 'fetchServiceData');
-    spyOn(component, 'setItemfilters');
+    spyOn(component, 'setItemFilters');
     component.ngOnInit();
     tick(100);
     expect((component as any).serviceId).toEqual(testId);
@@ -153,7 +150,7 @@ describe('LdnServiceFormEditComponent', () => {
     expect(component.areControlsInitialized).toBeTruthy();
     expect(component.formModel.controls.notifyServiceInboundPatterns).toBeDefined();
     expect(component.fetchServiceData).toHaveBeenCalledWith(testId);
-    expect(component.setItemfilters).toHaveBeenCalled();
+    expect(component.setItemFilters).toHaveBeenCalled();
   }));
 
   it('should unsubscribe on destroy', () => {

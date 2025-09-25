@@ -2,14 +2,13 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
+  OnDestroy,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
@@ -39,7 +38,7 @@ import {
   fadeInOut,
 } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -60,9 +59,17 @@ import { VarDirective } from '../../shared/utils/var.directive';
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, LoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-export class RecentItemListComponent implements OnInit {
+export class RecentItemListComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
@@ -96,6 +103,9 @@ export class RecentItemListComponent implements OnInit {
     const linksToFollow: FollowLinkConfig<Item>[] = [];
     if (this.appConfig.browseBy.showThumbnails) {
       linksToFollow.push(followLink('thumbnail'));
+    }
+    if (this.appConfig.item.showAccessStatuses) {
+      linksToFollow.push(followLink('accessStatus'));
     }
 
     this.itemRD$ = this.searchService.search(

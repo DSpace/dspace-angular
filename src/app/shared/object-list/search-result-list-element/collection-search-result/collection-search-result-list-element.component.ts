@@ -1,8 +1,8 @@
+import { NgClass } from '@angular/common';
 import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
-import { Component } from '@angular/core';
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Collection } from '../../../../core/shared/collection.model';
@@ -17,13 +17,17 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
   styleUrls: ['../search-result-list-element.component.scss', 'collection-search-result-list-element.component.scss'],
   templateUrl: 'collection-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, NgClass, ThemedBadgesComponent, RouterLink],
+  imports: [
+    NgClass,
+    RouterLink,
+    ThemedBadgesComponent,
+  ],
 })
 /**
  * Component representing a collection search result in list view
  */
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement)
-export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {
+export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> implements OnInit {
 
   /**
    * Display thumbnails if required by configuration

@@ -12,11 +12,17 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
  * Component representing the statistics page for a community.
  */
 @Component({
-  selector: 'ds-community-statistics-page',
+  selector: 'ds-base-community-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./community-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class CommunityStatisticsPageComponent extends StatisticsPageDirective<Community> {
 

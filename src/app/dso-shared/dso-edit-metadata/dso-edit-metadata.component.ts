@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -42,17 +38,19 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { lazyDataService } from '../../core/lazy-data-service';
+import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
@@ -62,11 +60,22 @@ import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 
 @Component({
-  selector: 'ds-dso-edit-metadata',
+  selector: 'ds-base-dso-edit-metadata',
   styleUrls: ['./dso-edit-metadata.component.scss'],
   templateUrl: './dso-edit-metadata.component.html',
   standalone: true,
-  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, LoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    DsoEditMetadataFieldValuesComponent,
+    DsoEditMetadataHeadersComponent,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataValueHeadersComponent,
+    MetadataFieldSelectorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them
@@ -144,6 +153,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Unsubscribed from in ngOnDestroy()
    */
   dsoUpdateSubscription: Subscription;
+
+  public readonly Context = Context;
 
   constructor(protected route: ActivatedRoute,
               protected notificationsService: NotificationsService,
@@ -244,7 +255,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   /**
    * Submit the current changes to the form by retrieving json PATCH operations from the form and sending it to the
    * DSpaceObject's data-service
-   * Display notificiations and reset the form afterwards if successful
+   * Display notifications and reset the form afterwards if successful
    */
   submit(): void {
     this.saving$.next(true);

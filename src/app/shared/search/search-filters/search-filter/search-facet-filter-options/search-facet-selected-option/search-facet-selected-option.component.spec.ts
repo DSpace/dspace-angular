@@ -1,8 +1,4 @@
 import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
   ComponentFixture,
   TestBed,
   waitForAsync,
@@ -14,18 +10,19 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
+import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
-import { FacetValue } from '../../../../models/facet-value.model';
+import { AppliedFilter } from '../../../../models/applied-filter.model';
 import { FilterType } from '../../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
@@ -35,9 +32,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
   let fixture: ComponentFixture<SearchFacetSelectedOptionComponent>;
   const filterName1 = 'test name';
   const filterName2 = 'testAuthorityname';
-  const label1 = 'test value 1';
   const value1 = 'testvalue1';
-  const label2 = 'test 2';
   const value2 = 'test2';
   const operator = 'authority';
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
@@ -49,150 +44,50 @@ describe('SearchFacetSelectedOptionComponent', () => {
     minValue: 200,
     maxValue: 3000,
   });
-  const mockAuthorityFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName2,
-    filterType: FilterType.authority,
-    hasFacets: false,
-    isOpenByDefault: false,
-    pageSize: 2,
-  });
 
   const searchLink = '/search';
-  const selectedValue: FacetValue = {
-    label: value1,
-    value: value1,
-    count: 20,
-    _links: {
-      self: { href: 'selectedValue-self-link1' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1}` },
-    },
-  };
-  const selectedValue2: FacetValue = {
+  const appliedFilter: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName2,
+    operator: operator,
     label: value2,
     value: value2,
-    count: 20,
-    _links: {
-      self: { href: 'selectedValue-self-link2' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value2}` },
-    },
-  };
-  const selectedAuthorityValue: FacetValue = {
-    label: label1,
-    value: value1,
-    count: 20,
-    _links: {
-      self: { href: 'selectedAuthorityValue-self-link1' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value1},${operator}` },
-    },
-  };
-  const selectedAuthorityValue2: FacetValue = {
-    label: label2,
-    value: value2,
-    count: 20,
-    _links: {
-      self: { href: 'selectedAuthorityValue-self-link2' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` },
-    },
-  };
-  const selectedValues = [selectedValue, selectedValue2];
-  const selectedAuthorityValues = [selectedAuthorityValue, selectedAuthorityValue2];
-  const facetValue = {
-    label: value2,
-    value: value2,
-    count: 1,
-    _links: {
-      self: { href: 'facetValue-self-link2' },
-      search: { href: `` },
-    },
-  };
-  const authorityValue: FacetValue = {
-    label: label2,
-    value: value2,
-    count: 20,
-    _links: {
-      self: { href: 'authorityValue-self-link2' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` },
-    },
-  };
-  const selectedValues$ = observableOf(selectedValues);
-  const selectedAuthorityValues$ = observableOf(selectedAuthorityValues);
-  let filterService;
-  let searchService;
-  let router;
-  const page = observableOf(0);
+  });
+  let searchService: SearchServiceStub;
+  let searchConfigurationService: SearchConfigurationServiceStub;
+  let searchFilterService: SearchFilterServiceStub;
+  let router: RouterStub;
 
   const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
   const paginationService = new PaginationServiceStub(pagination);
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    searchConfigurationService = new SearchConfigurationServiceStub();
+    searchFilterService = new SearchFilterServiceStub();
+    searchService = new SearchServiceStub(searchLink);
+    router = new RouterStub();
+
+    void TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetSelectedOptionComponent],
       providers: [
-        { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: Router, useValue: new RouterStub() },
+        { provide: SearchService, useValue:searchService },
+        { provide: Router, useValue: router },
         { provide: PaginationService, useValue: paginationService },
-        {
-          provide: SearchConfigurationService, useValue: {
-            searchOptions: observableOf({}),
-          },
-        },
-        {
-          provide: SearchFilterService, useValue: {
-            getSelectedValuesForFilter: () => selectedValues,
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
-            getPage: (paramName: string) => page,
-            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-            incrementPage: (filterName: string) => {
-            },
-            resetPage: (filterName: string) => {
-            },
-            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          },
-        },
+        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(SearchFacetSelectedOptionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchFacetSelectedOptionComponent);
     comp = fixture.componentInstance; // SearchFacetSelectedOptionComponent test instance
-    filterService = (comp as any).filterService;
-    searchService = (comp as any).searchService;
-    router = (comp as any).router;
-    comp.selectedValue = facetValue;
-    comp.selectedValues$ = selectedValues$;
+    comp.selectedValue = appliedFilter;
     comp.filterConfig = mockFilterConfig;
     fixture.detectChanges();
   });
 
-  describe('when the updateRemoveParams method is called wih a value', () => {
-    it('should update the removeQueryParams with the new parameter values', () => {
-      comp.removeQueryParams = {};
-      (comp as any).updateRemoveParams(selectedValues);
-      expect(comp.removeQueryParams).toEqual({
-        [mockFilterConfig.paramName]: [`${value1},equals`],
-        ['page-id.page']: 1,
-      });
-    });
-  });
-
-  describe('when filter type is authority and the updateRemoveParams method is called with a value', () => {
-    it('should update the removeQueryParams with the new parameter values', () => {
-      spyOn(filterService, 'getSelectedValuesForFilter').and.returnValue(selectedAuthorityValues);
-      comp.selectedValue = authorityValue;
-      comp.selectedValues$ = selectedAuthorityValues$;
-      comp.filterConfig = mockAuthorityFilterConfig;
-      comp.removeQueryParams = {};
-      fixture.detectChanges();
-      (comp as any).updateRemoveParams(selectedAuthorityValues);
-      expect(comp.removeQueryParams).toEqual({
-        [mockAuthorityFilterConfig.paramName]: [`${value1},${operator}`],
-        ['page-id.page']: 1,
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

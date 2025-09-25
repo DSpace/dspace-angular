@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -15,6 +15,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { RequestEntryState } from '../../../../../../core/data/request-entry-state.model';
 import { Group } from '../../../../../../core/eperson/models/group.model';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
@@ -33,7 +34,12 @@ import { ErrorComponent } from '../../../../../../shared/error/error.component';
   styleUrls: ['./supervision-order-group-selector.component.scss'],
   templateUrl: './supervision-order-group-selector.component.html',
   standalone: true,
-  imports: [FormsModule, NgIf, ErrorComponent, EpersonGroupListComponent, TranslateModule],
+  imports: [
+    EpersonGroupListComponent,
+    ErrorComponent,
+    FormsModule,
+    TranslateModule,
+  ],
 })
 export class SupervisionOrderGroupSelectorComponent {
 
@@ -95,7 +101,7 @@ export class SupervisionOrderGroupSelectorComponent {
       this.supervisionOrderDataService.create(supervisionDataObject, this.itemUUID, this.selectedGroup.uuid, this.selectedOrderType).pipe(
         getFirstCompletedRemoteData(),
       ).subscribe((rd: RemoteData<SupervisionOrder>) => {
-        if (rd.state === 'Success') {
+        if (rd.state === RequestEntryState.Success) {
           this.notificationsService.success(this.translateService.get('supervision-group-selector.notification.create.success.title', { name: this.dsoNameService.getName(this.selectedGroup) }));
           this.create.emit(rd.payload);
           this.close();

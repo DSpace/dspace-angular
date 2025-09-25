@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -12,23 +9,18 @@ import { ObjectCollectionComponent } from '../../../../../../../app/shared/objec
 import { VarDirective } from '../../../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-community-page-sub-community-list',
+  selector: 'ds-themed-community-page-sub-community-list',
   // styleUrls: ['./community-page-sub-community-list.component.scss'],
   styleUrls: ['../../../../../../../app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component.scss'],
   // templateUrl: './community-page-sub-community-list.component.html',
   templateUrl: '../../../../../../../app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component.html',
   standalone: true,
   imports: [
-    ErrorComponent,
-    ThemedLoadingComponent,
-    VarDirective,
-    NgIf,
-    ObjectCollectionComponent,
     AsyncPipe,
-    TranslateModule,
-    ObjectCollectionComponent,
     ErrorComponent,
+    ObjectCollectionComponent,
     ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
 })

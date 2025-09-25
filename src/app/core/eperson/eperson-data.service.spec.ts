@@ -15,7 +15,7 @@ import {
   Operation,
 } from 'fast-json-patch';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   EPeopleRegistryCancelEPersonAction,
@@ -31,6 +31,7 @@ import {
 import {
   EPersonMock,
   EPersonMock2,
+  EPersonMockWithNoName,
 } from '../../shared/testing/eperson.mock';
 import { GroupMock } from '../../shared/testing/group-mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
@@ -46,6 +47,7 @@ import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
+import { RemoteData } from '../data/remote-data';
 import {
   PatchRequest,
   PostRequest,
@@ -114,7 +116,7 @@ describe('EPersonDataService', () => {
     it('search by default scope (byMetadata) and no query', () => {
       service.searchByScope(null, '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))],
+        searchParams: [Object.assign(new RequestParam('query', ''))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -122,7 +124,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and no query', () => {
       service.searchByScope('metadata', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))],
+        searchParams: [Object.assign(new RequestParam('query', ''))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -130,7 +132,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and with query', () => {
       service.searchByScope('metadata', 'test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('test')))],
+        searchParams: [Object.assign(new RequestParam('query', 'test'))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -140,7 +142,7 @@ describe('EPersonDataService', () => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))],
+        searchParams: [Object.assign(new RequestParam('email', ''))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
@@ -151,7 +153,7 @@ describe('EPersonDataService', () => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
       service.searchByScope('email', EPersonMock.email);
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))],
+        searchParams: [Object.assign(new RequestParam('email', EPersonMock.email))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
@@ -280,10 +282,41 @@ describe('EPersonDataService', () => {
     });
   });
 
+  describe('updateEPerson with non existing metadata', () => {
+    beforeEach(() => {
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMockWithNoName));
+    });
+    describe('add name that was not previously set', () => {
+      beforeEach(() => {
+        const changedEPerson = Object.assign(new EPerson(), {
+          id: EPersonMock.id,
+          metadata: Object.assign(EPersonMock.metadata, {
+            'eperson.firstname': [
+              {
+                language: null,
+                value: 'User',
+              },
+            ],
+          }),
+          email: EPersonMock.email,
+          canLogIn: EPersonMock.canLogIn,
+          requireCertificate: EPersonMock.requireCertificate,
+          _links: EPersonMock._links,
+        });
+        service.updateEPerson(changedEPerson).subscribe();
+      });
+      it('should send PatchRequest with add email operation', () => {
+        const operations = [{ op: 'add', path: '/eperson.firstname', value: [{ language: null, value: 'User' }] }];
+        const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
+      });
+    });
+  });
+
   describe('clearEPersonRequests', () => {
     beforeEach(() => {
       spyOn(halService, 'getEndpoint').and.callFake((linkPath: string) => {
-        return observableOf(`${restEndpointURL}/${linkPath}`);
+        return of(`${restEndpointURL}/${linkPath}`);
       });
     });
     it('should remove the eperson hrefs in the request service', fakeAsync(() => {
@@ -351,6 +384,21 @@ describe('EPersonDataService', () => {
     });
   });
 
+  describe('mergeEPersonDataWithToken', () => {
+    const uuid = '1234-5678-9012-3456';
+    const token = 'abcd-efgh-ijkl-mnop';
+    const metadataKey = 'eperson.firstname';
+    beforeEach(() => {
+      spyOn(service, 'mergeEPersonDataWithToken').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
+    });
+
+    it('should merge EPerson data with token', () => {
+      service.mergeEPersonDataWithToken(uuid, token, metadataKey).subscribe((result: RemoteData<EPerson>) => {
+        expect(result.hasSucceeded).toBeTrue();
+      });
+      expect(service.mergeEPersonDataWithToken).toHaveBeenCalledWith(uuid, token, metadataKey);
+    });
+  });
 });
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {

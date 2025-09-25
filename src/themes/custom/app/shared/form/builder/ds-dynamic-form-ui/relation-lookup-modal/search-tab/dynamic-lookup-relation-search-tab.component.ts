@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,7 +10,7 @@ import { ThemedSearchComponent } from '../../../../../../../../../app/shared/sea
 import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-search-tab',
+  selector: 'ds-themed-dynamic-lookup-relation-search-tab',
   // styleUrls: ['./dynamic-lookup-relation-search-tab.component.scss'],
   styleUrls: ['../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component.scss'],
   // templateUrl: './dynamic-lookup-relation-search-tab.component.html',
@@ -27,13 +24,11 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
   standalone: true,
   imports: [
     AsyncPipe,
-    VarDirective,
-    TranslateModule,
     NgbDropdownModule,
-    NgIf,
     ThemedSearchComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class DsDynamicLookupRelationSearchTabComponent extends BaseComponent {
-
 }

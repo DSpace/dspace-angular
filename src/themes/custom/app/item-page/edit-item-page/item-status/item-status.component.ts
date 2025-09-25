@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -19,7 +17,7 @@ import {
 } from '../../../../../../app/shared/animations/fade';
 
 @Component({
-  selector: 'ds-item-status',
+  selector: 'ds-themed-item-status',
   // templateUrl: './item-status.component.html',
   templateUrl: '../../../../../../app/item-page/edit-item-page/item-status/item-status.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -29,13 +27,11 @@ import {
   ],
   standalone: true,
   imports: [
-    TranslateModule,
-    NgForOf,
     AsyncPipe,
-    NgIf,
-    RouterLink,
     ItemOperationComponent,
     NgClass,
+    RouterLink,
+    TranslateModule,
   ],
 })
 export class ItemStatusComponent extends BaseComponent {

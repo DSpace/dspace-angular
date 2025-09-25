@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -9,7 +9,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
@@ -17,13 +17,15 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { RegistryServiceStub } from '../../../../shared/testing/registry.service.stub';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataFieldFormComponent } from './metadata-field-form.component';
 
 describe('MetadataFieldFormComponent', () => {
   let component: MetadataFieldFormComponent;
   let fixture: ComponentFixture<MetadataFieldFormComponent>;
-  let registryService: RegistryService;
+
+  let registryService: RegistryServiceStub;
 
   const metadataSchema = Object.assign(new MetadataSchema(), {
     id: 1,
@@ -31,37 +33,16 @@ describe('MetadataFieldFormComponent', () => {
     prefix: 'fake',
   });
 
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  const registryServiceStub = {
-    getActiveMetadataField: () => observableOf(undefined),
-    createMetadataField: (field: MetadataField) => observableOf(field),
-    updateMetadataField: (field: MetadataField) => observableOf(field),
-    cancelEditMetadataField: () => {
-    },
-    cancelEditMetadataSchema: () => {
-    },
-    clearMetadataFieldRequests: () => observableOf(undefined),
-  };
-  const formBuilderServiceStub = {
-    createFormGroup: () => {
-      return {
-        patchValue: () => {
-        },
-        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
-        },
-      };
-    },
-  };
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-
   beforeEach(waitForAsync(() => {
+    registryService = new RegistryServiceStub();
+
     return TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataFieldFormComponent, EnumKeysPipe],
       providers: [
-        { provide: RegistryService, useValue: registryServiceStub },
+        { provide: RegistryService, useValue: registryService },
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideComponent(MetadataFieldFormComponent, {
         remove: { imports: [FormComponent] },
@@ -105,7 +86,7 @@ describe('MetadataFieldFormComponent', () => {
 
     describe('without an active field', () => {
       beforeEach(() => {
-        spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(undefined));
+        spyOn(registryService, 'getActiveMetadataField').and.returnValue(of(undefined));
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -126,7 +107,7 @@ describe('MetadataFieldFormComponent', () => {
       });
 
       beforeEach(() => {
-        spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(expectedWithId));
+        spyOn(registryService, 'getActiveMetadataField').and.returnValue(of(expectedWithId));
         component.onSubmit();
         fixture.detectChanges();
       });

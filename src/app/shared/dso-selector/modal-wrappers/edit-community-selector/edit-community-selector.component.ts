@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -18,7 +17,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -30,10 +29,13 @@ import {
  */
 
 @Component({
-  selector: 'ds-edit-community-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  selector: 'ds-base-edit-community-selector',
+  templateUrl: './edit-community-selector.component.html',
   standalone: true,
-  imports: [NgIf, DSOSelectorComponent, TranslateModule],
+  imports: [
+    AuthorizedCommunitySelectorComponent,
+    TranslateModule,
+  ],
 })
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {

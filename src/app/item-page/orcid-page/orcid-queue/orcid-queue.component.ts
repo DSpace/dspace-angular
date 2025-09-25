@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
@@ -37,7 +38,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -47,16 +48,16 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
   templateUrl: './orcid-queue.component.html',
   styleUrls: ['./orcid-queue.component.scss'],
   imports: [
+    AlertComponent,
     CommonModule,
     NgbTooltipModule,
-    TranslateModule,
-    LoadingComponent,
-    AlertComponent,
     PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
-export class OrcidQueueComponent implements OnInit, OnDestroy {
+export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
 
   /**
    * The item for which showing the orcid settings
@@ -79,13 +80,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   /**
    * A list of orcid queue records
    */
-  private list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
+  list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
 
   /**
    * The AlertType enumeration
-   * @type {AlertType}
    */
-  AlertTypeEnum = AlertType;
+  readonly AlertTypeEnum = AlertType;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -129,13 +129,6 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
         this.orcidQueueService.clearFindByProfileItemRequests();
       }),
     );
-  }
-
-  /**
-   * Return the list of orcid queue records
-   */
-  getList(): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
-    return this.list$.asObservable();
   }
 
   /**

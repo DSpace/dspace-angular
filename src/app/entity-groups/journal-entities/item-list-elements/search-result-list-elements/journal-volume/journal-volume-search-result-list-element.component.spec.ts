@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
@@ -26,7 +26,7 @@ import { TruncatableComponent } from '../../../../../shared/truncatable/truncata
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
 
 let journalVolumeListElementComponent: JournalVolumeSearchResultListElementComponent;
@@ -36,7 +36,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -63,7 +63,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -103,7 +103,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
+          ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
         ],
       },
     }).compileComponents();
@@ -196,7 +196,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThumbnailComponent,
+          ThemedThumbnailComponent,
           ThemedBadgesComponent,
           TruncatableComponent,
           TruncatablePartComponent,

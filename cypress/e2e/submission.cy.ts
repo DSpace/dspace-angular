@@ -34,7 +34,7 @@ describe('New Submission page', () => {
                 // Author & Subject fields have invalid "aria-multiline" attrs.
                 // See https://github.com/DSpace/dspace-angular/issues/1272
                 'aria-allowed-attr': { enabled: false },
-                // All panels are accordians & fail "aria-required-children" and "nested-interactive".
+                // All panels are accordions & fail "aria-required-children" and "nested-interactive".
                 // Seem to require updating ng-bootstrap and https://github.com/DSpace/dspace-angular/issues/2216
                 'aria-required-children': { enabled: false },
                 'nested-interactive': { enabled: false },
@@ -95,7 +95,7 @@ describe('New Submission page', () => {
       // A success alert should be visible
       cy.get('ds-notification div.alert-success').should('be.visible');
       // Now, dismiss any open alert boxes (may be multiple, as tests run quickly)
-      cy.get('[data-dismiss="alert"]').click({ multiple: true });
+      cy.get('[data-bs-dismiss="alert"]').click({ multiple: true });
 
       // This is the GET command that will actually run the search
       cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');
@@ -137,7 +137,7 @@ describe('New Submission page', () => {
 
     // Upload our DSpace logo via drag & drop onto submission form
     // cy.get('div#section_upload')
-    cy.get('div.ds-document-drop-zone').selectFile('src/assets/images/dspace-logo.png', {
+    cy.get('div.ds-document-drop-zone').selectFile('src/assets/images/dspace-logo.svg', {
       action: 'drag-drop',
     });
 
@@ -192,7 +192,7 @@ describe('New Submission page', () => {
     testA11y('ds-submission-edit',
             {
               rules: {
-                // All panels are accordians & fail "aria-required-children" and "nested-interactive".
+                // All panels are accordions & fail "aria-required-children" and "nested-interactive".
                 // Seem to require updating ng-bootstrap and https://github.com/DSpace/dspace-angular/issues/2216
                 'aria-required-children': { enabled: false },
                 'nested-interactive': { enabled: false },
@@ -217,7 +217,7 @@ describe('New Submission page', () => {
     });
 
     // Close popup window
-    cy.get('ds-dynamic-lookup-relation-modal button.close').click();
+    cy.get('ds-dynamic-lookup-relation-modal button.btn-close').click();
 
     // Back on the form, click the discard button to remove new submission
     // Clicking it will display a confirmation, which we will confirm with another click

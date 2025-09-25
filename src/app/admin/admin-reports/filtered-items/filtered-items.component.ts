@@ -1,10 +1,7 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import {
@@ -23,13 +20,16 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   map,
   Observable,
 } from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { MetadataFieldDataService } from 'src/app/core/data/metadata-field-data.service';
 import { MetadataSchemaDataService } from 'src/app/core/data/metadata-schema-data.service';
+import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
 import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
@@ -37,13 +37,18 @@ import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
 import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
 import { Collection } from 'src/app/core/shared/collection.model';
 import { Community } from 'src/app/core/shared/community.model';
-import { Item } from 'src/app/core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 import { isEmpty } from 'src/app/shared/empty.util';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { environment } from 'src/environments/environment';
 
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
-import { FilteredItems } from './filtered-items-model';
+import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv/filtered-items-export-csv.component';
+import {
+  FilteredItem,
+  FilteredItems,
+} from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';
@@ -56,19 +61,25 @@ import { QueryPredicate } from './query-predicate.model';
   templateUrl: './filtered-items.component.html',
   styleUrls: ['./filtered-items.component.scss'],
   imports: [
-    ReactiveFormsModule,
-    NgbAccordionModule,
-    TranslateModule,
     AsyncPipe,
-    NgIf,
-    NgForOf,
+    BtnDisabledDirective,
+    FilteredItemsExportCsvComponent,
     FiltersComponent,
+    NgbAccordionModule,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
-export class FilteredItemsComponent {
+export class FilteredItemsComponent implements OnInit {
 
   collections: OptionVO[];
+  /**
+   * A Boolean representing if loading the list of collections is pending
+   */
+  loadingCollections$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   presetQueries: PresetQuery[];
   metadataFields: OptionVO[];
   metadataFieldsWithAny: OptionVO[];
@@ -78,8 +89,12 @@ export class FilteredItemsComponent {
   queryForm: FormGroup;
   currentPage = 0;
   results: FilteredItems = new FilteredItems();
-  results$: Observable<Item[]>;
+  results$: Observable<FilteredItem[]>;
   @ViewChild('acc') accordionComponent: NgbAccordion;
+  /**
+   * Observable used to determine whether CSV export is enabled
+   */
+  csvExportEnabled$: Observable<boolean>;
 
   constructor(
     private communityService: CommunityDataService,
@@ -87,10 +102,12 @@ export class FilteredItemsComponent {
     private metadataSchemaService: MetadataSchemaDataService,
     private metadataFieldService: MetadataFieldDataService,
     private translateService: TranslateService,
+    private scriptDataService: ScriptDataService,
+    private authorizationDataService: AuthorizationDataService,
     private formBuilder: FormBuilder,
     private restService: DspaceRestService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadCollections();
     this.loadPresetQueries();
     this.loadMetadataFields();
@@ -100,6 +117,8 @@ export class FilteredItemsComponent {
     const formQueryPredicates: FormGroup[] = [
       new QueryPredicate().toFormGroup(this.formBuilder),
     ];
+
+    this.csvExportEnabled$ = FilteredItemsExportCsvComponent.csvExportEnabled(this.scriptDataService, this.authorizationDataService);
 
     this.queryForm = this.formBuilder.group({
       collections: this.formBuilder.control([''], []),
@@ -112,6 +131,7 @@ export class FilteredItemsComponent {
   }
 
   loadCollections(): void {
+    this.loadingCollections$.next(true);
     this.collections = [];
     const wholeRepo$ = this.translateService.stream('admin.reports.items.wholeRepo');
     this.collections.push(OptionVO.collectionLoc('', wholeRepo$));
@@ -133,6 +153,7 @@ export class FilteredItemsComponent {
                   const collVO = OptionVO.collection(collection.uuid, '–' + collection.name);
                   this.collections.push(collVO);
                 });
+              this.loadingCollections$.next(false);
             },
           );
         });
@@ -168,10 +189,10 @@ export class FilteredItemsComponent {
         QueryPredicate.of('dc.description.provenance', QueryPredicate.DOES_NOT_MATCH, '^.*No\. of bitstreams(.|\r|\n|\r\n)*\.(PDF|pdf|DOC|doc|PPT|ppt|DOCX|docx|PPTX|pptx).*$'),
       ]),
       PresetQuery.of('q9', 'admin.reports.items.preset.hasEmptyMetadata', [
-        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\s*$'),
+        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\\s*$'),
       ]),
       PresetQuery.of('q10', 'admin.reports.items.preset.hasUnbreakingDataInDescription', [
-        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*[^\s]{50,}.*$'),
+        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*(\\S){50,}.*$'),
       ]),
       PresetQuery.of('q12', 'admin.reports.items.preset.hasXmlEntityInMetadata', [
         QueryPredicate.of('*', QueryPredicate.MATCHES, '^.*&#.*$'),
@@ -345,13 +366,8 @@ export class FilteredItemsComponent {
 
     const preds = this.queryForm.value.queryPredicates;
     for (let i = 0; i < preds.length; i++) {
-      const field = preds[i].field;
-      const op = preds[i].operator;
-      const value = preds[i].value;
-      params += `&queryPredicates=${field}:${op}`;
-      if (value) {
-        params += `:${value}`;
-      }
+      const pred = encodeURIComponent(QueryPredicate.toString(preds[i]));
+      params += `&queryPredicates=${pred}`;
     }
 
     const filters = FiltersComponent.toQueryString(this.queryForm.value.filters);

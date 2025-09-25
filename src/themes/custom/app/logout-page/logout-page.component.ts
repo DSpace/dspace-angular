@@ -5,13 +5,16 @@ import { LogoutPageComponent as BaseComponent } from '../../../../app/logout-pag
 import { LogOutComponent } from '../../../../app/shared/log-out/log-out.component';
 
 @Component({
-  selector: 'ds-logout-page',
+  selector: 'ds-themed-logout-page',
   // styleUrls: ['./logout-page.component.scss'],
   styleUrls: ['../../../../app/logout-page/logout-page.component.scss'],
   // templateUrl: './logout-page.component.html'
   templateUrl: '../../../../app/logout-page/logout-page.component.html',
   standalone: true,
-  imports: [LogOutComponent, TranslateModule],
+  imports: [
+    LogOutComponent,
+    TranslateModule,
+  ],
 })
 export class LogoutPageComponent extends BaseComponent {
 }

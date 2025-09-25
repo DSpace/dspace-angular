@@ -87,7 +87,7 @@ describe('ScriptsSelectComponent', () => {
     fixture.detectChanges();
     tick();
 
-    const select = fixture.debugElement.query(By.css('select'));
+    const select = fixture.debugElement.query(By.css('#process-script'));
     select.triggerEventHandler('blur', null);
 
     fixture.detectChanges();
@@ -101,7 +101,7 @@ describe('ScriptsSelectComponent', () => {
     fixture.detectChanges();
     tick();
 
-    const select = fixture.debugElement.query(By.css('select'));
+    const select = fixture.debugElement.query(By.css('#process-script'));
     select.triggerEventHandler('blur', null);
 
     fixture.detectChanges();

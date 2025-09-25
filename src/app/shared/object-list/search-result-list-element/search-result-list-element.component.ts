@@ -46,7 +46,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   }
 
   /**
-   * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
+   * Gets all matching metadata string values from hitHighlights or dso metadata.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
    * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute. Defaults to `true` because we
@@ -54,7 +54,16 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * @returns {string[]} the matching string values or an empty array.
    */
   allMetadataValues(keyOrKeys: string | string[], injectedAsHTML = true): string[] {
-    return Metadata.allValues(this.dso.metadata, keyOrKeys, this.object.hitHighlights, undefined, injectedAsHTML);
+    const dsoMetadata: string[] = Metadata.allValues(this.dso.metadata, keyOrKeys, undefined, undefined, injectedAsHTML);
+    const highlights: string[] = Metadata.allValues({}, keyOrKeys, this.object.hitHighlights, undefined, injectedAsHTML);
+    const removedHighlights: string[] = highlights.map(str => str.replace(/<\/?em>/g, ''));
+    for (let i = 0; i < removedHighlights.length; i++) {
+      const index = dsoMetadata.indexOf(removedHighlights[i]);
+      if (index !== -1) {
+        dsoMetadata[index] = highlights[i];
+      }
+    }
+    return dsoMetadata;
   }
 
   /**

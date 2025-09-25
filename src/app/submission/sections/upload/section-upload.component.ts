@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -72,13 +68,11 @@ export interface AccessConditionGroupsMapEntry {
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
   imports: [
-    ThemedSubmissionSectionUploadFileComponent,
-    SubmissionSectionUploadAccessConditionsComponent,
-    NgIf,
     AlertComponent,
-    TranslateModule,
-    NgForOf,
     AsyncPipe,
+    SubmissionSectionUploadAccessConditionsComponent,
+    ThemedSubmissionSectionUploadFileComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -227,20 +221,21 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         this.changeDetectorRef.detectChanges();
       }),
 
-
       // retrieve submission's bitstream data from state
-      combineLatest([this.configMetadataForm$,
-        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id)]).pipe(
-        filter(([configMetadataForm, { files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-          return isNotEmpty(configMetadataForm) && isNotEmpty(files);
+      combineLatest([
+        this.configMetadataForm$,
+        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id),
+      ]).pipe(
+        filter(([configMetadataForm, sectionUploadObject]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+          return isNotEmpty(configMetadataForm) && isNotEmpty(sectionUploadObject);
         }),
-        distinctUntilChanged())
-        .subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-          this.primaryBitstreamUUID = primary;
-          this.fileList = files;
-          this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
-        },
-        ),
+        distinctUntilChanged(),
+      ).subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+        this.primaryBitstreamUUID = primary;
+        this.fileList = files;
+        this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
+        this.changeDetectorRef.detectChanges();
+      }),
     );
   }
 

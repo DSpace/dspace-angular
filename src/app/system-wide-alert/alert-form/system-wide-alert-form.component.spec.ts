@@ -170,7 +170,7 @@ describe('SystemWideAlertFormComponent', () => {
   });
 
   describe('save', () => {
-    it('should update the exising alert with the form values and show a success notification on success and navigate back', () => {
+    it('should update the existing alert with the form values and show a success notification on success and navigate back', () => {
       spyOn(comp, 'back');
       comp.currentAlert = systemWideAlert;
 
@@ -184,7 +184,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 
@@ -193,7 +193,7 @@ describe('SystemWideAlertFormComponent', () => {
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('systemwidealerts');
       expect(comp.back).toHaveBeenCalled();
     });
-    it('should update the exising alert with the form values and show a success notification on success and not navigate back when false is provided to the save method', () => {
+    it('should update the existing alert with the form values and show a success notification on success and not navigate back when false is provided to the save method', () => {
       spyOn(comp, 'back');
       comp.currentAlert = systemWideAlert;
 
@@ -207,7 +207,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save(false);
 
@@ -216,7 +216,7 @@ describe('SystemWideAlertFormComponent', () => {
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('systemwidealerts');
       expect(comp.back).not.toHaveBeenCalled();
     });
-    it('should update the exising alert with the form values but add an empty countdown date when disabled and show a success notification on success', () => {
+    it('should update the existing alert with the form values but add an empty countdown date when disabled and show a success notification on success', () => {
       spyOn(comp, 'back');
       comp.currentAlert = systemWideAlert;
 
@@ -239,7 +239,7 @@ describe('SystemWideAlertFormComponent', () => {
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('systemwidealerts');
       expect(comp.back).toHaveBeenCalled();
     });
-    it('should update the exising alert with the form values and show a error notification on error', () => {
+    it('should update the existing alert with the form values and show a error notification on error', () => {
       spyOn(comp, 'back');
       (systemWideAlertDataService.put as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
       comp.currentAlert = systemWideAlert;
@@ -254,7 +254,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 
@@ -276,7 +276,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 
@@ -301,7 +301,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 

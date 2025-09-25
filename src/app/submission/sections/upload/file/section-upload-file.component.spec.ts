@@ -18,10 +18,7 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -51,6 +48,7 @@ import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './themed-section-upload-file.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 
 const configMetadataFormMock = {
@@ -200,7 +198,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     });
 
     it('should init file data properly', () => {
-      uploadService.getFileData.and.returnValue(observableOf(fileData));
+      uploadService.getFileData.and.returnValue(of(fileData));
 
       comp.ngOnChanges({});
 
@@ -230,7 +228,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     it('should delete primary if file we delete is primary', () => {
       compAsAny.isPrimary = true;
       compAsAny.pathCombiner = pathCombiner;
-      operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
+      operationsService.jsonPatchByResourceID.and.returnValue(of({}));
       compAsAny.deleteFile();
       expect(operationsBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('primary'));
       expect(uploadService.updateFilePrimaryBitstream).toHaveBeenCalledWith(submissionId, sectionId, null);
@@ -239,14 +237,14 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     it('should NOT delete primary if file we delete is NOT primary', () => {
       compAsAny.isPrimary = false;
       compAsAny.pathCombiner = pathCombiner;
-      operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
+      operationsService.jsonPatchByResourceID.and.returnValue(of({}));
       compAsAny.deleteFile();
       expect(uploadService.updateFilePrimaryBitstream).not.toHaveBeenCalledTimes(1);
     });
 
     it('should delete file properly', () => {
       compAsAny.pathCombiner = pathCombiner;
-      operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
+      operationsService.jsonPatchByResourceID.and.returnValue(of({}));
       submissionServiceStub.getSubmissionObjectLinkName.and.returnValue('workspaceitems');
 
       compAsAny.deleteFile();
@@ -284,10 +282,10 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    SubmissionSectionUploadFileComponent,
-    CommonModule,
     AsyncPipe,
-    NgbModule],
+    NgbModule,
+    ThemedSubmissionSectionUploadFileComponent,
+  ],
 })
 class TestComponent {
 

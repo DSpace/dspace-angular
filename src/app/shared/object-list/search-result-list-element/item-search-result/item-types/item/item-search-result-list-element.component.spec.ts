@@ -10,7 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
 import { AuthService } from '../../../../../../core/auth/auth.service';
@@ -42,7 +42,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
   },
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -80,7 +80,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {},
     }),
 });
@@ -92,7 +92,7 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   },
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       entityType: 'Person',
       metadata: {
         'dc.title': [
@@ -146,7 +146,7 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   },
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       entityType: 'OrgUnit',
       metadata: {
         'dc.title': [
@@ -247,7 +247,7 @@ describe('ItemSearchResultListElementComponent', () => {
       expect(publicationListElementComponent.showThumbnails).toBeTrue();
     });
 
-    it('should add ds-thumbnail element', () => {
+    it('should add thumbnail element', () => {
       const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeTruthy();
     });
@@ -428,7 +428,7 @@ describe('ItemSearchResultListElementComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add ds-thumbnail element', () => {
+    it('should not add thumbnail element', () => {
       const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeFalsy();
     });

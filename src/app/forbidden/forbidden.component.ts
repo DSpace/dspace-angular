@@ -12,11 +12,14 @@ import { ServerResponseService } from '../core/services/server-response.service'
  * This component representing the `Forbidden` DSpace page.
  */
 @Component({
-  selector: 'ds-forbidden',
+  selector: 'ds-base-forbidden',
   templateUrl: './forbidden.component.html',
   styleUrls: ['./forbidden.component.scss'],
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ForbiddenComponent implements OnInit {
 

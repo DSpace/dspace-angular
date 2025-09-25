@@ -10,7 +10,10 @@ import {
   NgbCollapse,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -50,6 +53,8 @@ describe('ProcessOverviewTableComponent', () => {
   let processes: Process[];
   let ePerson: EPerson;
 
+  let translateServiceSpy: jasmine.SpyObj<TranslateService>;
+
   function init() {
     processes = [
       Object.assign(new Process(), {
@@ -58,6 +63,7 @@ describe('ProcessOverviewTableComponent', () => {
         startTime: '2020-03-19 00:30:00',
         endTime: '2020-03-19 23:30:00',
         processStatus: ProcessStatus.COMPLETED,
+        userId: 'testid',
       }),
       Object.assign(new Process(), {
         processId: 2,
@@ -65,6 +71,7 @@ describe('ProcessOverviewTableComponent', () => {
         startTime: '2020-03-20 00:30:00',
         endTime: '2020-03-20 23:30:00',
         processStatus: ProcessStatus.FAILED,
+        userId: 'testid',
       }),
       Object.assign(new Process(), {
         processId: 3,
@@ -72,9 +79,12 @@ describe('ProcessOverviewTableComponent', () => {
         startTime: '2020-03-21 00:30:00',
         endTime: '2020-03-21 23:30:00',
         processStatus: ProcessStatus.RUNNING,
+        userId: 'testid',
       }),
     ];
     ePerson = Object.assign(new EPerson(), {
+      id: 'testid',
+      uuid: 'testid',
       metadata: {
         'eperson.firstname': [
           {
@@ -132,6 +142,8 @@ describe('ProcessOverviewTableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     init();
+
+    translateServiceSpy = jasmine.createSpyObj('TranslateService', ['get']);
 
     void TestBed.configureTestingModule({
       declarations: [NgbCollapse],
@@ -216,5 +228,44 @@ describe('ProcessOverviewTableComponent', () => {
       expect(deleteRow.nativeElement.innerHTML).toContain('/processes/' + processes[1].processId);
     });
 
+  });
+
+  describe('getEPersonName function', () => {
+    it('should return unknown user when id is null', (done: DoneFn) => {
+      const id = null;
+      const expectedTranslation = 'process.overview.unknown.user';
+
+      translateServiceSpy.get(expectedTranslation);
+
+      component.getEPersonName(id).subscribe((result: string) => {
+        expect(result).toBe(expectedTranslation);
+        done();
+      });
+      expect(translateServiceSpy.get).toHaveBeenCalledWith('process.overview.unknown.user');
+    });
+
+    it('should return unknown user when id is invalid', (done: DoneFn) => {
+      const id = '';
+      const expectedTranslation = 'process.overview.unknown.user';
+
+      translateServiceSpy.get(expectedTranslation);
+
+      component.getEPersonName(id).subscribe((result: string) => {
+        expect(result).toBe(expectedTranslation);
+        done();
+      });
+      expect(translateServiceSpy.get).toHaveBeenCalledWith('process.overview.unknown.user');
+    });
+
+    it('should return EPerson name when id is correct', (done: DoneFn) => {
+      const id = 'testid';
+      const expectedName = 'John Doe';
+
+      component.getEPersonName(id).subscribe((result: string) => {
+        expect(result).toEqual(expectedName);
+        done();
+      });
+      expect(translateServiceSpy.get).not.toHaveBeenCalled();
+    });
   });
 });

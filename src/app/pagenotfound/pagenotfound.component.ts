@@ -13,12 +13,15 @@ import { ServerResponseService } from '../core/services/server-response.service'
  * This component representing the `PageNotFound` DSpace page.
  */
 @Component({
-  selector: 'ds-pagenotfound',
+  selector: 'ds-base-pagenotfound',
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class PageNotFoundComponent implements OnInit {
 

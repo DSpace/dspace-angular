@@ -1,8 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
-import { Component } from '@angular/core';
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   ActivatedRoute,
   Router,
@@ -26,26 +26,27 @@ import {
 } from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({
-  selector: 'ds-forgot-password-form',
+  selector: 'ds-base-forgot-password-form',
   styleUrls: ['./forgot-password-form.component.scss'],
   templateUrl: './forgot-password-form.component.html',
   imports: [
-    TranslateModule,
-    BrowserOnlyPipe,
-    ProfilePageSecurityFormComponent,
     AsyncPipe,
-    NgIf,
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    ProfilePageSecurityFormComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
 /**
  * Component for a user to enter a new password for a forgot token.
  */
-export class ForgotPasswordFormComponent {
+export class ForgotPasswordFormComponent implements OnInit {
 
   registration$: Observable<Registration>;
 

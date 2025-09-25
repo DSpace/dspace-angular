@@ -15,7 +15,7 @@ import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   delay,
@@ -66,7 +66,7 @@ export class ServerSyncBufferEffects {
       exhaustMap((action: AddToSSBAction) => {
         const autoSyncConfig = environment.cache.autoSync;
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
-        return observableOf(new CommitSSBAction(action.payload.method)).pipe(
+        return of(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),
         );
       }),
@@ -109,7 +109,7 @@ export class ServerSyncBufferEffects {
                 switchMap((array) => [...array, new EmptySSBAction(action.payload)]),
               );
             } else {
-              return observableOf(new NoOpAction());
+              return of(new NoOpAction());
             }
           }),
         );

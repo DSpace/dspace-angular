@@ -4,22 +4,22 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   inject,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   ItemMockPid10,
   NotificationsMockDspaceObject,
@@ -86,7 +86,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
   const searchServiceStub: any = getMockSearchService();
 
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -106,7 +106,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
       .overrideComponent(ProjectEntryImportModalComponent, {
         remove: {
           imports: [
-            LoadingComponent,
+            ThemedLoadingComponent,
             ThemedSearchResultsComponent,
             AlertComponent,
           ],
@@ -122,7 +122,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      searchServiceStub.search.and.returnValue(observableOf(paginatedListRD));
+      searchServiceStub.search.and.returnValue(of(paginatedListRD));
       const html = `
         <ds-project-entry-import-modal [externalSourceEntry]="eventData"></ds-project-entry-import-modal>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -156,7 +156,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
     describe('search', () => {
       it('should call SearchService.search', () => {
 
-        (searchServiceStub as any).search.and.returnValue(observableOf(paginatedListRD));
+        (searchServiceStub as any).search.and.returnValue(of(paginatedListRD));
         comp.pagination = pagination;
 
         comp.search(searchString);
@@ -231,7 +231,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
 })
 class TestComponent {
   eventData = eventData;

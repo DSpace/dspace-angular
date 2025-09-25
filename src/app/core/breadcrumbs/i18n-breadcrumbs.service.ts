@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
@@ -26,6 +26,6 @@ export class I18nBreadcrumbsService implements BreadcrumbsProviderService<string
    * @param url The url to use as a link for this breadcrumb
    */
   getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {
-    return observableOf([new Breadcrumb(key + BREADCRUMB_MESSAGE_POSTFIX, url)]);
+    return of([new Breadcrumb(key + BREADCRUMB_MESSAGE_POSTFIX, url)]);
   }
 }

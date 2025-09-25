@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -30,7 +30,6 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
   styleUrls: ['./submission-import-external-preview.component.scss'],
   templateUrl: './submission-import-external-preview.component.html',
   imports: [
-    NgFor,
     TranslateModule,
   ],
   standalone: true,
@@ -43,7 +42,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
    * The entry metadata list
    */
-  public metadataList: { key: string, value: MetadataValue }[];
+  public metadataList: { key: string, values: MetadataValue[] }[];
   /**
    * The label prefix to use to generate the translation label
    */
@@ -78,7 +77,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     metadataKeys.forEach((key) => {
       this.metadataList.push({
         key: key,
-        value: Metadata.first(this.externalSourceEntry.metadata, key),
+        values: Metadata.all(this.externalSourceEntry.metadata, key),
       });
     });
   }

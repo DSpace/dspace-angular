@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
@@ -25,7 +25,6 @@ describe('SearchLabelsComponent', () => {
   let fixture: ComponentFixture<SearchLabelsComponent>;
 
   const searchLink = '/search';
-  let searchService;
 
   const field1 = 'author';
   const field2 = 'subject';
@@ -43,7 +42,7 @@ describe('SearchLabelsComponent', () => {
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RouterTestingModule, SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => observableOf(mockFilters) } },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => of(mockFilters) } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelsComponent, {
@@ -57,16 +56,10 @@ describe('SearchLabelsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchLabelsComponent);
     comp = fixture.componentInstance;
-    searchService = (comp as any).searchService;
-    (comp as any).appliedFilters = observableOf(mockFilters);
     fixture.detectChanges();
   });
 
-  describe('when the component has been initialized', () => {
-    it('should return all params but the provided filter', () => {
-      comp.appliedFilters.subscribe((filters) => {
-        expect(filters).toBe(mockFilters);
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

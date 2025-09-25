@@ -28,7 +28,7 @@ export const initialMenusState: MenusState = {
       id: MenuID.DSO_EDIT,
       collapsed: true,
       previewCollapsed: true,
-      visible: false,
+      visible: true,
       sections: {},
       sectionToSubsectionIndex: {},
     },

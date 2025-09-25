@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -40,7 +40,7 @@ export class SignpostingDataService {
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
       catchError((err: unknown) => {
-        return observableOf([]);
+        return of([]);
       }),
       map((res: RawRestResponse) => res.statusCode === 200 ? res.payload as SignpostingLink[] : []),
     );

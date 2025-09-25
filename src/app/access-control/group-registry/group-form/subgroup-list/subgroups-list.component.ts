@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -63,14 +59,12 @@ enum SubKey {
   selector: 'ds-subgroups-list',
   templateUrl: './subgroups-list.component.html',
   imports: [
-    RouterLink,
     AsyncPipe,
-    NgForOf,
     ContextHelpDirective,
-    TranslateModule,
-    ReactiveFormsModule,
     PaginationComponent,
-    NgIf,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -80,7 +74,7 @@ enum SubKey {
 export class SubgroupsListComponent implements OnInit, OnDestroy {
 
   @Input()
-    messagePrefix: string;
+  messagePrefix: string;
 
   /**
    * Result of search groups, initially all groups

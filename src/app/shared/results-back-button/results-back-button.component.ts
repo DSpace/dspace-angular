@@ -9,12 +9,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'ds-results-back-button',
+  selector: 'ds-base-results-back-button',
   styleUrls: ['./results-back-button.component.scss'],
   templateUrl: './results-back-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [
+    AsyncPipe,
+  ],
 })
 /**
  * Component for creating a back to result list button.

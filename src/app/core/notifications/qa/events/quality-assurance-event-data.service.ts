@@ -16,6 +16,7 @@ import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import {
   CreateData,
@@ -97,10 +98,7 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
    */
   public getEventsByTopic(topic: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceEventObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceEventObject>>> {
     options.searchParams = [
-      {
-        fieldName: 'topic',
-        fieldValue: topic,
-      },
+      new RequestParam('topic', topic),
     ];
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }

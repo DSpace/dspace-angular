@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -43,7 +40,14 @@ import { ScriptsSelectComponent } from './scripts-select/scripts-select.componen
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ScriptsSelectComponent, ProcessParametersComponent, RouterLink, ScriptHelpComponent, NgIf, NgFor, TranslateModule],
+  imports: [
+    FormsModule,
+    ProcessParametersComponent,
+    RouterLink,
+    ScriptHelpComponent,
+    ScriptsSelectComponent,
+    TranslateModule,
+  ],
 })
 export class ProcessFormComponent implements OnInit {
   /**
@@ -177,5 +181,27 @@ export class ProcessFormComponent implements OnInit {
     };
     void this.router.navigate([getProcessListRoute()], extras);
   }
-}
 
+  updateScript($event: Script) {
+    this.selectedScript = $event;
+    this.parameters = undefined;
+  }
+
+  get generatedProcessName() {
+    const paramsString = this.parameters?.map((p: ProcessParameter) => {
+      const value = this.parseValue(p.value);
+      return isEmpty(value) ? p.name : `${p.name} ${value}`;
+    }).join(' ') || '';
+    return isEmpty(paramsString) ? this.selectedScript.name : `${this.selectedScript.name} ${paramsString}`;
+  }
+
+  private parseValue(value: any) {
+    if (typeof value === 'boolean') {
+      return undefined;
+    }
+    if (value instanceof File) {
+      return value.name;
+    }
+    return value?.toString();
+  }
+}

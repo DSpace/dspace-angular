@@ -2,11 +2,7 @@ import {
   CdkTreeModule,
   FlatTreeControl,
 } from '@angular/cdk/tree';
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -38,11 +34,19 @@ import { FlatNode } from '../flat-node.model';
  * Which nodes were expanded is kept in the store, so this persists across pages.
  */
 @Component({
-  selector: 'ds-community-list',
+  selector: 'ds-base-community-list',
   templateUrl: './community-list.component.html',
   styleUrls: ['./community-list.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    CdkTreeModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 

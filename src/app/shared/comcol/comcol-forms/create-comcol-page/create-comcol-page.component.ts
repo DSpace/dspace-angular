@@ -4,12 +4,19 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
   mergeMap,
   take,
+  tap,
 } from 'rxjs/operators';
 
+import { getHomePageRoute } from '../../../../app-routing-paths';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RequestParam } from '../../../../core/cache/models/request-param.model';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
@@ -62,6 +69,11 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
    */
   protected type: ResourceType;
 
+  /**
+   * The
+   */
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
     public dsoNameService: DSONameService,
@@ -89,6 +101,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
    * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
    */
   onSubmit(event) {
+    this.isLoading$.next(true);
     const dso = event.dso;
     const uploader = event.uploader;
 
@@ -99,29 +112,44 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
         return this.dsoDataService.create(dso, ...params)
           .pipe(getFirstSucceededRemoteDataPayload(),
           );
-      }))
-      .subscribe((dsoRD: TDomain) => {
+      }),
+      mergeMap((dsoRD: TDomain) => {
         if (isNotUndefined(dsoRD)) {
           this.newUUID = dsoRD.uuid;
           if (uploader.queue.length > 0) {
-            this.dsoDataService.getLogoEndpoint(this.newUUID).pipe(take(1)).subscribe((href: string) => {
-              uploader.options.url = href;
-              uploader.uploadAll();
-            });
+            return this.dsoDataService.getLogoEndpoint(this.newUUID).pipe(
+              take(1),
+              tap((href: string) => {
+                uploader.options.url = href;
+                uploader.onCompleteAll = () => {
+                  this.isLoading$.next(false);
+                  this.navigateToNewPage();
+                  this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
+                };
+                uploader.uploadAll();
+              }),
+              map(() => false),
+            );
           } else {
-            this.navigateToNewPage();
+            this.dsoDataService.refreshCache(dsoRD);
+            return of(true);
           }
-          this.dsoDataService.refreshCache(dsoRD);
         }
+      }),
+    ).subscribe((notify: boolean) => {
+      if (notify) {
+        this.isLoading$.next(false);
+        this.navigateToNewPage();
         this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
-      });
+      }
+    });
   }
 
   /**
    * Navigate to home page
    */
   navigateToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate([getHomePageRoute()]);
   }
 
   /**

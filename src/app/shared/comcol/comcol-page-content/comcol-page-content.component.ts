@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -12,24 +12,29 @@ import { TranslateModule } from '@ngx-translate/core';
  * To see how it is used see collection-page or community-page.
  */
 @Component({
-  selector: 'ds-comcol-page-content',
+  selector: 'ds-base-comcol-page-content',
   styleUrls: ['./comcol-page-content.component.scss'],
   templateUrl: './comcol-page-content.component.html',
   imports: [
     TranslateModule,
-    NgIf,
   ],
   standalone: true,
 })
 export class ComcolPageContentComponent {
 
-  // Optional title
+  /**
+   * Optional title
+   */
   @Input() title: string;
 
-  // The content to render. Might be html
+  /**
+   * The content to render. Might be html
+   */
   @Input() content: string;
 
-  // flag whether the content contains html syntax or not
+  /**
+   * flag whether the content contains html syntax or not
+   */
   @Input() hasInnerHtml: boolean;
 
 }

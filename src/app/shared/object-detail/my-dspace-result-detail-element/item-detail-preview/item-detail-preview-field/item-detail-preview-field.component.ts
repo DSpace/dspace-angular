@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -17,10 +14,13 @@ import { SearchResult } from '../../../../search/models/search-result.model';
  * This component show values for the given item metadata
  */
 @Component({
-  selector: 'ds-item-detail-preview-field',
+  selector: 'ds-base-item-detail-preview-field',
   templateUrl: './item-detail-preview-field.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgIf, NgFor, TranslateModule],
+  imports: [
+    MetadataFieldWrapperComponent,
+    TranslateModule,
+  ],
 })
 export class ItemDetailPreviewFieldComponent {
 

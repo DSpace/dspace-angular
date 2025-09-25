@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -26,9 +23,7 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
   ],
   standalone: true,
   imports: [
-    NgForOf,
     TranslateModule,
-    NgIf,
   ],
 })
 /**
@@ -43,7 +38,7 @@ export class AdminNotifyDetailModalComponent {
    * An event fired when the modal is closed
    */
   @Output()
-    response = new EventEmitter<boolean>();
+  response = new EventEmitter<boolean>();
 
   public isCoarMessageVisible = false;
 

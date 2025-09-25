@@ -17,19 +17,19 @@ export class Filetypes {
    * The id of this {@link Filetypes}
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The values of this {@link Filetypes}
    */
   @autoserialize
-    values: string[];
+  values: string[];
 
   /**
    * The object type
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
 }

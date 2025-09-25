@@ -19,7 +19,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
@@ -228,7 +228,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
             componentInstance: {
               externalSourceEntry: null,
               label: null,
-              importedObject: observableOf({
+              importedObject: of({
                 indexableObject: NotificationsMockDspaceObject,
               }),
             },
@@ -247,7 +247,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
     describe('executeAction', () => {
       it('should call getQualityAssuranceEvents on 200 response from REST', () => {
         const action = 'ACCEPTED';
-        spyOn(compAsAny, 'getQualityAssuranceEvents').and.returnValue(observableOf([
+        spyOn(compAsAny, 'getQualityAssuranceEvents').and.returnValue(of([
           getQualityAssuranceEventData1(),
           getQualityAssuranceEventData2(),
         ]));
@@ -323,8 +323,8 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         ];
         const paginatedList = buildPaginatedList(pageInfo, array);
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-        qualityAssuranceEventRestServiceStub.getEventsByTopic.and.returnValue(observableOf(paginatedListRD));
-        spyOn(compAsAny, 'fetchEvents').and.returnValue(observableOf([
+        qualityAssuranceEventRestServiceStub.getEventsByTopic.and.returnValue(of(paginatedListRD));
+        spyOn(compAsAny, 'fetchEvents').and.returnValue(of([
           getQualityAssuranceEventData1(),
           getQualityAssuranceEventData2(),
         ]));
@@ -351,7 +351,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
 })
 class TestComponent {
 
