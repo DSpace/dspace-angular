@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -21,7 +22,7 @@ import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
 import { AuditDataService } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
-import { ItemDataService } from '../../core/data/item-data.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
 import { RouterMock } from '../../shared/mocks/router.mock';
@@ -38,10 +39,13 @@ describe('ObjectAuditOverviewComponent', () => {
 
   let auditService: AuditDataService;
   let audits: Audit[];
-  let itemService: ItemDataService;
+  let dSpaceObjectDataService: DSpaceObjectDataService;
   let collectionService;
   let activatedRoute;
-
+  let locationStub: Location;
+  const mockItem = new Item();
+  const mockItemId = '1234';
+  mockItem.id = mockItemId;
 
   function init() {
     audits = [ AuditMock ];
@@ -49,14 +53,18 @@ describe('ObjectAuditOverviewComponent', () => {
       findByObject: createSuccessfulRemoteDataObject$(createPaginatedList(audits)),
       getEpersonName: of('Eperson Name'),
       auditHasDetails: false,
+      getOtherObject: of(new Audit()),
     });
-    itemService = jasmine.createSpyObj('ItemService', { findById: createSuccessfulRemoteDataObject$(new Item()) });
+    dSpaceObjectDataService = jasmine.createSpyObj('DSpaceObjectDataService', { findById: createSuccessfulRemoteDataObject$(mockItem) });
     collectionService = jasmine.createSpyObj('CollectionDataService',
       { findOwningCollectionFor: createSuccessfulRemoteDataObject$(createPaginatedList([{ id : 'collectionId' }])) },
     );
-    activatedRoute = new MockActivatedRoute({ objectId: '1234' });
+    activatedRoute = new MockActivatedRoute({ objectId: mockItemId });
     activatedRoute.paramMap = of({
-      get: () => '1234',
+      get: () => mockItemId,
+    });
+    locationStub = jasmine.createSpyObj('location', {
+      back: jasmine.createSpy('back'),
     });
   }
 
@@ -73,11 +81,12 @@ describe('ObjectAuditOverviewComponent', () => {
       providers: [
         { provide: AuditDataService, useValue: auditService },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
-        { provide: ItemDataService, useValue: itemService },
+        { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: new RouterMock() },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: APP_DATA_SERVICES_MAP, useValue: new Map() },
+        { provide: Location, useValue: locationStub },
         provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -104,8 +113,12 @@ describe('ObjectAuditOverviewComponent', () => {
       expect(component.setAudits).toHaveBeenCalled();
     }));
 
-    it('should set owning collection', () => {
-      expect(component.owningCollection$).toBeTruthy();
+    it('should set object id', (done) => {
+      component.objectId$.subscribe((id) => {
+        expect(id).toEqual(mockItemId);
+        expect(component.objectId).toEqual(id);
+        done();
+      });
     });
   });
 });

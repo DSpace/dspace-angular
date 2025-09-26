@@ -62,18 +62,17 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    *
    * @param objectId The objectId id
    * @param options The [[FindListOptions]] object
-   * @param collUuid The Uuid of the collection
-   * @param commUuid The Uuid of the community
+   * @param useCachedVersionIfAvailable
    * @return Observable<RemoteData<PaginatedList<Audit>>>
    */
-  findByObject(objectId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Audit>>> {
+  findByObject(objectId: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true): Observable<RemoteData<PaginatedList<Audit>>> {
     const searchMethod = AUDIT_FIND_BY_OBJECT_SEARCH_METHOD;
     const searchParams = [new RequestParam('object', objectId)];
 
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams,
     });
-    return this.searchData.searchBy(searchMethod, optionsWithObject, true, true, followLink('eperson'));
+    return this.searchData.searchBy(searchMethod, optionsWithObject, useCachedVersionIfAvailable, true, followLink('eperson'));
   }
 
   /**

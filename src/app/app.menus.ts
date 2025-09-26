@@ -94,6 +94,8 @@ export const MENUS = buildMenuStructure({
         MenuRoute.ITEM_PAGE,
       ),
       AuditLogsMenuProvider.onRoute(
+        MenuRoute.COMMUNITY_PAGE,
+        MenuRoute.COLLECTION_PAGE,
         MenuRoute.ITEM_PAGE,
       ),
       OrcidMenuProvider.onRoute(

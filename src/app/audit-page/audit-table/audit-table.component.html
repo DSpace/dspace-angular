@@ -63,17 +63,13 @@
                 <td>{{ audit.subjectType }}</td>
               } @else {
                 <td>
-                  @if (object && object.id === audit.objectUUID) {
-                    <span>
-                      @if (audit.otherAuditObject; as dso) {
-                        {{ dsoNameService.getName(dso) }} <em>({{ dso.type }})</em>
-                      } @else {
-                        {{ dataNotAvailable }}
-                      }
-                    </span>
-                  } @else {
-                    {{ dataNotAvailable }}
-                  }
+                  <span>
+                    @if (audit.otherAuditObject; as dso) {
+                      {{ dsoNameService.getName(dso) }} <em>({{ dso.type }})</em>
+                    } @else {
+                      {{ dataNotAvailable }}
+                    }
+                  </span>
                 </td>
               }
             </tr>

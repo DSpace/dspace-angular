@@ -1,7 +1,9 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+} from '@angular/common';
 import {
   Component,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -12,38 +14,38 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  combineLatest,
   forkJoin,
   Observable,
-  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
   mergeMap,
-  switchMap, tap,
+  switchMap,
+  tap,
 } from 'rxjs/operators';
 
-import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
+import { getDSORoute } from '../../app-routing-paths';
 import {
   AUDIT_PERSON_NOT_AVAILABLE,
   AuditDataService,
 } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { Collection } from '../../core/shared/collection.model';
-import { Item } from '../../core/shared/item.model';
-import {getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload} from '../../core/shared/operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AuditTableComponent } from '../audit-table/audit-table.component';
-import {DSONameService} from '../../core/breadcrumbs/dso-name.service';
-import {DSpaceObjectDataService} from '../../core/data/dspace-object-data.service';
 /**
  * Component displaying a list of all audit about a object in a paginated table
  */
@@ -58,12 +60,12 @@ import {DSpaceObjectDataService} from '../../core/data/dspace-object-data.servic
   ],
   standalone: true,
 })
-export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
+export class ObjectAuditOverviewComponent implements OnInit {
 
   /**
    * The object extracted from the route.
    */
-  object: Item;
+  object: DSpaceObject;
 
   /**
    * List of all audits
@@ -94,40 +96,39 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
+  objectId$: Observable<string>;
+
   objectId: string;
 
   objectName: string;
 
-  dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
+  objectRoute: string;
 
-  sub: Subscription;
+  dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,
               protected auditService: AuditDataService,
-              protected itemService: ItemDataService,
               protected paginationService: PaginationService,
               protected collectionDataService: CollectionDataService,
               protected dsoNameService: DSONameService,
               protected dSpaceObjectDataService: DSpaceObjectDataService,
+              protected location: Location,
   ) {}
 
   ngOnInit(): void {
-    this.sub = this.route.paramMap.pipe(
+    this.objectId$ = this.route.paramMap.pipe(
       map((paramMap: ParamMap) => paramMap.get('objectId')),
       switchMap((id: string) => this.dSpaceObjectDataService.findById(id, true, true)),
       getFirstSucceededRemoteDataPayload(),
-    ).subscribe((dso) => {
-      this.objectId = dso.id;
-      this.objectName = this.dsoNameService.getName(dso);
-      this.setAudits();
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
+      tap((object) => {
+        this.objectRoute = getDSORoute(object);
+        this.objectId = object.id;
+        this.objectName = this.dsoNameService.getName(object);
+        this.setAudits();
+      }),
+      map(dso => dso.id),
+    );
   }
 
   /**
@@ -138,7 +139,7 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
 
     this.auditsRD$ = config$.pipe(
       switchMap((config) =>
-        this.auditService.findByObject(this.objectId, config).pipe(
+        this.auditService.findByObject(this.objectId, config, false).pipe(
           getFirstCompletedRemoteData(),
         ),
       ),
@@ -174,5 +175,9 @@ export class ObjectAuditOverviewComponent implements OnInit, OnDestroy {
         );
       }),
     );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

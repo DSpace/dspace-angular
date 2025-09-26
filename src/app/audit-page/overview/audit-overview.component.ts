@@ -89,7 +89,7 @@ export class AuditOverviewComponent implements OnInit {
   setAudits() {
     this.auditsRD$ = this.paginationService.getFindListOptions(this.pageId, this.config).pipe(
       switchMap((config) => {
-        return this.auditService.findAll(config, true, true, followLink('eperson'));
+        return this.auditService.findAll(config, false, true, followLink('eperson'));
       }),
       filter(data => data && data?.payload?.page?.length > 0),
       map((audits) => {

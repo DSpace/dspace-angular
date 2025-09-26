@@ -3,8 +3,10 @@
     <h1 class="flex-grow-1">{{'audit.object.overview.title' | translate}}</h1>
   </div>
 
-  @if (objectId) {
-    <h2 class="h4 mt-4 mb-4">{{ objectName }}</h2>
+  @if (objectId$ | async) {
+    <div class="h4 my-4">
+      <a [routerLink]="objectRoute">{{ objectName }}</a>
+    </div>
     @if ((auditsRD$ | async)?.payload; as audits) {
       <ds-audit-table
         [audits]="audits"
@@ -12,7 +14,9 @@
         [object]="object"
       ></ds-audit-table>
     }
-    <a class="btn btn-light mt-3" [routerLink]="['/items', objectId]"><i class="fas fa-arrow-left"></i>{{ 'audit.object.back' | translate }}</a>
+    <button class="btn btn-light mt-3" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i>{{ 'audit.object.back' | translate }}
+    </button>
     @if ((auditsRD$ | async)?.statusCode === 404) {
       <h2 class="h4 mt-4 mb-4">{{'audit.object.overview.disabled.message' | translate}}</h2>
     }
