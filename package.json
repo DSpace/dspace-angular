@@ -108,7 +108,6 @@
     "@ng-dynamic-forms/core": "^16.0.0",
     "@ng-dynamic-forms/ui-ng-bootstrap": "^16.0.0",
     "@ngrx/effects": "^18.1.1",
-    "@ngrx/operators": "^18.0.0",
     "@ngrx/router-store": "^18.1.1",
     "@ngrx/store": "^18.1.1",
     "@ngx-translate/core": "^16.0.3",
