@@ -393,11 +393,7 @@ const main = (): void => {
   DECORATORS.forEach(decoratorConfig => {
     registriesToDelete.delete(getDecoratorFileName(decoratorConfig.name));
     const componentsForDecorator = decoratorMap.get(decoratorConfig.name);
-    if (componentsForDecorator && componentsForDecorator.length > 0) {
-      writeRegistryFile(decoratorConfig, componentsForDecorator);
-    } else {
-      console.warn(`No components found for decorator '${decoratorConfig.name}'`);
-    }
+    writeRegistryFile(decoratorConfig, componentsForDecorator);
   });
 
   registriesToDelete.forEach((fileName: string) => rmSync(join(REGISTRY_OUTPUT_DIR, fileName)));
