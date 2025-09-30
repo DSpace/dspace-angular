@@ -21,7 +21,7 @@ module.exports = function (config) {
       }
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/dspace-angular'),
+      dir: require('node:path').join(__dirname, './coverage/dspace-angular'),
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
