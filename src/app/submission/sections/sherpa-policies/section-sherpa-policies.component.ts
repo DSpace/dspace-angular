@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -42,16 +38,14 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
   templateUrl: './section-sherpa-policies.component.html',
   styleUrls: ['./section-sherpa-policies.component.scss'],
   imports: [
+    AlertComponent,
+    AsyncPipe,
     MetadataInformationComponent,
     NgbCollapseModule,
-    AlertComponent,
-    TranslateModule,
-    PublisherPolicyComponent,
-    NgIf,
     PublicationInformationComponent,
-    AsyncPipe,
+    PublisherPolicyComponent,
+    TranslateModule,
     VarDirective,
-    NgForOf,
   ],
   standalone: true,
 })

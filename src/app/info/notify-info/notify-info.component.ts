@@ -17,9 +17,9 @@ import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-inf
   templateUrl: './notify-info.component.html',
   styleUrls: ['./notify-info.component.scss'],
   imports: [
+    AsyncPipe,
     RouterLink,
     TranslateModule,
-    AsyncPipe,
   ],
   standalone: true,
 })

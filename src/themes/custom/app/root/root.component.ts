@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -27,21 +26,19 @@ import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-aler
   animations: [slideSidebarPadding],
   standalone: true,
   imports: [
-    TranslateModule,
-    ThemedAdminSidebarComponent,
-    SystemWideAlertBannerComponent,
-    ThemedHeaderNavbarWrapperComponent,
-    ThemedBreadcrumbsComponent,
-    NgIf,
-    NgClass,
-    ThemedLoadingComponent,
-    RouterOutlet,
-    ThemedFooterComponent,
-    NotificationsBoardComponent,
     AsyncPipe,
     LiveRegionComponent,
+    NgClass,
+    NotificationsBoardComponent,
+    RouterOutlet,
+    SystemWideAlertBannerComponent,
+    ThemedAdminSidebarComponent,
+    ThemedBreadcrumbsComponent,
+    ThemedFooterComponent,
+    ThemedHeaderNavbarWrapperComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
 })
 export class RootComponent extends BaseComponent {
-
 }

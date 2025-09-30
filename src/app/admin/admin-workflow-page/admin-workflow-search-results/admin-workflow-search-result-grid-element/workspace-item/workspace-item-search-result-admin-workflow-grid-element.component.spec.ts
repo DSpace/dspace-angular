@@ -7,7 +7,7 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
@@ -83,7 +83,7 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           { provide: ThemeService, useValue: themeService },
           {
             provide: TruncatableService, useValue: {
-              isCollapsed: () => observableOf(true),
+              isCollapsed: () => of(true),
             },
           },
           { provide: BitstreamDataService, useValue: {} },

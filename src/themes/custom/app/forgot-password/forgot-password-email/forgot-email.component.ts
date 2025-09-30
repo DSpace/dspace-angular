@@ -14,8 +14,5 @@ import { ForgotEmailComponent as BaseComponent } from '../../../../../app/forgot
     ThemedRegisterEmailFormComponent,
   ],
 })
-/**
- * Component responsible the forgot password email step
- */
 export class ForgotEmailComponent extends BaseComponent {
 }

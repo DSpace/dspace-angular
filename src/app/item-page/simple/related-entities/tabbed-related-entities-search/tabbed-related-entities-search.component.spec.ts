@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
@@ -43,7 +43,13 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: observableOf({ tab: mockRelationType }),
+            queryParams: of({ tab: mockRelationType }),
+            snapshot: {
+              queryParams: {
+                scope: 'collection-uuid',
+                query: 'test',
+              },
+            },
           },
         },
         { provide: Router, useValue: router },
@@ -89,8 +95,10 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         relativeTo: (comp as any).route,
         queryParams: {
           tab: event.nextId,
+          query: 'test',
+          scope: 'collection-uuid',
+          'spc.page': 1,
         },
-        queryParamsHandling: 'merge',
       });
     });
   });

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -20,7 +21,7 @@ import { cold } from 'jasmine-marbles';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -74,7 +75,7 @@ const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   dispatch: {},
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  select: observableOf(true),
+  select: of(true),
 });
 const sortConfigList: SortConfig[] = [
   { name: 'score', sortOrder: SortDirection.DESC },
@@ -129,11 +130,11 @@ const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchO
   page: [mockDso, mockDso2],
 });
 const mockResultsRD: RemoteData<SearchObjects<DSpaceObject>> = createSuccessfulRemoteDataObject(mockSearchResults);
-const mockResultsRD$: Observable<RemoteData<SearchObjects<DSpaceObject>>> = observableOf(mockResultsRD);
+const mockResultsRD$: Observable<RemoteData<SearchObjects<DSpaceObject>>> = of(mockResultsRD);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
   search: mockResultsRD$,
   getSearchLink: '/search',
-  getScopes: observableOf(['test-scope']),
+  getScopes: of(['test-scope']),
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
   trackSearch: {},
 }) as SearchService;
@@ -152,7 +153,7 @@ const activatedRouteStub = {
       ['scope', scopeParam],
     ]),
   },
-  queryParams: observableOf({
+  queryParams: of({
     query: queryParam,
     scope: scopeParam,
   }),
@@ -174,14 +175,14 @@ const mockFilterConfig2: SearchFilterConfig = Object.assign(new SearchFilterConf
 });
 
 const filtersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig, mockFilterConfig2]);
-const filtersConfigRD$ = observableOf(filtersConfigRD);
+const filtersConfigRD$ = of(filtersConfigRD);
 
 const routeServiceStub = {
   getQueryParameterValue: () => {
-    return observableOf(null);
+    return of(null);
   },
   getQueryParamsWithPrefix: () => {
-    return observableOf(null);
+    return of(null);
   },
   setParameter: (key: any, value: any) => {
     return;
@@ -194,10 +195,10 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   searchConfigurationServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
     getConfigurationSortOptions: sortOptionsList,
     getConfig: filtersConfigRD$,
-    getConfigurationSearchConfig: observableOf(searchConfig),
-    getCurrentConfiguration: observableOf('default'),
-    getCurrentScope: observableOf('test-id'),
-    getCurrentSort: observableOf(sortOptionsList[0]),
+    getConfigurationSearchConfig: of(searchConfig),
+    getCurrentConfiguration: of('default'),
+    getCurrentScope: of('test-id'),
+    getCurrentSort: of(sortOptionsList[0]),
     updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
     setPaginationId: jasmine.createSpy('setPaginationId'),
   });
@@ -226,9 +227,9 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       },
       {
         provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
-          isXs: observableOf(true),
-          isSm: observableOf(false),
-          isXsOrSm: observableOf(true),
+          isXs: of(true),
+          isSm: of(false),
+          isXsOrSm: of(true),
         }),
       },
       {
@@ -246,6 +247,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       },
       { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       { provide: APP_CONFIG, useValue: environment },
+      { provide: PLATFORM_ID, useValue: 'browser' },
     ],
     schemas: [NO_ERRORS_SCHEMA],
   }).overrideComponent(compType, {
@@ -414,6 +416,35 @@ describe('SearchComponent', () => {
       it('should return null', () => {
         expect(result).toBeNull();
       });
+    });
+
+    describe('when rendered in SSR', () => {
+      beforeEach(() => {
+        comp.platformId = 'server';
+      });
+
+      it('should not call search method on init', (done) => {
+        comp.ngOnInit();
+        //Check that the first method from which the search depend upon is not being called
+        expect(searchConfigurationServiceStub.getCurrentConfiguration).not.toHaveBeenCalled();
+        comp.initialized$.subscribe((res) => {
+          expect(res).toBeTruthy();
+          done();
+        });
+      });
+    });
+
+    describe('when rendered in CSR', () => {
+      beforeEach(() => {
+        comp.platformId = 'browser';
+      });
+
+      it('should call search method on init', fakeAsync(() => {
+        comp.ngOnInit();
+        tick(100);
+        //Check that the last method from which the search depend upon is being called
+        expect(searchServiceStub.search).toHaveBeenCalled();
+      }));
     });
   });
 });

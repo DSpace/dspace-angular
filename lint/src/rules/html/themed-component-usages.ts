@@ -45,6 +45,7 @@ The only exception to this rule are unit tests, where we may want to use the bas
       [Message.WRONG_SELECTOR]: 'Themeable components should be used via their ThemedComponent wrapper\'s selector',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 

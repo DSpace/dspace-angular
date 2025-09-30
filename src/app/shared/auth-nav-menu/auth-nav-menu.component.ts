@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -20,7 +19,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -58,14 +57,24 @@ import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component'
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgIf, NgbDropdownModule, ThemedLogInComponent, RouterLink, RouterLinkActive, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgbDropdownModule,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLogInComponent,
+    ThemedUserMenuComponent,
+    TranslateModule,
+  ],
 })
 export class AuthNavMenuComponent implements OnInit {
   /**
    * Whether user is authenticated.
    * @type {Observable<string>}
    */
-  public isAuthenticated: Observable<boolean>;
+  public isAuthenticated$: Observable<boolean>;
 
   /**
    * True if the authentication is loading.
@@ -75,7 +84,7 @@ export class AuthNavMenuComponent implements OnInit {
 
   public isMobile$: Observable<boolean>;
 
-  public showAuth = observableOf(false);
+  public showAuth$ = of(false);
 
   public user: Observable<EPerson>;
 
@@ -90,14 +99,14 @@ export class AuthNavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     // set isAuthenticated
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+    this.isAuthenticated$ = this.store.pipe(select(isAuthenticated));
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
 
     this.user = this.authService.getAuthenticatedUserFromStore();
 
-    this.showAuth = this.store.pipe(
+    this.showAuth$ = this.store.pipe(
       select(routerStateSelector),
       filter((router: RouterReducerState) => isNotUndefined(router) && isNotUndefined(router.state)),
       map((router: RouterReducerState) => (!router.state.url.startsWith(LOGIN_ROUTE)

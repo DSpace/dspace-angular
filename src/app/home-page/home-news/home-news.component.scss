@@ -6,14 +6,14 @@
     word-break: break-word;
 }
 
-.jumbotron {
+.home-news-content {
   background-color: var(--ds-home-news-background-color);
 }
 
 a {
   color: var(--ds-home-news-link-color);
 
-  @include hover {
+  &:hover {
     color: var(--ds-home-news-link-hover-color);
   }
 }

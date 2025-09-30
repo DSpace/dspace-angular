@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -47,10 +44,8 @@ import {
 } from '../shared/empty.util';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { ObjectCollectionComponent } from '../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 
 @Component({
@@ -63,21 +58,18 @@ import { getCollectionPageRoute } from './collection-page-routing-paths';
     fadeInOut,
   ],
   imports: [
-    ThemedComcolPageContentComponent,
-    ErrorComponent,
-    NgIf,
-    ThemedLoadingComponent,
-    TranslateModule,
-    ViewTrackerComponent,
-    VarDirective,
     AsyncPipe,
     ComcolPageHeaderComponent,
     ComcolPageLogoComponent,
-    ThemedComcolPageHandleComponent,
     DsoEditMenuComponent,
-    ThemedComcolPageBrowseByComponent,
-    ObjectCollectionComponent,
+    ErrorComponent,
     RouterOutlet,
+    ThemedComcolPageBrowseByComponent,
+    ThemedComcolPageContentComponent,
+    ThemedComcolPageHandleComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })

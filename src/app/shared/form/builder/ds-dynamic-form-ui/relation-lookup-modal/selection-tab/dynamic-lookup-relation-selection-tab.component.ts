@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -48,10 +45,9 @@ import { SearchResult } from '../../../../../search/models/search-result.model';
     },
   ],
   imports: [
-    PageSizeSelectorComponent,
-    ObjectCollectionComponent,
     AsyncPipe,
-    NgIf,
+    ObjectCollectionComponent,
+    PageSizeSelectorComponent,
     TranslateModule,
   ],
   standalone: true,

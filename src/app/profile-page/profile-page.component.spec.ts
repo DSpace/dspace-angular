@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -5,6 +6,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -15,7 +17,7 @@ import {
 } from 'jasmine-marbles';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
@@ -28,8 +30,11 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -90,12 +95,12 @@ describe('ProfilePageComponent', () => {
     };
     authorizationService = jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword });
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user),
+      getAuthenticatedUserFromStore: of(user),
       getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$,
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
-      patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success'))),
+      patch: of(Object.assign(new RestResponse(true, 200, 'Success'))),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
@@ -116,6 +121,7 @@ describe('ProfilePageComponent', () => {
         RouterModule.forRoot([]),
         ProfilePageComponent,
         VarDirective,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
@@ -134,6 +140,10 @@ describe('ProfilePageComponent', () => {
             ProfilePageSecurityFormComponent,
             ProfilePageResearcherFormComponent,
             SuggestionsNotificationComponent,
+            NgTemplateOutlet,
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
           ],
         },
       })
@@ -287,7 +297,7 @@ describe('ProfilePageComponent', () => {
         let operations;
 
         it('should return call epersonService.patch', (done) => {
-          epersonService.patch.and.returnValue(observableOf(Object.assign(new RestResponse(false, 403, 'Error'))));
+          epersonService.patch.and.returnValue(of(Object.assign(new RestResponse(false, 403, 'Error'))));
           component.setPasswordValue('testest');
           component.setInvalid(false);
           component.setCurrentPasswordValue('current-password');
@@ -369,7 +379,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return true', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: true,
         });
@@ -385,7 +395,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });
@@ -401,7 +411,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });

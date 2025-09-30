@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -28,11 +25,10 @@ import { CollectionFormComponent } from '../collection-form/collection-form.comp
   styleUrls: ['./create-collection-page.component.scss'],
   templateUrl: './create-collection-page.component.html',
   imports: [
-    CollectionFormComponent,
-    TranslateModule,
     AsyncPipe,
+    CollectionFormComponent,
     ThemedLoadingComponent,
-    NgIf,
+    TranslateModule,
   ],
   standalone: true,
 })

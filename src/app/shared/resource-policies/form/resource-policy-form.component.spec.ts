@@ -25,7 +25,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { NgxMaskModule } from 'ngx-mask';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 import {
@@ -45,6 +45,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { SubmissionService } from '../../../submission/submission.service';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
@@ -180,8 +181,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
         href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
-    eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
+    eperson: of(createSuccessfulRemoteDataObject({})),
+    group: of(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const epersonService = jasmine.createSpyObj('epersonService', {
@@ -197,7 +198,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
   const mockPolicyRD: RemoteData<ResourcePolicy> = createSuccessfulRemoteDataObject(resourcePolicy);
   const activatedRouteStub = {
     parent: {
-      data: observableOf({
+      data: of({
         dso: mockPolicyRD,
       }),
     },
@@ -216,6 +217,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         ResourcePolicyFormComponent,
         TestComponent,
         NgxMaskModule.forRoot(),
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -254,7 +256,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      formService.isValid.and.returnValue(observableOf(true));
+      formService.isValid.and.returnValue(of(true));
       const html = `
         <ds-resource-policy-form [resourcePolicy]="resourcePolicy" [isProcessing]="isProcessing"></ds-resource-policy-form>`;
 
@@ -280,7 +282,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       compAsAny.resourcePolicy = resourcePolicy;
-      comp.isProcessing = observableOf(false);
+      comp.isProcessing = of(false);
     });
 
     afterEach(() => {
@@ -291,9 +293,9 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should init form model properly', () => {
-      epersonService.findByHref.and.returnValue(observableOf(undefined));
-      groupService.findByHref.and.returnValue(observableOf(undefined));
-      spyOn(compAsAny, 'isFormValid').and.returnValue(observableOf(false));
+      epersonService.findByHref.and.returnValue(of(undefined));
+      groupService.findByHref.and.returnValue(of(undefined));
+      spyOn(compAsAny, 'isFormValid').and.returnValue(of(false));
       spyOn(compAsAny, 'initModelsValue').and.callThrough();
       spyOn(compAsAny, 'buildResourcePolicyForm').and.callThrough();
       fixture.detectChanges();
@@ -342,11 +344,11 @@ describe('ResourcePolicyFormComponent test suite', () => {
       compAsAny = fixture.componentInstance;
       comp.resourcePolicy = resourcePolicy;
       compAsAny.resourcePolicy = resourcePolicy;
-      comp.isProcessing = observableOf(false);
+      comp.isProcessing = of(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
+        of(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
-      compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
+      compAsAny.groupService.findByHref.and.returnValue(of(createSuccessfulRemoteDataObject(GroupMock)));
     });
 
     afterEach(() => {
@@ -357,7 +359,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should init form model properly', () => {
-      spyOn(compAsAny, 'isFormValid').and.returnValue(observableOf(false));
+      spyOn(compAsAny, 'isFormValid').and.returnValue(of(false));
       spyOn(compAsAny, 'initModelsValue').and.callThrough();
       spyOn(compAsAny, 'buildResourcePolicyForm').and.callThrough();
       fixture.detectChanges();
@@ -403,12 +405,12 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       comp.resourcePolicy = resourcePolicy;
-      comp.isProcessing = observableOf(false);
+      comp.isProcessing = of(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
+        of(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
-      compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
-      compAsAny.formService.isValid.and.returnValue(observableOf(true));
+      compAsAny.groupService.findByHref.and.returnValue(of(createSuccessfulRemoteDataObject(GroupMock)));
+      compAsAny.formService.isValid.and.returnValue(of(true));
       compAsAny.isActive = true;
       comp.resourcePolicyGrant = GroupMock;
       comp.resourcePolicyGrantType = 'group';
@@ -426,13 +428,14 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeFalsy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('should emit submit event', () => {
       spyOn(compAsAny.submit, 'emit');
       spyOn(compAsAny, 'createResourcePolicyByFormData').and.callThrough();
-      compAsAny.formService.getFormData.and.returnValue(observableOf(mockResourcePolicyFormData));
+      compAsAny.formService.getFormData.and.returnValue(of(mockResourcePolicyFormData));
       const eventPayload: ResourcePolicyEvent = Object.create({});
       eventPayload.object = submittedResourcePolicy;
       eventPayload.target = {
@@ -459,12 +462,12 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       comp.resourcePolicy = resourcePolicy;
-      comp.isProcessing = observableOf(false);
+      comp.isProcessing = of(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
+        of(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
-      compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
-      compAsAny.formService.isValid.and.returnValue(observableOf(false));
+      compAsAny.groupService.findByHref.and.returnValue(of(createSuccessfulRemoteDataObject(GroupMock)));
+      compAsAny.formService.isValid.and.returnValue(of(false));
       compAsAny.isActive = true;
       fixture.detectChanges();
     });
@@ -480,7 +483,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeTruthy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeTrue();
     });
 
   });
@@ -492,13 +496,13 @@ describe('ResourcePolicyFormComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     NgbModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 
   resourcePolicy = null;
-  isProcessing = observableOf(false);
+  isProcessing = of(false);
 }

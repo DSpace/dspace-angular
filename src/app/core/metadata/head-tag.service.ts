@@ -24,7 +24,7 @@ import {
   concat as observableConcat,
   EMPTY,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -50,6 +50,7 @@ import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { BundleDataService } from '../data/bundle-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RootDataService } from '../data/root-data.service';
@@ -185,6 +186,7 @@ export class HeadTagService {
     this.setCitationKeywordsTag();
 
     this.setCitationAbstractUrlTag();
+    this.setCitationDoiTag();
     this.setCitationPdfUrlTag();
     this.setCitationPublisherTag();
 
@@ -197,7 +199,6 @@ export class HeadTagService {
     // this.setCitationIssueTag();
     // this.setCitationFirstPageTag();
     // this.setCitationLastPageTag();
-    // this.setCitationDOITag();
     // this.setCitationPMIDTag();
 
     // this.setCitationFullTextTag();
@@ -319,6 +320,18 @@ export class HeadTagService {
   }
 
   /**
+   * Add <meta name="citation_doi" ... >  to the <head>
+   */
+  protected setCitationDoiTag(): void {
+    if (this.currentObject.value instanceof Item) {
+      const doi = this.getMetaTagValue('dc.identifier.doi');
+      if (hasValue(doi)) {
+        this.addMetaTag('citation_doi', doi);
+      }
+    }
+  }
+
+  /**
    * Add <meta name="citation_pdf_url" ... >  to the <head>
    */
   protected setCitationPdfUrlTag(): void {
@@ -331,6 +344,7 @@ export class HeadTagService {
         'ORIGINAL',
         true,
         true,
+        new FindListOptions(),
         followLink('primaryBitstream'),
         followLink('bitstreams', {
           findListOptions: {
@@ -389,7 +403,7 @@ export class HeadTagService {
   }
 
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
-    return observableOf(bitstream).pipe(
+    return of(bitstream).pipe(
       getDownloadableBitstream(this.authorizationService),
       switchMap((bit: Bitstream) => {
         if (hasValue(bit)) {
@@ -426,7 +440,7 @@ export class HeadTagService {
         )),
       ).pipe(
         // Verify that the bitstream is downloadable
-        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
+        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => of(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
           map((bit: Bitstream) => [bit, format]),
         )),

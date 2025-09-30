@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -40,7 +37,13 @@ import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-select
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
   standalone: true,
-  imports: [FormsModule, NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    FormsModule,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component that represents the search form

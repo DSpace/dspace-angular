@@ -4,6 +4,7 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
+import { of } from 'rxjs';
 
 import {
   appReducers,
@@ -11,6 +12,7 @@ import {
   storeModuleConfig,
 } from '../app.reducer';
 import { UUIDService } from '../core/shared/uuid.service';
+import { CORRELATION_ID_COOKIE } from '../shared/cookies/orejime-configuration';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { CorrelationIdService } from './correlation-id.service';
@@ -34,7 +36,13 @@ describe('CorrelationIdService', () => {
     cookieService = new CookieServiceMock();
     uuidService = new UUIDService();
     store = TestBed.inject(Store) as MockStore<AppState>;
-    service = new CorrelationIdService(cookieService, uuidService, store);
+    const mockOrejimeService = {
+      getSavedPreferences: () => of({ CORRELATION_ID_OREJIME_KEY: true }),
+      initialize: jasmine.createSpy('initialize'),
+      showSettings: jasmine.createSpy('showSettings'),
+    };
+
+    service = new CorrelationIdService(cookieService, uuidService, store, mockOrejimeService, { nativeWindow: undefined });
   });
 
   describe('getCorrelationId', () => {
@@ -46,45 +54,45 @@ describe('CorrelationIdService', () => {
   });
 
 
-  describe('initCorrelationId', () => {
+  describe('setCorrelationId', () => {
     const cookieCID = 'cookie CID';
     const storeCID = 'store CID';
 
     it('should set cookie and store values to a newly generated value if neither ex', () => {
-      service.initCorrelationId();
+      service.setCorrelationId();
 
-      expect(cookieService.get('CORRELATION-ID')).toBeTruthy();
+      expect(cookieService.get(CORRELATION_ID_COOKIE)).toBeTruthy();
       expect(service.getCorrelationId()).toBeTruthy();
-      expect(cookieService.get('CORRELATION-ID')).toEqual(service.getCorrelationId());
+      expect(cookieService.get(CORRELATION_ID_COOKIE)).toEqual(service.getCorrelationId());
     });
 
     it('should set store value to cookie value if present', () => {
       expect(service.getCorrelationId()).toBe(null);
 
-      cookieService.set('CORRELATION-ID', cookieCID);
+      cookieService.set(CORRELATION_ID_COOKIE, cookieCID);
 
-      service.initCorrelationId();
+      service.setCorrelationId();
 
-      expect(cookieService.get('CORRELATION-ID')).toBe(cookieCID);
+      expect(cookieService.get(CORRELATION_ID_COOKIE)).toBe(cookieCID);
       expect(service.getCorrelationId()).toBe(cookieCID);
     });
 
     it('should set cookie value to store value if present', () => {
       store.dispatch(new SetCorrelationIdAction(storeCID));
 
-      service.initCorrelationId();
+      service.setCorrelationId();
 
-      expect(cookieService.get('CORRELATION-ID')).toBe(storeCID);
+      expect(cookieService.get(CORRELATION_ID_COOKIE)).toBe(storeCID);
       expect(service.getCorrelationId()).toBe(storeCID);
     });
 
     it('should set store value to cookie value if both are present', () => {
-      cookieService.set('CORRELATION-ID', cookieCID);
+      cookieService.set(CORRELATION_ID_COOKIE, cookieCID);
       store.dispatch(new SetCorrelationIdAction(storeCID));
 
-      service.initCorrelationId();
+      service.setCorrelationId();
 
-      expect(cookieService.get('CORRELATION-ID')).toBe(cookieCID);
+      expect(cookieService.get(CORRELATION_ID_COOKIE)).toBe(cookieCID);
       expect(service.getCorrelationId()).toBe(cookieCID);
     });
   });

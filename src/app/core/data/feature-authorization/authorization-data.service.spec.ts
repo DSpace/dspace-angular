@@ -1,7 +1,7 @@
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { hasValue } from '../../../shared/empty.util';
@@ -46,7 +46,7 @@ describe('AuthorizationDataService', () => {
       uuid: 'test-eperson',
     });
     siteService = jasmine.createSpyObj('siteService', {
-      find: observableOf(site),
+      find: of(site),
     });
     objectCache = getMockObjectCacheService();
     service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService);
@@ -54,7 +54,7 @@ describe('AuthorizationDataService', () => {
 
   beforeEach(() => {
     init();
-    spyOn(service, 'searchBy').and.returnValue(observableOf(undefined));
+    spyOn(service, 'searchBy').and.returnValue(of(undefined));
   });
 
   describe('composition', () => {
@@ -126,7 +126,7 @@ describe('AuthorizationDataService', () => {
       let addDependencySpy;
 
       beforeEach(() => {
-        (service.searchBy as any).and.returnValue(observableOf('searchBy RD$'));
+        (service.searchBy as any).and.returnValue(of('searchBy RD$'));
         addDependencySpy = spyOn(service as any, 'addDependency');
       });
 

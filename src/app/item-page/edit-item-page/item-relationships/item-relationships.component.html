@@ -1,54 +1,64 @@
 <div class="item-relationships">
-  <ng-container *ngIf="entityType$ | async as entityType; else noEntityType">
+  @if (entityType$ | async; as entityType) {
     <div class="button-row top d-flex justify-content-end">
       <ng-container *ngTemplateOutlet="buttons"></ng-container>
     </div>
-    <div *ngIf="relationshipTypes$ | async as relationshipTypes; else loading" class="mb-4">
-      <div *ngFor="let relationshipType of relationshipTypes; trackBy: trackById" class="mb-4">
-        <ds-edit-relationship-list-wrapper
-          [url]="url"
-          [item]="item"
-          [itemType]="entityType"
-          [relationshipType]="relationshipType"
-          [hasChanges]="hasChanges$"
-        ></ds-edit-relationship-list-wrapper>
+    @if (relationshipTypes$ | async; as relationshipTypes) {
+      <div class="mb-4">
+        @for (relationshipType of relationshipTypes; track trackById($index, relationshipType)) {
+          <div class="mb-4">
+            <ds-edit-relationship-list-wrapper
+              [url]="url"
+              [item]="item"
+              [itemType]="entityType"
+              [relationshipType]="relationshipType"
+              [hasChanges]="hasChanges$"
+            ></ds-edit-relationship-list-wrapper>
+          </div>
+        }
       </div>
-    </div>
+    } @else {
+      <ds-loading></ds-loading>
+    }
     <div class="button-row bottom">
-      <div class="float-right ml-gap">
+      <div class="float-end ms-gap">
         <ng-container *ngTemplateOutlet="buttons"></ng-container>
       </div>
     </div>
-  </ng-container>
+  } @else {
+    <ds-alert [type]="AlertType.Info" class="d-block mt-2">
+      {{ 'item.edit.relationships.no-entity-type' | translate }}
+    </ds-alert>
+  }
 </div>
 
-<ng-template #noEntityType>
-  <ds-alert [type]="AlertType.Info" class="d-block mt-2">
-    {{ 'item.edit.relationships.no-entity-type' | translate }}
-  </ds-alert>
-</ng-template>
 
-<ng-template #loading>
-  <ds-loading></ds-loading>
-</ng-template>
 
 <ng-template #buttons>
   <div class="d-flex space-children-mr justify-content-end">
-    <button class="btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
-            [disabled]="(hasChanges$ | async) !== true"
-            (click)="discard()">
-      <i aria-hidden="true" class="fas fa-times"></i>
-      <span class="d-none d-sm-inline">&nbsp;{{ 'item.edit.metadata.discard-button' | translate }}</span>
-    </button>
-    <button class="btn btn-warning" *ngIf="isReinstatable$ | async" (click)="reinstate()">
-      <i aria-hidden="true" class="fas fa-undo-alt"></i>
-      <span class="d-none d-sm-inline">&nbsp;{{ 'item.edit.metadata.reinstate-button' | translate }}</span>
-    </button>
+    @if ((isReinstatable$ | async) !== true) {
+      <button class="btn btn-danger"
+        [dsBtnDisabled]="(hasChanges$ | async) !== true"
+        (click)="discard()">
+        <i aria-hidden="true" class="fas fa-times"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{ 'item.edit.metadata.discard-button' | translate }}</span>
+      </button>
+    }
+    @if (isReinstatable$ | async) {
+      <button class="btn btn-warning" (click)="reinstate()">
+        <i aria-hidden="true" class="fas fa-undo-alt"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{ 'item.edit.metadata.reinstate-button' | translate }}</span>
+      </button>
+    }
     <button class="btn btn-primary"
-            [disabled]="(hasChanges$ | async) !== true || (isSaving$ | async) === true"
-            (click)="submit()">
-      <span *ngIf="isSaving$ | async" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-      <i *ngIf="(isSaving$ | async) !== true" aria-hidden="true" class="fas fa-save"></i>
+      [dsBtnDisabled]="(hasChanges$ | async) !== true || (isSaving$ | async) === true"
+      (click)="submit()">
+      @if (isSaving$ | async) {
+        <span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+      }
+      @if ((isSaving$ | async) !== true) {
+        <i aria-hidden="true" class="fas fa-save"></i>
+      }
       <span class="d-none d-sm-inline">&nbsp;{{ 'item.edit.metadata.save-button' | translate }}</span>
     </button>
   </div>

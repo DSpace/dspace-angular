@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -37,6 +34,7 @@ import {
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
+import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
@@ -65,10 +63,10 @@ export enum ImportType {
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
   templateUrl: './external-source-entry-import-modal.component.html',
   imports: [
-    TranslateModule,
-    ThemedSearchResultsComponent,
-    NgIf,
     AsyncPipe,
+    BtnDisabledDirective,
+    ThemedSearchResultsComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

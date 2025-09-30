@@ -1,5 +1,5 @@
 import {
-  CommonModule,
+  AsyncPipe,
   Location,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -8,7 +8,7 @@ import {
   Router,
 } from '@angular/router';
 import {
-  TranslateModule,
+  TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -29,7 +29,12 @@ import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.co
   selector: 'ds-base-workflow-item-delete',
   templateUrl: '../workflow-item-action-page.component.html',
   standalone: true,
-  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
+  imports: [
+    AsyncPipe,
+    ModifyItemOverviewComponent,
+    TranslatePipe,
+    VarDirective,
+  ],
 })
 /**
  * Component representing a page to delete a workflow item

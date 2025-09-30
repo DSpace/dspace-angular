@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 
@@ -33,6 +33,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
@@ -94,7 +95,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
     searchResult2 = Object.assign(new ItemSearchResult(), { indexableObject: item2 });
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
-    selection$ = observableOf([searchResult1, searchResult2]);
+    selection$ = of([searchResult1, searchResult2]);
     selectableListService = { getSelectableList: () => selection$ };
     relationship = Object.assign(new RelationshipOptions(), {
       filter: 'filter',
@@ -111,8 +112,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       findById: createSuccessfulRemoteDataObject$(externalSources[0]),
     });
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
-      getTotalLocalResults: observableOf(totalLocal),
-      getTotalExternalResults: observableOf(totalExternal),
+      getTotalLocalResults: of(totalLocal),
+      getTotalExternalResults: of(totalExternal),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       aggregate: createSuccessfulRemoteDataObject$(externalSources),
@@ -123,11 +124,11 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions),
+            paginatedSearchOptions: of(pSearchOptions),
           },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
@@ -136,7 +137,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           provide: SelectableListService, useValue: selectableListService,
         },
         {
-          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) },
+          provide: RelationshipDataService, useValue: { getNameVariant: () => of(nameVariant) },
         },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
@@ -167,7 +168,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     component.metadataFields = metadataField;
     component.submissionId = submissionId;
     component.isEditRelationship = true;
-    component.currentItemIsLeftItem$ = observableOf(true);
+    component.currentItemIsLeftItem$ = of(true);
     component.toAdd = [];
     component.toRemove = [];
     fixture.detectChanges();
@@ -223,10 +224,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
   describe('when initialized and is relationship show the list of buttons', () => {
     it('submit button should be disabled', () => {
-      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.submit')).nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.submit')).nativeElement.classList.contains('disabled')).toBeTrue();
     });
     it('discard button should be disabled', () => {
-      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.discard')).nativeElement.classList.contains('disabled')).toBeTrue();
     });
   });
 
@@ -264,9 +267,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('there should show 1 spinner and disable all 3 buttons', () => {
       expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(1);
-      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
-      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
-      expect(debugElement.query(By.css('.close')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.submit')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.submit')).nativeElement?.classList.contains('disabled')).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.discard')).nativeElement?.classList.contains('disabled')).toBeTrue();
+      expect(debugElement.query(By.css('.btn-close')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.btn-close')).nativeElement?.classList.contains('disabled')).toBeTrue();
     });
 
   });

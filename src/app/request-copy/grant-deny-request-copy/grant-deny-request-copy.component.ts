@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -42,7 +39,13 @@ import {
   styleUrls: ['./grant-deny-request-copy.component.scss'],
   templateUrl: './grant-deny-request-copy.component.html',
   standalone: true,
-  imports: [VarDirective, NgIf, RouterLink, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component for an author to decide to grant or deny an item request

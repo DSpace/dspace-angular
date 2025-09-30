@@ -1,12 +1,12 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 export const mockTruncatableService: any = {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   isCollapsed: (id: string) => {
     if (id === '1') {
-      return observableOf(true);
+      return of(true);
     } else {
-      return observableOf(false);
+      return of(false);
     }
   },
   expand: (id: string) => {

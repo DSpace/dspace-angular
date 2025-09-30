@@ -20,7 +20,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -121,7 +121,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the result values for this filter found by the current filter query
    */
-  filterSearchResults$: Observable<InputSuggestion[]> = observableOf([]);
+  filterSearchResults$: Observable<InputSuggestion[]> = of([]);
 
   /**
    * Emits the active values for this filter
@@ -160,7 +160,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.currentUrl = this.router.url;
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
     this.searchOptions$ = this.searchConfigService.searchOptions.pipe(
-      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign({}, options, {
+      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign(new SearchOptions(options), {
         scope: this.scope,
       })),
     );
@@ -278,7 +278,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           queryParams: params,
         });
         this.filter = '';
-        this.filterSearchResults$ = observableOf([]);
+        this.filterSearchResults$ = of([]);
       }));
     }
   }

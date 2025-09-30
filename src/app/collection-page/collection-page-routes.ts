@@ -8,9 +8,8 @@ import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
@@ -54,7 +53,6 @@ export const ROUTES: Route[] = [
     resolve: {
       dso: collectionPageResolver,
       breadcrumb: collectionBreadcrumbResolver,
-      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -83,11 +81,27 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCollectionPageComponent,
+        data: {
+          menuRoute: MenuRoute.COLLECTION_PAGE,
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
+          },
+          {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'collection.search',
+              menuRoute: MenuRoute.COLLECTION_PAGE,
+              enableRSS: true,
+            },
           },
           {
             path: 'browse/:id',
@@ -97,25 +111,16 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'browse.metadata' },
+            data: {
+              breadcrumbKey: 'browse.metadata',
+              menuRoute: MenuRoute.COLLECTION_PAGE,
+            },
           },
         ],
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
       },
     ],
-    data: {
-      menu: {
-        public: [{
-          id: 'statistics_collection_:id',
-          active: true,
-          visible: true,
-          index: 2,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics',
-            link: 'statistics/collections/:id/',
-          } as LinkMenuItemModel,
-        }],
-      },
-    },
   },
 ];

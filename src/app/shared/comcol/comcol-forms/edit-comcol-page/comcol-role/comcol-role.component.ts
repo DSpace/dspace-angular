@@ -1,13 +1,11 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -15,11 +13,13 @@ import {
 import {
   BehaviorSubject,
   Observable,
+  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
   switchMap,
+  takeUntil,
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
@@ -37,6 +37,7 @@ import {
   getFirstCompletedRemoteData,
 } from '../../../../../core/shared/operators';
 import { AlertComponent } from '../../../../alert/alert.component';
+import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
 import {
   hasNoValue,
   hasValue,
@@ -54,14 +55,13 @@ import { VarDirective } from '../../../../utils/var.directive';
   styleUrls: ['./comcol-role.component.scss'],
   templateUrl: './comcol-role.component.html',
   imports: [
-    ThemedLoadingComponent,
     AlertComponent,
     AsyncPipe,
-    TranslateModule,
-    NgIf,
-    RouterLink,
-    VarDirective,
     HasNoValuePipe,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })
@@ -119,6 +119,7 @@ export class ComcolRoleComponent implements OnInit {
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     public dsoNameService: DSONameService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -218,5 +219,32 @@ export class ComcolRoleComponent implements OnInit {
     );
 
     this.roleName$ = this.translateService.get(`comcol-role.edit.${this.comcolRole.name}.name`);
+  }
+
+  confirmDelete(groupName: string): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+
+    modalRef.componentInstance.name = groupName;
+    modalRef.componentInstance.headerLabel = 'comcol-role.edit.delete.modal.header';
+    modalRef.componentInstance.infoLabel = 'comcol-role.edit.delete.modal.info';
+    modalRef.componentInstance.cancelLabel = 'comcol-role.edit.delete.modal.cancel';
+    modalRef.componentInstance.confirmLabel = 'comcol-role.edit.delete.modal.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+
+    const modalSub: Subscription = modalRef.componentInstance.response.pipe(
+      takeUntil(modalRef.closed),
+    ).subscribe((result: boolean) => {
+      if (result === true) {
+        this.delete();
+      }
+    });
+
+    void modalRef.result.then().finally(() => {
+      modalRef.close();
+      if (modalSub && !modalSub.closed) {
+        modalSub.unsubscribe();
+      }
+    });
   }
 }

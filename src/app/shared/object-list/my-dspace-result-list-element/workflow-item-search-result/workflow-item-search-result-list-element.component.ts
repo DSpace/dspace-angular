@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -40,7 +39,13 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './workflow-item-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ListableObjectComponentLoaderComponent, NgClass, WorkflowitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    WorkflowitemActionsComponent,
+  ],
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement)

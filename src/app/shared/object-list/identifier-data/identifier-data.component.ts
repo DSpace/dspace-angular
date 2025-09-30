@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -20,9 +17,8 @@ import { IdentifierData } from './identifier-data.model';
   selector: 'ds-identifier-data',
   templateUrl: './identifier-data.component.html',
   imports: [
-    TranslateModule,
     AsyncPipe,
-    NgIf,
+    TranslateModule,
   ],
   standalone: true,
 })

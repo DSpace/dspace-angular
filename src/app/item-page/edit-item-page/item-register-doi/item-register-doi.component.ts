@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -38,12 +34,10 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
   selector: 'ds-item-register-doi',
   templateUrl: './item-register-doi-component.html',
   imports: [
+    AsyncPipe,
     ModifyItemOverviewComponent,
     RouterLink,
     TranslateModule,
-    AsyncPipe,
-    NgIf,
-    NgForOf,
   ],
   standalone: true,
 })

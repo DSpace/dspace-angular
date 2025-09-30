@@ -3,7 +3,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { FilterType } from '../../../shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
@@ -46,7 +46,7 @@ describe('SearchFilterService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: observableOf(true),
+    select: of(true),
   });
 
   beforeEach(waitForAsync(() => {
@@ -187,7 +187,7 @@ describe('SearchFilterService', () => {
     const mockReturn = 5;
 
     beforeEach(() => {
-      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(observableOf(mockReturn));
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(of(mockReturn));
       result = service.getCurrentPagination();
     });
 
@@ -213,7 +213,7 @@ describe('SearchFilterService', () => {
     const direction = SortDirection.ASC;
 
     beforeEach(() => {
-      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(observableOf(undefined));
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(of(undefined));
       result = service.getCurrentSort(new SortOptions(field, direction));
     });
 
@@ -261,7 +261,7 @@ describe('SearchFilterService', () => {
     const searchOptions = new SearchOptions({});
 
     beforeEach(() => {
-      spyOn(searchService, 'getFacetValuesFor').and.returnValue(observableOf());
+      spyOn(searchService, 'getFacetValuesFor').and.returnValue(of());
       service.findSuggestions(mockFilterConfig, searchOptions, query);
     });
 

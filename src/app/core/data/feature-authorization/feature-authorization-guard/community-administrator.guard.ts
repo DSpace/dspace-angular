@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { FeatureID } from '../feature-id';
 import { singleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
@@ -10,4 +10,4 @@ import { singleFeatureAuthorizationGuard } from './single-feature-authorization.
  * Check group management rights
  */
 export const communityAdministratorGuard: CanActivateFn =
-  singleFeatureAuthorizationGuard(() => observableOf(FeatureID.IsCommunityAdmin));
+  singleFeatureAuthorizationGuard(() => of(FeatureID.IsCommunityAdmin));

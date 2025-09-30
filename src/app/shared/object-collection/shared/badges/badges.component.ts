@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -32,7 +32,12 @@ const MY_DSPACE_STATUS_CONTEXTS = [
   templateUrl: './badges.component.html',
   styleUrls: ['./badges.component.scss'],
   standalone: true,
-  imports: [ThemedStatusBadgeComponent, NgIf, ThemedMyDSpaceStatusBadgeComponent, ThemedTypeBadgeComponent, ThemedAccessStatusBadgeComponent],
+  imports: [
+    ThemedAccessStatusBadgeComponent,
+    ThemedMyDSpaceStatusBadgeComponent,
+    ThemedStatusBadgeComponent,
+    ThemedTypeBadgeComponent,
+  ],
 })
 export class BadgesComponent {
   /**

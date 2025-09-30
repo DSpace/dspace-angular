@@ -4,7 +4,9 @@ import { makeEnvironmentProviders } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
 import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
 import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
+import { Filetypes } from '../process-page/processes/filetypes.model';
 import { Process } from '../process-page/processes/process.model';
 import { Script } from '../process-page/scripts/script.model';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
@@ -14,25 +16,41 @@ import {
 } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
+import { ListableNotificationObject } from '../shared/object-list/listable-notification-object/listable-notification-object.model';
+import { FacetConfigResponse } from '../shared/search/models/facet-config-response.model';
+import { FacetValues } from '../shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '../shared/search/models/search-filter-config.model';
+import { SearchObjects } from '../shared/search/models/search-objects.model';
+import { SearchResult } from '../shared/search/models/search-result.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { StatisticsEndpoint } from '../statistics/statistics-endpoint.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { SubmissionAccessModel } from './config/models/config-submission-access.model';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { SubmissionDefinitionModel } from './config/models/config-submission-definition.model';
 import { SubmissionDefinitionsModel } from './config/models/config-submission-definitions.model';
+import { SubmissionFormModel } from './config/models/config-submission-form.model';
 import { SubmissionFormsModel } from './config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from './config/models/config-submission-section.model';
+import { SubmissionSectionsModel } from './config/models/config-submission-sections.model';
+import { SubmissionUploadModel } from './config/models/config-submission-upload.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
+import { PaginatedList } from './data/paginated-list.model';
 import { Root } from './data/root.model';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
+import { Feedback } from './feedback/models/feedback.model';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
+import { Suggestion } from './notifications/suggestions/models/suggestion.model';
 import { SuggestionSource } from './notifications/suggestions/models/suggestion-source.model';
 import { SuggestionTarget } from './notifications/suggestions/models/suggestion-target.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
@@ -48,6 +66,7 @@ import { Bundle } from './shared/bundle.model';
 import { Collection } from './shared/collection.model';
 import { Community } from './shared/community.model';
 import { ConfigurationProperty } from './shared/configuration-property.model';
+import { ContentSource } from './shared/content-source.model';
 import { DSpaceObject } from './shared/dspace-object.model';
 import { ExternalSource } from './shared/external-source.model';
 import { ExternalSourceEntry } from './shared/external-source-entry.model';
@@ -69,6 +88,7 @@ import { ValueListBrowseDefinition } from './shared/value-list-browse-definition
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { CorrectionType } from './submission/models/correctiontype.model';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { WorkflowItem } from './submission/models/workflowitem.model';
@@ -76,6 +96,7 @@ import { WorkspaceItem } from './submission/models/workspaceitem.model';
 import { Vocabulary } from './submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from './submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from './submission/vocabularies/models/vocabulary-entry-detail.model';
+import { SupervisionOrder } from './supervision-order/models/supervision-order.model';
 import { AdvancedWorkflowInfo } from './tasks/models/advanced-workflow-info.model';
 import { ClaimedTask } from './tasks/models/claimed-task-object.model';
 import { PoolTask } from './tasks/models/pool-task-object.model';
@@ -163,11 +184,9 @@ export const models =
     VocabularyEntryDetail,
     ConfigurationProperty,
     ShortLivedToken,
-    Registration,
     UsageReport,
     QualityAssuranceTopicObject,
     QualityAssuranceEventObject,
-    Root,
     SearchConfig,
     SubmissionAccessesModel,
     QualityAssuranceSourceObject,
@@ -175,7 +194,6 @@ export const models =
     ResearcherProfile,
     OrcidQueue,
     OrcidHistory,
-    AccessStatusObject,
     IdentifierData,
     Subscription,
     ItemRequest,
@@ -186,4 +204,25 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
+    SystemWideAlert,
+    AdminNotifyMessage,
+    SubmissionAccessModel,
+    SubmissionDefinitionModel,
+    SubmissionFormModel,
+    SubmissionSectionsModel,
+    SubmissionUploadModel,
+    PaginatedList,
+    Feedback,
+    Suggestion,
+    Filetypes,
+    ContentSource,
+    ListableNotificationObject,
+    FacetConfigResponse,
+    FacetValues,
+    SearchFilterConfig,
+    SearchObjects,
+    SearchResult,
+    StatisticsEndpoint,
+    CorrectionType,
+    SupervisionOrder,
   ];

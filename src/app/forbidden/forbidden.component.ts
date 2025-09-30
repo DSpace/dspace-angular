@@ -16,7 +16,10 @@ import { ServerResponseService } from '../core/services/server-response.service'
   templateUrl: './forbidden.component.html',
   styleUrls: ['./forbidden.component.scss'],
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ForbiddenComponent implements OnInit {
 

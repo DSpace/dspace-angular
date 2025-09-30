@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
 
@@ -9,6 +9,6 @@ const dataRes = Object.assign(new SubmissionFormsModel(), {
 
 export function getSectionAccessesService() {
   return jasmine.createSpyObj('SectionAccessesService', {
-    getAccessesData: observableOf(dataRes),
+    getAccessesData: of(dataRes),
   });
 }

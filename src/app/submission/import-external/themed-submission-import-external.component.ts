@@ -11,7 +11,9 @@ import { SubmissionImportExternalComponent } from './submission-import-external.
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SubmissionImportExternalComponent],
+  imports: [
+    SubmissionImportExternalComponent,
+  ],
 })
 export class ThemedSubmissionImportExternalComponent extends ThemedComponent<SubmissionImportExternalComponent> {
   protected getComponentName(): string {

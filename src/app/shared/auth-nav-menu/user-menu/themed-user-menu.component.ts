@@ -1,6 +1,8 @@
 import {
   Component,
+  EventEmitter,
   Input,
+  Output,
 } from '@angular/core';
 
 import { ThemedComponent } from '../../theme-support/themed.component';
@@ -14,7 +16,9 @@ import { UserMenuComponent } from './user-menu.component';
   templateUrl: './../../theme-support/themed.component.html',
   styleUrls: [],
   standalone: true,
-  imports: [UserMenuComponent],
+  imports: [
+    UserMenuComponent,
+  ],
 })
 export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
 
@@ -23,7 +27,12 @@ export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
    */
   @Input() inExpandableNavbar: boolean;
 
-  protected inAndOutputNames: (keyof UserMenuComponent & keyof this)[] = ['inExpandableNavbar'];
+  /**
+   * Emits an event when the route changes
+   */
+  @Output() changedRoute: EventEmitter<any> = new EventEmitter<any>();
+
+  protected inAndOutputNames: (keyof UserMenuComponent & keyof this)[] = ['inExpandableNavbar', 'changedRoute'];
 
   protected getComponentName(): string {
     return 'UserMenuComponent';

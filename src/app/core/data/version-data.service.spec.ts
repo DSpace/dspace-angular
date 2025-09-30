@@ -3,7 +3,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
@@ -38,7 +38,7 @@ describe('VersionDataService test', () => {
   const item = Object.assign(new Item(), {
     id: '1234-1234',
     uuid: '1234-1234',
-    bundles: observableOf({}),
+    bundles: of({}),
     metadata: {
       'dc.title': [
         {
@@ -117,8 +117,8 @@ describe('VersionDataService test', () => {
         generateRequestId: requestUUID,
         send: true,
         removeByHrefSubstring: {},
-        getByHref: observableOf(responseCacheEntry),
-        getByUUID: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
+        getByUUID: of(responseCacheEntry),
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('(a|)', {
@@ -160,7 +160,7 @@ describe('VersionDataService test', () => {
 
     describe('getHistoryIdFromVersion', () => {
       it('should return the version history id', () => {
-        spyOn((service as any), 'getHistoryFromVersion').and.returnValue(observableOf(versionHistory));
+        spyOn((service as any), 'getHistoryFromVersion').and.returnValue(of(versionHistory));
 
         const result = service.getHistoryIdFromVersion(mockVersion);
         const expected = cold('(a|)', {

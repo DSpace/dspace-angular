@@ -2,15 +2,16 @@ import {
   AsyncPipe,
   LowerCasePipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -19,12 +20,11 @@ import {
   filter,
   map,
   Observable,
-  of as observableOf,
+  of,
   startWith,
   Subscription,
   switchMap,
 } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -51,7 +51,14 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   templateUrl: './search-filter.component.html',
   animations: [slide],
   standalone: true,
-  imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    LowerCasePipe,
+    NgClass,
+    SearchFacetFilterWrapperComponent,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -77,6 +84,8 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
    * The current scope
    */
   @Input() scope: string;
+
+  @Output() isVisibilityComputed = new EventEmitter<boolean>();
 
   /**
    * True when the filter is 100% collapsed in the UI
@@ -136,11 +145,16 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
     this.active$ = this.isActive();
     this.collapsed$ = this.isCollapsed();
     this.initializeFilter();
-    this.subs.push(this.appliedFilters$.pipe(take(1)).subscribe((selectedValues: AppliedFilter[]) => {
-      if (isNotEmpty(selectedValues)) {
-        this.filterService.expand(this.filter.name);
-      }
-    }));
+    this.subs.push(
+      this.appliedFilters$.subscribe((selectedValues: AppliedFilter[]) => {
+        if (isNotEmpty(selectedValues)) {
+          this.filterService.expand(this.filter.name);
+        }
+      }),
+      this.getIsActive().subscribe(() => {
+        this.isVisibilityComputed.emit(true);
+      }),
+    );
   }
 
   ngOnChanges(): void {
@@ -223,6 +237,16 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
   isActive(): Observable<boolean> {
+    return this.getIsActive().pipe(
+      startWith(true),
+    );
+  }
+
+  /**
+   * Return current filter visibility
+   * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
+   */
+  private getIsActive():  Observable<boolean> {
     return combineLatest([
       this.appliedFilters$,
       this.searchConfigService.searchOptions,
@@ -230,7 +254,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
     ]).pipe(
       switchMap(([selectedValues, options, scope]: [AppliedFilter[], SearchOptions, string]) => {
         if (isNotEmpty(selectedValues.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator)))) {
-          return observableOf(true);
+          return of(true);
         } else {
           if (hasValue(scope)) {
             options.scope = scope;
@@ -243,7 +267,6 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
           );
         }
       }),
-      startWith(true),
     );
   }
 }

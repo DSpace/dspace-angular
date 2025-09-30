@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
@@ -51,7 +51,7 @@ describe('AddBitstreamFormatComponent', () => {
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
       createBitstreamFormat: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf(null),
+      clearBitStreamFormatRequests: of(null),
     });
 
     TestBed.configureTestingModule({
@@ -98,7 +98,7 @@ describe('AddBitstreamFormatComponent', () => {
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
         createBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
-        clearBitStreamFormatRequests: observableOf(null),
+        clearBitStreamFormatRequests: of(null),
       });
 
       TestBed.configureTestingModule({

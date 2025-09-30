@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  skipWhile,
+} from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   map,
   mergeMap,
+  switchMap,
   tap,
 } from 'rxjs/operators';
 
 import {
   hasValue,
+  hasValueOperator,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -25,13 +30,29 @@ import {
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestError } from '../data/request-error.model';
-import { RestRequest } from '../data/rest-request.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { SubmissionResponse } from './submission-response.model';
+
+/**
+ * Retrieve the first emitting payload's dataDefinition, or throw an error if the request failed
+ */
+export const getFirstDataDefinition = () =>
+  (source: Observable<RemoteData<SubmissionResponse>>): Observable<SubmitDataResponseDefinitionObject> =>
+    source.pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<SubmissionResponse>) => {
+        if (response.hasFailed) {
+          throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
+        } else {
+          return hasValue(response?.payload?.dataDefinition) ? response.payload.dataDefinition : [response.payload];
+        }
+      }),
+      distinctUntilChanged(),
+    );
 
 /**
  * The service handling all submission REST requests
@@ -56,15 +77,7 @@ export class SubmissionRestService {
    */
   protected fetchRequest(requestId: string): Observable<SubmitDataResponseDefinitionObject> {
     return this.rdbService.buildFromRequestUUID<SubmissionResponse>(requestId).pipe(
-      getFirstCompletedRemoteData(),
-      map((response: RemoteData<SubmissionResponse>) => {
-        if (response.hasFailed) {
-          throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
-        } else {
-          return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
-        }
-      }),
-      distinctUntilChanged(),
+      getFirstDataDefinition(),
     );
   }
 
@@ -116,21 +129,52 @@ export class SubmissionRestService {
    *    The endpoint link name
    * @param id
    *    The submission Object to retrieve
+   * @param useCachedVersionIfAvailable
+   *    If this is true, the request will only be sent if there's no valid & cached version. Defaults to false
    * @return Observable<SubmitDataResponseDefinitionObject>
    *     server response
    */
-  public getDataById(linkName: string, id: string): Observable<SubmitDataResponseDefinitionObject> {
-    const requestId = this.requestService.generateRequestId();
+  public getDataById(linkName: string, id: string, useCachedVersionIfAvailable = false): Observable<SubmitDataResponseDefinitionObject> {
     return this.halService.getEndpoint(linkName).pipe(
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
-      map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
-      tap((request: RestRequest) => {
-        this.requestService.send(request);
+      mergeMap((endpointURL: string) => {
+        this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
+        const startTime: number = new Date().getTime();
+        return this.requestService.getByHref(endpointURL).pipe(
+          map((requestEntry) => requestEntry?.request?.uuid),
+          hasValueOperator(),
+          distinctUntilChanged(),
+          switchMap((requestId) => this.rdbService.buildFromRequestUUID<SubmissionResponse>(requestId)),
+          // This skip ensures that if a stale object is present in the cache when you do a
+          // call it isn't immediately returned, but we wait until the remote data for the new request
+          // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+          // cached completed object
+          skipWhile((rd: RemoteData<SubmissionResponse>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
+          tap((rd: RemoteData<SubmissionResponse>) => {
+            if (hasValue(rd) && rd.isStale) {
+              this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
+            }
+          }),
+        );
       }),
-      mergeMap(() => this.fetchRequest(requestId)),
-      distinctUntilChanged());
+      getFirstDataDefinition(),
+    );
+  }
+
+  /**
+   * Send a GET SubmissionRequest
+   *
+   * @param href
+   *    Endpoint URL of the submission data
+   * @param useCachedVersionIfAvailable
+   *    If this is true, the request will only be sent if there's no valid & cached version. Defaults to false
+   */
+  private sendGetDataRequest(href: string, useCachedVersionIfAvailable = false) {
+    const requestId = this.requestService.generateRequestId();
+    const request = new SubmissionRequest(requestId, href);
+    this.requestService.send(request, useCachedVersionIfAvailable);
   }
 
   /**
