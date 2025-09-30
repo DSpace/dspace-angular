@@ -1,6 +1,6 @@
-import { existsSync, writeFileSync } from 'fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { dump } from 'js-yaml';
-import { join } from 'path';
+import { join } from 'node:path';
 
 /**
  * Script to help convert previous version environment.*.ts to yaml.

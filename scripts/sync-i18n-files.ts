@@ -1,7 +1,7 @@
 import { projectRoot } from '../webpack/helpers';
 
 const commander = require('commander');
-const fs = require('fs');
+const fs = require('node:fs');
 const JSON5 = require('json5');
 const _cliProgress = require('cli-progress');
 const _ = require('lodash');

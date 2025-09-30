@@ -1,7 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('path');
+const path = require('node:path');
 // @ts-ignore
-const fs = require('fs');
+const fs = require('node:fs');
 
 module.exports = {
   mode: 'production',

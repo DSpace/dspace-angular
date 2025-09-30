@@ -1,5 +1,5 @@
-import { readFileSync, readdirSync, statSync, Stats } from 'fs';
-import { join, resolve } from 'path';
+import { readFileSync, readdirSync, statSync, Stats } from 'node:fs';
+import { join, resolve } from 'node:path';
 
 const md5 = require('md5');
 

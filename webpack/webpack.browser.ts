@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { join } from 'node:path';
 
 import { buildAppConfig } from '../src/config/config.server';
 import { commonExports } from './webpack.common';
