@@ -1,3 +1,5 @@
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
+
 import {
   ADVANCED_WORKFLOW_ACTION_RATING,
   ADVANCED_WORKFLOW_TASK_OPTION_RATING,
@@ -8,7 +10,6 @@ import {
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
   AdvancedWorkflowActionSelectReviewerComponent,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-import { hasNoValue } from '../../../empty.util';
 import {
   ClaimedTaskActionsApproveComponent,
   WORKFLOW_TASK_OPTION_APPROVE,

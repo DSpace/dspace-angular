@@ -9,12 +9,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { Community } from '../../../core/shared/community.model';
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CommunityGridElementComponent } from './community-grid-element.component';
 
 let communityGridElementComponent: CommunityGridElementComponent;

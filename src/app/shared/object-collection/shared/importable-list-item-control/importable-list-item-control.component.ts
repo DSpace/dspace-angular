@@ -4,9 +4,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-importable-list-item-control',

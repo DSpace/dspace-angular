@@ -3,19 +3,19 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
   Request,
   Response,
 } from 'express';
 
 import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import {
   REQUEST,
   RESPONSE,
 } from '../../../express.tokens';
-import { isNotEmpty } from '../../shared/empty.util';
 import { HardRedirectService } from './hard-redirect.service';
 
 /**

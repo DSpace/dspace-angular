@@ -1,12 +1,12 @@
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { URLCombiner } from '../url-combiner/url-combiner';

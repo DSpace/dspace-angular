@@ -5,6 +5,9 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
@@ -13,10 +16,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { SubmissionService } from '../../submission.service';
 

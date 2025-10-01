@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,6 +16,8 @@ import {
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { OrcidQueue } from './model/orcid-queue.model';

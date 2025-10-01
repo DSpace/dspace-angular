@@ -11,15 +11,6 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
@@ -32,10 +23,19 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
+import { RouterMock } from '../testing/router.mock';
+import { createPaginatedList } from '../testing/utils.test';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { ResearcherProfileDataService } from './researcher-profile-data.service';
 

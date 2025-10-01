@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { statisticsAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 
 import { collectionPageResolver } from '../collection-page/collection-page.resolver';
 import { communityPageResolver } from '../community-page/community-page.resolver';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { statisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 import { itemResolver } from '../item-page/item.resolver';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';

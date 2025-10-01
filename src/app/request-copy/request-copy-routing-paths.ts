@@ -1,5 +1,6 @@
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+
 import { getRequestCopyModulePath } from '../app-routing-paths';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 
 export function getRequestCopyRoute(token: string) {
   return new URLCombiner(getRequestCopyModulePath(), token).toString();

@@ -13,6 +13,17 @@ import {
   TransferState,
   Type,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { CheckAuthenticationTokenAction } from '@dspace/core/auth/auth.actions';
+import { isAuthenticationBlocking } from '@dspace/core/auth/selectors';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
+import { LAZY_DATA_SERVICES } from '@dspace/core/data-services-map';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import {
   select,
@@ -26,20 +37,9 @@ import {
   find,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-  AppConfig,
-} from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
-import { isAuthenticationBlocking } from './core/auth/selectors';
-import { LAZY_DATA_SERVICES } from './core/data-services-map';
-import { LocaleService } from './core/locale/locale.service';
-import { HeadTagService } from './core/metadata/head-tag.service';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuProviderService } from './shared/menu/menu-provider.service';
