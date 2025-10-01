@@ -32,8 +32,8 @@ import { createServer } from 'https';
 import { json } from 'body-parser';
 import { createHttpTerminator } from 'http-terminator';
 
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 import { enableProdMode } from '@angular/core';
 
