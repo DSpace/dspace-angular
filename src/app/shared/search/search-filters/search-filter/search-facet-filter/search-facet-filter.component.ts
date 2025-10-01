@@ -32,6 +32,7 @@ import {
 } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -88,6 +89,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * The current scope
    */
   @Input() scope: string;
+
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
 
   /**
    * Emits an array of pages with values found for this facet
@@ -147,6 +153,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -274,9 +281,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.filterService.minimizeAll();
       const valueParts = data.split(',');
       this.subs.push(this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, valueParts.slice(0, valueParts.length - 1).join(), valueParts[valueParts.length - 1]).pipe(take(1)).subscribe((params: Params) => {
-        void this.router.navigate(this.getSearchLinkParts(), {
-          queryParams: params,
-        });
+        this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), { page: 1 }, params, this.retainScrollPosition);
         this.filter = '';
         this.filterSearchResults$ = of([]);
       }));
