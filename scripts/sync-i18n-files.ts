@@ -1,10 +1,12 @@
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+
 import { projectRoot } from '../webpack/helpers';
 
 const commander = require('commander');
 const fs = require('node:fs');
 const JSON5 = require('json5');
 const _cliProgress = require('cli-progress');
-const _ = require('lodash');
 
 const program = new commander.Command();
 program.version('1.0.0', '-v, --version');
@@ -201,13 +203,13 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
   if (oldKeyValueInTargetComments != null) {
     const oldKeyValueUncommented = getSubStringWithRegex(oldKeyValueInTargetComments[0], '".*')[0];
 
-    if (!(_.isEmpty(correspondingTargetChunk) && _.isEmpty(commentSource)) && !removeWhiteLines(correspondingTargetChunk).includes(removeWhiteLines(commentSource.trim()))) {
+    if (!(isEmpty(correspondingTargetChunk) && isEmpty(commentSource)) && !removeWhiteLines(correspondingTargetChunk).includes(removeWhiteLines(commentSource.trim()))) {
       commentsOfSourceHaveChanged = true;
       newChunk.push(COMMENTS_CHANGED_TODO);
     }
     const parsedOldKey = JSON5.stringify('{' + oldKeyValueUncommented + '}');
     const parsedSourceKey = JSON5.stringify('{' + keyValueSource + '}');
-    if (!_.isEqual(parsedOldKey, parsedSourceKey)) {
+    if (!isEqual(parsedOldKey, parsedSourceKey)) {
       messageOfSourceHasChanged = true;
       newChunk.push(MESSAGE_CHANGED_TODO);
     }
