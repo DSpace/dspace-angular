@@ -275,17 +275,23 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
       }
     });
 
-    const diffResult = [];
-
     // compare current form data state with section data retrieved from store
-    const diffObj = difference(sectionDataToCheck, this.formData);
+    const diffFromObj = this.hasDifferences(sectionDataToCheck, this.formData);
+    const diffToObj = this.hasDifferences(this.formData, sectionDataToCheck);
+
+    return diffFromObj || diffToObj;
+  }
+
+  private hasDifferences(object1: object, object2: object) {
+    const diffResult = [];
+    const diffObj = difference(object1, object2);
 
     // iterate over differences to check whether they are actually different
     Object.keys(diffObj)
       .forEach((key) => {
         diffObj[key].forEach((value) => {
           // the findIndex extra check excludes values already present in the form but in different positions
-          if (value.hasOwnProperty('value') && findIndex(this.formData[key], { value: value.value }) < 0) {
+          if (value.hasOwnProperty('value') && findIndex(object2[key], { value: value.value }) < 0) {
             diffResult.push(value);
           }
         });
@@ -298,6 +304,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
+    if (isNotEmpty(this.sectionMetadata) && !this.sectionMetadata.includes(field)) {
+      return false;
+    }
     const scope = this.formConfig?.rows.find((row: FormRowModel) => {
       if (row.fields?.[0]?.selectableMetadata) {
         return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
