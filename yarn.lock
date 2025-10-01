@@ -7681,10 +7681,10 @@ isbinaryfile@^4.0.8:
   resolved "https://registry.npmjs.org/isbinaryfile/-/isbinaryfile-4.0.10.tgz"
   integrity sha512-iHrqe5shvBUcFbmZq9zOQHBoeOhZJu6RQGrDpBgenUm/Am+F3JM2MgQj+rK3Z601fzrL5gLZWtAPH2OBaSVcyw==
 
-isbot@^5.1.30:
-  version "5.1.30"
-  resolved "https://registry.yarnpkg.com/isbot/-/isbot-5.1.30.tgz#5bbb9ab341ec99501029ca2c283d06f5138f63c7"
-  integrity sha512-3wVJEonAns1OETX83uWsk5IAne2S5zfDcntD2hbtU23LelSqNXzXs9zKjMPOLMzroCgIjCfjYAEHrd2D6FOkiA==
+isbot@^5.1.31:
+  version "5.1.31"
+  resolved "https://registry.yarnpkg.com/isbot/-/isbot-5.1.31.tgz#ecbab171da577002c66f9123fe180c1e795e4e4e"
+  integrity sha512-DPgQshehErHAqSCKDb3rNW03pa2wS/v5evvUqtxt6TTnHRqAG8FdzcSSJs9656pK6Y+NT7K9R4acEYXLHYfpUQ==
 
 isexe@^2.0.0:
   version "2.0.0"
