@@ -9,3 +9,8 @@
 .removeFaded.content::after {
   display: none;
 }
+
+.content {
+  white-space: normal;
+  overflow: visible;
+}
