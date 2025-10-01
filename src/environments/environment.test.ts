@@ -477,4 +477,6 @@ export const environment: BuildConfig = {
   accessibility: {
     cookieExpirationDuration: 7,
   },
+
+  enableAuditLogsOverview: true,
 };
