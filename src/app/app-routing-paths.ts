@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
 import { Collection } from './core/shared/collection.model';
@@ -22,8 +24,31 @@ export function getBitstreamModuleRoute() {
   return `/${BITSTREAM_MODULE_PATH}`;
 }
 
+/**
+ * Normalizes the application's contextPath:
+ * - Returns "" if it is "/" or empty.
+ * - Ensures it starts with "/" if missing.
+ * - Removes trailing "/" if present.
+ */
+export function normalizeContextPath(contextPath?: string): string {
+  if (!contextPath || contextPath === '/') {
+    return '';
+  }
+
+  let path = contextPath.trim();
+
+  if (!path.startsWith('/')) {
+    path = '/' + path;
+  }
+  if (path.endsWith('/')) {
+    path = path.slice(0, -1);
+  }
+  return path;
+}
+
 export function getBitstreamDownloadRoute(bitstream): string {
-  return new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
+  const contextPath = normalizeContextPath(environment.ui.nameSpace);
+  return new URLCombiner(contextPath + getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
 }
 export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: string, queryParams: any } {
   const url = new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString();
