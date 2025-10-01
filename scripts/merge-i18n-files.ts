@@ -4,7 +4,6 @@ const commander = require('commander');
 const fs = require('node:fs');
 const JSON5 = require('json5');
 const _cliProgress = require('cli-progress');
-const _ = require('lodash');
 
 const program = new commander.Command();
 program.version('1.0.0', '-v, --version');
