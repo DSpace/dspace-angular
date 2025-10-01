@@ -41,13 +41,13 @@ function parseCliInput() {
   if (!program.targetFile) {
     fs.readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
       if (!program.sourceFile.toString().endsWith(file)) {
-        const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + "/" + file);
+        const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + '/' + file);
         console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + program.sourceFile);
         if (program.outputDir) {
           if (!fs.existsSync(program.outputDir)) {
             fs.mkdirSync(program.outputDir);
           }
-          const outputFileLocation = program.outputDir + "/" + file;
+          const outputFileLocation = program.outputDir + '/' + file;
           console.log('Output location: ' + outputFileLocation);
           syncFileWithSource(targetFileLocation, outputFileLocation);
         } else {
@@ -97,12 +97,12 @@ function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
   const sourceLines = [];
   const targetLines = [];
   const existingTargetFile = readFileIfExists(pathToTargetFile);
-  existingTargetFile.toString().split("\n").forEach((function (line) {
+  existingTargetFile.toString().split('\n').forEach((function (line) {
     targetLines.push(line.trim());
   }));
   progressBar.update(10);
   const sourceFile = readFileIfExists(program.sourceFile);
-  sourceFile.toString().split("\n").forEach((function (line) {
+  sourceFile.toString().split('\n').forEach((function (line) {
     sourceLines.push(line.trim());
   }));
   progressBar.update(20);
@@ -113,22 +113,22 @@ function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
 
   const file = fs.createWriteStream(pathToOutputFile);
   file.on('error', function (err) {
-    console.error('Something went wrong writing to output file at: ' + pathToOutputFile + err)
+    console.error('Something went wrong writing to output file at: ' + pathToOutputFile + err);
   });
   file.on('open', function() {
-    file.write("{\n");
+    file.write('{\n');
     outputChunks.forEach(function (chunk) {
       progressBar.increment();
-      chunk.split("\n").forEach(function (line) {
-        file.write((line === '' ? '' : `  ${line}`) + "\n");
+      chunk.split('\n').forEach(function (line) {
+        file.write((line === '' ? '' : `  ${line}`) + '\n');
       });
     });
-    file.write("\n}");
+    file.write('\n}');
     file.end();
   });
   file.on('finish', function() {
     const osName = process.platform;
-    if (osName.startsWith("win")) {
+    if (osName.startsWith('win')) {
       replaceLineEndingsToCRLF(pathToOutputFile);
     }
   });
@@ -151,10 +151,10 @@ function compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar) {
   sourceChunks.map((sourceChunk) => {
     progressBar.increment();
     if (sourceChunk.trim().length !== 0) {
-      let newChunk = [];
-      const sourceList = sourceChunk.split("\n");
+      const newChunk = [];
+      const sourceList = sourceChunk.split('\n');
       const keyValueSource = sourceList[sourceList.length - 1];
-      const keySource = getSubStringBeforeLastString(keyValueSource, ":");
+      const keySource = getSubStringBeforeLastString(keyValueSource, ':');
       const commentSource = getSubStringBeforeLastString(sourceChunk, keyValueSource);
 
       const correspondingTargetChunk = targetChunks.find((targetChunk) => {
@@ -163,7 +163,7 @@ function compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar) {
 
       // Create new chunk with: the source comments, the commented source key-value, the todos and either the old target key-value pair or if it's a new pair, the source key-value pair
       newChunk.push(removeWhiteLines(commentSource));
-      newChunk.push("// " + keyValueSource);
+      newChunk.push('// ' + keyValueSource);
       if (correspondingTargetChunk === undefined) {
         newChunk.push(NEW_MESSAGE_TODO);
         newChunk.push(keyValueSource);
@@ -171,7 +171,7 @@ function compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar) {
         createNewChunkComparingSourceAndTarget(correspondingTargetChunk, sourceChunk, commentSource, keyValueSource, newChunk);
       }
 
-      outputChunks.push(newChunk.filter(Boolean).join("\n"));
+      outputChunks.push(newChunk.filter(Boolean).join('\n'));
     } else {
       outputChunks.push(sourceChunk);
     }
@@ -191,22 +191,22 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
   let commentsOfSourceHaveChanged = false;
   let messageOfSourceHasChanged = false;
 
-  const targetList = correspondingTargetChunk.split("\n");
-  const oldKeyValueInTargetComments = getSubStringWithRegex(correspondingTargetChunk, "\\s*\\/\\/\\s*\".*");
+  const targetList = correspondingTargetChunk.split('\n');
+  const oldKeyValueInTargetComments = getSubStringWithRegex(correspondingTargetChunk, '\\s*\\/\\/\\s*".*');
   let keyValueTarget = targetList[targetList.length - 1];
-  if (!keyValueTarget.endsWith(",")) {
-    keyValueTarget = keyValueTarget + ",";
+  if (!keyValueTarget.endsWith(',')) {
+    keyValueTarget = keyValueTarget + ',';
   }
 
   if (oldKeyValueInTargetComments != null) {
-    const oldKeyValueUncommented = getSubStringWithRegex(oldKeyValueInTargetComments[0], "\".*")[0];
+    const oldKeyValueUncommented = getSubStringWithRegex(oldKeyValueInTargetComments[0], '".*')[0];
 
     if (!(_.isEmpty(correspondingTargetChunk) && _.isEmpty(commentSource)) && !removeWhiteLines(correspondingTargetChunk).includes(removeWhiteLines(commentSource.trim()))) {
       commentsOfSourceHaveChanged = true;
       newChunk.push(COMMENTS_CHANGED_TODO);
     }
-    const parsedOldKey = JSON5.stringify("{" + oldKeyValueUncommented + "}");
-    const parsedSourceKey = JSON5.stringify("{" + keyValueSource + "}");
+    const parsedOldKey = JSON5.stringify('{' + oldKeyValueUncommented + '}');
+    const parsedSourceKey = JSON5.stringify('{' + keyValueSource + '}');
     if (!_.isEqual(parsedOldKey, parsedSourceKey)) {
       messageOfSourceHasChanged = true;
       newChunk.push(MESSAGE_CHANGED_TODO);
@@ -219,7 +219,7 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
 // Adds old todos found in target comments if they've not been added already
 function addOldTodosIfNeeded(targetList, newChunk, commentsOfSourceHaveChanged, messageOfSourceHasChanged) {
   targetList.map((targetLine) => {
-    const foundTODO = getSubStringWithRegex(targetLine, "\\s*//\\s*TODO.*");
+    const foundTODO = getSubStringWithRegex(targetLine, '\\s*//\\s*TODO.*');
     if (foundTODO != null) {
       const todo = foundTODO[0];
       if (!((todo.includes(COMMENTS_CHANGED_TODO) && commentsOfSourceHaveChanged)
@@ -262,7 +262,7 @@ function createChunks(lines, progressBar, creatingTarget) {
       nextChunk.push(line);
       const newMessageLineIfExists = nextChunk.find((lineInChunk) => lineInChunk.trim().startsWith(NEW_MESSAGE_TODO));
       if (newMessageLineIfExists === undefined || !creatingTarget) {
-        chunks.push(nextChunk.join("\n"));
+        chunks.push(nextChunk.join('\n'));
       }
       nextChunk = [];
     }
@@ -284,19 +284,19 @@ function readFileIfExists(pathToFile) {
 }
 
 function isOneLineCommentLine(line) {
-  return (line.startsWith("//"));
+  return (line.startsWith('//'));
 }
 
 function isStartOfMultiLineComment(line) {
-  return (line.startsWith("/*"));
+  return (line.startsWith('/*'));
 }
 
 function isEndOfMultiLineComment(line) {
-  return (line.endsWith("*/"));
+  return (line.endsWith('*/'));
 }
 
 function isKeyValuePair(line) {
-  return (line.startsWith("\""));
+  return (line.startsWith('"'));
 }
 
 
@@ -318,7 +318,7 @@ function getOutputFileLocationIfExistsElseTargetFileLocation(targetLocation) {
 }
 
 function checkIfPathToFileIsValid(pathToCheck) {
-  if (!pathToCheck.includes("/")) {
+  if (!pathToCheck.includes('/')) {
     return true;
   }
   return checkIfFileExists(getPathOfDirectory(pathToCheck));
@@ -329,11 +329,11 @@ function checkIfFileExists(pathToCheck) {
 }
 
 function getPathOfDirectory(pathToCheck) {
-  return getSubStringBeforeLastString(pathToCheck, "/");
+  return getSubStringBeforeLastString(pathToCheck, '/');
 }
 
 function removeWhiteLines(string) {
-  return string.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "")
+  return string.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, '');
 }
 
 /**
@@ -342,6 +342,6 @@ function removeWhiteLines(string) {
  */
 function replaceLineEndingsToCRLF(filePath) {
   const data = readFileIfExists(filePath);
-  const result = data.replace(/\n/g,"\r\n");
+  const result = data.replace(/\n/g,'\r\n');
   fs.writeFileSync(filePath, result, 'utf8');
 }

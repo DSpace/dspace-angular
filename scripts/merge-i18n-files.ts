@@ -1,4 +1,5 @@
-import { projectRoot} from '../webpack/helpers';
+import { projectRoot } from '../webpack/helpers';
+
 const commander = require('commander');
 const fs = require('node:fs');
 const JSON5 = require('json5');

@@ -1,12 +1,16 @@
-import { existsSync, writeFileSync } from 'node:fs';
-import { dump } from 'js-yaml';
+import {
+  existsSync,
+  writeFileSync,
+} from 'node:fs';
 import { join } from 'node:path';
+
+import { dump } from 'js-yaml';
 
 /**
  * Script to help convert previous version environment.*.ts to yaml.
  *
  * Usage (see package.json):
- * 
+ *
  * yarn env:yaml [relative path to environment.ts file] (optional relative path to write yaml file) *
  */
 
