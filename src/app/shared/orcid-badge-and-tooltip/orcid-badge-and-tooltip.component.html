@@ -1,10 +1,15 @@
-<img placement="top"
-     [ngbTooltip]="orcidTooltipTemplate"
-     class="orcid-icon"
-     [ngClass]="{'not-authenticated': !authenticatedTimestamp}"
-     alt="ORCID {{ orcidTooltip }}"
-     src="assets/images/orcid.logo.icon.svg"
-     data-test="orcidIcon"/>
+<a [href]="orcidUrl$ | async"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="orcid-link">
+  <img placement="top"
+       [ngbTooltip]="orcidTooltipTemplate"
+       class="orcid-icon"
+       [ngClass]="{'not-authenticated': !authenticatedTimestamp}"
+       alt="ORCID {{ orcidTooltip }}"
+       src="assets/images/orcid.logo.icon.svg"
+       data-test="orcidIcon"/>
+</a>
 
 <ng-template #orcidTooltipTemplate>
     <span class="text-muted">{{ orcidTooltip }}</span>

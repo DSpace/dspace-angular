@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -6,17 +9,20 @@ import {
 } from '@angular/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+  of,
+} from 'rxjs';
 
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { MetadataValue } from '../../core/shared/metadata.models';
 
-/**
- * Component to display an ORCID badge with a tooltip.
- * The tooltip text changes based on whether the ORCID is authenticated.
- */
 @Component({
   selector: 'ds-orcid-badge-and-tooltip',
   standalone: true,
   imports: [
+    AsyncPipe,
     NgbTooltipModule,
     NgClass,
   ],
@@ -41,21 +47,51 @@ export class OrcidBadgeAndTooltipComponent implements OnInit {
   orcidTooltip: string;
 
   /**
-   * Constructor to inject the TranslateService.
-   * @param translateService - Service for translation.
+   * Observable for the full ORCID URL
    */
+  orcidUrl$: Observable<string>;
+
   constructor(
     private translateService: TranslateService,
+    private configurationService: ConfigurationDataService,
   ) { }
 
-  /**
-   * Initializes the component.
-   * Sets the tooltip text based on the presence of the authenticated timestamp.
-   */
   ngOnInit() {
     this.orcidTooltip = this.authenticatedTimestamp ?
       this.translateService.instant('person.orcid-tooltip.authenticated', { orcid: this.orcid.value }) :
       this.translateService.instant('person.orcid-tooltip.not-authenticated', { orcid: this.orcid.value });
+
+    this.orcidUrl$ = this.buildOrcidUrl();
   }
 
+  /**
+   * Build the full ORCID URL from configuration and metadata value
+   */
+  private buildOrcidUrl(): Observable<string> {
+    // TODO: Remove this mock and uncomment the real implementation below
+    const baseUrl$ = of('https://sandbox.orcid.org');
+
+    /* Real implementation - uncomment when configuration is exposed:
+    const baseUrl$ = this.configurationService
+      .findByPropertyName('orcid.domain-url')
+      .pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((property: ConfigurationProperty) =>
+          property?.values?.length > 0 ? property.values[0] : null,
+        ),
+      );
+    */
+
+    return baseUrl$.pipe(
+      map(baseUrl => {
+        if (!baseUrl || !this.orcid?.value) {
+          return '';
+        }
+
+        const cleanBaseUrl = baseUrl.replace(/\/$/, '');
+        const cleanOrcidId = this.orcid.value.replace(/^\//, '');
+        return `${cleanBaseUrl}/${cleanOrcidId}`;
+      }),
+    );
+  }
 }
