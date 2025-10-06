@@ -2925,6 +2925,10 @@
 
   "item.page.options": "Options",
 
+  "item.page.orcid-ico": "ORCID icon",
+
+  "item.page.orcid-profile": "ORCID Profile",
+
   "item.page.orcid.title": "ORCID",
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
