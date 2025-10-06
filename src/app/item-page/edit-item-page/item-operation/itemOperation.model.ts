@@ -1,4 +1,4 @@
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 
 /**
  *  Represents an item operation used on the edit item page with a key, an operation URL to which will be navigated

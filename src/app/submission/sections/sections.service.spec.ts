@@ -2,6 +2,16 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockScrollToService } from '@dspace/core/testing/scroll-to-service.mock';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,
@@ -19,23 +29,9 @@ import {
 import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
-import { getMockFormService } from '../../shared/mocks/form-service.mock';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import {
-  mockSectionsData,
-  mockSectionsErrors,
-  mockSubmissionState,
-  mockSubmissionStateWithoutUpload,
-} from '../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { SectionScope } from '../objects/section-visibility.model';
+import { getMockFormService } from '../../shared/form/testing/form-service.mock';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -44,12 +40,16 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
 import { submissionReducers } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import {
+  mockSectionsData,
+  mockSectionsErrors,
+  mockSubmissionState,
+  mockSubmissionStateWithoutUpload,
+} from '../utils/submission.mock';
 import { SectionsService } from './sections.service';
-import { SectionsType } from './sections-type';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;

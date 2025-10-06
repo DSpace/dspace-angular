@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
-
 import {
   hasNoValue,
   hasValue,
-} from '../../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';

@@ -4,7 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { BadgesComponent } from './badges.component';
 

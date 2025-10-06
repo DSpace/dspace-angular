@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -7,13 +8,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Community } from '../shared/community.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getAllCompletedRemoteData } from '../shared/operators';
 import { BitstreamDataService } from './bitstream-data.service';

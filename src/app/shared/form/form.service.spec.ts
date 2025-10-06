@@ -20,10 +20,10 @@ import {
 } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import { getMockFormBuilderService } from '../mocks/form-builder-service.mock';
 import { FormBuilderService } from './builder/form-builder.service';
 import { formReducer } from './form.reducer';
 import { FormService } from './form.service';
+import { getMockFormBuilderService } from './testing/form-builder-service.mock';
 
 describe('FormService test suite', () => {
   const config = {

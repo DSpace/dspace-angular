@@ -7,6 +7,11 @@
  */
 
 import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
+import {
   AsyncSubject,
   from as observableFrom,
   Observable,
@@ -24,12 +29,6 @@ import {
 } from 'rxjs/operators';
 
 import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../shared/empty.util';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import {
   getLinkDefinition,
   LinkDefinition,
 } from '../../cache/builders/build-decorators';
@@ -38,6 +37,7 @@ import { CacheableObject } from '../../cache/cacheable-object.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';

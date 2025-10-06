@@ -3,16 +3,16 @@ import {
   ResolveFn,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,
   tap,
 } from 'rxjs/operators';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
-import { hasValue } from '../../shared/empty.util';
 import { ItemRequestDataService } from '../data/item-request-data.service';
 import { RemoteData } from '../data/remote-data';
+import { getForbiddenRoute } from '../router/core-routing-paths';
 import { redirectOn4xx } from '../shared/authorized.operators';
 import { ItemRequest } from '../shared/item-request.model';
 import {

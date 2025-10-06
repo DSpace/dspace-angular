@@ -1,12 +1,13 @@
-import { Item } from '../../core/shared/item.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+
 import {
   mockSubmissionCollectionId,
   mockSubmissionDefinitionResponse,
   mockSubmissionId,
   mockSubmissionSelfUrl,
   mockSubmissionState,
-} from '../../shared/mocks/submission.mock';
-import { SectionsType } from '../sections/sections-type';
+} from '../utils/submission.mock';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,

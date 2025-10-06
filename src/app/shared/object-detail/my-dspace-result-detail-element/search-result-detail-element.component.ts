@@ -2,12 +2,12 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { SearchResult } from '../../search/models/search-result.model';
 
 /**
  * Component representing Search Results with ViewMode.DetailedElement

@@ -12,20 +12,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { FileService } from '../../core/shared/file.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { MatomoService } from '../../statistics/matomo.service';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 

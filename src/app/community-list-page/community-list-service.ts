@@ -4,6 +4,34 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  getCollectionPageRoute,
+  getCommunityPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   Store,
 } from '@ngrx/store';
@@ -17,35 +45,9 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppState } from '../app.reducer';
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '../core/shared/operators';
-import { PageInfo } from '../core/shared/page-info.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { FlatNode } from './flat-node.model';

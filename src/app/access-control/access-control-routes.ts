@@ -1,13 +1,13 @@
 import { AbstractControl } from '@angular/forms';
 import { Route } from '@angular/router';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { groupAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   DYNAMIC_ERROR_MESSAGES_MATCHER,
   DynamicErrorMessagesMatcher,
 } from '@ng-dynamic-forms/core';
 
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { groupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   EPERSON_PATH,
   GROUP_PATH,

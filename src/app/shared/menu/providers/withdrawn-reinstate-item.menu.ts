@@ -6,18 +6,18 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
 import {
   combineLatest,
   Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { CorrectionTypeDataService } from '../../../core/submission/correctiontype-data.service';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
