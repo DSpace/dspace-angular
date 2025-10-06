@@ -14,8 +14,10 @@ import {
 import { BrowseService } from '../../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from '../image-field';
 import { ItemPageFieldComponent } from '../item-page-field.component';
@@ -114,12 +116,6 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
    */
   ngOnInit(): void {
 
-    // TEMPORARY: Mock the ORCID URL until configuration is exposed
-    // TODO: Remove this mock and uncomment the real implementation below
-    this.baseUrl$ = of('https://sandbox.orcid.org');
-
-
-    /* Real implementation - uncomment when configuration is exposed:
     this.baseUrl$ = this.configurationService
       .findByPropertyName('orcid.domain-url')
       .pipe(
@@ -128,7 +124,6 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
           property?.values?.length > 0 ? property.values[0] : null,
         ),
       );
-    */
 
     this.orcidUrl$ = combineLatest([
       this.baseUrl$,

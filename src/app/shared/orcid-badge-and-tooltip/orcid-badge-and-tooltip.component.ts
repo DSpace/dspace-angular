@@ -12,11 +12,12 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-orcid-badge-and-tooltip',
@@ -68,10 +69,8 @@ export class OrcidBadgeAndTooltipComponent implements OnInit {
    * Build the full ORCID URL from configuration and metadata value
    */
   private buildOrcidUrl(): Observable<string> {
-    // TODO: Remove this mock and uncomment the real implementation below
-    const baseUrl$ = of('https://sandbox.orcid.org');
 
-    /* Real implementation - uncomment when configuration is exposed:
+
     const baseUrl$ = this.configurationService
       .findByPropertyName('orcid.domain-url')
       .pipe(
@@ -80,7 +79,7 @@ export class OrcidBadgeAndTooltipComponent implements OnInit {
           property?.values?.length > 0 ? property.values[0] : null,
         ),
       );
-    */
+
 
     return baseUrl$.pipe(
       map(baseUrl => {
