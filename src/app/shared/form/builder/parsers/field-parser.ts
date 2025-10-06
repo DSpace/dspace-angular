@@ -3,6 +3,10 @@ import {
   InjectionToken,
 } from '@angular/core';
 import {
+  AbstractControl,
+  ValidatorFn,
+} from '@angular/forms';
+import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   MATCH_VISIBLE,
@@ -47,6 +51,28 @@ export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<
  * The regex itself is encapsulated inside a `RegExp` object, that will validate the pattern syntax.
  */
 export const REGEX_FIELD_VALIDATOR = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
+
+/**
+ * Define custom form validators here
+ *
+ * Register them by adding their key to a model's validator property, e.g:
+ * ```ts
+ * model.validators = Object.assign({}, model.validators, { notRepeatable: null });
+ * ```
+ */
+export const CUSTOM_VALIDATORS = new Map<string, ValidatorFn>([
+  ['notRepeatable', notRepeatableValidator],
+]);
+
+export function notRepeatableValidator(control: AbstractControl) {
+  const value = control.value;
+  if (!Array.isArray(value) || value.length < 2) {
+    return null;
+  }
+  return {
+    notRepeatable: true,
+  };
+}
 
 export abstract class FieldParser {
 
@@ -131,7 +157,11 @@ export abstract class FieldParser {
         },
       };
 
-      return new DynamicRowArrayModel(config, layout);
+      const model = new DynamicRowArrayModel(config, layout);
+      if (config.notRepeatable) {
+        this.addNotRepeatableValidator(model);
+      }
+      return model;
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
@@ -424,6 +454,17 @@ export abstract class FieldParser {
       {},
       controlModel.errorMessages,
       { required: this.configData.mandatoryMessage });
+  }
+
+  protected addNotRepeatableValidator(controlModel) {
+    controlModel.validators = Object.assign({}, controlModel.validators, { notRepeatable: null });
+    controlModel.errorMessages = Object.assign(
+      {},
+      controlModel.errorMessages,
+      {
+        notRepeatable: 'error.validation.not.repeatable',
+      },
+    );
   }
 
   protected setLabel(controlModel, label = true, labelEmpty = false) {

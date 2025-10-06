@@ -13,7 +13,10 @@ import {
   TransferState,
   Type,
 } from '@angular/core';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
+  DYNAMIC_VALIDATORS,
+} from '@ng-dynamic-forms/core';
 import {
   select,
   Store,
@@ -41,6 +44,7 @@ import { LocaleService } from './core/locale/locale.service';
 import { HeadTagService } from './core/metadata/head-tag.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { CUSTOM_VALIDATORS } from './shared/form/builder/parsers/field-parser';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuProviderService } from './shared/menu/menu-provider.service';
 import { ThemeService } from './shared/theme-support/theme.service';
@@ -119,6 +123,10 @@ export abstract class InitService {
       {
         provide: DYNAMIC_FORM_CONTROL_MAP_FN,
         useValue: dsDynamicFormControlMapFn,
+      },
+      {
+        provide: DYNAMIC_VALIDATORS,
+        useValue: CUSTOM_VALIDATORS,
       },
     ];
   }
