@@ -1,0 +1,180 @@
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  combineLatest,
+  map,
+  Observable,
+  of,
+} from 'rxjs';
+
+import { BrowseService } from '../../../../../core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
+import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
+import { ImageField } from '../image-field';
+import { ItemPageFieldComponent } from '../item-page-field.component';
+
+@Component({
+  selector: 'ds-item-page-orcid-field',
+  templateUrl: './item-page-orcid-field.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    MetadataValuesComponent,
+  ],
+})
+/**
+ * This component is used for displaying ORCID identifier as a clickable link
+ */
+export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implements OnInit {
+
+  /**
+   * The item to display metadata for
+   */
+  @Input() item: Item;
+
+  /**
+   * Separator string between multiple values of the metadata fields defined
+   * @type {string}
+   */
+  separator: string;
+
+  /**
+   * Fields (schema.element.qualifier) used to render their values.
+   * In this component, we want to display values for metadata 'person.identifier.orcid'
+   */
+  fields: string[] = [
+    'person.identifier.orcid',
+  ];
+
+  /**
+   * Label i18n key for the rendered metadata
+   */
+  label = 'item.page.orcid-profile';
+
+  /**
+   * Observable for the ORCID URL from configuration
+   */
+  baseUrl$: Observable<string>;
+
+  /**
+   * Observable for metadata value with ORCID URL
+   */
+  orcidUrl$: Observable<MetadataValue[]>;
+
+  /**
+   * Enable markdown rendering
+   */
+  enableMarkdown = true;
+
+  /**
+   * Regular expression to match URLs
+   */
+  urlRegex = '(https?://[^\\s]+)';
+
+  /**
+   * ORCID icon configuration
+   */
+  img: ImageField = {
+    URI: 'assets/images/orcid.logo.icon.svg',
+    alt: 'item.page.orcid-icon',
+    heightVar: '--ds-orcid-icon-height',
+  };
+
+  /**
+   * Creates an instance of ItemPageOrcidFieldComponent.
+   *
+   * @param {BrowseDefinitionDataService} browseDefinitionDataService - Service for managing browse definitions
+   * @param {BrowseService} browseService - Service for browse functionality
+   * @param {ConfigurationDataService} configurationService - Service for accessing configuration properties
+   */
+  constructor(
+    protected browseDefinitionDataService: BrowseDefinitionDataService,
+    protected browseService: BrowseService,
+    protected configurationService: ConfigurationDataService,
+  ) {
+    super(browseDefinitionDataService, browseService);
+  }
+
+  /**
+   * Initializes the component and sets up observables for ORCID URL and metadata.
+   * Combines the base ORCID URL from configuration with the item's ORCID identifier
+   * to create a full clickable URL.
+   *
+   * Note: Currently uses a mocked ORCID URL (sandbox.orcid.org) until configuration
+   * service is exposed.
+   *
+   * @returns {void}
+   */
+  ngOnInit(): void {
+
+    // TEMPORARY: Mock the ORCID URL until configuration is exposed
+    // TODO: Remove this mock and uncomment the real implementation below
+    this.baseUrl$ = of('https://sandbox.orcid.org');
+
+
+    /* Real implementation - uncomment when configuration is exposed:
+    this.baseUrl$ = this.configurationService
+      .findByPropertyName('orcid.domain-url')
+      .pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((property: ConfigurationProperty) =>
+          property?.values?.length > 0 ? property.values[0] : null,
+        ),
+      );
+    */
+
+    this.orcidUrl$ = combineLatest([
+      this.baseUrl$,
+      of(this.getOrcidMetadata()),
+    ]).pipe(
+      map(([baseUrl, metadata]) => {
+        if (!baseUrl || !metadata) {
+          return [];
+        }
+
+        const cleanBaseUrl = baseUrl.replace(/\/$/, '');
+        const cleanOrcidId = metadata.value.replace(/^\//, '');
+        const fullUrl = `${cleanBaseUrl}/${cleanOrcidId}`;
+
+        return [{
+          ...metadata,
+          value: fullUrl,
+        }];
+      }),
+    );
+  }
+
+  /**
+   * Retrieves the ORCID metadata value from the item.
+   * Extracts the first ORCID identifier from the item's metadata fields,
+   * ensuring the value is not empty or whitespace only.
+   *
+   * @private
+   * @returns {MetadataValue | null} The ORCID metadata value if found and valid, null otherwise
+   */
+  private getOrcidMetadata(): MetadataValue | null {
+    if (!this.item || !this.hasOrcid()) {
+      return null;
+    }
+
+    const metadata = this.item.findMetadataSortedByPlace('person.identifier.orcid');
+    return metadata.length > 0 && metadata[0].value?.trim() ? metadata[0] : null;
+  }
+
+  /**
+   * Checks whether the item has ORCID metadata associated with it.
+   *
+   * @public
+   * @returns {boolean} True if the item has 'person.identifier.orcid' metadata, false otherwise
+   */
+  public hasOrcid(): boolean {
+    return this.item?.hasMetadata('person.identifier.orcid');
+  }
+}

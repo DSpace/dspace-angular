@@ -1,0 +1,13 @@
+@if (hasOrcid()) {
+  <div class="item-page-field">
+    <ds-metadata-values
+      [mdValues]="orcidUrl$ | async"
+      [separator]="separator"
+      [label]="label"
+      [enableMarkdown]="enableMarkdown"
+      [urlRegex]="urlRegex"
+      [browseDefinition]="browseDefinition|async"
+      [img]="img"
+    ></ds-metadata-values>
+  </div>
+}
