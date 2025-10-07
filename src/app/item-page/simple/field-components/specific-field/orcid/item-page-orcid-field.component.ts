@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   combineLatest,
   map,
@@ -18,7 +19,6 @@ import { ConfigurationProperty } from '../../../../../core/shared/configuration-
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from '../image-field';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
@@ -28,7 +28,7 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   standalone: true,
   imports: [
     AsyncPipe,
-    MetadataValuesComponent,
+    TranslatePipe,
   ],
 })
 /**
@@ -66,19 +66,14 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
   baseUrl$: Observable<string>;
 
   /**
-   * Observable for metadata value with ORCID URL
+   * Observable for the ORCID ID (without full URL)
    */
-  orcidUrl$: Observable<MetadataValue[]>;
+  orcidId$: Observable<string>;
 
   /**
-   * Enable markdown rendering
+   * Observable for the full ORCID URL
    */
-  enableMarkdown = true;
-
-  /**
-   * Regular expression to match URLs
-   */
-  urlRegex = '(https?://[^\\s]+)';
+  orcidUrl$: Observable<string>;
 
   /**
    * ORCID icon configuration
@@ -105,12 +100,8 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
   }
 
   /**
-   * Initializes the component and sets up observables for ORCID URL and metadata.
-   * Combines the base ORCID URL from configuration with the item's ORCID identifier
-   * to create a full clickable URL.
-   *
-   * Note: Currently uses a mocked ORCID URL (sandbox.orcid.org) until configuration
-   * service is exposed.
+   * Initializes the component and sets up observables for ORCID ID and URL.
+   * Separates the display value (ORCID ID) from the link URL.
    *
    * @returns {void}
    */
@@ -125,23 +116,24 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
         ),
       );
 
+    const metadata$ = of(this.getOrcidMetadata());
+
+    this.orcidId$ = metadata$.pipe(
+      map(metadata => metadata?.value.replace(/^\//, '') || null),
+    );
+
     this.orcidUrl$ = combineLatest([
       this.baseUrl$,
-      of(this.getOrcidMetadata()),
+      metadata$,
     ]).pipe(
       map(([baseUrl, metadata]) => {
         if (!baseUrl || !metadata) {
-          return [];
+          return null;
         }
 
         const cleanBaseUrl = baseUrl.replace(/\/$/, '');
-        const cleanOrcidId = metadata.value.replace(/^\//, '');
-        const fullUrl = `${cleanBaseUrl}/${cleanOrcidId}`;
-
-        return [{
-          ...metadata,
-          value: fullUrl,
-        }];
+        const orcidId = metadata.value.replace(/^\//, '');
+        return `${cleanBaseUrl}/${orcidId}`;
       }),
     );
   }

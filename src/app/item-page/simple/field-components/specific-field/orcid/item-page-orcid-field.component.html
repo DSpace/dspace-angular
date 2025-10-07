@@ -1,13 +1,9 @@
 @if (hasOrcid()) {
-  <div class="item-page-field">
-    <ds-metadata-values
-      [mdValues]="orcidUrl$ | async"
-      [separator]="separator"
-      [label]="label"
-      [enableMarkdown]="enableMarkdown"
-      [urlRegex]="urlRegex"
-      [browseDefinition]="browseDefinition|async"
-      [img]="img"
-    ></ds-metadata-values>
+  <div class="item-page-field mb-2">
+    <label class="font-weight-bold">{{ label | translate }}</label>
+    <a [href]="orcidUrl$ | async" target="_blank" rel="noopener noreferrer" class="d-flex align-items-center">
+      <img [src]="img.URI" [alt]="img.alt | translate" [style]="'height: var(' + img.heightVar + ', 16px); margin-right: 8px;'" />
+      <span>{{ orcidId$ | async }}</span>
+    </a>
   </div>
 }
