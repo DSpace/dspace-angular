@@ -181,13 +181,13 @@ export const APP_ROUTES: Route[] = [
         path: 'login',
         loadChildren: () => import('./login-page/login-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [notAuthenticatedGuard]
+        canActivate: [notAuthenticatedGuard],
       },
       {
         path: 'logout',
         loadChildren: () => import('./logout-page/logout-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [authenticatedGuard]
+        canActivate: [authenticatedGuard],
       },
       {
         path: 'submit',
@@ -275,7 +275,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: 'external-login/:token',
         loadChildren: () => import('./external-login-page/external-login-routes').then((m) => m.ROUTES),
-        canActivate: [notAuthenticatedGuard]
+        canActivate: [notAuthenticatedGuard],
       },
       {
         path: 'review-account/:token',
@@ -286,7 +286,7 @@ export const APP_ROUTES: Route[] = [
         path: 'email-confirmation',
         loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [notAuthenticatedGuard]
+        canActivate: [notAuthenticatedGuard],
       },
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
     ],
