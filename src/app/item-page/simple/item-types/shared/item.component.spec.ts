@@ -77,6 +77,7 @@ import {
   compareArraysUsing,
   compareArraysUsingIds,
 } from './item-relationships-utils';
+import {ItemPageOrcidFieldComponent} from "../../field-components/specific-field/orcid/item-page-orcid-field.component";
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -200,6 +201,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
               RelatedItemsComponent,
               TabbedRelatedEntitiesSearchComponent,
               ThemedMetadataRepresentationListComponent,
+              ItemPageOrcidFieldComponent,
             ],
           },
           add: { changeDetection: ChangeDetectionStrategy.Default },
