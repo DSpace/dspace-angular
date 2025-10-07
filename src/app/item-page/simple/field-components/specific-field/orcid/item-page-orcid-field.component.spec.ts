@@ -105,9 +105,52 @@ describe('ItemPageOrcidFieldComponent', () => {
   it('should construct ORCID URL on init', (done) => {
     fixture.detectChanges();
 
-    component.orcidUrl$.subscribe(urls => {
-      expect(urls.length).toBe(1);
-      expect(urls[0].value).toBe('https://sandbox.orcid.org/0000-0002-1825-0097');
+    component.orcidUrl$.subscribe(url => {
+      expect(url).toBe('https://sandbox.orcid.org/0000-0002-1825-0097');
+      done();
+    });
+  });
+
+  it('should extract ORCID ID on init', (done) => {
+    fixture.detectChanges();
+
+    component.orcidId$.subscribe(id => {
+      expect(id).toBe('0000-0002-1825-0097');
+      done();
+    });
+  });
+
+  it('should handle ORCID with leading slash', (done) => {
+    component.item = Object.assign(new Item(), {
+      metadata: {
+        'person.identifier.orcid': [
+          {
+            value: '/0000-0002-1825-0097',
+            language: null,
+            authority: null,
+            confidence: -1,
+            place: 0,
+          },
+        ],
+      },
+    });
+
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    component.orcidUrl$.subscribe(url => {
+      expect(url).toBe('https://sandbox.orcid.org/0000-0002-1825-0097');
+      done();
+    });
+  });
+
+  it('should return null when item has no ORCID metadata', (done) => {
+    component.item = Object.assign(new Item(), { metadata: {} });
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    component.orcidUrl$.subscribe(url => {
+      expect(url).toBeNull();
       done();
     });
   });
