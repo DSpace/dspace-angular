@@ -9,7 +9,6 @@ import {
   combineLatest,
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { BrowseService } from '../../../../../core/browse/browse.service';
@@ -66,14 +65,19 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
   baseUrl$: Observable<string>;
 
   /**
-   * Observable for the ORCID ID (without full URL)
+   * ORCID ID (without full URL)
    */
-  orcidId$: Observable<string>;
+  orcidId: string | null;
 
   /**
    * Observable for the full ORCID URL
    */
   orcidUrl$: Observable<string>;
+
+  /**
+   * Whether the item has ORCID metadata
+   */
+  hasOrcidMetadata: boolean;
 
   /**
    * ORCID icon configuration
@@ -100,12 +104,14 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
   }
 
   /**
-   * Initializes the component and sets up observables for ORCID ID and URL.
+   * Initializes the component and sets up observables for ORCID URL.
    * Separates the display value (ORCID ID) from the link URL.
    *
    * @returns {void}
    */
   ngOnInit(): void {
+
+    this.hasOrcidMetadata = this.hasOrcid();
 
     this.baseUrl$ = this.configurationService
       .findByPropertyName('orcid.domain-url')
@@ -116,24 +122,20 @@ export class ItemPageOrcidFieldComponent extends ItemPageFieldComponent implemen
         ),
       );
 
-    const metadata$ = of(this.getOrcidMetadata());
+    const metadata = this.getOrcidMetadata();
 
-    this.orcidId$ = metadata$.pipe(
-      map(metadata => metadata?.value.replace(/^\//, '') || null),
-    );
+    this.orcidId = metadata?.value.replace(/^\//, '') || null;
 
     this.orcidUrl$ = combineLatest([
       this.baseUrl$,
-      metadata$,
     ]).pipe(
-      map(([baseUrl, metadata]) => {
-        if (!baseUrl || !metadata) {
+      map(([baseUrl]) => {
+        if (!baseUrl || !this.orcidId) {
           return null;
         }
 
         const cleanBaseUrl = baseUrl.replace(/\/$/, '');
-        const orcidId = metadata.value.replace(/^\//, '');
-        return `${cleanBaseUrl}/${orcidId}`;
+        return `${cleanBaseUrl}/${this.orcidId}`;
       }),
     );
   }
