@@ -2,7 +2,7 @@
   <div class="item-page-field mb-2">
     <label class="font-weight-bold">{{ label | translate }}</label>
     <a [href]="orcidUrl$ | async" target="_blank" rel="noopener noreferrer" class="d-flex align-items-center">
-      <img [src]="img.URI" [alt]="img.alt | translate" [style]="'height: var(' + img.heightVar + ', 16px); margin-right: 8px;'" />
+      <img [src]="img.URI" [alt]="img.alt | translate" class="orcid-icon" />
       <span>{{ orcidId }}</span>
     </a>
   </div>

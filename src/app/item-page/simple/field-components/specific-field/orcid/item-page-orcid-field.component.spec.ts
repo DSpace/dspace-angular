@@ -5,6 +5,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { BrowseService } from '../../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
@@ -12,7 +13,6 @@ import { ConfigurationDataService } from '../../../../../core/data/configuration
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 import { ItemPageOrcidFieldComponent } from './item-page-orcid-field.component';
 
 describe('ItemPageOrcidFieldComponent', () => {
@@ -102,6 +102,17 @@ describe('ItemPageOrcidFieldComponent', () => {
     expect(component.hasOrcid()).toBe(false);
   });
 
+  it('should set hasOrcidMetadata property on init', () => {
+    fixture.detectChanges();
+    expect(component.hasOrcidMetadata).toBe(true);
+  });
+
+  it('should set hasOrcidMetadata to false when item has no ORCID', () => {
+    component.item = Object.assign(new Item(), { metadata: {} });
+    component.ngOnInit();
+    expect(component.hasOrcidMetadata).toBe(false);
+  });
+
   it('should construct ORCID URL on init', (done) => {
     fixture.detectChanges();
 
@@ -111,13 +122,9 @@ describe('ItemPageOrcidFieldComponent', () => {
     });
   });
 
-  it('should extract ORCID ID on init', (done) => {
+  it('should extract ORCID ID on init', () => {
     fixture.detectChanges();
-
-    component.orcidId$.subscribe(id => {
-      expect(id).toBe('0000-0002-1825-0097');
-      done();
-    });
+    expect(component.orcidId).toBe('0000-0002-1825-0097');
   });
 
   it('should handle ORCID with leading slash', (done) => {
@@ -138,6 +145,8 @@ describe('ItemPageOrcidFieldComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
 
+    expect(component.orcidId).toBe('0000-0002-1825-0097');
+
     component.orcidUrl$.subscribe(url => {
       expect(url).toBe('https://sandbox.orcid.org/0000-0002-1825-0097');
       done();
@@ -148,6 +157,8 @@ describe('ItemPageOrcidFieldComponent', () => {
     component.item = Object.assign(new Item(), { metadata: {} });
     component.ngOnInit();
     fixture.detectChanges();
+
+    expect(component.orcidId).toBeNull();
 
     component.orcidUrl$.subscribe(url => {
       expect(url).toBeNull();

@@ -24,6 +24,7 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
 @Component({
   selector: 'ds-item-page-orcid-field',
   templateUrl: './item-page-orcid-field.component.html',
+  styleUrls: ['./item-page-orcid-field.component.scss'],
   standalone: true,
   imports: [
     AsyncPipe,
