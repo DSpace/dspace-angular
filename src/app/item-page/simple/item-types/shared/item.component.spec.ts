@@ -68,6 +68,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { ItemPageOrcidFieldComponent } from '../../field-components/specific-field/orcid/item-page-orcid-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
@@ -77,7 +78,6 @@ import {
   compareArraysUsing,
   compareArraysUsingIds,
 } from './item-relationships-utils';
-import {ItemPageOrcidFieldComponent} from "../../field-components/specific-field/orcid/item-page-orcid-field.component";
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
