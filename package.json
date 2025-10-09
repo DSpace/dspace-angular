@@ -78,7 +78,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
     "angulartics2": "^12.2.0",
-    "axios": "^1.11.0",
+    "axios": "^1.12.2",
     "bootstrap": "^4.6.1",
     "cerialize": "0.1.18",
     "cli-progress": "^3.12.0",
