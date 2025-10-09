@@ -16,7 +16,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
@@ -35,6 +35,7 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -170,7 +171,7 @@ describe('SectionsService test suite', () => {
 
   describe('getSectionData', () => {
     it('should return an observable with section\'s data', () => {
-      store.select.and.returnValue(observableOf(sectionData[sectionId]));
+      store.select.and.returnValue(of(sectionData[sectionId]));
 
       const expected = cold('(b|)', {
         b: sectionData[sectionId],
@@ -182,7 +183,7 @@ describe('SectionsService test suite', () => {
 
   describe('getSectionErrors', () => {
     it('should return an observable with section\'s errors', () => {
-      store.select.and.returnValue(observableOf(sectionErrors[sectionId]));
+      store.select.and.returnValue(of(sectionErrors[sectionId]));
 
       const expected = cold('(b|)', {
         b: sectionErrors[sectionId],
@@ -194,7 +195,7 @@ describe('SectionsService test suite', () => {
 
   describe('getSectionState', () => {
     it('should return an observable with section\'s state', () => {
-      store.select.and.returnValue(observableOf(sectionState));
+      store.select.and.returnValue(of(sectionState));
 
       const expected = cold('(b|)', {
         b: sectionState,
@@ -206,7 +207,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionValid', () => {
     it('should return an observable of boolean', () => {
-      store.select.and.returnValue(observableOf({ isValid: false }));
+      store.select.and.returnValue(of({ isValid: false }));
 
       let expected = cold('(b|)', {
         b: false,
@@ -214,7 +215,7 @@ describe('SectionsService test suite', () => {
 
       expect(service.isSectionValid(submissionId, sectionId)).toBeObservable(expected);
 
-      store.select.and.returnValue(observableOf({ isValid: true }));
+      store.select.and.returnValue(of({ isValid: true }));
 
       expected = cold('(b|)', {
         b: true,
@@ -226,7 +227,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionActive', () => {
     it('should return an observable of boolean', () => {
-      submissionServiceStub.getActiveSectionId.and.returnValue(observableOf(sectionId));
+      submissionServiceStub.getActiveSectionId.and.returnValue(of(sectionId));
 
       let expected = cold('(b|)', {
         b: true,
@@ -234,7 +235,7 @@ describe('SectionsService test suite', () => {
 
       expect(service.isSectionActive(submissionId, sectionId)).toBeObservable(expected);
 
-      submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('test'));
+      submissionServiceStub.getActiveSectionId.and.returnValue(of('test'));
 
       expected = cold('(b|)', {
         b: false,
@@ -246,7 +247,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionEnabled', () => {
     it('should return an observable of boolean', () => {
-      store.select.and.returnValue(observableOf({ enabled: false }));
+      store.select.and.returnValue(of({ enabled: false }));
 
       let expected = cold('(b|)', {
         b: false,
@@ -254,7 +255,7 @@ describe('SectionsService test suite', () => {
 
       expect(service.isSectionEnabled(submissionId, sectionId)).toBeObservable(expected);
 
-      store.select.and.returnValue(observableOf({ enabled: true }));
+      store.select.and.returnValue(of({ enabled: true }));
 
       expected = cold('(b|)', {
         b: true,
@@ -265,52 +266,288 @@ describe('SectionsService test suite', () => {
   });
 
   describe('isSectionReadOnly', () => {
-    it('should return an observable of true when it\'s a readonly section and scope is not workspace', () => {
-      store.select.and.returnValue(observableOf({
-        visibility: {
-          main: null,
-          other: 'READONLY',
-        },
-      }));
+    describe('when submission scope is workspace', () => {
+      describe('and section scope is workspace', () => {
+        it('should return an observable of true when visibility main is READONLY and visibility other is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'READONLY',
+              other: null,
+            },
+          }));
 
-      const expected = cold('(b|)', {
-        b: true,
+          const expected = cold('(b|)', {
+            b: true,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+        it('should return an observable of true when both visibility main and other are READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'READONLY',
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: true,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+        it('should return an observable of false when visibility main is null and visibility other is READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: {
+              main: null,
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+        it('should return an observable of false when visibility is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: null,
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+
       });
 
-      expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+      describe('and section scope is workflow', () => {
+        it('should return an observable of false when visibility main is READONLY and visibility other is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'READONLY',
+              other: null,
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+        it('should return an observable of true when both visibility main and other are READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'READONLY',
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: true,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+        it('should return an observable of true when visibility main is null and visibility other is READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: null,
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: true,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+        it('should return an observable of false when visibility is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: null,
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+
+      });
+
+      describe('and section scope is null', () => {
+        it('should return an observable of false', () => {
+          store.select.and.returnValue(of({
+            scope: null,
+            visibility: null,
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
+        });
+      });
     });
 
-    it('should return an observable of false when it\'s a readonly section and scope is workspace', () => {
-      store.select.and.returnValue(observableOf({
-        visibility: {
-          main: null,
-          other: 'READONLY',
-        },
-      }));
+    describe('when submission scope is workflow', () => {
+      describe('and section scope is workspace', () => {
+        it('should return an observable of false when visibility main is READONLY and visibility other is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'READONLY',
+              other: null,
+            },
+          }));
 
-      const expected = cold('(b|)', {
-        b: false,
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+        it('should return an observable of true when both visibility main and other are READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'READONLY',
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: true,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+        it('should return an observable of true when visibility main is null and visibility other is READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: {
+              main: null,
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: true,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+        it('should return an observable of false when visibility is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Submission,
+            visibility: null,
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+
       });
 
-      expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
-    });
+      describe('and section scope is workflow', () => {
+        it('should return an observable of true when visibility main is READONLY and visibility other is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'READONLY',
+              other: null,
+            },
+          }));
 
-    it('should return an observable of false when it\'s not a readonly section', () => {
-      store.select.and.returnValue(observableOf({
-        visibility: null,
-      }));
+          const expected = cold('(b|)', {
+            b: true,
+          });
 
-      const expected = cold('(b|)', {
-        b: false,
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+        it('should return an observable of true when both visibility main and other is READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'READONLY',
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: true,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+        it('should return an observable of false when visibility main is null and visibility other is READONLY', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: null,
+              other: 'READONLY',
+            },
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+        it('should return an observable of false when visibility is null', () => {
+          store.select.and.returnValue(of({
+            scope: SectionScope.Workflow,
+            visibility: null,
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+
       });
 
-      expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+      describe('and section scope is null', () => {
+        it('should return an observable of false', () => {
+          store.select.and.returnValue(of({
+            scope: null,
+            visibility: null,
+          }));
+
+          const expected = cold('(b|)', {
+            b: false,
+          });
+
+          expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
+        });
+      });
     });
   });
 
   describe('isSectionAvailable', () => {
     it('should return an observable of true when section is available', () => {
-      store.select.and.returnValue(observableOf(submissionState));
+      store.select.and.returnValue(of(submissionState));
 
       const expected = cold('(b|)', {
         b: true,
@@ -320,7 +557,7 @@ describe('SectionsService test suite', () => {
     });
 
     it('should return an observable of false when section is not available', () => {
-      store.select.and.returnValue(observableOf(submissionState));
+      store.select.and.returnValue(of(submissionState));
 
       const expected = cold('(b|)', {
         b: false,
@@ -332,7 +569,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionTypeAvailable', () => {
     it('should return an observable of true when section is available', () => {
-      store.select.and.returnValue(observableOf(submissionState));
+      store.select.and.returnValue(of(submissionState));
 
       const expected = cold('(b|)', {
         b: true,
@@ -342,7 +579,7 @@ describe('SectionsService test suite', () => {
     });
 
     it('should return an observable of false when section is not available', () => {
-      store.select.and.returnValue(observableOf(submissionStateWithoutUpload));
+      store.select.and.returnValue(of(submissionStateWithoutUpload));
 
       const expected = cold('(b|)', {
         b: false,
@@ -354,7 +591,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionType', () => {
     it('should return true if the section matches the provided type', () => {
-      store.select.and.returnValue(observableOf(submissionState));
+      store.select.and.returnValue(of(submissionState));
 
       const expected = cold('(b|)', {
         b: true,
@@ -364,7 +601,7 @@ describe('SectionsService test suite', () => {
     });
 
     it('should return false if the section doesn\'t match the provided type', () => {
-      store.select.and.returnValue(observableOf(submissionState));
+      store.select.and.returnValue(of(submissionState));
 
       const expected = cold('(b|)', {
         b: false,
@@ -374,7 +611,7 @@ describe('SectionsService test suite', () => {
     });
 
     it('should return false if the provided sectionId doesn\'t exist', () => {
-      store.select.and.returnValue(observableOf(submissionState));
+      store.select.and.returnValue(of(submissionState));
 
       const expected = cold('(b|)', {
         b: false,
@@ -430,8 +667,8 @@ describe('SectionsService test suite', () => {
     it('should dispatch a new UpdateSectionDataAction', () => {
       const scheduler = getTestScheduler();
       const data: any = { test: 'test' };
-      spyOn(service, 'isSectionAvailable').and.returnValue(observableOf(true));
-      spyOn(service, 'isSectionEnabled').and.returnValue(observableOf(true));
+      spyOn(service, 'isSectionAvailable').and.returnValue(of(true));
+      spyOn(service, 'isSectionEnabled').and.returnValue(of(true));
       scheduler.schedule(() => service.updateSectionData(submissionId, sectionId, data, []));
       scheduler.flush();
 
@@ -441,9 +678,9 @@ describe('SectionsService test suite', () => {
     it('should dispatch a new UpdateSectionDataAction and display a new notification when section is not enabled', () => {
       const scheduler = getTestScheduler();
       const data: any = { test: 'test' };
-      spyOn(service, 'isSectionAvailable').and.returnValue(observableOf(true));
-      spyOn(service, 'isSectionEnabled').and.returnValue(observableOf(false));
-      translateService.get.and.returnValue(observableOf('test'));
+      spyOn(service, 'isSectionAvailable').and.returnValue(of(true));
+      spyOn(service, 'isSectionEnabled').and.returnValue(of(false));
+      translateService.get.and.returnValue(of('test'));
       scheduler.schedule(() => service.updateSectionData(submissionId, sectionId, data, []));
       scheduler.flush();
 

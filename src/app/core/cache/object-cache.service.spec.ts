@@ -15,7 +15,7 @@ import { cold } from 'jasmine-marbles';
 import { TestColdObservable } from 'jasmine-marbles/src/test-observables';
 import {
   empty,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
@@ -152,7 +152,7 @@ describe('ObjectCacheService', () => {
 
   describe('remove', () => {
     beforeEach(() => {
-      spyOn(service as any, 'getByHref').and.returnValue(observableOf(cacheEntry));
+      spyOn(service as any, 'getByHref').and.returnValue(of(cacheEntry));
     });
 
     it('should dispatch a REMOVE action with the self link of the object to remove', () => {
@@ -179,8 +179,8 @@ describe('ObjectCacheService', () => {
   describe('getByHref', () => {
     describe('if getBySelfLink emits a valid object and getByAlternativeLink emits undefined', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(cacheEntry));
-        spyOn(service as any, 'getByAlternativeLink').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'getBySelfLink').and.returnValue(of(cacheEntry));
+        spyOn(service as any, 'getByAlternativeLink').and.returnValue(of(undefined));
       });
 
       it('should return the object emitted by getBySelfLink', () => {
@@ -192,8 +192,8 @@ describe('ObjectCacheService', () => {
 
     describe('if getBySelfLink emits undefined and getByAlternativeLink a valid object', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(undefined));
-        spyOn(service as any, 'getByAlternativeLink').and.returnValue(observableOf(cacheEntry));
+        spyOn(service as any, 'getBySelfLink').and.returnValue(of(undefined));
+        spyOn(service as any, 'getByAlternativeLink').and.returnValue(of(cacheEntry));
       });
 
       it('should return the object emitted by getByAlternativeLink', () => {
@@ -205,8 +205,8 @@ describe('ObjectCacheService', () => {
 
     describe('if getBySelfLink emits an invalid and getByAlternativeLink a valid object', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(cacheEntry));
-        spyOn(service as any, 'getByAlternativeLink').and.returnValue(observableOf(cacheEntry2));
+        spyOn(service as any, 'getBySelfLink').and.returnValue(of(cacheEntry));
+        spyOn(service as any, 'getByAlternativeLink').and.returnValue(of(cacheEntry2));
       });
 
       it('should return the object emitted by getByAlternativeLink', () => {
@@ -222,7 +222,7 @@ describe('ObjectCacheService', () => {
       const item = Object.assign(new Item(), {
         _links: { self: { href: selfLink } },
       });
-      spyOn(service, 'getObjectByHref').and.returnValue(observableOf(item));
+      spyOn(service, 'getObjectByHref').and.returnValue(of(item));
 
       service.getList([selfLink, selfLink]).pipe(first()).subscribe((arr) => {
         expect(arr[0]._links.self.href).toBe(selfLink);
@@ -235,7 +235,7 @@ describe('ObjectCacheService', () => {
     describe('with requestUUID not specified', () => {
       describe('getByHref emits an object', () => {
         beforeEach(() => {
-          spyOn(service, 'getByHref').and.returnValue(observableOf(cacheEntry));
+          spyOn(service, 'getByHref').and.returnValue(of(cacheEntry));
         });
 
         it('should return true', () => {
@@ -257,7 +257,7 @@ describe('ObjectCacheService', () => {
     describe('with requestUUID specified', () => {
       describe('getByHref emits an object that includes the specified requestUUID', () => {
         beforeEach(() => {
-          spyOn(service, 'getByHref').and.returnValue(observableOf(Object.assign(cacheEntry, {
+          spyOn(service, 'getByHref').and.returnValue(of(Object.assign(cacheEntry, {
             requestUUIDs: [
               'something',
               'something-else',
@@ -273,7 +273,7 @@ describe('ObjectCacheService', () => {
 
       describe('getByHref emits an object that doesn\'t include the specified requestUUID', () => {
         beforeEach(() => {
-          spyOn(service, 'getByHref').and.returnValue(observableOf(Object.assign(cacheEntry, {
+          spyOn(service, 'getByHref').and.returnValue(of(Object.assign(cacheEntry, {
             requestUUIDs: [
               'something',
               'something-else',
@@ -420,7 +420,7 @@ describe('ObjectCacheService', () => {
       });
 
       it('should work with observable hrefs', () => {
-        service.addDependency(observableOf(selfLink), observableOf('objectWithoutDependents'));
+        service.addDependency(of(selfLink), of('objectWithoutDependents'));
         expect(store.dispatch).toHaveBeenCalledOnceWith(new AddDependentsObjectCacheAction('objectWithoutDependents', [requestUUID]));
       });
 

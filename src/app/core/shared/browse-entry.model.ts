@@ -25,41 +25,41 @@ export class BrowseEntry extends ListableObject implements TypedObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The authority string of this browse entry
    */
   @autoserialize
-    authority: string;
+  authority: string;
 
   /**
    * The value of this browse entry
    */
   @autoserialize
-    value: string;
+  value: string;
 
   /**
    * The language of the value of this browse entry
    */
   @autoserializeAs('valueLang')
-    language: string;
+  language: string;
 
   /**
    * Thumbnail link used when browsing items with showThumbs config enabled.
    */
   @autoserializeAs('thumbnail')
-    thumbnail: string;
+  thumbnail: string;
 
   /**
    * The count of this browse entry
    */
   @excludeFromEquals
   @autoserialize
-    count: number;
+  count: number;
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     entries: HALLink;
     thumbnail: HALLink;

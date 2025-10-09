@@ -39,7 +39,7 @@ import { SubmissionService } from '../submission.service';
  * This component allows to submit a new workspaceitem.
  */
 @Component({
-  selector: 'ds-submission-submit',
+  selector: 'ds-base-submission-submit',
   styleUrls: ['./submission-submit.component.scss'],
   templateUrl: './submission-submit.component.html',
   standalone: true,

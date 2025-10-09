@@ -1,9 +1,9 @@
-<div class="d-flex flex-column align-items-center justify-content-around mr-3">
+<div class="d-flex flex-column align-items-center justify-content-around me-3">
     <button
       class="btn btn-link-focus"
       type="button"
       tabindex="0"
-      [disabled]="disabled"
+      [dsBtnDisabled]="disabled"
       (click)="toggleUp()">
       <span class="chevron"></span>
       <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
@@ -30,7 +30,7 @@
       class="btn btn-link-focus"
       type="button"
       tabindex="0"
-      [disabled]="disabled"
+      [dsBtnDisabled]="disabled"
       (click)="toggleDown()">
       <span class="chevron bottom"></span>
       <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>

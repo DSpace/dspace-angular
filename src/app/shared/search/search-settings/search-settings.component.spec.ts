@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   SortDirection,
@@ -81,8 +81,8 @@ describe('SearchSettingsComponent', () => {
         {
           provide: SEARCH_CONFIG_SERVICE,
           useValue: {
-            paginatedSearchOptions: observableOf(paginatedSearchOptions),
-            getCurrentScope: observableOf('test-id'),
+            paginatedSearchOptions: of(paginatedSearchOptions),
+            getCurrentScope: of('test-id'),
           },
         },
       ],

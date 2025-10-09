@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { Community } from '../core/shared/community.model';
@@ -21,7 +21,7 @@ describe('communityListReducer', () => {
       subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
       collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       name: 'community1',
-    }), observableOf(true), 0, false, null,
+    }), of(true), 0, false, null,
   );
 
   it ('should set init state of the expandedNodes and loadingNode', () => {

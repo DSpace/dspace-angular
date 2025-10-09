@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -14,14 +11,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { ModalBeforeDismiss } from '../../../shared/interfaces/modal-before-dismiss.interface';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 
 @Component({
   selector: 'ds-item-versions-summary-modal',
   templateUrl: './item-versions-summary-modal.component.html',
   styleUrls: ['./item-versions-summary-modal.component.scss'],
   standalone: true,
-  imports: [NgIf, FormsModule, LoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDismiss {
 

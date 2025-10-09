@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
@@ -60,9 +60,9 @@ describe('ObjectUpdatesService', () => {
     });
     service = new ObjectUpdatesService(store, injector);
 
-    spyOn(service as any, 'getObjectEntry').and.returnValue(observableOf(objectEntry));
+    spyOn(service as any, 'getObjectEntry').and.returnValue(of(objectEntry));
     spyOn(service as any, 'getFieldState').and.callFake((uuid) => {
-      return observableOf(fieldStates[uuid]);
+      return of(fieldStates[uuid]);
     });
     spyOn(service as any, 'saveFieldUpdate');
   });
@@ -223,7 +223,7 @@ describe('ObjectUpdatesService', () => {
     });
     describe('when updates are emtpy', () => {
       beforeEach(() => {
-        (service as any).getObjectEntry.and.returnValue(observableOf({}));
+        (service as any).getObjectEntry.and.returnValue(of({}));
       });
 
       it('should return false when there are no updates', () => {
@@ -242,7 +242,7 @@ describe('ObjectUpdatesService', () => {
 
     describe('when updates are not emtpy', () => {
       beforeEach(() => {
-        spyOn(service, 'hasUpdates').and.returnValue(observableOf(true));
+        spyOn(service, 'hasUpdates').and.returnValue(of(true));
       });
 
       it('should return true', () => {
@@ -258,7 +258,7 @@ describe('ObjectUpdatesService', () => {
 
     describe('when updates are emtpy', () => {
       beforeEach(() => {
-        spyOn(service, 'hasUpdates').and.returnValue(observableOf(false));
+        spyOn(service, 'hasUpdates').and.returnValue(of(false));
       });
 
       it('should return false', () => {

@@ -19,7 +19,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../core/auth/auth.service';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
@@ -48,7 +48,7 @@ describe('SubscriptionsPageComponent', () => {
   let de: DebugElement;
 
   const authServiceStub = jasmine.createSpyObj('authorizationService', {
-    getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson),
+    getAuthenticatedUserFromStore: of(mockSubscriptionEperson),
   });
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {

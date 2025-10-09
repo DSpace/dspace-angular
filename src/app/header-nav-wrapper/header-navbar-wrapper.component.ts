@@ -21,11 +21,16 @@ import { MenuID } from '../shared/menu/menu-id.model';
  * This component represents a wrapper for the horizontal navbar and the header
  */
 @Component({
-  selector: 'ds-header-navbar-wrapper',
+  selector: 'ds-base-header-navbar-wrapper',
   styleUrls: ['header-navbar-wrapper.component.scss'],
   templateUrl: 'header-navbar-wrapper.component.html',
   standalone: true,
-  imports: [NgClass, ThemedHeaderComponent, ThemedNavbarComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    ThemedHeaderComponent,
+    ThemedNavbarComponent,
+  ],
 })
 export class HeaderNavbarWrapperComponent implements OnInit {
   public isNavBarCollapsed$: Observable<boolean>;

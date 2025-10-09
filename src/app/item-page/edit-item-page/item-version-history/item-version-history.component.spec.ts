@@ -10,7 +10,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
@@ -30,7 +30,7 @@ describe('ItemVersionHistoryComponent', () => {
   const activatedRoute = {
     parent: {
       parent: {
-        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
+        data: of({ dso: createSuccessfulRemoteDataObject(item) }),
       },
     },
   };

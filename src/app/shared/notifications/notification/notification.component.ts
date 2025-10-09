@@ -2,7 +2,6 @@ import { trigger } from '@angular/animations';
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
   NgStyle,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -20,7 +19,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -92,7 +91,12 @@ import { NotificationsService } from '../notifications.service';
   styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, NgStyle, NgClass, NgTemplateOutlet, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    NgStyle,
+    NgTemplateOutlet,
+  ],
 })
 
 export class NotificationComponent implements OnInit, OnDestroy {
@@ -102,7 +106,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   /**
    * Whether this notification's countdown should be paused
    */
-  @Input() public isPaused$: Observable<boolean> = observableOf(false);
+  @Input() public isPaused$: Observable<boolean> = of(false);
 
   // Progress bar variables
   public title: Observable<string>;
@@ -191,14 +195,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
       let value = null;
       if (isNotEmpty(item)) {
         if (typeof item === 'string') {
-          value = observableOf(item);
+          value = of(item);
         } else if (item instanceof Observable) {
           value = item;
         } else if (typeof item === 'object' && isNotEmpty(item.value)) {
           // when notifications state is transferred from SSR to CSR,
           // Observables Object loses the instance type and become simply object,
           // so converts it again to Observable
-          value = observableOf(item.value);
+          value = of(item.value);
         }
       }
       this[key] = value;

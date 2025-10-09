@@ -21,19 +21,19 @@ export class VocabularyEntryDetail extends VocabularyEntry {
    * The unique id of the entry
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * In an hierarchical vocabulary representing if entry is selectable as value
    */
   @autoserialize
-    selectable: boolean;
+  selectable: boolean;
 
   /**
    * The {@link HALLink}s for this ExternalSourceEntry
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     vocabulary: HALLink;
     parent: HALLink;

@@ -45,7 +45,7 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
   protected linkPath = 'workspaceitems';
   protected searchByItemLinkPath = 'item';
   private deleteData: DeleteData<WorkspaceItem>;
-  private searchData: SearchData<WorkspaceItem>;
+  private searchData: SearchDataImpl<WorkspaceItem>;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
@@ -90,8 +90,8 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
    */
   public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
-    const href$ = this.getIDHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
+    findListOptions.searchParams = [new RequestParam('uuid', uuid)];
+    const href$ = this.searchData.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 

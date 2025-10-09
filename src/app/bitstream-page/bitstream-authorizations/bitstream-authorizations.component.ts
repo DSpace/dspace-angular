@@ -19,18 +19,18 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 
 @Component({
-  selector: 'ds-collection-authorizations',
+  selector: 'ds-bitstream-authorizations',
   templateUrl: './bitstream-authorizations.component.html',
   imports: [
-    ResourcePoliciesComponent,
     AsyncPipe,
-    TranslateModule,
+    ResourcePoliciesComponent,
     RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })
 /**
- * Component that handles the Collection Authorizations
+ * Component that handles the Bitstream Authorizations
  */
 export class BitstreamAuthorizationsComponent<TDomain extends DSpaceObject> implements OnInit {
 

@@ -1,19 +1,20 @@
 <div class="container">
   <div class="card border-0">
     <div class="card-body">
-      <ds-alert
-        *ngIf="titleMessage"
-        [type]="AlertType.Info"
-        [content]="titleMessage"
-        class="d-block pb-3">
-      </ds-alert>
+      @if (titleMessage) {
+        <ds-alert
+          [type]="AlertType.Info"
+          [content]="titleMessage"
+          class="d-block pb-3">
+        </ds-alert>
+      }
 
-      <div class="row">
-        <div class="col-12 col-md-6 border-right d-flex flex-column justify-content-between">
+      <div class="row mt-5">
+        <div class="col-12 col-md-6 border-end d-flex flex-column justify-content-between">
 
           <div>
             <div class="d-flex align-items-center">
-              <h2 class="h3 mb-0 mr-4">
+              <h2 class="h3 mb-0 me-4">
                 {{ 'access-control-item-header-toggle' | translate }}
               </h2>
               <ui-switch
@@ -30,18 +31,18 @@
               <div class="col-12 col-md-8">
                 <div class="form-check">
                   <input class="form-check-input" type="radio"
-                         name="itemMode" id="itemReplace" value="replace"
-                         [disabled]="!state.item.toggleStatus"
-                         [(ngModel)]="state.item.accessMode">
+                    name="itemMode" id="itemReplace" value="replace"
+                    [disabled]="!state.item.toggleStatus"
+                    [(ngModel)]="state.item.accessMode">
                   <label class="form-check-label" for="itemReplace">
                     {{'access-control-replace-all' | translate}}
                   </label>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio"
-                         name="itemMode" id="itemAdd" value="add"
-                         [disabled]="!state.item.toggleStatus"
-                         [(ngModel)]="state.item.accessMode">
+                    name="itemMode" id="itemAdd" value="add"
+                    [disabled]="!state.item.toggleStatus"
+                    [(ngModel)]="state.item.accessMode">
                   <label class="form-check-label" for="itemAdd">
                     {{'access-control-add-to-existing' | translate}}
                   </label>
@@ -60,14 +61,12 @@
               [dropdownOptions]="(dropdownData$ | async)?.itemAccessConditionOptions || []">
             </ds-access-control-array-form>
           </div>
-
         </div>
 
         <div class="col-12 col-md-6 d-flex flex-column justify-content-between">
-
           <div>
             <div class="d-flex align-items-center">
-              <h2 class="h3 mb-0 mr-4">
+              <h2 class="h3 mb-0 me-4">
                 {{'access-control-bitstream-header-toggle' | translate}}
               </h2>
               <ui-switch
@@ -77,42 +76,43 @@
               </ui-switch>
             </div>
 
-            <div *ngIf="showLimitToSpecificBitstreams" class="row mt-3">
-            <fieldset class="col-12">
-              <legend class="h4">
-                {{'access-control-limit-to-specific' | translate}}
-              </legend>
-              <div class="form-check">
-                <input class="form-check-input" type="radio"
-                       name="changesLimit" id="processAll" value="all"
-                       [disabled]="!state.bitstream.toggleStatus"
-                       [(ngModel)]="state.bitstream.changesLimit">
-                <label class="form-check-label" for="processAll">
-                  {{'access-control-process-all-bitstreams' | translate}}
-                </label>
+            @if (showLimitToSpecificBitstreams) {
+              <div class="row mt-3">
+                <fieldset class="col-12">
+                  <legend class="h4">
+                    {{'access-control-limit-to-specific' | translate}}
+                  </legend>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio"
+                      name="changesLimit" id="processAll" value="all"
+                      [disabled]="!state.bitstream.toggleStatus"
+                      [(ngModel)]="state.bitstream.changesLimit">
+                    <label class="form-check-label" for="processAll">
+                      {{'access-control-process-all-bitstreams' | translate}}
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input mt-2" type="radio"
+                      name="changesLimit" id="processSelected" value="selected"
+                      [disabled]="!state.bitstream.toggleStatus"
+                      [(ngModel)]="state.bitstream.changesLimit">
+                    <label class="form-check-label" for="processSelected">
+                      {{ state.bitstream.selectedBitstreams.length }}
+                      {{'access-control-bitstreams-selected' | translate}}
+                      @if (itemRD) {
+                        <button
+                          [attr.aria-label]="'access-control-bitstreams-select' | translate"
+                          [dsBtnDisabled]="!state.bitstream.toggleStatus || state.bitstream.changesLimit !== 'selected'"
+                          (click)="openSelectBitstreamsModal(itemRD.payload)"
+                          class="btn btn-outline-dark border-0" type="button">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      }
+                    </label>
+                  </div>
+                </fieldset>
               </div>
-              <div class="form-check">
-                <input class="form-check-input mt-2" type="radio"
-                       name="changesLimit" id="processSelected" value="selected"
-                       [disabled]="!state.bitstream.toggleStatus"
-                       [(ngModel)]="state.bitstream.changesLimit">
-                <label class="form-check-label" for="processSelected">
-                  {{ state.bitstream.selectedBitstreams.length }}
-                  {{'access-control-bitstreams-selected' | translate}}
-
-                  <button
-                    *ngIf="itemRD"
-                    [attr.aria-label]="'access-control-bitstreams-select' | translate"
-                    [disabled]="!state.bitstream.toggleStatus || state.bitstream.changesLimit !== 'selected'"
-                    (click)="openSelectBitstreamsModal(itemRD.payload)"
-                    class="btn btn-outline-dark border-0" type="button">
-                    <i class="fa fa-search"></i>
-                  </button>
-
-                </label>
-              </div>
-            </fieldset>
-            </div>
+            }
           </div>
 
           <fieldset class="row mt-3">
@@ -122,18 +122,18 @@
             <div class="col-12 col-md-8">
               <div class="form-check">
                 <input class="form-check-input" type="radio"
-                       name="bitstreamMode" id="bitstreamReplace" value="replace"
-                       [disabled]="!state.bitstream.toggleStatus"
-                       [(ngModel)]="state.bitstream.accessMode">
+                  name="bitstreamMode" id="bitstreamReplace" value="replace"
+                  [disabled]="!state.bitstream.toggleStatus"
+                  [(ngModel)]="state.bitstream.accessMode">
                 <label class="form-check-label" for="bitstreamReplace">
                   {{'access-control-replace-all' | translate}}
                 </label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="radio"
-                       name="bitstreamMode" id="bitstreamAdd" value="add"
-                       [disabled]="!state.bitstream.toggleStatus"
-                       [(ngModel)]="state.bitstream.accessMode">
+                  name="bitstreamMode" id="bitstreamAdd" value="add"
+                  [disabled]="!state.bitstream.toggleStatus"
+                  [(ngModel)]="state.bitstream.accessMode">
                 <label class="form-check-label" for="bitstreamAdd">
                   {{'access-control-add-to-existing' | translate}}
                 </label>
@@ -154,18 +154,22 @@
         </div>
       </div>
 
-      <hr *ngIf="showSubmit">
+      @if (showSubmit) {
+        <hr>
+        }
 
-      <div *ngIf="showSubmit" class="d-flex justify-content-end">
-        <button class="btn btn-outline-primary mr-3" (click)="reset()" type="button">
-          {{ 'access-control-cancel' | translate }}
-        </button>
-        <button class="btn btn-primary"
-                [disabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
-                (click)="submit()" type="submit">
-          {{ 'access-control-execute' | translate }}
-        </button>
+        @if (showSubmit) {
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-primary me-3" (click)="reset()" type="button">
+              {{ 'access-control-cancel' | translate }}
+            </button>
+            <button class="btn btn-primary"
+              [dsBtnDisabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
+              (click)="submit()" type="submit">
+              {{ 'access-control-execute' | translate }}
+            </button>
+          </div>
+        }
       </div>
     </div>
   </div>
-</div>

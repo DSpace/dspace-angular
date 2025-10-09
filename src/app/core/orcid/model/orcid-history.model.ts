@@ -23,49 +23,49 @@ export class OrcidHistory extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The identifier of this Orcid History record
    */
   @autoserialize
-    id: number;
+  id: number;
 
   /**
    * The name of the related entity
    */
   @autoserialize
-    entityName: string;
+  entityName: string;
 
   /**
    * The identifier of the profileItem of this Orcid History record.
    */
   @autoserialize
-    profileItemId: string;
+  profileItemId: string;
 
   /**
    * The identifier of the entity related to this Orcid History record.
    */
   @autoserialize
-    entityId: string;
+  entityId: string;
 
   /**
    * The type of the entity related to this Orcid History record.
    */
   @autoserialize
-    entityType: string;
+  entityType: string;
 
   /**
    * The response status coming from ORCID api.
    */
   @autoserialize
-    status: number;
+  status: number;
 
   /**
    * The putCode assigned by ORCID to the entity.
    */
   @autoserialize
-    putCode: string;
+  putCode: string;
 
   /**
    * The last send attempt timestamp.
@@ -86,7 +86,7 @@ export class OrcidHistory extends CacheableObject {
    * The {@link HALLink}s for this Orcid History record
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
   };
 

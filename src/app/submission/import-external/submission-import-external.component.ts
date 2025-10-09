@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -64,20 +61,19 @@ import {
  * This component allows to submit a new workspaceitem importing the data from an external source.
  */
 @Component({
-  selector: 'ds-submission-import-external',
+  selector: 'ds-base-submission-import-external',
   styleUrls: ['./submission-import-external.component.scss'],
   templateUrl: './submission-import-external.component.html',
   animations: [fadeIn],
   imports: [
-    ObjectCollectionComponent,
-    ThemedLoadingComponent,
     AlertComponent,
-    NgIf,
     AsyncPipe,
+    ObjectCollectionComponent,
+    RouterLink,
     SubmissionImportExternalSearchbarComponent,
+    ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
-    RouterLink,
   ],
   standalone: true,
 })

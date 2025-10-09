@@ -13,7 +13,8 @@ import {
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
+import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
@@ -30,6 +31,7 @@ import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/d
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
@@ -125,6 +127,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+          { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
           FormBuilderService,
           provideMockStore({}),
         ],
@@ -138,8 +141,8 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService = TestBed.inject(FormService);
       formbuilderService = TestBed.inject(FormBuilderService);
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(mockAccessesFormData));
       fixture.detectChanges();
     });
 
@@ -222,6 +225,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+          { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
           FormBuilderService,
           provideMockStore({}),
 
@@ -234,8 +238,8 @@ describe('SubmissionSectionAccessesComponent', () => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(mockAccessesFormData));
       fixture.detectChanges();
     });
 

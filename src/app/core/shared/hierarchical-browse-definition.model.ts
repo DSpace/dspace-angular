@@ -1,6 +1,5 @@
 import {
   autoserialize,
-  autoserializeAs,
   deserialize,
   inheritSerialization,
 } from 'cerialize';
@@ -25,23 +24,20 @@ export class HierarchicalBrowseDefinition extends BrowseDefinition {
    * The object type
    */
   @excludeFromEquals
-    type: ResourceType = HIERARCHICAL_BROWSE_DEFINITION;
+  type: ResourceType = HIERARCHICAL_BROWSE_DEFINITION;
 
   @autoserialize
-    facetType: string;
+  facetType: string;
 
   @autoserialize
-    vocabulary: string;
-
-  @autoserializeAs('metadata')
-    metadataKeys: string[];
+  vocabulary: string;
 
   get self(): string {
     return this._links.self.href;
   }
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     vocabulary: HALLink;
   };

@@ -1,9 +1,5 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
-import {
-  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -36,11 +32,10 @@ import { ThemedSearchComponent } from '../../../../shared/search/themed-search.c
   ],
   standalone: true,
   imports: [
+    AsyncPipe,
     SearchLabelsComponent,
     ThemedSearchComponent,
-    AsyncPipe,
     TranslateModule,
-    NgIf,
   ],
 })
 
@@ -51,7 +46,7 @@ import { ThemedSearchComponent } from '../../../../shared/search/themed-search.c
 export class AdminNotifyLogsResultComponent implements OnInit {
 
   @Input()
-    defaultConfiguration: string;
+  defaultConfiguration: string;
 
 
   public selectedSearchConfig$: Observable<string>;
@@ -59,10 +54,11 @@ export class AdminNotifyLogsResultComponent implements OnInit {
 
   protected readonly context = Context.CoarNotify;
 
-  constructor(@Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              private router: Router,
-              private route: ActivatedRoute,
-              protected cdRef: ChangeDetectorRef) {
+  constructor(
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    protected router: Router,
+    protected route: ActivatedRoute,
+  ) {
   }
 
   ngOnInit() {

@@ -1,16 +1,22 @@
-<div class="ml-4">
-    <ds-content-accordion *ngFor="let permittedVersions of policy.permittedVersions" [version]="permittedVersions">
+<div class="ms-4">
+  @for (permittedVersions of policy.permittedVersions; track permittedVersions) {
+    <ds-content-accordion [version]="permittedVersions">
     </ds-content-accordion>
-    <div class="row" *ngIf="!!policy?.urls">
-        <div class="col-12">
-            <p class="m-1">
-                {{'submission.sections.sherpa.publisher.policy.more.information' | translate}}
-            </p>
-            <ul>
-                <li *ngFor="let url of policy.urls | keyvalue">
-                    <a href="{{url.key}}" target="_blank" rel="noopener noreferrer">{{url.value}}</a>
-                </li>
-            </ul>
-        </div>
+  }
+  @if (!!policy?.urls) {
+    <div class="row">
+      <div class="col-12">
+        <p class="m-1">
+          {{'submission.sections.sherpa.publisher.policy.more.information' | translate}}
+        </p>
+        <ul>
+          @for (url of policy.urls | keyvalue; track url) {
+            <li>
+              <a href="{{url.key}}" target="_blank" rel="noopener noreferrer">{{url.value}}</a>
+            </li>
+          }
+        </ul>
+      </div>
     </div>
+  }
 </div>

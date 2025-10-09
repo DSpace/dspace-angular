@@ -17,7 +17,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { Item } from '../../../core/shared/item.model';
@@ -53,7 +53,7 @@ const searchService = getMockSearchService();
 const requestService = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -82,9 +82,9 @@ const item = Object.assign(new Item(), {
   },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
+mockObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem), id: '1234' });
 
 describe('PoolTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -161,9 +161,9 @@ describe('PoolTaskActionsComponent', () => {
     const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
     const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
 
-    spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
-    spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
-    spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
+    spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(of(poolTaskHref));
+    spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(of(remoteClaimTaskResponse));
+    spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(of(remoteReloadedObjectResponse));
 
     (component as any).objectDataService = mockDataService;
 

@@ -14,11 +14,17 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
  * Component representing the site-wide statistics page.
  */
 @Component({
-  selector: 'ds-site-statistics-page',
+  selector: 'ds-base-site-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./site-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
 

@@ -7,7 +7,7 @@ import { FieldParser } from './field-parser';
 
 export class LookupFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     if (this.configData.selectableMetadata[0].controlledVocabulary) {
       const lookupModelConfig: DynamicLookupModelConfig = this.initModel(null, label);
 

@@ -20,6 +20,7 @@ import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
+  standalone: true,
   template: '<span id="BrowseByTestComponent"></span>',
 })
 class BrowseByTestComponent {
@@ -85,7 +86,7 @@ describe('BrowseBySwitcherComponent', () => {
   types.forEach((type: NonHierarchicalBrowseDefinition) => {
     describe(`when switching to a browse-by page for "${type.id}"`, () => {
       beforeEach(async () => {
-        comp.browseByType = type.dataType;
+        comp.browseByType = type as any;
         comp.ngOnChanges({
           browseByType: new SimpleChange(undefined, type.dataType, true),
         });

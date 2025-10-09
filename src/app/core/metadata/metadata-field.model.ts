@@ -32,37 +32,37 @@ export class MetadataField extends ListableObject implements HALResource {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The identifier of this metadata field
    */
   @autoserialize
-    id: number;
+  id: number;
 
   /**
    * The element of this metadata field
    */
   @autoserialize
-    element: string;
+  element: string;
 
   /**
    * The qualifier of this metadata field
    */
   @autoserialize
-    qualifier: string;
+  qualifier: string;
 
   /**
    * The scope note of this metadata field
    */
   @autoserialize
-    scopeNote: string;
+  scopeNote: string;
 
   /**
    * The {@link HALLink}s for this MetadataField
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
     schema: HALLink
   };
@@ -72,7 +72,7 @@ export class MetadataField extends ListableObject implements HALResource {
    * Will be undefined unless the schema {@link HALLink} has been resolved.
    */
   @link(METADATA_SCHEMA)
-    schema?: Observable<RemoteData<MetadataSchema>>;
+  schema?: Observable<RemoteData<MetadataSchema>>;
 
   /**
    * Method to print this metadata field as a string without the schema

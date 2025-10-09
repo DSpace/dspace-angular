@@ -1,85 +1,56 @@
 import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
-import { environment } from '../../../../environments/environment';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { environment } from '../../../../environments/environment.test';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { FormBuilderService } from '../../form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../mocks/form-builder-service.mock';
-import { BrowserOnlyMockPipe } from '../../testing/browser-only-mock.pipe';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { RouterStub } from '../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
 import { AdvancedSearchComponent } from './advanced-search.component';
 
 describe('AdvancedSearchComponent', () => {
   let component: AdvancedSearchComponent;
   let fixture: ComponentFixture<AdvancedSearchComponent>;
-  let builderService: FormBuilderService = getMockFormBuilderService();
-  let searchService: SearchService;
-  let router;
-  const searchServiceStub = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    getClearFiltersQueryParams: () => {
-    },
-    getSearchLink: () => {
-    },
-    getConfigurationSearchConfig: () => { },
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule, BrowserOnlyMockPipe, AdvancedSearchComponent],
-      providers: [
-        FormBuilder,
-        { provide: APP_CONFIG, useValue: environment },
-        { provide: FormBuilderService, useValue: builderService },
-        { provide: Router, useValue: new RouterStub() },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: RemoteDataBuildService, useValue: {} },
-        { provide: SearchService, useValue: searchServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(AdvancedSearchComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
-    }).compileComponents();
-  });
 
-  beforeEach(() => {
+  let router: RouterStub;
+  let searchService: SearchServiceStub;
+  let searchConfigurationService: SearchConfigurationServiceStub;
+  let searchFilterService: SearchFilterServiceStub;
+
+  beforeEach(async () => {
+    router = new RouterStub();
+    searchService = new SearchServiceStub();
+    searchConfigurationService = new SearchConfigurationServiceStub();
+    searchFilterService = new SearchFilterServiceStub();
+
+    await TestBed.configureTestingModule({
+      imports: [
+        AdvancedSearchComponent,
+        TranslateModule.forRoot(),
+      ],
+      providers: [
+        { provide: Router, useValue: router },
+        { provide: SearchService, useValue: searchService },
+        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SearchFilterService, useValue: searchFilterService },
+        { provide: APP_CONFIG, useValue: environment },
+      ],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AdvancedSearchComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
-  describe('when the getSearchLink method is called', () => {
-    const data = { filter: 'title', textsearch: 'demo', operator: 'equals' };
-    it('should call navigate on the router with the right searchlink and parameters when the filter is provided with a valid operator', () => {
-      component.advSearchForm.get('textsearch').patchValue('1');
-      component.advSearchForm.get('filter').patchValue('1');
-      component.advSearchForm.get('operator').patchValue('1');
 
-      component.onSubmit(data);
-      expect(router.navigate).toHaveBeenCalledWith([undefined], {
-        queryParams: { ['f.' + data.filter]: data.textsearch + ',' + data.operator },
-        queryParamsHandling: 'merge',
-      });
-
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

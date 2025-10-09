@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -30,7 +29,7 @@ import isObject from 'lodash/isObject';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -46,6 +45,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -73,14 +73,14 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
   templateUrl: './dynamic-relation-group.component.html',
   animations: [shrinkInOut],
   imports: [
-    NgIf,
     AsyncPipe,
-    NgbTooltipModule,
-    TranslateModule,
-    NgClass,
-    ThemedLoadingComponent,
+    BtnDisabledDirective,
     ChipsComponent,
     forwardRef(() => FormComponent),
+    NgbTooltipModule,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -95,7 +95,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public chips: Chips;
-  public formCollapsed = observableOf(false);
+  public formCollapsed = of(false);
   public formModel: DynamicFormControlModel[];
   public editMode = false;
 
@@ -117,7 +117,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   ngOnInit() {
     const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     if (!this.model.isEmpty()) {
-      this.formCollapsed = observableOf(true);
+      this.formCollapsed = of(true);
     }
     this.model.valueChanges.subscribe((value: any[]) => {
       if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
@@ -182,12 +182,12 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   collapseForm() {
-    this.formCollapsed = observableOf(true);
+    this.formCollapsed = of(true);
     this.clear();
   }
 
   expandForm() {
-    this.formCollapsed = observableOf(false);
+    this.formCollapsed = of(false);
   }
 
   clear() {
@@ -198,7 +198,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     }
     this.resetForm();
     if (!this.model.isEmpty()) {
-      this.formCollapsed = observableOf(true);
+      this.formCollapsed = of(true);
     }
   }
 
@@ -267,7 +267,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
-      initChipsValue$ = observableOf(this.model.value as any[]);
+      initChipsValue$ = of(this.model.value as any[]);
 
       // If authority
       this.subs.push(initChipsValue$.pipe(
@@ -292,7 +292,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
                     }),
                   ));
               } else {
-                return$ = observableOf(valueObj[fieldName]);
+                return$ = of(valueObj[fieldName]);
               }
               return return$.pipe(map((entry) => ({ [fieldName]: entry })));
             });

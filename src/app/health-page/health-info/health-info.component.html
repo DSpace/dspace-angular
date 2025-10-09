@@ -1,26 +1,24 @@
-<ng-container *ngIf="healthInfoResponse">
+@if (healthInfoResponse) {
   <ngb-accordion #acc="ngbAccordion" [activeIds]="activeId">
-    <ngb-panel [id]="entry.key" *ngFor="let entry of healthInfoResponse | dsObjNgFor">
-      <ng-template ngbPanelHeader>
-        <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle(entry.key)" data-test="info-component">
-          <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="acc.isExpanded(entry.key)"
-                  [attr.aria-controls]="'health-info-' + entry.key + '-content'">
-            {{ getPanelLabel(entry.key) | titlecase }}
-          </button>
-          <div class="text-right d-flex gap-2">
-            <ds-health-status [status]="entry.value?.status"></ds-health-status>
-            <div class="d-flex my-auto">
-              <span *ngIf="acc.isExpanded(entry.key)" class="fas fa-chevron-up fa-fw"></span>
-              <span *ngIf="!acc.isExpanded(entry.key)" class="fas fa-chevron-down fa-fw"></span>
+    @for (entry of healthInfoResponse | dsObjNgFor; track entry) {
+      <ngb-panel [id]="entry.key">
+        <ng-template ngbPanelTitle>
+          <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" (click)="acc.toggle(entry.key)" data-test="info-component">
+            <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="acc.isExpanded(entry.key)"
+              [attr.aria-controls]="'health-info-' + entry.key + '-content'">
+              {{ getPanelLabel(entry.key) | titlecase }}
+            </button>
+            <div class="text-end d-flex gap-2">
+              <ds-health-status class="me-2" [status]="entry.value?.status"></ds-health-status>
             </div>
           </div>
-        </div>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <ds-health-info-component [healthInfoComponentName]="entry.key" [healthInfoComponent]="entry.value"
-                                  [id]="'health-info-' + entry.key + '-content'">
-        </ds-health-info-component>
-      </ng-template>
-    </ngb-panel>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ds-health-info-component [healthInfoComponentName]="entry.key" [healthInfoComponent]="entry.value"
+            [id]="'health-info-' + entry.key + '-content'">
+          </ds-health-info-component>
+        </ng-template>
+      </ngb-panel>
+    }
   </ngb-accordion>
-</ng-container>
+}

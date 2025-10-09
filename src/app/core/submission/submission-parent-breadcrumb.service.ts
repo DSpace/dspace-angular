@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   switchMap,
 } from 'rxjs';
 
 import { getDSORoute } from '../../app-routing-paths';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { hasValue } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { SubmissionService } from '../../submission/submission.service';
 import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
 import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
@@ -46,6 +49,10 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
    * @param submissionObject The {@link SubmissionObject} for which the parent breadcrumb structure needs to be created
    */
   getBreadcrumbs(submissionObject: SubmissionObject): Observable<Breadcrumb[]> {
+    if (isEmpty(submissionObject)) {
+      return of([]);
+    }
+
     return combineLatest([
       (submissionObject.collection as Observable<RemoteData<Collection>>).pipe(
         getFirstCompletedRemoteData(),
@@ -60,7 +67,7 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
             getRemoteDataPayload(),
           );
         } else {
-          return observableOf(collection);
+          return of(collection);
         }
       }),
       switchMap((collection: Collection) => this.dsoBreadcrumbsService.getBreadcrumbs(collection, getDSORoute(collection))),

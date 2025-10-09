@@ -19,7 +19,7 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -57,7 +57,7 @@ describe('AdminSidebarComponent', () => {
 
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: createSuccessfulRemoteDataObject(mockItem),
     }),
     children: [],
@@ -65,16 +65,16 @@ describe('AdminSidebarComponent', () => {
 
   const mockNgbModal = {
     open: jasmine.createSpy('open').and.returnValue(
-      { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      { componentInstance: {}, closed: of({}) } as NgbModalRef,
     ),
   };
 
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
-    scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
+    scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: of(true) });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
       providers: [
@@ -98,10 +98,10 @@ describe('AdminSidebarComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([]));
+    spyOn(menuService, 'getMenuTopSections').and.returnValue(of([]));
     fixture = TestBed.createComponent(AdminSidebarComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
-    comp.sections = observableOf([]);
+    comp.sections = of([]);
     fixture.detectChanges();
   });
 

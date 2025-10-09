@@ -4,16 +4,15 @@ import { PrivacyComponent as BaseComponent } from '../../../../../app/info/priva
 import { PrivacyContentComponent } from '../../../../../app/info/privacy/privacy-content/privacy-content.component';
 
 @Component({
-  selector: 'ds-privacy',
+  selector: 'ds-themed-privacy',
   // styleUrls: ['./privacy.component.scss'],
   styleUrls: ['../../../../../app/info/privacy/privacy.component.scss'],
   // templateUrl: './privacy.component.html'
   templateUrl: '../../../../../app/info/privacy/privacy.component.html',
   standalone: true,
-  imports: [PrivacyContentComponent],
+  imports: [
+    PrivacyContentComponent,
+  ],
 })
-
-/**
- * Component displaying the Privacy Statement
- */
-export class PrivacyComponent extends BaseComponent {}
+export class PrivacyComponent extends BaseComponent {
+}

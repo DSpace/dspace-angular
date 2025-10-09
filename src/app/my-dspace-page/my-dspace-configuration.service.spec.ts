@@ -2,8 +2,9 @@ import {
   cold,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
+import { environment } from '../../environments/environment.test';
 import {
   SortDirection,
   SortOptions,
@@ -41,10 +42,10 @@ describe('MyDSpaceConfigurationService', () => {
   ];
 
   const spy = jasmine.createSpyObj('RouteService', {
-    getQueryParameterValue: observableOf(value1),
-    getQueryParamsWithPrefix: observableOf(prefixFilter),
-    getRouteParameterValue: observableOf(''),
-    getRouteDataValue: observableOf({}),
+    getQueryParameterValue: of(value1),
+    getQueryParamsWithPrefix: of(prefixFilter),
+    getRouteParameterValue: of(''),
+    getRouteDataValue: of({}),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -58,7 +59,7 @@ describe('MyDSpaceConfigurationService', () => {
   const rdb: any = getMockRemoteDataBuildService();
 
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, environment);
   });
 
   describe('when the scope is called', () => {

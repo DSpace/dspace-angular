@@ -24,25 +24,25 @@ export class VocabularyEntry extends ListableObject {
    * The identifier of this vocabulary entry
    */
   @autoserialize
-    authority: string;
+  authority: string;
 
   /**
    * The display value of this vocabulary entry
    */
   @autoserialize
-    display: string;
+  display: string;
 
   /**
    * The value of this vocabulary entry
    */
   @autoserialize
-    value: string;
+  value: string;
 
   /**
    * An object containing additional information related to this vocabulary entry
    */
   @autoserialize
-    otherInformation: OtherInformation;
+  otherInformation: OtherInformation;
 
   /**
    * A string representing the kind of vocabulary entry
@@ -55,7 +55,7 @@ export class VocabularyEntry extends ListableObject {
    * The {@link HALLink}s for this ExternalSourceEntry
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     vocabularyEntryDetail?: HALLink;
   };

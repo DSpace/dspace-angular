@@ -23,20 +23,20 @@ export class SubmissionDefinitionModel extends ConfigObject {
    * A boolean representing if this submission definition is the default or not
    */
   @autoserialize
-    isDefault: boolean;
+  isDefault: boolean;
 
   /**
    * A list of SubmissionSectionModel that are present in this submission definition
    */
   // TODO refactor using remotedata
   @deserialize
-    sections: PaginatedList<SubmissionSectionModel>;
+  sections: PaginatedList<SubmissionSectionModel>;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
     collections: HALLink,
     sections: HALLink

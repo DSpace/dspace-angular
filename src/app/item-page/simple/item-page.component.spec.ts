@@ -18,15 +18,13 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { MetadataService } from '../../core/metadata/metadata.service';
 import {
   LinkDefinition,
   LinkHeadService,
@@ -46,7 +44,6 @@ import {
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
@@ -85,39 +82,28 @@ const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
-  let authService: AuthService;
   let authorizationDataService: AuthorizationDataService;
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
-  const mockMetadataService = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    processRemoteData: () => {
-    },
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+    data: of({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
 
   const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {},
-    });
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
       setHeader: jasmine.createSpy('setHeader'),
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
+      getLinks: of([mocklink, mocklink2]),
     });
 
     linkHeadService = jasmine.createSpyObj('LinkHeadService', {
@@ -127,8 +113,8 @@ describe('ItemPageComponent', () => {
 
     notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
       getInboxRelationLink: 'http://www.w3.org/ns/ldp#inbox',
-      isCoarConfigEnabled: observableOf(true),
-      getCoarLdnLocalInboxUrls: observableOf(getCoarLdnLocalInboxUrls),
+      isCoarConfigEnabled: of(true),
+      getCoarLdnLocalInboxUrls: of(getCoarLdnLocalInboxUrls),
     });
 
     TestBed.configureTestingModule({
@@ -141,9 +127,7 @@ describe('ItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
-        { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
@@ -157,7 +141,6 @@ describe('ItemPageComponent', () => {
       remove: { imports: [
         ThemedItemAlertsComponent,
         ItemVersionsNoticeComponent,
-        ViewTrackerComponent,
         ListableObjectComponentLoaderComponent,
         ItemVersionsComponent,
         ErrorComponent,
@@ -182,7 +165,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });
@@ -201,7 +184,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = createSuccessfulRemoteDataObject$(mockWithdrawnItem);
       fixture.detectChanges();
     });
@@ -251,7 +234,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is not withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = createSuccessfulRemoteDataObject$(mockItem);
       fixture.detectChanges();
     });

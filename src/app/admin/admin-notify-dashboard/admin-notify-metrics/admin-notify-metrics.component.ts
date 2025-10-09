@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -17,7 +17,6 @@ import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
   imports: [
     NotificationBoxComponent,
     TranslateModule,
-    NgForOf,
   ],
 })
 /**
@@ -27,7 +26,7 @@ import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 export class AdminNotifyMetricsComponent {
 
   @Input()
-    boxesConfig: AdminNotifyMetricsRow[];
+  boxesConfig: AdminNotifyMetricsRow[];
 
   private incomingConfiguration = 'NOTIFY.incoming';
   private involvedItemsSuffix = 'involvedItems';

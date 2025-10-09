@@ -9,13 +9,13 @@ import { DSpaceSerializer } from './dspace.serializer';
 
 class TestModel implements HALResource {
   @autoserialize
-    id: string;
+  id: string;
 
   @autoserialize
-    name: string;
+  name: string;
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     parents: HALLink;
   };

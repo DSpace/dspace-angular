@@ -19,13 +19,13 @@ export class IdentifierData implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The
    */
   @autoserialize
-    identifiers: Identifier[];
+  identifiers: Identifier[];
 
   /**
    * The {@link HALLink}s for this IdentifierData

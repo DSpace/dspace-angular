@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import {
   first,
   take,
@@ -49,7 +49,7 @@ describe('PageSizeSelectorComponent', () => {
   const paginationService = new PaginationServiceStub(pagination, sort);
 
   const activatedRouteStub = {
-    queryParams: observableOf({
+    queryParams: of({
       query: queryParam,
       scope: scopeParam,
     }),
@@ -64,7 +64,7 @@ describe('PageSizeSelectorComponent', () => {
         {
           provide: SEARCH_CONFIG_SERVICE,
           useValue: {
-            paginatedSearchOptions: observableOf(paginatedSearchOptions),
+            paginatedSearchOptions: of(paginatedSearchOptions),
           },
         },
       ],

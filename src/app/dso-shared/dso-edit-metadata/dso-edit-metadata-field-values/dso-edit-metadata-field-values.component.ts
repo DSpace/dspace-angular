@@ -3,10 +3,7 @@ import {
   CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import {
-  AsyncPipe,
-  NgFor,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -18,6 +15,7 @@ import {
   Observable,
 } from 'rxjs';
 
+import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   DsoEditMetadataChangeType,
@@ -32,7 +30,12 @@ import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value
   styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
   templateUrl: './dso-edit-metadata-field-values.component.html',
   standalone: true,
-  imports: [CdkDropList, DsoEditMetadataValueHeadersComponent, NgFor, DsoEditMetadataValueComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    CdkDropList,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataValueHeadersComponent,
+  ],
 })
 /**
  * Component displaying table rows for each value for a certain metadata field within a form
@@ -80,6 +83,8 @@ export class DsoEditMetadataFieldValuesComponent {
    * @type {DsoEditMetadataChangeType}
    */
   public DsoEditMetadataChangeTypeEnum = DsoEditMetadataChangeType;
+
+  public readonly Context = Context;
 
   /**
    * Drop a value into a new position

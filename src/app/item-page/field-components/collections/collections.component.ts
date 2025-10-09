@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -49,12 +45,10 @@ import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wr
   selector: 'ds-item-page-collections',
   templateUrl: './collections.component.html',
   imports: [
-    MetadataFieldWrapperComponent,
-    TranslateModule,
-    NgForOf,
     AsyncPipe,
+    MetadataFieldWrapperComponent,
     RouterLink,
-    NgIf,
+    TranslateModule,
   ],
   standalone: true,
 })

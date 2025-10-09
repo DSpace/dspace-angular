@@ -1,6 +1,9 @@
-<ds-comcol-role
-  *ngFor="let comcolRole of comcolRoles$ | async"
-  [dso]="community$ | async"
-  [comcolRole]="comcolRole"
->
-</ds-comcol-role>
+<div class="custom-alignment">
+  @for (comcolRole of comcolRoles$ | async; track comcolRole) {
+    <ds-comcol-role
+      [dso]="community$ | async"
+      [comcolRole]="comcolRole"
+      >
+    </ds-comcol-role>
+  }
+</div>

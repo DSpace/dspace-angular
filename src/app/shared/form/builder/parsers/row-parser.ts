@@ -122,7 +122,7 @@ export class RowParser {
     if (config && !isEmpty(config.group)) {
       const clsGroup = {
         element: {
-          control: 'form-row',
+          control: 'row',
         },
       };
       const groupModel = new DynamicRowGroupModel(config, clsGroup);
@@ -154,9 +154,9 @@ export class RowParser {
       && (
         isEmpty(visibility)
         && (
-          submissionScope === SubmissionScopeType.WorkspaceItem && scope !== SubmissionFieldScopeType.WorkspaceItem
+          submissionScope === SubmissionScopeType.WorkspaceItem.valueOf() && scope !== SubmissionFieldScopeType.WorkspaceItem.valueOf()
           ||
-          submissionScope === SubmissionScopeType.WorkflowItem && scope !== SubmissionFieldScopeType.WorkflowItem
+          submissionScope === SubmissionScopeType.WorkflowItem.valueOf() && scope !== SubmissionFieldScopeType.WorkflowItem.valueOf()
         )
       );
   }

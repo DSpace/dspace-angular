@@ -23,6 +23,6 @@ export class TemplateItem extends Item {
    * The Collection that this item is a template for
    */
   @link(COLLECTION)
-    templateItemOf: Observable<RemoteData<Collection>>;
+  templateItemOf: Observable<RemoteData<Collection>>;
 
 }

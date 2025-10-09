@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +7,7 @@ import { ItemAlertsComponent as BaseComponent } from '../../../../../app/item-pa
 import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
 
 @Component({
-  selector: 'ds-item-alerts',
+  selector: 'ds-themed-item-alerts',
   // templateUrl: './item-alerts.component.html',
   templateUrl: '../../../../../app/item-page/alerts/item-alerts.component.html',
   // styleUrls: ['./item-alerts.component.scss'],
@@ -18,10 +15,9 @@ import { AlertComponent } from '../../../../../app/shared/alert/alert.component'
   standalone: true,
   imports: [
     AlertComponent,
-    NgIf,
-    TranslateModule,
-    RouterLink,
     AsyncPipe,
+    RouterLink,
+    TranslateModule,
   ],
 })
 export class ItemAlertsComponent extends BaseComponent {

@@ -1,7 +1,8 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
+  OnInit,
   Optional,
 } from '@angular/core';
 import {
@@ -25,9 +26,12 @@ import { ValueInputComponent } from '../value-input.component';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [FormsModule, NgIf, TranslateModule],
+  imports: [
+    FormsModule,
+    TranslateModule,
+  ],
 })
-export class DateValueInputComponent extends ValueInputComponent<string> {
+export class DateValueInputComponent extends ValueInputComponent<string> implements OnInit {
   /**
    * The current value of the date string
    */
@@ -38,7 +42,7 @@ export class DateValueInputComponent extends ValueInputComponent<string> {
    */
   @Input() initialValue;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.value = this.initialValue;
   }
 

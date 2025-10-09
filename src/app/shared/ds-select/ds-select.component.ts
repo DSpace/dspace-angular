@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -8,6 +8,8 @@ import {
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../btn-disabled.directive';
+
 /**
  * Component which represent a DSpace dropdown selector.
  */
@@ -16,7 +18,11 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './ds-select.component.html',
   styleUrls: ['./ds-select.component.scss'],
   standalone: true,
-  imports: [NgbDropdownModule, NgIf, TranslateModule],
+  imports: [
+    BtnDisabledDirective,
+    NgbDropdownModule,
+    TranslateModule,
+  ],
 })
 export class DsSelectComponent {
 
@@ -24,23 +30,23 @@ export class DsSelectComponent {
    * An optional label for the dropdown selector.
    */
   @Input()
-    label: string;
+  label: string;
 
   /**
    * Whether the dropdown selector is disabled.
    */
   @Input()
-    disabled: boolean;
+  disabled: boolean;
 
   /**
    * Emits an event when the dropdown selector is opened or closed.
    */
   @Output()
-    toggled = new EventEmitter();
+  toggled = new EventEmitter();
 
   /**
    * Emits an event when the dropdown selector or closed.
    */
   @Output()
-    close = new EventEmitter();
+  close = new EventEmitter();
 }

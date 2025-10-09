@@ -23,7 +23,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
@@ -198,13 +198,13 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        { provide: ObjectCacheService, useValue: { remove: () => { }, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
+        { provide: ObjectCacheService, useValue: { remove: () => { }, hasBySelfLinkObservable: () => of(false), hasByHref$: () => of(false) } },
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        { provide: RequestService, useValue: { removeByHrefSubstring: () => { }, hasByHref$: () => observableOf(false) } },
+        { provide: RequestService, useValue: { removeByHrefSubstring: () => { }, hasByHref$: () => of(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
+        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => of('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionFormComponent,
       ],
@@ -219,10 +219,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const sectionData = {};
-      formService.isValid.and.returnValue(observableOf(true));
-      formConfigService.findByHref.and.returnValue(observableOf(testFormConfiguration));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      formService.isValid.and.returnValue(of(true));
+      formConfigService.findByHref.and.returnValue(of(testFormConfiguration));
+      sectionsServiceStub.getSectionData.and.returnValue(of(sectionData));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
 
       const html = `
         <ds-submission-section-form></ds-submission-section-form>`;
@@ -254,7 +254,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       translateService = TestBed.inject(TranslateService);
       notificationsServiceStub = TestBed.inject(NotificationsService as any);
 
-      translateService.get.and.returnValue(observableOf('test'));
+      translateService.get.and.returnValue(of('test'));
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
     });
 
@@ -266,11 +266,11 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should init section properly', () => {
       const sectionData = {};
-      formService.isValid.and.returnValue(observableOf(true));
+      formService.isValid.and.returnValue(of(true));
       formConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(testFormConfiguration));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionData.and.returnValue(of(sectionData));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
 
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');
@@ -527,8 +527,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
     });
 
     it('should return a valid status when form is valid and there are no server validation errors', () => {
-      formService.isValid.and.returnValue(observableOf(true));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      formService.isValid.and.returnValue(of(true));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
       const expected = cold('(b|)', {
         b: true,
       });
@@ -537,8 +537,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
     });
 
     it('should return an invalid status when form is valid and there are server validation errors', () => {
-      formService.isValid.and.returnValue(observableOf(true));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf(parsedSectionErrors));
+      formService.isValid.and.returnValue(of(true));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of(parsedSectionErrors));
       const expected = cold('(b|)', {
         b: false,
       });
@@ -547,8 +547,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
     });
 
     it('should return an invalid status when form is not valid and there are no server validation errors', () => {
-      formService.isValid.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      formService.isValid.and.returnValue(of(false));
+      sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
       const expected = cold('(b|)', {
         b: false,
       });
@@ -569,8 +569,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
         errorsToShow: parsedSectionErrors,
       } as any;
 
-      formService.getFormData.and.returnValue(observableOf(formData));
-      sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
+      formService.getFormData.and.returnValue(of(formData));
+      sectionsServiceStub.getSectionState.and.returnValue(of(sectionState));
 
       comp.subscriptions();
 
@@ -659,6 +659,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {}

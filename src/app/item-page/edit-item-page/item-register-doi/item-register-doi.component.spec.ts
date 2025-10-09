@@ -14,7 +14,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -65,7 +65,7 @@ describe('ItemRegisterDoiComponent', () => {
     });
 
     routeStub = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
           id: 'fake-id',
         })),

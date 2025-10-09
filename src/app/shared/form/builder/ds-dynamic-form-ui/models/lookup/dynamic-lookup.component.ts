@@ -1,7 +1,5 @@
 import {
   NgClass,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -29,7 +27,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -46,6 +44,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -65,17 +64,16 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
   styleUrls: ['./dynamic-lookup.component.scss'],
   templateUrl: './dynamic-lookup.component.html',
   imports: [
-    TranslateModule,
-    NgbTooltipModule,
-    NgbDropdownModule,
     AuthorityConfidenceStateDirective,
+    BtnDisabledDirective,
     FormsModule,
-    NgIf,
-    NgClass,
     InfiniteScrollModule,
-    NgForOf,
+    NgbDropdownModule,
+    NgbTooltipModule,
+    NgClass,
     NgTemplateOutlet,
     ObjNgFor,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -276,7 +274,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
     ).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() =>
-        observableOf(buildPaginatedList(
+        of(buildPaginatedList(
           new PageInfo(),
           [],
         )),

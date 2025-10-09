@@ -33,8 +33,8 @@ describe('VocabularyDataService', () => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.getVocabularyByMetadataAndCollection('dc.contributor.author', '1234-1234');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('metadata', encodeURIComponent('dc.contributor.author'))),
-          Object.assign(new RequestParam('collection', encodeURIComponent('1234-1234')))],
+        searchParams: [Object.assign(new RequestParam('metadata', 'dc.contributor.author')),
+          Object.assign(new RequestParam('collection', '1234-1234'))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byMetadataAndCollection', options);
       expect(service.findByHref).toHaveBeenCalledWith(vocabularyByMetadataAndCollectionEndpoint, true, true);

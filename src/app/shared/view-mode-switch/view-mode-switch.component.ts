@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import {
@@ -33,7 +34,12 @@ import { currentPath } from '../utils/route.utils';
   styleUrls: ['./view-mode-switch.component.scss'],
   templateUrl: './view-mode-switch.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+  ],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 
@@ -77,6 +83,9 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (isEmpty(this.viewModeList)) {
       this.viewModeList = [ViewMode.ListElement, ViewMode.GridElement];
+      if (environment.geospatialMapViewer.enableSearchViewMode) {
+        this.viewModeList.push(ViewMode.GeospatialMap);
+      }
     }
 
     this.sub = this.searchService.getViewMode().pipe(

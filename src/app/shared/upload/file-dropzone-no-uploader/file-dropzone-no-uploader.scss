@@ -6,10 +6,16 @@
   top: 0;
   left: 0;
   z-index: -1;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .ds-document-drop-zone-active {
   z-index: var(--ds-drop-zone-area-z-index) !important;
+  opacity: 1;
+  visibility: visible;
 }
 
 .ds-document-drop-zone-inner {

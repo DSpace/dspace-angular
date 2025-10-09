@@ -39,43 +39,43 @@ export class FormFieldModel {
    * The hints for this metadata field to display on form
    */
   @autoserialize
-    hints: string;
+  hints: string;
 
   /**
    * The label for this metadata field to display on form
    */
   @autoserialize
-    label: string;
+  label: string;
 
   /**
    * The languages available for this metadata field to display on form
    */
   @autoserialize
-    languageCodes: LanguageCode[];
+  languageCodes: LanguageCode[];
 
   /**
    * The error message for this metadata field to display on form in case of field is required
    */
   @autoserialize
-    mandatoryMessage: string;
+  mandatoryMessage: string;
 
   /**
    * Representing if this metadata field is mandatory or not
    */
   @autoserialize
-    mandatory: string;
+  mandatory: string;
 
   /**
    * Representing if this metadata field is repeatable or not
    */
   @autoserialize
-    repeatable: boolean;
+  repeatable: boolean;
 
   /**
    * Containing additional properties for this metadata field
    */
   @autoserialize
-    input: {
+  input: {
     /**
      * Representing the type for this metadata field
      */
@@ -91,41 +91,41 @@ export class FormFieldModel {
    * Representing additional vocabulary configuration for this metadata field
    */
   @autoserialize
-    selectableMetadata: SelectableMetadata[];
+  selectableMetadata: SelectableMetadata[];
 
   /**
    * Representing additional relationship configuration for this metadata field
    */
   @autoserialize
-    selectableRelationship: RelationshipOptions;
+  selectableRelationship: RelationshipOptions;
 
   @autoserialize
-    rows: FormRowModel[];
+  rows: FormRowModel[];
 
   /**
    * Representing the scope for this metadata field
    */
   @autoserialize
-    scope: string;
+  scope: string;
 
   /**
    * Containing additional css classes for this metadata field to use on form
    */
   @autoserialize
-    style: string;
+  style: string;
 
   /**
    * Containing types to bind for this field
    */
   @autoserialize
-    typeBind: string[];
+  typeBind: string[];
 
   /**
    * Containing the value for this metadata field
    */
   @autoserialize
-    value: any;
+  value: any;
 
   @autoserialize
-    visibility: SectionVisibility;
+  visibility: SectionVisibility;
 }

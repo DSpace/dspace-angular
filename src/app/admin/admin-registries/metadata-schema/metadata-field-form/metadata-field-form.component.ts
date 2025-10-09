@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -22,7 +19,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
@@ -35,10 +32,9 @@ import { FormComponent } from '../../../../shared/form/form.component';
   selector: 'ds-metadata-field-form',
   templateUrl: './metadata-field-form.component.html',
   imports: [
-    NgIf,
+    AsyncPipe,
     FormComponent,
     TranslateModule,
-    AsyncPipe,
   ],
   standalone: true,
 })
@@ -113,6 +109,8 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
    */
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
+  activeMetadataField$: Observable<MetadataField>;
+
   constructor(public registryService: RegistryService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService) {
@@ -121,71 +119,65 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   /**
    * Initialize the component, setting up the necessary Models for the dynamic form
    */
-  ngOnInit() {
-    combineLatest([
-      this.translateService.get(`${this.messagePrefix}.element`),
-      this.translateService.get(`${this.messagePrefix}.qualifier`),
-      this.translateService.get(`${this.messagePrefix}.scopenote`),
-    ]).subscribe(([element, qualifier, scopenote]) => {
-      this.element = new DynamicInputModel({
-        id: 'element',
-        label: element,
-        name: 'element',
-        validators: {
-          required: null,
-          pattern: '^[^. ,]*$',
-          maxLength: 64,
-        },
-        required: true,
-        errorMessages: {
-          pattern: 'error.validation.metadata.element.invalid-pattern',
-          maxLength: 'error.validation.metadata.element.max-length',
-        },
-      });
-      this.qualifier = new DynamicInputModel({
-        id: 'qualifier',
-        label: qualifier,
-        name: 'qualifier',
-        validators: {
-          pattern: '^[^. ,]*$',
-          maxLength: 64,
-        },
-        required: false,
-        errorMessages: {
-          pattern: 'error.validation.metadata.qualifier.invalid-pattern',
-          maxLength: 'error.validation.metadata.qualifier.max-length',
-        },
-      });
-      this.scopeNote = new DynamicTextAreaModel({
-        id: 'scopeNote',
-        label: scopenote,
-        name: 'scopeNote',
-        required: false,
-        rows: 5,
-      });
-      this.formModel = [
-        new DynamicFormGroupModel(
-          {
-            id: 'metadatadatafieldgroup',
-            group:[this.element, this.qualifier, this.scopeNote],
-          }),
-      ];
-      this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-      this.registryService.getActiveMetadataField().subscribe((field: MetadataField): void => {
-        if (field == null) {
-          this.clearFields();
-        } else {
-          this.formGroup.patchValue({
-            metadatadatafieldgroup: {
-              element: field.element,
-              qualifier: field.qualifier,
-              scopeNote: field.scopeNote,
-            },
-          });
-          this.element.disabled = true;
-          this.qualifier.disabled = true;
-        }
-      });
+  ngOnInit(): void {
+    this.activeMetadataField$ = this.registryService.getActiveMetadataField();
+    this.element = new DynamicInputModel({
+      id: 'element',
+      label: this.translateService.instant(`${this.messagePrefix}.element`),
+      name: 'element',
+      validators: {
+        required: null,
+        pattern: '^[^. ,]*$',
+        maxLength: 64,
+      },
+      required: true,
+      errorMessages: {
+        pattern: 'error.validation.metadata.element.invalid-pattern',
+        maxLength: 'error.validation.metadata.element.max-length',
+      },
+    });
+    this.qualifier = new DynamicInputModel({
+      id: 'qualifier',
+      label: this.translateService.instant(`${this.messagePrefix}.qualifier`),
+      name: 'qualifier',
+      validators: {
+        pattern: '^[^. ,]*$',
+        maxLength: 64,
+      },
+      required: false,
+      errorMessages: {
+        pattern: 'error.validation.metadata.qualifier.invalid-pattern',
+        maxLength: 'error.validation.metadata.qualifier.max-length',
+      },
+    });
+    this.scopeNote = new DynamicTextAreaModel({
+      id: 'scopeNote',
+      label: this.translateService.instant(`${this.messagePrefix}.scopenote`),
+      name: 'scopeNote',
+      required: false,
+      rows: 5,
+    });
+    this.formModel = [
+      new DynamicFormGroupModel({
+        id: 'metadatadatafieldgroup',
+        group:[this.element, this.qualifier, this.scopeNote],
+      }),
+    ];
+    this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+    this.registryService.getActiveMetadataField().subscribe((field: MetadataField): void => {
+      if (field == null) {
+        this.clearFields();
+      } else {
+        this.formGroup.patchValue({
+          metadatadatafieldgroup: {
+            element: field.element,
+            qualifier: field.qualifier,
+            scopeNote: field.scopeNote,
+          },
+        });
+        this.element.disabled = true;
+        this.qualifier.disabled = true;
+      }
     });
   }
 

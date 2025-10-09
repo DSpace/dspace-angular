@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgSwitch,
-  NgSwitchCase,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -14,11 +8,11 @@ import {
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -28,7 +22,7 @@ import {
   combineLatest as observableCombineLatest,
   EMPTY,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -36,6 +30,7 @@ import {
   defaultIfEmpty,
   map,
   switchMap,
+  takeUntil,
   tap,
 } from 'rxjs/operators';
 
@@ -65,6 +60,8 @@ import {
   getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -76,17 +73,14 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
   selector: 'ds-groups-registry',
   templateUrl: './groups-registry.component.html',
   imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
     ThemedLoadingComponent,
     TranslateModule,
-    RouterLink,
-    ReactiveFormsModule,
-    AsyncPipe,
-    NgIf,
-    PaginationComponent,
-    NgSwitch,
-    NgSwitchCase,
-    NgbTooltipModule,
-    NgForOf,
   ],
   standalone: true,
 })
@@ -149,11 +143,11 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private formBuilder: UntypedFormBuilder,
               protected routeService: RouteService,
-              private router: Router,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
               public requestService: RequestService,
               public dsoNameService: DSONameService,
+              private modalService: NgbModal,
   ) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
@@ -191,7 +185,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       switchMap((groups: PaginatedList<Group>) => {
         if (groups.page.length === 0) {
-          return observableOf(buildPaginatedList(groups.pageInfo, []));
+          return of(buildPaginatedList(groups.pageInfo, []));
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
@@ -236,7 +230,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
   canManageGroup$(isSiteAdmin: boolean, group: Group): Observable<boolean> {
     if (isSiteAdmin) {
-      return observableOf(true);
+      return of(true);
     } else {
       return this.authorizationService.isAuthorized(FeatureID.CanManageGroup, group.self);
     }
@@ -295,7 +289,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     return this.dSpaceObjectDataService.findByHref(group._links.object.href).pipe(
       getFirstSucceededRemoteData(),
       map((rd: RemoteData<DSpaceObject>) => hasValue(rd) && hasValue(rd.payload)),
-      catchError(() => observableOf(false)),
+      catchError(() => of(false)),
     );
   }
 
@@ -324,6 +318,32 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     }
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
     this.paginationService.clearPagination(this.config.id);
+  }
+
+  confirmDelete(group: GroupDtoModel): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.name = this.dsoNameService.getName(group.group);
+    modalRef.componentInstance.headerLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.header';
+    modalRef.componentInstance.infoLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.info';
+    modalRef.componentInstance.cancelLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.cancel';
+    modalRef.componentInstance.confirmLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+
+    const modalSub: Subscription = modalRef.componentInstance.response.pipe(
+      takeUntil(modalRef.closed),
+    ).subscribe((result: boolean) => {
+      if (result === true) {
+        this.deleteGroup(group);
+      }
+    });
+
+    void modalRef.result.then().finally(() => {
+      modalRef.close();
+      if (modalSub && !modalSub.closed) {
+        modalSub.unsubscribe();
+      }
+    });
   }
 
 }

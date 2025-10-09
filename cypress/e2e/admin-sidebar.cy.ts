@@ -1,5 +1,4 @@
 import { testA11y } from 'cypress/support/utils';
-import { Options } from 'cypress-axe';
 
 describe('Admin Sidebar', () => {
   beforeEach(() => {
@@ -10,19 +9,12 @@ describe('Admin Sidebar', () => {
 
   it('should be pinnable and pass accessibility tests', () => {
     // Pin the sidebar open
-    cy.get('#sidebar-collapse-toggle').click();
+    cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on every expandable section to open all menus
     cy.get('ds-expandable-admin-sidebar-section').click({ multiple: true });
 
     // Analyze <ds-admin-sidebar> for accessibility
-    testA11y('ds-admin-sidebar',
-        {
-          rules: {
-            // Currently all expandable sections have nested interactive elements
-            // See https://github.com/DSpace/dspace-angular/issues/2178
-            'nested-interactive': { enabled: false },
-          },
-        } as Options);
+    testA11y('ds-admin-sidebar');
   });
 });

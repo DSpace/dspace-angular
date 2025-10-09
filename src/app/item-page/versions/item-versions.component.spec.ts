@@ -24,7 +24,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
   of,
 } from 'rxjs';
 
@@ -42,6 +41,7 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -127,11 +127,11 @@ describe('ItemVersionsComponent', () => {
     getLatestVersionItemFromHistory$: of(item1),  // called when version2 is deleted
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
-    isAuthenticated: observableOf(true),
+    isAuthenticated: of(true),
     setRedirectUrl: {},
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
@@ -158,7 +158,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective, BtnDisabledDirective],
       providers: [
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
@@ -234,8 +234,9 @@ describe('ItemVersionsComponent', () => {
     it('should not disable the delete button', () => {
       const deleteButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-delete'));
       expect(deleteButtons.length).not.toBe(0);
-      deleteButtons.forEach((btn: DebugElement) => {
-        expect(btn.nativeElement.disabled).toBe(false);
+      deleteButtons.forEach((btn) => {
+        expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+        expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
       });
     });
 

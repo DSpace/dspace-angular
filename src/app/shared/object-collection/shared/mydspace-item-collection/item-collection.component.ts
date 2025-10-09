@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -35,7 +32,11 @@ import { followLink } from '../../../utils/follow-link-config.model';
   styleUrls: ['./item-collection.component.scss'],
   templateUrl: './item-collection.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ItemCollectionComponent implements OnInit {
 

@@ -1,35 +1,29 @@
-import { NgComponentOutlet } from '@angular/common';
 import {
   Component,
-  Injector,
   Input,
-  OnInit,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-} from '../../../../../core/shared/search/search-filter.service';
-import { FilterType } from '../../../models/filter-type.model';
+import { AbstractComponentLoaderComponent } from '../../../../abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { renderFilterType } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
-  templateUrl: './search-facet-filter-wrapper.component.html',
+  templateUrl: '../../../../abstract-component-loader/abstract-component-loader.component.html',
   standalone: true,
-  imports: [NgComponentOutlet],
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 
 /**
  * Wrapper component that renders a specific facet filter based on the filter config's type
  */
-export class SearchFacetFilterWrapperComponent implements OnInit {
+export class SearchFacetFilterWrapperComponent extends AbstractComponentLoaderComponent<Component> {
+
   /**
    * Configuration for the filter of this wrapper component
    */
@@ -38,7 +32,7 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
@@ -50,39 +44,19 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
    */
   @Input() scope: string;
 
-  /**
-   * The constructor of the search facet filter that should be rendered, based on the filter config's type
-   */
-  searchFilter: GenericConstructor<SearchFacetFilterComponent>;
-  /**
-   * Injector to inject a child component with the @Input parameters
-   */
-  objectInjector: Injector;
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'filterConfig',
+  ];
 
-  constructor(private injector: Injector) {
+  protected inputNames: (keyof this & string)[] = [
+    'filterConfig',
+    'inPlaceSearch',
+    'refreshFilters',
+    'scope',
+  ];
+
+  public getComponent(): GenericConstructor<Component> {
+    return renderFilterType(this.filterConfig.filterType);
   }
 
-  /**
-   * Initialize and add the filter config to the injector
-   */
-  ngOnInit(): void {
-    this.searchFilter = this.getSearchFilter();
-    this.objectInjector = Injector.create({
-      providers: [
-        { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
-        { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
-        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
-        { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
-      ],
-      parent: this.injector,
-    });
-  }
-
-  /**
-   * Find the correct component based on the filter config's type
-   */
-  private getSearchFilter() {
-    const type: FilterType = this.filterConfig.filterType;
-    return renderFilterType(type);
-  }
 }

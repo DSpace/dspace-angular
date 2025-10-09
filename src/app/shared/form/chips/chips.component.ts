@@ -7,8 +7,6 @@ import {
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -39,15 +37,13 @@ import { ChipsItem } from './models/chips-item.model';
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
   imports: [
-    NgbTooltipModule,
-    NgClass,
-    NgForOf,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
-    NgIf,
-    TranslateModule,
     CdkDrag,
     CdkDropList,
+    NgbTooltipModule,
+    NgClass,
+    TranslateModule,
   ],
   standalone: true,
 })

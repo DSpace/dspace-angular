@@ -4,7 +4,6 @@ export enum SectionsType {
   Upload = 'upload',
   License = 'license',
   CcLicense = 'cclicense',
-  collection = 'collection',
   AccessesCondition = 'accessCondition',
   SherpaPolicies = 'sherpaPolicy',
   Identifiers = 'identifiers',

@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RemoteData } from '../../core/data/remote-data';
@@ -11,7 +11,7 @@ import { NoContent } from '../../core/shared/NoContent.model';
 export class BitstreamDataServiceStub {
 
   removeMultiple(_bitstreams: Bitstream[]): Observable<RemoteData<NoContent>> {
-    return observableOf(new RemoteData(0, 0, 0, RequestEntryState.Success));
+    return of(new RemoteData(0, 0, 0, RequestEntryState.Success));
   }
 
 }

@@ -23,10 +23,7 @@ import {
   getFirstSucceededRemoteData,
 } from '../../../../../core/shared/operators';
 import { ResourceType } from '../../../../../core/shared/resource-type';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../empty.util';
+import { isEmpty } from '../../../../empty.util';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({
@@ -36,14 +33,13 @@ import { NotificationsService } from '../../../../notifications/notifications.se
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**
-   * Frontend endpoint for this type of DSO
-   */
-  protected frontendURL: string;
-  /**
    * The initial DSO object
    */
   public dsoRD$: Observable<RemoteData<TDomain>>;
-
+  /**
+   * Frontend endpoint for this type of DSO
+   */
+  protected frontendURL: string;
   /**
    * The type of the dso
    */
@@ -67,36 +63,25 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
    * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
    */
   onSubmit(event) {
-
-    const uploader = event.uploader;
-    const deleteLogo = event.deleteLogo;
-
-    const newLogo = hasValue(uploader) && uploader.queue.length > 0;
-    if (newLogo) {
-      this.dsoDataService.getLogoEndpoint(event.dso.uuid).pipe(take(1)).subscribe((href: string) => {
-        uploader.options.url = href;
-        uploader.uploadAll();
-      });
-    }
-
     if (!isEmpty(event.operations)) {
-      this.dsoDataService.patch(event.dso, event.operations).pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe((response: RemoteData<DSpaceObject>) => {
-        if (response.hasSucceeded) {
-          this.router.navigate([this.frontendURL + event.dso.uuid]);  // todo: ok not to await this?
-          this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
-        } else if (response.statusCode === 403) {
-          this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
-        } else {
-          this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
-        }
-      });
+      this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())
+        .subscribe( (response: RemoteData<DSpaceObject>) => {
+          if (response.hasSucceeded) {
+            this.router.navigate([this.frontendURL, event.dso.uuid]);  // todo: ok not to await this?
+            this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
+          } else if (response.statusCode === 403) {
+            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
+          } else {
+            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
+          }
+        });
+    } else {
+      this.router.navigate([this.frontendURL, event.dso.uuid]);
     }
   }
 
   /**
-   * Navigate to the home page of the object
+   * Navigate to the relative DSO page
    */
   navigateToHomePage() {
     this.dsoRD$.pipe(

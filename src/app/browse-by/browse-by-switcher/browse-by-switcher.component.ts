@@ -17,14 +17,18 @@ import { getComponentByBrowseByType } from './browse-by-decorator';
 @Component({
   selector: 'ds-browse-by-switcher',
   templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html',
-  imports: [AsyncPipe, NgComponentOutlet, DynamicComponentLoaderDirective],
+  imports: [
+    AsyncPipe,
+    DynamicComponentLoaderDirective,
+    NgComponentOutlet,
+  ],
   standalone: true,
 })
 export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {
 
   @Input() context: Context;
 
-  @Input() browseByType: BrowseByDataType;
+  @Input() browseByType: { type: BrowseByDataType };
 
   @Input() displayTitle: boolean;
 
@@ -43,7 +47,7 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
   ];
 
   public getComponent(): GenericConstructor<Component> {
-    return getComponentByBrowseByType(this.browseByType, this.context, this.themeService.getThemeName());
+    return getComponentByBrowseByType(this.browseByType.type, this.context, this.themeService.getThemeName());
   }
 
 }

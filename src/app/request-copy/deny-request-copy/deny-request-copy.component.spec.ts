@@ -13,7 +13,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -95,13 +95,13 @@ describe('DenyRequestCopyComponent', () => {
       navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     route = jasmine.createSpyObj('route', {}, {
-      data: observableOf({
+      data: of({
         request: createSuccessfulRemoteDataObject(itemRequest),
       }),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      getAuthenticatedUserFromStore: observableOf(user),
+      isAuthenticated: of(true),
+      getAuthenticatedUserFromStore: of(user),
     });
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
@@ -133,7 +133,7 @@ describe('DenyRequestCopyComponent', () => {
     fixture.detectChanges();
 
     translateService = (component as any).translateService;
-    spyOn(translateService, 'get').and.returnValue(observableOf('translated-message'));
+    spyOn(translateService, 'get').and.returnValue(of('translated-message'));
   });
 
   it('message$ should be parameterized correctly', (done) => {

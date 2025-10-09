@@ -8,17 +8,19 @@ import { CollectionStatisticsPageComponent as BaseComponent } from '../../../../
 import { StatisticsTableComponent } from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
 
 @Component({
-  selector: 'ds-collection-statistics-page',
+  selector: 'ds-themed-collection-statistics-page',
   // styleUrls: ['./collection-statistics-page.component.scss'],
   styleUrls: ['../../../../../app/statistics-page/collection-statistics-page/collection-statistics-page.component.scss'],
   // templateUrl: './collection-statistics-page.component.html',
   templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html',
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-
-/**
- * Component representing the statistics page for a collection.
- */
-export class CollectionStatisticsPageComponent extends BaseComponent {}
-
+export class CollectionStatisticsPageComponent extends BaseComponent {
+}

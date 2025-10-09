@@ -1,6 +1,6 @@
 import {
   combineLatest as observableCombineLatest,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -177,7 +177,7 @@ describe('HALEndpointService', () => {
     });
 
     it('should be at least called as many times as the length of halNames', () => {
-      spyOn(service as any, 'getEndpointMapAt').and.returnValue(observableOf(endpointMap));
+      spyOn(service as any, 'getEndpointMapAt').and.returnValue(of(endpointMap));
       spyOn((service as any), 'getEndpointAt').and.callThrough();
 
       (service as any).getEndpointAt('', 'endpoint').subscribe();
@@ -199,7 +199,7 @@ describe('HALEndpointService', () => {
 
     it('should return the correct endpoint', (done) => {
       spyOn(service as any, 'getEndpointMapAt').and.callFake((param) => {
-        return observableOf(endpointMaps[param]);
+        return of(endpointMaps[param]);
       });
 
       observableCombineLatest<string[]>([

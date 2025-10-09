@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -8,8 +8,9 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
+import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { isNotEmpty } from '../../../empty.util';
 import { MenuService } from '../../../menu/menu.service';
 import { MenuID } from '../../../menu/menu-id.model';
@@ -23,9 +24,14 @@ import { MenuSection } from '../../../menu/menu-section.model';
   templateUrl: './dso-edit-menu-section.component.html',
   styleUrls: ['./dso-edit-menu-section.component.scss'],
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, RouterLink, TranslateModule],
+  imports: [
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
-export class DsoEditMenuSectionComponent extends MenuSectionComponent implements OnInit {
+export class DsoEditMenuSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 
   menuID: MenuID = MenuID.DSO_EDIT;
   itemModel;
@@ -33,12 +39,12 @@ export class DsoEditMenuSectionComponent extends MenuSectionComponent implements
   canActivate: boolean;
 
   constructor(
-    @Inject('sectionDataProvider') menuSection: MenuSection,
+    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
   ) {
-    super(menuSection, menuService, injector);
-    this.itemModel = menuSection.model;
+    super(menuService, injector);
+    this.itemModel = section.model;
   }
 
   ngOnInit(): void {
@@ -48,7 +54,7 @@ export class DsoEditMenuSectionComponent extends MenuSectionComponent implements
   }
 
   /**
-   * Activate the section's model funtion
+   * Activate the section's model function
    */
   public activate(event: any) {
     event.preventDefault();

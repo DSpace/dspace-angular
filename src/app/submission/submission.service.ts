@@ -10,7 +10,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
   timer as observableTimer,
 } from 'rxjs';
@@ -50,6 +50,7 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
+import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {
   CancelSubmissionFormAction,
@@ -163,7 +164,7 @@ export class SubmissionService {
   createSubmission(collectionId?: string): Observable<SubmissionObject> {
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
-      catchError(() => observableOf({} as SubmissionObject)));
+      catchError(() => of({} as SubmissionObject)));
   }
 
   /**
@@ -504,9 +505,15 @@ export class SubmissionService {
    *    true if section is hidden, false otherwise
    */
   isSectionHidden(sectionData: SubmissionSectionObject): boolean {
-    return (isNotUndefined(sectionData.visibility)
-      && sectionData.visibility.main === 'HIDDEN'
-      && sectionData.visibility.other === 'HIDDEN');
+    const submissionScope: SubmissionScopeType = this.getSubmissionScope();
+    if (isEmpty(submissionScope) || isEmpty(sectionData.visibility) || isEmpty(sectionData.scope)) {
+      return false;
+    }
+    const convertedSubmissionScope: SectionScope = submissionScope.valueOf() === SubmissionScopeType.WorkspaceItem.valueOf() ?
+      SectionScope.Submission : SectionScope.Workflow;
+    const visibility = convertedSubmissionScope.valueOf() === sectionData.scope.valueOf() ?
+      sectionData.visibility.main : sectionData.visibility.other;
+    return visibility ===  'HIDDEN';
   }
 
   /**

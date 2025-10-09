@@ -25,7 +25,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -93,8 +93,8 @@ describe('ResourcePoliciesComponent test suite', () => {
         href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
-    eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
+    eperson: of(createSuccessfulRemoteDataObject({})),
+    group: of(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const anotherResourcePolicy: any = {
@@ -118,8 +118,8 @@ describe('ResourcePoliciesComponent test suite', () => {
         href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
-    eperson: observableOf(createSuccessfulRemoteDataObject(EPersonMock)),
-    group: observableOf(createSuccessfulRemoteDataObject({})),
+    eperson: of(createSuccessfulRemoteDataObject(EPersonMock)),
+    group: of(createSuccessfulRemoteDataObject({})),
   };
 
   const bitstream1 = Object.assign(new Bitstream(), {
@@ -165,7 +165,7 @@ describe('ResourcePoliciesComponent test suite', () => {
   });
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       item: createSuccessfulRemoteDataObject(item),
     }),
   };
@@ -322,7 +322,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       compAsAny.isActive = true;
       const initResourcePolicyEntries = getInitEntries();
       compAsAny.resourcePoliciesEntries$.next(initResourcePolicyEntries);
-      resourcePolicyService.searchByResource.and.returnValue(observableOf({}));
+      resourcePolicyService.searchByResource.and.returnValue(of({}));
       spyOn(comp, 'initResourcePolicyList').and.callFake(() => ({}));
       fixture.detectChanges();
     });
@@ -376,7 +376,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       });
 
       it('should call ResourcePolicyService.delete for the checked policies', () => {
-        resourcePolicyService.delete.and.returnValue(observableOf(true));
+        resourcePolicyService.delete.and.returnValue(of(true));
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.deleteSelectedResourcePolicies());
         scheduler.flush();
@@ -387,7 +387,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 
       it('should notify success when delete is successful', () => {
 
-        resourcePolicyService.delete.and.returnValue(observableOf(true));
+        resourcePolicyService.delete.and.returnValue(of(true));
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.deleteSelectedResourcePolicies());
         scheduler.flush();
@@ -398,7 +398,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 
       it('should notify error when delete is not successful', () => {
 
-        resourcePolicyService.delete.and.returnValue(observableOf(false));
+        resourcePolicyService.delete.and.returnValue(of(false));
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.deleteSelectedResourcePolicies());
         scheduler.flush();
@@ -447,9 +447,10 @@ describe('ResourcePoliciesComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [CommonModule,
+  imports: [
     FormsModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

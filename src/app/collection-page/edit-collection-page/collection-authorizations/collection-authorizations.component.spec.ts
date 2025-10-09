@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -35,7 +35,7 @@ describe('CollectionAuthorizationsComponent', () => {
   const routeStub = {
     parent: {
       parent: {
-        data: observableOf({
+        data: of({
           dso: collectionRD,
         }),
       },

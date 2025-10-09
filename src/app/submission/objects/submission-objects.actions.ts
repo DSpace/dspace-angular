@@ -11,7 +11,10 @@ import {
 } from '../../core/submission/models/workspaceitem-sections.model';
 import { type } from '../../shared/ngrx/type';
 import { SectionsType } from '../sections/sections-type';
-import { SectionVisibility } from './section-visibility.model';
+import {
+  SectionScope,
+  SectionVisibility,
+} from './section-visibility.model';
 import { SubmissionError } from './submission-error.model';
 import { SubmissionSectionError } from './submission-section-error.model';
 
@@ -120,6 +123,7 @@ export class InitSectionAction implements Action {
     header: string;
     config: string;
     mandatory: boolean;
+    scope: SectionScope;
     sectionType: SectionsType;
     visibility: SectionVisibility;
     enabled: boolean;
@@ -140,6 +144,8 @@ export class InitSectionAction implements Action {
    *    the section's config
    * @param mandatory
    *    the section's mandatory
+   * @param scope
+   *    the section's scope
    * @param sectionType
    *    the section's type
    * @param visibility
@@ -156,12 +162,13 @@ export class InitSectionAction implements Action {
     header: string,
     config: string,
     mandatory: boolean,
+    scope: SectionScope,
     sectionType: SectionsType,
     visibility: SectionVisibility,
     enabled: boolean,
     data: WorkspaceitemSectionDataType,
     errors: SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, header, config, mandatory, sectionType, visibility, enabled, data, errors };
+    this.payload = { submissionId, sectionId, header, config, mandatory, scope, sectionType, visibility, enabled, data, errors };
   }
 }
 

@@ -13,7 +13,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Context } from '../../../core/shared/context.model';
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -73,7 +73,7 @@ describe('SearchSwitchConfigurationComponent', () => {
     comp = fixture.componentInstance;
     searchConfService = TestBed.inject(SEARCH_CONFIG_SERVICE as any);
 
-    spyOn(searchConfService, 'getCurrentConfiguration').and.returnValue(observableOf(MyDSpaceConfigurationValueType.Workspace));
+    spyOn(searchConfService, 'getCurrentConfiguration').and.returnValue(of(MyDSpaceConfigurationValueType.Workspace));
 
     comp.configurationList = configurationList;
 
@@ -87,7 +87,7 @@ describe('SearchSwitchConfigurationComponent', () => {
   });
 
   it('should display select field properly', () => {
-    const selectField = fixture.debugElement.query(By.css('.form-control'));
+    const selectField = fixture.debugElement.query(By.css('.form-select'));
     expect(selectField).not.toBeNull();
 
     const childElements = selectField.children;

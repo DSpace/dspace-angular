@@ -13,12 +13,12 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   getMockNotificationsStateService,
   qualityAssuranceTopicObjectMoreAbstract,
@@ -53,7 +53,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
       ],
       providers: [
         { provide: NotificationsStateService, useValue: mockNotificationsStateService },
-        { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
+        { provide: ActivatedRoute, useValue: { data: of(activatedRouteParams), snapshot: {
           params: {
             sourceId: 'openaire',
             targetId: null,
@@ -69,22 +69,22 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
         remove: {
           imports: [
             AlertComponent,
-            LoadingComponent,
+            ThemedLoadingComponent,
             PaginationComponent,
           ],
         },
       })
       .compileComponents().then(() => {
-        mockNotificationsStateService.getQualityAssuranceTopics.and.returnValue(observableOf([
+        mockNotificationsStateService.getQualityAssuranceTopics.and.returnValue(of([
           qualityAssuranceTopicObjectMorePid,
           qualityAssuranceTopicObjectMoreAbstract,
         ]));
-        mockNotificationsStateService.getQualityAssuranceTopicsTotalPages.and.returnValue(observableOf(1));
-        mockNotificationsStateService.getQualityAssuranceTopicsCurrentPage.and.returnValue(observableOf(0));
-        mockNotificationsStateService.getQualityAssuranceTopicsTotals.and.returnValue(observableOf(2));
-        mockNotificationsStateService.isQualityAssuranceTopicsLoaded.and.returnValue(observableOf(true));
-        mockNotificationsStateService.isQualityAssuranceTopicsLoading.and.returnValue(observableOf(false));
-        mockNotificationsStateService.isQualityAssuranceTopicsProcessing.and.returnValue(observableOf(false));
+        mockNotificationsStateService.getQualityAssuranceTopicsTotalPages.and.returnValue(of(1));
+        mockNotificationsStateService.getQualityAssuranceTopicsCurrentPage.and.returnValue(of(0));
+        mockNotificationsStateService.getQualityAssuranceTopicsTotals.and.returnValue(of(2));
+        mockNotificationsStateService.isQualityAssuranceTopicsLoaded.and.returnValue(of(true));
+        mockNotificationsStateService.isQualityAssuranceTopicsLoading.and.returnValue(of(false));
+        mockNotificationsStateService.isQualityAssuranceTopicsProcessing.and.returnValue(of(false));
       });
   }));
 
@@ -175,7 +175,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
 })
 class TestComponent {
 

@@ -3,7 +3,7 @@ import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
-import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
+import { ThemedMetadataImportPageComponent } from './admin-import-metadata-page/themed-metadata-import-page.component';
 import {
   LDN_PATH,
   NOTIFICATIONS_MODULE_PATH,
@@ -11,8 +11,8 @@ import {
   REGISTRIES_MODULE_PATH,
   REPORTS_MODULE_PATH,
 } from './admin-routing-paths';
-import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
-import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
+import { ThemedAdminSearchPageComponent } from './admin-search-page/themed-admin-search-page.component';
+import { ThemedAdminWorkflowPageComponent } from './admin-workflow-page/themed-admin-workflow-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -28,13 +28,13 @@ export const ROUTES: Route[] = [
   {
     path: 'search',
     resolve: { breadcrumb: i18nBreadcrumbResolver },
-    component: AdminSearchPageComponent,
+    component: ThemedAdminSearchPageComponent,
     data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' },
   },
   {
     path: 'workflow',
     resolve: { breadcrumb: i18nBreadcrumbResolver },
-    component: AdminWorkflowPageComponent,
+    component: ThemedAdminWorkflowPageComponent,
     data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' },
   },
   {
@@ -46,7 +46,7 @@ export const ROUTES: Route[] = [
   {
     path: 'metadata-import',
     resolve: { breadcrumb: i18nBreadcrumbResolver },
-    component: MetadataImportPageComponent,
+    component: ThemedMetadataImportPageComponent,
     data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' },
   },
   {

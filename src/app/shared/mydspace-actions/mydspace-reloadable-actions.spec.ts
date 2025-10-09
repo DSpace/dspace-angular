@@ -16,7 +16,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../core/data/request.service';
 import { Item } from '../../core/shared/item.model';
@@ -54,7 +54,7 @@ const searchService = getMockSearchService();
 const requestService = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -83,9 +83,9 @@ const item = Object.assign(new Item(), {
   },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
+mockObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem), id: '1234' });
 
 describe('MyDSpaceReloadableActionsComponent', () => {
   beforeEach(fakeAsync(() => {
@@ -166,9 +166,9 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       remoteClaimTaskErrorResponse = new ProcessTaskResponse(false, null, null);
       const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
 
-      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
-      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
-      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskErrorResponse));
+      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(of(poolTaskHref));
+      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(of(remoteReloadedObjectResponse));
+      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(of(remoteClaimTaskErrorResponse));
       spyOn(component, 'reloadObjectExecution').and.callThrough();
       spyOn(component.processCompleted, 'emit').and.callThrough();
 
@@ -213,12 +213,13 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
       const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
 
-      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
-      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
-      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
+      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(of(poolTaskHref));
+      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(of(remoteReloadedObjectResponse));
+      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(of(remoteClaimTaskResponse));
       spyOn(component, 'reloadObjectExecution').and.callThrough();
       spyOn(component, 'convertReloadedObject').and.callThrough();
       spyOn(component.processCompleted, 'emit').and.callThrough();
+      spyOn(component, 'invalidateCacheForCurrentSearchUrl').and.callThrough();
 
       (component as any).objectDataService = mockDataService;
     });
@@ -239,10 +240,11 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       });
     });
 
-    it('should emit the reloaded object in case of success', (done) => {
+    it('should emit the reloaded object and invalidate cache in case of success', (done) => {
 
       component.startActionExecution().subscribe( (result) => {
         expect(component.processCompleted.emit).toHaveBeenCalledWith({ result: true, reloadedObject: result as any });
+        expect(component.invalidateCacheForCurrentSearchUrl).toHaveBeenCalled();
         done();
       });
     });
@@ -259,9 +261,9 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
       const remoteReloadedObjectResponse: any = createFailedRemoteDataObject();
 
-      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
-      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
-      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
+      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(of(poolTaskHref));
+      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(of(remoteReloadedObjectResponse));
+      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(of(remoteClaimTaskResponse));
 
       spyOn(component, 'convertReloadedObject').and.returnValue(null);
       spyOn(component, 'reload').and.returnValue(null);

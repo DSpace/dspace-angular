@@ -3,7 +3,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
@@ -28,13 +28,13 @@ describe('RecentItemListComponent', () => {
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   let paginationService;
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => observableOf(emptyList),
+    search: () => of(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   paginationService = new PaginationServiceStub();
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,

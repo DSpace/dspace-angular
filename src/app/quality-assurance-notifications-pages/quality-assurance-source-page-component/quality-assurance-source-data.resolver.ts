@@ -34,7 +34,7 @@ export const qualityAssuranceSourceDataResolver: ResolveFn<QualityAssuranceSourc
 ): Observable<QualityAssuranceSourceObject[]> => {
   const pageSize = appConfig.qualityAssuranceConfig.pageSize;
 
-  return qualityAssuranceSourceService.getSources(pageSize, 0).pipe(
+  return qualityAssuranceSourceService.getSources(pageSize, 1).pipe(
     map((sources: PaginatedList<QualityAssuranceSourceObject>) => {
       if (sources.page.length === 1) {
         router.navigate([getResolvedUrl(route) + '/' + sources.page[0].id]);

@@ -5,6 +5,7 @@ export class PresetQuery {
   id: string;
   label: string;
   predicates: QueryPredicate[];
+  isDefault?: boolean;
 
   static of(id: string, label: string, predicates: QueryPredicate[]) {
     const query = new PresetQuery();

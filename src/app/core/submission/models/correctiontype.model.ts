@@ -22,7 +22,7 @@ export class CorrectionType extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
   @autoserialize
   /**
    * The unique identifier for the correction type mode.

@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -21,11 +18,16 @@ import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-se
 import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
 
 @Component({
-  selector: 'ds-search-settings',
+  selector: 'ds-base-search-settings',
   styleUrls: ['./search-settings.component.scss'],
   templateUrl: './search-settings.component.html',
   standalone: true,
-  imports: [NgIf, SidebarDropdownComponent, NgFor, FormsModule, PageSizeSelectorComponent, TranslateModule],
+  imports: [
+    FormsModule,
+    PageSizeSelectorComponent,
+    SidebarDropdownComponent,
+    TranslateModule,
+  ],
 })
 
 /**

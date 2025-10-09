@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,7 +17,7 @@ import { ThemedSearchFormComponent } from '../../../../../../../../../app/shared
 import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-external-source-tab',
+  selector: 'ds-themed-dynamic-lookup-relation-external-source-tab',
   // styleUrls: ['./dynamic-lookup-relation-external-source-tab.component.scss'],
   styleUrls: ['../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component.scss'],
   // templateUrl: './dynamic-lookup-relation-external-source-tab.component.html',
@@ -37,17 +34,15 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
   ],
   standalone: true,
   imports: [
-    ThemedSearchFormComponent,
-    PageSizeSelectorComponent,
-    ObjectCollectionComponent,
-    VarDirective,
     AsyncPipe,
-    TranslateModule,
     ErrorComponent,
-    NgIf,
+    ObjectCollectionComponent,
+    PageSizeSelectorComponent,
     ThemedLoadingComponent,
+    ThemedSearchFormComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class DsDynamicLookupRelationExternalSourceTabComponent extends BaseComponent {
-
 }

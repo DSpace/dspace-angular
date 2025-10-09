@@ -10,7 +10,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -92,7 +92,7 @@ export const showMoreFlatNode = (
   level: number,
   parent: FlatNode,
 ): FlatNode => ({
-  isExpandable$: observableOf(false),
+  isExpandable$: of(false),
   name: 'Show More Flatnode',
   id: id,
   level: level,
@@ -212,12 +212,12 @@ export class CommunityListService {
           return this.transformCommunity(community, level, parent, expandedNodes);
         });
       if (currentPage < listOfPaginatedCommunities.totalPages && currentPage === listOfPaginatedCommunities.currentPage) {
-        obsList = [...obsList, observableOf([showMoreFlatNode(`community-${uuidv4()}`, level, parent)])];
+        obsList = [...obsList, of([showMoreFlatNode(`community-${uuidv4()}`, level, parent)])];
       }
 
       return combineAndFlatten(obsList);
     } else {
-      return observableOf([]);
+      return of([]);
     }
   }
 
@@ -241,7 +241,7 @@ export class CommunityListService {
 
     const communityFlatNode = toFlatNode(community, isExpandable$, level, isExpanded, parent);
 
-    let obsList = [observableOf([communityFlatNode])];
+    let obsList = [of([communityFlatNode])];
 
     if (isExpanded) {
       const currentCommunityPage = expandedNodes.find((node: FlatNode) => node.id === community.id).currentCommunityPage;
@@ -259,7 +259,7 @@ export class CommunityListService {
               if (hasValue(rd) && hasValue(rd.payload)) {
                 return this.transformListOfCommunities(rd.payload, level + 1, communityFlatNode, expandedNodes);
               } else {
-                return observableOf([]);
+                return of([]);
               }
             }),
           );
@@ -281,7 +281,7 @@ export class CommunityListService {
             map((rd: RemoteData<PaginatedList<Collection>>) => {
               if (hasValue(rd) && hasValue(rd.payload)) {
                 let nodes = rd.payload.page
-                  .map((collection: Collection) => toFlatNode(collection, observableOf(false), level + 1, false, communityFlatNode));
+                  .map((collection: Collection) => toFlatNode(collection, of(false), level + 1, false, communityFlatNode));
                 if (currentCollectionPage < rd.payload.totalPages && currentCollectionPage === rd.payload.currentPage) {
                   nodes = [...nodes, showMoreFlatNode(`collection-${uuidv4()}`, level + 1, communityFlatNode)];
                 }

@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   DatePipe,
   isPlatformBrowser,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -76,7 +74,18 @@ import { ProcessDetailFieldComponent } from './process-detail-field/process-deta
   selector: 'ds-process-detail',
   templateUrl: './process-detail.component.html',
   standalone: true,
-  imports: [NgIf, ProcessDetailFieldComponent, NgFor, VarDirective, ThemedFileDownloadLinkComponent, ThemedLoadingComponent, RouterLink, AsyncPipe, DatePipe, FileSizePipe, TranslateModule, HasNoValuePipe],
+  imports: [
+    AsyncPipe,
+    DatePipe,
+    FileSizePipe,
+    HasNoValuePipe,
+    ProcessDetailFieldComponent,
+    RouterLink,
+    ThemedFileDownloadLinkComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * A component displaying detailed information about a DSpace Process

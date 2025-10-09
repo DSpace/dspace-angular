@@ -1,8 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-  TitleCasePipe,
-} from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -20,11 +16,9 @@ import { PermittedVersions } from '../../../../core/submission/models/sherpa-pol
   templateUrl: './content-accordion.component.html',
   styleUrls: ['./content-accordion.component.scss'],
   imports: [
-    NgForOf,
-    TranslateModule,
-    NgIf,
     NgbCollapseModule,
     TitleCasePipe,
+    TranslateModule,
   ],
   standalone: true,
 })

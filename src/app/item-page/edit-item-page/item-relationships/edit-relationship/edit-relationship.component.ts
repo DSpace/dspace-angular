@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -37,6 +34,7 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -49,9 +47,9 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',
   imports: [
-    ListableObjectComponentLoaderComponent,
     AsyncPipe,
-    NgIf,
+    BtnDisabledDirective,
+    ListableObjectComponentLoaderComponent,
     TranslateModule,
     VirtualMetadataComponent,
   ],
@@ -131,9 +129,7 @@ export class EditRelationshipComponent implements OnChanges {
         this.leftItem$,
         this.rightItem$,
       ]).pipe(
-        map((items: Item[]) =>
-          items.find((item) => item.uuid !== this.editItem.uuid),
-        ),
+        map(([leftItem, rightItem]: [Item, Item]) => leftItem.uuid === this.editItem.uuid ? rightItem : leftItem),
         take(1),
       ).subscribe((relatedItem) => {
         this.relatedItem$.next(relatedItem);
@@ -167,9 +163,9 @@ export class EditRelationshipComponent implements OnChanges {
         ) as DeleteRelationship;
       }),
       take(1),
-    ).subscribe((deleteRelationship: DeleteRelationship) =>
-      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship),
-    );
+    ).subscribe((deleteRelationship: DeleteRelationship) => {
+      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship);
+    });
   }
 
   openVirtualMetadataModal(content: any) {
@@ -199,6 +195,6 @@ export class EditRelationshipComponent implements OnChanges {
    * Check if a user should be allowed to cancel the update to this field
    */
   canUndo(): boolean {
-    return this.fieldUpdate.changeType >= 0;
+    return this.fieldUpdate.changeType?.valueOf() >= 0;
   }
 }

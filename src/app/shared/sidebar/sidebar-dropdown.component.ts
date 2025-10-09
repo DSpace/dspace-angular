@@ -11,7 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./sidebar-dropdown.component.scss'],
   templateUrl: './sidebar-dropdown.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * This components renders a sidebar dropdown including the label.
@@ -20,5 +22,5 @@ import { TranslateModule } from '@ngx-translate/core';
 export class SidebarDropdownComponent {
   @Input() id: string;
   @Input() label: string;
-  @Output() change: EventEmitter<any> = new EventEmitter<number>();
+  @Output() changed: EventEmitter<any> = new EventEmitter<number>();
 }

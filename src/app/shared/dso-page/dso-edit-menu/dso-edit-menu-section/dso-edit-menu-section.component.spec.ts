@@ -10,7 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
 import { MenuService } from '../../../menu/menu.service';
@@ -93,7 +93,7 @@ describe('DsoEditMenuSectionComponent', () => {
     initAsync(dummySectionText, menuService);
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
@@ -119,7 +119,7 @@ describe('DsoEditMenuSectionComponent', () => {
   describe('on click model', () => {
     initAsync(dummySectionClick, menuService);
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
@@ -142,17 +142,17 @@ describe('DsoEditMenuSectionComponent', () => {
         stopPropagation: jasmine.createSpy('stopPropagation'),
       });
       it('should call the item model function when not disabled', () => {
-        spyOn(component.section.model as OnClickMenuItemModel, 'function');
+        spyOn((component as any).section.model as OnClickMenuItemModel, 'function');
         component.activate(mockEvent);
 
-        expect((component.section.model as OnClickMenuItemModel).function).toHaveBeenCalled();
+        expect(((component as any).section.model as OnClickMenuItemModel).function).toHaveBeenCalled();
       });
       it('should call not the item model function when disabled', () => {
-        spyOn(component.section.model as OnClickMenuItemModel, 'function');
+        spyOn((component as any).section.model as OnClickMenuItemModel, 'function');
         component.itemModel.disabled = true;
         component.activate(mockEvent);
 
-        expect((component.section.model as OnClickMenuItemModel).function).not.toHaveBeenCalled();
+        expect(((component as any).section.model as OnClickMenuItemModel).function).not.toHaveBeenCalled();
         component.itemModel.disabled = false;
       });
     });
@@ -162,7 +162,7 @@ describe('DsoEditMenuSectionComponent', () => {
   describe('when the section model in a non disabled link', () => {
     initAsync(dummySectionLink, menuService);
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);

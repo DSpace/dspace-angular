@@ -14,7 +14,7 @@ import {
 import {
   SuggestionTargetsReducer,
   SuggestionTargetState,
-} from './suggestion-targets/suggestion-targets.reducer';
+} from './suggestions/targets/suggestion-targets.reducer';
 
 /**
  * The OpenAIRE State

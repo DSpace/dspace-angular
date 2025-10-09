@@ -30,38 +30,38 @@ export class ExternalSource extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * Unique identifier
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The name of this external source
    */
   @autoserialize
-    name: string;
+  name: string;
 
   /**
    * Is the source hierarchical?
    */
   @autoserialize
-    hierarchical: boolean;
+  hierarchical: boolean;
 
   /**
    * The list of entity types that are compatible with this external source
    * Will be undefined unless the entityTypes {@link HALLink} has been resolved.
    */
   @link(ITEM_TYPE, true)
-    entityTypes?: Observable<RemoteData<PaginatedList<ItemType>>>;
+  entityTypes?: Observable<RemoteData<PaginatedList<ItemType>>>;
 
   /**
    * The {@link HALLink}s for this ExternalSource
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     entries: HALLink;
     entityTypes: HALLink;

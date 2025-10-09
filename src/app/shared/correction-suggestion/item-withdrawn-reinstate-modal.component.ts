@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -14,18 +11,17 @@ import { BehaviorSubject } from 'rxjs';
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
-import { LoadingComponent } from '../loading/loading.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',
   templateUrl: './item-withdrawn-reinstate-modal.component.html',
   styleUrls: ['./item-withdrawn-reinstate-modal.component.scss'],
   imports: [
-    NgIf,
-    TranslateModule,
-    LoadingComponent,
-    FormsModule,
     AsyncPipe,
+    FormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

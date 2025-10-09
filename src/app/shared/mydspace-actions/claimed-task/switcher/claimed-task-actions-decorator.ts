@@ -1,8 +1,10 @@
 import {
+  ADVANCED_WORKFLOW_ACTION_RATING,
   ADVANCED_WORKFLOW_TASK_OPTION_RATING,
   AdvancedWorkflowActionRatingComponent,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import {
+  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
   AdvancedWorkflowActionSelectReviewerComponent,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
@@ -54,8 +56,8 @@ export const WORKFLOW_TASK_OPTION_DECORATOR_MAP = new Map<string, WorkflowTaskOp
 ]);
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP = new Map<string, AdvancedWorkflowTaskOptionComponent>([
-  [ADVANCED_WORKFLOW_TASK_OPTION_RATING, AdvancedWorkflowActionRatingComponent],
-  [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedWorkflowActionSelectReviewerComponent],
+  [ADVANCED_WORKFLOW_ACTION_RATING, AdvancedWorkflowActionRatingComponent],
+  [ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER, AdvancedWorkflowActionSelectReviewerComponent],
 ]);
 
 /**

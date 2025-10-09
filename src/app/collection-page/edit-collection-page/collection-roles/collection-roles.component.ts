@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -30,9 +27,8 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-collection-roles',
   templateUrl: './collection-roles.component.html',
   imports: [
-    ComcolRoleComponent,
-    NgForOf,
     AsyncPipe,
+    ComcolRoleComponent,
   ],
   standalone: true,
 })

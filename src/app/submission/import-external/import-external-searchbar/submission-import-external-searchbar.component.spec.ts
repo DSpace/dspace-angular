@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RequestParam } from '../../../core/cache/models/request-param.model';
@@ -75,7 +75,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      mockExternalSourceService.searchBy.and.returnValue(observableOf(paginatedListRD));
+      mockExternalSourceService.searchBy.and.returnValue(of(paginatedListRD));
       const html = `
         <ds-submission-import-external-searchbar [initExternalSourceData]="initExternalSourceData"></ds-submission-import-external-searchbar>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -100,7 +100,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       const pageInfo = new PageInfo();
       paginatedList = buildPaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
       paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-      compAsAny.externalService.searchBy.and.returnValue(observableOf(paginatedListRD));
+      compAsAny.externalService.searchBy.and.returnValue(of(paginatedListRD));
       sourceList = [
         { id: 'orcid', name: 'orcid' },
         { id: 'ciencia', name: 'ciencia' },

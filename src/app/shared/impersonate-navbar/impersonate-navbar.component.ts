@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -27,7 +24,11 @@ import { isAuthenticated } from '../../core/auth/selectors';
   selector: 'ds-impersonate-navbar',
   templateUrl: 'impersonate-navbar.component.html',
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Navbar component for actions to take concerning impersonating users

@@ -7,7 +7,6 @@ import {
 } from 'rxjs';
 import {
   map,
-  startWith,
   switchMap,
   tap,
 } from 'rxjs/operators';
@@ -96,7 +95,6 @@ export class DsoVersioningModalService {
       // button is disabled if hasDraftVersion = true, and enabled if hasDraftVersion = false or null
       // (hasDraftVersion is null when a version history does not exist)
       map((res) => Boolean(res)),
-      startWith(true),
     );
   }
 

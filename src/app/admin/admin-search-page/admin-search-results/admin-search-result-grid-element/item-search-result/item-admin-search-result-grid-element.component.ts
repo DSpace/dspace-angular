@@ -31,7 +31,10 @@ import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-r
   styleUrls: ['./item-admin-search-result-grid-element.component.scss'],
   templateUrl: './item-admin-search-result-grid-element.component.html',
   standalone: true,
-  imports: [ItemAdminSearchResultActionsComponent, DynamicComponentLoaderDirective],
+  imports: [
+    DynamicComponentLoaderDirective,
+    ItemAdminSearchResultActionsComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item search result on the admin search page

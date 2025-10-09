@@ -2,14 +2,13 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
   ElementRef,
   Inject,
   Input,
+  OnInit,
   PLATFORM_ID,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -37,13 +36,21 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
   styleUrls: ['./related-items.component.scss'],
   templateUrl: './related-items.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgClass, NgFor, VarDirective, ListableObjectComponentLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    MetadataFieldWrapperComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * This component is used for displaying relations between items
  * It expects a parent item and relationship type, as well as a label to display on top
  */
-export class RelatedItemsComponent extends AbstractIncrementalListComponent<Observable<RemoteData<PaginatedList<Item>>>> {
+export class RelatedItemsComponent extends AbstractIncrementalListComponent<Observable<RemoteData<PaginatedList<Item>>>> implements OnInit {
 
   /**
    * The parent of the list of related items to display

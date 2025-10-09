@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { WidthCategory } from '../host-window.service';
@@ -19,7 +19,7 @@ export class HostWindowServiceStub {
   }
 
   isXs(): Observable<boolean> {
-    return observableOf(this.width < 576);
+    return of(this.width < 576);
   }
 
   isXsOrSm(): Observable<boolean> {

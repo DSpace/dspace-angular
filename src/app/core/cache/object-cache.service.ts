@@ -12,7 +12,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -99,7 +99,9 @@ export class ObjectCacheService {
    *    An optional alternative link to this object
    */
   add(object: CacheableObject, msToLive: number, requestUUID: string, alternativeLink?: string): void {
-    object = this.linkService.removeResolvedLinks(object); // Ensure the object we're storing has no resolved links
+    if (hasValue(object)) {
+      object = this.linkService.removeResolvedLinks(object); // Ensure the object we're storing has no resolved links
+    }
     this.store.dispatch(new AddToObjectCacheAction(object, new Date().getTime(), msToLive, requestUUID, alternativeLink));
   }
 
@@ -175,11 +177,15 @@ export class ObjectCacheService {
       },
       ),
       map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<T> = getClassForType((entry.data as any).type);
-        if (typeof type !== 'function') {
-          throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
+        if (hasValue(entry.data)) {
+          const type: GenericConstructor<T> = getClassForType((entry.data as any).type);
+          if (typeof type !== 'function') {
+            throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
+          }
+          return Object.assign(new type(), entry.data) as T;
+        } else {
+          return null;
         }
-        return Object.assign(new type(), entry.data) as T;
       }),
     );
   }
@@ -265,7 +271,7 @@ export class ObjectCacheService {
    */
   getList<T extends CacheableObject>(selfLinks: string[]): Observable<T[]> {
     if (isEmpty(selfLinks)) {
-      return observableOf([]);
+      return of([]);
     } else {
       return observableCombineLatest(
         selfLinks.map((selfLink: string) => this.getObjectByHref<T>(selfLink)),
@@ -385,10 +391,10 @@ export class ObjectCacheService {
     }
 
     if (typeof href$ === 'string') {
-      href$ = observableOf(href$);
+      href$ = of(href$);
     }
     if (typeof dependsOnHref$ === 'string') {
-      dependsOnHref$ = observableOf(dependsOnHref$);
+      dependsOnHref$ = of(dependsOnHref$);
     }
 
     observableCombineLatest([
@@ -398,7 +404,7 @@ export class ObjectCacheService {
       ),
     ]).pipe(
       switchMap(([href, dependsOnSelfLink]: [string, string]) => {
-        const dependsOnSelfLink$ = observableOf(dependsOnSelfLink);
+        const dependsOnSelfLink$ = of(dependsOnSelfLink);
 
         return observableCombineLatest([
           dependsOnSelfLink$,

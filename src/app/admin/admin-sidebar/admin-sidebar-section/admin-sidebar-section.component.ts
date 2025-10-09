@@ -16,7 +16,8 @@ import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
-import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
+import { AbstractMenuSectionComponent } from '../../../shared/menu/menu-section/abstract-menu-section.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
  * Represents a non-expandable section in the admin sidebar
@@ -26,10 +27,15 @@ import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-sec
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
   standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule],
+  imports: [
+    BrowserOnlyPipe,
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 
 })
-export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {
+export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 
   /**
    * This section resides in the Admin Sidebar
@@ -43,16 +49,17 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
   isDisabled: boolean;
 
   constructor(
-    @Inject('sectionDataProvider') menuSection: MenuSection,
+    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
     protected router: Router,
   ) {
-    super(menuSection, menuService, injector);
-    this.itemModel = menuSection.model as LinkMenuItemModel;
+    super(menuService, injector);
+    this.itemModel = section.model as LinkMenuItemModel;
   }
 
   ngOnInit(): void {
+    // todo: should support all menu entries?
     this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
     super.ngOnInit();
   }
@@ -64,11 +71,13 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
     }
   }
 
-  adminMenuSectionId(sectionId: string) {
-    return `admin-menu-section-${sectionId}`;
+  adminMenuSectionId(section: MenuSection) {
+    const accessibilityHandle = section.accessibilityHandle ?? section.id;
+    return `admin-menu-section-${accessibilityHandle}`;
   }
 
-  adminMenuSectionTitleId(sectionId: string) {
-    return `admin-menu-section-${sectionId}-title`;
+  adminMenuSectionTitleAccessibilityHandle(section: MenuSection) {
+    const accessibilityHandle = section.accessibilityHandle ?? section.id;
+    return `admin-menu-section-${accessibilityHandle}-title`;
   }
 }

@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -21,7 +20,7 @@ import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-wi
 import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch/view-mode-switch.component';
 
 @Component({
-  selector: 'ds-configuration-search-page',
+  selector: 'ds-themed-configuration-search-page',
   // styleUrls: ['./configuration-search-page.component.scss'],
   styleUrls: ['../../../../app/shared/search/search.component.scss'],
   // templateUrl: './configuration-search-page.component.html'
@@ -35,11 +34,17 @@ import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch
     },
   ],
   standalone: true,
-  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    SearchLabelsComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
-
-/**
- * This component renders a search page using a configuration as input.
- */
-export class ConfigurationSearchPageComponent extends BaseComponent {}
-
+export class ConfigurationSearchPageComponent extends BaseComponent {
+}

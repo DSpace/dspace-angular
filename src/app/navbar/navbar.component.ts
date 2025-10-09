@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -25,7 +23,6 @@ import { BrowseService } from '../core/browse/browse.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { slideMobileNav } from '../shared/animations/slide';
 import { ThemedUserMenuComponent } from '../shared/auth-nav-menu/user-menu/themed-user-menu.component';
-import { UserMenuComponent } from '../shared/auth-nav-menu/user-menu/user-menu.component';
 import {
   HostWindowService,
   WidthCategory,
@@ -39,12 +36,19 @@ import { ThemeService } from '../shared/theme-support/theme.service';
  * Component representing the public navbar
  */
 @Component({
-  selector: 'ds-navbar',
+  selector: 'ds-base-navbar',
   styleUrls: ['./navbar.component.scss'],
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav],
   standalone: true,
-  imports: [NgbDropdownModule, NgClass, NgIf, UserMenuComponent, ThemedUserMenuComponent, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbDropdownModule,
+    NgClass,
+    NgComponentOutlet,
+    ThemedUserMenuComponent,
+    TranslateModule,
+  ],
 })
 export class NavbarComponent extends MenuComponent implements OnInit {
   /**

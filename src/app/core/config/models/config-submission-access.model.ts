@@ -22,25 +22,25 @@ export class SubmissionAccessModel extends ConfigObject {
    * A list of available item access conditions
    */
   @autoserialize
-    accessConditionOptions: AccessesConditionOption[];
+  accessConditionOptions: AccessesConditionOption[];
 
   /**
    * Boolean that indicates whether the current item must be findable via search or browse.
    */
   @autoserialize
-    discoverable: boolean;
+  discoverable: boolean;
 
   /**
    * Boolean that indicates whether or not the user can change the discoverable flag.
    */
   @autoserialize
-    canChangeDiscoverable: boolean;
+  canChangeDiscoverable: boolean;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink
   };
 

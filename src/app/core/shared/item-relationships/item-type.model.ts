@@ -24,16 +24,16 @@ export class ItemType implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The identifier of this ItemType
    */
   @autoserialize
-    id: string;
+  id: string;
 
   @autoserialize
-    label: string;
+  label: string;
 
   /**
    * The universally unique identifier of this ItemType
@@ -47,7 +47,7 @@ export class ItemType implements CacheableObject {
    * The {@link HALLink}s for this ItemType
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
   };
 }

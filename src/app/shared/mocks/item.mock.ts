@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
@@ -124,7 +124,7 @@ export const MockBitstream3: Bitstream = Object.assign(new Bitstream(), {
 export const MockOriginalBundle: Bundle = Object.assign(new Bundle(), {
   name: 'ORIGINAL',
   primaryBitstream: createSuccessfulRemoteDataObject$(MockBitstream2),
-  bitstreams: observableOf(Object.assign({
+  bitstreams: of(Object.assign({
     _links: {
       self: {
         href: 'dspace-angular://aggregated/object/1507836003548',
@@ -277,7 +277,7 @@ export const ItemMock: Item = Object.assign(new Item(), {
       },
     ],
   },
-  owningCollection: observableOf({
+  owningCollection: of({
     _links: {
       self: {
         href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',

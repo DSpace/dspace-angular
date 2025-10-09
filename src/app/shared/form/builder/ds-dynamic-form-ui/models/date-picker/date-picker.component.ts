@@ -1,7 +1,6 @@
 import {
   DOCUMENT,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -22,8 +21,10 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { hasValue } from '../../../../../empty.util';
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
@@ -37,10 +38,11 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
   styleUrls: ['./date-picker.component.scss'],
   templateUrl: './date-picker.component.html',
   imports: [
-    NgClass,
-    NgIf,
-    NumberPickerComponent,
+    BtnDisabledDirective,
     FormsModule,
+    NgClass,
+    NumberPickerComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -72,10 +74,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   minDay = 1;
   maxDay = 31;
 
-  yearPlaceholder = 'year';
-  monthPlaceholder = 'month';
-  dayPlaceholder = 'day';
-
   disabledMonth = true;
   disabledDay = true;
 
@@ -96,6 +94,8 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     this.initialDay = now.getUTCDate();
 
     if (this.model && this.model.value !== null) {
+      // todo: model value could object or Date according to its type annotation
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       const values = this.model.value.toString().split(DS_DATE_PICKER_SEPARATOR);
       if (values.length > 0) {
         this.initialYear = parseInt(values[0], 10);

@@ -22,13 +22,9 @@ import {
 } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
   of,
 } from 'rxjs';
 
@@ -53,12 +49,14 @@ import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
 } from '../../shared/mocks/dso-name.service.mock';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import {
@@ -72,7 +70,6 @@ import {
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
 import { GroupsRegistryComponent } from './groups-registry.component';
 
 describe('GroupsRegistryComponent', () => {
@@ -97,11 +94,11 @@ describe('GroupsRegistryComponent', () => {
     (authorizationService as any).isAuthorized.and.callFake((featureId?: FeatureID) => {
       switch (featureId) {
         case FeatureID.AdministratorOf:
-          return observableOf(isAdmin);
+          return of(isAdmin);
         case FeatureID.CanManageGroup:
-          return observableOf(canManageGroup);
+          return of(canManageGroup);
         case FeatureID.CanDelete:
-          return observableOf(true);
+          return of(true);
         default:
           throw new Error(`setIsAuthorized: this fake implementation does not support ${featureId}.`);
       }
@@ -209,12 +206,10 @@ describe('GroupsRegistryComponent', () => {
     paginationService = new PaginationServiceStub();
     return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }), GroupsRegistryComponent],
+        TranslateModule.forRoot(),
+        GroupsRegistryComponent,
+        BtnDisabledDirective,
+      ],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
@@ -232,6 +227,12 @@ describe('GroupsRegistryComponent', () => {
         provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(GroupsRegistryComponent, {
+      remove: {
+        imports: [
+          PaginationComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -278,7 +279,8 @@ describe('GroupsRegistryComponent', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
-          expect(editButtonFound.nativeElement.disabled).toBeFalse();
+          expect(editButtonFound.nativeElement.getAttribute('aria-disabled')).toBeNull();
+          expect(editButtonFound.nativeElement.classList.contains('disabled')).toBeFalse();
         });
       });
 
@@ -312,7 +314,8 @@ describe('GroupsRegistryComponent', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
-          expect(editButtonFound.nativeElement.disabled).toBeFalse();
+          expect(editButtonFound.nativeElement.getAttribute('aria-disabled')).toBeNull();
+          expect(editButtonFound.nativeElement.classList.contains('disabled')).toBeFalse();
         });
       });
     });
@@ -331,7 +334,8 @@ describe('GroupsRegistryComponent', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
-          expect(editButtonFound.nativeElement.disabled).toBeTrue();
+          expect(editButtonFound.nativeElement.getAttribute('aria-disabled')).toBe('true');
+          expect(editButtonFound.nativeElement.classList.contains('disabled')).toBeTrue();
         });
       });
     });
@@ -376,6 +380,8 @@ describe('GroupsRegistryComponent', () => {
     it('should call GroupDataService.delete', () => {
       deleteButton.click();
       fixture.detectChanges();
+
+      (document as any).querySelector('.modal-footer .confirm').click();
 
       expect(groupsDataServiceStub.delete).toHaveBeenCalledWith(mockGroups[0].id);
     });

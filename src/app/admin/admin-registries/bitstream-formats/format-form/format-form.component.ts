@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -35,7 +35,6 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
   templateUrl: './format-form.component.html',
   imports: [
     FormComponent,
-    NgIf,
   ],
   standalone: true,
 })
@@ -64,7 +63,7 @@ export class FormatFormComponent implements OnInit {
    */
   arrayElementLayout: DynamicFormControlLayout = {
     grid: {
-      group: 'form-row',
+      group: 'row',
     },
   };
 
@@ -154,12 +153,12 @@ export class FormatFormComponent implements OnInit {
       (fieldModel: DynamicFormControlModel) => {
         if (fieldModel.name === 'extensions') {
           if (hasValue(this.bitstreamFormat.extensions)) {
-            const extenstions = this.bitstreamFormat.extensions;
+            const extensions = this.bitstreamFormat.extensions;
             const formArray = (fieldModel as DynamicFormArrayModel);
-            for (let i = 0; i < extenstions.length; i++) {
+            for (let i = 0; i < extensions.length; i++) {
               formArray.insertGroup(i).group[0] = new DynamicInputModel({
                 id: `extension-${i}`,
-                value: extenstions[i],
+                value: extensions[i],
               }, this.arrayInputElementLayout);
             }
           }
@@ -172,7 +171,7 @@ export class FormatFormComponent implements OnInit {
   }
 
   /**
-   * Creates an updated bistream format based on the current values in the form
+   * Creates an updated bitstream format based on the current values in the form
    * Emits the updated bitstream format trouhg the updatedFormat emitter
    */
   onSubmit() {

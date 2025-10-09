@@ -16,7 +16,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
@@ -68,7 +68,7 @@ const enviromentNoThumbs = {
 };
 
 const translateServiceStub = {
-  get: () => observableOf('test' ),
+  get: () => of('test' ),
   instant: (key) => key,
   onLangChange: new EventEmitter(),
   onTranslationChange: new EventEmitter(),
@@ -115,7 +115,7 @@ function init() {
 
   nameVariant = 'Doe J.';
   mockRelationshipService = {
-    getNameVariant: () => observableOf(nameVariant),
+    getNameVariant: () => of(nameVariant),
   };
 }
 
@@ -213,7 +213,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
@@ -266,7 +266,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add the ds-thumbnail element', () => {
+    it('should not add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeNull();
     });

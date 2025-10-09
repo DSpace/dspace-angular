@@ -29,6 +29,9 @@ export enum Context {
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
 
+  ScopeSelectorModal = 'scopeSelectorModal',
+  ScopeSelectorModalCurrent = 'scopeSelectorModalCurrent',
+
   /** The MyDSpace* Context values below are used for badge display in MyDSpace. */
   MyDSpaceArchived = 'mydspaceArchived',
   MyDSpaceWorkspace = 'mydspaceWorkspace',
@@ -41,4 +44,10 @@ export enum Context {
   Bitstream = 'bitstream',
 
   CoarNotify = 'coarNotify',
+
+  /**
+   * The Edit Metadata field Context values that are used in the Edit Item Metadata tab.
+   */
+  AddMetadata = 'addMetadata',
+  EditMetadata = 'editMetadata',
 }

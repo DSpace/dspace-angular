@@ -20,6 +20,7 @@ import { BrowseByPageComponent } from './browse-by-page.component';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
+  standalone: true,
   template: '<span id="BrowseByTestComponent"></span>',
 })
 class BrowseByTestComponent {
@@ -30,7 +31,9 @@ class BrowseByTestComponent {
   selector: 'ds-browse-by-switcher',
   template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
   standalone: true,
-  imports: [DynamicComponentLoaderDirective],
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 class TestBrowseBySwitcherComponent extends BrowseBySwitcherComponent {
   getComponent(): GenericConstructor<Component> {

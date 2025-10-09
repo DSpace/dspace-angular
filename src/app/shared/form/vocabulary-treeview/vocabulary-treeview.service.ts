@@ -3,7 +3,7 @@ import findIndex from 'lodash/findIndex';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -210,7 +210,7 @@ export class VocabularyTreeviewService {
 
     this.vocabularyService.getVocabularyEntriesByValue(query, false, this.vocabularyOptions, new PageInfo()).pipe(
       getFirstSucceededRemoteListPayload(),
-      mergeMap((result: VocabularyEntry[]) => (result.length > 0) ? result : observableOf(null)),
+      mergeMap((result: VocabularyEntry[]) => (result.length > 0) ? result : of(null)),
       mergeMap((entry: VocabularyEntry) =>
         this.vocabularyService.findEntryDetailById(entry.otherInformation.id, this.vocabularyName).pipe(
           getFirstSucceededRemoteDataPayload(),
@@ -260,7 +260,7 @@ export class VocabularyTreeviewService {
     const hasChildren = entry.hasOtherInformation() && (entry.otherInformation as any)!.hasChildren === 'true';
     const pageInfo: PageInfo = this.pageInfo;
     const isInInitValueHierarchy = this.initValueHierarchy.includes(entryId);
-    const isSelected: boolean = selectedItems.some(() => selectedItems.includes(entry.id));
+    const isSelected: boolean = selectedItems.some(() => selectedItems.includes(entryId));
     const result = new TreeviewNode(
       entry,
       hasChildren,
@@ -362,7 +362,7 @@ export class VocabularyTreeviewService {
    */
   private getNodeHierarchy(item: VocabularyEntryDetail, selectedItems: string[], children?: TreeviewNode[], toStore = true): Observable<TreeviewNode> {
     if (isEmpty(item)) {
-      return observableOf(null);
+      return of(null);
     }
     const node = this._generateNode(item, selectedItems, toStore, toStore);
 
@@ -382,7 +382,7 @@ export class VocabularyTreeviewService {
         mergeMap((parentItem: VocabularyEntryDetail) => this.getNodeHierarchy(parentItem, selectedItems, [node], toStore)),
       );
     } else {
-      return observableOf(node);
+      return of(node);
     }
   }
 

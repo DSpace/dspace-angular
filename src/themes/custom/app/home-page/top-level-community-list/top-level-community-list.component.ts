@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -12,14 +9,20 @@ import { ObjectCollectionComponent } from '../../../../../app/shared/object-coll
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-top-level-community-list',
+  selector: 'ds-themed-top-level-community-list',
   // styleUrls: ['./top-level-community-list.component.scss'],
   styleUrls: ['../../../../../app/home-page/top-level-community-list/top-level-community-list.component.scss'],
   // templateUrl: './top-level-community-list.component.html'
   templateUrl: '../../../../../app/home-page/top-level-community-list/top-level-community-list.component.html',
   standalone: true,
-  imports: [VarDirective, NgIf, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-
-export class TopLevelCommunityListComponent extends BaseComponent {}
-
+export class TopLevelCommunityListComponent extends BaseComponent {
+}

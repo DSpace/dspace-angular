@@ -31,7 +31,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RestResponse } from '../../../../core/cache/response.models';
@@ -116,7 +116,7 @@ describe('ReviewersListComponent', () => {
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
       getActiveGroup(): Observable<Group> {
-        return observableOf(activeGroup);
+        return of(activeGroup);
       },
       getEPersonMembers() {
         return this.epersonMembers;
@@ -130,7 +130,7 @@ describe('ReviewersListComponent', () => {
             this.epersonNonMembers.splice(index, 1);
           }
         });
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
         // empty
@@ -150,7 +150,7 @@ describe('ReviewersListComponent', () => {
         });
         // Add eperson to list of non-members
         this.epersonNonMembers = [...this.epersonNonMembers, epersonToDelete];
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       // Used to find the currently active group
       findById(id: string) {
@@ -224,6 +224,38 @@ describe('ReviewersListComponent', () => {
         })).not.toBeTruthy();
       });
     });
+
+    it('should replace the value when a new member is added when multipleReviewers is false', () => {
+      spyOn(component.selectedReviewersUpdated, 'emit');
+      component.multipleReviewers = false;
+      component.selectedReviewers = [EPersonMock];
+
+      component.addMemberToGroup(EPersonMock2);
+
+      expect(component.selectedReviewers).toEqual([EPersonMock2]);
+      expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock2]);
+    });
+
+    it('should add the value when a new member is added when multipleReviewers is true', () => {
+      spyOn(component.selectedReviewersUpdated, 'emit');
+      component.multipleReviewers = true;
+      component.selectedReviewers = [EPersonMock];
+
+      component.addMemberToGroup(EPersonMock2);
+
+      expect(component.selectedReviewers).toEqual([EPersonMock, EPersonMock2]);
+      expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock, EPersonMock2]);
+    });
+
+    it('should delete the member when present', () => {
+      spyOn(component.selectedReviewersUpdated, 'emit');
+      component.selectedReviewers = [EPersonMock];
+
+      component.deleteMemberFromGroup(EPersonMock);
+
+      expect(component.selectedReviewers).toEqual([]);
+      expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([]);
+    });
   });
 
   describe('when a group is selected', () => {
@@ -243,39 +275,6 @@ describe('ReviewersListComponent', () => {
         })).toBeTruthy();
       });
     });
-  });
-
-
-  it('should replace the value when a new member is added when multipleReviewers is false', () => {
-    spyOn(component.selectedReviewersUpdated, 'emit');
-    component.multipleReviewers = false;
-    component.selectedReviewers = [EPersonMock];
-
-    component.addMemberToGroup(EPersonMock2);
-
-    expect(component.selectedReviewers).toEqual([EPersonMock2]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock2]);
-  });
-
-  it('should add the value when a new member is added when multipleReviewers is true', () => {
-    spyOn(component.selectedReviewersUpdated, 'emit');
-    component.multipleReviewers = true;
-    component.selectedReviewers = [EPersonMock];
-
-    component.addMemberToGroup(EPersonMock2);
-
-    expect(component.selectedReviewers).toEqual([EPersonMock, EPersonMock2]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock, EPersonMock2]);
-  });
-
-  it('should delete the member when present', () => {
-    spyOn(component.selectedReviewersUpdated, 'emit');
-    component.selectedReviewers = [EPersonMock];
-
-    component.deleteMemberFromGroup(EPersonMock);
-
-    expect(component.selectedReviewers).toEqual([]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([]);
   });
 
 });

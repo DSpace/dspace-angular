@@ -1,6 +1,7 @@
 import {
-  CommonModule,
+  AsyncPipe,
   Location,
+  NgClass,
 } from '@angular/common';
 import {
   Component,
@@ -44,10 +45,11 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
   templateUrl: './advanced-workflow-action-select-reviewer.component.html',
   styleUrls: ['./advanced-workflow-action-select-reviewer.component.scss'],
   imports: [
-    CommonModule,
+    AsyncPipe,
     ModifyItemOverviewComponent,
-    TranslateModule,
+    NgClass,
     ReviewersListComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

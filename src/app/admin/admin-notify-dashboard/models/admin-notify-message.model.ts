@@ -24,138 +24,138 @@ export class AdminNotifyMessage extends DSpaceObject {
    * The type of the resource
    */
   @excludeFromEquals
-    type = ADMIN_NOTIFY_MESSAGE;
+  type = ADMIN_NOTIFY_MESSAGE;
 
   /**
    * The id of the message
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The id of the notification
    */
   @autoserialize
-    notificationId: string;
+  notificationId: string;
 
   /**
    * The type of the notification
    */
   @autoserialize
-    notificationType: string;
+  notificationType: string;
 
   /**
    * The type of the notification
    */
   @autoserialize
-    coarNotifyType: string;
+  coarNotifyType: string;
 
   /**
    * The type of the activity
    */
   @autoserialize
-    activityStreamType: string;
+  activityStreamType: string;
 
   /**
    * The object the message reply to
    */
   @autoserialize
-    inReplyTo: string;
+  inReplyTo: string;
 
   /**
    * The object the message relates to
    */
   @autoserialize
-    object: string;
+  object: string;
 
   /**
    * The name of the related item
    */
   @autoserialize
-    relatedItem: string;
+  relatedItem: string;
 
   /**
    * The name of the related ldn service
    */
   @autoserialize
-    ldnService: string;
+  ldnService: string;
 
   /**
    * The context of the message
    */
   @autoserialize
-    context: string;
+  context: string;
 
   /**
    * The related COAR message
    */
   @autoserialize
-    message: string;
+  message: string;
 
   /**
    * The attempts of the queue
    */
   @autoserialize
-    queueAttempts: number;
+  queueAttempts: number;
 
   /**
    * Timestamp of the last queue attempt
    */
   @autoserialize
-    queueLastStartTime: string;
+  queueLastStartTime: string;
 
   /**
    * The type of the activity stream
    */
   @autoserialize
-    origin: number | string;
+  origin: number | string;
 
   /**
    * The type of the activity stream
    */
   @autoserialize
-    target: number | string;
+  target: number | string;
 
   /**
    * The label for the status of the queue
    */
   @autoserialize
-    queueStatusLabel: string;
+  queueStatusLabel: string;
 
   /**
    * The timeout of the queue
    */
   @autoserialize
-    queueTimeout: string;
+  queueTimeout: string;
 
   /**
    * The status of the queue
    */
   @autoserialize
-    queueStatus: number;
+  queueStatus: number;
 
   /**
    * Thumbnail link used when browsing items with showThumbs config enabled.
    */
   @autoserialize
-    thumbnail: string;
+  thumbnail: string;
 
   /**
    * The observable pointing to the item itself
    */
   @autoserialize
-    item: Observable<AdminNotifyMessage>;
+  item: Observable<AdminNotifyMessage>;
 
   /**
    * The observable pointing to the access status of the item
    */
   @autoserialize
-    accessStatus: Observable<AdminNotifyMessage>;
+  accessStatus: Observable<AdminNotifyMessage>;
 
 
 
   @deserialize
-    _links: {
+  _links: {
     self: {
       href: string;
     };

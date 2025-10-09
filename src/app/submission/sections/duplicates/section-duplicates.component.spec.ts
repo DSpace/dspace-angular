@@ -6,7 +6,9 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -18,7 +20,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -182,9 +184,9 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionObject));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.getSectionData.and.returnValue(of(sectionObject));
       testFixture = TestBed.createComponent(SubmissionSectionDuplicatesComponent);
       testComp = testFixture.componentInstance;
 
@@ -210,6 +212,11 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       formOperationsService = TestBed.inject(SectionFormOperationsService);
       collectionDataService = TestBed.inject(CollectionDataService);
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
+      spyOn(comp, 'getDuplicateData').and.returnValue(of({ potentialDuplicates: duplicates }));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
     });
 
     afterEach(() => {
@@ -219,18 +226,13 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
     });
 
     // Test initialisation of the submission section
-    it('Should init section properly', () => {
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
-      spyOn(comp, 'getSectionStatus').and.returnValue(observableOf(true));
-      spyOn(comp, 'getDuplicateData').and.returnValue(observableOf({ potentialDuplicates: duplicates }));
+    it('Should init section properly', fakeAsync(() => {
+      spyOn(comp, 'getSectionStatus').and.returnValue(of(true));
       expect(comp.isLoading).toBeTruthy();
       comp.onSectionInit();
-      fixture.detectChanges();
+      tick(100);
       expect(comp.isLoading).toBeFalsy();
-    });
+    }));
 
     // The following tests look for proper logic in the getSectionStatus() implementation
     // These are very simple as we don't really have a 'false' state unless we're still loading
@@ -241,7 +243,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       }));
     });
     it('Should return FALSE', () => {
-      compAsAny.isLoadin = true;
+      compAsAny.isLoading = true;
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
         a: false,
       }));
@@ -255,11 +257,12 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [BrowserModule,
-    CommonModule,
+  imports: [
+    BrowserModule,
     FormsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
-    NgxPaginationModule],
+  ],
 })
 class TestComponent {
 

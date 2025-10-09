@@ -1,7 +1,4 @@
-import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -22,11 +19,10 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
   styleUrls: ['./submission-import-external-collection.component.scss'],
   templateUrl: './submission-import-external-collection.component.html',
   imports: [
-    ThemedLoadingComponent,
-    ThemedCollectionDropdownComponent,
-    TranslateModule,
     NgClass,
-    NgIf,
+    ThemedCollectionDropdownComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -11,7 +11,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -36,7 +36,7 @@ describe('CommunityRolesComponent', () => {
 
     const route = {
       parent: {
-        data: observableOf({
+        data: of({
           dso: createSuccessfulRemoteDataObject(
             Object.assign(new Community(), {
               _links: {
@@ -54,7 +54,7 @@ describe('CommunityRolesComponent', () => {
     };
 
     const requestService = {
-      hasByHref$: () => observableOf(true),
+      hasByHref$: () => of(true),
     };
 
     const groupDataService = {

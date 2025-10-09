@@ -9,7 +9,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
@@ -74,7 +74,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            data: observableOf({
+            data: of({
               id: workflowId,
               wfi: createSuccessfulRemoteDataObject(workflowItem),
             }),
@@ -137,7 +137,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     });
 
     it('should call the claimedTaskDataService with the list of selected ePersons', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(true)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(true)));
       component.selectedReviewers = [EPersonMock, EPersonMock2];
 
       component.performAction();
@@ -151,7 +151,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     });
 
     it('should not call the claimedTaskDataService with the list of selected ePersons when it\'s empty', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(true)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(true)));
       component.selectedReviewers = [];
 
       component.performAction();
@@ -160,7 +160,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     });
 
     it('should not call the return to mydspace page when the request failed', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(false)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(false)));
       component.selectedReviewers = [EPersonMock, EPersonMock2];
 
       component.performAction();

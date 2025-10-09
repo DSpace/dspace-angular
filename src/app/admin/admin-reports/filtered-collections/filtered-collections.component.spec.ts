@@ -1,4 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -14,7 +18,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
@@ -39,22 +43,21 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NgbAccordionModule,
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [NgbAccordionModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        HttpClientTestingModule,
-        FilteredCollectionsComponent,
-      ],
+        FilteredCollectionsComponent],
       providers: [
         FormBuilder,
         DspaceRestService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     });
   }));
 
@@ -77,7 +80,7 @@ describe('FiltersComponent', () => {
 
   describe('toggle', () => {
     beforeEach(() => {
-      spyOn(component, 'getFilteredCollections').and.returnValue(observableOf(expected));
+      spyOn(component, 'getFilteredCollections').and.returnValue(of(expected));
       spyOn(component.results, 'deserialize');
       spyOn(component.accordionComponent, 'expand').and.callThrough();
       component.submit();

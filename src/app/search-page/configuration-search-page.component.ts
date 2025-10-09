@@ -1,12 +1,12 @@
 import {
   AsyncPipe,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -34,7 +34,7 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
  * This component renders a search page using a configuration as input.
  */
 @Component({
-  selector: 'ds-configuration-search-page',
+  selector: 'ds-base-configuration-search-page',
   styleUrls: ['../shared/search/search.component.scss'],
   templateUrl: '../shared/search/search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,7 +46,17 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
     },
   ],
   standalone: true,
-  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    SearchLabelsComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {
@@ -57,7 +67,8 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig);
+    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig, platformId);
   }
 }

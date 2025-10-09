@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewChecked,
   ChangeDetectorRef,
@@ -66,9 +63,8 @@ import {
   templateUrl: './section-license.component.html',
   providers: [],
   imports: [
-    FormComponent,
-    NgIf,
     AsyncPipe,
+    FormComponent,
   ],
   standalone: true,
 })

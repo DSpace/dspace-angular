@@ -31,28 +31,28 @@ export class ResearcherProfile extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The identifier of this Researcher Profile
    */
   @autoserialize
-    id: string;
+  id: string;
 
   @deserializeAs('id')
-    uuid: string;
+  uuid: string;
 
   /**
    * The visibility of this Researcher Profile
    */
   @autoserialize
-    visible: boolean;
+  visible: boolean;
 
   /**
    * The {@link HALLink}s for this Researcher Profile
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
     item: HALLink,
     eperson: HALLink
@@ -63,6 +63,6 @@ export class ResearcherProfile extends CacheableObject {
    * Will be undefined unless the item {@link HALLink} has been resolved.
    */
   @link(ITEM)
-    item?: Observable<RemoteData<Item>>;
+  item?: Observable<RemoteData<Item>>;
 
 }

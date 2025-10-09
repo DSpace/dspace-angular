@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -41,6 +37,7 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -58,11 +55,10 @@ import {
   styleUrls: ['./resource-policies.component.scss'],
   templateUrl: './resource-policies.component.html',
   imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
     ResourcePolicyEntryComponent,
     TranslateModule,
-    NgIf,
-    AsyncPipe,
-    NgForOf,
   ],
   standalone: true,
 })

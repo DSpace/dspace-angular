@@ -1,12 +1,10 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Optional,
   Output,
   SimpleChanges,
@@ -37,9 +35,12 @@ import { ParameterSelectComponent } from './parameter-select/parameter-select.co
     deps: [[new Optional(), NgForm]],
   }],
   standalone: true,
-  imports: [NgIf, NgFor, ParameterSelectComponent, TranslateModule],
+  imports: [
+    ParameterSelectComponent,
+    TranslateModule,
+  ],
 })
-export class ProcessParametersComponent implements OnChanges {
+export class ProcessParametersComponent implements OnChanges, OnInit {
   /**
    * The currently selected script
    */
@@ -59,7 +60,7 @@ export class ProcessParametersComponent implements OnChanges {
    */
   parameterValues: ProcessParameter[];
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (hasValue(this.initialParams)) {
       this.parameterValues = this.initialParams;
     }

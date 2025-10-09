@@ -1,11 +1,8 @@
-import {
-  KeyValuePipe,
-  NgFor,
-} from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   Component,
   Input,
-  OnInit,
+  OnChanges,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,17 +13,20 @@ import { MetadataMap } from '../../../core/shared/metadata.models';
   selector: 'ds-modify-item-overview',
   templateUrl: './modify-item-overview.component.html',
   standalone: true,
-  imports: [NgFor, KeyValuePipe, TranslateModule],
+  imports: [
+    KeyValuePipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component responsible for rendering a table containing the metadatavalues from the to be edited item
  */
-export class ModifyItemOverviewComponent implements OnInit {
+export class ModifyItemOverviewComponent implements OnChanges  {
 
   @Input() item: Item;
   metadata: MetadataMap;
 
-  ngOnInit(): void {
-    this.metadata = this.item.metadata;
+  ngOnChanges(): void {
+    this.metadata = this.item?.metadata;
   }
 }

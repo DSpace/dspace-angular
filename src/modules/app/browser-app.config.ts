@@ -1,3 +1,5 @@
+import 'altcha';
+
 import {
   HttpClient,
   provideHttpClient,
@@ -29,6 +31,11 @@ import {
   Angulartics2GoogleTagManager,
   Angulartics2RouterlessModule,
 } from 'angulartics2';
+import {
+  provideMatomo,
+  withRouteData,
+  withRouter,
+} from 'ngx-matomo-client';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
@@ -53,8 +60,8 @@ import { ClientMathService } from '../../app/core/shared/client-math.service';
 import { MathService } from '../../app/core/shared/math.service';
 import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
 import { XSRFService } from '../../app/core/xsrf/xsrf.service';
-import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
-import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { BrowserOrejimeService } from '../../app/shared/cookies/browser-orejime.service';
+import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';
@@ -118,8 +125,8 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       useClass: ClientCookieService,
     },
     {
-      provide: KlaroService,
-      useClass: BrowserKlaroService,
+      provide: OrejimeService,
+      useClass: BrowserOrejimeService,
     },
     {
       provide: SubmissionService,
@@ -157,5 +164,12 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       provide: MathService,
       useClass: ClientMathService,
     },
+    provideMatomo(
+      {
+        mode: 'deferred',
+      },
+      withRouter(),
+      withRouteData(),
+    ),
   ],
 }, commonAppConfig);

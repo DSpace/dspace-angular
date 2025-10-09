@@ -12,7 +12,6 @@
 # https://github.com/DSpace/DSpace/blob/main/docker-compose-cli.yml
 #
 # Therefore, it should be kept in sync with that file
-version: "3.7"
 networks:
   # Default to using network named 'dspacenet' from docker-compose-rest.yml.
   # Its full name will be prepended with the project name (e.g. "-p d7" means it will be named "d7_dspacenet")
@@ -22,7 +21,7 @@ networks:
     external: true
 services:
   dspace-cli:
-    image: "${DOCKER_OWNER:-dspace}/dspace-cli:${DSPACE_VER:-latest}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-cli:${DSPACE_VER:-latest}"
     container_name: dspace-cli
     environment:
       # Below syntax may look odd, but it is how to override dspace.cfg settings via env variables.

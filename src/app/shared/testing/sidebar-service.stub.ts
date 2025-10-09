@@ -1,14 +1,14 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 export class SidebarServiceStub {
-  isCollapsed = observableOf(true);
+  isCollapsed = of(true);
 
   collapse(): void {
-    this.isCollapsed = observableOf(true);
+    this.isCollapsed = of(true);
   }
 
   expand(): void {
-    this.isCollapsed = observableOf(false);
+    this.isCollapsed = of(false);
   }
 
 }
