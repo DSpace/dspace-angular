@@ -35,6 +35,7 @@ import { FindListOptions } from '../../../../../core/data/find-list-options.mode
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
@@ -209,15 +210,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   constructor(
     public modal: NgbActiveModal,
-    private selectableListService: SelectableListService,
-    private relationshipService: RelationshipDataService,
-    private externalSourceService: ExternalSourceDataService,
-    private lookupRelationService: LookupRelationService,
-    private searchConfigService: SearchConfigurationService,
-    private rdbService: RemoteDataBuildService,
-    private zone: NgZone,
-    private store: Store<AppState>,
-    private router: Router,
+    protected selectableListService: SelectableListService,
+    protected relationshipService: RelationshipDataService,
+    protected externalSourceService: ExternalSourceDataService,
+    protected lookupRelationService: LookupRelationService,
+    protected searchConfigService: SearchConfigurationService,
+    protected rdbService: RemoteDataBuildService,
+    protected zone: NgZone,
+    protected store: Store<AppState>,
+    protected router: Router,
+    protected paginationService: PaginationService,
   ) {
 
   }
@@ -366,7 +368,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnDestroy() {
-    this.router.navigate([], {});
+    this.paginationService.clearPagination(this.searchConfigService.paginationID);
+    this.paginationService.updateRoute(this.searchConfigService.paginationID, undefined, undefined, true, {
+      queryParamsHandling: '',
+    });
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 

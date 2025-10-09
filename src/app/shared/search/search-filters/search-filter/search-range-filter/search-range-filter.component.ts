@@ -23,6 +23,7 @@ import {
 import { yearFromString } from 'src/app/shared/date.util';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -109,6 +110,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected router: Router,
               protected route: RouteService,
               protected rdbs: RemoteDataBuildService,
@@ -119,6 +121,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     super(
       searchService,
       filterService,
+      paginationService,
       rdbs,
       router,
       searchConfigService,
@@ -174,14 +177,10 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
-    void this.router.navigate(this.getSearchLinkParts(), {
-      queryParams:
-        {
-          [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
-          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax,
-        },
-      queryParamsHandling: 'merge',
-    });
+    this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), {}, {
+      [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax,
+    }, this.retainScrollPosition);
     this.filter = '';
   }
 

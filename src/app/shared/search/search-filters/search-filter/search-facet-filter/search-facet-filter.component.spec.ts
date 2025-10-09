@@ -12,17 +12,21 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
+import { PaginationService } from 'ngx-pagination';
 import {
   BehaviorSubject,
   of,
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { RouteService } from '../../../../../core/services/route.service';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { PaginationServiceStub } from '../../../../testing/pagination-service.stub';
+import { routeServiceStub } from '../../../../testing/route-service.stub';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
@@ -104,6 +108,8 @@ describe('SearchFacetFilterComponent', () => {
         { provide: Router, useValue: router },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => of({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetFilterComponent, {
@@ -117,6 +123,7 @@ describe('SearchFacetFilterComponent', () => {
     comp.filterConfig = mockFilterConfig;
     comp.inPlaceSearch = false;
     comp.refreshFilters = new BehaviorSubject<boolean>(false);
+    comp.retainScrollPosition = true;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(values));
     fixture.detectChanges();
   });
@@ -197,7 +204,9 @@ describe('SearchFacetFilterComponent', () => {
       comp.onSubmit(testValue + ',equals');
       expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalledWith(filterName1, testValue, 'equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
+        queryParams: jasmine.objectContaining({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }),
+        queryParamsHandling: 'merge',
+        fragment: 'prevent-scroll',
       });
     });
 

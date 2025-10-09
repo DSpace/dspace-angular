@@ -28,12 +28,14 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
+import { RouteService } from '../../../../../core/services/route.service';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { routeServiceStub } from '../../../../testing/route-service.stub';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
@@ -89,6 +91,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: APP_CONFIG, useValue: environment },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
+        { provide: RouteService, useValue: routeServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -100,6 +103,7 @@ describe('SearchHierarchyFilterComponent', () => {
     comp.inPlaceSearch = false;
     comp.filterConfig = Object.assign(new SearchFilterConfig(), { name: testSearchFilter });
     comp.refreshFilters = new BehaviorSubject<boolean>(false);
+    comp.retainScrollPosition = true;
     fixture.detectChanges();
     showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }
@@ -151,12 +155,14 @@ describe('SearchHierarchyFilterComponent', () => {
           expect(modalService.open).toHaveBeenCalled();
           tick();
           expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalled();
-          expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-            queryParams: {
+          expect(router.navigate).toHaveBeenCalledWith(['', 'search'], {
+            queryParams: jasmine.objectContaining({
               [`f.${testSearchFilter}`]: [
                 'definedBy_selectNewAppliedFilterParams',
               ],
-            },
+            }),
+            queryParamsHandling: 'merge',
+            fragment: 'prevent-scroll',
           });
         }));
       });
