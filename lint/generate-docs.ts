@@ -12,8 +12,8 @@ import {
   readFileSync,
   rmSync,
   writeFileSync,
-} from 'fs';
-import { join } from 'path';
+} from 'node:fs';
+import { join } from 'node:path';
 
 import { default as htmlPlugin } from './src/rules/html';
 import { default as tsPlugin } from './src/rules/ts';
