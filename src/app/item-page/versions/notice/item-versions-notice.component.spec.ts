@@ -11,6 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
@@ -64,7 +66,7 @@ describe('ItemVersionsNoticeComponent', () => {
 
   beforeEach(waitForAsync(() => {
 
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
@@ -73,6 +75,7 @@ describe('ItemVersionsNoticeComponent', () => {
       ],
       providers: [
         { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
