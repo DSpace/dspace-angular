@@ -1,6 +1,6 @@
 <div class="d-flex flex-row">
   @if (linkType !== linkTypes.None) {
-    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[]" [queryParams]="queryParams$ | async" [queryParamsHandling]="'merge'" class="lead" role="link" tabindex="0">
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[]" [queryParams]="queryParams$ | async" class="lead" role="link" tabindex="0">
       {{object.value}}
     </a>
   }
