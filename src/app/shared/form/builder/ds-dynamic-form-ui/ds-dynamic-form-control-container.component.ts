@@ -437,6 +437,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());

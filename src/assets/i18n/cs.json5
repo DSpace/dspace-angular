@@ -2645,7 +2645,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Vaše osobní údaje shromažďujeme a zpracováváme pro následující účely: <strong>Ověření, Preference, Potvrzení a Statistiky</strong>. <br/> Chcete-li se dozvědět více, přečtěte si prosím naše {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Vaše osobní údaje shromažďujeme a zpracováváme pro následující účely: Ověření, Preference, Potvrzení a Statistiky. Chcete-li se dozvědět více, přečtěte si prosím naše {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Přizpůsobit",
