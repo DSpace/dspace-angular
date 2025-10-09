@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { ItemPageOrcidFieldComponent } from '../../../../item-page/simple/field-components/specific-field/orcid/item-page-orcid-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
@@ -25,6 +26,7 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
     AsyncPipe,
     DsoEditMenuComponent,
     GenericItemPageFieldComponent,
+    ItemPageOrcidFieldComponent,
     MetadataFieldWrapperComponent,
     RelatedItemsComponent,
     RouterLink,
