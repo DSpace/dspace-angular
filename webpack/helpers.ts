@@ -1,7 +1,15 @@
-import { readFileSync, readdirSync, statSync, Stats } from 'fs';
-import { join, resolve } from 'path';
+import {
+  readdirSync,
+  readFileSync,
+  Stats,
+  statSync,
+} from 'node:fs';
+import {
+  join,
+  resolve,
+} from 'node:path';
 
-const md5 = require('md5');
+const crypto = require('node:crypto');
 
 export const projectRoot = (relativePath) => {
   return resolve(__dirname, '..', relativePath);
@@ -21,7 +29,7 @@ export const globalCSSImports = () => {
  */
 export function calculateFileHash(filePath: string): string {
   const fileContent: Buffer = readFileSync(filePath);
-  return md5(fileContent);
+  return crypto.createHash('md5').update(fileContent).digest('hex');
 }
 
 /**
@@ -32,7 +40,7 @@ export function calculateFileHash(filePath: string): string {
  */
 export function getFileHashes(folderPath: string, regExp: RegExp): { [fileName: string]: string } {
   const files: string[] = readdirSync(folderPath);
-  let hashes: { [fileName: string]: string } = {};
+  const hashes: { [fileName: string]: string } = {};
 
   for (const file of files) {
     if (file.match(regExp)) {
