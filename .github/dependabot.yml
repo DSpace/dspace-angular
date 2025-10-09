@@ -28,15 +28,6 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together all security updates for Angular. Only accept minor/patch types.
-      angular-security:
-        applies-to: security-updates
-        patterns:
-        - "@angular*"
-        - "@ngtools/webpack"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together all minor/patch version updates for NgRx in a single PR
       ngrx:
         applies-to: version-updates
@@ -45,26 +36,9 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together all security updates for NgRx. Only accept minor/patch types.
-      ngrx-security:
-        applies-to: security-updates
-        patterns:
-        - "@ngrx*"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together all patch version updates for eslint in a single PR
       eslint:
         applies-to: version-updates
-        patterns:
-        - "@typescript-eslint*"
-        - "eslint*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together all security updates for eslint.
-      eslint-security:
-        applies-to: security-updates
         patterns:
         - "@typescript-eslint*"
         - "eslint*"
@@ -84,30 +58,9 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together any testing related security updates
-      testing-security:
-        applies-to: security-updates
-        patterns:
-        - "@cypress*"
-        - "axe-*"
-        - "cypress*"
-        - "jasmine*"
-        - "karma*"
-        - "ng-mocks"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together any postcss related version updates
       postcss:
         applies-to: version-updates
-        patterns:
-        - "postcss*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any postcss related security updates
-      postcss-security:
-        applies-to: security-updates
         patterns:
         - "postcss*"
         update-types:
@@ -121,25 +74,9 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together any sass related security updates
-      sass-security:
-        applies-to: security-updates
-        patterns:
-        - "sass*"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together any webpack related version updates
       webpack:
         applies-to: version-updates
-        patterns:
-        - "webpack*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any webpack related seurity updates
-      webpack-security:
-        applies-to: security-updates
         patterns:
         - "webpack*"
         update-types:

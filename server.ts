@@ -25,7 +25,6 @@ import * as ejs from 'ejs';
 import * as compression from 'compression';
 import expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
-import axios from 'axios';
 import LRU from 'lru-cache';
 import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
@@ -269,6 +268,12 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
       ],
     })
     .then((html) => {
+      // If headers were already sent, then do nothing else, it is probably a
+      // redirect response
+      if (res.headersSent) {
+        return;
+      }
+
       if (hasValue(html)) {
         // Replace REST URL with UI URL
         if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
@@ -561,8 +566,8 @@ function createHttpsServer(keys) {
  * Create an HTTP server with the configured port and host.
  */
 function run() {
-  const port = environment.ui.port || 4000;
-  const host = environment.ui.host || '/';
+  const port = environment.ui.port;
+  const host = environment.ui.host;
 
   // Start up the Node server
   const server = app();
@@ -648,9 +653,9 @@ function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[
  */
 function healthCheck(req, res) {
   const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
-  axios.get(baseUrl)
+  fetch(baseUrl)
     .then((response) => {
-      res.status(response.status).send(response.data);
+      res.status(response.status).send(response);
     })
     .catch((error) => {
       res.status(error.response.status).send({
