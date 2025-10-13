@@ -323,7 +323,7 @@ function clientSideRender(req, res) {
   );
 
   // Replace REST URL with UI URL
-  if (environment.universal.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
+  if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
     html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
   }
 
