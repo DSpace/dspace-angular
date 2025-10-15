@@ -15,7 +15,6 @@ import { UserMenuComponent } from './user-menu.component';
   selector: 'ds-user-menu',
   templateUrl: './../../theme-support/themed.component.html',
   styleUrls: [],
-  standalone: true,
   imports: [
     UserMenuComponent,
   ],

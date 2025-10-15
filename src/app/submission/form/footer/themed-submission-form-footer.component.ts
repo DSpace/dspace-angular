@@ -10,7 +10,6 @@ import { SubmissionFormFooterComponent } from './submission-form-footer.componen
   selector: 'ds-submission-form-footer',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SubmissionFormFooterComponent,
   ],

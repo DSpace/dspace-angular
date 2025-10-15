@@ -15,7 +15,6 @@ import { BadgesComponent } from './badges.component';
   selector: 'ds-badges',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     BadgesComponent,
   ],

@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'ds-base-status-badge',
   templateUrl: './status-badge.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

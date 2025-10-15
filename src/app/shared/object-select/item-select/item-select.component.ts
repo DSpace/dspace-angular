@@ -32,7 +32,6 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
 @Component({
   selector: 'ds-item-select',
   templateUrl: './item-select.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

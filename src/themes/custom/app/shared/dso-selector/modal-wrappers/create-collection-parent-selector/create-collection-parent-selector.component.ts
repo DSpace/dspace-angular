@@ -9,7 +9,6 @@ import { CreateCollectionParentSelectorComponent as BaseComponent } from '../../
   // styleUrls: ['./create-collection-parent-selector.component.scss'],
   // templateUrl: './create-collection-parent-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
-  standalone: true,
   imports: [
     DSOSelectorComponent,
     TranslateModule,

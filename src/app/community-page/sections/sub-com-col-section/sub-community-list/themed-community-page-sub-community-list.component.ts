@@ -11,7 +11,6 @@ import { CommunityPageSubCommunityListComponent } from './community-page-sub-com
   selector: 'ds-community-page-sub-community-list',
   styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CommunityPageSubCommunityListComponent,
   ],

@@ -34,7 +34,6 @@ import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
     NgClass,
     ReactiveFormsModule,
   ],
-  standalone: true,
 })
 export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
 

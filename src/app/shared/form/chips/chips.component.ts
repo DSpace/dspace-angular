@@ -45,7 +45,6 @@ import { ChipsItem } from './models/chips-item.model';
     NgClass,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {

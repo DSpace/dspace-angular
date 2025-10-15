@@ -9,7 +9,6 @@ import { EditCollectionSelectorComponent as BaseComponent } from '../../../../..
   // styleUrls: ['./edit-collection-selector.component.scss'],
   // templateUrl: './edit-collection-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
-  standalone: true,
   imports: [
     DSOSelectorComponent,
     TranslateModule,

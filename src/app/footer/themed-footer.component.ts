@@ -10,7 +10,6 @@ import { FooterComponent } from './footer.component';
   selector: 'ds-footer',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     FooterComponent,
   ],

@@ -12,7 +12,6 @@ import { FileDownloadLinkComponent } from './file-download-link.component';
   selector: 'ds-file-download-link',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     FileDownloadLinkComponent,
   ],

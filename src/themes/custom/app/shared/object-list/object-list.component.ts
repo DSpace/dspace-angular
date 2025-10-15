@@ -22,7 +22,6 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
     PaginationComponent,
     SelectableListItemControlComponent,
   ],
-  standalone: true,
 })
 export class ObjectListComponent extends BaseComponent {
 }

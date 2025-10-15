@@ -20,7 +20,6 @@ import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  standalone: true,
   template: '<span id="BrowseByTestComponent"></span>',
 })
 class BrowseByTestComponent {

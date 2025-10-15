@@ -42,7 +42,6 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
     NumberPickerComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 export class DsDatePickerComponent extends DynamicFormControlComponent implements OnInit {

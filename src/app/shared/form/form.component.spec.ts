@@ -476,7 +476,6 @@ describe('FormComponent test suite', () => {
   exportAs: 'formComponent',
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     DsDynamicFormComponent,
     DynamicFormsCoreModule,

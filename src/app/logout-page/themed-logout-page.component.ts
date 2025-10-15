@@ -10,7 +10,6 @@ import { LogoutPageComponent } from './logout-page.component';
   selector: 'ds-logout-page',
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     LogoutPageComponent,
   ],

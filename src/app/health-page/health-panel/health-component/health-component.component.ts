@@ -22,7 +22,6 @@ import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
   selector: 'ds-health-component',
   templateUrl: './health-component.component.html',
   styleUrls: ['./health-component.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     NgbCollapseModule,

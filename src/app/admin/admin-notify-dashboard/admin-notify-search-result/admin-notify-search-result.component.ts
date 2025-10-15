@@ -37,7 +37,6 @@ import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/ad
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     DatePipe,

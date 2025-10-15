@@ -7,11 +7,12 @@ import {
 } from '@angular/common/http';
 import {
   APP_ID,
-  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
+  inject,
   makeStateKey,
   mergeApplicationConfig,
+  provideAppInitializer,
   TransferState,
 } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -106,12 +107,10 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       useFactory: getRequest,
       deps: [TransferState],
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient),
-      deps: [ XSRFService, HttpClient ],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      const initializerFn = ((xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient))(inject(XSRFService), inject(HttpClient));
+      return initializerFn();
+    }),
     {
       provide: XSRFService,
       useClass: BrowserXSRFService,

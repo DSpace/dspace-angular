@@ -27,7 +27,6 @@ export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
   selector: 'ds-claimed-task-actions-return-to-pool',
   styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
   templateUrl: './claimed-task-actions-return-to-pool.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

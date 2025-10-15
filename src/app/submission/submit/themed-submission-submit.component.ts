@@ -10,7 +10,6 @@ import { SubmissionSubmitComponent } from './submission-submit.component';
   selector: 'ds-submission-submit',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SubmissionSubmitComponent,
   ],

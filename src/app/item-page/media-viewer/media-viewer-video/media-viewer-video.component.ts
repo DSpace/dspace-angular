@@ -26,7 +26,6 @@ import { languageHelper } from './language-helper';
     NgbDropdownModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MediaViewerVideoComponent {
   @Input() medias: MediaViewerItem[];

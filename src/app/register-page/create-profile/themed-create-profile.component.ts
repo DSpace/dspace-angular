@@ -10,7 +10,6 @@ import { CreateProfileComponent } from './create-profile.component';
   selector: 'ds-create-profile',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CreateProfileComponent,
   ],

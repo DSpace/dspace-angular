@@ -10,7 +10,6 @@ import { CollectionPageComponent } from './collection-page.component';
   selector: 'ds-collection-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CollectionPageComponent,
   ],

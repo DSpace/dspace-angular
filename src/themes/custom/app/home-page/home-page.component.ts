@@ -20,7 +20,6 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
   styleUrls: ['../../../../app/home-page/home-page.component.scss'],
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     HomeCoarComponent,

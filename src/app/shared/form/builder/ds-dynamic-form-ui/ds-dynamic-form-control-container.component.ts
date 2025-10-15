@@ -139,7 +139,6 @@ import { NameVariantService } from './relation-lookup-modal/name-variant.service
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
   implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {

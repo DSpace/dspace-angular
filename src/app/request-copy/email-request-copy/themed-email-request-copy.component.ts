@@ -17,7 +17,6 @@ import { EmailRequestCopyComponent } from './email-request-copy.component';
   selector: 'ds-email-request-copy',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     EmailRequestCopyComponent,
   ],

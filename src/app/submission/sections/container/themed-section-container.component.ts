@@ -11,7 +11,6 @@ import { SubmissionSectionContainerComponent } from './section-container.compone
   selector: 'ds-submission-section-container',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SubmissionSectionContainerComponent,
   ],

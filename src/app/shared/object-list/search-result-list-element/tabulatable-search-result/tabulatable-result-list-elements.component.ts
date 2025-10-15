@@ -7,7 +7,6 @@ import { AbstractTabulatableElementComponent } from '../../../object-collection/
 @Component({
   selector: 'ds-search-result-table-element',
   template: ``,
-  standalone: true,
 })
 /**
  * Component that describes the implementations and interfaces needed from any extension of this class to be used in search results for visualization in ViewMode.Table

@@ -31,7 +31,6 @@ import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.com
     BulkAccessSettingsComponent,
     TranslateModule,
   ],
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BulkAccessComponent implements OnInit {

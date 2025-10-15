@@ -10,7 +10,6 @@ import { ForbiddenComponent } from './forbidden.component';
   selector: 'ds-forbidden',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ForbiddenComponent,
   ],

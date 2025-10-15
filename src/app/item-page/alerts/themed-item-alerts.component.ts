@@ -14,7 +14,6 @@ import { ItemAlertsComponent } from './item-alerts.component';
   selector: 'ds-item-alerts',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ItemAlertsComponent,
   ],

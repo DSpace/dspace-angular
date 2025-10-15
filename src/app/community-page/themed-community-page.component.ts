@@ -10,7 +10,6 @@ import { CommunityPageComponent } from './community-page.component';
   selector: 'ds-community-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CommunityPageComponent,
   ],

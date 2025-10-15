@@ -14,7 +14,6 @@ import { TypeBadgeComponent } from './type-badge.component';
   selector: 'ds-type-badge',
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     TypeBadgeComponent,
   ],

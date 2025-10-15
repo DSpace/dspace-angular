@@ -14,7 +14,6 @@ import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component
   selector: 'ds-my-dspace-status-badge',
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     MyDSpaceStatusBadgeComponent,
   ],

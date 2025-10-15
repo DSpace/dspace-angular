@@ -72,7 +72,6 @@ describe('Chips component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     FileUploadModule,
     UploaderComponent,

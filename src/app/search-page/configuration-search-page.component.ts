@@ -45,7 +45,6 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgTemplateOutlet,

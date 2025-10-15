@@ -11,7 +11,6 @@ import { WorkflowItemSendBackComponent } from './workflow-item-send-back.compone
   selector: 'ds-workflow-item-send-back',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     WorkflowItemSendBackComponent,
   ],
