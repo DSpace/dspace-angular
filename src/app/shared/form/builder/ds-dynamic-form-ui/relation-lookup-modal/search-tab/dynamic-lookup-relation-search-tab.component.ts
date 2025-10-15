@@ -59,7 +59,6 @@ import { LookupRelationService } from '../lookup-relation.service';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 
 /**

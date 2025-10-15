@@ -268,7 +268,6 @@ describe('SubmissionFormFooterComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     NgbModule,
   ],

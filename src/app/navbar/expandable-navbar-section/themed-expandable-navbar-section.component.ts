@@ -10,7 +10,6 @@ import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.co
   selector: 'ds-expandable-navbar-section',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ExpandableNavbarSectionComponent,
   ],

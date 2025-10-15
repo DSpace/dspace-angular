@@ -14,7 +14,6 @@ import { SubmissionFormComponent } from './submission-form.component';
   selector: 'ds-submission-form',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SubmissionFormComponent,
   ],

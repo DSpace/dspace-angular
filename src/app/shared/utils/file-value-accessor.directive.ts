@@ -15,7 +15,6 @@ import {
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: FileValueAccessorDirective, multi: true },
   ],
-  standalone: true,
 })
 /**
  * Value accessor directive for inputs of type 'file'

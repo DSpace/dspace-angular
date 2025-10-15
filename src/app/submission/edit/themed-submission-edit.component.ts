@@ -10,7 +10,6 @@ import { SubmissionEditComponent } from './submission-edit.component';
   selector: 'ds-submission-edit',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SubmissionEditComponent,
   ],

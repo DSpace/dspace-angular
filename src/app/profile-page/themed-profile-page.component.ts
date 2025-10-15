@@ -10,7 +10,6 @@ import { ProfilePageComponent } from './profile-page.component';
   selector: 'ds-profile-page',
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ProfilePageComponent,
   ],

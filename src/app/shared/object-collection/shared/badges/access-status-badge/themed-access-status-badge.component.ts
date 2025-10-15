@@ -14,7 +14,6 @@ import { AccessStatusBadgeComponent } from './access-status-badge.component';
   selector: 'ds-access-status-badge',
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     AccessStatusBadgeComponent,
   ],

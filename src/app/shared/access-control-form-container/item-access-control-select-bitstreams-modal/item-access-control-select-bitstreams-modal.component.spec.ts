@@ -82,7 +82,6 @@ describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {

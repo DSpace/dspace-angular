@@ -31,7 +31,6 @@ import { DebounceDirective } from '../../../../../../shared/utils/debounce.direc
       multi: true,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ClickOutsideDirective,

@@ -43,7 +43,6 @@ import {
   templateUrl: './access-control-form-container.component.html',
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
-  standalone: true,
   imports: [
     AccessControlArrayFormComponent,
     AlertComponent,

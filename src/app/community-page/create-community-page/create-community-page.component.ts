@@ -31,7 +31,6 @@ import { CommunityFormComponent } from '../community-form/community-form.compone
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class CreateCommunityPageComponent extends CreateComColPageComponent<Community> {
   protected frontendURL = '/communities/';

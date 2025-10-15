@@ -7,7 +7,6 @@ import { SearchNavbarComponent } from './search-navbar.component';
   selector: 'ds-search-navbar',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SearchNavbarComponent,
   ],

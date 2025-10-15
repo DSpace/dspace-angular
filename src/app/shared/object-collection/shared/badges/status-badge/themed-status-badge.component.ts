@@ -14,7 +14,6 @@ import { StatusBadgeComponent } from './status-badge.component';
   selector: 'ds-status-badge',
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     StatusBadgeComponent,
   ],

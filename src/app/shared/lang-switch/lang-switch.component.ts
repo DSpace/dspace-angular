@@ -18,7 +18,6 @@ import { environment } from '../../../environments/environment';
   selector: 'ds-base-lang-switch',
   styleUrls: ['lang-switch.component.scss'],
   templateUrl: 'lang-switch.component.html',
-  standalone: true,
   imports: [
     NgbDropdownModule,
     TranslateModule,

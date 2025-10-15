@@ -10,7 +10,6 @@ import { BreadcrumbsComponent } from './breadcrumbs.component';
   selector: 'ds-breadcrumbs',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     BreadcrumbsComponent,
   ],

@@ -11,7 +11,6 @@ import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
   selector: 'ds-workflow-item-delete',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     WorkflowItemDeleteComponent,
   ],

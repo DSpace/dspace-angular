@@ -58,7 +58,6 @@ import { ThemeService } from './shared/theme-support/theme.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe,
     ThemedRootComponent,

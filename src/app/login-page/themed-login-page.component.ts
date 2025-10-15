@@ -10,7 +10,6 @@ import { LoginPageComponent } from './login-page.component';
   selector: 'ds-login-page',
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     LoginPageComponent,
   ],

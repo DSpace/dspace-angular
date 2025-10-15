@@ -13,7 +13,6 @@ import { ComcolPageBrowseByComponent } from './comcol-page-browse-by.component';
   selector: 'ds-comcol-page-browse-by',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ComcolPageBrowseByComponent,
   ],

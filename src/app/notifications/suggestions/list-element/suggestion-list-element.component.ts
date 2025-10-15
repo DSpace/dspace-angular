@@ -31,7 +31,6 @@ import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-
     SuggestionEvidencesComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SuggestionListElementComponent implements OnInit {
 

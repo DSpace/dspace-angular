@@ -10,7 +10,6 @@ import { GrantRequestCopyComponent } from './grant-request-copy.component';
   selector: 'ds-grant-request-copy',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     GrantRequestCopyComponent,
   ],

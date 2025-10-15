@@ -10,7 +10,6 @@ import { PrivacyComponent } from './privacy.component';
   selector: 'ds-privacy',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     PrivacyComponent,
   ],

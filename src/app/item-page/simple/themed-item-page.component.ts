@@ -10,7 +10,6 @@ import { ItemPageComponent } from './item-page.component';
   selector: 'ds-item-page',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ItemPageComponent,
   ],

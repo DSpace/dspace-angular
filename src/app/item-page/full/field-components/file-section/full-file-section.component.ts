@@ -61,7 +61,6 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class FullFileSectionComponent extends FileSectionComponent implements OnDestroy, OnInit {
 

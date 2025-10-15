@@ -11,7 +11,6 @@ import { MetadataRepresentationListComponent } from './metadata-representation-l
   selector: 'ds-metadata-representation-list',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     MetadataRepresentationListComponent,
   ],

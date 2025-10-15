@@ -9,7 +9,6 @@ import { MetadataImportPageComponent } from './metadata-import-page.component';
 @Component({
   selector: 'ds-metadata-import-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     MetadataImportPageComponent,
   ],

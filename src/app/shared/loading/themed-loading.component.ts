@@ -15,7 +15,6 @@ import { LoadingComponent } from './loading.component';
   selector: 'ds-loading',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     LoadingComponent,
   ],

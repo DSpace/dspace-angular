@@ -10,7 +10,6 @@ import { PageNotFoundComponent } from './pagenotfound.component';
   selector: 'ds-pagenotfound',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     PageNotFoundComponent,
   ],

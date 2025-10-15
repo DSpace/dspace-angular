@@ -10,7 +10,6 @@ import { ItemStatisticsPageComponent } from './item-statistics-page.component';
   selector: 'ds-item-statistics-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ItemStatisticsPageComponent,
   ],

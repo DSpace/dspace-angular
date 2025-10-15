@@ -78,7 +78,6 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     ThemedSearchFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for mapping collections to an item

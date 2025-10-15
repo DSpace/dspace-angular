@@ -10,7 +10,6 @@ import { ExternalLoginPageComponent } from './external-login-page.component';
   selector: 'ds-external-login-page',
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ExternalLoginPageComponent,
   ],

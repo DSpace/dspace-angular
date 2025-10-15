@@ -14,7 +14,6 @@ import { ItemPageTitleFieldComponent } from './item-page-title-field.component';
   selector: 'ds-item-page-title-field',
   styleUrls: [],
   templateUrl: '../../../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ItemPageTitleFieldComponent,
   ],

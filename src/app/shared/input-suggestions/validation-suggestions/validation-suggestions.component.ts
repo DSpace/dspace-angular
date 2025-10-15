@@ -39,7 +39,6 @@ import { InputSuggestion } from '../input-suggestions.model';
       multi: true,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ClickOutsideDirective,

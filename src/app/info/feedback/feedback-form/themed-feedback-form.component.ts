@@ -10,7 +10,6 @@ import { FeedbackFormComponent } from './feedback-form.component';
   selector: 'ds-feedback-form',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     FeedbackFormComponent,
   ],

@@ -44,7 +44,6 @@ type ParsedContent = ({href?: string, text: string})[];
   selector: 'ds-context-help-wrapper',
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

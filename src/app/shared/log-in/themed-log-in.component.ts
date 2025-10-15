@@ -14,7 +14,6 @@ import { LogInComponent } from './log-in.component';
   selector: 'ds-log-in',
   styleUrls: [],
   templateUrl: './../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     LogInComponent,
   ],

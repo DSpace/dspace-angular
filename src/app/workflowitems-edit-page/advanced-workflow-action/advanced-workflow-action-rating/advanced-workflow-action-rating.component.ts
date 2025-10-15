@@ -41,7 +41,6 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActionComponent implements OnInit {
 
