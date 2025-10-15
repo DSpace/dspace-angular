@@ -15,7 +15,6 @@ import { SearchFormComponent } from './search-form.component';
   selector: 'ds-search-form',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SearchFormComponent,
   ],

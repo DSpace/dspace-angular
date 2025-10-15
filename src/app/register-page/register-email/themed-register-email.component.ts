@@ -10,7 +10,6 @@ import { RegisterEmailComponent } from './register-email.component';
   selector: 'ds-register-email',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     RegisterEmailComponent,
   ],

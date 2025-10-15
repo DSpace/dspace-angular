@@ -50,7 +50,6 @@ import { SearchConfigurationService } from '../../../../../search/search-configu
     PageSizeSelectorComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 /**

@@ -21,7 +21,6 @@ import { MissingTranslationHelper } from '../../../shared/translate/missing-tran
   animations: [
     fadeIn,
   ],
-  standalone: true,
   imports: [
     TranslateModule,
   ],

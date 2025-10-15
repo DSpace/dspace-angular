@@ -108,14 +108,12 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '<span id="AdvancedWorkflowActionsLoaderComponent"></span>',
-  standalone: true,
 })
 class AdvancedWorkflowActionTestComponent {
 }
 
 @Directive({
   selector: '[dsAdvancedWorkflowActions]',
-  standalone: true,
 })
 export class MockAdvancedWorkflowActionsDirective {
   constructor(public viewContainerRef: ViewContainerRef) {}

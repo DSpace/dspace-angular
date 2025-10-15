@@ -168,7 +168,6 @@ export const tests = {
       code: `
 @Component({
   selector: 'ds-something',
-  standalone: true,
 })
 class Something {
 }
@@ -179,7 +178,6 @@ class Something {
       code: `
 @Component({
   selector: 'ds-base-test-themable',
-  standalone: true,
 })
 class TestThemeableComponent {
 }
@@ -191,7 +189,6 @@ class TestThemeableComponent {
       code: `
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [
     TestThemeableComponent,
   ],
@@ -206,7 +203,6 @@ class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponen
       code: `
 @Component({
   selector: 'ds-themed-test-themable',
-  standalone: true,
 })
 class Override extends BaseComponent {
 }
@@ -231,7 +227,6 @@ class TestThemeableComponent {
       output: `
 @Component({
   selector: 'ds-base-test-themable',
-  standalone: true,
 })
 class TestThemeableComponent {
 }
@@ -255,7 +250,6 @@ class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponen
       output: `
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -269,7 +263,6 @@ class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponen
       code: `
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -283,7 +276,6 @@ class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponen
       output: `
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -298,7 +290,6 @@ import { SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [
     SomethingElse,
   ],
@@ -316,7 +307,6 @@ import { SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -330,7 +320,6 @@ import { Something, SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [
     SomethingElse,
   ],
@@ -348,7 +337,6 @@ import { Something, SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -373,7 +361,6 @@ class Override extends BaseComponent {
       output: `
 @Component({
   selector: 'ds-themed-test-themable',
-  standalone: true,
 })
 class Override extends BaseComponent {
 }

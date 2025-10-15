@@ -14,7 +14,6 @@ import { SearchSettingsComponent } from './search-settings.component';
   selector: 'ds-search-settings',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SearchSettingsComponent,
   ],

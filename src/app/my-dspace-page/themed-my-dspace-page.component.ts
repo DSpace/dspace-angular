@@ -10,7 +10,6 @@ import { MyDSpacePageComponent } from './my-dspace-page.component';
   selector: 'ds-my-dspace-page',
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     MyDSpacePageComponent,
   ],

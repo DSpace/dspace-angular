@@ -7,7 +7,6 @@ import { HomePageComponent } from './home-page.component';
   selector: 'ds-home-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     HomePageComponent,
   ],

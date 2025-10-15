@@ -7,7 +7,6 @@ import { HomeNewsComponent } from './home-news.component';
   selector: 'ds-home-news',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     HomeNewsComponent,
   ],

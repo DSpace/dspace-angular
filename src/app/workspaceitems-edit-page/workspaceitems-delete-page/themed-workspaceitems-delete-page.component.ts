@@ -10,7 +10,6 @@ import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.
   selector: 'ds-workspace-items-delete',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     WorkspaceItemsDeletePageComponent,
   ],

@@ -50,7 +50,6 @@ import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-sch
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing metadata schemas within the repository.

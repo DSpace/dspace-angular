@@ -11,7 +11,6 @@ import { SubmissionSectionUploadFileComponent } from './section-upload-file.comp
   selector: 'ds-submission-upload-section-file',
   styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SubmissionSectionUploadFileComponent,
   ],

@@ -40,7 +40,6 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
     FormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
 

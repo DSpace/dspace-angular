@@ -40,7 +40,6 @@ import { SectionsService } from '../sections.service';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent implements OnInit {

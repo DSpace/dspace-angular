@@ -286,7 +286,6 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
 @Component({
   selector: 'ds-mock-thumbnail',
   template: '<div></div>',
-  standalone: true,
 })
 export class ThumbnailStubComponent {
 

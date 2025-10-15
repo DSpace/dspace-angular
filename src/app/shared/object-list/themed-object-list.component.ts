@@ -25,7 +25,6 @@ import { ObjectListComponent } from './object-list.component';
   selector: 'ds-object-list',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ObjectListComponent,
   ],

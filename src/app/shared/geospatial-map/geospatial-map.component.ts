@@ -31,7 +31,6 @@ import { GeospatialMapDetail } from './models/geospatial-map-detail.model';
   selector: 'ds-geospatial-map',
   templateUrl: './geospatial-map.component.html',
   styleUrls: ['./geospatial-map.component.scss'],
-  standalone: true,
 })
 /**
  * Component to draw points and polygons on a tiled map using leaflet.js

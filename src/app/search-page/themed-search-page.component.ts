@@ -10,7 +10,6 @@ import { SearchPageComponent } from './search-page.component';
   selector: 'ds-search-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SearchPageComponent,
   ],

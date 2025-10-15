@@ -10,7 +10,6 @@ import { PageInternalServerErrorComponent } from './page-internal-server-error.c
   selector: 'ds-page-internal-server-error',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     PageInternalServerErrorComponent,
   ],

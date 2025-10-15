@@ -7,7 +7,6 @@ import { TopLevelCommunityListComponent } from './top-level-community-list.compo
   selector: 'ds-top-level-community-list',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     TopLevelCommunityListComponent,
   ],

@@ -10,7 +10,6 @@ import { FullItemPageComponent } from './full-item-page.component';
   selector: 'ds-full-item-page',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     FullItemPageComponent,
   ],

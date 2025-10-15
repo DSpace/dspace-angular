@@ -82,7 +82,6 @@ import {
     FormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionSectionUploadFileEditComponent
 implements OnInit, OnDestroy {

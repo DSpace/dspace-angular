@@ -17,7 +17,6 @@ import { CreateItemParentSelectorComponent } from './create-item-parent-selector
   selector: 'ds-create-item-parent-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CreateItemParentSelectorComponent,
   ],

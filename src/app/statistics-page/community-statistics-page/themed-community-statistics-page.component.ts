@@ -10,7 +10,6 @@ import { CommunityStatisticsPageComponent } from './community-statistics-page.co
   selector: 'ds-community-statistics-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CommunityStatisticsPageComponent,
   ],

@@ -43,7 +43,6 @@ import { BitstreamFormatService } from './bitstream-format.service';
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 

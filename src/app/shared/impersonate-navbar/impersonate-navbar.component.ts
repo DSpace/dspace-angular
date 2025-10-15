@@ -23,7 +23,6 @@ import { AppState } from '../../app.reducer';
 @Component({
   selector: 'ds-impersonate-navbar',
   templateUrl: 'impersonate-navbar.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

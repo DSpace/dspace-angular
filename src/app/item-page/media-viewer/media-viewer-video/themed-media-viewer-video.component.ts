@@ -15,7 +15,6 @@ import { MediaViewerVideoComponent } from './media-viewer-video.component';
   selector: 'ds-media-viewer-video',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     MediaViewerVideoComponent,
   ],

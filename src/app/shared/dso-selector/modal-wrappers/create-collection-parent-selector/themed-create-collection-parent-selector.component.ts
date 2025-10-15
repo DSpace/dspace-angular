@@ -10,7 +10,6 @@ import { CreateCollectionParentSelectorComponent } from './create-collection-par
   selector: 'ds-create-collection-parent-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CreateCollectionParentSelectorComponent,
   ],

@@ -10,7 +10,6 @@ import { HeaderComponent } from './header.component';
   selector: 'ds-header',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     HeaderComponent,
   ],
