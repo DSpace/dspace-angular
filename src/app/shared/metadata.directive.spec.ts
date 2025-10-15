@@ -26,7 +26,14 @@ describe('MetadataDirective', () => {
   let span: HTMLSpanElement;
 
   function createMetadata(value?: string, language?: string): MetadataValue {
-    return { uuid: '123', value: value as any, language: language as any, place: undefined as any, authority: undefined as any, confidence: undefined as any } as MetadataValue;
+    return {
+      uuid: '123',
+      value: value,
+      language: language,
+      place: undefined,
+      authority: undefined,
+      confidence: undefined,
+    } as MetadataValue;
   }
 
   beforeEach(async () => {
@@ -71,14 +78,14 @@ describe('MetadataDirective', () => {
   });
 
   it('removes lang attribute when language missing', () => {
-    host.mv = createMetadata('Value', undefined as any);
+    host.mv = createMetadata('Value', undefined);
     fixture.detectChanges();
     expect(span.innerHTML).toBe('Value');
     expect(span.hasAttribute('lang')).toBeFalse();
   });
 
   it('renders empty string when value is undefined', () => {
-    host.mv = createMetadata(undefined as any, 'en');
+    host.mv = createMetadata(undefined, 'en');
     fixture.detectChanges();
     expect(span.innerHTML).toBe('');
     expect(span.getAttribute('lang')).toBe('en');

@@ -8,24 +8,54 @@ import {
 
 import { MetadataValue } from '../core/shared/metadata.models';
 
+/**
+ * A directive that sets the innerHTML and lang attribute of the host element
+ * based on the provided `MetadataValue`.
+ *
+ * - The `innerHTML` is set to the `value` property of the `MetadataValue`.
+ * - The `lang` attribute is set to the `language` property of the `MetadataValue`.
+ * - If the `MetadataValue` is null or undefined, the `innerHTML` is cleared and the `lang` attribute is removed.
+ */
 @Directive({
   selector: '[dsMetadata]',
   standalone: true,
 })
 export class MetadataDirective {
+  /**
+   * Stores the current `MetadataValue` provided to the directive.
+   */
   private _metadataValue?: MetadataValue;
 
+  /**
+   * Reference to the host DOM element.
+   */
   private el = inject(ElementRef);
+
+  /**
+   * Angular Renderer2 instance for safely manipulating the DOM.
+   */
   private renderer = inject(Renderer2);
 
   /**
-   * Accepts a MetadataValue. Sets the host element's innerHTML to the metadata value and the lang attribute to the metadata language.
+   * Input property for the directive. Accepts a `MetadataValue` object.
+   * When set, it updates the host element's `innerHTML` and `lang` attribute.
+   *
+   * @param value - The `MetadataValue` object containing the `value` and `language`.
    */
   @Input() set dsMetadata(value: MetadataValue | null | undefined) {
     this._metadataValue = value ?? undefined;
     this.updateHost();
   }
 
+  /**
+   * Updates the host element's `innerHTML` and `lang` attribute based on the current `MetadataValue`.
+   * - If `MetadataValue` is provided:
+   *   - Sets `innerHTML` to `MetadataValue.value` (or an empty string if `value` is null/undefined).
+   *   - Sets the `lang` attribute to `MetadataValue.language` (or removes it if `language` is null/undefined).
+   * - If `MetadataValue` is null/undefined:
+   *   - Clears the `innerHTML`.
+   *   - Removes the `lang` attribute.
+   */
   private updateHost(): void {
     if (this._metadataValue) {
       const val = this._metadataValue.value ?? '';
@@ -41,4 +71,3 @@ export class MetadataDirective {
     }
   }
 }
-
