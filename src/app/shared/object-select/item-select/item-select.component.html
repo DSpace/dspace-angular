@@ -33,9 +33,11 @@
                     </span>
                   </td>
                 }
-                <td>@if (selectItem.dso.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])) {
-                  <span>{{selectItem.dso.firstMetadataValue(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])}}</span>
-                }</td>
+                <td>
+                    @if (selectItem.dso.firstMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); as author) {
+                        <span [dsMetadata]="author"></span>
+                    }
+                </td>
                 <td><a [routerLink]="selectItem.route">{{ dsoNameService.getName(selectItem.dso) }}</a></td>
               </tr>
             }

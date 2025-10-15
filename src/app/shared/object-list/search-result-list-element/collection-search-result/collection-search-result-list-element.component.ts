@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 
 import { Collection } from '../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { MetadataDirective } from '../../../metadata.directive';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -18,6 +19,7 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
   templateUrl: 'collection-search-result-list-element.component.html',
   standalone: true,
   imports: [
+    MetadataDirective,
     NgClass,
     RouterLink,
     ThemedBadgesComponent,

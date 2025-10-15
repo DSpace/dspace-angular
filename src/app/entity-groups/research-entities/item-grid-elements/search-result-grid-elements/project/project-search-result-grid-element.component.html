@@ -32,7 +32,7 @@
       @if (dso.hasMetadata('dc.description')) {
         <p class="item-description card-text text-muted">
           <ds-truncatable-part [id]="dso.id" [minLines]="3">
-            <span [innerHTML]="firstMetadataValue('dc.description')"></span>
+            <span [dsMetadata]="firstMetadata('dc.description')"></span>
           </ds-truncatable-part>
         </p>
       }

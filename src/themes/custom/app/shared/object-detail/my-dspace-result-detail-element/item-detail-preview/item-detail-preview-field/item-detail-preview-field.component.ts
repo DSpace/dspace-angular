@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { MetadataDirective } from '../../../../../../../../app/shared/metadata.directive';
 import { MetadataFieldWrapperComponent } from '../../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ItemDetailPreviewFieldComponent as BaseComponent } from '../../../../../../../../app/shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 
@@ -10,6 +11,7 @@ import { ItemDetailPreviewFieldComponent as BaseComponent } from '../../../../..
   templateUrl: '../../../../../../../../app/shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component.html',
   standalone: true,
   imports: [
+    MetadataDirective,
     MetadataFieldWrapperComponent,
     TranslateModule,
   ],

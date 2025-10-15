@@ -20,6 +20,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
+import { MetadataDirective } from '../../../metadata.directive';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -40,6 +41,7 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     AsyncPipe,
     ItemCollectionComponent,
     ItemSubmitterComponent,
+    MetadataDirective,
     NgClass,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,

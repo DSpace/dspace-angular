@@ -16,7 +16,7 @@
     @if (dso.allMetadata('organization.address.addressLocality').length > 0) {
       <span
         class="item-list-address-locality">
-        <span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"></span>@if (dso.allMetadata('organization.address.addressCountry').length > 0) {
+        <span [dsMetadata]="firstMetadata(['organization.address.addressLocality'])"></span>@if (dso.allMetadata('organization.address.addressCountry').length > 0) {
         <span>, </span>
       }
     </span>
@@ -24,7 +24,7 @@
   @if (dso.allMetadata('organization.address.addressCountry').length > 0) {
     <span
       class="item-list-address-country">
-      <span [innerHTML]="firstMetadataValue(['organization.address.addressCountry'])"></span>
+      <span [dsMetadata]="firstMetadata(['organization.address.addressCountry'])"></span>
     </span>
   }
 </span>

@@ -36,9 +36,9 @@
           @if (dso.allMetadata(['creativeworkseries.issn']).length > 0) {
             <span
               class="item-list-journals">
-              @for (value of allMetadataValues(['creativeworkseries.issn']); track value; let last = $last) {
+              @for (value of allMetadata(['creativeworkseries.issn']); track value; let last = $last) {
                 <span>
-                  <span [innerHTML]="value"></span>@if (!last) {
+                  <span [dsMetadata]="value"></span>@if (!last) {
                   <span>; </span>
                 }
               </span>

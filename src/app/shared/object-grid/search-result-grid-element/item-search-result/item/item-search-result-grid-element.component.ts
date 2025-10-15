@@ -13,6 +13,7 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';
+import { MetadataDirective } from '../../../../metadata.directive';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -31,6 +32,7 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
   standalone: true,
   imports: [
     AsyncPipe,
+    MetadataDirective,
     RouterLink,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,

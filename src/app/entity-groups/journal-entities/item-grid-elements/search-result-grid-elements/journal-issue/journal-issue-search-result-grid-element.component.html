@@ -33,14 +33,14 @@
         <p
           class="item-date card-text text-muted">
           <ds-truncatable-part [id]="dso.id" [minLines]="1">
-            <span [innerHTML]="firstMetadataValue('creativework.datePublished')"></span>
+            <span [dsMetadata]="firstMetadata('creativework.datePublished')"></span>
           </ds-truncatable-part>
         </p>
       }
       @if (dso.hasMetadata('journal.title')) {
         <p class="item-journal-title card-text">
           <ds-truncatable-part [id]="dso.id" [minLines]="3">
-            <span [innerHTML]="firstMetadataValue('journal.title')"></span>
+            <span [dsMetadata]="firstMetadata('journal.title')"></span>
           </ds-truncatable-part>
         </p>
       }

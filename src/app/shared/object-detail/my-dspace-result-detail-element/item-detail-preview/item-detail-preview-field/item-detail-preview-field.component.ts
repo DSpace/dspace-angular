@@ -1,4 +1,3 @@
-
 import {
   Component,
   Input,
@@ -6,7 +5,9 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Item } from '../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { MetadataDirective } from '../../../../metadata.directive';
 import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
 import { SearchResult } from '../../../../search/models/search-result.model';
 
@@ -18,6 +19,7 @@ import { SearchResult } from '../../../../search/models/search-result.model';
   templateUrl: './item-detail-preview-field.component.html',
   standalone: true,
   imports: [
+    MetadataDirective,
     MetadataFieldWrapperComponent,
     TranslateModule,
   ],
@@ -53,6 +55,26 @@ export class ItemDetailPreviewFieldComponent {
    * The value's separator
    */
   @Input() separator: string;
+
+
+  /**
+   * Gets all matching metadata values from hitHighlights or dso metadata.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {MetadataValue[]} the matching values or an empty array.
+   */
+  allMetadata(keyOrKeys: string | string[]): MetadataValue[] {
+    const dsoMetadata: MetadataValue[] = Metadata.all([this.item.metadata], keyOrKeys);
+    const highlights: MetadataValue[] = Metadata.all([this.object.hitHighlights], keyOrKeys);
+    const removedHighlights: string[] = highlights.map(mv => mv.value.replace(/<\/?em>/g, ''));
+    for (let i = 0; i < removedHighlights.length; i++) {
+      const index = dsoMetadata.findIndex(mv => mv.value === removedHighlights[i]);
+      if (index !== -1) {
+        dsoMetadata[index] = highlights[i];
+      }
+    }
+    return dsoMetadata;
+  }
 
   /**
    * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.

@@ -44,9 +44,9 @@
           @if (dso.allMetadata(['person.jobTitle']).length > 0) {
             <span
               class="item-list-job-title">
-              @for (value of allMetadataValues(['person.jobTitle']); track value; let last = $last) {
+              @for (value of allMetadata(['person.jobTitle']); track value; let last = $last) {
                 <span>
-                  <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
+                  <span [dsMetadata]="value"><span [dsMetadata]="value"></span></span>
                 </span>
               }
             </span>

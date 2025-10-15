@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
@@ -34,6 +35,25 @@ export class SearchResultDetailElementComponent<T extends SearchResult<K>, K ext
   }
 
   /**
+   * Gets all matching metadata values from hitHighlights or dso metadata.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {MetadataValue[]} the matching values or an empty array.
+   */
+  allMetadata(keyOrKeys: string | string[]): MetadataValue[] {
+    const dsoMetadata: MetadataValue[] = Metadata.all([this.dso.metadata], keyOrKeys);
+    const highlights: MetadataValue[] = Metadata.all([this.object.hitHighlights], keyOrKeys);
+    const removedHighlights: string[] = highlights.map(mv => mv.value.replace(/<\/?em>/g, ''));
+    for (let i = 0; i < removedHighlights.length; i++) {
+      const index = dsoMetadata.findIndex(mv => mv.value === removedHighlights[i]);
+      if (index !== -1) {
+        dsoMetadata[index] = highlights[i];
+      }
+    }
+    return dsoMetadata;
+  }
+
+  /**
    * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
@@ -41,6 +61,16 @@ export class SearchResultDetailElementComponent<T extends SearchResult<K>, K ext
    */
   allMetadataValues(keyOrKeys: string | string[]): string[] {
     return Metadata.allValues([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
+  }
+
+  /**
+   * Gets the first matching metadata value from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {MetadataValue} the first matching value, or `undefined`.
+   */
+  firstMetadata(keyOrKeys: string | string[]): MetadataValue {
+    return Metadata.first([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
   /**

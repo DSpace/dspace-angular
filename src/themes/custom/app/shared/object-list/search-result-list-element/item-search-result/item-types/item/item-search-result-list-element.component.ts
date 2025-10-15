@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 
 import { Context } from '../../../../../../../../../app/core/shared/context.model';
 import { ViewMode } from '../../../../../../../../../app/core/shared/view-mode.model';
+import { MetadataDirective } from '../../../../../../../../../app/shared/metadata.directive';
 import { ThemedBadgesComponent } from '../../../../../../../../../app/shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../../../../../app/shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -26,6 +27,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../../../app/thumbna
   standalone: true,
   imports: [
     AsyncPipe,
+    MetadataDirective,
     NgClass,
     RouterLink,
     ThemedBadgesComponent,

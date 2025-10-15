@@ -21,6 +21,7 @@ import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { MetadataDirective } from '../../../../../shared/metadata.directive';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -39,6 +40,7 @@ import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-uni
   standalone: true,
   imports: [
     FormsModule,
+    MetadataDirective,
     OrgUnitInputSuggestionsComponent,
   ],
 })
