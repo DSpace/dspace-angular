@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
+  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '../empty.util';
@@ -110,6 +111,9 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    */
   public instantiateComponent(): void {
     const component: GenericConstructor<T> = this.getComponent();
+    if (hasNoValue(component)) {
+      return;
+    }
 
     const viewContainerRef: ViewContainerRef = this.componentViewContainerRef;
     viewContainerRef.clear();
