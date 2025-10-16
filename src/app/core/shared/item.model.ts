@@ -82,6 +82,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
     mappedCollections: HALLink;
     relationships: HALLink;
     bundles: HALLink;
+    bibliography: HALLink;
     owningCollection: HALLink;
     templateItemOf: HALLink;
     version: HALLink;
@@ -130,8 +131,8 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * The access status for this Item
    * Will be undefined unless the access status {@link HALLink} has been resolved.
    */
-   @link(ACCESS_STATUS, false, 'accessStatus')
-     accessStatus?: Observable<RemoteData<AccessStatusObject>>;
+  @link(ACCESS_STATUS, false, 'accessStatus')
+  accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   /**
    * The identifier data for this Item

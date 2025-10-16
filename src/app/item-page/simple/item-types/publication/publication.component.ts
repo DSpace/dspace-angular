@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ItemPageBibliographyComponent } from 'src/app/item-page/simple/field-components/specific-field/bibliography/item-page-bibliography.component';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -44,6 +45,7 @@ import { ItemComponent } from '../shared/item.component';
     GenericItemPageFieldComponent,
     GeospatialItemPageFieldComponent,
     ItemPageAbstractFieldComponent,
+    ItemPageBibliographyComponent,
     ItemPageDateFieldComponent,
     ItemPageUriFieldComponent,
     MetadataFieldWrapperComponent,

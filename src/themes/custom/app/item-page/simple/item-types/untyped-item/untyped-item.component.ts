@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ItemPageBibliographyComponent } from 'src/app/item-page/simple/field-components/specific-field/bibliography/item-page-bibliography.component';
 
 import { Context } from '../../../../../../../app/core/shared/context.model';
 import { Item } from '../../../../../../../app/core/shared/item.model';
@@ -47,6 +48,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     GenericItemPageFieldComponent,
     GeospatialItemPageFieldComponent,
     ItemPageAbstractFieldComponent,
+    ItemPageBibliographyComponent,
     ItemPageCcLicenseFieldComponent,
     ItemPageDateFieldComponent,
     ItemPageUriFieldComponent,

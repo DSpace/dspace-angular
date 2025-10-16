@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ItemPageBibliographyComponent } from 'src/app/item-page/simple/field-components/specific-field/bibliography/item-page-bibliography.component';
 
 import { CollectionAdminSearchResultGridElementComponent } from '../../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 import { CommunityAdminSearchResultGridElementComponent } from '../../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
@@ -219,6 +220,7 @@ const ENTRY_COMPONENTS = [
     TruncatableComponent,
     TruncatablePartComponent,
     ThumbnailComponent,
+    ItemPageBibliographyComponent,
     BadgesComponent,
     ThemedBadgesComponent,
     ItemDetailPreviewComponent,

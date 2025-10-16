@@ -68,6 +68,7 @@ import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
+import { BIBLIOGRAPHY } from './shared/bibliography/bibliography.resource-type';
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
@@ -88,6 +89,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUBSCRIPTION.value, () => import('../shared/subscriptions/subscriptions-data.service').then(m => m.SubscriptionsDataService)],
   [COMMUNITY.value, () => import('./data/community-data.service').then(m => m.CommunityDataService)],
   [VOCABULARY.value, () => import('./submission/vocabularies/vocabulary.data.service').then(m => m.VocabularyDataService)],
+  [BIBLIOGRAPHY.value, () => import('./data/bibliography-data.service').then(m => m.ItemBibliographyService)],
   [BUNDLE.value, () => import('./data/bundle-data.service').then(m => m.BundleDataService)],
   [CONFIG_PROPERTY.value, () => import('./data/configuration-data.service').then(m => m.ConfigurationDataService)],
   [POOL_TASK.value, () => import('./tasks/pool-task-data.service').then(m => m.PoolTaskDataService)],
