@@ -189,8 +189,8 @@ export abstract class InitService {
         .map((a) => a.code),
     );
 
-    // Load the default language from the config file
-    // translate.setDefaultLang(environment.defaultLanguage);
+    // Load the fallback language from the config file
+    // translate.setFallbackLang(environment.fallbackLanguage);
 
     this.localeService.setCurrentLanguageCode();
   }

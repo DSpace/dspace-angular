@@ -39,7 +39,7 @@ describe('DsDynamicFormArrayComponent', () => {
     instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   let component: DsDynamicFormArrayComponent;

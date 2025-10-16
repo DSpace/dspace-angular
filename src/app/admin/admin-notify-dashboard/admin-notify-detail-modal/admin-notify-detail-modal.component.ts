@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -7,13 +6,9 @@ import {
 } from '@angular/core';
 import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
 
 @Component({
   selector: 'ds-admin-notify-detail-modal',
@@ -22,7 +17,7 @@ import { MissingTranslationHelper } from '../../../shared/translate/missing-tran
     fadeIn,
   ],
   imports: [
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 /**
@@ -42,9 +37,9 @@ export class AdminNotifyDetailModalComponent {
   public isCoarMessageVisible = false;
 
 
-  constructor(protected activeModal: NgbActiveModal,
-              public translationsService: TranslateService) {
-    this.translationsService.missingTranslationHandler = new MissingTranslationHelper();
+  constructor(
+    protected activeModal: NgbActiveModal,
+  ) {
   }
 
 

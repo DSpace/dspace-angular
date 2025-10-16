@@ -76,7 +76,7 @@ describe('ExternalLogInComponent', () => {
     instant: (key: any) => 'Info Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
