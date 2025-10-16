@@ -68,6 +68,8 @@ import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { LiveRegionService } from '../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../live-region/live-region.service.stub';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormBuilderService } from '../form-builder.service';
@@ -240,6 +242,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents().then(() => {

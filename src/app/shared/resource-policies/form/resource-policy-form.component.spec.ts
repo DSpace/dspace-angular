@@ -57,6 +57,8 @@ import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
+import { LiveRegionService } from '../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../live-region/live-region.service.stub';
 import { getMockFormService } from '../../mocks/form-service.mock';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RouterMock } from '../../mocks/router.mock';
@@ -237,6 +239,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         provideMockStore({}),
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
