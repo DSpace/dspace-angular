@@ -101,7 +101,7 @@ describe('LangSwitchComponent', () => {
         .then(() => {
           translate = TestBed.inject(TranslateService);
           translate.addLangs(mockConfig.languages.filter((langConfig: LangConfig) => langConfig.active === true).map((a) => a.code));
-          translate.setDefaultLang('en');
+          translate.setFallbackLang('en');
           translate.use('en');
           http = TestBed.inject(HttpTestingController);
           fixture = TestBed.createComponent(LangSwitchComponent);
@@ -147,7 +147,7 @@ describe('LangSwitchComponent', () => {
     });
   });
 
-  describe('with English as the only active and also default language', () => {
+  describe('with English as the only active and also fallback language', () => {
 
     let component: LangSwitchComponent;
     let fixture: ComponentFixture<LangSwitchComponent>;
@@ -185,7 +185,7 @@ describe('LangSwitchComponent', () => {
       }).compileComponents();
       translate = TestBed.inject(TranslateService);
       translate.addLangs(mockConfig.languages.filter((MyLangConfig) => MyLangConfig.active === true).map((a) => a.code));
-      translate.setDefaultLang('en');
+      translate.setFallbackLang('en');
       translate.use('en');
       http = TestBed.inject(HttpTestingController);
     }));
