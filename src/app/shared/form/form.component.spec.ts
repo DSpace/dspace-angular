@@ -245,7 +245,7 @@ describe('FormComponent test suite', () => {
     it('should dispatch a FormStatusChangeAction when Form group status changes', () => {
       const control = formComp.formGroup.get(['dc_title']);
       control.setValue('Test Title');
-      expect(store.dispatch).toHaveBeenCalledWith(new FormStatusChangeAction('testForm', formComp.formGroup.valid));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormStatusChangeAction('testForm', formComp.formGroup.valid));
     });
 
     it('should display form errors when errors are added to the state', () => {
@@ -291,7 +291,7 @@ describe('FormComponent test suite', () => {
 
       formComp.onChange(event);
 
-      expect(store.dispatch).toHaveBeenCalledWith(new FormChangeAction('testForm', service.getValueFromModel(formComp.formModel)));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormChangeAction('testForm', service.getValueFromModel(formComp.formModel)));
       expect(formComp.change.emit).toHaveBeenCalled();
     }));
 
@@ -439,7 +439,7 @@ describe('FormComponent test suite', () => {
     it('should dispatch FormChangeAction when an item has been added to an array', inject([FormBuilderService], (service: FormBuilderService) => {
       formComp.insertItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 0);
 
-      expect(store.dispatch).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
     }));
 
     it('should emit addArrayItem Event when an item has been added to an array', inject([FormBuilderService], (service: FormBuilderService) => {
@@ -453,7 +453,7 @@ describe('FormComponent test suite', () => {
     it('should dispatch FormChangeAction when an item has been removed from an array', inject([FormBuilderService], (service: FormBuilderService) => {
       formComp.removeItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 0);
 
-      expect(store.dispatch).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
     }));
 
     it('should emit removeArrayItem Event when an item has been removed from an array', inject([FormBuilderService], (service: FormBuilderService) => {
