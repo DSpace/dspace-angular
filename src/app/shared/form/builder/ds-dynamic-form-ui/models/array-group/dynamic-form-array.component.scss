@@ -16,6 +16,14 @@
   margin-left: calc(-2.3 * var(--bs-spacer));
   margin-right: calc(-0.5 * var(--bs-spacer));
   padding-right: calc(0.5 * var(--bs-spacer));
+  > .col {
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+  .cdk-drag-handle {
+      width: calc(2 * var(--bs-spacer));
+  }
+
   .drag-icon {
     width: calc(2 * var(--bs-spacer));
     color: var(--bs-gray-600);
