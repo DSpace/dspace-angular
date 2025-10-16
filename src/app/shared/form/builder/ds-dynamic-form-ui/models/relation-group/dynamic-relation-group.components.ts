@@ -275,11 +275,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
-              if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
+              if (isObject(valueObj[fieldName]) && (valueObj[fieldName] as any).hasAuthority() && isNotEmpty((valueObj[fieldName] as any).authority)) {
                 const fieldId = fieldName.replace(/\./g, '_');
                 const model = this.formBuilderService.findById(fieldId, this.formModel);
                 return$ = this.vocabularyService.findEntryDetailById(
-                  valueObj[fieldName].authority,
+                  (valueObj[fieldName] as any).authority,
                   (model as any).vocabularyOptions.name,
                 ).pipe(
                   getFirstSucceededRemoteDataPayload(),
