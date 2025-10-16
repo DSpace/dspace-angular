@@ -75,7 +75,7 @@ describe('DsDatePickerComponent test suite', () => {
       get: () => of('test-message'),
       onLangChange: new EventEmitter(),
       onTranslationChange: new EventEmitter(),
-      onDefaultLangChange: new EventEmitter(),
+      onFallbackLangChange: new EventEmitter(),
     };
 
     TestBed.configureTestingModule({
