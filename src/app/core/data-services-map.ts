@@ -38,6 +38,7 @@ import { ORCID_QUEUE } from './orcid/model/orcid-queue.resource-type';
 import { RESEARCHER_PROFILE } from './profile/model/researcher-profile.resource-type';
 import { RESOURCE_POLICY } from './resource-policy/models/resource-policy.resource-type';
 import { AUTHORIZATION } from './shared/authorization.resource-type';
+import { BIBLIOGRAPHY } from './shared/bibliography/bibliography.resource-type';
 import { BITSTREAM } from './shared/bitstream.resource-type';
 import { BITSTREAM_FORMAT } from './shared/bitstream-format.resource-type';
 import { BROWSE_DEFINITION } from './shared/browse-definition.resource-type';
@@ -68,7 +69,6 @@ import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
-import { BIBLIOGRAPHY } from './shared/bibliography/bibliography.resource-type';
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
