@@ -56,20 +56,20 @@
   "private": true,
   "overrides": {
     "@kolkov/ngx-gallery": {
-      "@angular/animations": "^19.2.15",
-      "@angular/common": "^19.2.15",
-      "@angular/core": "^19.2.15"
+      "@angular/animations": "^20.3.12",
+      "@angular/common": "^20.3.12",
+      "@angular/core": "^20.3.12"
     },
     "@ng-bootstrap/ng-bootstrap": {
-      "@angular/common": "^19.2.15",
-      "@angular/core": "^19.2.15",
-      "@angular/forms": "^19.2.15",
-      "@angular/localize": "^19.2.15"
+      "@angular/common": "^20.3.12",
+      "@angular/core": "^20.3.12",
+      "@angular/forms": "^20.3.12",
+      "@angular/localize": "^20.3.12"
     },
     "@ng-dynamic-forms/core": {
-      "@angular/common": "^19.2.15",
-      "@angular/core": "^19.2.15",
-      "@angular/forms": "^19.2.15"
+      "@angular/common": "^20.3.12",
+      "@angular/core": "^20.3.12",
+      "@angular/forms": "^20.3.12"
     },
     "@ng-dynamic-forms/ui-ng-bootstrap": {
       "ngx-mask": "14.2.4",
@@ -77,13 +77,13 @@
       "bootstrap": "^5.3"
     },
     "@nicky-lenaers/ngx-scroll-to": {
-      "@angular/common": "^19.2.15",
-      "@angular/core": "^19.2.15"
+      "@angular/common": "^20.3.12",
+      "@angular/core": "^20.3.12"
     }
   },
   "dependencies": {
     "@angular/animations": "^20.3.12",
-    "@angular/cdk": "^19.2.19",
+    "@angular/cdk": "^20.2.13",
     "@angular/common": "^20.3.12",
     "@angular/compiler": "^20.3.12",
     "@angular/core": "^20.3.12",
@@ -98,13 +98,13 @@
     "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "@ng-dynamic-forms/core": "^16.0.0",
     "@ng-dynamic-forms/ui-ng-bootstrap": "^16.0.0",
-    "@ngrx/effects": "^19.2.1",
-    "@ngrx/router-store": "^19.2.1",
-    "@ngrx/store": "^19.2.1",
+    "@ngrx/effects": "^20.1.0",
+    "@ngrx/router-store": "^20.1.0",
+    "@ngrx/store": "^20.1.0",
     "@ngx-translate/core": "^17.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
     "@terraformer/wkt": "^2.2.1",
-    "altcha": "^0.9.0",
+    "altcha": "^2.2.4",
     "angulartics2": "^12.2.0",
     "body-parser": "^1.20.3",
     "bootstrap": "^5.3",
@@ -140,10 +140,10 @@
     "mirador-dl-plugin": "^0.13.0",
     "mirador-share-plugin": "^0.16.0",
     "morgan": "^1.10.1",
-    "ng2-file-upload": "8.0.0",
+    "ng2-file-upload": "9.0.0",
     "ng2-nouislider": "^2.0.0",
-    "ngx-infinite-scroll": "^19.0.0",
-    "ngx-matomo-client": "^7.1.0",
+    "ngx-infinite-scroll": "^20.0.0",
+    "ngx-matomo-client": "^8.0.0",
     "ngx-pagination": "6.0.3",
     "ngx-skeleton-loader": "^11.3.0",
     "ngx-ui-switch": "^16.1.0",
@@ -159,19 +159,19 @@
   "devDependencies": {
     "@angular-builders/custom-webpack": "~20.0.0",
     "@angular-devkit/build-angular": "^20.3.10",
-    "@angular-eslint/builder": "^20.5.1",
-    "@angular-eslint/bundled-angular-compiler": "^20.5.1",
-    "@angular-eslint/eslint-plugin": "^20.5.1",
-    "@angular-eslint/eslint-plugin-template": "^20.5.1",
-    "@angular-eslint/schematics": "^20.5.1",
-    "@angular-eslint/template-parser": "^20.5.1",
-    "@angular-eslint/utils": "^20.5.1",
+    "@angular-eslint/builder": "^20.6.0",
+    "@angular-eslint/bundled-angular-compiler": "^20.6.0",
+    "@angular-eslint/eslint-plugin": "^20.6.0",
+    "@angular-eslint/eslint-plugin-template": "^20.6.0",
+    "@angular-eslint/schematics": "^20.6.0",
+    "@angular-eslint/template-parser": "^20.6.0",
+    "@angular-eslint/utils": "^20.6.0",
     "@angular/cli": "^20.3.10",
     "@angular/compiler-cli": "^20.3.12",
     "@cypress/schematic": "^1.5.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@ngrx/store-devtools": "^19.2.1",
-    "@ngtools/webpack": "^19.2.18",
+    "@ngrx/store-devtools": "^20.1.0",
+    "@ngtools/webpack": "^20.3.10",
     "@types/deep-freeze": "0.1.5",
     "@types/ejs": "^3.1.2",
     "@types/express": "^4.17.17",
@@ -179,7 +179,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/js-cookie": "3.0.6",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^18.19.124",
+    "@types/node": "^20.19.25",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@typescript-eslint/rule-tester": "^7.18.0",
@@ -227,7 +227,7 @@
     "sass-loader": "^12.6.0",
     "sass-resources-loader": "^2.2.5",
     "ts-node": "^8.10.2",
-    "typescript": "~5.8.3",
+    "typescript": "~5.9.3",
     "webpack": "^5.54.0",
     "webpack-cli": "^6.0.1"
   }
