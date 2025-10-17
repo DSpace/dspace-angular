@@ -1,6 +1,7 @@
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
 import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
@@ -16,7 +17,7 @@ import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
  * Class to return UpdateDataServiceImpl for given ResourceType
  */
 export class MyDSpaceActionsServiceFactory<T extends CacheableObject, TService extends IdentifiableDataService<T>> {
-  public getConstructor(type: ResourceType): TService {
+  public getConstructor(type: ResourceType): GenericConstructor<TService> {
     switch (type) {
       case Item.type: {
         return ItemDataService as any;

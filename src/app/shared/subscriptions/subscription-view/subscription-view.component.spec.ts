@@ -1,41 +1,27 @@
-// Import modules
-import { CommonModule } from '@angular/common';
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
-  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
-  ComponentFixtureAutoDetect,
   TestBed,
 } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { By } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
-import { getMockThemeService } from '../../mocks/theme-service.mock';
-// Import mocks
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-// Import utils
 import { NotificationsService } from '../../notifications/notifications.service';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
 } from '../../testing/subscriptions-data.mock';
-import { ThemeService } from '../../theme-support/theme.service';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionViewComponent } from './subscription-view.component';
@@ -44,8 +30,15 @@ describe('SubscriptionViewComponent', () => {
   let component: SubscriptionViewComponent;
   let fixture: ComponentFixture<SubscriptionViewComponent>;
   let de: DebugElement;
-  let modalService;
 
+  let modalService: NgbModal = jasmine.createSpyObj('modalService', {
+    open: {
+      componentInstance: {
+        updateSubscription: of(),
+        response: of(),
+      },
+    },
+  });
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
     getSubscriptionByPersonDSO: of(findByEPersonAndDsoResEmpty),
     deleteSubscription: createSuccessfulRemoteDataObject$({}),
@@ -68,28 +61,25 @@ describe('SubscriptionViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        NgbModule,
-        ReactiveFormsModule,
-        BrowserModule,
-        RouterTestingModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
         SubscriptionViewComponent,
       ],
       providers: [
-        { provide: ComponentFixtureAutoDetect, useValue: true },
-        { provide: NotificationsService, useValue: NotificationsServiceStub },
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
-        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: NgbModal, useValue: modalService },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
+    }).overrideComponent(SubscriptionViewComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+      remove: {
+        imports: [
+          ThemedTypeBadgeComponent,
+        ],
+      },
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -125,9 +115,6 @@ describe('SubscriptionViewComponent', () => {
   });
 
   it('should open modal when clicked edit button', () => {
-    modalService = (component as any).modalService;
-    const modalSpy = spyOn(modalService, 'open');
-
     const editBtn = de.query(By.css('.btn-outline-primary')).nativeElement;
     editBtn.click();
 
