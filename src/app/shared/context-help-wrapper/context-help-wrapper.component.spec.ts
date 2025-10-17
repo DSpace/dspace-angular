@@ -9,8 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+import {
+  NgbTooltipModule,
+  Placement,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -44,7 +46,7 @@ import { PlacementDir } from './placement-dir.model';
 class TemplateComponent {
   @Input() content: string;
   @Input() id: string;
-  @Input() tooltipPlacement?: PlacementArray;
+  @Input() tooltipPlacement?: Placement[];
   @Input() iconPlacement?: PlacementDir;
   @Input() dontParseLinks?: boolean;
 }

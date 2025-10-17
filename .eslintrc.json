@@ -175,6 +175,7 @@
             "ignoreParameters": true
           }
         ],
+        "@angular-eslint/prefer-inject": "off",
         "@typescript-eslint/quotes": [
           "error",
           "single",
