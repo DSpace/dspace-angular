@@ -1,12 +1,12 @@
 import {
   AsyncPipe,
-  DOCUMENT,
   isPlatformBrowser,
 } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
   HostListener,
   Inject,
   OnInit,
