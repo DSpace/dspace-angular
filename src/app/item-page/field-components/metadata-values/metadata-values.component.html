@@ -14,14 +14,14 @@
 
 <!-- Render value as markdown -->
 <ng-template #markdown let-value="value" let-lang="lang">
-  <span class="dont-break-out" [dsMarkdown]="value" [attr.lang]="lang">
+  <span class="dont-break-out" [dsMarkdown]="value" [attr.lang]="lang | dsNormalizeLanguageCode">
   </span>
 </ng-template>
 
 <!-- Render value as a link (href and label) -->
 <ng-template #link let-value="value" let-lang="lang">
   <a class="dont-break-out ds-simple-metadata-link"
-    [attr.lang]="lang"
+    [attr.lang]="lang | dsNormalizeLanguageCode"
     [href]="value"
     [attr.target]="getLinkAttributes(value).target"
     [attr.rel]="getLinkAttributes(value).rel" role="link" tabindex="0">
@@ -32,7 +32,7 @@
 <!-- Render value as a link with icon -->
 <ng-template #linkImg let-img="img" let-value="value" let-lang="lang">
   <a [href]="value" class="link-anchor dont-break-out ds-simple-metadata-link"
-     target="_blank" role="link" tabindex="0" [attr.lang]="lang">
+     target="_blank" role="link" tabindex="0" [attr.lang]="lang | dsNormalizeLanguageCode">
     <img class="link-logo"
       [alt]="img.alt | translate"
       [style.height]="'var(' + img.heightVar + ', --ds-item-page-img-field-default-inline-height)'"
@@ -43,13 +43,13 @@
 
 <!-- Render simple value in a span  -->
 <ng-template #simple let-value="value" let-lang="lang">
-  <span class="dont-break-out preserve-line-breaks" [attr.lang]="lang">{{value}}</span>
+  <span class="dont-break-out preserve-line-breaks" [attr.lang]="lang | dsNormalizeLanguageCode">{{value}}</span>
 </ng-template>
 
 <!-- Render value as a link to browse index -->
 <ng-template #browselink let-value="value" let-lang="lang">
   <a class="dont-break-out preserve-line-breaks ds-browse-link"
-     [attr.lang]="lang"
+     [attr.lang]="lang | dsNormalizeLanguageCode"
      [routerLink]="['/browse', browseDefinition.id]"
      [queryParams]="getQueryParams(value)" role="link" tabindex="0">{{ value }}</a>
 </ng-template>

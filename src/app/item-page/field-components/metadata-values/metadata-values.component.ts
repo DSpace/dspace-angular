@@ -23,6 +23,7 @@ import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-br
 import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
+import { NormalizeLanguageCodePipe } from '../../../shared/utils/normalize-language-code.pipe';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';
 
 /**
@@ -39,6 +40,7 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
     MarkdownDirective,
     MetadataFieldWrapperComponent,
     NgTemplateOutlet,
+    NormalizeLanguageCodePipe,
     RouterLink,
     TranslateModule,
   ],

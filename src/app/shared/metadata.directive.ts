@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 
 import { MetadataValue } from '../core/shared/metadata.models';
+import { normalizeLanguageCode } from './utils/normalize-language-code-utils';
 
 /**
  * A directive that sets the innerHTML and lang attribute of the host element
@@ -61,7 +62,8 @@ export class MetadataDirective {
       const val = this._metadataValue.value ?? '';
       this.renderer.setProperty(this.el.nativeElement, 'innerHTML', val);
       if (this._metadataValue.language) {
-        this.renderer.setAttribute(this.el.nativeElement, 'lang', this._metadataValue.language);
+        const normalizedLang = normalizeLanguageCode(this._metadataValue.language);
+        this.renderer.setAttribute(this.el.nativeElement, 'lang', normalizedLang);
       } else {
         this.renderer.removeAttribute(this.el.nativeElement, 'lang');
       }

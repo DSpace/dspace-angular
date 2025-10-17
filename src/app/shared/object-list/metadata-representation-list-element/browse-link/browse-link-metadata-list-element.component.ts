@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
+import { NormalizeLanguageCodePipe } from '../../../utils/normalize-language-code.pipe';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
@@ -10,6 +11,7 @@ import { MetadataRepresentationListElementComponent } from '../metadata-represen
   templateUrl: './browse-link-metadata-list-element.component.html',
   standalone: true,
   imports: [
+    NormalizeLanguageCodePipe,
     RouterLink,
   ],
 })
