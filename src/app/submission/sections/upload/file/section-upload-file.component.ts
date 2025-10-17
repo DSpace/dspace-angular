@@ -18,8 +18,10 @@ import {
   hasValue,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import {
+  NgbModal,
+  NgbModalOptions,
+} from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
