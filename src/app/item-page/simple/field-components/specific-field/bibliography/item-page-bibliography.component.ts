@@ -7,11 +7,11 @@ import {
   NgbModalModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Item } from '../../../../../core/shared/item.model';
 
+import { ItemBibliographyService } from '../../../../../core/data/bibliography-data.service';
 import { Bibliography } from '../../../../../core/shared/bibliography/bibliography.model';
 import { BibliographyData } from '../../../../../core/shared/bibliography/bibliography-data.model';
-import { ItemBibliographyService } from '../../../../../core/data/bibliography-data.service';
+import { Item } from '../../../../../core/shared/item.model';
 
 
 @Component({
@@ -45,11 +45,11 @@ export class ItemPageBibliographyComponent {
         this.loading = false;
         this.modalService.open(content, { size: 'lg' });
       },
-      error: (err) => {
+      error: (err: unknown) => {
         this.loading = false;
         this.error = true;
         console.error(err);
-      }
+      },
     });
   }
 
