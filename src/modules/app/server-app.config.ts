@@ -12,7 +12,7 @@ import {
   TransferState,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideServerRendering } from '@angular/platform-server';
+import { provideServerRendering } from '@angular/ssr';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { ServerAuthService } from '@dspace/core/auth/server-auth.service';

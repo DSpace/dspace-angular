@@ -123,8 +123,8 @@ describe('MyDSpaceReloadableActionsComponent', () => {
     component.item = item;
     component.object = mockObject;
     component.workflowitem = workflowitem;
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    router = TestBed.get(Router);
+    notificationsServiceStub = TestBed.inject(NotificationsService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 

@@ -1,9 +1,7 @@
-import {
-  DOCUMENT,
-  NgClass,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
+  DOCUMENT,
   EventEmitter,
   HostListener,
   Inject,
