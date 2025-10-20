@@ -60,42 +60,52 @@
               [collectionSize]="collectionSize"
               [disabled]="paginationOptions.disabled"
               [ellipses]="paginationOptions.ellipses"
-              [maxSize]="(isXs)?(paginationOptions.maxSize/2):paginationOptions.maxSize"
+              [maxSize]="isXs ? (paginationOptions.maxSize/2) : paginationOptions.maxSize"
               [page]="(currentPage$|async)"
               (pageChange)="doPageChange($event)"
               [pageSize]="(pageSize$ |async)"
-              [rotate]="enablePaginationInput || paginationOptions.rotate"
-              [size]="(isXs)?'sm':paginationOptions.size">
-              @if (enablePaginationInput) {
+              [rotate]="paginationOptions.enablePaginationInput || paginationOptions.rotate"
+              [size]="isXs ? 'sm' : paginationOptions.size">
+              @if (paginationOptions.enablePaginationInput) {
                 <ng-template ngbPaginationPages let-page let-pages="pages">
                   @for (p of pages; track p) {
-                    <li class="page-item" [ngClass]="{disabled: p === -1}" [attr.data-test]="'page-' + p">
+                    <li class="page-item" [ngClass]="{disabled: !paginationOptions.enablePaginationInput && p === -1, active: p === page}" [attr.data-test]="'page-' + p">
                       @if (p === -1) {
-                        <a class="page-link" disabled>...</a>
-                      } @else if (p !== -1 && p !== page) {
                         <button class="page-link"
+                                [attr.data-test]="'page-input-button'"
+                                [dsBtnDisabled]="!paginationOptions.enablePaginationInput"
+                                [ngbPopover]="paginationInputPopover"
+                                [autoClose]="'outside'"
+                        >
+                          ...
+                        </button>
+                        <ng-template #paginationInputPopover>
+                          <span class="px-1 input-group flex-nowrap h-100">
+                            <input
+                              #input
+                              type="text"
+                              inputmode="numeric"
+                              pattern="[0-9]*"
+                              class="form-control border-info page-input"
+                              id="paginationInput"
+                              [placeholder]="'pagination.page' | translate"
+                              (keyup.enter)="selectPage(input.value)"
+                              (blur)="selectPage(input.value)"
+                              (input)="formatInput($any($event).target)"
+                              aria-label="Page input"
+                            />
+                            <button class="btn btn-outline-info search-button" type="button" (click)="selectPage(input.value)" tabindex="0" [attr.aria-label]="'paginator.go-to-page' | translate">
+                              {{'pagination.go-to-page' | translate}}
+                            </button>
+                          </span>
+                        </ng-template>
+                      } @else if (page !== p) {
+                        <button class="page-link"
+                                [dsBtnDisabled]="p === page"
                                 [attr.aria-label]="'pagination-control.page-number-bar' | translate: {page: p}"
                                 (click)="selectPage(p)">{{p}}</button>
-                      } @else if (p === page) {
-                        <div class="px-1 input-group flex-nowrap h-100">
-                          <input
-                            #input
-                            type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            class="form-control border-info page-input"
-                            id="paginationInput"
-                            [value]="page"
-                            (keyup.enter)="selectPage(input.value)"
-                            (blur)="selectPage(input.value)"
-                            (input)="formatInput($any($event).target)"
-                            aria-label="Page input"
-                            [ngStyle]="{'width': ((pages[pages.length - 1] + '').length + 3) + 'ch'}"
-                          />
-                          <button class="btn btn-outline-info search-button" type="button" (click)="selectPage(input.value)" tabindex="0" aria-label="Go to page">
-                            <i class="fas fa-search"></i>
-                          </button>
-                        </div>
+                      } @else {
+                        <a class="page-link" aria-current="page">{{p}}</a>
                       }
                     </li>
                   }

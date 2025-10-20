@@ -19,6 +19,7 @@ import {
 import {
   NgbDropdownModule,
   NgbPaginationModule,
+  NgbPopoverModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -76,6 +77,7 @@ interface PaginationDetails {
     EnumKeysPipe,
     NgbDropdownModule,
     NgbPaginationModule,
+    NgbPopoverModule,
     NgbTooltipModule,
     NgClass,
     NgStyle,
@@ -123,11 +125,6 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * The current sorting configuration
    */
   @Input() sortConfig: SortOptions;
-
-  /**
-   * Whether or not the pagination should show an input field to select the page number.
-   */
-  @Input() enablePaginationInput = false;
 
   /**
    * An event fired when the page is changed.

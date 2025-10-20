@@ -203,7 +203,6 @@ describe('Pagination component', () => {
                      [paginationOptions]='paginationOptions'
                      [sortOptions]='sortOptions'
                      [collectionSize]='collectionSize'
-                     [enablePaginationInput]="false"
                      (pageChange)='pageChanged($event)'
                      (pageSizeChange)='pageSizeChanged($event)'
                       >
@@ -214,6 +213,7 @@ describe('Pagination component', () => {
       </ds-pagination>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+      testComp.paginationOptions.enablePaginationInput = false;
       testComp.paginationOptions.maxSize = 10;
 
       testFixture.detectChanges();
@@ -338,7 +338,6 @@ describe('Pagination component', () => {
                      (pageChange)='pageChanged($event)'
                      (pageSizeChange)='pageSizeChanged($event)'
                      [showPaginator]='false'
-                     [enablePaginationInput]="false"
                      [objects]='objects'
                      (prev)="goPrev()"
                      (next)="goNext()"
@@ -434,8 +433,7 @@ describe('Pagination component', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(PaginationComponent);
       component = fixture.componentInstance;
-      component.enablePaginationInput = true;
-      component.collectionSize = 100;
+      component.collectionSize = 200;
       component.paginationOptions = {
         id: 'test',
         currentPage: 5,
@@ -448,44 +446,16 @@ describe('Pagination component', () => {
         rotate: false,
         size: 'lg',
         disabled: false,
+        enablePaginationInput: true,
       };
       fixture.detectChanges();
     });
 
-    it('should render the input field on the active page', () => {
+    it('should enable click on "..." button', () => {
       fixture.detectChanges();
-      const input = fixture.debugElement.nativeElement.querySelector('input#paginationInput');
-      expect(input).toBeTruthy();
-      expect(input.type).toBe('text');
-    });
-
-    it('should set the input width to match the number of digits of the last page plus 3 (in ch)', () => {
-      fixture.detectChanges();
-      const input = fixture.debugElement.nativeElement.querySelector('input#paginationInput');
-      // 10 pages, so 2 digits + 3 = 5ch
-      expect(input.style.width).toContain('ch');
-      expect(parseInt(input.style.width, 10)).toBeGreaterThanOrEqual(5);
-    });
-
-    it('should call selectPage when clicking the search button', () => {
-      spyOn(component, 'selectPage');
-      fixture.detectChanges();
-      const button = fixture.debugElement.nativeElement.querySelector('button.search-button');
-      const input = fixture.debugElement.nativeElement.querySelector('input#paginationInput');
-      input.value = '3';
-      button.click();
-      expect(component.selectPage).toHaveBeenCalledWith('3');
-    });
-
-    it('should call selectPage when pressing enter in the input', () => {
-      spyOn(component, 'selectPage');
-      fixture.detectChanges();
-      const input = fixture.debugElement.nativeElement.querySelector('input#paginationInput');
-      input.value = '7';
-      const event = new KeyboardEvent('keyup', { key: 'Enter' });
-      input.dispatchEvent(event);
-      fixture.detectChanges();
-      expect(component.selectPage).toHaveBeenCalledWith('7');
+      const input = fixture.debugElement.query(By.css('[data-test="page-input-button"]'));
+      expect(input).toBeDefined();
+      expect(input.nativeElement.disabled).toBeFalse();
     });
   });
 
