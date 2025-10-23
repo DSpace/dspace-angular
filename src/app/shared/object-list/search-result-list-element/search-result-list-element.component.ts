@@ -41,14 +41,14 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * Gets all matching metadata string values from hitHighlights or dso metadata.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute. Defaults to `true` because we
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute. Defaults to `true` because we
    * always use `[innerHTML]` in the templates to render metadata due to the hit highlights.
    * @returns {string[]} the matching string values or an empty array.
    */
-  allMetadataValues(keyOrKeys: string | string[], injectedAsHTML = true): string[] {
-    let dsoMetadata: string[] = Metadata.allValues(this.dso.metadata, keyOrKeys, this.object.hitHighlights, undefined, injectedAsHTML);
-    let highlights: string[] = Metadata.allValues(this.object.hitHighlights, keyOrKeys);
-    let removedHighlights: string[] = highlights.map(str => str.replace(/<\/?em>/g, ''));
+  allMetadataValues(keyOrKeys: string | string[], escapeHTML = true): string[] {
+    const dsoMetadata: string[] = Metadata.allValues(this.dso.metadata, keyOrKeys, undefined, undefined, escapeHTML);
+    const highlights: string[] = Metadata.allValues({}, keyOrKeys, this.object.hitHighlights, undefined, escapeHTML);
+    const removedHighlights: string[] = highlights.map(str => str.replace(/<\/?em>/g, ''));
     for (let i = 0; i < removedHighlights.length; i++) {
         let index = dsoMetadata.indexOf(removedHighlights[i]);
         if (index !== -1) {
@@ -62,12 +62,12 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * Gets the first matching metadata string value from hitHighlights or dso metadata, preferring hitHighlights.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute. Defaults to `true` because we
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute. Defaults to `true` because we
    * always use `[innerHTML]` in the templates to render metadata due to the hit highlights.
    * @returns {string} the first matching string value, or `undefined`.
    */
-  firstMetadataValue(keyOrKeys: string | string[], injectedAsHTML = true): string {
-    return Metadata.firstValue(this.dso.metadata, keyOrKeys, this.object.hitHighlights, undefined, injectedAsHTML);
+  firstMetadataValue(keyOrKeys: string | string[], escapeHTML = true): string {
+    return Metadata.firstValue(this.dso.metadata, keyOrKeys, this.object.hitHighlights, undefined, escapeHTML);
   }
 
   /**
