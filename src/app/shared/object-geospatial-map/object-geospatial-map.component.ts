@@ -1,7 +1,4 @@
-import {
-  isPlatformBrowser,
-  NgIf,
-} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -33,12 +30,16 @@ import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
   templateUrl: './object-geospatial-map.component.html',
   animations: [fadeIn],
   standalone: true,
-  imports: [ GeospatialMapComponent, NgIf ],
+  imports: [
+    GeospatialMapComponent,
+  ],
 })
 
 /**
  * This component is used with the GeospatialMap ViewMode in search or browse results, and
- * prepares geospatial data collection for display on the GeospatialMapComponent
+ * prepares geospatial data collection for display on the GeospatialMapComponent.
+ *
+ * This component should be used in a `@defer` block to keep geospatial mapping libraries out of the main bundle!
  */
 export class ObjectGeospatialMapComponent {
 

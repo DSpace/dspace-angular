@@ -78,9 +78,9 @@ import {
   styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
   imports: [
+    BtnDisabledDirective,
     FormComponent,
     TranslateModule,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -12,7 +12,9 @@ import { JournalIssueSearchResultGridElementComponent } from '../search-result-g
   styleUrls: ['./journal-issue-grid-element.component.scss'],
   templateUrl: './journal-issue-grid-element.component.html',
   standalone: true,
-  imports: [JournalIssueSearchResultGridElementComponent],
+  imports: [
+    JournalIssueSearchResultGridElementComponent,
+  ],
 })
 /**
  * The component for displaying a grid element for an item of the type Journal Issue

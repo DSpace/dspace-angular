@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
@@ -48,8 +48,8 @@ describe('EpersonRegistrationService', () => {
         { a: Object.assign(new RequestEntry(), { response: new RestResponse(true, 200, 'Success') }) }),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildSingle: observableOf(rd),
-      buildFromRequestUUID: observableOf(rd),
+      buildSingle: of(rd),
+      buildFromRequestUUID: of(rd),
     });
     service = new EpersonRegistrationService(
       requestService,

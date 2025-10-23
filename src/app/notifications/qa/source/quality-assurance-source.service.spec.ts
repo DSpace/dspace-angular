@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   SortDirection,
@@ -43,7 +43,7 @@ describe('QualityAssuranceSourceService', () => {
   beforeEach(() => {
     restService = TestBed.inject(QualityAssuranceSourceDataService);
     restServiceAsAny = restService;
-    restServiceAsAny.getSources.and.returnValue(observableOf(paginatedListRD));
+    restServiceAsAny.getSources.and.returnValue(of(paginatedListRD));
     service = new QualityAssuranceSourceService(restService);
     serviceAsAny = service;
   });

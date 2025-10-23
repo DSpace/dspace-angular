@@ -12,7 +12,6 @@ import {
   NavigationEnd,
   Router,
   RouterLink,
-  RouterLinkActive,
   Scroll,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -59,11 +58,10 @@ export interface ComColPageNavOption {
   styleUrls: ['./comcol-page-browse-by.component.scss'],
   templateUrl: './comcol-page-browse-by.component.html',
   imports: [
+    AsyncPipe,
     FormsModule,
     RouterLink,
-    RouterLinkActive,
     TranslateModule,
-    AsyncPipe,
   ],
   standalone: true,
 })
@@ -149,7 +147,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
     ]).subscribe(([navOptions, url]: [ComColPageNavOption[], string]) => {
       for (const option of navOptions) {
         if (url?.split('?')[0] === comColRoute && option.id === this.appConfig[this.contentType].defaultBrowseTab) {
-          void this.router.navigate([option.routerLink], { queryParams: option.params });
+          void this.router.navigate([option.routerLink], { queryParams: option.params, replaceUrl: true  });
           break;
         } else if (option.routerLink === url?.split('?')[0]) {
           this.currentOption$.next(option);

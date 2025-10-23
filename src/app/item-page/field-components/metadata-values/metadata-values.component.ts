@@ -34,7 +34,14 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgTemplateOutlet, RouterLink, AsyncPipe, TranslateModule, MarkdownDirective],
+  imports: [
+    AsyncPipe,
+    MarkdownDirective,
+    MetadataFieldWrapperComponent,
+    NgTemplateOutlet,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class MetadataValuesComponent implements OnChanges {
 

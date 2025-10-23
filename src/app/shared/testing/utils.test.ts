@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -97,7 +97,7 @@ export function spyOnExported<T>(target: T, prop: keyof T): jasmine.Spy {
  * @param errorMessage
  */
 export function createRequestEntry$(unCacheableObject?: UnCacheableObject, statusCode = 200, errorMessage?: string): Observable<RequestEntry> {
-  return observableOf({
+  return of({
     request: undefined,
     state: RequestEntryState.Success,
     response: {

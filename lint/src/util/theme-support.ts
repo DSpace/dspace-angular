@@ -6,9 +6,11 @@
  * http://www.dspace.org/license/
  */
 
+import { readFileSync } from 'node:fs';
+import { basename } from 'node:path';
+
 import { TSESTree } from '@typescript-eslint/utils';
-import { readFileSync } from 'fs';
-import { basename } from 'path';
+import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 import ts, { Identifier } from 'typescript';
 
 import {
@@ -148,10 +150,10 @@ class ThemeableComponentRegistry {
       traverse(source);
     }
 
-    const glob = require('glob');
+    const { globSync } = require('glob');
 
     // note: this outputs Unix-style paths on Windows
-    const wrappers: string[] = glob.GlobSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' }).found;
+    const wrappers: string[] = globSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' });
 
     for (const wrapper of wrappers) {
       registerWrapper(wrapper);
@@ -262,4 +264,19 @@ export const DISALLOWED_THEME_SELECTORS = 'ds-(base|themed)-';
 
 export function fixSelectors(text: string): string {
   return text.replaceAll(/ds-(base|themed)-/g, 'ds-');
+}
+
+/**
+ * Determine the theme of the current file based on its path in the project.
+ * @param context the current ESLint rule context
+ */
+export function getFileTheme(context: RuleContext<any, any>): string | undefined {
+  // note: shouldn't use plain .filename (doesn't work in DSpace Angular 7.4)
+  const m = context.getFilename()?.match(/\/src\/themes\/([^/]+)\//);
+
+  if (m?.length === 2) {
+    return m[1];
+  }
+
+  return undefined;
 }

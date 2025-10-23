@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { ModifyItemOverviewComponent } from '../../../../../app/item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
@@ -12,10 +12,12 @@ import { WorkflowItemDeleteComponent as BaseComponent } from '../../../../../app
   // templateUrl: './workflow-item-delete.component.html'
   templateUrl: '../../../../../app/workflowitems-edit-page/workflow-item-action-page.component.html',
   standalone: true,
-  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
+  imports: [
+    AsyncPipe,
+    ModifyItemOverviewComponent,
+    TranslatePipe,
+    VarDirective,
+  ],
 })
-/**
- * Component representing a page to delete a workflow item
- */
 export class WorkflowItemDeleteComponent extends BaseComponent {
 }

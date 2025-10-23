@@ -53,6 +53,7 @@ Unit tests are exempt from this rule, because they may redefine components using
       [Message.THEMED]: 'Theme override of themeable component should have a selector starting with \'ds-themed-\'',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 

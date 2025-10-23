@@ -15,7 +15,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
@@ -102,7 +102,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
       fixture = TestBed.createComponent(SubmissionSectionSherpaPoliciesComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(SherpaDataResponse));
+      sectionsServiceStub.getSectionData.and.returnValue(of(SherpaDataResponse));
       fixture.detectChanges();
     }));
 

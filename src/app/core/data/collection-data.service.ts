@@ -77,11 +77,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *                                    requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
+   * @param searchHref                  The backend search endpoint to use (default to submit)
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollection(query: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findSubmitAuthorized';
+  getAuthorizedCollection(query: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, searchHref: string = 'findSubmitAuthorized', ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     options = Object.assign({}, options, {
       searchParams: [new RequestParam('query', query)],
     });

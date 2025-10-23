@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -51,7 +51,7 @@ describe('ExternalSourceService', () => {
       buildList: createSuccessfulRemoteDataObject$(createPaginatedList(entries)),
     });
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: observableOf('external-sources-REST-endpoint'),
+      getEndpoint: of('external-sources-REST-endpoint'),
     });
     service = new ExternalSourceDataService(requestService, rdbService, undefined, halService);
   }
@@ -70,7 +70,7 @@ describe('ExternalSourceService', () => {
     describe('when no error response is cached', () => {
       let result;
       beforeEach(() => {
-        spyOn(service, 'hasCachedErrorResponse').and.returnValue(observableOf(false));
+        spyOn(service, 'hasCachedErrorResponse').and.returnValue(of(false));
         result = service.getExternalSourceEntries('test');
       });
 
@@ -89,7 +89,7 @@ describe('ExternalSourceService', () => {
     describe('when an error response is cached', () => {
       let result;
       beforeEach(() => {
-        spyOn(service, 'hasCachedErrorResponse').and.returnValue(observableOf(true));
+        spyOn(service, 'hasCachedErrorResponse').and.returnValue(of(true));
         result = service.getExternalSourceEntries('test');
       });
 

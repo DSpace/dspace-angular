@@ -26,10 +26,10 @@ import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-
   templateUrl: './suggestion-list-element.component.html',
   animations: [fadeIn],
   imports: [
-    TranslateModule,
     ItemSearchResultListElementComponent,
     SuggestionActionsComponent,
     SuggestionEvidencesComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

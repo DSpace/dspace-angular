@@ -21,7 +21,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -100,13 +100,13 @@ export function getIIIFEnabled(enabled: boolean): MetadataValue {
 
 export const mockRouteService = {
   getPreviousUrl(): Observable<string> {
-    return observableOf('');
+    return of('');
   },
   getQueryParameterValue(): Observable<string> {
-    return observableOf('');
+    return of('');
   },
   getRouteParameterValue(): Observable<string> {
-    return observableOf('');
+    return of('');
   },
 };
 
@@ -131,7 +131,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       };
 
       const authorizationService = jasmine.createSpyObj('authorizationService', {
-        isAuthorized: observableOf(true),
+        isAuthorized: of(true),
       });
 
       relationshipService = jasmine.createSpyObj('relationshipService', {
@@ -535,28 +535,28 @@ describe('ItemComponent', () => {
     }));
 
     it('should hide back button', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf('/item'));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of('/item'));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeFalse();
       });
     });
     it('should show back button for search', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(searchUrl));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
       });
     });
     it('should show back button for browse', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(browseUrl));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(browseUrl));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
       });
     });
     it('should show back button for recent submissions', () => {
-      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(recentSubmissionsUrl));
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(recentSubmissionsUrl));
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();

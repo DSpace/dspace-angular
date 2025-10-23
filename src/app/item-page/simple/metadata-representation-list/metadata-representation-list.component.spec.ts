@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
@@ -99,16 +99,16 @@ describe('MetadataRepresentationListComponent', () => {
     relationshipService = {
       resolveMetadataRepresentation: (metadatum: MetadataValue, parent: DSpaceObject, type: string) => {
         if (metadatum.value === 'Related Author with authority') {
-          return observableOf(Object.assign(new ItemMetadataRepresentation(metadatum), relatedAuthor));
+          return of(Object.assign(new ItemMetadataRepresentation(metadatum), relatedAuthor));
         }
         if (metadatum.value === 'Author without authority') {
-          return observableOf(Object.assign(new MetadatumRepresentation(type), metadatum));
+          return of(Object.assign(new MetadatumRepresentation(type), metadatum));
         }
         if (metadatum.value === 'Related Creator with authority') {
-          return observableOf(Object.assign(new ItemMetadataRepresentation(metadatum), relatedCreator));
+          return of(Object.assign(new ItemMetadataRepresentation(metadatum), relatedCreator));
         }
         if (metadatum.value === 'Related Creator with authority - unauthorized') {
-          return observableOf(Object.assign(new MetadatumRepresentation(type), metadatum));
+          return of(Object.assign(new MetadatumRepresentation(type), metadatum));
         }
       },
     };
@@ -157,7 +157,7 @@ describe('MetadataRepresentationListComponent', () => {
   describe('when decrease is called', () => {
     beforeEach(() => {
       // Add a second page
-      comp.objects.push(observableOf(undefined));
+      comp.objects.push(of(undefined));
       comp.decrease();
     });
 

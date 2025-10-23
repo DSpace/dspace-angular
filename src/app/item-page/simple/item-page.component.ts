@@ -51,7 +51,6 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
@@ -73,19 +72,18 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
   animations: [fadeInOut],
   standalone: true,
   imports: [
-    VarDirective,
-    ThemedItemAlertsComponent,
-    ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
-    ListableObjectComponentLoaderComponent,
-    ItemVersionsComponent,
-    ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
+    AccessByTokenNotificationComponent,
     AsyncPipe,
+    ErrorComponent,
+    ItemVersionsComponent,
+    ItemVersionsNoticeComponent,
+    ListableObjectComponentLoaderComponent,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
-    AccessByTokenNotificationComponent,
+    ThemedItemAlertsComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {

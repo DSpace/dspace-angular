@@ -8,7 +8,7 @@
 
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 /**
@@ -16,6 +16,6 @@ import {
  */
 export class ScriptServiceStub {
   scriptWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 }

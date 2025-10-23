@@ -63,21 +63,21 @@ describe('Footer component', () => {
     expect(comp.showEndUserAgreement).toBe(environment.info.enableEndUserAgreement);
   });
 
-  describe('showCookieSettings', () => {
+  describe('openCookieSettings', () => {
     it('should call cookies.showSettings() if cookies is defined', () => {
       const cookies = jasmine.createSpyObj('cookies', ['showSettings']);
       comp.cookies = cookies;
-      comp.showCookieSettings();
+      comp.openCookieSettings();
       expect(cookies.showSettings).toHaveBeenCalled();
     });
 
     it('should not call cookies.showSettings() if cookies is undefined', () => {
       comp.cookies = undefined;
-      expect(() => comp.showCookieSettings()).not.toThrow();
+      expect(() => comp.openCookieSettings()).not.toThrow();
     });
 
     it('should return false', () => {
-      expect(comp.showCookieSettings()).toBeFalse();
+      expect(comp.openCookieSettings()).toBeFalse();
     });
   });
 

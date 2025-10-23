@@ -19,7 +19,7 @@ import {
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
@@ -97,18 +97,18 @@ describe('CollectionSourceComponent', () => {
     };
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
-        getFieldUpdates: observableOf({
+        getFieldUpdates: of({
           [contentSource.uuid]: fieldUpdate,
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        getUpdatedFields: observableOf([contentSource]),
-        getLastModified: observableOf(date),
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false),
-        isValidPage: observableOf(true),
+        getUpdatedFields: of([contentSource]),
+        getLastModified: of(date),
+        hasUpdates: of(true),
+        isReinstatable: of(false),
+        isValidPage: of(true),
       },
     );
     notificationsService = jasmine.createSpyObj('notificationsService',
@@ -139,8 +139,8 @@ describe('CollectionSourceComponent', () => {
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: createSuccessfulRemoteDataObject$(contentSource),
-      updateContentSource: observableOf(contentSource),
-      getHarvesterEndpoint: observableOf('harvester-endpoint'),
+      updateContentSource: of(contentSource),
+      getHarvesterEndpoint: of('harvester-endpoint'),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
@@ -151,7 +151,7 @@ describe('CollectionSourceComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Location, useValue: location },
         { provide: DynamicFormService, useValue: formService },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: Router, useValue: router },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: RequestService, useValue: requestService },

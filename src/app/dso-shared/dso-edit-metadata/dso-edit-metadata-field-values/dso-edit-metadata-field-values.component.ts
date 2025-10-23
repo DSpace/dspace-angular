@@ -30,7 +30,12 @@ import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value
   styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
   templateUrl: './dso-edit-metadata-field-values.component.html',
   standalone: true,
-  imports: [CdkDropList, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    CdkDropList,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataValueHeadersComponent,
+  ],
 })
 /**
  * Component displaying table rows for each value for a certain metadata field within a form

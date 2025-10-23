@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
@@ -18,7 +18,7 @@ describe('EditCollectionPageComponent', () => {
   let fixture: ComponentFixture<EditCollectionPageComponent>;
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: { payload: {} },
     }),
     routeConfig: {

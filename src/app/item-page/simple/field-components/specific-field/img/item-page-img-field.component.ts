@@ -14,8 +14,8 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   templateUrl: '../item-page-field.component.html',
   standalone: true,
   imports: [
-    MetadataValuesComponent,
     AsyncPipe,
+    MetadataValuesComponent,
   ],
 })
 /**

@@ -29,7 +29,14 @@ import { RequestCopyEmail } from './request-copy-email.model';
   styleUrls: ['./email-request-copy.component.scss'],
   templateUrl: './email-request-copy.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, TranslateModule, BtnDisabledDirective, NgbDropdownModule, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDropdownModule,
+    NgClass,
+    TranslateModule,
+  ],
 })
 /**
  * A form component for an email to send back to the user requesting an item

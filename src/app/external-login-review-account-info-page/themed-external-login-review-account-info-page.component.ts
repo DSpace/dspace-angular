@@ -11,7 +11,9 @@ import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-re
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ExternalLoginReviewAccountInfoPageComponent],
+  imports: [
+    ExternalLoginReviewAccountInfoPageComponent,
+  ],
 })
 export class ThemedExternalLoginReviewAccountInfoPageComponent extends ThemedComponent<ExternalLoginReviewAccountInfoPageComponent> {
   protected getComponentName(): string {

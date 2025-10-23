@@ -30,7 +30,10 @@ import { SearchConfigurationOption } from './search-configuration-option.model';
   styleUrls: ['./search-switch-configuration.component.scss'],
   templateUrl: './search-switch-configuration.component.html',
   standalone: true,
-  imports: [FormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    TranslateModule,
+  ],
 })
 /**
  * Represents a select that allow to switch over available search configurations

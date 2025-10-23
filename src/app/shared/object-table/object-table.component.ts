@@ -35,11 +35,11 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   styleUrls: ['./object-table.component.scss'],
   animations: [fadeIn],
   imports: [
-    PaginationComponent,
-    ThemedLoadingComponent,
     ErrorComponent,
-    TranslateModule,
+    PaginationComponent,
     TabulatableObjectsLoaderComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
