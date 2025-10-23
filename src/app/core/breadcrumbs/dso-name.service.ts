@@ -31,9 +31,9 @@ export class DSONameService {
    * With only two exceptions those solutions seem overkill for now.
    */
   private readonly factories = {
-    EPerson: (dso: DSpaceObject, injectedAsHTML?: boolean): string => {
-      const firstName = dso.firstMetadataValue('eperson.firstname', undefined, injectedAsHTML);
-      const lastName = dso.firstMetadataValue('eperson.lastname', undefined, injectedAsHTML);
+    EPerson: (dso: DSpaceObject, escapeHTML?: boolean): string => {
+      const firstName = dso.firstMetadataValue('eperson.firstname', undefined, escapeHTML);
+      const lastName = dso.firstMetadataValue('eperson.lastname', undefined, escapeHTML);
       if (isEmpty(firstName) && isEmpty(lastName)) {
         return this.translateService.instant('dso.name.unnamed');
       } else if (isEmpty(firstName) || isEmpty(lastName)) {
@@ -42,23 +42,23 @@ export class DSONameService {
         return `${firstName} ${lastName}`;
       }
     },
-    Person: (dso: DSpaceObject, injectedAsHTML?: boolean): string => {
-      const familyName = dso.firstMetadataValue('person.familyName', undefined, injectedAsHTML);
-      const givenName = dso.firstMetadataValue('person.givenName', undefined, injectedAsHTML);
+    Person: (dso: DSpaceObject, escapeHTML?: boolean): string => {
+      const familyName = dso.firstMetadataValue('person.familyName', undefined, escapeHTML);
+      const givenName = dso.firstMetadataValue('person.givenName', undefined, escapeHTML);
       if (isEmpty(familyName) && isEmpty(givenName)) {
-        return dso.firstMetadataValue('dc.title', undefined, injectedAsHTML) || this.translateService.instant('dso.name.unnamed');
+        return dso.firstMetadataValue('dc.title', undefined, escapeHTML) || this.translateService.instant('dso.name.unnamed');
       } else if (isEmpty(familyName) || isEmpty(givenName)) {
         return familyName || givenName;
       } else {
         return `${familyName}, ${givenName}`;
       }
     },
-    OrgUnit: (dso: DSpaceObject, injectedAsHTML?: boolean): string => {
-      return dso.firstMetadataValue('organization.legalName', undefined, injectedAsHTML);
+    OrgUnit: (dso: DSpaceObject, escapeHTML?: boolean): string => {
+      return dso.firstMetadataValue('organization.legalName', undefined, escapeHTML);
     },
-    Default: (dso: DSpaceObject, injectedAsHTML?: boolean): string => {
+    Default: (dso: DSpaceObject, escapeHTML?: boolean): string => {
       // If object doesn't have dc.title metadata use name property
-      return dso.firstMetadataValue('dc.title', undefined, injectedAsHTML) || dso.name || this.translateService.instant('dso.name.untitled');
+      return dso.firstMetadataValue('dc.title', undefined, escapeHTML) || dso.name || this.translateService.instant('dso.name.untitled');
     },
   };
 
@@ -66,9 +66,9 @@ export class DSONameService {
    * Get the name for the given {@link DSpaceObject}
    *
    * @param dso  The {@link DSpaceObject} you want a name for
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    */
-  getName(dso: DSpaceObject | undefined, injectedAsHTML?: boolean): string {
+  getName(dso: DSpaceObject | undefined, escapeHTML?: boolean): string {
     if (dso) {
       const types = dso.getRenderTypes();
       const match = types
@@ -77,10 +77,10 @@ export class DSONameService {
 
       let name;
       if (hasValue(match)) {
-        name = this.factories[match](dso, injectedAsHTML);
+        name = this.factories[match](dso, escapeHTML);
       }
       if (isEmpty(name)) {
-        name = this.factories.Default(dso, injectedAsHTML);
+        name = this.factories.Default(dso, escapeHTML);
       }
       return name;
     } else {
@@ -93,28 +93,28 @@ export class DSONameService {
    *
    * @param object
    * @param dso
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    *
    * @returns {string} html embedded hit highlight.
    */
-  getHitHighlights(object: any, dso: DSpaceObject, injectedAsHTML?: boolean): string {
+  getHitHighlights(object: any, dso: DSpaceObject, escapeHTML?: boolean): string {
     const types = dso.getRenderTypes();
     const entityType = types
       .filter((type) => typeof type === 'string')
       .find((type: string) => (['Person', 'OrgUnit']).includes(type)) as string;
     if (entityType === 'Person') {
-      const familyName = this.firstMetadataValue(object, dso, 'person.familyName', injectedAsHTML);
-      const givenName = this.firstMetadataValue(object, dso, 'person.givenName', injectedAsHTML);
+      const familyName = this.firstMetadataValue(object, dso, 'person.familyName', escapeHTML);
+      const givenName = this.firstMetadataValue(object, dso, 'person.givenName', escapeHTML);
       if (isEmpty(familyName) && isEmpty(givenName)) {
-        return this.firstMetadataValue(object, dso, 'dc.title', injectedAsHTML) || dso.name;
+        return this.firstMetadataValue(object, dso, 'dc.title', escapeHTML) || dso.name;
       } else if (isEmpty(familyName) || isEmpty(givenName)) {
         return familyName || givenName;
       }
       return `${familyName}, ${givenName}`;
     } else if (entityType === 'OrgUnit') {
-      return this.firstMetadataValue(object, dso, 'organization.legalName', injectedAsHTML);
+      return this.firstMetadataValue(object, dso, 'organization.legalName', escapeHTML);
     }
-    return this.firstMetadataValue(object, dso, 'dc.title', injectedAsHTML) || dso.name || this.translateService.instant('dso.name.untitled');
+    return this.firstMetadataValue(object, dso, 'dc.title', escapeHTML) || dso.name || this.translateService.instant('dso.name.untitled');
   }
 
   /**
@@ -123,12 +123,12 @@ export class DSONameService {
    * @param object
    * @param dso
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    *
    * @returns {string} the first matching string value, or `undefined`.
    */
-  firstMetadataValue(object: any, dso: DSpaceObject, keyOrKeys: string | string[], injectedAsHTML?: boolean): string {
-    return Metadata.firstValue(dso.metadata, keyOrKeys, object.hitHighlights, undefined, injectedAsHTML);
+  firstMetadataValue(object: any, dso: DSpaceObject, keyOrKeys: string | string[], escapeHTML?: boolean): string {
+    return Metadata.firstValue(dso.metadata, keyOrKeys, object.hitHighlights, undefined, escapeHTML);
   }
 
 }
