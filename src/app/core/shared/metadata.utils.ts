@@ -36,10 +36,10 @@ export class Metadata {
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param hitHighlights The search hit highlights.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
-  public static all(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, injectedAsHTML?: boolean): MetadataValue[] {
+  public static all(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): MetadataValue[] {
     const matches: MetadataValue[] = [];
     if (isNotEmpty(hitHighlights)) {
       for (const mdKey of Metadata.resolveKeys(hitHighlights, keyOrKeys)) {
@@ -59,7 +59,7 @@ export class Metadata {
       if (metadata[mdKey]) {
         for (const candidate of metadata[mdKey]) {
           if (Metadata.valueMatches(candidate as MetadataValue, filter)) {
-            if (injectedAsHTML) {
+            if (escapeHTML) {
               matches.push(Object.assign(new MetadataValue(), candidate, {
                 value: escape(candidate.value),
               }));
@@ -80,11 +80,11 @@ export class Metadata {
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param hitHighlights The search hit highlights.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {string[]} the matching string values or an empty array.
    */
-  public static allValues(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, injectedAsHTML?: boolean): string[] {
-    return Metadata.all(metadata, keyOrKeys, hitHighlights, filter, injectedAsHTML).map((mdValue) => mdValue.value);
+  public static allValues(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): string[] {
+    return Metadata.all(metadata, keyOrKeys, hitHighlights, filter, escapeHTML).map((mdValue) => mdValue.value);
   }
 
   /**
@@ -94,10 +94,10 @@ export class Metadata {
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param hitHighlights The search hit highlights.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {MetadataValue} the first matching value, or `undefined`.
    */
-  public static first(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, injectedAsHTML?: boolean): MetadataValue {
+  public static first(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): MetadataValue {
     if (isNotEmpty(hitHighlights)) {
       for (const key of Metadata.resolveKeys(hitHighlights, keyOrKeys)) {
         const values: MetadataValue[] = hitHighlights[key] as MetadataValue[];
@@ -110,7 +110,7 @@ export class Metadata {
       const values: MetadataValue[] = metadata[key] as MetadataValue[];
       if (values) {
         const result: MetadataValue = values.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
-        if (injectedAsHTML) {
+        if (escapeHTML) {
           return Object.assign(new MetadataValue(), result, {
             value: escape(result.value),
           });
@@ -127,11 +127,11 @@ export class Metadata {
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param hitHighlights The search hit highlights.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
-   * @param injectedAsHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {string} the first matching string value, or `undefined`.
    */
-  public static firstValue(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, injectedAsHTML?: boolean): string {
-    const value = Metadata.first(metadata, keyOrKeys, hitHighlights, filter, injectedAsHTML);
+  public static firstValue(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): string {
+    const value = Metadata.first(metadata, keyOrKeys, hitHighlights, filter, escapeHTML);
     return isUndefined(value) ? undefined : value.value;
   }
 
