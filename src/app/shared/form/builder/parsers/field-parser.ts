@@ -54,7 +54,7 @@ export abstract class FieldParser {
    */
   protected typeField: string;
 
-  ignorePlaceholderForSimpleFields: boolean;
+  omitSimpleFieldPlaceholders: boolean;
 
   constructor(
     @Inject(SUBMISSION_ID) protected submissionId: string,
@@ -63,7 +63,7 @@ export abstract class FieldParser {
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
     protected translate: TranslateService,
   ) {
-    this.ignorePlaceholderForSimpleFields = environment.submission.ignorePlaceholderForSimpleFields;
+    this.omitSimpleFieldPlaceholders = environment.submission.omitSimpleFieldPlaceholders;
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
@@ -310,8 +310,10 @@ export abstract class FieldParser {
     if (hint) {
       controlModel.hint = this.configData.hints || '&nbsp;';
     }
-    if (!this.ignorePlaceholderForSimpleFields) {
+    if (!this.omitSimpleFieldPlaceholders) {
       controlModel.placeholder = this.configData.label;
+    } else {
+      controlModel.additional = { ...controlModel.additional, ariaLabel: this.configData.label };
     }
 
     if (this.configData.mandatory && setErrors) {
