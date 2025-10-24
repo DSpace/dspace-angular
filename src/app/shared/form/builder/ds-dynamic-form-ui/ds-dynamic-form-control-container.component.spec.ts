@@ -223,6 +223,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   testWSI.item = of(createSuccessfulRemoteDataObject(testItem));
   const actions$: ReplaySubject<any> = new ReplaySubject<any>(1);
 
+  const renderer = jasmine.createSpyObj('Renderer2', ['setAttribute']);
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -440,6 +442,37 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
     expect(checkboxLabel).toBeNull();
     expect(dsDatePickerLabel).toBeNull();
+  });
+
+  it('should not call handleAriaLabelForLibraryComponents if is SSR', () => {
+    (component as any).platformId = 'server';
+    (component as any).componentRef = {
+      instance: new DynamicNGBootstrapInputComponent(null, null),
+      location: { nativeElement: document.createElement('div') },
+    } as any;
+    fixture.detectChanges();
+
+    (component as any).handleAriaLabelForLibraryComponents();
+
+    expect(renderer.setAttribute).not.toHaveBeenCalled();
+  });
+
+  it('should set aria-label when valid input and additional property ariaLabel exist and is on browser', () => {
+    (component as any).platformId = 'browser';
+    const inputEl = document.createElement('input');
+    const hostEl = {
+      querySelector: jasmine.createSpy('querySelector').and.returnValue(inputEl),
+    };
+
+    (component as any).componentRef = {
+      instance: new DynamicNGBootstrapInputComponent(null, null),
+      location: { nativeElement: hostEl },
+    } as any;
+    (component as any).renderer = renderer;
+    component.model = { additional: { ariaLabel: 'Accessible Label' } } as any;
+    fixture.detectChanges();
+    (component as any).handleAriaLabelForLibraryComponents();
+    expect(renderer.setAttribute).toHaveBeenCalledWith(inputEl, 'aria-label', 'Accessible Label');
   });
 
 });

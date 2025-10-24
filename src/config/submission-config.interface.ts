@@ -36,5 +36,5 @@ export interface SubmissionConfig extends Config {
   duplicateDetection: DuplicateDetectionConfig;
   typeBind: TypeBindConfig;
   icons: IconsConfig;
-  ignorePlaceholderForSimpleFields?: boolean;
+  omitSimpleFieldPlaceholders?: boolean;
 }

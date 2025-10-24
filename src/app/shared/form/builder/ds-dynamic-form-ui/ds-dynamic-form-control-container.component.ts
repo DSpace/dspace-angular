@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformBrowser,
   NgClass,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -19,7 +20,9 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  PLATFORM_ID,
   QueryList,
+  Renderer2,
   SimpleChanges,
   Type,
   ViewChild,
@@ -44,6 +47,7 @@ import {
   DynamicFormArrayModel,
   DynamicFormComponentService,
   DynamicFormControl,
+  DynamicFormControlComponent,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
@@ -129,8 +133,10 @@ import {
   ReorderableRelationship,
 } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
+import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',
@@ -223,6 +229,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
     private actions$: Actions,
+    protected renderer: Renderer2,
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -349,6 +357,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   ngAfterViewInit() {
     this.showErrorMessagesPreviousStage = this.showErrorMessages;
+    this.handleAriaLabelForLibraryComponents();
   }
 
   protected createFormControlComponent(): void {
@@ -519,5 +528,24 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs.push(this.item$.subscribe((item) => this.item = item));
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
+  }
+
+  private handleAriaLabelForLibraryComponents(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    if ((this.componentRef.instance instanceof DynamicFormControlComponent) &&
+      !(this.componentRef.instance instanceof DsDynamicFormArrayComponent) &&
+      !(this.componentRef.instance instanceof DsDynamicFormGroupComponent) &&
+      this.componentRef.location.nativeElement) {
+      const inputEl: HTMLElement | null =
+        this.componentRef.location.nativeElement.querySelector('input,textarea,select,[role="textbox"]');
+
+
+      if (inputEl &&  this.model?.additional?.ariaLabel) {
+        this.renderer.setAttribute(inputEl, 'aria-label', this.model.additional.ariaLabel);
+      }
+    }
   }
 }
