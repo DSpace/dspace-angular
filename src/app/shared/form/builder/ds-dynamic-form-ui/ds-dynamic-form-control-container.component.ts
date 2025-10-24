@@ -40,7 +40,8 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
-  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DynamicFormArrayComponent,
+  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
+  DynamicFormArrayComponent,
   DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormComponentService,
