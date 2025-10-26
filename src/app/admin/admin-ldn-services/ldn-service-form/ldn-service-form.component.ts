@@ -34,6 +34,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   combineLatestWith,
   Observable,
@@ -75,6 +76,7 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
     NgbDropdownModule,
     ReactiveFormsModule,
     TranslateModule,
+    UiSwitchModule,
   ],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {
