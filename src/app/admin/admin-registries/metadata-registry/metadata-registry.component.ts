@@ -143,9 +143,11 @@ export class MetadataRegistryComponent implements OnDestroy, OnInit {
    * @param event
    */
   selectMetadataSchema(schema: MetadataSchema, event) {
-    event.target.checked ?
-      this.registryService.selectMetadataSchema(schema) :
+    if (event.target.checked) {
+      this.registryService.selectMetadataSchema(schema);
+    } else {
       this.registryService.deselectMetadataSchema(schema);
+    }
   }
 
   /**

@@ -28,9 +28,11 @@ export class ItemVersionsSharedService {
    */
   public notifyCreateNewVersion(newVersionRD: RemoteData<Version>): void {
     const newVersionNumber = newVersionRD?.payload?.version;
-    newVersionRD.hasSucceeded ?
-      this.notificationsService.success(null, this.translateService.get(ItemVersionsSharedService.msg('success'), { version: newVersionNumber })) :
+    if (newVersionRD.hasSucceeded) {
+      this.notificationsService.success(null, this.translateService.get(ItemVersionsSharedService.msg('success'), { version: newVersionNumber }));
+    } else {
       this.notificationsService.error(null, this.translateService.get(ItemVersionsSharedService.msg(newVersionRD?.statusCode === 422 ? 'inProgress' : 'failure')));
+    }
   }
 
 }

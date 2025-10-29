@@ -119,10 +119,10 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
       const importedNode = specifierNode.imported;
       const declarationNode = specifierNode.parent as TSESTree.ImportDeclaration;
 
-      const entry = getThemeableComponentByBaseClass(importedNode.name);
+      const entry = getThemeableComponentByBaseClass((importedNode as TSESTree.Identifier).name ?? (importedNode as TSESTree.StringLiteral).value);
       if (entry === undefined) {
         // this should never happen
-        throw new Error(`No such themeable component in registry: '${importedNode.name}'`);
+        throw new Error(`No such themeable component in registry: '${(importedNode as TSESTree.Identifier).name ?? (importedNode as TSESTree.StringLiteral).value}'`);
       }
 
       context.report({
