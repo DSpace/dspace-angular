@@ -7,7 +7,6 @@ import {
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'input[type=file]',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(change)': 'onChange($event.target.files)',
     '(blur)': 'onTouched()',

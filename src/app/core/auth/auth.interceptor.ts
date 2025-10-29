@@ -169,7 +169,7 @@ export class AuthInterceptor implements HttpInterceptor {
       const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
       const realms = completeWWWauthenticateHeader.match(regex);
 
-      // eslint-disable-next-line guard-for-in
+      // eslint-disable-next-line guard-for-in,@typescript-eslint/no-for-in-array
       for (const j in realms) {
 
         const splittedRealm = realms[j].split(', ');
