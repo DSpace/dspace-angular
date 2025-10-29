@@ -7,13 +7,15 @@
  */
 import {
   InvalidTestCase,
+  ValidTestCase,
+} from '@typescript-eslint/rule-tester';
+import {
   RuleMetaData,
   RuleModule,
-  ValidTestCase,
 } from '@typescript-eslint/utils/ts-eslint';
 import { EnumType } from 'typescript';
 
-export type Meta = RuleMetaData<string, unknown[]>;
+export type Meta = RuleMetaData<string, unknown, unknown[]>;
 export type Valid = ValidTestCase<unknown[]>;
 export type Invalid = InvalidTestCase<string, unknown[]>;
 

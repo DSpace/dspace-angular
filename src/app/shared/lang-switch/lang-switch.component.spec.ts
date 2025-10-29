@@ -33,10 +33,6 @@ import { LangSwitchComponent } from './lang-switch.component';
 // This test is completely independent from any message catalogs or keys in the codebase
 // The translation module is instantiated with these bogus messages that we aren't using anyway.
 
-// Double quotes are mandatory in JSON, so de-activating the tslint rule checking for single quotes here.
-/* eslint-disable @typescript-eslint/quotes */
-// JSON for the language files has double quotes around all literals
-/* eslint-disable quote-props */
 class CustomLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
     return of({
@@ -48,9 +44,6 @@ class CustomLoader implements TranslateLoader {
     });
   }
 }
-
-/* eslint-enable @typescript-eslint/quotes */
-/* eslint-enable quote-props */
 
 let localService: any;
 
