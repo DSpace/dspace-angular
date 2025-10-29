@@ -92,6 +92,7 @@ export class ClientMathService extends MathService {
         script.crossOrigin = 'anonymous';
         script.async = true;
         script.onload = () => resolve();
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
         script.onerror = error => reject(error);
         this._document.head.appendChild(script);
       });

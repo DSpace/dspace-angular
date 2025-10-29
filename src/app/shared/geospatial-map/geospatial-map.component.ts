@@ -134,6 +134,7 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
    */
   private initMap(): void {
     // 'Import' leaflet packages in a browser-mode-only way to avoid issues with SSR
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const L = require('leaflet'); require('leaflet.markercluster'); require('leaflet-providers');
 
     // Set better default icons
