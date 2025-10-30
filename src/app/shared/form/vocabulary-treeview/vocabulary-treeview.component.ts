@@ -168,13 +168,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
 
   readonly AlertType = AlertType;
 
-  public showNextPage$ = this.vocabularyTreeviewService.showNextPageSubject
-    ? this.vocabularyTreeviewService.showNextPageSubject.asObservable()
-    : of(false);
+  public showNextPage$: Observable<boolean>;
 
-  public showPreviousPage$ = this.vocabularyTreeviewService.showPreviousPageSubject
-    ? this.vocabularyTreeviewService.showPreviousPageSubject.asObservable()
-    : of(false);
+  public showPreviousPage$: Observable<boolean>;
 
   /**
    * Initialize instance variables
@@ -279,6 +275,12 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Initialize the component, setting up the data to build the tree
    */
   ngOnInit(): void {
+
+    // Initialize observables to false when component loads
+    // Ensures pagination buttons are hidden on first load or after navigation
+    this.showNextPage$ = of(false);
+    this.showPreviousPage$ = of(false);
+
     this.subs.push(
       this.vocabularyService.findVocabularyById(this.vocabularyOptions.name).pipe(
         // Retrieve the configured preloadLevel from REST
@@ -348,6 +350,17 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Search for a vocabulary entry by query
    */
   search() {
+
+    // Reassign observables after performing each new search
+    // Updates pagination button visibility based on available pages
+    this.showNextPage$ = this.vocabularyTreeviewService.showNextPageSubject
+      ? this.vocabularyTreeviewService.showNextPageSubject.asObservable()
+      : of(false);
+
+    this.showPreviousPage$ = this.vocabularyTreeviewService.showPreviousPageSubject
+      ? this.vocabularyTreeviewService.showPreviousPageSubject.asObservable()
+      : of(false);
+
     if (isNotEmpty(this.searchText)) {
       if (isEmpty(this.storedNodeMap)) {
         this.storedNodeMap = this.nodeMap;
