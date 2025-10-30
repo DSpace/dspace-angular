@@ -16,10 +16,7 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  take,
-  tap,
-} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { CookieService } from '../cookies/cookie.service';
 import { OrejimeService } from '../cookies/orejime.service';
@@ -91,7 +88,6 @@ export class CorrelationIdService {
     let correlationId;
 
     this.store.pipe(
-      tap(console.log),
       select(correlationIdSelector),
       take(1),
     ).subscribe((storeId: string) => {
