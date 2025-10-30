@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -29,10 +29,10 @@ import { SubmissionService } from '../../submission.service';
   templateUrl: './submission-form-footer.component.html',
   standalone: true,
   imports: [
+    AsyncPipe,
     BrowserOnlyPipe,
     BtnDisabledDirective,
-    CommonModule,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class SubmissionFormFooterComponent implements OnChanges {

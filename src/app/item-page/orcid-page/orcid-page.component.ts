@@ -1,5 +1,5 @@
 import {
-  CommonModule,
+  AsyncPipe,
   isPlatformBrowser,
 } from '@angular/common';
 import {
@@ -54,7 +54,7 @@ import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-set
   styleUrls: ['./orcid-page.component.scss'],
   imports: [
     AlertComponent,
-    CommonModule,
+    AsyncPipe,
     OrcidAuthComponent,
     OrcidQueueComponent,
     OrcidSyncSettingsComponent,

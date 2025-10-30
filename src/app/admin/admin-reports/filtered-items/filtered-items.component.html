@@ -15,7 +15,7 @@
                 <ds-loading></ds-loading>
               }
               @if ((loadingCollections$ | async) !== true) {
-                <select id="collSel" name="collSel" class="form-control" multiple="multiple" size="10" formControlName="collections">
+                <select id="collSel" name="collSel" class="form-select" multiple="multiple" size="10" formControlName="collections">
                   @for (item of collections; track item) {
                     <option [value]="item.id" [disabled]="item.disabled">{{item.name$ | async}}</option>
                   }
@@ -32,11 +32,11 @@
               {{'admin.reports.items.section.metadataFieldQueries' | translate}}
             </ng-template>
             <ng-template ngbPanelContent>
-              <fieldset id="predefqueries" class="form-group">
+              <fieldset id="predefqueries" class="mb-3">
                 <label>
                   {{'admin.reports.items.predefinedQueries' | translate}}
                 </label>
-                <select id="predefselect" formControlName="presetQuery" class="form-control" (change)="setPresetQuery()">
+                <select id="predefselect" formControlName="presetQuery" class="form-select" (change)="setPresetQuery()">
                   @for (item of presetQueries; track item.id) {
                     <option [value]="item.id" [selected]="item.isDefault">{{item.label | translate}}</option>
                   }
@@ -46,17 +46,17 @@
               <div id="queries">
                 @for (pred of queryPredicatesArray().controls; track pred; let i = $index) {
                   <div class="metadata">
-                    <div [formGroup]="pred" class="form-group">
-                      <div class="form-row">
+                    <div [formGroup]="pred" class="mb-3">
+                      <div class="row">
                         <div class="col-4">
-                          <select class="query-tool" formControlName="field" class="form-control">
+                          <select class="query-tool" formControlName="field" class="form-select">
                             @for (item of metadataFieldsWithAny; track item) {
                               <option [value]="item.id">{{item.name$ | async}}</option>
                             }
                           </select>
                         </div>
                         <div class="col-auto">
-                          <select class="query-tool" formControlName="operator" class="form-control">
+                          <select class="query-tool" formControlName="operator" class="form-select">
                             @for (item of predicates; track item) {
                               <option [value]="item.id">{{item.name$ | async | translate}}</option>
                             }
@@ -86,17 +86,17 @@
               {{'admin.reports.items.section.limitPaginateQueries' | translate}}
             </ng-template>
             <ng-template ngbPanelContent>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-3">
                 <label for="limit" class="col-sm-2 col-form-label">{{'admin.reports.items.limit' | translate}}:</label>
                 <div class="col-6">
-                  <select id="limit" name="limit" formControlName="pageLimit" class="form-control col-6">
+                  <select id="limit" name="limit" formControlName="pageLimit" class="form-select col-6">
                     @for (item of pageLimits; track item) {
                       <option value="{{item.id}}" [selected]="item.isDefault">{{item.name$ | async}}</option>
                     }
                   </select>
                 </div>
               </div>
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-3">
                 <label for="offset" class="col-sm-2 col-form-label">{{'admin.reports.items.offset' | translate}}:</label>
                 <div class="col-6">
                   <input id="offset" name="offset" value="0" class="form-control col-6">
@@ -104,7 +104,7 @@
               </div>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button class="btn btn-primary col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -130,7 +130,7 @@
             </ng-template>
             <ng-template ngbPanelContent>
               <div id="show-fields">
-                <select class="query-tool" name="show_fields" multiple="multiple" size="8" class="form-control" formControlName="additionalFields">
+                <select class="query-tool" name="show_fields" multiple="multiple" size="8" class="form-select" formControlName="additionalFields">
                   @for (item of metadataFields; track item) {
                     <option [value]="item.id">{{item.name$ | async}}</option>
                   }
