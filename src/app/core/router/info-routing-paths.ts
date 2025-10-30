@@ -1,5 +1,3 @@
-import { getInfoModulePath } from '../app-routing-paths';
-
 export const END_USER_AGREEMENT_PATH = 'end-user-agreement';
 export const PRIVACY_PATH = 'privacy';
 export const FEEDBACK_PATH = 'feedback';
@@ -24,6 +22,12 @@ export function getCOARNotifySupportPath(): string {
 
 export function getAccessibilitySettingsPath() {
   return getSubPath(ACCESSIBILITY_SETTINGS_PATH);
+}
+
+export const INFO_MODULE_PATH = 'info';
+
+export function getInfoModulePath() {
+  return `/${INFO_MODULE_PATH}`;
 }
 
 function getSubPath(path: string) {

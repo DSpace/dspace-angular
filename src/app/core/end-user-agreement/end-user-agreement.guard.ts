@@ -13,7 +13,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getEndUserAgreementPath } from '../../info/info-routing-paths';
+import { getEndUserAgreementPath } from '../router/info-routing-paths';
 
 export declare type HasAcceptedGuardParamFn = () => Observable<boolean>;
 /**

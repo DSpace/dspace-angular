@@ -21,6 +21,7 @@ import {
   ITEM_MODULE_PATH,
   LEGACY_BITSTREAM_MODULE_PATH,
 } from '@dspace/core/router/core-routing-paths';
+import { INFO_MODULE_PATH } from '@dspace/core/router/info-routing-paths';
 import { ServerCheckGuard } from '@dspace/core/server-check/server-check.guard';
 
 import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-routing-paths';
@@ -29,7 +30,6 @@ import {
   ADMIN_MODULE_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
-  INFO_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   REQUEST_COPY_MODULE_PATH,

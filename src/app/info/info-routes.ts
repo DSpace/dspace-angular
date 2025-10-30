@@ -5,19 +5,19 @@ import {
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { notifyInfoGuard } from '@dspace/core/coar-notify/notify-info/notify-info.guard';
 import { feedbackGuard } from '@dspace/core/feedback/feedback.guard';
-import { hasValue } from '@dspace/shared/utils/empty.util';
-
-import { environment } from '../../environments/environment';
-import { AccessibilitySettingsComponent } from './accessibility-settings/accessibility-settings.component';
-import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
-import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import {
   ACCESSIBILITY_SETTINGS_PATH,
   COAR_NOTIFY_SUPPORT,
   END_USER_AGREEMENT_PATH,
   FEEDBACK_PATH,
   PRIVACY_PATH,
-} from './info-routing-paths';
+} from '@dspace/core/router/info-routing-paths';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+
+import { environment } from '../../environments/environment';
+import { AccessibilitySettingsComponent } from './accessibility-settings/accessibility-settings.component';
+import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
+import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { NotifyInfoComponent } from './notify-info/notify-info.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 
