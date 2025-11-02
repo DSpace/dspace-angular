@@ -8,11 +8,7 @@ import { FullItemPageComponent } from './full-item-page.component';
  */
 @Component({
   selector: 'ds-full-item-page',
-  styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  imports: [
-    FullItemPageComponent,
-  ],
 })
 export class ThemedFullItemPageComponent extends ThemedComponent<FullItemPageComponent> {
   protected getComponentName(): string {

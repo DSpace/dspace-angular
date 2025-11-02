@@ -8,11 +8,7 @@ import { HeaderNavbarWrapperComponent } from './header-navbar-wrapper.component'
  */
 @Component({
   selector: 'ds-header-navbar-wrapper',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    HeaderNavbarWrapperComponent,
-  ],
 })
 export class ThemedHeaderNavbarWrapperComponent extends ThemedComponent<HeaderNavbarWrapperComponent> {
   protected getComponentName(): string {

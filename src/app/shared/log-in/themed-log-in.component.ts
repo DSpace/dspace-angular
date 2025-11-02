@@ -12,11 +12,7 @@ import { LogInComponent } from './log-in.component';
  */
 @Component({
   selector: 'ds-log-in',
-  styleUrls: [],
   templateUrl: './../theme-support/themed.component.html',
-  imports: [
-    LogInComponent,
-  ],
 })
 export class ThemedLogInComponent extends ThemedComponent<LogInComponent> {
 

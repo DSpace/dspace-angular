@@ -23,11 +23,7 @@ import { ObjectListComponent } from './object-list.component';
  */
 @Component({
   selector: 'ds-object-list',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  imports: [
-    ObjectListComponent,
-  ],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 

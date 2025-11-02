@@ -8,11 +8,7 @@ import { NavbarComponent } from './navbar.component';
  */
 @Component({
   selector: 'ds-navbar',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    NavbarComponent,
-  ],
 })
 export class ThemedNavbarComponent  extends ThemedComponent<NavbarComponent> {
   protected getComponentName(): string {

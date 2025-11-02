@@ -12,9 +12,6 @@ import { ComcolPageContentComponent } from './comcol-page-content.component';
 @Component({
   selector: 'ds-comcol-page-content',
   templateUrl: '../../theme-support/themed.component.html',
-  imports: [
-    ComcolPageContentComponent,
-  ],
 })
 export class ThemedComcolPageContentComponent extends ThemedComponent<ComcolPageContentComponent> {
 

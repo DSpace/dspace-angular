@@ -12,11 +12,7 @@ import { MediaViewerImageComponent } from './media-viewer-image.component';
  */
 @Component({
   selector: 'ds-media-viewer-image',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  imports: [
-    MediaViewerImageComponent,
-  ],
 })
 export class ThemedMediaViewerImageComponent extends ThemedComponent<MediaViewerImageComponent> {
 
