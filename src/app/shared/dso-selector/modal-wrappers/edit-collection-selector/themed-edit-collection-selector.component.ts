@@ -8,11 +8,7 @@ import { EditCollectionSelectorComponent } from './edit-collection-selector.comp
  */
 @Component({
   selector: 'ds-edit-collection-selector',
-  styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  imports: [
-    EditCollectionSelectorComponent,
-  ],
 })
 export class ThemedEditCollectionSelectorComponent
   extends ThemedComponent<EditCollectionSelectorComponent> {

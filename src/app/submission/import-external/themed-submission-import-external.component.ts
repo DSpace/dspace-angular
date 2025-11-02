@@ -8,11 +8,7 @@ import { SubmissionImportExternalComponent } from './submission-import-external.
  */
 @Component({
   selector: 'ds-submission-import-external',
-  styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  imports: [
-    SubmissionImportExternalComponent,
-  ],
 })
 export class ThemedSubmissionImportExternalComponent extends ThemedComponent<SubmissionImportExternalComponent> {
   protected getComponentName(): string {

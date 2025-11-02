@@ -311,9 +311,6 @@ describe('DsDynamicListComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  imports: [
-    DsDynamicListComponent,
-  ],
 })
 class TestComponent {
 

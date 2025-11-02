@@ -8,11 +8,7 @@ import { ForgotEmailComponent } from './forgot-email.component';
  */
 @Component({
   selector: 'ds-forgot-email',
-  styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  imports: [
-    ForgotEmailComponent,
-  ],
 })
 export class ThemedForgotEmailComponent extends ThemedComponent<ForgotEmailComponent> {
   protected getComponentName(): string {

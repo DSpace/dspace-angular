@@ -23,11 +23,7 @@ import { BrowseByComponent } from './browse-by.component';
  */
 @Component({
   selector: 'ds-browse-by',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  imports: [
-    BrowseByComponent,
-  ],
 })
 export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> {
 

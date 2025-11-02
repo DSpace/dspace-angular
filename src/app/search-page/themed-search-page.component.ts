@@ -8,11 +8,7 @@ import { SearchPageComponent } from './search-page.component';
  */
 @Component({
   selector: 'ds-search-page',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    SearchPageComponent,
-  ],
 })
 export class ThemedSearchPageComponent extends ThemedComponent<SearchPageComponent> {
 

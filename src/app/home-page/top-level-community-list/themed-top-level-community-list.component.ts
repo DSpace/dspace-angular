@@ -5,11 +5,7 @@ import { TopLevelCommunityListComponent } from './top-level-community-list.compo
 
 @Component({
   selector: 'ds-top-level-community-list',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  imports: [
-    TopLevelCommunityListComponent,
-  ],
 })
 export class ThemedTopLevelCommunityListComponent extends ThemedComponent<TopLevelCommunityListComponent> {
   protected inAndOutputNames: (keyof TopLevelCommunityListComponent & keyof this)[];
