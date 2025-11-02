@@ -8,11 +8,7 @@ import { MyDSpacePageComponent } from './my-dspace-page.component';
  */
 @Component({
   selector: 'ds-my-dspace-page',
-  styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  imports: [
-    MyDSpacePageComponent,
-  ],
 })
 export class ThemedMyDSpacePageComponent extends ThemedComponent<MyDSpacePageComponent> {
 

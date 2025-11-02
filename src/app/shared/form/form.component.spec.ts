@@ -15,19 +15,15 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { StoreMock } from '@dspace/core/testing/store.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
-import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormsCoreModule,
-  DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import {
@@ -52,7 +48,6 @@ let TEST_FORM_MODEL;
 
 let TEST_FORM_MODEL_WITH_ARRAY;
 
-let config;
 let formState: FormState;
 let html;
 let store: StoreMock<FormState>;
@@ -123,14 +118,6 @@ function init() {
       },
     }),
   ];
-  config = {
-    form: {
-      validatorMap: {
-        required: 'required',
-        regex: 'pattern',
-      },
-    },
-  } as any;
 
   formState = {
     testForm: {
@@ -149,7 +136,7 @@ function init() {
 
 }
 
-describe('FormComponent test suite', () => {
+describe('FormComponent', () => {
   let testComp: TestComponent;
   let formComp: FormComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -171,20 +158,11 @@ describe('FormComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
-        DynamicFormValidationService,
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: Store, useClass: StoreMock },
-        { provide: XSRFService, useValue: {} },
-        { provide: APP_CONFIG, useValue: {
-          cache: { msToLive: { default: 15 * 60 * 1000 } },
-          rest: { baseUrl: 'https://rest.com/server' },
-        } },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideComponent(FormComponent, {
         remove: {
@@ -192,6 +170,7 @@ describe('FormComponent test suite', () => {
         },
         add: {
           changeDetection: ChangeDetectionStrategy.Default,
+          schemas: [CUSTOM_ELEMENTS_SCHEMA],
         },
       });
   }));
@@ -475,7 +454,10 @@ describe('FormComponent test suite', () => {
 @Component({
   exportAs: 'formComponent',
   selector: 'ds-test-cmp',
-  template: ``,
+  template: `
+    <ds-dynamic-form></ds-dynamic-form>
+    <ds-form></ds-form>
+  `,
   imports: [
     DsDynamicFormComponent,
     DynamicFormsCoreModule,

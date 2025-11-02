@@ -8,11 +8,7 @@ import { CollectionPageComponent } from './collection-page.component';
  */
 @Component({
   selector: 'ds-collection-page',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    CollectionPageComponent,
-  ],
 })
 export class ThemedCollectionPageComponent extends ThemedComponent<CollectionPageComponent> {
   protected getComponentName(): string {

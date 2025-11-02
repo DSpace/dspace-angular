@@ -15,9 +15,6 @@ import { SearchFiltersComponent } from './search-filters.component';
 @Component({
   selector: 'ds-search-filters',
   templateUrl: '../../theme-support/themed.component.html',
-  imports: [
-    SearchFiltersComponent,
-  ],
 })
 export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersComponent> {
 

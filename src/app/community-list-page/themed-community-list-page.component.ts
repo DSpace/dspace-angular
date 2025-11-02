@@ -8,11 +8,7 @@ import { CommunityListPageComponent } from './community-list-page.component';
  */
 @Component({
   selector: 'ds-community-list-page',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    CommunityListPageComponent,
-  ],
 })
 export class ThemedCommunityListPageComponent extends ThemedComponent<CommunityListPageComponent> {
   protected getComponentName(): string {

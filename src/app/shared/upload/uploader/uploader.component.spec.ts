@@ -1,4 +1,3 @@
-// Load the implementations that should be tested
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import {
   ChangeDetectorRef,
@@ -22,7 +21,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 
-describe('Chips component', () => {
+describe('UploaderComponent', () => {
 
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -71,7 +70,7 @@ describe('Chips component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``,
+  template: `<ds-uploader></ds-uploader>`,
   imports: [
     FileUploadModule,
     UploaderComponent,

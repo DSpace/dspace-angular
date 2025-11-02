@@ -8,11 +8,7 @@ import { EditCommunitySelectorComponent } from './edit-community-selector.compon
  */
 @Component({
   selector: 'ds-edit-community-selector',
-  styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  imports: [
-    EditCommunitySelectorComponent,
-  ],
 })
 export class ThemedEditCommunitySelectorComponent
   extends ThemedComponent<EditCommunitySelectorComponent> {

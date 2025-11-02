@@ -13,11 +13,7 @@ import { MediaViewerVideoComponent } from './media-viewer-video.component';
  */
 @Component({
   selector: 'ds-media-viewer-video',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  imports: [
-    MediaViewerVideoComponent,
-  ],
 })
 export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewerVideoComponent> {
 

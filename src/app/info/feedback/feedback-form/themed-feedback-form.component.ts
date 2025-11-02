@@ -8,11 +8,7 @@ import { FeedbackFormComponent } from './feedback-form.component';
  */
 @Component({
   selector: 'ds-feedback-form',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  imports: [
-    FeedbackFormComponent,
-  ],
 })
 export class ThemedFeedbackFormComponent extends ThemedComponent<FeedbackFormComponent> {
 

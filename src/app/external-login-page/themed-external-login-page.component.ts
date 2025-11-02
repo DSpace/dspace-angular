@@ -8,11 +8,7 @@ import { ExternalLoginPageComponent } from './external-login-page.component';
  */
 @Component({
   selector: 'ds-external-login-page',
-  styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  imports: [
-    ExternalLoginPageComponent,
-  ],
 })
 export class ThemedExternalLoginPageComponent extends ThemedComponent<ExternalLoginPageComponent> {
   protected getComponentName(): string {

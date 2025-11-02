@@ -8,11 +8,7 @@ import { CreateProfileComponent } from './create-profile.component';
  */
 @Component({
   selector: 'ds-create-profile',
-  styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  imports: [
-    CreateProfileComponent,
-  ],
 })
 export class ThemedCreateProfileComponent extends ThemedComponent<CreateProfileComponent> {
   protected getComponentName(): string {

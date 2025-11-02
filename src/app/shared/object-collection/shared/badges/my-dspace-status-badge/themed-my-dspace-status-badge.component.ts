@@ -12,11 +12,7 @@ import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component
  */
 @Component({
   selector: 'ds-my-dspace-status-badge',
-  styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  imports: [
-    MyDSpaceStatusBadgeComponent,
-  ],
 })
 export class ThemedMyDSpaceStatusBadgeComponent extends ThemedComponent<MyDSpaceStatusBadgeComponent> {
   @Input() context: Context;

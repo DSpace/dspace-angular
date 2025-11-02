@@ -26,11 +26,7 @@ import {
  */
 @Component({
   selector: 'ds-search-results',
-  styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
-  imports: [
-    SearchResultsComponent,
-  ],
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 

@@ -13,11 +13,7 @@ import { SearchFormComponent } from './search-form.component';
  */
 @Component({
   selector: 'ds-search-form',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  imports: [
-    SearchFormComponent,
-  ],
 })
 export class ThemedSearchFormComponent extends ThemedComponent<SearchFormComponent> {
 

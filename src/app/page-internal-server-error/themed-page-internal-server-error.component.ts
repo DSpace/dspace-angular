@@ -8,11 +8,7 @@ import { PageInternalServerErrorComponent } from './page-internal-server-error.c
  */
 @Component({
   selector: 'ds-page-internal-server-error',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    PageInternalServerErrorComponent,
-  ],
 })
 export class ThemedPageInternalServerErrorComponent extends ThemedComponent<PageInternalServerErrorComponent> {
 

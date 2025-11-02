@@ -9,11 +9,7 @@ import { ResultsBackButtonComponent } from './results-back-button.component';
 
 @Component({
   selector: 'ds-results-back-button',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  imports: [
-    ResultsBackButtonComponent,
-  ],
 })
 export class ThemedResultsBackButtonComponent extends ThemedComponent<ResultsBackButtonComponent> {
 

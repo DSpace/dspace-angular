@@ -8,11 +8,7 @@ import { PageNotFoundComponent } from './pagenotfound.component';
  */
 @Component({
   selector: 'ds-pagenotfound',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    PageNotFoundComponent,
-  ],
 })
 export class ThemedPageNotFoundComponent extends ThemedComponent<PageNotFoundComponent> {
 

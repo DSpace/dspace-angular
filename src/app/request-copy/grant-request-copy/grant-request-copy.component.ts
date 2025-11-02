@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
-  RouterLink,
 } from '@angular/router';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
@@ -46,7 +45,6 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   imports: [
     AsyncPipe,
     FormsModule,
-    RouterLink,
     ThemedEmailRequestCopyComponent,
     ThemedLoadingComponent,
     TranslatePipe,
