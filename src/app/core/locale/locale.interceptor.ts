@@ -4,7 +4,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { LocaleService } from './locale.service';
-import { mergeMap, scan } from 'rxjs/operators';
+import { mergeMap, scan, take } from 'rxjs/operators';
 
 @Injectable()
 export class LocaleInterceptor implements HttpInterceptor {
@@ -21,6 +21,7 @@ export class LocaleInterceptor implements HttpInterceptor {
     let newReq: HttpRequest<any>;
     return this.localeService.getLanguageCodeList()
       .pipe(
+        take(1),
         scan((acc: any, value: any) => [...acc, value], []),
         mergeMap((languages) => {
           // Clone the request to add the new header.
