@@ -17,9 +17,6 @@ import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { Router } from '@angular/router';
 import { RouterStub } from '../testing/router.stub';
-import { of as observableOf } from 'rxjs';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
@@ -27,19 +24,10 @@ describe('SearchFormComponent', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
-    pagination: Object.assign(new PaginationComponentOptions(), {
-      id: 'test-id',
-      pageSize: 10,
-      currentPage: 1
-    }),
-    scope: 'MCU'
-  }));
-
   const router = new RouterStub();
   const searchService = new SearchServiceStub();
   const paginationService = new PaginationServiceStub();
-  const searchConfigService = { paginationID: 'test-id', paginatedSearchOptions: mockSearchOptions};
+  const searchConfigService = { paginationID: 'test-id' };
   const dspaceObjectService = {
     findById: () => createSuccessfulRemoteDataObject$(undefined),
   };
@@ -117,10 +105,12 @@ describe('SearchFormComponent', () => {
     let searchQuery = {};
 
     it('should navigate to the search page even when no parameters are provided', () => {
-      searchQuery = {};
       comp.updateSearch(searchQuery);
 
-      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {}, {}, false);
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: searchQuery,
+        queryParamsHandling: 'merge'
+      });
     });
 
     it('should navigate to the search page with parameters only query if only query is provided', () => {
@@ -130,7 +120,10 @@ describe('SearchFormComponent', () => {
 
       comp.updateSearch(searchQuery);
 
-      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {}, { query: 'THOR' }, false);
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: searchQuery,
+        queryParamsHandling: 'merge'
+      });
     });
 
     it('should navigate to the search page with parameters only query if only scope is provided', () => {
@@ -140,7 +133,10 @@ describe('SearchFormComponent', () => {
 
       comp.updateSearch(searchQuery);
 
-      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {}, { scope: 'MCU' }, false);
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: searchQuery,
+        queryParamsHandling: 'merge'
+      });
     });
   });
 

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty, hasValue } from '../empty.util';
 import { SearchService } from '../../core/shared/search/search.service';
 import { currentPath } from '../utils/route.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -121,7 +121,14 @@ export class SearchFormComponent implements OnChanges {
   updateSearch(data: any) {
     const queryParams = Object.assign({}, data);
 
-    this.paginationService.updateRoute(this.searchConfig.paginatedSearchOptions?.value?.pagination?.id, {}, queryParams, this.retainScrollPosition);
+    if (hasValue(this.searchConfig.paginatedSearchOptions?.value?.pagination?.id) && this.retainScrollPosition) {
+      this.paginationService.updateRoute(this.searchConfig.paginatedSearchOptions?.value?.pagination?.id, {}, queryParams, this.retainScrollPosition);
+    } else {
+      void this.router.navigate(this.getSearchLinkParts(), {
+        queryParams: queryParams,
+        queryParamsHandling: 'merge'
+      });
+    }
   }
 
   /**
