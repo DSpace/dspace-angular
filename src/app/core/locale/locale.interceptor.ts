@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import {
   mergeMap,
   scan,
+  take,
 } from 'rxjs/operators';
 
 import { LocaleService } from './locale.service';
@@ -28,6 +29,7 @@ export class LocaleInterceptor implements HttpInterceptor {
     let newReq: HttpRequest<any>;
     return this.localeService.getLanguageCodeList()
       .pipe(
+        take(1),
         scan((acc: any, value: any) => [...acc, value], []),
         mergeMap((languages) => {
           // Clone the request to add the new header.

@@ -47,7 +47,7 @@ describe(`LocaleInterceptor`, () => {
     httpMock = TestBed.inject(HttpTestingController);
     localeService = TestBed.inject(LocaleService);
 
-    localeService.getCurrentLanguageCode.and.returnValue('en');
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
   });
 
   describe('', () => {
