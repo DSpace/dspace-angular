@@ -420,6 +420,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
     if (this.searchInput) {
       this.searchInput.nativeElement.focus();
     }
+
+    this.showNextPage$ = of(false);
+    this.showPreviousPage$ = of(false);
   }
 
   add() {
