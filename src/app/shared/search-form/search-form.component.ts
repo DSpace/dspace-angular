@@ -164,7 +164,14 @@ export class SearchFormComponent implements OnChanges {
       delete queryParams.scope;
     }
 
-    this.paginationService.updateRoute(this.searchConfig.paginatedSearchOptions?.value?.pagination?.id, {}, queryParams, this.retainScrollPosition);
+    if (hasValue(this.searchConfig.paginatedSearchOptions?.value?.pagination?.id) && this.retainScrollPosition) {
+      this.paginationService.updateRoute(this.searchConfig.paginatedSearchOptions?.value?.pagination?.id, {}, queryParams, this.retainScrollPosition);
+    } else {
+      void this.router.navigate(this.getSearchLinkParts(), {
+        queryParams: queryParams,
+        queryParamsHandling: 'merge'
+      });
+    }
   }
 
   /**

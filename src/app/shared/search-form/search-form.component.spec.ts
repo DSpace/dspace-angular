@@ -11,7 +11,6 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
 
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -20,9 +19,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { SearchFilterServiceStub } from '../testing/search-filter-service.stub';
@@ -34,20 +31,11 @@ describe('SearchFormComponent', () => {
   let fixture: ComponentFixture<SearchFormComponent>;
   let de: DebugElement;
 
-  const mockSearchOptions = of(new PaginatedSearchOptions({
-    pagination: Object.assign(new PaginationComponentOptions(), {
-      id: 'test-id',
-      pageSize: 10,
-      currentPage: 1,
-    }),
-    scope: 'MCU',
-  }));
-
   const router = new RouterStub();
   const searchService = new SearchServiceStub();
   let searchFilterService: SearchFilterServiceStub;
   const paginationService = new PaginationServiceStub();
-  const searchConfigService = { paginationID: 'test-id', paginatedSearchOptions: mockSearchOptions };
+  const searchConfigService = { paginationID: 'test-id' };
   const firstPage = { 'spc.page': 1 };
   const dspaceObjectService = {
     findById: () => createSuccessfulRemoteDataObject$(undefined),
@@ -124,10 +112,12 @@ describe('SearchFormComponent', () => {
     let searchQuery = {};
 
     it('should navigate to the search first page even when no parameters are provided', () => {
-      searchQuery = {};
       comp.updateSearch(searchQuery);
 
-      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {}, { 'spc.page': 1 }, false);
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: { ...searchQuery, ...firstPage },
+        queryParamsHandling: 'merge',
+      });
     });
 
     it('should navigate to the search first page with parameters only query if only query is provided', () => {
@@ -137,8 +127,10 @@ describe('SearchFormComponent', () => {
 
       comp.updateSearch(searchQuery);
 
-      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {},
-        { 'spc.page': 1, query: 'THOR' }, false);
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: { ...searchQuery, ...firstPage },
+        queryParamsHandling: 'merge',
+      });
     });
 
     it('should navigate to the search first page with parameters only query if only scope is provided', () => {
@@ -148,8 +140,10 @@ describe('SearchFormComponent', () => {
 
       comp.updateSearch(searchQuery);
 
-      expect(paginationService.updateRoute).toHaveBeenCalledWith(undefined, {},
-        { 'spc.page': 1, scope: 'MCU' }, false);
+      expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
+        queryParams: { ...searchQuery, ...firstPage },
+        queryParamsHandling: 'merge',
+      });
     });
   });
 
