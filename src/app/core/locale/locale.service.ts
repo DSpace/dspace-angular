@@ -95,7 +95,7 @@ export class LocaleService implements OnDestroy {
    *
    * @returns {Observable<string[]>}
    */
-  getLanguageCodeList(): Observable<string[]> {
+  getLanguageCodeList(ignoreEPersonSettings = false): Observable<string[]> {
     const obs$ = combineLatest([
       this.authService.isAuthenticated(),
       this.authService.isAuthenticationLoaded(),
@@ -104,7 +104,7 @@ export class LocaleService implements OnDestroy {
     return obs$.pipe(
       mergeMap(([isAuthenticated, isLoaded]) => {
         let epersonLang$: Observable<string[]> = of([]);
-        if (isAuthenticated && isLoaded) {
+        if (isAuthenticated && isLoaded && !ignoreEPersonSettings) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),
             map((eperson) => {
