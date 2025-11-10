@@ -287,7 +287,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   select(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
       () => {
-        const obs: Observable<any[]> = observableCombineLatest([...selectableObjects.map((sri: SearchResult<Item>) => {
+        const obs: Observable<any[]> = observableCombineLatest([...selectableObjects.filter((object: SearchResult<DSpaceObject>) => object).map((sri: SearchResult<Item>) => {
           this.addNameVariantSubscription(sri);
           return this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid)
             .pipe(
@@ -329,7 +329,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   deselect(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
-      () => selectableObjects.forEach((object) => {
+      () => selectableObjects.filter((object: SearchResult<DSpaceObject>) => object).forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
         this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject as Item, this.relationshipOptions.relationshipType, this.submissionId));
       }),
