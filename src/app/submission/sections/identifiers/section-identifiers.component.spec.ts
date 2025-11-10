@@ -114,6 +114,7 @@ const sectionObject: SectionDataObject = {
   header: 'submission.sections.submit.progressbar.identifiers',
   id: 'identifiers',
   sectionType: SectionsType.Identifiers,
+  extendsSectionType: undefined,
   sectionVisibility: null,
 };
 

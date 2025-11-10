@@ -169,6 +169,7 @@ describe('SubmissionObjectEffects test suite', () => {
             sectionDefinition.mandatory,
             sectionDefinition.scope,
             sectionDefinition.sectionType,
+            sectionDefinition.extendsSectionType,
             sectionDefinition.visibility,
             enabled,
             sectionData,

@@ -350,6 +350,7 @@ export class SubmissionService {
             sectionObject.header = sections[sectionId].header;
             sectionObject.id = sectionId;
             sectionObject.sectionType = sections[sectionId].sectionType;
+            sectionObject.extendsSectionType = sections[sectionId].extendsSectionType;
             availableSections.push(sectionObject);
           });
         return availableSections;
