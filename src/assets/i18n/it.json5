@@ -4737,6 +4737,12 @@
   // TODO New key - Add a translation
   "item.page.options": "Options",
 
+  //"item.page.orcid-ico": "ORCID icon",
+  "item.page.orcid-ico": "Icona ORCID",
+
+  //"item.page.orcid-profile": "ORCID Profile",
+  "item.page.orcid-profile": "Profilo ORCID",
+
   // "item.page.orcid.title": "ORCID",
   "item.page.orcid.title": "ORCID",
 
