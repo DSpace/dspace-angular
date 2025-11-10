@@ -2,6 +2,7 @@ import {
   CommonModule,
   DOCUMENT,
 } from '@angular/common';
+import { EventEmitter } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import {
   ActivatedRouteSnapshot,
@@ -10,6 +11,7 @@ import {
 import { provideMockActions } from '@ngrx/effects/testing';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateService } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
@@ -69,13 +71,21 @@ describe('ThemeService', () => {
     uuid: 'top-community-uuid',
   });
 
+  const mockCollection = Object.assign(new Collection(), {
+    type: COLLECTION.value,
+    uuid: 'collection-uuid',
+    _links: { owningCommunity: { href: 'owning-community-link' } },
+  });
+  const translateServiceStub = {
+    get: () => observableOf('test-message of collection ' + mockCollection.name),
+    onLangChange: new EventEmitter(),
+    onTranslationChange: new EventEmitter(),
+    onDefaultLangChange: new EventEmitter(),
+  };
+
   function init() {
     ancestorDSOs = [
-      Object.assign(new Collection(), {
-        type: COLLECTION.value,
-        uuid: 'collection-uuid',
-        _links: { owningCommunity: { href: 'owning-community-link' } },
-      }),
+      mockCollection,
       Object.assign(new Community(), {
         type: COMMUNITY.value,
         uuid: 'sub-community-uuid',
@@ -109,6 +119,7 @@ describe('ThemeService', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
         { provide: ConfigurationDataService, useValue: configurationService },
+        { provide: TranslateService, useValue: translateServiceStub },
       ],
     });
 
@@ -118,9 +129,38 @@ describe('ThemeService', () => {
 
   describe('updateThemeOnRouteChange$', () => {
     const url = '/test/route';
-    const dso = Object.assign(new Community(), {
-      type: COMMUNITY.value,
-      uuid: '0958c910-2037-42a9-81c7-dca80e3892b4',
+    const mockCollection1 = Object.assign(new Collection(), {
+      id: 'collection1',
+      _links: {
+        self: {
+          href: 'https://rest.api/collections/test-collection-1-1',
+        },
+      },
+    });
+
+    const mockCollection2 = Object.assign(new Collection(), {
+      id: 'collection2',
+      metadata: [
+        {
+          key: 'collection.css',
+          language: null,
+          value: '',
+        },
+      ],
+      _links: {
+        self: {
+          href: 'https://rest.api/collections/test-collection-1-2',
+        },
+      },
+    });
+    const dso = Object.assign(new Item(), {
+      _links: {
+        self: { href: 'fake-item-url/item' },
+      },
+      id: 'item',
+      uuid: 'item',
+      owningCollection: createSuccessfulRemoteDataObject$(mockCollection1),
+      mappedCollections: createSuccessfulRemoteDataObject$(mockCollection2),
     });
 
     function spyOnPrivateMethods() {
@@ -142,6 +182,7 @@ describe('ThemeService', () => {
         spyOnPrivateMethods();
       });
 
+      //fails
       it('should set the theme it receives from the route url', (done) => {
         themeService.updateThemeOnRouteChange$(url, {} as ActivatedRouteSnapshot).subscribe(() => {
           expect((themeService as any).store.dispatch).toHaveBeenCalledWith(new SetThemeAction('custom') as any);
@@ -149,6 +190,7 @@ describe('ThemeService', () => {
         });
       });
 
+      //fails
       it('should return true', (done) => {
         themeService.updateThemeOnRouteChange$(url, {} as ActivatedRouteSnapshot).subscribe((result) => {
           expect(result).toEqual(true);
@@ -170,6 +212,7 @@ describe('ThemeService', () => {
         (themeService as any).themes = [];
       });
 
+      //fails
       it('should not dispatch any action', (done) => {
         themeService.updateThemeOnRouteChange$(url, {} as ActivatedRouteSnapshot).subscribe(() => {
           expect((themeService as any).store.dispatch).not.toHaveBeenCalled();
@@ -177,6 +220,7 @@ describe('ThemeService', () => {
         });
       });
 
+      //fails
       it('should return false', (done) => {
         themeService.updateThemeOnRouteChange$(url, {} as ActivatedRouteSnapshot).subscribe((result) => {
           expect(result).toEqual(false);
@@ -205,6 +249,7 @@ describe('ThemeService', () => {
         });
       });
 
+      //fails
       it('should match the theme to the dso', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).matchThemeToDSOs).toHaveBeenCalled();
@@ -212,6 +257,8 @@ describe('ThemeService', () => {
         });
       });
 
+
+      //fails
       it('should set the theme it receives from the data dso', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).store.dispatch).toHaveBeenCalledWith(new SetThemeAction('custom') as any);
@@ -219,6 +266,7 @@ describe('ThemeService', () => {
         });
       });
 
+      ///fails
       it('should return true', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe((result) => {
           expect(result).toEqual(true);
@@ -246,7 +294,7 @@ describe('ThemeService', () => {
           },
         });
       });
-
+      //fails
       it('should match the theme to the dso found through the scope', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).matchThemeToDSOs).toHaveBeenCalled();
@@ -254,6 +302,7 @@ describe('ThemeService', () => {
         });
       });
 
+      //fails
       it('should set the theme it receives from the dso found through the scope', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).store.dispatch).toHaveBeenCalledWith(new SetThemeAction('custom') as any);
@@ -261,6 +310,7 @@ describe('ThemeService', () => {
         });
       });
 
+      //fails
       it('should return true', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe((result) => {
           expect(result).toEqual(true);
@@ -422,6 +472,7 @@ describe('ThemeService', () => {
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
           { provide: ConfigurationDataService, useValue: configurationService },
+          { provide: TranslateService, useValue: translateServiceStub },
         ],
       });
 

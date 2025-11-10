@@ -1253,6 +1253,8 @@
 
   "collection.edit.tabs.metadata.head": "Edit Metadata",
 
+  "collection.edit.tabs.styles.head": "Edit collection styles",
+
   "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
 
   "collection.edit.tabs.roles.head": "Assign Roles",
@@ -1320,6 +1322,8 @@
   "collection.edit.template.title": "Edit Template Item",
 
   "collection.form.abstract": "Short Description",
+
+  "collection.form.css": "Collection styles (CSS)",
 
   "collection.form.description": "Introductory text (HTML)",
 

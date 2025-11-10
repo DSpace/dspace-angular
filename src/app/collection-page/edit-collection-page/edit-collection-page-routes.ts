@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { collectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
+import { siteAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
@@ -13,6 +14,7 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
+import { CollectionStylesComponent } from './collection-styles/collection-styles.component';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 
 /**
@@ -94,6 +96,12 @@ export const ROUTES: Route[] = [
         path: 'mapper',
         component: CollectionItemMapperComponent,
         data: { title: 'collection.edit.tabs.item-mapper.title', hideReturnButton: true, showBreadcrumbs: true },
+      },
+      {
+        path: 'styles',
+        component: CollectionStylesComponent,
+        data: { title: 'collection.edit.tabs.styles', showBreadcrumbs: true },
+        canActivate: [siteAdministratorGuard],
       },
     ],
   },
