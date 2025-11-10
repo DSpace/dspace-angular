@@ -1,4 +1,9 @@
-import { Injectable } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   createSelector,
   select,
@@ -7,6 +12,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -39,6 +45,7 @@ export class HostWindowService {
   constructor(
     private store: Store<AppState>,
     private variableService: CSSVariableService,
+    @Inject(PLATFORM_ID) private platformId: any,
   ) {
     /* See _exposed_variables.scss */
     variableService.getAllVariables()
@@ -58,6 +65,11 @@ export class HostWindowService {
   }
 
   get widthCategory(): Observable<WidthCategory> {
+    if (isPlatformServer(this.platformId)) {
+      // During SSR we won't know the viewport width -- assume we're rendering for desktop
+      return of(WidthCategory.XL);
+    }
+
     return this.getWidthObs().pipe(
       map((width: number) => {
         if (width < this.breakPoints.SM_MIN) {

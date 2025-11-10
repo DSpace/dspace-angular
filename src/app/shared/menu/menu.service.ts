@@ -23,6 +23,7 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
+import { CookieService } from '../../core/services/cookie.service';
 import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import {
   hasNoValue,
@@ -79,6 +80,14 @@ const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<MenuSta
   return menuKeySelector<string[]>(id, menuSectionIndexStateSelector);
 };
 
+export const PINNED_MENU_COOKIE = 'dsMenuCollapsedState';
+export const PINNED_MENU_COOKIE_DEFAULT: PinnedMenuCookie = {
+  [MenuID.ADMIN]: true,
+  [MenuID.PUBLIC]: false,
+  [MenuID.DSO_EDIT]: false,
+};
+export const PINNED_MENU_COOKIE_EXPIRES = 10000;
+
 @Injectable({ providedIn: 'root' })
 export class MenuService {
 
@@ -86,6 +95,7 @@ export class MenuService {
     protected store: Store<AppState>,
     protected route: ActivatedRoute,
     protected router: Router,
+    protected cookieService: CookieService,
   ) {
   }
 
@@ -318,6 +328,60 @@ export class MenuService {
   }
 
   /**
+   * Returns whether the menu with {@linkcode menuID} is currently collapsed.
+   */
+  isCollapsed(menuID: MenuID): boolean {
+    const cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
+    return cookie?.[menuID];
+  }
+
+  /**
+   * Collapses the menu with {@linkcode menuID} if expanded. Expands it if collapsed.
+   */
+  toggleMenuCollapsedState(menuID: MenuID): void {
+    let cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
+    if (!hasValue(cookie)) {
+      cookie = PINNED_MENU_COOKIE_DEFAULT;
+    }
+    cookie[menuID] = !cookie[menuID];
+    this.cookieService.set(PINNED_MENU_COOKIE, cookie, { expires: PINNED_MENU_COOKIE_EXPIRES });
+  }
+
+  /**
+   * Collapses or expands the menu with {@linkcode menuID} based on {@linkcode collapsed}.
+   */
+  setMenuCollapsedState(menuID: MenuID, collapsed: boolean): void {
+    let cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
+    if (hasValue(cookie)) {
+      if (cookie[menuID] === collapsed) {
+        // Do not save the cookie if it's unchanged
+        return;
+      }
+    } else {
+      cookie = PINNED_MENU_COOKIE_DEFAULT;
+    }
+    cookie[menuID] = collapsed;
+    this.cookieService.set(PINNED_MENU_COOKIE, cookie, { expires: PINNED_MENU_COOKIE_EXPIRES });
+  }
+
+  /**
+   * Expands or collapses the navbar based on the {@link PINNED_MENU_COOKIE} cookie value.
+   */
+  syncMenuCollapsedState(): void {
+    const cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
+    if (!hasValue(cookie)) {
+      return;
+    }
+    for (const menuID in cookie) {
+      if (cookie?.[menuID]) {
+        this.collapseMenu(menuID as MenuID);
+      } else {
+        this.expandMenu(menuID as MenuID);
+      }
+    }
+  }
+
+  /**
    * Hide a given menu section
    * @param {MenuID} menuID The ID of the menu
    * @param id The ID of the section
@@ -374,3 +438,7 @@ export class MenuService {
   }
 
 }
+
+type PinnedMenuCookie = {
+  [key in MenuID]: boolean;
+};

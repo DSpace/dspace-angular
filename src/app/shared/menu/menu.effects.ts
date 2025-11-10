@@ -4,10 +4,20 @@ import {
   createEffect,
   ofType,
 } from '@ngrx/effects';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  tap,
+} from 'rxjs/operators';
 
 import { StoreActionTypes } from '../../store.actions';
-import { ReinitMenuAction } from './menu.actions';
+import {
+  CollapseMenuAction,
+  ExpandMenuAction,
+  MenuActionTypes,
+  ReinitMenuAction,
+  ToggleMenuAction,
+} from './menu.actions';
+import { MenuService } from './menu.service';
 
 @Injectable()
 export class MenuEffects {
@@ -21,7 +31,25 @@ export class MenuEffects {
       map(() => new ReinitMenuAction()),
     ));
 
-  constructor(private actions$: Actions) {
+  menuCollapsedStateToggle$ = createEffect(() => this.actions$.pipe(
+    ofType(MenuActionTypes.TOGGLE_MENU),
+    tap((action: ToggleMenuAction) => this.menuService.toggleMenuCollapsedState(action.menuID)),
+  ), { dispatch: false });
+
+  menuCollapsedStateCollapse$ = createEffect(() => this.actions$.pipe(
+    ofType(MenuActionTypes.COLLAPSE_MENU),
+    tap((action: CollapseMenuAction) => this.menuService.setMenuCollapsedState(action.menuID, true)),
+  ), { dispatch: false });
+
+  menuCollapsedStateExpand$ = createEffect(() => this.actions$.pipe(
+    ofType(MenuActionTypes.EXPAND_MENU),
+    tap((action: ExpandMenuAction) => this.menuService.setMenuCollapsedState(action.menuID, false)),
+  ), { dispatch: false });
+
+  constructor(
+    private actions$: Actions,
+    private menuService: MenuService,
+  ) {
   }
 
 }
