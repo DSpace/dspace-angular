@@ -11,12 +11,12 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { CacheableObject } from '../../../../core/cache/cacheable-object.model';
 import { MenuID } from '../../menu-id.model';
 import { MenuItemType } from '../../menu-item-type.model';
 import { PartialMenuSection } from '../../menu-provider.model';

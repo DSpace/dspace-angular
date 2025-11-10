@@ -2,19 +2,24 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
-import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
-
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { isNgbDateStruct } from '../../../date.util';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { VisibilityType } from '@dspace/core/submission/visibility-type';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { isNgbDateStruct } from '@dspace/shared/utils/date.util';
 import {
   hasValue,
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-} from '../../../empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
+
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -24,11 +29,6 @@ import {
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { getTypeBindRelations } from '../ds-dynamic-form-ui/type-bind.utils';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';

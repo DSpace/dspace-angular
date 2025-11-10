@@ -6,6 +6,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
 import {
   Store,
   StoreModule,
@@ -18,10 +22,6 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from '../testing/eperson.mock';
 import { VarDirective } from '../utils/var.directive';
 import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
 

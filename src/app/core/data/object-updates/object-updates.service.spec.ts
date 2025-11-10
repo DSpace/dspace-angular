@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
-import { Notification } from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { CoreState } from '../../core-state.model';
+import { Notification } from '../../notification-system/models/notification.model';
+import { NotificationType } from '../../notification-system/models/notification-type';
 import { Relationship } from '../../shared/item-relationships/relationship.model';
 import { FieldChangeType } from './field-change-type.model';
 import {

@@ -10,11 +10,11 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Community } from '@dspace/core/shared/community.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Community } from '../../../../core/shared/community.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { EditComColPageComponent } from './edit-comcol-page.component';
 
 describe('EditComColPageComponent', () => {

@@ -5,10 +5,10 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { GenericConstructor } from '../shared/generic-constructor';
