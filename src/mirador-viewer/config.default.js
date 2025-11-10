@@ -176,4 +176,4 @@ windowSettings.manifestId = manifest;
       miradorDownloadPlugin
     ]
   )
-)(manifest);
+);
