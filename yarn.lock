@@ -4986,6 +4986,11 @@ di@^0.0.1:
   resolved "https://registry.npmjs.org/di/-/di-0.0.1.tgz"
   integrity sha512-uJaamHkagcZtHPqCIHZxnFrXlunQXgBOsZSUOWwFw31QJCAbyTBoHMW75YOTur5ZNx8pIeAKgf6GWIgaqqiLhA==
 
+diff-sequences@^27.5.1:
+  version "27.5.1"
+  resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-27.5.1.tgz#eaecc0d327fd68c8d9672a1e64ab8dccb2ef5327"
+  integrity sha512-k1gCAXAsNgLwEL+Y8Wvl+M6oEFj5bgazfZULpS5CneoPPXRaCCW7dm+q21Ky2VEE5X+VeRDBVg1Pcvvsr4TtNQ==
+
 diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npmjs.org/diff/-/diff-4.0.2.tgz"
@@ -5694,12 +5699,13 @@ eslint-plugin-jsdoc@^45.0.0:
     semver "^7.5.1"
     spdx-expression-parse "^3.0.1"
 
-eslint-plugin-jsonc@^2.20.1:
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jsonc/-/eslint-plugin-jsonc-2.20.1.tgz#138b41e857a2add02b5408b13f3bc6f14d51d702"
-  integrity sha512-gUzIwQHXx7ZPypUoadcyRi4WbHW2TPixDr0kqQ4miuJBU0emJmyGTlnaT3Og9X2a8R1CDayN9BFSq5weGWbTng==
+eslint-plugin-jsonc@^2.21.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsonc/-/eslint-plugin-jsonc-2.21.0.tgz#c398b20e9abee4a3bd1931cabb937eefef31b690"
+  integrity sha512-HttlxdNG5ly3YjP1cFMP62R4qKLxJURfBZo2gnMY+yQojZxkLyOpY1H1KRTKBmvQeSG9pIpSGEhDjE17vvYosg==
   dependencies:
     "@eslint-community/eslint-utils" "^4.5.1"
+    diff-sequences "^27.5.1"
     eslint-compat-utils "^0.6.4"
     eslint-json-compat-utils "^0.2.1"
     espree "^9.6.1 || ^10.3.0"
