@@ -7,9 +7,9 @@
  */
 import { of } from 'rxjs';
 
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { followLink } from '../../shared/follow-link-config.model';
+import { getMockRemoteDataBuildService } from '../../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../../testing/request.service.mock';
 import { FindListOptions } from '../find-list-options.model';
 import {
   constructSearchEndpointDefault,

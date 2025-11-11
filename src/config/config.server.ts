@@ -7,6 +7,7 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   blue,
   bold,
@@ -15,7 +16,6 @@ import {
 } from 'colors';
 import { load } from 'js-yaml';
 
-import { isNotEmpty } from '../app/shared/empty.util';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';

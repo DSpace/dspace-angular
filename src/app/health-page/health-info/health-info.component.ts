@@ -4,12 +4,12 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { HealthInfoResponse } from '@dspace/core/shared/health-component.model';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthStatusComponent } from '../health-panel/health-status/health-status.component';
-import { HealthInfoResponse } from '../models/health-component.model';
 import { HealthInfoComponentComponent } from './health-info-component/health-info-component.component';
 
 /**

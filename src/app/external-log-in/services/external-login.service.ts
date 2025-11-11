@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { getAuthenticationMethods } from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   select,
   Store,
@@ -10,15 +18,6 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { AuthMethod } from 'src/app/core/auth/models/auth.method';
-import { getAuthenticationMethods } from 'src/app/core/auth/selectors';
-import { CoreState } from 'src/app/core/core-state.model';
-
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({
   providedIn: 'root',

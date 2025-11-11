@@ -6,6 +6,11 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   throwError as observableThrowError,
@@ -15,12 +20,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RequestError } from '../data/request-error.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { RawRestResponse } from './raw-rest-response.model';
 
