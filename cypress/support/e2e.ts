@@ -19,7 +19,7 @@ import './commands';
 // https://github.com/component-driven/cypress-axe
 import 'cypress-axe';
 
-import { DSPACE_XSRF_COOKIE } from 'src/app/core/xsrf/xsrf.constants';
+import { DSPACE_XSRF_COOKIE } from '@dspace/core/xsrf/xsrf.constants';
 
 // Runs once before all tests
 before(() => {

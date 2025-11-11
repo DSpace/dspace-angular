@@ -1,4 +1,4 @@
-import { EPersonMock } from '../../shared/testing/eperson.mock';
+import { EPersonMock } from '../testing/eperson.mock';
 import {
   AddAuthenticationMessageAction,
   AuthenticateAction,

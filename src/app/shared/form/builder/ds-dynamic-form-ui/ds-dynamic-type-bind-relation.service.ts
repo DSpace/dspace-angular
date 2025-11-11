@@ -5,6 +5,12 @@ import {
   Optional,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   AND_OPERATOR,
   DYNAMIC_MATCHERS,
@@ -13,19 +19,12 @@ import {
   DynamicFormControlModel,
   DynamicFormControlRelation,
   DynamicFormRelationService,
-  MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 
 /**
  * Service to manage type binding for submission input fields
@@ -214,25 +213,6 @@ export class DsDynamicTypeBindRelationService {
     });
 
     return subscriptions;
-  }
-
-  /**
-   * Helper function to construct a typeBindRelations array
-   * @param configuredTypeBindValues
-   */
-  public getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormControlRelation[] {
-    const bindValues = [];
-    configuredTypeBindValues.forEach((value) => {
-      bindValues.push({
-        id: 'dc.type',
-        value: value,
-      });
-    });
-    return [{
-      match: MATCH_VISIBLE,
-      operator: OR_OPERATOR,
-      when: bindValues,
-    }];
   }
 
 }

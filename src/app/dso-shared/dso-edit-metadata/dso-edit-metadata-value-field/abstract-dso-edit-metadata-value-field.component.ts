@@ -4,9 +4,9 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { EditMetadataValueFieldType } from './dso-edit-metadata-field-type.enum';
 
