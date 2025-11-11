@@ -11,6 +11,7 @@ import { AccessConditionOption } from '@dspace/core/config/models/config-access-
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
@@ -63,7 +64,6 @@ import {
 } from 'src/app/core/shared/operators';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
