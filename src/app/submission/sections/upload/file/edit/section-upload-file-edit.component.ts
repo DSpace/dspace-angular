@@ -61,8 +61,6 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from 'src/app/core/shared/operators';
-import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
