@@ -8,6 +8,25 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import {
+  EmptySpecialGroupDataMock$,
+  SpecialGroupDataMock$,
+} from '@dspace/core/testing/special-group.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,29 +40,10 @@ import {
 } from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
-import { authReducer } from '../core/auth/auth.reducer';
-import { AuthService } from '../core/auth/auth.service';
-import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { RestResponse } from '../core/cache/response.models';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
-import {
-  EmptySpecialGroupDataMock$,
-  SpecialGroupDataMock$,
-} from '../shared/testing/special-group.mock';
-import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';

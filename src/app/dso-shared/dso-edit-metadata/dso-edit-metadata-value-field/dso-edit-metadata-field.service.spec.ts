@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { ItemDataServiceStub } from '@dspace/core/testing/item-data.service.stub';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
-import { VocabularyServiceStub } from '../../../shared/testing/vocabulary-service.stub';
 import { DsoEditMetadataFieldService } from './dso-edit-metadata-field.service';
 
 describe('DsoEditMetadataFieldService', () => {

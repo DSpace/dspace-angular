@@ -7,6 +7,22 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { AccessConditionOption } from '@dspace/core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { dateToISOFormat } from '@dspace/shared/utils/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -51,22 +67,8 @@ import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
-import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
-import { dateToISOFormat } from '../../../../../shared/date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';
