@@ -454,6 +454,16 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         (comp as any).originalFormat = { id: 'fmt-1' } as BitstreamFormat;
         (comp as any).selectedFormat = { id: 'fmt-2', shortDescription: 'DOCX', supportLevel: BitstreamFormatSupportLevel.Known } as BitstreamFormat;
         formService.getFormData.and.returnValue(of(mockFileFormData));
+        operationsService.jsonPatchByResourceID.and.returnValue(of([
+          {
+            sections: {
+              upload: {
+                files: [fileData],
+                primary: true,
+              },
+            },
+          },
+        ]));
         compAsAny.saveBitstreamData();
         tick();
 
@@ -473,6 +483,16 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
           formatGroup: { newFormat: [{ display: 'application/zip' }] },
         }));
 
+        operationsService.jsonPatchByResourceID.and.returnValue(of([
+          {
+            sections: {
+              upload: {
+                files: [fileData],
+                primary: true,
+              },
+            },
+          },
+        ]));
         compAsAny.saveBitstreamData();
         tick();
 
