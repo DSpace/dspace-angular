@@ -4,11 +4,11 @@ import {
   Component,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { ItemPageBibliographyComponent } from 'src/app/item-page/simple/field-components/specific-field/bibliography/item-page-bibliography.component';
 
-import { Context } from '../../../../../../../app/core/shared/context.model';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { CollectionsComponent } from '../../../../../../../app/item-page/field-components/collections/collections.component';
 import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/media-viewer/themed-media-viewer.component';
 import { MiradorViewerComponent } from '../../../../../../../app/item-page/mirador-viewer/mirador-viewer.component';

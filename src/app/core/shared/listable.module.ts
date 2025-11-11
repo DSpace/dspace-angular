@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ItemPageBibliographyComponent } from 'src/app/item-page/simple/field-components/specific-field/bibliography/item-page-bibliography.component';
 
 import { CollectionAdminSearchResultGridElementComponent } from '../../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 import { CommunityAdminSearchResultGridElementComponent } from '../../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
@@ -64,6 +63,7 @@ import { ThemedMediaViewerComponent } from '../../item-page/media-viewer/themed-
 import { MiradorViewerComponent } from '../../item-page/mirador-viewer/mirador-viewer.component';
 import { ThemedFileSectionComponent } from '../../item-page/simple/field-components/file-section/themed-file-section.component';
 import { ItemPageAbstractFieldComponent } from '../../item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageBibliographyComponent } from '../../item-page/simple/field-components/specific-field/bibliography/item-page-bibliography.component';
 import { ItemPageDateFieldComponent } from '../../item-page/simple/field-components/specific-field/date/item-page-date-field.component';
 import { GenericItemPageFieldComponent } from '../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
