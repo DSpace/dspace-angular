@@ -6,6 +6,7 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -21,7 +22,6 @@ import { ItemBibliographyService } from '../../../../../core/data/bibliography-d
 import { Bibliography } from '../../../../../core/shared/bibliography/bibliography.model';
 import { BibliographyData } from '../../../../../core/shared/bibliography/bibliography-data.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { ItemPageBibliographyComponent } from './item-page-bibliography.component';
 
 describe('ItemPageBibliographyComponent', () => {
