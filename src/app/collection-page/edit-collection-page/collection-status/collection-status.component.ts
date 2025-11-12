@@ -12,6 +12,8 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -36,11 +38,7 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import { hasValue } from '../../../shared/empty.util';
-import {
-  getCollectionEditRoute,
-  getCollectionPageRoute,
-} from '../../collection-page-routing-paths';
+import { getCollectionEditRoute } from '../../collection-page-routing-paths';
 import { CollectionOperationComponent } from '../collection-operation/collection-operation.component';
 import { CollectionOperation } from '../collection-operation/collectionOperation.model';
 

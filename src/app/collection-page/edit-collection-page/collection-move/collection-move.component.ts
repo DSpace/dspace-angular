@@ -9,6 +9,9 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -35,12 +38,7 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import {
-  getCollectionEditRoute,
-  getCollectionPageRoute,
-} from '../../collection-page-routing-paths';
+import { getCollectionEditRoute } from '../../collection-page-routing-paths';
 
 @Component({
   selector: 'ds-item-move',

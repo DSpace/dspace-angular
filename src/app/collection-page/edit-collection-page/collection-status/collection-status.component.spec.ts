@@ -8,12 +8,12 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { Collection } from 'src/app/core/shared/collection.model';
 
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CollectionStatusComponent } from './collection-status.component';
 
 describe('CollectionStatusComponent', () => {
