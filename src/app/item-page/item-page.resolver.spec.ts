@@ -101,4 +101,72 @@ describe('itemPageResolver', () => {
     });
 
   });
+
+  describe('when item has cris.customurl metadata', () => {
+
+
+    const customUrl = 'my-custom-item';
+    let resolver: any;
+    let itemService: any;
+    let store: any;
+    let router: Router;
+    let authService: AuthServiceStub;
+
+    const uuid = '1234-65487-12354-1235';
+    let item: DSpaceObject;
+
+    beforeEach(() => {
+      router = TestBed.inject(Router);
+      item = Object.assign(new DSpaceObject(), {
+        uuid: uuid,
+        firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
+          return _keyOrKeys === 'dspace.entity.type' ? 'person' : customUrl;
+        },
+        hasMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): boolean {
+          return true;
+        },
+        metadata: {
+          'cris.customurl': customUrl,
+        },
+      });
+      itemService = {
+        findById: (_id: string) => createSuccessfulRemoteDataObject$(item),
+      };
+      store = jasmine.createSpyObj('store', {
+        dispatch: {},
+      });
+      authService = new AuthServiceStub();
+      resolver = itemPageResolver;
+    });
+
+    it('should navigate to the new custom URL if cris.customurl is defined and different from route param', (done) => {
+      spyOn(router, 'navigateByUrl').and.callThrough();
+
+      const route = { params: { id: uuid } } as any;
+      const state = { url: `/entities/person/${uuid}` } as any;
+
+      resolver(route, state, router, itemService, store, authService)
+        .pipe(first())
+        .subscribe((rd: any) => {
+          const expectedUrl = `/entities/person/${customUrl}`;
+          expect(router.navigateByUrl).toHaveBeenCalledWith(expectedUrl);
+          done();
+        });
+    });
+
+    it('should not navigate if cris.customurl matches the current route id', (done) => {
+      spyOn(router, 'navigateByUrl').and.callThrough();
+
+      const route = { params: { id: customUrl } } as any;
+      const state = { url: `/entities/person/${customUrl}` } as any;
+
+      resolver(route, state, router, itemService, store, authService)
+        .pipe(first())
+        .subscribe((rd: any) => {
+          expect(router.navigateByUrl).not.toHaveBeenCalled();
+          done();
+        });
+    });
+  });
+
 });
