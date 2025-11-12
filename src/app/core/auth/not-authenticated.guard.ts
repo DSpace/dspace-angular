@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { map } from 'rxjs/operators';
 
-import { PAGE_NOT_FOUND_PATH } from '../../app-routing-paths';
+import { PAGE_NOT_FOUND_PATH } from '../router/core-routing-paths';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { AuthService } from './auth.service';
 
