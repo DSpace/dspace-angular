@@ -18,6 +18,10 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   combineLatest,
   map,
   Observable,
@@ -29,10 +33,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { MenuService } from './menu.service';
 import { MENU_PROVIDER } from './menu.structure';
 import { MenuID } from './menu-id.model';

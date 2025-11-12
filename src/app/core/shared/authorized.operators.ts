@@ -13,13 +13,12 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
+import { AuthService } from '../auth/auth.service';
+import { RemoteData } from '../data/remote-data';
 import {
   getForbiddenRoute,
   getPageNotFoundRoute,
-} from '../../app-routing-paths';
-import { getEndUserAgreementPath } from '../../info/info-routing-paths';
-import { AuthService } from '../auth/auth.service';
-import { RemoteData } from '../data/remote-data';
+} from '../router/core-routing-paths';
 
 export const REDIRECT_ON_4XX = new InjectionToken<<T>(router: Router, authService: AuthService) => (source: Observable<RemoteData<T>>) => Observable<RemoteData<T>>>('redirectOn4xx', {
   providedIn: 'root',
@@ -89,17 +88,4 @@ export const returnForbiddenUrlTreeOrLoginOnAllFalse = (router: Router, authServ
             return router.parseUrl('login');
           }
         }
-      }));
-/**
- * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
- * @param router    Router
- * @param redirect  Redirect URL to add to the UrlTree. This is used to redirect back to the original route after the
- *                  user accepts the agreement.
- */
-export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: string) =>
-  (source: Observable<boolean>): Observable<boolean | UrlTree> =>
-    source.pipe(
-      map((hasAgreed: boolean) => {
-        const queryParams = { redirect: encodeURIComponent(redirect) };
-        return hasAgreed ? hasAgreed : router.createUrlTree([getEndUserAgreementPath()], { queryParams });
       }));
