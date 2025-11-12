@@ -552,16 +552,16 @@ describe('EPersonFormComponent', () => {
 
     it('should delete group from member and show notification', (done) => {
       const group = { id: 'group1' } as any;
-      const activeEPerson = EPersonMock;
+      const activeEperson = EPersonMock;
 
-      spyOn(component.epeopleRegistryService, 'getActiveEPerson').and.returnValue(of(activeEPerson));
+      spyOn(component.epeopleRegistryService, 'getActiveEPerson').and.returnValue(of(activeEperson));
       (groupsDataService.deleteMemberFromGroup as jasmine.Spy)
         .and.returnValue(createSuccessfulRemoteDataObject$(null));
 
       spyOn(component.dsoNameService, 'getName').and.returnValue('Mock Group Name');
 
       const notifySpy = spyOn(component, 'showNotifications').and.callFake(() => {
-        expect(groupsDataService.deleteMemberFromGroup).toHaveBeenCalledWith(group, activeEPerson);
+        expect(groupsDataService.deleteMemberFromGroup).toHaveBeenCalledWith(group, activeEperson);
         expect(notifySpy).toHaveBeenCalled();
         done();
       });
