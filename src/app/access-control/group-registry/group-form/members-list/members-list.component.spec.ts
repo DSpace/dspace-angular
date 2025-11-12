@@ -52,9 +52,9 @@ import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.s
 import { RouterMock } from '@dspace/core/testing/router.mock';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { 
+import {
   createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$ 
+  createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -66,7 +66,7 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { mockGroup } from 'src/app/shared/mocks/submission.mock';
+import { mockGroup } from 'src/app/submission/utils/submission.mock';
 
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';

@@ -605,7 +605,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param group  group we want to delete as of which the current eperson being edited is member of
    */
   deleteGroupFromMember(group: Group) {
-    this.epersonService.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
+    this.epeopleRegistryService.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
       if (activeEPerson != null) {
         const response = this.groupsDataService.deleteMemberFromGroup(group, activeEPerson);
         this.showNotifications('deleteMembership', response, this.dsoNameService.getName(group), activeEPerson);

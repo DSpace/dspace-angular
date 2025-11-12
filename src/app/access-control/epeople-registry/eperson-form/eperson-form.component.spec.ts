@@ -48,9 +48,9 @@ import { NotificationsServiceStub } from '@dspace/core/testing/notifications-ser
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { 
+import {
   createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$ 
+  createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -554,7 +554,7 @@ describe('EPersonFormComponent', () => {
       const group = { id: 'group1' } as any;
       const activeEPerson = EPersonMock;
 
-      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(of(activeEPerson));
+      spyOn(component.epeopleRegistryService, 'getActiveEPerson').and.returnValue(of(activeEPerson));
       (groupsDataService.deleteMemberFromGroup as jasmine.Spy)
         .and.returnValue(createSuccessfulRemoteDataObject$(null));
 
