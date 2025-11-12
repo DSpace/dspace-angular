@@ -19,6 +19,7 @@ import {
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
+import { environment } from 'src/environments/environment';
 
 import {
   DsDynamicInputModel,
@@ -32,7 +33,6 @@ import { getTypeBindRelations } from '../ds-dynamic-form-ui/type-bind.utils';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { environment } from "src/environments/environment";
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
