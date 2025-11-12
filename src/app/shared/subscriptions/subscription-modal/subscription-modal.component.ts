@@ -16,6 +16,19 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   NgbActiveModal,
   NgbModal,
@@ -38,22 +51,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { isNotEmpty } from '../../empty.util';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../models/subscription.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 
 @Component({
   selector: 'ds-subscription-modal',

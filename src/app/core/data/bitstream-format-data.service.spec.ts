@@ -1,9 +1,5 @@
 import { waitForAsync } from '@angular/core/testing';
 import {
-  Action,
-  Store,
-} from '@ngrx/store';
-import {
   cold,
   getTestScheduler,
   hot,
@@ -14,19 +10,13 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  BitstreamFormatsRegistryDeselectAction,
-  BitstreamFormatsRegistryDeselectAllAction,
-  BitstreamFormatsRegistrySelectAction,
-} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
-import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
@@ -42,12 +32,6 @@ describe('BitstreamFormatDataService', () => {
 
   const responseCacheEntry = new RequestEntry();
   responseCacheEntry.response = new RestResponse(true, 200, 'Success');
-
-  const store = {
-    dispatch(action: Action) {
-      // Do Nothing
-    },
-  } as Store<CoreState>;
 
   const requestUUIDs = ['some', 'uuid'];
 
@@ -79,12 +63,11 @@ describe('BitstreamFormatDataService', () => {
       objectCache,
       halService,
       notificationsService,
-      store,
     );
   }
 
   describe('composition', () => {
-    const initService = () => new BitstreamFormatDataService(null, null, null, null, null, null);
+    const initService = () => new BitstreamFormatDataService(null, null, null, null, null);
     testFindAllDataImplementation(initService);
     testDeleteDataImplementation(initService);
   });
@@ -225,73 +208,6 @@ describe('BitstreamFormatDataService', () => {
     }));
     it('should remove the bitstream format hrefs in the request service', () => {
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(bitstreamFormatsEndpoint);
-    });
-  });
-
-  describe('selectBitstreamFormat', () => {
-    beforeEach(waitForAsync(() => {
-      scheduler = getTestScheduler();
-      requestService = jasmine.createSpyObj('requestService', {
-        send: {},
-        getByHref: of(responseCacheEntry),
-        getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: of(true),
-        generateRequestId: 'request-id',
-        removeByHrefSubstring: {},
-      });
-      service = initTestService(halEndpointService);
-      spyOn(store, 'dispatch');
-    }));
-    it('should add a selected bitstream to the store', () => {
-      const format = new BitstreamFormat();
-      format.uuid = 'uuid';
-
-      service.selectBitstreamFormat(format);
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistrySelectAction(format));
-    });
-  });
-
-  describe('deselectBitstreamFormat', () => {
-    beforeEach(waitForAsync(() => {
-      scheduler = getTestScheduler();
-      requestService = jasmine.createSpyObj('requestService', {
-        send: {},
-        getByHref: of(responseCacheEntry),
-        getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: of(true),
-        generateRequestId: 'request-id',
-        removeByHrefSubstring: {},
-      });
-      service = initTestService(halEndpointService);
-      spyOn(store, 'dispatch');
-    }));
-    it('should remove a bitstream from the store', () => {
-      const format = new BitstreamFormat();
-      format.uuid = 'uuid';
-
-      service.deselectBitstreamFormat(format);
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAction(format));
-    });
-  });
-
-  describe('deselectAllBitstreamFormats', () => {
-    beforeEach(waitForAsync(() => {
-      scheduler = getTestScheduler();
-      requestService = jasmine.createSpyObj('requestService', {
-        send: {},
-        getByHref: of(responseCacheEntry),
-        getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: of(true),
-        generateRequestId: 'request-id',
-        removeByHrefSubstring: {},
-      });
-      service = initTestService(halEndpointService);
-      spyOn(store, 'dispatch');
-
-    }));
-    it('should remove all bitstreamFormats from the store', () => {
-      service.deselectAllBitstreamFormats();
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAllAction());
     });
   });
 

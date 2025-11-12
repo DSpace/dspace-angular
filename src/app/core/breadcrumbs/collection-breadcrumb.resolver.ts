@@ -6,14 +6,16 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionDataService } from '../data/collection-data.service';
-import { Collection } from '../shared/collection.model';
+import {
+  Collection,
+  COLLECTION_PAGE_LINKS_TO_FOLLOW,
+} from '../shared/collection.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { BreadcrumbConfig } from './models/breadcrumb-config.model';
 
 /**
  * The resolve function that resolves the BreadcrumbConfig object for a Collection

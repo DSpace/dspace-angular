@@ -1,3 +1,5 @@
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
 import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
 import { MockStore } from '@ngrx/store/testing/mock_store';
@@ -7,11 +9,7 @@ import {
 } from 'jasmine-marbles';
 
 import { AppState } from '../app.reducer';
-import {
-  HostWindowService,
-  WidthCategory,
-} from './host-window.service';
-import { CSSVariableServiceStub } from './testing/css-variable-service.stub';
+import { HostWindowService } from './host-window.service';
 
 describe('HostWindowService', () => {
   let service: HostWindowService;

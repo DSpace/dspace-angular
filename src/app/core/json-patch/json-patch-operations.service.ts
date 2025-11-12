@@ -1,3 +1,10 @@
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import {
   merge as observableMerge,
@@ -14,13 +21,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';
