@@ -194,6 +194,7 @@ export const environment: BuildConfig = {
         ],
       },
     },
+    omitSimpleFieldPlaceholders: false,
   },
 
   // NOTE: will log all redux actions and transfers in console
