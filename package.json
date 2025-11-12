@@ -9,7 +9,7 @@
     "start:prod": "npm run build:prod && cross-env NODE_ENV=production npm run serve:ssr",
     "start:mirador:prod": "npm run build:mirador && npm run start:prod",
     "preserve": "npm run base-href",
-    "serve": "ts-node --project ./tsconfig.ts-node.json scripts/serve.ts",
+    "serve": "ts-node -r tsconfig-paths/register --project ./tsconfig.ts-node.json scripts/serve.ts",
     "serve:ssr": "node dist/server/main",
     "analyze": "webpack-bundle-analyzer dist/browser/stats.json",
     "build": "ng build --configuration development",
@@ -43,7 +43,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "env:yaml": "ts-node --project ./tsconfig.ts-node.json scripts/env-to-yaml.ts",
-    "base-href": "ts-node --project ./tsconfig.ts-node.json scripts/base-href.ts",
+    "base-href": "ts-node -r tsconfig-paths/register --project ./tsconfig.ts-node.json scripts/base-href.ts",
     "check-circ-deps": "npx madge --exclude '.nx|(bitstream|bundle|collection|config-submission-form|eperson|item|version)\\.model\\.ts|index.ts$' --circular --extensions ts ./",
     "postinstall": "npm run build:lint || echo 'Skipped DSpace ESLint plugins.'"
   },
