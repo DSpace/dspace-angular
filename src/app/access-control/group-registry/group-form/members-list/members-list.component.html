@@ -2,6 +2,23 @@
   <h2 class="border-bottom pb-2">{{messagePrefix + '.head' | translate}}</h2>
 
   <h3>{{messagePrefix + '.headMembers' | translate}}</h3>
+  
+  <form [formGroup]="searchCurrentMembersForm" (ngSubmit)="searchMembers(searchCurrentMembersForm.value)" class="d-flex justify-content-between gap-3">
+    <div class="flex-grow-1 mr-3">
+      <div class="form-group input-group mr-3">
+        <input type="text" name="queryCurrentMembers" id="queryCurrentMembers" formControlName="queryCurrentMembers"
+               class="form-control" aria-label="Search input">
+        <span class="input-group-append">
+            <button type="submit" class="search-button btn btn-primary">
+              <i class="fas fa-search"></i> {{ messagePrefix + '.search.button' | translate }}</button>
+        </span>
+      </div>
+    </div>
+    <div>
+      <button (click)="clearCurrentMembersFormAndResetResult()"
+              class="btn btn-secondary">{{messagePrefix + '.button.see-all' | translate}}</button>
+    </div>
+  </form>
 
   @if ((ePeopleMembersOfGroup | async)?.totalElements > 0) {
     <ds-pagination
