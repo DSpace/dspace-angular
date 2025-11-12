@@ -6,16 +6,16 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
-import { OrejimeService } from '../../shared/cookies/orejime.service';
-import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import {
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { OrejimeService } from '../cookies/orejime.service';
+import { CORRELATION_ID_OREJIME_KEY } from '../cookies/orejime-configuration';
 
 /**
  * Log Interceptor intercepting Http Requests & Responses to

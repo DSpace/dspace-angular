@@ -16,6 +16,25 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '@dspace/core/eperson/models/eperson-dto.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -35,29 +54,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
+import { GroupRegistryService } from '../../group-registry.service';
 
 // todo: optimize imports
 
@@ -189,6 +190,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   constructor(
     protected groupDataService: GroupDataService,
+    protected groupRegistryService: GroupRegistryService,
     public ePersonDataService: EPersonDataService,
     protected translateService: TranslateService,
     protected notificationsService: NotificationsService,
@@ -210,7 +212,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
       queryCurrentMembers: '',
     }));
 
-    this.subs.set(SubKey.ActiveGroup, this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
+    this.subs.set(SubKey.ActiveGroup, this.groupRegistryService.getActiveGroup().subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveMembers(this.config.currentPage);
@@ -294,7 +296,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param eperson   EPerson we want to delete as member from group that is currently being edited
    */
   deleteMemberFromGroup(eperson: EPerson) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+    this.groupRegistryService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteMemberFromGroup(activeGroup, eperson);
         this.showNotifications('deleteMember', response, this.dsoNameService.getName(eperson), activeGroup);
@@ -314,7 +316,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param eperson   EPerson we want to add as member to group that is currently being edited
    */
   addMemberToGroup(eperson: EPerson) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+    this.groupRegistryService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.addMemberToGroup(activeGroup, eperson);
         this.showNotifications('addMember', response, this.dsoNameService.getName(eperson), activeGroup);

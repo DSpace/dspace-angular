@@ -5,17 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { createPaginatedList } from '../../../testing/utils.test';
+import { SearchService } from '../../../search/search.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedCommunitySelectorComponent } from './authorized-community-selector.component';
 

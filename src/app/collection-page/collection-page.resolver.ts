@@ -4,30 +4,18 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
+import {
+  Collection,
+  COLLECTION_PAGE_LINKS_TO_FOLLOW,
+} from '@dspace/core/shared/collection.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { ResolvedAction } from '../core/resolving/resolver.actions';
-import { Collection } from '../core/shared/collection.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../shared/utils/follow-link-config.model';
-
-/**
- * The self links defined in this list are expected to be requested somewhere in the near future
- * Requesting them as embeds will limit the number of requests
- */
-export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
-  followLink('parentCommunity', {},
-    followLink('parentCommunity'),
-  ),
-  followLink('logo'),
-];
 
 /**
  * Method for resolving a collection based on the parameters in the current route
