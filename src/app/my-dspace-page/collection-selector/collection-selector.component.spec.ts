@@ -11,6 +11,20 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { MockElementRef } from '@dspace/core/testing/element-ref.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -23,21 +37,7 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
 import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { MockElementRef } from '../../shared/testing/element-ref.mock';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionSelectorComponent } from './collection-selector.component';
 
 describe('CollectionSelectorComponent', () => {

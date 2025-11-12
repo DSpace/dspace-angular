@@ -9,6 +9,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -16,13 +23,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { EPersonMock } from '../../../testing/eperson.mock';
 import { ItemSubmitterComponent } from './item-submitter.component';
 
 let component: ItemSubmitterComponent;

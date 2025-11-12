@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
   Observable,
   Subscription,
 } from 'rxjs';
@@ -13,10 +17,6 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotUndefined,
-} from '../../../shared/empty.util';
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from './section-data.model';
 

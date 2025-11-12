@@ -10,17 +10,17 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { getDSORoute } from '../../app-routing-paths';
-import { hasValue } from '../../shared/empty.util';
+} from '@dspace/config/app-config.interface';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { getDSORoute } from '../router/utils/dso-route.utils';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

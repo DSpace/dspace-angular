@@ -7,24 +7,24 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../../shared/testing/router.stub';
+import { getMockFormBuilderService } from '../../../../shared/form/testing/form-builder-service.mock';
+import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
 import { FormatFormComponent } from '../format-form/format-form.component';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 

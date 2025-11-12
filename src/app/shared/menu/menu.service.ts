@@ -3,6 +3,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { compareArraysUsingIds } from '@dspace/core/utilities/item-relationships-utils';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -23,13 +30,6 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../empty.util';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

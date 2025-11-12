@@ -1,8 +1,7 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
+import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
-
-import { RestRequestMethod } from '../app/core/data/rest-request-method';
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 
 export const environment: BuildConfig = {
   production: false,

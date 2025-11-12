@@ -2,22 +2,22 @@ import {
   fakeAsync,
   flush,
 } from '@angular/core/testing';
-import { of } from 'rxjs';
-
-import { AppConfig } from '../../config/app-config.interface';
-import { AuthService } from '../core/auth/auth.service';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { CookieService } from '../core/services/cookie.service';
-import { OrejimeServiceStub } from '../shared/cookies/orejime.service.stub';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
+import { AppConfig } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ACCESSIBILITY_COOKIE } from '@dspace/core/cookies/accessibility-cookie';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
-import { AuthServiceStub } from '../shared/testing/auth-service.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
+
 import {
-  ACCESSIBILITY_COOKIE,
   ACCESSIBILITY_SETTINGS_METADATA_KEY,
   AccessibilitySettings,
   AccessibilitySettingsFormValues,

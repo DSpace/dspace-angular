@@ -5,6 +5,12 @@ import {
   Optional,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   AND_OPERATOR,
   DYNAMIC_MATCHERS,
@@ -18,13 +24,7 @@ import {
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 
 /**
  * Service to manage type binding for submission input fields
