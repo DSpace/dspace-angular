@@ -150,10 +150,10 @@ class ThemeableComponentRegistry {
       traverse(source);
     }
 
-    const glob = require('glob');
+    const { globSync } = require('glob');
 
     // note: this outputs Unix-style paths on Windows
-    const wrappers: string[] = glob.GlobSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' }).found;
+    const wrappers: string[] = globSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' });
 
     for (const wrapper of wrappers) {
       registerWrapper(wrapper);

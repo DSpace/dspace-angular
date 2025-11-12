@@ -1,10 +1,11 @@
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   DynamicSelectModel,
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
 import { environment } from '../../../../../environments/environment';
-import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -20,7 +21,6 @@ import {
   DsDynamicOneboxModelConfig,
   DynamicOneboxModel,
 } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 export class OneboxFieldParser extends FieldParser {

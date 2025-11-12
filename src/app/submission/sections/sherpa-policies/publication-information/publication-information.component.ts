@@ -3,9 +3,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Journal } from '@dspace/core/submission/models/sherpa-policies-details.model';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { Journal } from '../../../../core/submission/models/sherpa-policies-details.model';
 
 /**
  * This component represents a section that contains the journal publication information.

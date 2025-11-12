@@ -1,3 +1,6 @@
+import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
+import { ACCESS_STATUS } from '@dspace/core/shared/access-status.resource-type';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   autoserialize,
   autoserializeAs,
@@ -6,13 +9,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
-import { isEmpty } from '../../shared/empty.util';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
-import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
+import { environment } from '../../../environments/environment';
 import {
   link,
   typedObject,
@@ -27,14 +25,41 @@ import { ChildHALResource } from './child-hal-resource.model';
 import { Collection } from './collection.model';
 import { COLLECTION } from './collection.resource-type';
 import { DSpaceObject } from './dspace-object.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { HandleObject } from './handle-object.model';
+import { IdentifierData } from './identifiers-data/identifier-data.model';
+import { IDENTIFIERS } from './identifiers-data/identifier-data.resource-type';
 import { ITEM } from './item.resource-type';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
+import { ListableObject } from './object-collection/listable-object.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
+
+/**
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
+export function getItemPageLinksToFollow(): FollowLinkConfig<Item>[] {
+  const followLinks: FollowLinkConfig<Item>[] = [
+    followLink('owningCollection', {},
+      followLink('parentCommunity', {},
+        followLink('parentCommunity')),
+    ),
+    followLink('relationships'),
+    followLink('version', {}, followLink('versionhistory')),
+    followLink('thumbnail'),
+  ];
+  if (environment.item.showAccessStatuses) {
+    followLinks.push(followLink('accessStatus'));
+  }
+  return followLinks;
+}
 
 /**
  * Class representing a DSpace Item

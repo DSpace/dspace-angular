@@ -8,6 +8,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { toFindListOptions } from '@dspace/core/pagination/pagination.utils';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -25,17 +34,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { RegistryService } from '../registry/registry.service';
 import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
 
 @Component({

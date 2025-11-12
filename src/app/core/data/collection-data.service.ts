@@ -1,5 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -9,23 +14,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../shared/empty.util';
-import { INotification } from '../../shared/notifications/models/notification.model';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { INotification } from '../notification-system/models/notification.model';
+import { NotificationOptions } from '../notification-system/models/notification-options.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
