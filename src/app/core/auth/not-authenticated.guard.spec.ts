@@ -8,7 +8,7 @@ import {
   of,
 } from 'rxjs';
 
-import { PAGE_NOT_FOUND_PATH } from '../../app-routing-paths';
+import { PAGE_NOT_FOUND_PATH } from '../router/core-routing-paths';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { AuthService } from './auth.service';
 import { notAuthenticatedGuard } from './not-authenticated.guard';
