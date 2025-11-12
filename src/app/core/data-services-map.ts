@@ -1,3 +1,4 @@
+import { AUDIT } from './audit/model/audit.resource-type';
 import {
   LDN_SERVICE,
   LDN_SERVICE_CONSTRAINT_FILTERS,
@@ -29,7 +30,6 @@ import { RESEARCHER_PROFILE } from './profile/model/researcher-profile.resource-
 import { RESOURCE_POLICY } from './resource-policy/models/resource-policy.resource-type';
 import { ACCESS_STATUS } from './shared/access-status.resource-type';
 import { ADMIN_NOTIFY_MESSAGE } from './shared/admin-notify-message.resource-type';
-import { AUDIT } from './audit/model/audit.resource-type';
 import { AUTHORIZATION } from './shared/authorization.resource-type';
 import { BITSTREAM } from './shared/bitstream.resource-type';
 import { BITSTREAM_FORMAT } from './shared/bitstream-format.resource-type';
@@ -137,5 +137,5 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUGGESTION_TARGET.value, () => import('./notifications/suggestions/target/suggestion-target-data.service').then(m => m.SuggestionTargetDataService)],
   [DUPLICATE.value, () => import('./submission/submission-duplicate-data.service').then(m => m.SubmissionDuplicateDataService)],
   [CorrectionType.type.value, () => import('./submission/correctiontype-data.service').then(m => m.CorrectionTypeDataService)],
-  [AUDIT.value, () => import('./audit/audit-data.service').then(m => m.AuditDataService)],
+  [AUDIT.value, () => import('./data/audit-data.service').then(m => m.AuditDataService)],
 ]);

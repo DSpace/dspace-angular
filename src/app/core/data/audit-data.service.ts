@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '@dspace/core/shared/follow-link-config.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
+import { Audit } from '../audit/model/audit.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DeleteDataImpl } from '../data/base/delete-data';
-import {
-  FindAllData,
-  FindAllDataImpl,
-} from '../data/base/find-all-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchDataImpl } from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { Audit } from './model/audit.model';
+import { DeleteDataImpl } from './base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { SearchDataImpl } from './base/search-data';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 

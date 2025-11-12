@@ -1,15 +1,15 @@
 
 import { TestBed } from '@angular/core/testing';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { COLLECTION } from '../../../core/shared/collection.resource-type';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { AuditLogsMenuProvider } from './audit-item.menu';

@@ -10,16 +10,16 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AUDIT_PERSON_NOT_AVAILABLE } from '@dspace/core/data/audit-data.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AUDIT_PERSON_NOT_AVAILABLE } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StringReplacePipe } from '../../shared/utils/string-replace.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 

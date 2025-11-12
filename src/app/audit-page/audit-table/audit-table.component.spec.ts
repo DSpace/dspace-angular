@@ -6,14 +6,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Audit } from '@dspace/core/audit/model/audit.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { AuditMock } from '@dspace/core/testing/audit.mock';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { TranslateModule } from '@ngx-translate/core';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 
-import { Audit } from '../../core/audit/model/audit.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { AuditMock } from '../../shared/testing/audit.mock';
 import { AuditTableComponent } from './audit-table.component';
 
 describe('AuditTableComponent', () => {

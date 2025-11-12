@@ -11,24 +11,24 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { AuditMock } from '../../shared/testing/audit.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { RequestParam } from '../cache/models/request-param.model';
+import { CoreState } from '../core-state.model';
+import { followLink } from '../shared/follow-link-config.model';
+import { AuditMock } from '../testing/audit.mock';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { TranslateLoaderMock } from '../testing/translate-loader.mock';
 import {
   createPaginatedList,
   createRequestEntry$,
-} from '../../shared/testing/utils.test';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { RequestService } from '../data/request.service';
+} from '../testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   AUDIT_FIND_BY_OBJECT_SEARCH_METHOD,
   AuditDataService,
 } from './audit-data.service';
+import { FindListOptions } from './find-list-options.model';
+import { RequestService } from './request.service';
 
 describe('AuditDataService', () => {
   let service: AuditDataService;

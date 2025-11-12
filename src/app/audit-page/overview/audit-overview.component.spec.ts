@@ -5,17 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Audit } from '@dspace/core/audit/model/audit.model';
+import { AuditDataService } from '@dspace/core/data/audit-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { AuditMock } from '@dspace/core/testing/audit.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuditDataService } from '../../core/audit/audit-data.service';
-import { Audit } from '../../core/audit/model/audit.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { AuditMock } from '../../shared/testing/audit.mock';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuditTableComponent } from '../audit-table/audit-table.component';
 import { AuditOverviewComponent } from './audit-overview.component';
 

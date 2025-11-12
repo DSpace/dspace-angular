@@ -1,5 +1,5 @@
-import { Audit } from '../../core/audit/model/audit.model';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Audit } from '@dspace/core/audit/model/audit.model';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 
 export const AuditEPersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,

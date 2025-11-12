@@ -2,8 +2,8 @@ import {
   Pipe,
   PipeTransform,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import { hasValue } from '../empty.util';
 
 @Pipe({
   name: 'dsStringReplace',
