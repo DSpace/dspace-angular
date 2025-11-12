@@ -1,12 +1,12 @@
-import groupBy from 'lodash/groupBy';
-import sortBy from 'lodash/sortBy';
-
 import {
   isEmpty,
   isNotEmpty,
   isNotUndefined,
   isUndefined,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import groupBy from 'lodash/groupBy';
+import sortBy from 'lodash/sortBy';
+
 import {
   MetadataMapInterface,
   MetadataValue,

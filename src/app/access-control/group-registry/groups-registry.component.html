@@ -65,7 +65,7 @@
                         @switch (groupDto.ableToEdit) {
                           @case (true) {
                             <button
-                              [routerLink]="groupService.getGroupEditPageRouterLink(groupDto.group)"
+                              [routerLink]="getGroupEditPageRouterLink(groupDto.group)"
                               class="btn btn-outline-primary btn-sm btn-edit"
                               title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: dsoNameService.getName(groupDto.group) } }}"
                               >
@@ -85,7 +85,7 @@
                         }
                         @if (!groupDto.group?.permanent && groupDto.ableToDelete) {
                           <button
-                            (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
+                            (click)="confirmDelete(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
                             title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: dsoNameService.getName(groupDto.group) } }}">
                             <i class="fas fa-trash-alt fa-fw"></i>
                           </button>

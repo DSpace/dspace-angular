@@ -3,12 +3,12 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
-import { SearchResult } from '../../../../search/models/search-result.model';
 
 /**
  * This component show values for the given item metadata

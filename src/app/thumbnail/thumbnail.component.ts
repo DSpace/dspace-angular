@@ -1,7 +1,4 @@
-import {
-  CommonModule,
-  isPlatformBrowser,
-} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   Inject,
@@ -12,20 +9,20 @@ import {
   SimpleChanges,
   WritableSignal,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
-import { AuthService } from '../core/auth/auth.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { FileService } from '../core/shared/file.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
 import {
   hasNoValue,
   hasValue,
-} from '../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslatePipe } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 
@@ -40,10 +37,9 @@ import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
   templateUrl: './thumbnail.component.html',
   standalone: true,
   imports: [
-    CommonModule,
     SafeUrlPipe,
     ThemedLoadingComponent,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class ThumbnailComponent implements OnChanges {

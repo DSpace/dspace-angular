@@ -2,7 +2,8 @@ import {
   hasNoValue,
   hasValue,
   isEmpty,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+
 import { GenericConstructor } from '../shared/generic-constructor';
 
 const excludedFromEquals = new Map();

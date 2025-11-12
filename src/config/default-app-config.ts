@@ -1,9 +1,6 @@
-import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
-import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
-import { RestRequestMethod } from '../app/core/data/rest-request-method';
-import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -20,11 +17,16 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { INotificationBoardOptions } from './notifications-config.interfaces';
+import {
+  INotificationBoardOptions,
+  NotificationAnimationsType,
+} from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
+import { RestRequestMethod } from './rest-request-method';
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
@@ -267,18 +269,22 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'de', label: 'Deutsch', active: true },
     { code: 'el', label: 'Ελληνικά', active: true },
     { code: 'es', label: 'Español', active: true },
+    { code: 'fa', label: 'فارسی', active: true },
     { code: 'fi', label: 'Suomi', active: true },
     { code: 'fr', label: 'Français', active: true },
     { code: 'gd', label: 'Gàidhlig', active: true },
+    { code: 'gu', label: 'ગુજરાતી', active: true },
     { code: 'hi', label: 'हिंदी', active: true },
     { code: 'hu', label: 'Magyar', active: true },
     { code: 'it', label: 'Italiano', active: true },
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'lv', label: 'Latviešu', active: true },
+    { code: 'mr', label: 'मराठी', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
     { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
+    { code: 'ru', label: 'Русский', active: true },
     { code: 'sr-lat', label: 'Srpski (lat)', active: true },
     { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'sv', label: 'Svenska', active: true },
