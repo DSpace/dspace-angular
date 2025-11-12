@@ -20,9 +20,13 @@ import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -30,7 +34,6 @@ import {
 
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { OrcidQueueComponent } from './orcid-queue.component';
-import { RouterMock } from "@dspace/core/testing/router.mock";
 
 describe('OrcidQueueComponent test suite', () => {
   let component: OrcidQueueComponent;

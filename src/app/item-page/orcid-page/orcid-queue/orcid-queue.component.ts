@@ -11,6 +11,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
@@ -24,7 +25,6 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { Router } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -46,8 +46,8 @@ import {
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { ObjectTableComponent } from '../../../shared/object-table/object-table.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { ObjectTableComponent } from "../../../shared/object-table/object-table.component";
 
 @Component({
   selector: 'ds-orcid-queue',
