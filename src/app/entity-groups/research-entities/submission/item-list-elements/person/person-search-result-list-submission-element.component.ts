@@ -36,7 +36,6 @@ import { PersonInputSuggestionsComponent } from './person-suggestions/person-inp
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],
   templateUrl: './person-search-result-list-submission-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

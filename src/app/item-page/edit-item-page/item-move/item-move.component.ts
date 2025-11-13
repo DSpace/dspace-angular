@@ -53,7 +53,6 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that handles the moving of an item to a different collection

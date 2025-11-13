@@ -388,7 +388,6 @@ describe('ExpandableNavbarSectionComponent', () => {
   template: `
     <a role="menuitem">link</a>
   `,
-  standalone: true,
 })
 class TestComponent {
 }

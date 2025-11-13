@@ -50,7 +50,6 @@ import { SearchConfigurationService } from '../search/search-configuration.servi
   templateUrl: 'rss.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  standalone: true,
   imports: [
     AsyncPipe,
     TranslateModule,

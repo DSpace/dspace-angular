@@ -200,7 +200,7 @@ import { combineLatest } from 'rxjs';
  * @param node The incorrect import node that should be fixed
  */
 function handleUnaliasedImport(context: TSESLint.RuleContext<Message, unknown[]>, option: AliasImportOption, node: TSESTree.ImportSpecifier): void {
-  const hasCorrectAliasedImport: boolean = (node.parent as TSESTree.ImportDeclaration).specifiers.find((specifier: TSESTree.ImportClause) => specifier.local.name === option.local && specifier.type === AST_NODE_TYPES.ImportSpecifier && (specifier as TSESTree.ImportSpecifier).imported.name === option.imported) !== undefined;
+  const hasCorrectAliasedImport: boolean = (node.parent as TSESTree.ImportDeclaration).specifiers.find((specifier: TSESTree.ImportClause) => specifier.local.name === option.local && specifier.type === AST_NODE_TYPES.ImportSpecifier && ((((specifier as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name === option.imported) || (((specifier as TSESTree.ImportSpecifier).imported as TSESTree.StringLiteral).value === option.imported))) !== undefined;
   if (option.imported === option.local) {
     if (hasCorrectAliasedImport) {
       context.report({
@@ -260,7 +260,7 @@ function handleUnaliasedImport(context: TSESLint.RuleContext<Message, unknown[]>
           return fixes;
         },
       });
-    } else if (node.local.name === node.imported.name) {
+    } else if ((node.local.name === (node.imported as TSESTree.Identifier).name) || (node.local.name === (node.imported as TSESTree.StringLiteral).value)) {
       context.report({
         messageId: Message.MISSING_ALIAS,
         node: node,

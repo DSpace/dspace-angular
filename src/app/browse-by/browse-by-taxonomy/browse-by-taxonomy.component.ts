@@ -39,7 +39,6 @@ import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treevi
     TranslatePipe,
     VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary

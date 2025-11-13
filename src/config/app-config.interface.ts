@@ -45,7 +45,7 @@ interface AppConfig extends Config {
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   debug: boolean;
-  defaultLanguage: string;
+  fallbackLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
   communityList: CommunityListConfig;

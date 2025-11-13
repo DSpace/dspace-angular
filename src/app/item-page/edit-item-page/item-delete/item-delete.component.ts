@@ -106,7 +106,6 @@ class RelationshipDTO {
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component responsible for rendering the item delete page

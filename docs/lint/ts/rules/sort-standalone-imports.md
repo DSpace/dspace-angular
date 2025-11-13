@@ -36,7 +36,6 @@ Whether the last import should have a trailing comma (only applicable for multil
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RootComponent,
@@ -53,7 +52,6 @@ export class AppComponent {}
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
   ],
@@ -69,7 +67,6 @@ export class AppComponent {}
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [RootComponent],
 })
 export class AppComponent {}
@@ -96,7 +93,6 @@ With options:
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
     AsyncPipe,
@@ -118,7 +114,6 @@ Result of `yarn lint --fix`:
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RootComponent,
@@ -135,7 +130,6 @@ export class AppComponent {}
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [RootComponent],
 })
 export class AppComponent {}
@@ -154,7 +148,6 @@ Result of `yarn lint --fix`:
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
   ],
@@ -170,7 +163,6 @@ export class AppComponent {}
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     RootComponent,
   ],
@@ -199,7 +191,6 @@ Result of `yarn lint --fix`:
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [RootComponent],
 })
 export class AppComponent {}
@@ -213,7 +204,6 @@ export class AppComponent {}
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [AsyncPipe, RootComponent],
 })
 export class AppComponent {}
@@ -232,7 +222,6 @@ Result of `yarn lint --fix`:
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RootComponent,

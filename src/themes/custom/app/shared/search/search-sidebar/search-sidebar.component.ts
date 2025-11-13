@@ -23,7 +23,6 @@ import { ViewModeSwitchComponent } from '../../../../../../app/shared/view-mode-
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AdvancedSearchComponent,
     AsyncPipe,
