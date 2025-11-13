@@ -1,8 +1,8 @@
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { Item } from '../shared/item.model';
 import { MetadataValueFilter } from '../shared/metadata.models';
+import { ListableObject } from '../shared/object-collection/listable-object.model';
 import { DSONameService } from './dso-name.service';
 
 describe(`DSONameService`, () => {

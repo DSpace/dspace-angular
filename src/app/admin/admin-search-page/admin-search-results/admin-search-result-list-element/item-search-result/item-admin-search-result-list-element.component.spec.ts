@@ -5,17 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-result-actions.component';

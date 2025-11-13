@@ -9,11 +9,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';

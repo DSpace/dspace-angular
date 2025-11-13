@@ -6,6 +6,15 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -15,16 +24,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
-import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../shared/empty.util';
 
 export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

@@ -11,14 +11,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Community } from '@dspace/core/shared/community.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '../../../../core/shared/community.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { RouterStub } from '../../../testing/router.stub';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 
 describe('EditCommunitySelectorComponent', () => {
@@ -64,7 +64,7 @@ describe('EditCommunitySelectorComponent', () => {
     })
       .overrideComponent(EditCommunitySelectorComponent, {
         remove: {
-          imports: [DSOSelectorComponent],
+          imports: [AuthorizedCommunitySelectorComponent],
         },
       })
       .compileComponents();
