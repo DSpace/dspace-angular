@@ -19,8 +19,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
+import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 
 describe('EditCollectionSelectorComponent', () => {
   let component: EditCollectionSelectorComponent;

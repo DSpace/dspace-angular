@@ -2,15 +2,15 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { Observable } from 'rxjs';
 
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 
 /**

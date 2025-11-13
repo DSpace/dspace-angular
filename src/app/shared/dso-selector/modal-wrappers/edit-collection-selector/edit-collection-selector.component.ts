@@ -17,12 +17,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { getCollectionEditRoute } from '../../../../collection-page/collection-page-routing-paths';
-import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
-import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -34,7 +33,7 @@ import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-select
   templateUrl: './edit-collection-selector.component.html',
   standalone: true,
   imports: [
-    AuthorizedCollectionSelectorComponent,
+    ThemedAuthorizedCollectionSelectorComponent,
     ThemedDSOSelectorComponent,
     TranslateModule,
   ],

@@ -39,10 +39,7 @@ import {
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
-import {
-  DsDynamicLookupRelationModalComponent,
-  DynamicLookupRelationModalComponent,
-} from './dynamic-lookup-relation-modal.component';
+import { DynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { LookupRelationService } from './lookup-relation.service';
 import { NameVariantService } from './name-variant.service';
 import {

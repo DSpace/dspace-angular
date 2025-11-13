@@ -120,8 +120,8 @@ import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relatio
 import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
-import { ThemedDynamicLookupRelationModalComponent } from './relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './relation-lookup-modal/name-variant.service';
+import { ThemedDynamicLookupRelationModalComponent } from './relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',

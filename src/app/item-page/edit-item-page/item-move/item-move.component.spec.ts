@@ -28,12 +28,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { ThemedAuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 import { SearchService } from '../../../shared/search/search.service';
 import { ItemMoveComponent } from './item-move.component';
-import {
-  ThemedAuthorizedCollectionSelectorComponent
-} from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;

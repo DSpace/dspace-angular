@@ -23,11 +23,11 @@ import {
   getCollectionCreateRoute,
 } from '../../../../collection-page/collection-page-routing-paths';
 import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
-import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 /**
  * Component to wrap a list of existing communities inside a modal
  * Used to choose a community from to create a new collection in

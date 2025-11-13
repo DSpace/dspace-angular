@@ -22,8 +22,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
-import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
+import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 
 describe('CreateCommunityParentSelectorComponent', () => {
   let component: CreateCommunityParentSelectorComponent;

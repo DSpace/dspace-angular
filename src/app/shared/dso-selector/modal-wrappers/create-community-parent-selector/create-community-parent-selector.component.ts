@@ -27,11 +27,11 @@ import {
   getCommunityCreateRoute,
 } from '../../../../community-page/community-page-routing-paths';
 import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
-import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 
 /**
  * Component to wrap a button - for top communities -

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchConfigurationService } from '../../../../../../../../app/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../../../../../app/shared/btn-disabled.directive';
 import { DynamicLookupRelationModalComponent as BaseComponent } from '../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
@@ -11,6 +10,7 @@ import { ThemedDynamicLookupRelationExternalSourceTabComponent } from '../../../
 import { ThemedDynamicLookupRelationSearchTabComponent } from '../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from '../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/selection-tab/dynamic-lookup-relation-selection-tab.component';
 import { ThemedLoadingComponent } from '../../../../../../../../app/shared/loading/themed-loading.component';
+import { SearchConfigurationService } from '../../../../../../../../app/shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-themed-dynamic-lookup-relation-modal',

@@ -12,6 +12,7 @@ import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Collection } from '@dspace/core/shared/collection.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ExternalSource } from '@dspace/core/shared/external-source.model';
@@ -48,9 +49,6 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-import { FindListOptions } from 'src/app/core/data/find-list-options.model';
-import { Item } from 'src/app/core/shared/item.model';
-import { SEARCH_CONFIG_SERVICE } from 'src/app/my-dspace-page/my-dspace-configuration.service';
 
 import { AppState } from '../../../../../app.reducer';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
@@ -69,7 +67,6 @@ import {
 } from './relationship.actions';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
-import { Collection } from '@dspace/core/shared/collection.model';
 
 @Component({
   selector: 'ds-base-dynamic-lookup-relation-modal',

@@ -19,8 +19,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
-import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
+import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 
 describe('EditCommunitySelectorComponent', () => {
   let component: EditCommunitySelectorComponent;
