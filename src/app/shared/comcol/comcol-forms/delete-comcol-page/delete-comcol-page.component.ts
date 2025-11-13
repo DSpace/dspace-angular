@@ -27,9 +27,9 @@ import {
   DSPACE_OBJECT_DELETION_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
+import { Process } from '../../../../core/processes/process.model';
+import { ProcessParameter } from '../../../../core/processes/process-parameter.model';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { ProcessParameter } from "../../../../core/processes/process-parameter.model";
-import { Process } from "../../../../core/processes/process.model";
 
 /**
  * Component representing the delete page for communities and collections

@@ -51,10 +51,18 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { Process } from '../../..//core/processes/process.model';
+import { ViewMode } from '../../..//core/shared/view-mode.model';
 import {
   DSPACE_OBJECT_DELETION_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../core/data/processes/script-data.service';
+import { ProcessParameter } from '../../../core/processes/process-parameter.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -63,14 +71,6 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
-import {ViewMode} from "../../..//core/shared/view-mode.model";
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from "../../../core/shared/operators";
-import { ProcessParameter } from "../../../core/processes/process-parameter.model";
-import { Process } from "../../..//core/processes/process.model";
 
 /**
  * Data Transfer Object used to prevent the HTML template to call function returning Observables
