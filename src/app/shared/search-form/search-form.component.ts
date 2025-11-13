@@ -169,7 +169,7 @@ export class SearchFormComponent implements OnChanges {
     } else {
       void this.router.navigate(this.getSearchLinkParts(), {
         queryParams: queryParams,
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     }
   }
