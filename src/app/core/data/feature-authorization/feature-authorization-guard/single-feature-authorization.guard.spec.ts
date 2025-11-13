@@ -6,12 +6,12 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { singleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
