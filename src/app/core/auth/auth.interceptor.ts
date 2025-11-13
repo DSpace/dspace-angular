@@ -13,6 +13,11 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import {
   Observable,
@@ -24,12 +29,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { AppState } from '../../app.reducer';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../shared/empty.util';
+import { CoreState } from '../core-state.model';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
 import { AuthService } from './auth.service';
 import { AuthMethod } from './models/auth.method';
@@ -45,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
   // we're creating a refresh token request list
   protected refreshTokenRequestUrls = [];
 
-  constructor(private inj: Injector, private router: Router, private store: Store<AppState>) {
+  constructor(private inj: Injector, private router: Router, private store: Store<CoreState>) {
   }
 
   /**

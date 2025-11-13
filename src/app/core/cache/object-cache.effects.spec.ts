@@ -6,7 +6,7 @@ import {
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import { StoreActionTypes } from '../../store.actions';
+import { StoreActionTypes } from '../ngrx/type';
 import { ResetObjectCacheTimestampsAction } from './object-cache.actions';
 import { ObjectCacheEffects } from './object-cache.effects';
 

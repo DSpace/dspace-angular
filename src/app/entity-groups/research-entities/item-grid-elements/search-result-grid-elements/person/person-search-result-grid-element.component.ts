@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { focusShadow } from '../../../../../shared/animations/focus';
 import { MetadataDirective } from '../../../../../shared/metadata.directive';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';

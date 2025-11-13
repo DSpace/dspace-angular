@@ -10,6 +10,13 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { wktToGeoJSON } from '@terraformer/wkt';
 import {
@@ -18,13 +25,6 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
-import { FacetValue } from '../search/models/facet-value.model';
-import { FacetValues } from '../search/models/facet-values.model';
 import { GeospatialMapDetail } from './models/geospatial-map-detail.model';
 
 @Component({
