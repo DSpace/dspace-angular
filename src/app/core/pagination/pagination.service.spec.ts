@@ -1,3 +1,4 @@
+import { ScrollServiceStub } from '@dspace/core/testing/scroll-service.stub';
 import { of } from 'rxjs';
 
 import {
@@ -5,11 +6,10 @@ import {
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { ScrollService } from '../scroll/scroll.service';
 import { RouterStub } from '../testing/router.stub';
 import { PaginationService } from './pagination.service';
 import { PaginationComponentOptions } from './pagination-component-options.model';
-import { ScrollService } from '../scroll/scroll.service';
-import { ScrollServiceStub } from '../../shared/testing/scroll-service.stub';
 
 
 describe('PaginationService', () => {
