@@ -63,6 +63,8 @@ import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
 import { getMockFormService } from '../../form/testing/form-service.mock';
+import { LiveRegionService } from '../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../live-region/live-region.service.stub';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,
@@ -235,6 +237,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         provideMockStore({}),
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
