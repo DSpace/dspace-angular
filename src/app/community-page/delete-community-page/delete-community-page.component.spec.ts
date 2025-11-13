@@ -13,26 +13,19 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
 import {
   DSPACE_OBJECT_DELETION_SCRIPT_NAME,
   ScriptDataService,
 } from '../../core/data/processes/script-data.service';
 import { Community } from '../../core/shared/community.model';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
 
 describe('DeleteCommunityPageComponent', () => {

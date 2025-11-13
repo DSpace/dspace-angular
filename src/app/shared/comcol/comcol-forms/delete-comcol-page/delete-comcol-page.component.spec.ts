@@ -10,15 +10,6 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ComColDataService } from '@dspace/core/data/comcol-data.service';
-import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Community } from '@dspace/core/shared/community.model';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import {
-  createFailedRemoteDataObject$,
-  createNoContentRemoteDataObject$,
-} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,
@@ -29,15 +20,15 @@ import { of } from 'rxjs';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { NotificationsService } from '../../../../core/notification-system/notifications.service';
 import { Community } from '../../../../core/shared/community.model';
-import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { NotificationsService } from '../../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+} from '../../../../core/utilities/remote-data.utils';
+import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
 describe('DeleteComColPageComponent', () => {
