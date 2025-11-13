@@ -25,6 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -49,7 +50,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), TestComponent, MockComponent(DSOSelectorComponent)],
+      imports: [TranslateModule.forRoot(), TestComponent, MockComponent(ThemedDSOSelectorComponent)],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -163,6 +164,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   templateUrl: './dso-selector-modal-wrapper.component.html',
   imports: [
     DSOSelectorComponent,
+    ThemedDSOSelectorComponent,
     TranslateModule,
   ],
   standalone: true,

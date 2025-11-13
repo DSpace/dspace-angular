@@ -4,7 +4,7 @@ import { bitstreamBreadcrumbResolver } from '@dspace/core/breadcrumbs/bitstream-
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
+import { ThemedResourcePolicyEditComponent } from '../shared/resource-policies/edit/themed-resource-policy-edit.component';
 import { resourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
 import { resourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
@@ -68,7 +68,7 @@ export const ROUTES: Route[] = [
           breadcrumb: i18nBreadcrumbResolver,
           resourcePolicy: resourcePolicyResolver,
         },
-        component: ResourcePolicyEditComponent,
+        component: ThemedResourcePolicyEditComponent,
         data: { breadcrumbKey: 'item.edit', title: 'resource-policies.edit.page.title', showBreadcrumbs: true },
       },
       {

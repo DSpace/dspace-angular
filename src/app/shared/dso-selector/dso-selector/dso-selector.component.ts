@@ -73,7 +73,7 @@ import { ListableObjectComponentLoaderComponent } from '../../object-collection/
 import { SearchService } from '../../search/search.service';
 
 @Component({
-  selector: 'ds-dso-selector',
+  selector: 'ds-base-dso-selector',
   styleUrls: ['./dso-selector.component.scss'],
   templateUrl: './dso-selector.component.html',
   standalone: true,
@@ -193,7 +193,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
 
   constructor(
     protected searchService: SearchService,
-    protected notifcationsService: NotificationsService,
+    protected notificationService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
   ) {
@@ -240,7 +240,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
                 ...rd.payload.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId),
               ];
             } else if (rd.hasFailed) {
-              this.notifcationsService.error(this.translate.instant('dso-selector.error.title', { type: this.typesString }), rd.errorMessage);
+              this.notificationService.error(this.translate.instant('dso-selector.error.title', { type: this.typesString }), rd.errorMessage);
             }
             return rd;
           }),

@@ -1,11 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  EventEmitter,
+  Input,
   NgZone,
   OnDestroy,
   OnInit,
-  Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
@@ -13,6 +12,7 @@ import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Collection } from '@dspace/core/shared/collection.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ExternalSource } from '@dspace/core/shared/external-source.model';
@@ -69,7 +69,7 @@ import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/them
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-modal',
+  selector: 'ds-base-dynamic-lookup-relation-modal',
   styleUrls: ['./dynamic-lookup-relation-modal.component.scss'],
   templateUrl: './dynamic-lookup-relation-modal.component.html',
   providers: [
@@ -94,38 +94,37 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
 /**
  * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
  */
-export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
-  @Output() selectEvent: EventEmitter<ListableObject[]> = new EventEmitter<ListableObject[]>();
+export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
 
   /**
    * The label to use to display i18n messages (describing the type of relationship)
    */
-  label: string;
+  @Input() label: string;
 
   /**
    * Options for searching related items
    */
-  relationshipOptions: RelationshipOptions;
+  @Input() relationshipOptions: RelationshipOptions;
 
   /**
    * The ID of the list to add/remove selected items to/from
    */
-  listId: string;
+  @Input() listId: string;
 
   /**
    * The item we're adding relationships to
    */
-  item;
+  @Input() item: Item;
 
   /**
    * The collection we're submitting an item to
    */
-  collection;
+  @Input() collection: Collection;
 
   /**
    * Is the selection repeatable?
    */
-  repeatable: boolean;
+  @Input() repeatable: boolean;
 
   /**
    * The list of selected items
@@ -135,19 +134,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * The context to display lists
    */
-  context: Context;
+  @Input() context: Context;
 
   /**
    * The metadata-fields describing these relationships
    */
-  metadataFields: string;
+  @Input() metadataFields: string;
 
-  query: string;
+  @Input() query: string;
 
   /**
    * A hidden query that will be used but not displayed in the url/searchbar
    */
-  hiddenQuery: string;
+  @Input() hiddenQuery: string;
 
   /**
    * A map of subscriptions within this component
@@ -155,7 +154,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   subMap: {
     [uuid: string]: Subscription
   } = {};
-  submissionId: string;
+
+  @Input() submissionId: string;
 
   /**
    * A list of the available external sources configured for this relationship
@@ -175,12 +175,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * The type of relationship
    */
-  relationshipType: RelationshipType;
+  @Input() relationshipType: RelationshipType;
 
   /**
    * Checks if relationship is left
    */
-  currentItemIsLeftItem$: Observable<boolean>;
+  @Input() currentItemIsLeftItem$: Observable<boolean>;
 
   /**
    * Relationship is left
@@ -190,22 +190,22 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * Checks if modal is being used by edit relationship page
    */
-  isEditRelationship = false;
+  @Input() isEditRelationship = false;
 
   /**
    * Maintain the list of the related items to be added
    */
-  toAdd: ItemSearchResult[] = [];
+  @Input() toAdd: ItemSearchResult[] = [];
 
   /**
    * Maintain the list of the related items to be removed
    */
-  toRemove: ItemSearchResult[] = [];
+  @Input() toRemove: ItemSearchResult[] = [];
 
   /**
    * Disable buttons while the submit button is pressed
    */
-  isPending = false;
+  @Input() isPending = false;
 
   constructor(
     public modal: NgbActiveModal,
