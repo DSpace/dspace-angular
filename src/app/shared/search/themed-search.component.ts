@@ -58,6 +58,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'resultFound',
     'deselectObject',
     'selectObject',
+    'retainScrollPosition',
   ];
 
   @Input() configurationList: SearchConfigurationOption[];
@@ -109,6 +110,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() scope: string;
 
   @Input() hideScopeInUrl: boolean;
+
+  @Input() retainScrollPosition: boolean;
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 
