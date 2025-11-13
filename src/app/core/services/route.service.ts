@@ -6,6 +6,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -24,7 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { AddUrlToHistoryAction } from '../history/history.actions';

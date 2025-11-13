@@ -1,9 +1,20 @@
 import { DOCUMENT } from '@angular/common';
 import {
   Inject,
+  inject,
   Injectable,
   OnDestroy,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { LangConfig } from '@dspace/config/lang-config.interface';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -17,15 +28,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LangConfig } from '../../../config/lang-config.interface';
-import { environment } from '../../../environments/environment';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import {
   NativeWindowRef,
@@ -48,7 +52,7 @@ export enum LANG_ORIGIN {
  */
 @Injectable()
 export class LocaleService implements OnDestroy {
-
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
   /**
    * Eperson language metadata
    */
@@ -74,7 +78,7 @@ export class LocaleService implements OnDestroy {
   getCurrentLanguageCode(): Observable<string> {
     // Attempt to get the language from a cookie
     const lang = this.getLanguageCodeFromCookie();
-    if (isEmpty(lang) || environment.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
+    if (isEmpty(lang) || this.appConfig.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
       // Attempt to get the browser language from the user
       return this.getLanguageCodeList()
         .pipe(
@@ -83,7 +87,7 @@ export class LocaleService implements OnDestroy {
               .map(browserLang => browserLang.split(';')[0])
               .find(browserLang =>
                 this.translate.getLangs().some(userLang => userLang.toLowerCase() === browserLang.toLowerCase()),
-              ) || environment.defaultLanguage;
+              ) || this.appConfig.defaultLanguage;
           }),
         );
     }

@@ -8,9 +8,9 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { of } from 'rxjs';
 
-import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { LocaleInterceptor } from './locale.interceptor';

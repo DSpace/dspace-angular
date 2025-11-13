@@ -8,14 +8,14 @@ import {
   FormBuilder,
   FormGroup,
 } from '@angular/forms';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { BrowserOnlyMockPipe } from '@dspace/core/testing/browser-only-mock.pipe';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { Registration } from 'src/app/core/shared/registration.model';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
 import { OrcidConfirmationComponent } from './orcid-confirmation.component';
 

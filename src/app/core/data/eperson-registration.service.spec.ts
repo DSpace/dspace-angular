@@ -3,11 +3,11 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RestResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Registration } from '../shared/registration.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { EpersonRegistrationService } from './eperson-registration.service';
 import { PostRequest } from './request.models';
 import { RequestService } from './request.service';

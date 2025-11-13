@@ -2,6 +2,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { EPersonMock2 } from '@dspace/core/testing/eperson.mock';
 import {
   TranslateLoader,
   TranslateModule,
@@ -10,14 +12,13 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { EPersonMock2 } from '../../shared/testing/eperson.mock';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import { NativeWindowRef } from '../services/window.service';
+import { CookieServiceMock } from '../testing/cookie.service.mock';
+import { routeServiceStub } from '../testing/route-service.stub';
+import { TranslateLoaderMock } from '../testing/translate-loader.mock';
 import {
   LANG_COOKIE,
   LANG_ORIGIN,
@@ -35,6 +36,47 @@ describe('LocaleService test suite', () => {
   let authService;
   let routeService;
   let document;
+  const languages = [{
+    code: 'en',
+    label: 'English',
+    active: true,
+  }, {
+    code: 'de',
+    label: 'Deutsch',
+    active: true,
+  }, {
+    code: 'cs',
+    label: 'Čeština',
+    active: true,
+  }, {
+    code: 'nl',
+    label: 'Nederlands',
+    active: true,
+  }, {
+    code: 'pt',
+    label: 'Português',
+    active: true,
+  }, {
+    code: 'fr',
+    label: 'Français',
+    active: true,
+  }, {
+    code: 'lv',
+    label: 'Latviešu',
+    active: true,
+  }, {
+    code: 'bn',
+    label: 'বাংলা',
+    active: true,
+  }, {
+    code: 'el',
+    label: 'Ελληνικά',
+    active: true,
+  }, {
+    code: 'disabled',
+    label: 'Disabled',
+    active: false,
+  }];
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
@@ -56,9 +98,11 @@ describe('LocaleService test suite', () => {
       ],
       providers: [
         { provide: CookieService, useValue: new CookieServiceMock() },
-        { provide: AuthService, userValue: authService },
+        { provide: AuthService, useValue: authService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Document, useValue: document },
+        { provide: APP_CONFIG, useValue: { languages, defaultLanguage: 'en' } },
+        LocaleService,
       ],
     });
   }));
@@ -69,7 +113,7 @@ describe('LocaleService test suite', () => {
     routeService = TestBed.inject(RouteService);
     window = new NativeWindowRef();
     document = { documentElement: { lang: 'en' } };
-    service = new LocaleService(window, cookieService, translateService, authService, routeService, document);
+    service = TestBed.inject(LocaleService);
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');

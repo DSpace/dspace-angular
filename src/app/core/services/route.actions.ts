@@ -2,7 +2,7 @@
 import { Params } from '@angular/router';
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
+import { type } from '../ngrx/type';
 
 /**
  * The list of HrefIndexAction type definitions
