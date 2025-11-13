@@ -12,7 +12,6 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import {

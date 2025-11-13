@@ -12,7 +12,6 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
-import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { TranslateModule } from '@ngx-translate/core';
