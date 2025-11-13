@@ -11,6 +11,29 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -59,13 +82,7 @@ import { getProcessDetailRoute } from '../../../process-page/process-page-routin
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';

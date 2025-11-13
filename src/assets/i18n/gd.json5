@@ -2781,7 +2781,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Bidh sinn a' cruinneachadh agus a' cleachdadh fiosrachadh pearsanta airson nan adhbharan seo: <strong>Dearbhadh, Roghainnean, Buidheachas agus Staitistigs</strong>. <br/> Airson tuilleadh fiosrachaidh, leugh am {Poileasaidhprìobhaideachd}.",
+  "cookies.consent.content-notice.description": "Bidh sinn a' cruinneachadh agus a' cleachdadh fiosrachadh pearsanta airson nan adhbharan seo: Dearbhadh, Roghainnean, Buidheachas agus Staitistigs. Airson tuilleadh fiosrachaidh, leugh am {Poileasaidhprìobhaideachd}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Customaich",

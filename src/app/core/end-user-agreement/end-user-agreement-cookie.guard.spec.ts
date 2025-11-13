@@ -3,6 +3,7 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { Observable } from 'rxjs';
 
 import { EndUserAgreementService } from './end-user-agreement.service';
@@ -26,6 +27,11 @@ describe('endUserAgreementCookieGuard', () => {
       providers: [
         { provide: Router, useValue: router },
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
+        { provide: APP_CONFIG, useValue: {
+          info: {
+            enableEndUserAgreement: true,
+          },
+        } },
       ],
     });
   });

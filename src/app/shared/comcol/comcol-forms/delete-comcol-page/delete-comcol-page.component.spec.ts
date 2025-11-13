@@ -10,6 +10,15 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ComColDataService } from '@dspace/core/data/comcol-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,

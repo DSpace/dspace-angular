@@ -7,16 +7,16 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,
   Subscription,
 } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { hasValue } from '../../../../shared/empty.util';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
 

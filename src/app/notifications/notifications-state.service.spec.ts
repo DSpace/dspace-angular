@@ -1,19 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
-import { cold } from 'jasmine-marbles';
-
-import {
   qualityAssuranceSourceObjectMissingPid,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
   qualityAssuranceTopicObjectMissingPid,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../shared/mocks/notifications.mock';
+} from '@dspace/core/testing/notifications.mock';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { cold } from 'jasmine-marbles';
+
 import { suggestionNotificationsReducers } from './notifications.reducer';
 import { NotificationsStateService } from './notifications-state.service';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';

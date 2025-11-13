@@ -4,6 +4,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Community } from '@dspace/core/shared/community.model';
 import {
   TranslateModule,
   TranslateService,
@@ -15,7 +19,6 @@ import { ScriptDataService } from '../../core/data/processes/script-data.service
 import { Community } from '../../core/shared/community.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 /**

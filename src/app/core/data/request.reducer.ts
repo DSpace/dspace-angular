@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import { isNull } from '../../shared/empty.util';
+import { isNull } from '@dspace/shared/utils/empty.util';
+
 import {
   RequestAction,
   RequestActionTypes,

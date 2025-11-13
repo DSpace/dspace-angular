@@ -265,6 +265,9 @@ languages:
   - code: es
     label: Español
     active: true
+  - code: fa
+    label: فارسی
+    active: true
   - code: fi
     label: Suomi
     active: true
