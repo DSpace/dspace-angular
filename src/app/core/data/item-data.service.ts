@@ -442,7 +442,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    *                                    {@link HALLink}s should be automatically resolved
    * @param projections                 List of {@link projections} used to pass as parameters
    */
-  private findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, linksToFollow: FollowLinkConfig<Item>[], projections: string[] = []): Observable<RemoteData<Item>> {
+  public findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, linksToFollow: FollowLinkConfig<Item>[], projections: string[] = []): Observable<RemoteData<Item>> {
     const searchHref = 'findByCustomURL';
 
     const options = Object.assign({}, {
@@ -471,7 +471,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+  public findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
 
     if (uuidValidate(id)) {
       const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
