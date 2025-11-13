@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

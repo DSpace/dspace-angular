@@ -15,13 +15,13 @@ import {
   NG_VALUE_ACCESSOR,
   UntypedFormBuilder,
 } from '@angular/forms';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { isEmpty } from '../../empty.util';
 
 @Component({
   selector: 'ds-number-picker',

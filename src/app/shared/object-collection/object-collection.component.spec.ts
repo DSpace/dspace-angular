@@ -9,15 +9,15 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
-import { RouterStub } from '../testing/router.stub';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { ObjectCollectionComponent } from './object-collection.component';
 

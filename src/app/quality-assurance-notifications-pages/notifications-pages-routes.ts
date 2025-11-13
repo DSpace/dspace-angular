@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { sourcesBreadcrumbResolver } from '@dspace/core/breadcrumbs/sources-breadcrumb.resolver';
 
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { sourcesBreadcrumbResolver } from '../core/breadcrumbs/sources-breadcrumb.resolver';
 import {
   NOTIFICATIONS_RECITER_SUGGESTION_PATH,
   QUALITY_ASSURANCE_EDIT_PATH,

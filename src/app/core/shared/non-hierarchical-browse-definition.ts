@@ -4,7 +4,7 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../browse/browse-by-data-type';
 import { BrowseDefinition } from './browse-definition.model';
 import { SortOption } from './sort-option.model';
 

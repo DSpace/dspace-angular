@@ -11,16 +11,16 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { DragService } from '@dspace/core/drag.service';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
+import { HttpXsrfTokenExtractorMock } from '@dspace/core/testing/http-xsrf-token-extractor.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
-import { DragService } from '../../../core/drag.service';
-import { CookieService } from '../../../core/services/cookie.service';
 import { LiveRegionService } from '../../live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../live-region/live-region.service.stub';
-import { CookieServiceMock } from '../../mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
-import { createTestComponent } from '../../testing/utils.test';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 

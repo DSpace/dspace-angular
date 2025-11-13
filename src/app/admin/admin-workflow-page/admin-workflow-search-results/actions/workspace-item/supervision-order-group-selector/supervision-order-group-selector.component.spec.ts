@@ -7,6 +7,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SupervisionOrder } from '@dspace/core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '@dspace/core/supervision-order/supervision-order-data.service';
 import {
   NgbActiveModal,
   NgbPaginationModule,
@@ -14,11 +18,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Group } from '../../../../../../core/eperson/models/group.model';
-import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
 import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
-import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
 
 describe('SupervisionOrderGroupSelectorComponent', () => {

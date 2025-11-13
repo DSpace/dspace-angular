@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 /**
  * Service to calculate breadcrumbs for a single part of the route
