@@ -38,6 +38,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';

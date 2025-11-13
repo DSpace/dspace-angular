@@ -42,6 +42,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';

@@ -14,9 +14,9 @@ import {
 import { isNumeric } from '@dspace/shared/utils/numeric.util';
 import { difference } from '@dspace/shared/utils/object.util';
 import {
+  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  BehaviorSubject,
 } from 'rxjs';
 import {
   filter,
