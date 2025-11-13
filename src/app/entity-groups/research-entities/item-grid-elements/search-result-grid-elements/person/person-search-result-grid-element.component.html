@@ -32,14 +32,14 @@
       @if (dso.hasMetadata('person.email')) {
         <p class="item-email card-text text-muted">
           <ds-truncatable-part [id]="dso.id" [minLines]="1">
-            <span [innerHTML]="firstMetadataValue('person.email')"></span>
+            <span [dsMetadata]="firstMetadata('person.email')"></span>
           </ds-truncatable-part>
         </p>
       }
       @if (dso.hasMetadata('person.jobTitle')) {
         <p class="item-jobtitle card-text">
           <ds-truncatable-part [id]="dso.id" [minLines]="3">
-            <span [innerHTML]="firstMetadataValue('person.jobTitle')"></span>
+            <span [dsMetadata]="firstMetadata('person.jobTitle')"></span>
           </ds-truncatable-part>
         </p>
       }

@@ -20,6 +20,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
 import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
+import { MetadataDirective } from '../../../../../shared/metadata.directive';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
@@ -36,6 +37,7 @@ import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-uni
   standalone: true,
   imports: [
     FormsModule,
+    MetadataDirective,
     OrgUnitInputSuggestionsComponent,
   ],
 })

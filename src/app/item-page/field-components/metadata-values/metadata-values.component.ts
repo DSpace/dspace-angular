@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
+import { NormalizeLanguageCodePipe } from '../../../shared/utils/normalize-language-code.pipe';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';
 
 /**
@@ -35,6 +36,7 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
     MarkdownDirective,
     MetadataFieldWrapperComponent,
     NgTemplateOutlet,
+    NormalizeLanguageCodePipe,
     RouterLink,
     TranslateModule,
   ],

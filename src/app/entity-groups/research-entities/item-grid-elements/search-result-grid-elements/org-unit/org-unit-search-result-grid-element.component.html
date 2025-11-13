@@ -33,7 +33,7 @@
         <p
           class="item-date card-text text-muted">
           <ds-truncatable-part [id]="dso.id" [minLines]="1">
-            <span [innerHTML]="firstMetadataValue('organization.foundingDate')"></span>
+            <span [dsMetadata]="firstMetadata('organization.foundingDate')"></span>
           </ds-truncatable-part>
         </p>
       }
@@ -41,12 +41,11 @@
         <p
           class="item-location card-text">
           <ds-truncatable-part [id]="dso.id" [minLines]="3">
-            <span
-            class="item-country">{{firstMetadataValue('organization.address.addressCountry')}}</span>
+            <span [dsMetadata]="firstMetadata('organization.address.addressCountry')" class="item-country"></span>
             @if (dso.hasMetadata('organization.address.addressLocality')) {
               <span class="item-city">
                 <span>, </span>
-                {{firstMetadataValue('organization.address.addressLocality')}}
+                <span [dsMetadata]="firstMetadata('organization.address.addressLocality')"></span>
               </span>
             }
           </ds-truncatable-part>

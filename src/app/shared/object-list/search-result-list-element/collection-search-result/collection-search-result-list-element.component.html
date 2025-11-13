@@ -10,7 +10,7 @@
       <span class="lead" [innerHTML]="dsoTitle"></span>
     }
     @if (dso.shortDescription) {
-      <div class="text-muted abstract-text" [innerHTML]="firstMetadataValue('dc.description.abstract')"></div>
+      <div class="text-muted abstract-text" [dsMetadata]="firstMetadata('dc.description.abstract')"></div>
     }
   </div>
 </div>
