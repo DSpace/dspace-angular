@@ -13,10 +13,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { Community } from '../../core/shared/community.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { VarDirective } from '../../shared/utils/var.directive';

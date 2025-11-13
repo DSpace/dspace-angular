@@ -24,12 +24,6 @@ import { Relationship } from '@dspace/core/shared/item-relationships/relationshi
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
@@ -57,29 +51,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import {
   DSPACE_OBJECT_DELETION_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../core/data/processes/script-data.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { Process } from '../../../process-page/processes/process.model';
-import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -87,6 +63,14 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
+import {ViewMode} from "../../..//core/shared/view-mode.model";
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from "../../../core/shared/operators";
+import { ProcessParameter } from "../../../core/processes/process-parameter.model";
+import { Process } from "../../..//core/processes/process.model";
 
 /**
  * Data Transfer Object used to prevent the HTML template to call function returning Observables
