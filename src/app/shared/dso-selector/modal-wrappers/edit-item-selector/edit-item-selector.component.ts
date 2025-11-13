@@ -7,12 +7,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { Item } from '@dspace/core/shared/item.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { Item } from '../../../../core/shared/item.model';
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
 import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {

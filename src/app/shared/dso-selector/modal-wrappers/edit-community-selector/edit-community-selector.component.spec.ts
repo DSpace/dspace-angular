@@ -11,15 +11,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Community } from '@dspace/core/shared/community.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '../../../../core/shared/community.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { RouterStub } from '../../../testing/router.stub';
-import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 
 describe('EditCommunitySelectorComponent', () => {
   let component: EditCommunitySelectorComponent;
@@ -64,7 +65,10 @@ describe('EditCommunitySelectorComponent', () => {
     })
       .overrideComponent(EditCommunitySelectorComponent, {
         remove: {
-          imports: [ThemedDSOSelectorComponent],
+          imports: [
+            ThemedDSOSelectorComponent,
+            AuthorizedCommunitySelectorComponent,
+          ],
         },
       })
       .compileComponents();

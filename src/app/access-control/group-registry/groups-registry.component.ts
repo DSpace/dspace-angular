@@ -9,7 +9,40 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { GroupDtoModel } from '@dspace/core/eperson/models/group-dto.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -27,42 +60,15 @@ import {
   defaultIfEmpty,
   map,
   switchMap,
+  takeUntil,
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Group } from '../../core/eperson/models/group.model';
-import { GroupDtoModel } from '../../core/eperson/models/group-dto.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { hasValue } from '../../shared/empty.util';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { getGroupEditPageRouterLink } from '../access-control-routing-paths';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -131,6 +137,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
+  protected readonly getGroupEditPageRouterLink = getGroupEditPageRouterLink;
+
   constructor(public groupService: GroupDataService,
               private ePersonDataService: EPersonDataService,
               private dSpaceObjectDataService: DSpaceObjectDataService,
@@ -142,6 +150,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private paginationService: PaginationService,
               public requestService: RequestService,
               public dsoNameService: DSONameService,
+              private modalService: NgbModal,
   ) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
@@ -313,5 +322,32 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
     this.paginationService.clearPagination(this.config.id);
   }
+
+  confirmDelete(group: GroupDtoModel): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.name = this.dsoNameService.getName(group.group);
+    modalRef.componentInstance.headerLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.header';
+    modalRef.componentInstance.infoLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.info';
+    modalRef.componentInstance.cancelLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.cancel';
+    modalRef.componentInstance.confirmLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+
+    const modalSub: Subscription = modalRef.componentInstance.response.pipe(
+      takeUntil(modalRef.closed),
+    ).subscribe((result: boolean) => {
+      if (result === true) {
+        this.deleteGroup(group);
+      }
+    });
+
+    void modalRef.result.then().finally(() => {
+      modalRef.close();
+      if (modalSub && !modalSub.closed) {
+        modalSub.unsubscribe();
+      }
+    });
+  }
+
 
 }

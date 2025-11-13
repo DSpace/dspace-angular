@@ -8,6 +8,12 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,17 +22,12 @@ import {
   COLLECTION_PARENT_PARAMETER,
   getCollectionCreateRoute,
 } from '../../../../collection-page/collection-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../../core/cache/models/sort-options.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 /**
  * Component to wrap a list of existing communities inside a modal
  * Used to choose a community from to create a new collection in
@@ -34,9 +35,10 @@ import {
 
 @Component({
   selector: 'ds-base-create-collection-parent-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './create-collection-parent-selector.component.html',
   standalone: true,
   imports: [
+    AuthorizedCommunitySelectorComponent,
     ThemedDSOSelectorComponent,
     TranslateModule,
   ],

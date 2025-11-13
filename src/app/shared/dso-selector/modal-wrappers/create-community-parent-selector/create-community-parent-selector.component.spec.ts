@@ -12,17 +12,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { Community } from '../../../../core/shared/community.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { RouterStub } from '../../../testing/router.stub';
-import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 
 describe('CreateCommunityParentSelectorComponent', () => {
   let component: CreateCommunityParentSelectorComponent;
@@ -69,7 +70,12 @@ describe('CreateCommunityParentSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateCommunityParentSelectorComponent, {
-        remove: { imports: [ThemedDSOSelectorComponent] },
+        remove: {
+          imports: [
+            AuthorizedCommunitySelectorComponent,
+            ThemedDSOSelectorComponent,
+          ],
+        },
       })
       .compileComponents();
 

@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthorizedCommunitySelectorComponent } from 'src/app/shared/dso-selector/dso-selector/authorized-community-selector/authorized-community-selector.component';
 
 import { ThemedDSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/themed-dso-selector.component';
 import { CreateCommunityParentSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
@@ -14,6 +15,7 @@ import { CreateCommunityParentSelectorComponent as BaseComponent } from '../../.
   standalone: true,
   imports: [
     AsyncPipe,
+    AuthorizedCommunitySelectorComponent,
     ThemedDSOSelectorComponent,
     TranslateModule,
   ],

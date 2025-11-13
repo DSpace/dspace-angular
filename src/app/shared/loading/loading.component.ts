@@ -5,10 +5,9 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-
-import { hasValue } from '../empty.util';
 
 @Component({
   selector: 'ds-base-loading',

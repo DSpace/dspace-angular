@@ -5,17 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { createPaginatedList } from '../../../testing/utils.test';
+import { SearchService } from '../../../search/search.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';
 
@@ -83,5 +83,19 @@ describe('AuthorizedCollectionSelectorComponent', () => {
         });
       });
     });
+
+    describe('when using searchHref', () => {
+      it('should call getAuthorizedCollection with "findAdminAuthorized" when overridden', (done) => {
+        component.searchHref = 'findAdminAuthorized';
+
+        component.search('', 1).subscribe(() => {
+          expect(collectionService.getAuthorizedCollection).toHaveBeenCalledWith(
+            '', jasmine.any(Object), true, false, 'findAdminAuthorized', jasmine.anything(),
+          );
+          done();
+        });
+      });
+    });
+
   });
 });

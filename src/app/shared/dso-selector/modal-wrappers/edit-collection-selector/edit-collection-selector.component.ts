@@ -6,22 +6,23 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { getCollectionEditRoute } from '../../../../collection-page/collection-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../../core/cache/models/sort-options.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -30,9 +31,10 @@ import {
 
 @Component({
   selector: 'ds-base-edit-collection-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './edit-collection-selector.component.html',
   standalone: true,
   imports: [
+    AuthorizedCollectionSelectorComponent,
     ThemedDSOSelectorComponent,
     TranslateModule,
   ],

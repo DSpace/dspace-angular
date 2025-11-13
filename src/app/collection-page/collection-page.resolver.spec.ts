@@ -1,7 +1,7 @@
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { collectionPageResolver } from './collection-page.resolver';
 
 describe('collectionPageResolver', () => {

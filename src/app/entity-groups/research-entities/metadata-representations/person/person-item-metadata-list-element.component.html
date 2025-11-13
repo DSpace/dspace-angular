@@ -19,7 +19,7 @@
     [innerHTML]="mdRepresentation.getValue()"
   [ngbTooltip]="mdRepresentation.allMetadata(['person.jobTitle']).length > 0 ? descTemplate : null"></a>
   @if (mdRepresentation.firstMetadata('person.identifier.orcid')) {
-    <ds-orcid-badge-and-tooltip class="ml-1"
+    <ds-orcid-badge-and-tooltip class="ms-1"
       [orcid]="mdRepresentation.firstMetadata('person.identifier.orcid')"
       [authenticatedTimestamp]="mdRepresentation.firstMetadata('dspace.orcid.authenticated')">
     </ds-orcid-badge-and-tooltip>
