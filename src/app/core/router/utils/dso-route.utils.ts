@@ -31,8 +31,15 @@ export function getCommunityPageRoute(communityId: string) {
  */
 export function getItemPageRoute(item: Item) {
   const type = item.firstMetadataValue('dspace.entity.type');
-  return getEntityPageRoute(type, item.uuid);
+  let url = item.uuid;
+
+  if (isNotEmpty(item.metadata) && item.hasMetadata('cris.customurl')) {
+    url = item.firstMetadataValue('cris.customurl');
+  }
+
+  return getEntityPageRoute(type, url);
 }
+
 
 export function getEntityPageRoute(entityType: string, itemId: string) {
   if (isNotEmpty(entityType)) {

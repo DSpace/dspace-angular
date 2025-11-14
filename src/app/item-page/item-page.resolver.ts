@@ -59,18 +59,27 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
       if (rd.hasSucceeded && hasValue(rd.payload)) {
-        const thisRoute = state.url;
+        const isItemEditPage = state.url.includes('/edit');
+        let itemRoute = isItemEditPage ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
+        if (hasValue(rd.payload.metadata) && rd.payload.hasMetadata('cris.customurl')) {
+          if (route.params.id !== rd.payload.firstMetadataValue('cris.customurl')) {
+            const newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('cris.customurl'));
+            router.navigateByUrl(newUrl);
+          }
+        } else  {
+          const thisRoute = state.url;
 
-        // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
-        // or semicolons) and thisRoute has been encoded with that function. If we want to compare
-        // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
-        // the same characters are encoded the same way.
-        const itemRoute = router.parseUrl(getItemPageRoute(rd.payload)).toString();
+          // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
+          // or semicolons) and thisRoute has been encoded with that function. If we want to compare
+          // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
+          // the same characters are encoded the same way.
+          itemRoute = router.parseUrl(getItemPageRoute(rd.payload)).toString();
 
-        if (!thisRoute.startsWith(itemRoute)) {
-          const itemId = rd.payload.uuid;
-          const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
-          void router.navigateByUrl(itemRoute + subRoute);
+          if (!thisRoute.startsWith(itemRoute)) {
+            const itemId = rd.payload.uuid;
+            const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
+            void router.navigateByUrl(itemRoute + subRoute);
+          }
         }
       }
       return rd;
