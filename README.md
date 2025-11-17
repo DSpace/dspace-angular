@@ -454,7 +454,6 @@ dspace-angular
 ├── karma.conf.js                                       * Karma configuration file for Unit Test
 ├── LICENSE                                             *
 ├── LICENSES_THIRD_PARTY                                *
-├── nodemon.json                                        * Nodemon (https://nodemon.io/) configuration
 ├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
 ├── package-lock.json                                   * npm lockfile (https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json)
 ├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration
