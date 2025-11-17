@@ -56,7 +56,7 @@ export class AuditLogsMenuProvider extends DSpaceObjectPageMenuProvider {
             link: new URLCombiner(getDSORoute(dso), 'auditlogs').toString(),
           } as LinkMenuItemModel,
           icon: 'clipboard-check',
-          visible: isAdmin && isAuditEnabled,
+          visible: true,
         }] as PartialMenuSection[];
       }),
     );
