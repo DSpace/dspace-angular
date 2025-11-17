@@ -196,7 +196,7 @@
     "commander": "^14.0.2",
     "compression-webpack-plugin": "^9.2.0",
     "copy-webpack-plugin": "^6.4.1",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.1.0",
     "cypress": "^13.17.0",
     "cypress-axe": "^1.7.0",
     "deep-freeze": "0.0.1",
