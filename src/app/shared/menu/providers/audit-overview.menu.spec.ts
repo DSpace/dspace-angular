@@ -8,8 +8,11 @@
 
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
@@ -26,12 +29,20 @@ describe('AuditOverviewMenuProvider', () => {
         text: 'menu.section.audit',
         link: '/auditlogs',
       },
-      icon: 'key',
+      icon: 'clipboard-check',
     },
   ];
 
   let provider: AuditOverviewMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'audit.enabled',
+      values: [
+        'true',
+      ],
+    })),
+  });
 
   beforeEach(() => {
     spyOn(authorizationServiceStub, 'isAuthorized').and.returnValue(
@@ -42,6 +53,7 @@ describe('AuditOverviewMenuProvider', () => {
       providers: [
         AuditOverviewMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: APP_CONFIG, useValue: environment },
       ],
     });

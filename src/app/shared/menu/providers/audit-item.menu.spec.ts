@@ -22,9 +22,9 @@ describe('AuditLogsMenuProvider', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'context-menu.actions.audit-item.btn',
-        link: new URLCombiner('/auditlogs/object/test-uuid').toString(),
+        link: new URLCombiner('/collections/test-uuid/auditlogs').toString(),
       },
-      icon: 'key',
+      icon: 'clipboard-check',
     },
   ];
 

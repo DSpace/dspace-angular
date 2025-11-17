@@ -31,11 +31,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AuditTableComponent } from '../audit-table/audit-table.component';
-import { ObjectAuditOverviewComponent } from './object-audit-overview.component';
+import { ObjectAuditLogsComponent } from './object-audit-logs.component';
 
-describe('ObjectAuditOverviewComponent', () => {
-  let component: ObjectAuditOverviewComponent;
-  let fixture: ComponentFixture<ObjectAuditOverviewComponent>;
+describe('ObjectAuditLogsComponent', () => {
+  let component: ObjectAuditLogsComponent;
+  let fixture: ComponentFixture<ObjectAuditLogsComponent>;
 
   let auditService: AuditDataService;
   let audits: Audit[];
@@ -75,7 +75,7 @@ describe('ObjectAuditOverviewComponent', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         AuditTableComponent,
-        ObjectAuditOverviewComponent,
+        ObjectAuditLogsComponent,
         RouterLink,
       ],
       providers: [
@@ -91,7 +91,7 @@ describe('ObjectAuditOverviewComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(ObjectAuditOverviewComponent, {
+      .overrideComponent(ObjectAuditLogsComponent, {
         remove: {
           imports: [AuditTableComponent],
         },
@@ -100,7 +100,7 @@ describe('ObjectAuditOverviewComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ObjectAuditOverviewComponent);
+    fixture = TestBed.createComponent(ObjectAuditLogsComponent);
     component = fixture.componentInstance;
     spyOn(component, 'setAudits').and.callThrough();
     fixture.detectChanges();

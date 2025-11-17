@@ -50,8 +50,8 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
  * Component displaying a list of all audit about a object in a paginated table
  */
 @Component({
-  selector: 'ds-object-audit-overview',
-  templateUrl: './object-audit-overview.component.html',
+  selector: 'ds-object-audit-logs',
+  templateUrl: './object-audit-logs.component.html',
   imports: [
     AsyncPipe,
     AuditTableComponent,
@@ -60,7 +60,7 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
   ],
   standalone: true,
 })
-export class ObjectAuditOverviewComponent implements OnInit {
+export class ObjectAuditLogsComponent implements OnInit {
 
   /**
    * The object extracted from the route.
@@ -118,7 +118,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.objectId$ = this.route.paramMap.pipe(
-      map((paramMap: ParamMap) => paramMap.get('objectId')),
+      map((paramMap: ParamMap) => paramMap.get('id')),
       switchMap((id: string) => this.dSpaceObjectDataService.findById(id, true, true)),
       getFirstSucceededRemoteDataPayload(),
       tap((object) => {

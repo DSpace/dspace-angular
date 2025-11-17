@@ -51,13 +51,13 @@
               @if (isOverviewPage) {
                 <td>
                   @if (audit.objectUUID) {
-                    <a [routerLink]="['/auditlogs/object/', audit.objectUUID]">{{audit.objectUUID}}</a>
+                    <a [routerLink]="['/items/', audit.objectUUID, 'auditlogs']">{{audit.objectUUID}}</a>
                   }
                 </td>
                 <td>{{ audit.objectType }}</td>
                 <td>
                   @if (audit.subjectUUID) {
-                    <a [routerLink]="['/auditlogs/object/', audit.subjectUUID]">{{audit.subjectUUID}}</a>
+                    <a [routerLink]="['/items/', audit.subjectUUID, 'auditlogs']">{{audit.subjectUUID}}</a>
                   }
                 </td>
                 <td>{{ audit.subjectType }}</td>

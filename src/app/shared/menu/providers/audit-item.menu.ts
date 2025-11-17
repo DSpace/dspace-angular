@@ -10,9 +10,11 @@ import { ConfigurationDataService } from '@dspace/core/data/configuration-data.s
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
   combineLatest,
   map,
@@ -39,7 +41,7 @@ export class AuditLogsMenuProvider extends DSpaceObjectPageMenuProvider {
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
     return combineLatest([
       this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf),
-      this.configurationDataService.findByPropertyName('context-menu-entry.audit.enabled').pipe(
+      this.configurationDataService.findByPropertyName('audit.context-menu-entry.enabled').pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<ConfigurationProperty>) => {
           return response.hasSucceeded ? (response.payload.values.length > 0 && response.payload.values[0] === 'true') : false;
@@ -51,10 +53,10 @@ export class AuditLogsMenuProvider extends DSpaceObjectPageMenuProvider {
           model: {
             type: MenuItemType.LINK,
             text: 'context-menu.actions.audit-item.btn',
-            link: '/auditlogs/object/' + dso.uuid,
+            link: new URLCombiner(getDSORoute(dso), 'auditlogs').toString(),
           } as LinkMenuItemModel,
-          icon: 'key',
-          visible: isAuditEnabled && isAdmin,
+          icon: 'clipboard-check',
+          visible: isAdmin && isAuditEnabled,
         }] as PartialMenuSection[];
       }),
     );

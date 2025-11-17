@@ -901,26 +901,6 @@
 
   "audit.data.not-found": "No audits found.",
 
-  "audit.detail.breadcrumbs": "Audit Details",
-
-  "audit.detail.title": "Audit Detail",
-
-  "audit.detail.id": "Audit Id",
-
-  "audit.detail.subjectUUID": "Subject ID",
-
-  "audit.detail.subjectType": "Subject Type",
-
-  "audit.detail.eventType": "Audit Type",
-
-  "audit.detail.eperson": "EPerson",
-
-  "audit.detail.timeStamp": "Time",
-
-  "audit.detail.back": "All Audit Logs",
-
-  "audit.detail.back.subject": "Subject Audit Logs",
-
   "audit.detail.metadata.field": "Metadata field:",
 
   "audit.detail.metadata.value": "Value:",
@@ -935,7 +915,7 @@
 
   "audit.detail.metadata.checksum": "Checksum:",
 
-  "audit.overview.title": "Audit Logs Overview",
+  "audit.overview.title": "All Audit Logs",
 
   "audit.overview.table.id": "Audit ID",
 
@@ -955,13 +935,15 @@
 
   "audit.overview.table.timestamp": "Time",
 
-  "audit.overview.breadcrumbs": "Audit Logs Overview",
+  "audit.overview.breadcrumbs": "Audit Logs",
 
   "audit.object.back": "Back",
 
-  "audit.object.breadcrumbs": "Subject Audit Logs",
+  "audit.object.breadcrumbs": "Object Audit Logs",
 
-  "audit.object.overview.title": "Subject Audit Logs Overview",
+  "audit.object.overview.title": "Object Audit Logs",
+
+  "audit.object.logs.label": "Logs for object: ",
 
   "audit.object.overview.disabled.message": "Audit feature is currently disabled",
 
@@ -3507,7 +3489,7 @@
 
   "menu.section.access_control_people": "People",
 
-  "menu.section.audit": "Audit Overview",
+  "menu.section.audit": "Audit Logs",
 
   "menu.section.reports": "Reports",
 

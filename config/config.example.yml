@@ -626,7 +626,3 @@ geospatialMapViewer:
 accessibility:
   # The duration in days after which the accessibility settings cookie expires
   cookieExpirationDuration: 7
-
-# Option to enable the menu entry to see audit logs on a site level.
-# Only site administrators will be able to use this functionality
-enableAuditLogsOverview: true

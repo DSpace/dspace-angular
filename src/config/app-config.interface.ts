@@ -69,7 +69,6 @@ interface AppConfig extends Config {
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
-  enableAuditLogsOverview?: boolean;
 }
 
 /**
