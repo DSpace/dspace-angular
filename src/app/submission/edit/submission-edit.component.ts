@@ -66,6 +66,11 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   public collectionModifiable: boolean | null = null;
 
+  /**
+   * The entity type of the submission
+   * @type {string}
+   */
+  public entityType: string;
 
   /**
    * The list of submission's sections
@@ -154,6 +159,11 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
             this.router.navigate(['/mydspace']);
           } else {
+            const collection = submissionObjectRD.payload.collection as Collection;
+            const entityType = collection.hasMetadata('dspace.entity.type') ? collection.firstMetadataValue('dspace.entity.type') : null;
+            if (hasValue(entityType)) {
+              this.entityType = entityType;
+            }
             const { errors } = submissionObjectRD.payload;
             this.submissionErrors = parseSectionErrors(errors);
             this.submissionId = submissionObjectRD.payload.id.toString();

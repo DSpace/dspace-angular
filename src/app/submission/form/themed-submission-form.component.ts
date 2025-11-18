@@ -31,7 +31,9 @@ export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFor
 
   @Input() submissionId: string;
 
-  protected inAndOutputNames: (keyof SubmissionFormComponent & keyof this)[] = ['collectionId', 'item', 'collectionModifiable', 'sections', 'submissionErrors', 'selfUrl', 'submissionDefinition', 'submissionId'];
+  @Input() entityType: string;
+
+  protected inAndOutputNames: (keyof SubmissionFormComponent & keyof this)[] = ['collectionId', 'item', 'collectionModifiable', 'sections', 'submissionErrors', 'selfUrl', 'submissionDefinition', 'submissionId', 'entityType'];
 
   protected getComponentName(): string {
     return 'SubmissionFormComponent';

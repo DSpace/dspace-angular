@@ -1979,9 +1979,15 @@
 
   "error.top-level-communities": "Error fetching top-level communities",
 
-  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
@@ -5608,6 +5614,8 @@
 
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
 
   "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
@@ -5717,6 +5725,12 @@
   "submission.sections.upload.upload-failed": "Upload failed",
 
   "submission.sections.upload.upload-successful": "Upload successful",
+
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 

@@ -40,7 +40,6 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-
 /**
  * This component represents the submission section to select the Creative Commons license.
  */
@@ -138,7 +137,6 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
   onSectionInit(): void {
     this.formId = this.formService.getUniqueId(this.sectionData.id);
     this.setSubmissionScope();
-
     this.frontendUrl = new URLCombiner(window.location.origin, '/entities', encodeURIComponent(this.entityType.toLowerCase())).toString();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
@@ -183,12 +181,18 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    *    the section data retrieved from the server
    */
   initForm(sectionData: WorkspaceitemSectionCustomUrlObject): void {
+    const model =
     this.formModel = [
       new DynamicInputModel({
         id: 'url',
         name: 'url',
         value: sectionData.url,
         placeholder: 'submission.sections.custom-url.url.placeholder',
+        errorMessages: {
+          'conflict': 'error.validation.custom-url.conflict',
+          'empty': 'error.validation.custom-url.empty',
+          'invalid-characters': 'error.validation.custom-url.invalid-characters',
+        },
       }),
     ];
     this.updateSectionData(sectionData);

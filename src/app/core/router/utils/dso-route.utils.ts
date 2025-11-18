@@ -33,8 +33,8 @@ export function getItemPageRoute(item: Item) {
   const type = item.firstMetadataValue('dspace.entity.type');
   let url = item.uuid;
 
-  if (isNotEmpty(item.metadata) && item.hasMetadata('cris.customurl')) {
-    url = item.firstMetadataValue('cris.customurl');
+  if (isNotEmpty(item.metadata) && item.hasMetadata('dspace.customurl')) {
+    url = item.firstMetadataValue('dspace.customurl');
   }
 
   return getEntityPageRoute(type, url);

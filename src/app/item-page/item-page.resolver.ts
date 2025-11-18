@@ -61,9 +61,9 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
       if (rd.hasSucceeded && hasValue(rd.payload)) {
         const isItemEditPage = state.url.includes('/edit');
         let itemRoute = isItemEditPage ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
-        if (hasValue(rd.payload.metadata) && rd.payload.hasMetadata('cris.customurl')) {
-          if (route.params.id !== rd.payload.firstMetadataValue('cris.customurl')) {
-            const newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('cris.customurl'));
+        if (hasValue(rd.payload.metadata) && rd.payload.hasMetadata('dspace.customurl')) {
+          if (route.params.id !== rd.payload.firstMetadataValue('dspace.customurl')) {
+            const newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('dspace.customurl'));
             router.navigateByUrl(newUrl);
           }
         } else  {

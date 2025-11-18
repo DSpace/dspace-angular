@@ -4,10 +4,10 @@
     {{'submission.sections.custom-url.alert.info' | translate}}
   </div>
 
-  <div class="custom-url" style="display: flex;align-items: center;">
+  <div class="custom-url d-flex align-items-center">
     <span class="frontend-url"> {{frontendUrl}}/</span>
     @if (formModel) {
-      <ds-form #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayReset]="false"
+      <ds-form #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayCancel]="false"
                (dfChange)="onChange($event)"></ds-form>
     }
   </div>
