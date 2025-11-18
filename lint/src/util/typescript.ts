@@ -24,13 +24,11 @@ export type AnyRuleContext = RuleContext<string, unknown[]>;
  */
 export function getFilename(context: AnyRuleContext): string {
   // TSESLint claims this is deprecated, but the suggested alternative is undefined (could be a version mismatch between ESLint and TSESlint?)
-  // eslint-disable-next-line deprecation/deprecation
   return toUnixStylePath(context.getFilename());
 }
 
 export function getSourceCode(context: AnyRuleContext): SourceCode {
   // TSESLint claims this is deprecated, but the suggested alternative is undefined (could be a version mismatch between ESLint and TSESlint?)
-  // eslint-disable-next-line deprecation/deprecation
   return context.getSourceCode();
 }
 

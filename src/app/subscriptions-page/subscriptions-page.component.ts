@@ -105,7 +105,10 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
     this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson: EPerson) => ePerson.id),
-      shareReplay({ refCount: false }),
+      shareReplay({
+        bufferSize: 1,
+        refCount: false,
+      }),
     );
     this.retrieveSubscriptions();
   }
