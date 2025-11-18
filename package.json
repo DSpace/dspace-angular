@@ -54,6 +54,9 @@
     "https": false
   },
   "private": true,
+  "resolutions": {
+    "webpack": "5.102.1"
+  },
   "dependencies": {
     "@angular/animations": "^17.3.11",
     "@angular/cdk": "^17.3.10",
