@@ -36,6 +36,7 @@
     @for (object of $any(submissionSections | async); track object) {
       <ds-submission-section-container [collectionId]="collectionId"
         [submissionId]="submissionId"
+        [entityType]="entityType"
         [sectionData]="$any(object)">
       </ds-submission-section-container>
     }

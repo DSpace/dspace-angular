@@ -46,6 +46,13 @@ export class SubmissionSectionContainerComponent implements OnInit {
   @Input() collectionId: string;
 
   /**
+   * The entity type, needed in order to search for metadata level security
+   */
+
+  @Input() entityType: string;
+
+
+  /**
    * The section data
    * @type {SectionDataObject}
    */
@@ -91,6 +98,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps: [] },
         { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: [] },
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
+        { provide: 'entityType', useFactory: () => (this.entityType), deps: [] },
       ],
       parent: this.injector,
     });

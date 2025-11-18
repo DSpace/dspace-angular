@@ -102,7 +102,7 @@ describe('itemPageResolver', () => {
 
   });
 
-  describe('when item has cris.customurl metadata', () => {
+  describe('when item has dspace.customurl metadata', () => {
 
 
     const customUrl = 'my-custom-item';
@@ -126,7 +126,7 @@ describe('itemPageResolver', () => {
           return true;
         },
         metadata: {
-          'cris.customurl': customUrl,
+          'dspace.customurl': customUrl,
         },
       });
       itemService = {
@@ -139,7 +139,7 @@ describe('itemPageResolver', () => {
       resolver = itemPageResolver;
     });
 
-    it('should navigate to the new custom URL if cris.customurl is defined and different from route param', (done) => {
+    it('should navigate to the new custom URL if dspace.customurl is defined and different from route param', (done) => {
       spyOn(router, 'navigateByUrl').and.callThrough();
 
       const route = { params: { id: uuid } } as any;
@@ -154,7 +154,7 @@ describe('itemPageResolver', () => {
         });
     });
 
-    it('should not navigate if cris.customurl matches the current route id', (done) => {
+    it('should not navigate if dspace.customurl matches the current route id', (done) => {
       spyOn(router, 'navigateByUrl').and.callThrough();
 
       const route = { params: { id: customUrl } } as any;
