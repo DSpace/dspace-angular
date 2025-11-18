@@ -16,7 +16,10 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
