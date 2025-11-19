@@ -3,8 +3,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { Context } from 'src/app/core/shared/context.model';
 
 /**
  * This component represents a badge with mydspace item status

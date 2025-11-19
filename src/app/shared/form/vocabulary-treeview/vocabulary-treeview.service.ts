@@ -1,4 +1,20 @@
 import { Injectable } from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import findIndex from 'lodash/findIndex';
 import {
   BehaviorSubject,
@@ -13,22 +29,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import {
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload,
-} from '../../../core/shared/operators';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../empty.util';
 import {
   LOAD_MORE_NODE,
   LOAD_MORE_ROOT_NODE,

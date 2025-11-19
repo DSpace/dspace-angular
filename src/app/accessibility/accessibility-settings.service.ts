@@ -3,6 +3,23 @@ import {
   Injectable,
   Optional,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ACCESSIBILITY_COOKIE } from '@dspace/core/cookies/accessibility-cookie';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,
@@ -15,28 +32,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';
-import { AuthService } from '../core/auth/auth.service';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { CookieService } from '../core/services/cookie.service';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { OrejimeService } from '../shared/cookies/orejime.service';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-
-/**
- * Name of the cookie used to store the settings locally
- */
-export const ACCESSIBILITY_COOKIE = 'dsAccessibilityCookie';
 
 /**
  * Name of the metadata field to store settings on the ePerson

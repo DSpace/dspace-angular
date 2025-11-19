@@ -3,6 +3,11 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -16,13 +21,8 @@ import {
 } from 'rxjs/operators';
 
 import { REQUEST } from '../../../express.tokens';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import {
   NativeWindowRef,
@@ -53,7 +53,7 @@ export class ServerLocaleService extends LocaleService {
    *
    * @returns {Observable<string[]>}
    */
-  getLanguageCodeList(): Observable<string[]> {
+  getLanguageCodeList(ignoreEPersonSettings = false): Observable<string[]> {
     const obs$ = combineLatest([
       this.authService.isAuthenticated(),
       this.authService.isAuthenticationLoaded(),
@@ -63,7 +63,7 @@ export class ServerLocaleService extends LocaleService {
       take(1),
       mergeMap(([isAuthenticated, isLoaded]) => {
         let epersonLang$: Observable<string[]> = of([]);
-        if (isAuthenticated && isLoaded) {
+        if (isAuthenticated && isLoaded && !ignoreEPersonSettings) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),
             map((eperson) => {
