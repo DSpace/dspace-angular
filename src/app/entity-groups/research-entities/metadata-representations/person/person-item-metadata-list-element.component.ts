@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { MetadataDirective } from '../../../../shared/metadata.directive';
 import { ItemMetadataRepresentationListElementComponent } from '../../../../shared/object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 import { OrcidBadgeAndTooltipComponent } from '../../../../shared/orcid-badge-and-tooltip/orcid-badge-and-tooltip.component';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
@@ -12,6 +13,7 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
   templateUrl: './person-item-metadata-list-element.component.html',
   standalone: true,
   imports: [
+    MetadataDirective,
     NgbTooltipModule,
     OrcidBadgeAndTooltipComponent,
     RouterLink,

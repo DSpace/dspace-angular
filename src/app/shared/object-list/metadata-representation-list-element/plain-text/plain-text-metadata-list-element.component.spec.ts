@@ -51,4 +51,20 @@ describe('PlainTextMetadataListElementComponent', () => {
     expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockMetadataRepresentation.value);
   });
 
+  it('should set lang attribute when language is provided', () => {
+    (comp.mdRepresentation as any).language = 'en';
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.debugElement.nativeElement.querySelector('.dont-break-out');
+    expect(el.getAttribute('lang')).toBe('en');
+  });
+
+  it('should remove lang attribute when language becomes undefined', () => {
+    (comp.mdRepresentation as any).language = 'fr';
+    fixture.detectChanges();
+    (comp.mdRepresentation as any).language = undefined;
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.debugElement.nativeElement.querySelector('.dont-break-out');
+    expect(el.getAttribute('lang')).toBeNull();
+  });
+
 });
