@@ -2,13 +2,13 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
 import { ConfirmationSentComponent } from '../external-log-in/email-confirmation/confirmation-sent/confirmation-sent.component';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { ExternalLoginEmailConfirmationPageComponent } from './external-login-email-confirmation-page.component';
 
 describe('ExternalLoginEmailConfirmationPageComponent', () => {

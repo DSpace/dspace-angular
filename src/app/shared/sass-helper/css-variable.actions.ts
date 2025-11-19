@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
+import { type } from '@dspace/core/ngrx/type';
+import { KeyValuePair } from '@dspace/core/utilities/key-value-pair.model';
 import { Action } from '@ngrx/store';
-
-import { KeyValuePair } from '../key-value-pair.model';
-import { type } from '../ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

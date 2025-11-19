@@ -2,9 +2,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { SearchResult } from '../../../../search/models/search-result.model';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 

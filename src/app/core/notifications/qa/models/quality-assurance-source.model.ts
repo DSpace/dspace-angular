@@ -1,13 +1,13 @@
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { HALLink } from '../../../shared/hal-link.model';
-import { ResourceType } from '../../../shared/resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { QUALITY_ASSURANCE_SOURCE_OBJECT } from './quality-assurance-source-object.resource-type';
 
 /**

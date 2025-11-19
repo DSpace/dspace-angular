@@ -1,11 +1,11 @@
 import { MemoizedSelector } from '@ngrx/store';
 
+import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
 import {
   keySelector,
   subStateSelector,
-} from '../../submission/selectors';
-import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core-state.model';
+} from '../ngrx/selectors-utils';
 import {
   JsonPatchOperationsEntry,
   JsonPatchOperationsResourceEntry,

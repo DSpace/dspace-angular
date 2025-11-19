@@ -9,31 +9,31 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { GrantRequestCopyComponent } from './grant-request-copy.component';
 
 describe('GrantRequestCopyComponent', () => {

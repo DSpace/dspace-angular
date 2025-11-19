@@ -1,15 +1,15 @@
 import { InjectionToken } from '@angular/core';
-
-import { Context } from '../../core/shared/context.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { OrgUnitItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
-import { PersonItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/person/person-item-metadata-list-element.component';
-import { ProjectItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/project/project-item-metadata-list-element.component';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import {
   hasNoValue,
   hasValue,
-} from '../empty.util';
+} from '@dspace/shared/utils/empty.util';
+
+import { OrgUnitItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
+import { PersonItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/person/person-item-metadata-list-element.component';
+import { ProjectItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/project/project-item-metadata-list-element.component';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,

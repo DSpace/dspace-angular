@@ -1,3 +1,9 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
@@ -11,25 +17,20 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALLink } from '../shared/hal-link.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   CreateData,
   CreateDataImpl,
@@ -57,7 +58,6 @@ import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 export abstract class ComColDataService<T extends Community | Collection> extends IdentifiableDataService<T> implements CreateData<T>, FindAllData<T>, SearchData<T>, PatchData<T>, DeleteData<T> {
   private createData: CreateData<T>;

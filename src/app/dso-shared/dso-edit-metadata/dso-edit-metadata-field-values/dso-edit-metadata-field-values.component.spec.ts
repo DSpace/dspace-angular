@@ -6,14 +6,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   of,
 } from 'rxjs';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { DsoEditMetadataForm } from '../dso-edit-metadata-form';
 import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
