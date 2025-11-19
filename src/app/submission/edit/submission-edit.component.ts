@@ -160,10 +160,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             this.router.navigate(['/mydspace']);
           } else {
             const collection = submissionObjectRD.payload.collection as Collection;
-            const entityType = collection.hasMetadata('dspace.entity.type') ? collection.firstMetadataValue('dspace.entity.type') : null;
-            if (hasValue(entityType)) {
-              this.entityType = entityType;
-            }
+            this.entityType = (hasValue(collection) && collection.hasMetadata('dspace.entity.type'))
+              ? collection.firstMetadataValue('dspace.entity.type') : null;
             const { errors } = submissionObjectRD.payload;
             this.submissionErrors = parseSectionErrors(errors);
             this.submissionId = submissionObjectRD.payload.id.toString();

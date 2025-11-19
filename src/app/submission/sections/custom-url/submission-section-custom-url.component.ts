@@ -1,7 +1,13 @@
 import {
+  AfterViewInit,
   Component,
   Inject,
+  ViewChild,
 } from '@angular/core';
+import {
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
@@ -40,6 +46,8 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+
+
 /**
  * This component represents the submission section to select the Creative Commons license.
  */
@@ -53,7 +61,7 @@ import { SectionsService } from '../sections.service';
   ],
   standalone: true,
 })
-export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
+export class SubmissionSectionCustomUrlComponent extends SectionModelComponent implements AfterViewInit {
 
   /**
    * The form id
@@ -102,6 +110,13 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    * Represents the list of redirected urls to be managed
    */
   redirectedUrls: string[] = [];
+
+  private readonly errorMessagePrefix = 'error.validation.custom-url.';
+
+  /**
+   * The FormComponent reference
+   */
+  @ViewChild('formRef') public formRef: FormComponent;
 
   constructor(
     protected sectionService: SectionsService,
@@ -181,7 +196,6 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
    *    the section data retrieved from the server
    */
   initForm(sectionData: WorkspaceitemSectionCustomUrlObject): void {
-    const model =
     this.formModel = [
       new DynamicInputModel({
         id: 'url',
@@ -196,6 +210,42 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
       }),
     ];
     this.updateSectionData(sectionData);
+  }
+
+  customUrlValidator = (_: AbstractControl): ValidationErrors | null => {
+    if (this.sectionData.errorsToShow?.length) {
+      const urlErrors = this.sectionData.errorsToShow.map((error) =>
+        error.message.replace(this.errorMessagePrefix, ''));
+      const validationErrors: ValidationErrors = {};
+
+      urlErrors.forEach((error) => {
+        validationErrors[error] = true;
+      });
+      return validationErrors;
+    }
+    return null;
+  };
+
+  /**
+   * Update control status
+   * @param addValidator
+   */
+  updateControlStatus(addValidator = false): void {
+    const control = this.formRef?.formGroup?.get('url');
+    if (control) {
+      if (addValidator) {
+        control.addValidators(this.customUrlValidator);
+        // reset errors on user input
+        this.subs.push(control.valueChanges.subscribe(() => {
+          control.setErrors(null);
+        }));
+      }
+      control.updateValueAndValidity({ onlySelf: true, emitEvent: false });
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.updateControlStatus(true);
   }
 
   /**
@@ -250,6 +300,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
         if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errorsToShow)) {
           this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errorsToShow);
           this.sectionData.errorsToShow = errors;
+          this.updateControlStatus(true);
         }
       }),
     );
