@@ -12,7 +12,7 @@ import {
   ItemMock,
   MockBitstream1,
   MockBitstream3,
-  MockBitstream2
+  MockBitstream2, NonDiscoverableItemMock
 } from '../../shared/mocks/item.mock';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -117,6 +117,37 @@ describe('MetadataService', () => {
       appConfig,
       authorizationService
     );
+  });
+
+  describe(`robots tag`, () => {
+    it(`should be set to noindex for non-discoverable items`, fakeAsync(() => {
+      (metadataService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(NonDiscoverableItemMock),
+          },
+        },
+      });
+      tick();
+      expect(meta.addTag).toHaveBeenCalledWith({
+        name: 'robots',
+        content: 'noindex',
+      });
+    }));
+    it(`should not be set for discoverable items`, fakeAsync(() => {
+      (metadataService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          },
+        },
+      });
+      tick();
+      expect(meta.addTag).not.toHaveBeenCalledWith({
+        name: 'robots',
+        content: 'noindex',
+      });
+    }));
   });
 
   it('items page should set meta tags', fakeAsync(() => {
