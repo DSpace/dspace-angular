@@ -136,9 +136,6 @@ export class DefaultAppConfig implements AppConfig {
     validatorMap: {
       required: 'required',
       regex: 'pattern',
-      conflict: 'conflict',
-      empty: 'empty',
-      'invalid-characters': 'invalid-characters',
     },
   };
 

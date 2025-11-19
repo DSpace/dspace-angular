@@ -4760,6 +4760,7 @@
   "item.preview.dc.identifier.openalex": "OpenAlex ओळखकर्ता",
 
   // "item.preview.dc.description": "Description",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.description": "वर्णन:",
 
   // "item.select.confirm": "Confirm selected",
