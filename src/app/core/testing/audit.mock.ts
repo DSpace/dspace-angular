@@ -1,5 +1,7 @@
 import { Audit } from '@dspace/core/audit/model/audit.model';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 
 export const AuditEPersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,
@@ -54,8 +56,10 @@ export const AuditMock: Audit = Object.assign(new Audit(), {
   id: '6fcd7329-8439-4492-bb72-0a4240b52da8',
   objectType: 'ITEM',
   objectUUID: 'objectUUID',
+  object: createSuccessfulRemoteDataObject$(new DSpaceObject()),
   subjectType: 'ITEM',
   subjectUUID: '3a74fe2c-d353-4e33-9887-d50184662dd4',
+  subject: createSuccessfulRemoteDataObject$(new DSpaceObject()),
   timeStamp: '2020-11-13T10:41:06.223+0000',
   epersonName: AuditEPersonMock.name,
   type: 'auditevent',
