@@ -55,7 +55,7 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
  * @class LogInPasswordComponent
  */
 @Component({
-  selector: 'ds-log-in-password',
+  selector: 'ds-base-log-in-password',
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],

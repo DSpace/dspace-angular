@@ -25,6 +25,7 @@ import { EditItemSelectorComponent } from './app/shared/dso-selector/modal-wrapp
 import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
 import { LangSwitchComponent } from './app/shared/lang-switch/lang-switch.component';
 import { LogInComponent } from './app/shared/log-in/log-in.component';
+import { LogInPasswordComponent } from './app/shared/log-in/methods/password/log-in-password.component';
 import { BrowseEntryListElementComponent } from './app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { CollectionListElementComponent } from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
@@ -72,6 +73,7 @@ const DECLARATIONS = [
   EditItemSelectorComponent,
   LogInComponent,
   LangSwitchComponent,
+  LogInPasswordComponent,
 ];
 
 @NgModule({
