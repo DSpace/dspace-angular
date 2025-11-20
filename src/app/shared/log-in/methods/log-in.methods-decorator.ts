@@ -2,12 +2,10 @@ import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
 
 import { AuthMethodTypeComponent } from './auth-methods.type';
 import { LogInExternalProviderComponent } from './log-in-external-provider/log-in-external-provider.component';
-//import { LogInPasswordComponent } from './password/log-in-password.component'; //TODO: remove comment
 import { ThemedLogInPasswordComponent } from './password/themed-log-in-password.component';
 
 
 export const AUTH_METHOD_FOR_DECORATOR_MAP = new Map<AuthMethodType, AuthMethodTypeComponent>([
-  //[AuthMethodType.Password, LogInPasswordComponent], //TODO: remove comment
   [AuthMethodType.Password, ThemedLogInPasswordComponent],
   [AuthMethodType.Shibboleth, LogInExternalProviderComponent],
   [AuthMethodType.Oidc, LogInExternalProviderComponent],
