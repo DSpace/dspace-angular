@@ -1,13 +1,19 @@
-import { Injectable } from '@angular/core';
-import Cookies, { CookieAttributes } from 'js-cookie';
+import {
+  Injectable,
+} from '@angular/core';
 
-import { CookieService, ICookieService } from './cookie.service';
+import Cookies, {
+  CookieAttributes,
+} from 'js-cookie';
+
+import {
+  CookieService,
+  ICookieService,
+} from './cookie.service';
 
 @Injectable()
-export class ClientCookieService
-  extends CookieService
-  implements ICookieService
-{
+export class ClientCookieService extends CookieService implements ICookieService {
+
   public set(name: string, value: any, options?: CookieAttributes): void {
     Cookies.set(name, value, options);
     this.updateSource();
@@ -34,11 +40,11 @@ export class ClientCookieService
     const all = Cookies.get();
     const parsed: Record<string, any> = {};
 
-    Object.entries(all).forEach(([k, v]) => {
+    Object.entries(all).forEach(([key, value]) => {
       try {
-        parsed[k] = JSON.parse(v);
+        parsed[key] = JSON.parse(value);
       } catch {
-        parsed[k] = v;
+        parsed[key] = value;
       }
     });
 

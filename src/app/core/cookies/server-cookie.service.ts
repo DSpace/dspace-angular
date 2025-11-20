@@ -1,8 +1,20 @@
-import { Inject, Injectable } from '@angular/core';
-import { CookieAttributes } from 'js-cookie';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 
-import { REQUEST } from '../../../express.tokens';
-import { CookieService, ICookieService } from './cookie.service';
+import {
+  CookieAttributes,
+} from 'js-cookie';
+
+import {
+  REQUEST,
+} from '../../../express.tokens';
+
+import {
+  CookieService,
+  ICookieService,
+} from './cookie.service';
 
 @Injectable()
 export class ServerCookieService
@@ -13,11 +25,18 @@ export class ServerCookieService
     super();
   }
 
-  public set(name: string, value: any, options?: CookieAttributes): void {
+  public set(
+    name: string,
+    value: any,
+    options?: CookieAttributes,
+  ): void {
     return;
   }
 
-  public remove(name: string, options?: CookieAttributes): void {
+  public remove(
+    name: string,
+    options?: CookieAttributes,
+  ): void {
     return;
   }
 
