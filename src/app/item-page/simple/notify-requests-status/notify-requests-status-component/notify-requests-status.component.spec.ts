@@ -5,12 +5,12 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
+import { NotifyRequestsStatus } from '@dspace/core/coar-notify/notify-info/models/notify-requests-status.model';
+import { RequestStatusEnum } from '@dspace/core/coar-notify/notify-info/models/notify-status.enum';
+import { NotifyRequestsStatusDataService } from '@dspace/core/coar-notify/notify-info/notify-services-status-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { NotifyRequestsStatusDataService } from 'src/app/core/data/notify-services-status-data.service';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { NotifyRequestsStatus } from '../notify-requests-status.model';
-import { RequestStatusEnum } from '../notify-status.enum';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status.component';
 

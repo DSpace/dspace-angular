@@ -10,19 +10,19 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../core/data/processes/script-data.service';
-import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+} from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';

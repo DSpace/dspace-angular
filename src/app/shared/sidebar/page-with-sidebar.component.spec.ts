@@ -5,10 +5,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarServiceStub } from '@dspace/core/testing/sidebar-service.stub';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../host-window.service';
-import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { PageWithSidebarComponent } from './page-with-sidebar.component';
 import { SidebarService } from './sidebar.service';
 

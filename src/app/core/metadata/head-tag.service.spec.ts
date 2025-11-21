@@ -10,6 +10,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { AppConfig } from '@dspace/config/app-config.interface';
 import { createMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -17,19 +18,6 @@ import {
   of,
 } from 'rxjs';
 
-import { AppConfig } from '../../../config/app-config.interface';
-import {
-  ItemMock,
-  MockBitstream1,
-  MockBitstream2,
-  MockBitstream3,
-} from '../../shared/mocks/item.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -40,6 +28,19 @@ import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { Item } from '../shared/item.model';
 import { MetadataValue } from '../shared/metadata.models';
+import {
+  ItemMock,
+  MockBitstream1,
+  MockBitstream2,
+  MockBitstream3,
+  NonDiscoverableItemMock,
+} from '../testing/item.mock';
+import { getMockTranslateService } from '../testing/translate.service.mock';
+import { createPaginatedList } from '../testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { HeadTagService } from './head-tag.service';
 import {
   AddMetaTagAction,
@@ -125,6 +126,37 @@ describe('HeadTagService', () => {
       appConfig,
       authorizationService,
     );
+  });
+
+  describe(`robots tag`, () => {
+    it(`should be set to noindex for non-discoverable items`, fakeAsync(() => {
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(NonDiscoverableItemMock),
+          },
+        },
+      });
+      tick();
+      expect(meta.addTag).toHaveBeenCalledWith({
+        name: 'robots',
+        content: 'noindex',
+      });
+    }));
+    it(`should not be set for discoverable items`, fakeAsync(() => {
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          },
+        },
+      });
+      tick();
+      expect(meta.addTag).not.toHaveBeenCalledWith({
+        name: 'robots',
+        content: 'noindex',
+      });
+    }));
   });
 
   it('items page should set meta tags', fakeAsync(() => {

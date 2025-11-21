@@ -7208,6 +7208,12 @@
 
   "file-download-link.request-copy": "Request a copy of ",
 
+  "item.preview.organization.url": "URL",
+
+  "item.preview.organization.address.addressLocality": "City",
+
+  "item.preview.organization.alternateName": "Alternative name",
+
   "statistics.table.header.TotalVisits": "Object",
 
   "statistics.table.header.TotalVisitsMonth": "Month",
@@ -7217,5 +7223,5 @@
   "statistics.table.header.TopCities": "Cities",
 
   "statistics.table.header.topCountries": "Countries",
-
+ 
 }

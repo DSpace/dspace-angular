@@ -1,17 +1,12 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { UsageReport } from '@dspace/core/statistics/models/usage-report.model';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 /**
  * Component representing a statistics table for a given usage report.
@@ -22,7 +17,6 @@ import { UsageReport } from '../../core/statistics/models/usage-report.model';
   styleUrls: ['./statistics-table.component.scss'],
   standalone: true,
   imports: [
-    AsyncPipe,
     TranslateModule,
   ],
 })

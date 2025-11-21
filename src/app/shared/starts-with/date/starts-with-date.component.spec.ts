@@ -11,13 +11,13 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { RouterStub } from '../../testing/router.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { StartsWithDateComponent } from './starts-with-date.component';
 
@@ -100,7 +100,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue }, undefined, { queryParamsHandling: '' });
     });
 
     it('should automatically fill in the input field', () => {
@@ -122,7 +122,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue }, undefined, { queryParamsHandling: '' });
       });
 
       it('should automatically fill in the input field', () => {
@@ -146,7 +146,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue }, undefined, { queryParamsHandling: '' });
       });
 
       it('should automatically fill in the input field', () => {
@@ -171,7 +171,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue }, undefined, { queryParamsHandling: '' });
     });
   });
 
