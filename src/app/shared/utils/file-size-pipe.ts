@@ -16,7 +16,6 @@ import { filesize } from 'filesize';
 
 @Pipe({
   name: 'dsFileSize',
-  standalone: true,
 })
 export class FileSizePipe implements PipeTransform {
   transform(bytes: number = 0, precision: number = 2): string {

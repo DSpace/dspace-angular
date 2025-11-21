@@ -32,7 +32,6 @@ import { DynamicComponentLoaderDirective } from './dynamic-component-loader.dire
 @Component({
   selector: 'ds-abstract-component-loader',
   templateUrl: './abstract-component-loader.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
   ],

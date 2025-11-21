@@ -35,7 +35,6 @@ import { ImageField } from './image-field';
     AsyncPipe,
     MetadataValuesComponent,
   ],
-  standalone: true,
 })
 export class ItemPageFieldComponent {
 

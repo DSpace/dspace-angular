@@ -60,7 +60,6 @@ import {
     ResourcePolicyEntryComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that shows the policies for given resource

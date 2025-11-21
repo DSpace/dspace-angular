@@ -12,12 +12,7 @@ import { TypeBadgeComponent } from './type-badge.component';
  */
 @Component({
   selector: 'ds-type-badge',
-  styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    TypeBadgeComponent,
-  ],
 })
 export class ThemedTypeBadgeComponent extends ThemedComponent<TypeBadgeComponent> {
   @Input() object: DSpaceObject;

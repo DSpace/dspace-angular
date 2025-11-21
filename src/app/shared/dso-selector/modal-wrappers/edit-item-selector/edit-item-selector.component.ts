@@ -28,7 +28,6 @@ import {
 @Component({
   selector: 'ds-base-edit-item-selector',
   templateUrl: 'edit-item-selector.component.html',
-  standalone: true,
   imports: [
     DSOSelectorComponent,
     TranslateModule,

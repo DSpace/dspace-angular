@@ -38,7 +38,6 @@ import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actio
   selector: 'ds-claimed-task-actions',
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClaimedTaskActionsLoaderComponent,

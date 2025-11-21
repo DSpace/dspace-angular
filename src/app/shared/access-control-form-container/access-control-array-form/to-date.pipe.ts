@@ -2,13 +2,12 @@ import {
   Pipe,
   PipeTransform,
 } from '@angular/core';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'toDate',
   pure: false,
-  standalone: true,
 })
 export class ToDatePipe implements PipeTransform {
   transform(dateValue: string | null): NgbDateStruct | null {

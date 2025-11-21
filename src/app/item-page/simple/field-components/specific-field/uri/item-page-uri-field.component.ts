@@ -13,7 +13,6 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   imports: [
     MetadataUriValuesComponent,
   ],
-  standalone: true,
 })
 /**
  * This component can be used to represent any uri on a simple item page.

@@ -63,7 +63,6 @@ import { getEntityEditRoute } from '../../item-page-routing-paths';
     UploaderComponent,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Page component for uploading a bitstream to an item

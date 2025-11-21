@@ -24,7 +24,6 @@ import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'ds-item',
   template: '',
-  standalone: true,
 })
 /**
  * A generic component for displaying metadata and relations of an item

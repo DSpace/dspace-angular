@@ -26,7 +26,6 @@ import { FilterGroup } from './filter-group.model';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class FiltersComponent {
 

@@ -16,7 +16,6 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     ThemedSearchComponent,
   ],
