@@ -20,13 +20,15 @@
         [configurationList]="configurationList"
         [defaultConfiguration]="configuration"
         [inPlaceSearch]="inPlaceSearch"
+        [retainScrollPosition]="retainScrollPosition"
       (changeConfiguration)="changeConfiguration.emit($event)"></ds-search-switch-configuration>
     }
     <ds-search-filters [currentScope]="currentScope"
       [currentConfiguration]="configuration"
       [filters]="filters"
       [refreshFilters]="refreshFilters"
-      [inPlaceSearch]="inPlaceSearch">
+      [inPlaceSearch]="inPlaceSearch"
+      [retainScrollPosition]="retainScrollPosition">
     </ds-search-filters>
     @if (inPlaceSearch && (this.showAdvancedSearch$ | async) === true) {
       <ds-advanced-search
@@ -38,7 +40,8 @@
     @if (inPlaceSearch) {
       <ds-search-settings
         [currentSortOption]="currentSortOption"
-        [sortOptionsList]="sortOptionsList">
+        [sortOptionsList]="sortOptionsList"
+        [retainScrollPosition]="retainScrollPosition">
       </ds-search-settings>
     }
   </div>
