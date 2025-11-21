@@ -125,7 +125,13 @@ export class AuthEffects {
     switchMap((action: AuthenticatedAction) => {
       return this.authService.authenticatedUser(action.payload).pipe(
         map((userHref: string) => new AuthenticatedSuccessAction((userHref !== null), action.payload, userHref)),
-        catchError((error: unknown) => errorToAuthAction$(AuthenticatedErrorAction, error)),
+        catchError((error: unknown) => {
+          if (action.checkAgain) {
+            return of(new CheckAuthenticationTokenCookieAction());
+          } else {
+            return errorToAuthAction$(AuthenticatedErrorAction, error);
+          }
+        }),
       );
     }),
   ));
@@ -180,7 +186,7 @@ export class AuthEffects {
   public checkToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),
     switchMap(() => {
       return this.authService.hasValidAuthenticationToken().pipe(
-        map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
+        map((token: AuthTokenInfo) => new AuthenticatedAction(token, true)),
         catchError((error: unknown) => of(new CheckAuthenticationTokenCookieAction())),
       );
     }),
