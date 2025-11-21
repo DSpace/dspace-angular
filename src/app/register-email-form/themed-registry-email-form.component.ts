@@ -11,12 +11,7 @@ import { RegisterEmailFormComponent } from './register-email-form.component';
  */
 @Component({
   selector: 'ds-register-email-form',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    RegisterEmailFormComponent,
-  ],
 })
 export class ThemedRegisterEmailFormComponent extends ThemedComponent<RegisterEmailFormComponent> {
 

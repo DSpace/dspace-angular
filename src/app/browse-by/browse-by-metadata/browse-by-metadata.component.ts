@@ -72,7 +72,6 @@ export const BBM_PAGINATION_ID = 'bbm';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing (items) by metadata definition.

@@ -326,6 +326,7 @@ export class AuthService {
         if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken) && !this.isTokenExpired(token)) {
           return token;
         } else {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw false;
         }
       }),

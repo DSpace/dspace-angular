@@ -8,7 +8,6 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
 @Component({
   selector: 'ds-org-unit-item-metadata-list-element',
   templateUrl: './org-unit-item-metadata-list-element.component.html',
-  standalone: true,
   imports: [
     NgbTooltipModule,
     RouterLink,

@@ -86,7 +86,6 @@ import {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that displays a single bundle of an item on the item bitstreams edit page

@@ -32,7 +32,6 @@ import {
 
 @Component({
   selector: 'ds-suggestion-sources',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

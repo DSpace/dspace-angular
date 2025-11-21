@@ -52,7 +52,6 @@ import { AlertType } from '../../../shared/alert/alert-type';
     FormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
   protected readonly AlertType = AlertType;

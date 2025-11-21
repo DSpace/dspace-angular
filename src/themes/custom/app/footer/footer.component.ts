@@ -14,7 +14,6 @@ import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.
   styleUrls: ['../../../../app/footer/footer.component.scss'],
   // templateUrl: './footer.component.html'
   templateUrl: '../../../../app/footer/footer.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DatePipe,

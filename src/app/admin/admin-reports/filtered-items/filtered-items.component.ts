@@ -70,7 +70,6 @@ import { QueryPredicate } from './query-predicate.model';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class FilteredItemsComponent implements OnInit {
 

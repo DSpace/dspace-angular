@@ -12,7 +12,6 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
   styleUrls: ['../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component.scss'],
   // templateUrl: './browse-by-date.component.html',
   templateUrl: '../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ThemedBrowseByComponent,

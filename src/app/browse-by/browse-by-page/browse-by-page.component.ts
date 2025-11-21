@@ -19,7 +19,6 @@ import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switc
     AsyncPipe,
     BrowseBySwitcherComponent,
   ],
-  standalone: true,
 })
 export class BrowseByPageComponent implements OnInit {
 

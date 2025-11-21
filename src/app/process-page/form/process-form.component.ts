@@ -39,7 +39,6 @@ import { ScriptsSelectComponent } from './scripts-select/scripts-select.componen
   selector: 'ds-process-form',
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
-  standalone: true,
   imports: [
     FormsModule,
     ProcessParametersComponent,

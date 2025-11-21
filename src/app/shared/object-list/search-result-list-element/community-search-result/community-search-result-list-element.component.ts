@@ -16,7 +16,6 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
   selector: 'ds-community-search-result-list-element',
   styleUrls: ['../search-result-list-element.component.scss', 'community-search-result-list-element.component.scss'],
   templateUrl: 'community-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     NgClass,
     RouterLink,

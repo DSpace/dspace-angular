@@ -38,7 +38,6 @@ import {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component displaying alerts for an item

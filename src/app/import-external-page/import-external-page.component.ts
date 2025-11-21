@@ -12,7 +12,6 @@ import { ThemedSubmissionImportExternalComponent } from '../submission/import-ex
   imports: [
     ThemedSubmissionImportExternalComponent,
   ],
-  standalone: true,
 })
 export class ImportExternalPageComponent {
 

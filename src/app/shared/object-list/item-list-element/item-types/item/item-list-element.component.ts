@@ -17,7 +17,6 @@ import { AbstractListableElementComponent } from '../../../../object-collection/
   selector: 'ds-item-list-element',
   styleUrls: ['./item-list-element.component.scss'],
   templateUrl: './item-list-element.component.html',
-  standalone: true,
   imports: [
     ListableObjectComponentLoaderComponent,
   ],
