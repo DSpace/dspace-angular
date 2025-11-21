@@ -19,10 +19,12 @@ import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
+import { LiveRegionService } from '../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../live-region/live-region.service.stub';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 
-describe('Chips component', () => {
+describe('Uploader component', () => {
 
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -44,6 +46,7 @@ describe('Chips component', () => {
         DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });

@@ -1,6 +1,6 @@
 @if (!!submissionId) {
-  <div class="d-flex flex-row gap-1 justify-content-between">
-    <div class="flex-grow-0">
+  <div class="d-flex flex-row gap-1 justify-content-between flex-sm-row flex-column">
+    <div class="flex-grow-0 align-self-center">
       @if ((showDepositAndDiscard | async)) {
         <button
           type="button"
@@ -13,7 +13,7 @@
         </button>
       }
     </div>
-    <div class="text-end d-flex justify-content-end align-items-center">
+    <div class="text-end d-flex justify-content-end align-items-center flex-sm-row flex-column">
       @if ((hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true) {
         <span>
           <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
@@ -36,7 +36,7 @@
           </div>
         </div>
       }
-      <div class="ms-2 space-children-mr">
+      <div class="ms-2 space-children-mr d-flex flex-sm-row flex-column gap-1">
         <button type="button"
           class="btn btn-secondary"
           id="save"

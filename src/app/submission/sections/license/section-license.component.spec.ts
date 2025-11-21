@@ -54,6 +54,8 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObjectService } from '../../submission-object.service';
 import {
@@ -193,6 +195,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         },
         { provide: XSRFService, useValue: {} },
         SubmissionSectionLicenseComponent,
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
