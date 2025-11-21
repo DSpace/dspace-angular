@@ -29,7 +29,6 @@ import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
   styleUrls: ['./object-geospatial-map.component.scss'],
   templateUrl: './object-geospatial-map.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
     GeospatialMapComponent,
   ],

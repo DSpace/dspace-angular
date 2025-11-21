@@ -11,7 +11,6 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
 @Component({
   selector: 'ds-item-page-date-field',
   templateUrl: '../item-page-field.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MetadataValuesComponent,

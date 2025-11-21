@@ -56,7 +56,6 @@ import { MatomoService } from '../../statistics/matomo.service';
     AsyncPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Page component for downloading a bitstream

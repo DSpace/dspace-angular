@@ -48,7 +48,6 @@ import {
   selector: 'ds-workspace-item-admin-workflow-actions-element',
   styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
   templateUrl: './workspace-item-admin-workflow-actions.component.html',
-  standalone: true,
   imports: [
     NgClass,
     RouterLink,

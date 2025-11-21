@@ -30,7 +30,6 @@ import {
 @Component({
   selector: 'ds-delete-comcol',
   template: '',
-  standalone: true,
 })
 export class DeleteComColPageComponent<TDomain extends Community | Collection> implements OnInit {
   /**

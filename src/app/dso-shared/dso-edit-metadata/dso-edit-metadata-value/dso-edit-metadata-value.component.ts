@@ -55,7 +55,6 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
   selector: 'ds-dso-edit-metadata-value',
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     AuthorityConfidenceStateDirective,

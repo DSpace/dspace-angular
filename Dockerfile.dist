@@ -4,7 +4,7 @@
 # Test build:
 # docker build -f Dockerfile.dist -t dspace/dspace-angular:latest-dist .
 
-FROM docker.io/node:18-alpine AS build
+FROM docker.io/node:20-alpine AS build
 
 # Ensure Python and other build tools are available
 # These are needed to install some node modules, especially on linux/arm64
@@ -17,7 +17,7 @@ RUN npm install
 ADD . /app/
 RUN npm run build:prod
 
-FROM node:18-alpine
+FROM node:20-alpine
 RUN npm install --global pm2
 
 COPY --chown=node:node --from=build /app/dist /app/dist

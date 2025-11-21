@@ -68,7 +68,6 @@ interface PaginationDetails {
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

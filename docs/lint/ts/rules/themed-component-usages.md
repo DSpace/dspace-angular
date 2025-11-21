@@ -290,7 +290,6 @@ import { Context } from './app/core/shared/context.model';
 import { TestThemeableComponent } from '../../../../app/test/test-themeable.component';
 
 @Component({
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 export class UsageComponent {
@@ -313,7 +312,6 @@ import { Context } from './app/core/shared/context.model';
 import { ThemedTestThemeableComponent } from '../../../../app/test/themed-test-themeable.component';
 
 @Component({
-  standalone: true,
   imports: [ThemedTestThemeableComponent],
 })
 export class UsageComponent {
@@ -333,7 +331,6 @@ import { TestThemeableComponent } from '../../../../app/test/test-themeable.comp
 import { ThemedTestThemeableComponent } from '../../../../app/test/themed-test-themeable.component';
 
 @Component({
-  standalone: true,
   imports: [TestThemeableComponent, ThemedTestThemeableComponent],
 })
 export class UsageComponent {
@@ -356,7 +353,6 @@ import { Context } from './app/core/shared/context.model';
 import { ThemedTestThemeableComponent } from '../../../../app/test/themed-test-themeable.component';
 
 @Component({
-  standalone: true,
   imports: [ThemedTestThemeableComponent],
 })
 export class UsageComponent {

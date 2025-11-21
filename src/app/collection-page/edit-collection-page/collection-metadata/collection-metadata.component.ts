@@ -55,7 +55,6 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {
   protected frontendURL = '/collections/';

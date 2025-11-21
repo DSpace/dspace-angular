@@ -1,9 +1,9 @@
 import {
   DynamicFormControlModel,
   DynamicInputModel,
+  DynamicSelectModelConfig,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 import { environment } from '../../../environments/environment';
 

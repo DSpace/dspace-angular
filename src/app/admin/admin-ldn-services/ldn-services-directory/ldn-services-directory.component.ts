@@ -60,7 +60,6 @@ import { TruncatablePartComponent } from '../../../shared/truncatable/truncatabl
     TruncatableComponent,
     TruncatablePartComponent,
   ],
-  standalone: true,
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 
