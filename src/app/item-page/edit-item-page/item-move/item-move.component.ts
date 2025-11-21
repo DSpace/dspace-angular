@@ -37,7 +37,7 @@ import {
 } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { ThemedAuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 import { SearchService } from '../../../shared/search/search.service';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 
@@ -46,11 +46,11 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
   templateUrl: './item-move.component.html',
   imports: [
     AsyncPipe,
-    AuthorizedCollectionSelectorComponent,
     BtnDisabledDirective,
     FormsModule,
     NgbModule,
     RouterLink,
+    ThemedAuthorizedCollectionSelectorComponent,
     TranslateModule,
   ],
   standalone: true,

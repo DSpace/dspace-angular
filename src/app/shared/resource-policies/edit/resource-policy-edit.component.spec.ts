@@ -38,11 +38,9 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  ResourcePolicyEvent,
-  ResourcePolicyFormComponent,
-} from '../form/resource-policy-form.component';
+import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
+import { ThemedResourcePolicyFormComponent } from '../form/themed-resource-policy-form.component';
 import { ResourcePolicyEditComponent } from './resource-policy-edit.component';
 
 describe('ResourcePolicyEditComponent test suite', () => {
@@ -112,7 +110,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
       ],
     })
       .overrideComponent(ResourcePolicyEditComponent, {
-        remove: { imports: [ResourcePolicyFormComponent] },
+        remove: { imports: [ThemedResourcePolicyFormComponent] },
       })
       .compileComponents();
   }));

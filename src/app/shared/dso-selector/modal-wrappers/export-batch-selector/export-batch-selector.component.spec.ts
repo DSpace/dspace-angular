@@ -43,6 +43,7 @@ import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { SearchService } from '../../../search/search.service';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -132,7 +133,13 @@ describe('ExportBatchSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ExportBatchSelectorComponent, {
+        remove: {
+          imports: [ThemedDSOSelectorComponent],
+        },
+      })
+      .compileComponents();
 
   }));
 

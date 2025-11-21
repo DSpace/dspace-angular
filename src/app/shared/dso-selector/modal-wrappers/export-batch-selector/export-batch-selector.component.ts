@@ -42,7 +42,7 @@ import {
 
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -57,7 +57,7 @@ import {
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    ThemedDSOSelectorComponent,
     TranslateModule,
   ],
 })

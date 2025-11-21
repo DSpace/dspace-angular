@@ -42,7 +42,7 @@ import {
 import { of } from 'rxjs';
 
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -147,7 +147,7 @@ describe('ExportMetadataSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ExportMetadataSelectorComponent, {
-        remove: { imports: [DSOSelectorComponent] },
+        remove: { imports: [ThemedDSOSelectorComponent] },
       })
       .compileComponents();
 

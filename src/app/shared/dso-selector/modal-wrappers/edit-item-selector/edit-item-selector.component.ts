@@ -14,7 +14,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -30,7 +30,7 @@ import {
   templateUrl: 'edit-item-selector.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    ThemedDSOSelectorComponent,
     TranslateModule,
   ],
 })

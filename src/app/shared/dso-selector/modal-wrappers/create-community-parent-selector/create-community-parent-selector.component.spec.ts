@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 
 describe('CreateCommunityParentSelectorComponent', () => {
@@ -69,7 +70,12 @@ describe('CreateCommunityParentSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateCommunityParentSelectorComponent, {
-        remove: { imports: [AuthorizedCommunitySelectorComponent] },
+        remove: {
+          imports: [
+            AuthorizedCommunitySelectorComponent,
+            ThemedDSOSelectorComponent,
+          ],
+        },
       })
       .compileComponents();
 

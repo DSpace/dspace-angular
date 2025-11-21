@@ -125,15 +125,20 @@ export class CollectionDataService extends ComColDataService<Collection> {
   /**
    * Get all collections the user is authorized to submit to, by community
    *
+   * TODO This method should be replaced with `getAuthorizedCollection` and the `options` parameter `scopeID` should be
+   *  supported instead in `BaseDataService#buildHrefFromFindOptions`
+   *
    * @param communityId The community id
    * @param query limit the returned collection to those with metadata values matching the query terms.
    * @param options The [[FindListOptions]] object
-   * @param reRequestOnStale Whether or not the request should automatically be re-
-   *                         requested after the response becomes stale
-   * @return Observable<RemoteData<PaginatedList<Collection>>>
-   *    collection list
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's no valid-cached
+   * version. Defaults to true
+   * @param reRequestOnStale Whether or not the request should automatically be re-requested after the response become
+   * s stale
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically
+   * resolved
    */
-  getAuthorizedCollectionByCommunity(communityId: string, query: string, options: FindListOptions = {}, reRequestOnStale = true): Observable<RemoteData<PaginatedList<Collection>>> {
+  getAuthorizedCollectionByCommunity(communityId: string, query: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findSubmitAuthorizedByCommunity';
     options = Object.assign({}, options, {
       searchParams: [
@@ -142,10 +147,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
       ],
     });
 
-    return this.searchBy(searchHref, options, reRequestOnStale).pipe(
+    return this.searchBy(searchHref, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       getAllCompletedRemoteData(),
     );
   }
+
   /**
    * Get all collections the user is authorized to submit to, by community and has the metadata
    *
