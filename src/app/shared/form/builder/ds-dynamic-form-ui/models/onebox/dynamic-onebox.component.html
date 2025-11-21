@@ -41,7 +41,7 @@
            class="form-control"
            [attr.aria-labelledby]="'label_' + model.id"
            [attr.autoComplete]="model.autoComplete"
-           [attr.aria-label]="model.label | translate"
+           [attr.aria-label]="(model.label || model?.additional?.ariaLabel) | translate"
            [class.is-invalid]="showErrorMessages"
            [id]="model.id"
            [inputFormatter]="formatter"

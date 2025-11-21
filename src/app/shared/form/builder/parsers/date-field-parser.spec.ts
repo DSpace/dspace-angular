@@ -67,4 +67,12 @@ describe('DateFieldParser test suite', () => {
 
     expect(fieldModel.value).toEqual(expectedValue);
   });
+
+  it('should skip setting the placeholder when ignore omitSimpleFieldPlaceholders is true', () => {
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    parser.omitSimpleFieldPlaceholders = true;
+    const fieldModel = parser.parse();
+
+    expect(fieldModel.placeholder).toBeNull();
+  });
 });
