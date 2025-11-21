@@ -2404,7 +2404,7 @@
   "cookies.consent.decline": "Ablehnen",
 
   // "cookies.consent.ok": "That's ok",
-  "cookies.consent.ok": "Das ist in Ordnung.",
+  "cookies.consent.ok": "Zustimmen",
 
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Speichern",
@@ -2431,13 +2431,13 @@
   "cookies.consent.content-modal.privacy-policy.text": "Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
 
   // "cookies.consent.content-modal.title": "Information that we collect",
-  "cookies.consent.content-modal.title": "Information, die wir sammeln",
+  "cookies.consent.content-modal.title": "Informationen, die wir sammeln",
 
   // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "Dienstleistungen",
+  "cookies.consent.content-modal.services": "Dienste",
 
   // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "Dienstleistung",
+  "cookies.consent.content-modal.service": "Dienst",
 
   // "cookies.consent.app.title.accessibility": "Accessibility Settings",
   // TODO New key - Add a translation
