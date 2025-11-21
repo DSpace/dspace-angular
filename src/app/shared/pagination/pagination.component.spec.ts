@@ -28,7 +28,7 @@ import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
-import { HostWindowServiceMock } from '@dspace/core/testing/host-window-service.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
@@ -100,7 +100,10 @@ function changePage(fixture: ComponentFixture<any>, idx: number): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
   const buttons = de.nativeElement.querySelectorAll('li');
 
-  buttons[idx].querySelector('a').click();
+  const clickableElement = buttons[idx].querySelector('a') || buttons[idx].querySelector('button');
+  if (clickableElement) {
+    clickableElement.click();
+  }
   fixture.detectChanges();
 }
 
@@ -115,7 +118,7 @@ describe('Pagination component', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let de: DebugElement;
   let html;
-  let hostWindowServiceStub: HostWindowServiceMock;
+  let hostWindowServiceStub: HostWindowServiceStub;
 
   let activatedRouteStub: MockActivatedRoute;
   let routerStub: RouterMock;
@@ -128,6 +131,7 @@ describe('Pagination component', () => {
   const pagination = new PaginationComponentOptions();
   pagination.currentPage = 1;
   pagination.pageSize = 10;
+  pagination.maxSize = 10;
 
   const sort = new SortOptions('score', SortDirection.DESC);
   const findlistOptions = Object.assign(new FindListOptions(), { currentPage: 1, elementsPerPage: 10 });
@@ -139,7 +143,7 @@ describe('Pagination component', () => {
   beforeEach(waitForAsync(() => {
     activatedRouteStub = new MockActivatedRoute();
     routerStub = new RouterMock();
-    hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
+    hostWindowServiceStub = new HostWindowServiceStub(_initialState.width);
 
     currentPagination = new BehaviorSubject<PaginationComponentOptions>(pagination);
     currentSort = new BehaviorSubject<SortOptions>(sort);
@@ -209,6 +213,10 @@ describe('Pagination component', () => {
       </ds-pagination>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+      testComp.paginationOptions.enablePaginationInput = false;
+      testComp.paginationOptions.maxSize = 10;
+
+      testFixture.detectChanges();
     });
 
     it('should create Pagination Component', inject([PaginationComponent], (app: PaginationComponent) => {
@@ -388,6 +396,66 @@ describe('Pagination component', () => {
         testFixture.detectChanges();
         expect(next).toBeTruthy();
       });
+    });
+  });
+
+  describe('Pagination input field', () => {
+    let fixture: ComponentFixture<PaginationComponent>;
+    let component: PaginationComponent;
+
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+          NgbModule,
+          PaginationComponent,
+          EnumKeysPipe,
+          RouterTestingModule,
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: TranslateLoaderMock },
+          }),
+          StoreModule.forRoot({}, {}),
+        ],
+        providers: [
+          { provide: HostWindowService, useValue: hostWindowServiceStub },
+          { provide: PaginationService, useValue: {
+            getCurrentPagination: () => new BehaviorSubject({ currentPage: 5, pageSize: 10 }),
+            getCurrentSort: () => new BehaviorSubject({ direction: SortDirection.ASC, field: 'name' }),
+            updateRoute: () => {
+              //
+            },
+          } },
+        ],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(PaginationComponent);
+      component = fixture.componentInstance;
+      component.collectionSize = 200;
+      component.paginationOptions = {
+        id: 'test',
+        currentPage: 5,
+        pageSize: 10,
+        pageSizeOptions: [10, 20, 50],
+        directionLinks: true,
+        boundaryLinks: true,
+        ellipses: true,
+        maxSize: 10,
+        rotate: false,
+        size: 'lg',
+        disabled: false,
+        enablePaginationInput: true,
+      };
+      fixture.detectChanges();
+    });
+
+    it('should enable click on "..." button', () => {
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('[data-test="page-input-button"]'));
+      expect(input).toBeDefined();
+      expect(input.nativeElement.disabled).toBeFalse();
     });
   });
 
