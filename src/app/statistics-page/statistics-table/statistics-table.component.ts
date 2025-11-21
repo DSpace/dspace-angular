@@ -6,7 +6,9 @@ import {
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { UsageReport } from '@dspace/core/statistics/models/usage-report.model';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, 
+        TranslateService,
+} from '@ngx-translate/core';
 
 /**
  * Component representing a statistics table for a given usage report.
