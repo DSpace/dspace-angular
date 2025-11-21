@@ -36,7 +36,6 @@ import { ItemComponent } from '../shared/item.component';
   styleUrls: ['./publication.component.scss'],
   templateUrl: './publication.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe,
     CollectionsComponent,

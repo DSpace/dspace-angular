@@ -14,7 +14,6 @@ import { ObjectNotFoundComponent as BaseComponent } from '../../../../../app/loo
   // templateUrl: './objectnotfound.component.html',
   templateUrl: '../../../../../app/lookup-by-id/objectnotfound/objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
   imports: [
     RouterLink,
     TranslateModule,

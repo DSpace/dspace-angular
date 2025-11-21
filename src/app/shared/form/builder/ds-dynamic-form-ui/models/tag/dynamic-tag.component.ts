@@ -66,7 +66,6 @@ import { DynamicTagModel } from './dynamic-tag.model';
     FormsModule,
     NgbTypeaheadModule,
   ],
-  standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 

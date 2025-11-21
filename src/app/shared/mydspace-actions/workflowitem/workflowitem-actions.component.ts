@@ -28,7 +28,6 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   selector: 'ds-workflowitem-actions',
   styleUrls: ['./workflowitem-actions.component.scss'],
   templateUrl: './workflowitem-actions.component.html',
-  standalone: true,
   imports: [
     NgbTooltipModule,
     RouterLink,

@@ -15,7 +15,6 @@ import { OnClickMenuItemModel } from './models/onclick.model';
   selector: 'ds-onclick-menu-item',
   styleUrls: ['./menu-item.component.scss', './onclick-menu-item.component.scss'],
   templateUrl: './onclick-menu-item.component.html',
-  standalone: true,
   imports: [
     RouterLinkActive,
     TranslateModule,

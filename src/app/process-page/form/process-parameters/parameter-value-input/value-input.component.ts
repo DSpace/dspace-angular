@@ -10,7 +10,6 @@ import {
  */
 @Component({
   selector: 'ds-value-input',
-  standalone: true,
   template: '',
 })
 export abstract class ValueInputComponent<T> {

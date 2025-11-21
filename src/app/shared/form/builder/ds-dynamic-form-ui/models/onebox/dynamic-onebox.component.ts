@@ -87,7 +87,6 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
     ObjNgFor,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 

@@ -43,7 +43,6 @@ import {
   templateUrl: './access-control-form-container.component.html',
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
-  standalone: true,
   imports: [
     AccessControlArrayFormComponent,
     AlertComponent,
@@ -155,9 +154,17 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
    */
   handleStatusChange(type: 'item' | 'bitstream', active: boolean) {
     if (type === 'bitstream') {
-      active ? this.bitstreamAccessCmp.enable() : this.bitstreamAccessCmp.disable();
+      if (active) {
+        this.bitstreamAccessCmp.enable();
+      } else {
+        this.bitstreamAccessCmp.disable();
+      }
     } else if (type === 'item') {
-      active ? this.itemAccessCmp.enable() : this.itemAccessCmp.disable();
+      if (active) {
+        this.itemAccessCmp.enable();
+      } else {
+        this.itemAccessCmp.disable();
+      }
     }
   }
 

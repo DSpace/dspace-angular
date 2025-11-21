@@ -29,7 +29,6 @@ import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-contro
   imports: [
     forwardRef(() => DsDynamicFormControlContainerComponent),
   ],
-  standalone: true,
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 

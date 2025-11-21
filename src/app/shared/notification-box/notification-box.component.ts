@@ -18,7 +18,6 @@ import { listableObjectComponent } from '../object-collection/shared/listable-ob
   selector: 'ds-notification-box',
   templateUrl: './notification-box.component.html',
   styleUrls: ['./notification-box.component.scss'],
-  standalone: true,
   imports: [
     HoverClassDirective,
     NgStyle,
