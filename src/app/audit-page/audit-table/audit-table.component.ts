@@ -11,9 +11,10 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AUDIT_PERSON_NOT_AVAILABLE } from '@dspace/core/data/audit-data.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -66,6 +67,11 @@ export class AuditTableComponent {
    */
   @Input() object: DSpaceObject;
 
+  /**
+   * Path for audit logs
+   */
+  readonly auditPath = 'auditlogs';
+
   protected readonly dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
 
   /**
@@ -74,8 +80,9 @@ export class AuditTableComponent {
   protected readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
   constructor(
-    public dsoNameService: DSONameService,
+    private dsoNameService: DSONameService,
     private changeDetectorRef: ChangeDetectorRef,
+    private dsoDataService: DSpaceObjectDataService,
   ) {}
 
 
@@ -84,9 +91,14 @@ export class AuditTableComponent {
     this.changeDetectorRef.detectChanges();
   }
 
-  getObjectRoute$(dso: Observable<RemoteData<DSpaceObject>>): Observable<string> {
-    return dso.pipe(
-      map(resolvedDso =>  new URLCombiner(getDSORoute(resolvedDso.payload), 'auditlogs').toString()),
+  getObjectRoute$(id: string): Observable<string> {
+    return this.dsoDataService.findById(id).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map(resolvedDso =>  new URLCombiner(getDSORoute(resolvedDso), this.auditPath).toString()),
     );
+  }
+
+  getDsoName(dso: DSpaceObject): string {
+    return this.dsoNameService.getName(dso);
   }
 }

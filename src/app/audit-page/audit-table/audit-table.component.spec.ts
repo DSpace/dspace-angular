@@ -8,9 +8,12 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Audit } from '@dspace/core/audit/model/audit.model';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { AuditMock } from '@dspace/core/testing/audit.mock';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 
@@ -21,6 +24,8 @@ describe('AuditTableComponent', () => {
   let fixture: ComponentFixture<AuditTableComponent>;
 
   let audits = new PaginatedList() as PaginatedList<Audit>;
+  const dSpaceObjectDataService = jasmine.createSpyObj('DSpaceObjectDataService', { findById: createSuccessfulRemoteDataObject$(new DSpaceObject()) });
+
 
   beforeEach(waitForAsync(() => {
     audits.page = [ AuditMock ];
@@ -33,6 +38,7 @@ describe('AuditTableComponent', () => {
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

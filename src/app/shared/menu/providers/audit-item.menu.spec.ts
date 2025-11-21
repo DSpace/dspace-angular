@@ -38,7 +38,7 @@ describe('AuditLogsMenuProvider', () => {
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
-      name: 'context-menu-entry.audit.enabled',
+      name: 'audit.context-menu-entry.enabled',
       values: [
         'true',
       ],
