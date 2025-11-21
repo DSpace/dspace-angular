@@ -21,7 +21,6 @@ import { ContentAccordionComponent } from '../content-accordion/content-accordio
     KeyValuePipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class PublisherPolicyComponent {
 

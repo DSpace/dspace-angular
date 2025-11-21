@@ -42,7 +42,6 @@ import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actio
   selector: 'ds-pool-task-actions',
   styleUrls: ['./pool-task-actions.component.scss'],
   templateUrl: './pool-task-actions.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

@@ -41,7 +41,6 @@ import { getProcessDetailRoute } from '../../../process-page/process-page-routin
   selector: 'ds-search-export-csv',
   styleUrls: ['./search-export-csv.component.scss'],
   templateUrl: './search-export-csv.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

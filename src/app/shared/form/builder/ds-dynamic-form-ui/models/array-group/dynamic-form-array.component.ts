@@ -56,7 +56,6 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 

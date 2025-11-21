@@ -13,10 +13,6 @@ import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.c
 @Component({
   selector: 'ds-profile-page-metadata-form',
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ProfilePageMetadataFormComponent,
-  ],
 })
 export class ThemedProfilePageMetadataFormComponent extends ThemedComponent<ProfilePageMetadataFormComponent> {
 

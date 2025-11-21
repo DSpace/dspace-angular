@@ -21,10 +21,13 @@ import { ValueInputComponent } from '../value-input.component';
   selector: 'ds-integer-value-input',
   templateUrl: './integer-value-input.component.html',
   styleUrls: ['./integer-value-input.component.scss'],
-  viewProviders: [{ provide: ControlContainer,
-    useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] }],
-  standalone: true,
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: controlContainerFactory,
+      deps: [[new Optional(), NgForm]],
+    },
+  ],
   imports: [
     FormsModule,
     TranslateModule,

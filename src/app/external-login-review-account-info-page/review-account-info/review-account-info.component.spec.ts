@@ -54,7 +54,7 @@ describe('ReviewAccountInfoComponent', () => {
     get: () => of('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
   const mockEPerson = EPersonMock;
   const modalStub = {

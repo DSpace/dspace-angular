@@ -72,7 +72,6 @@ export interface ListItem {
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 

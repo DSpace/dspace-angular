@@ -44,7 +44,6 @@ import { VarDirective } from '../shared/utils/var.directive';
   selector: 'ds-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

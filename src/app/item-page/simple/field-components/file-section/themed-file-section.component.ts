@@ -10,10 +10,6 @@ import { FileSectionComponent } from './file-section.component';
 @Component({
   selector: 'ds-item-page-file-section',
   templateUrl: '../../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    FileSectionComponent,
-  ],
 })
 export class ThemedFileSectionComponent extends ThemedComponent<FileSectionComponent> {
 

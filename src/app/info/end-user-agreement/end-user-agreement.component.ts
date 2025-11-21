@@ -32,7 +32,6 @@ import { EndUserAgreementContentComponent } from './end-user-agreement-content/e
   selector: 'ds-base-end-user-agreement',
   templateUrl: './end-user-agreement.component.html',
   styleUrls: ['./end-user-agreement.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     EndUserAgreementContentComponent,

@@ -30,7 +30,6 @@ import { StringValueInputComponent } from './string-value-input/string-value-inp
   viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
-  standalone: true,
   imports: [
     BooleanValueInputComponent,
     DateValueInputComponent,

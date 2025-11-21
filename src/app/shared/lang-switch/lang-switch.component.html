@@ -19,8 +19,8 @@
              [lang]="lang"
              (keyup.enter)="useLang(lang)"
              (click)="useLang(lang)"
-             [attr.aria-selected]="lang === translate.currentLang"
-             [class.active]="lang === translate.currentLang">
+             [attr.aria-selected]="lang === translate.getCurrentLang()"
+             [class.active]="lang === translate.getCurrentLang()">
           {{ langLabel(lang) }}
         </div>
       }

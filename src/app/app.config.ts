@@ -1,10 +1,8 @@
-import {
-  APP_BASE_HREF,
-  DOCUMENT,
-} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   ApplicationConfig,
+  DOCUMENT,
   importProvidersFrom,
 } from '@angular/core';
 import {

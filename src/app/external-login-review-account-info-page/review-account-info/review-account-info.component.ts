@@ -65,7 +65,6 @@ export interface ReviewAccountInfoData {
     UiSwitchModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * This component shows up the difference between the current account details and the one provided by the

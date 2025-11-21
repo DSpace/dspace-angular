@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'ds-importable-list-item-control',
   templateUrl: './importable-list-item-control.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

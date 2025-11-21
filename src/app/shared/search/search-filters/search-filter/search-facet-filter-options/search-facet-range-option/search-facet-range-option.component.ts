@@ -37,7 +37,6 @@ const rangeDelimiter = '-';
   styleUrls: ['./search-facet-range-option.component.scss'],
   // templateUrl: './search-facet-range-option.component.html',
   templateUrl: './search-facet-range-option.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,
