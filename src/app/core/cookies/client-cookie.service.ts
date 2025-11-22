@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CookieAttributes,
-  getJSON,
-  remove,
-  set,
-} from 'js-cookie';
+import Cookies, { CookieAttributes } from 'js-cookie';
 
 import {
   CookieService,
@@ -15,20 +10,40 @@ import {
 export class ClientCookieService extends CookieService implements ICookieService {
 
   public set(name: string, value: any, options?: CookieAttributes): void {
-    set(name, value, options);
+    const toStore = typeof value === 'string' ? value : JSON.stringify(value);
+    Cookies.set(name, toStore, options);
     this.updateSource();
   }
 
   public remove(name: string, options?: CookieAttributes): void {
-    remove(name, options);
+    Cookies.remove(name, options);
     this.updateSource();
   }
 
   public get(name: string): any {
-    return getJSON(name);
+    const raw = Cookies.get(name);
+    if (raw === undefined) {
+      return undefined;
+    }
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return raw;
+    }
   }
 
   public getAll(): any {
-    return getJSON();
+    const all = Cookies.get();
+    const parsed: Record<string, any> = {};
+
+    Object.entries(all).forEach(([key, value]) => {
+      try {
+        parsed[key] = JSON.parse(value);
+      } catch {
+        parsed[key] = value;
+      }
+    });
+
+    return parsed;
   }
 }
