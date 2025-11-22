@@ -10,7 +10,8 @@ import {
 export class ClientCookieService extends CookieService implements ICookieService {
 
   public set(name: string, value: any, options?: CookieAttributes): void {
-    Cookies.set(name, value, options);
+    const toStore = typeof value === 'string' ? value : JSON.stringify(value);
+    Cookies.set(name, toStore, options);
     this.updateSource();
   }
 
