@@ -18,7 +18,7 @@
         @for (point of report.points; track point) {
           <tr
             class="{{point.id}}-data">
-            <td scope="row" data-test="statistics-label">
+            <td data-test="statistics-label">
               {{ point.label }}
             </td>
             @for (header of headers; track header) {
