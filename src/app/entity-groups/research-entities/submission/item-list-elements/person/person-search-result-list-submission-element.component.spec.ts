@@ -72,7 +72,7 @@ const translateServiceStub = {
   instant: (key) => key,
   onLangChange: new EventEmitter(),
   onTranslationChange: new EventEmitter(),
-  onDefaultLangChange: new EventEmitter(),
+  onFallbackLangChange: new EventEmitter(),
 };
 
 function init() {

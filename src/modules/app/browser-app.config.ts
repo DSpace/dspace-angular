@@ -24,9 +24,9 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
-  MissingTranslationHandler,
+  provideMissingTranslationHandler,
+  provideTranslateService,
   TranslateLoader,
-  TranslateModule,
 } from '@ngx-translate/core';
 import {
   Angulartics2GoogleTagManager,
@@ -90,16 +90,15 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       Angulartics2RouterlessModule.forRoot(),
       StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
       EffectsModule.forFeature(coreEffects),
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [TransferState, HttpClient],
-        },
-        missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-        useDefaultLang: true,
-      }),
     ),
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [TransferState, HttpClient],
+      },
+      missingTranslationHandler: provideMissingTranslationHandler(MissingTranslationHelper),
+    }),
     ...BrowserInitService.providers(),
     { provide: APP_ID, useValue: 'dspace-angular' },
     {

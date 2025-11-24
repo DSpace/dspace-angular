@@ -55,7 +55,7 @@ export class LangSwitchComponent implements OnInit {
    * Returns the label for the current language
    */
   currentLangLabel(): string {
-    return this.activeLangs.find((MyLangConfig) => MyLangConfig.code === this.translate.currentLang).label;
+    return this.activeLangs.find((MyLangConfig) => MyLangConfig.code === this.translate.getCurrentLang()).label;
   }
 
   /**

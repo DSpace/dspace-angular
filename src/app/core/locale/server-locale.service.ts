@@ -73,7 +73,7 @@ export class ServerLocaleService extends LocaleService {
                 languages.push(...this.setQuality(
                   [ePersonLang],
                   LANG_ORIGIN.EPERSON,
-                  !isEmpty(this.translate.currentLang)));
+                  !isEmpty(this.translate.getCurrentLang())));
               }
               return languages;
             }),
@@ -82,9 +82,9 @@ export class ServerLocaleService extends LocaleService {
         return epersonLang$.pipe(
           map((epersonLang: string[]) => {
             const languages: string[] = [];
-            if (this.translate.currentLang) {
+            if (this.translate.getCurrentLang()) {
               languages.push(...this.setQuality(
-                [this.translate.currentLang],
+                [this.translate.getCurrentLang()],
                 LANG_ORIGIN.UI,
                 false));
             }
