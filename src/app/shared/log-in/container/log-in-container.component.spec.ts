@@ -25,6 +25,8 @@ import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
+import { ThemeService } from '../../theme-support/theme.service';
 import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {
@@ -56,6 +58,7 @@ describe('LogInContainerComponent', () => {
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
         LogInContainerComponent,
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
