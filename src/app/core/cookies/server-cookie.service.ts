@@ -10,7 +10,7 @@ import {
   ICookieService,
 } from './cookie.service';
 
-  @Injectable()
+@Injectable()
 export class ServerCookieService extends CookieService implements ICookieService {
   constructor(@Inject(REQUEST) protected req: any) {
     super();
