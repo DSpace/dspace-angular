@@ -187,7 +187,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/js-cookie": "3.0.6",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^18.19.124",
+    "@types/node": "^18.19.130",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@typescript-eslint/rule-tester": "^7.18.0",
