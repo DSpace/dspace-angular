@@ -14,6 +14,8 @@ import {
   SubmissionRequest
 } from '../data/request.models';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
+import { of } from 'rxjs';
+import { RequestEntry } from '../data/request-entry.model';
 
 describe('SubmissionRestService test suite', () => {
   let scheduler: TestScheduler;
@@ -38,7 +40,9 @@ describe('SubmissionRestService test suite', () => {
   }
 
   beforeEach(() => {
-    requestService = getMockRequestService();
+    requestService = getMockRequestService(of(Object.assign(new RequestEntry(), {
+      request: new SubmissionRequest('mock-request-uuid', 'mock-request-href'),
+    })));
     rdbService = getMockRemoteDataBuildService();
     scheduler = getTestScheduler();
     halService = new HALEndpointServiceStub(resourceEndpointURL);
@@ -62,7 +66,7 @@ describe('SubmissionRestService test suite', () => {
       scheduler.schedule(() => service.getDataById(resourceEndpoint, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.send).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected, false);
     });
   });
 

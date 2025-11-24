@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
@@ -23,6 +24,7 @@ describe('SearchExportCsvComponent', () => {
   let authorizationDataService: AuthorizationDataService;
   let notificationsService;
   let router;
+  let configurationDataService: jasmine.SpyObj<ConfigurationDataService>;
 
   const process = Object.assign(new Process(), {processId: 5, scriptName: 'metadata-export-search'});
 
@@ -35,6 +37,10 @@ describe('SearchExportCsvComponent', () => {
       new SearchFilter('f.filter2', ['filter2value1,contains']),
       new SearchFilter('f.filter3', ['[2000 TO 2001]'], 'equals')
     ]
+  });
+
+  configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+    findByPropertyName: observableOf({ payload: { value: '500' } }),
   });
 
   function initBeforeEachAsync() {
@@ -57,6 +63,7 @@ describe('SearchExportCsvComponent', () => {
         {provide: AuthorizationDataService, useValue: authorizationDataService},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: Router, useValue: router},
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ]
     }).compileComponents();
   }

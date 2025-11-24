@@ -23,6 +23,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
+import { ViewTrackerResolverService } from '../statistics/angulartics/dspace/view-tracker-resolver.service';
 
 @NgModule({
   imports: [
@@ -86,6 +87,7 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
             pathMatch: 'full',
             resolve: {
               menu: DSOEditMenuResolver,
+              tracking: ViewTrackerResolverService,
             },
           }
         ],
@@ -116,6 +118,7 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
     CommunityBreadcrumbResolver,
+    ViewTrackerResolverService,
   ]
 })
 export class CollectionPageRoutingModule {

@@ -203,8 +203,8 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
           switchMap(() => this.bundleService.getBitstreams(
             this.bundle.id,
             paginatedOptions,
-            followLink('format')
-          ))
+            followLink('format'),
+          )),
         );
       }),
       getAllSucceededRemoteData(),

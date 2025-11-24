@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
@@ -10,8 +10,7 @@ import { Item } from '../../../core/shared/item.model';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue } from '../../empty.util';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { switchMap } from 'rxjs/operators';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';
 
@@ -20,18 +19,21 @@ export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-contro
   templateUrl: './item-access-control-select-bitstreams-modal.component.html',
   styleUrls: [ './item-access-control-select-bitstreams-modal.component.scss' ]
 })
-export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
+export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit, OnDestroy {
 
   LIST_ID = ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID;
 
   @Input() item!: Item;
   @Input() selectedBitstreams: string[] = [];
 
-  data$ = new BehaviorSubject<RemoteData<PaginatedList<Bitstream>> | null>(null);
-  paginationConfig: PaginationComponentOptions;
-  pageSize = 5;
-
+  bitstreams$: Observable<RemoteData<PaginatedList<Bitstream>>>;
   context: Context = Context.Bitstream;
+
+  paginationConfig = Object.assign(new PaginationComponentOptions(), {
+    id: 'iacsbm',
+    currentPage: 1,
+    pageSize: 5
+  });
 
   constructor(
     private bitstreamService: BitstreamDataService,
@@ -40,23 +42,20 @@ export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
     public activeModal: NgbActiveModal
   ) { }
 
-  ngOnInit() {
-    this.loadForPage(1);
-
-    this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'iacsbm';
-    this.paginationConfig.currentPage = 1;
-    if (hasValue(this.pageSize)) {
-      this.paginationConfig.pageSize = this.pageSize;
-    }
+  ngOnInit(): void {
+    this.bitstreams$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
+      switchMap((options: PaginationComponentOptions) => this.bitstreamService.findAllByItemAndBundleName(
+        this.item,
+        'ORIGINAL',
+        { elementsPerPage: options.pageSize, currentPage: options.currentPage },
+        true,
+        true,
+      ))
+    );
   }
 
-  loadForPage(page: number) {
-    this.bitstreamService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: page}, false)
-      .pipe(
-        getFirstCompletedRemoteData(),
-      )
-      .subscribe(this.data$);
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.paginationConfig.id);
   }
 
 }

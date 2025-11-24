@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import { ChangeDetectorRef, Component, SimpleChange } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
@@ -26,8 +26,9 @@ import { Item } from '../../core/shared/item.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
+import { TranslateModule } from '@ngx-translate/core';
 
-describe('SubmissionFormComponent Component', () => {
+describe('SubmissionFormComponent', () => {
 
   let comp: SubmissionFormComponent;
   let compAsAny: any;
@@ -47,7 +48,9 @@ describe('SubmissionFormComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         SubmissionFormComponent,
         TestComponent
@@ -60,7 +63,6 @@ describe('SubmissionFormComponent Component', () => {
         ChangeDetectorRef,
         SubmissionFormComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -117,7 +119,7 @@ describe('SubmissionFormComponent Component', () => {
       expect(compAsAny.submissionSections).toBeUndefined();
       expect(compAsAny.subs).toEqual([]);
       expect(submissionServiceStub.startAutoSave).not.toHaveBeenCalled();
-      expect(comp.loading).toBeObservable(cold('(a|)', { a: true }));
+      expect(comp.isLoading$).toBeObservable(cold('(a|)', { a: true }));
       done();
     });
 
@@ -197,7 +199,6 @@ describe('SubmissionFormComponent Component', () => {
       });
       scheduler.flush();
 
-      expect(comp.collectionId).toEqual(submissionObjectNew.collection.id);
       expect(comp.submissionDefinition).toEqual(submissionObjectNew.submissionDefinition);
       expect(comp.definitionId).toEqual(submissionObjectNew.submissionDefinition.name);
       expect(comp.sections).toEqual(submissionObjectNew.sections);
@@ -235,7 +236,6 @@ describe('SubmissionFormComponent Component', () => {
       });
       scheduler.flush();
 
-      expect(comp.collectionId).toEqual('45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb');
       expect(submissionServiceStub.resetSubmissionObject).not.toHaveBeenCalled();
       done();
     });

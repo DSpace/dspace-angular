@@ -1,15 +1,13 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Nincs jogosultsága az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
 
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Vissza a főoldalra",
 
-  // "401.unauthorized": "unauthorized",
+  // "401.unauthorized": "Unauthorized",
+  // TODO Source message changed - Revise the translation
   "401.unauthorized": "jogosulatlan",
-
-
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Nincs jogosultsága az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
@@ -17,10 +15,12 @@
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Vissza a főoldalra",
 
-  // "403.forbidden": "forbidden",
+  // "403.forbidden": "Forbidden",
+  // TODO Source message changed - Revise the translation
   "403.forbidden": "elérhetetlen",
 
-  // "500.page-internal-server-error": "Service Unavailable",
+  // "500.page-internal-server-error": "Service unavailable",
+  // TODO Source message changed - Revise the translation
   "404.help": "A keresett oldal nem található. Az oldalt elköltöztették, vagy letörölték. Az alsó gombbal visszakerülhet a honlapra ",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
@@ -29,7 +29,6 @@
   // "500.link.home-page": "Take me to the home page",
   "404.help": "Vissza a főoldalra",
 
-
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   // TODO Source message changed - Revise the translation
   "404.help": "A keresett oldal nem található. Az oldalt elköltöztették, vagy letörölték. Az alsó gombbal visszakerülhet a honlapra ",
@@ -37,23 +36,32 @@
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Vissza a főoldalra",
 
-  // "404.page-not-found": "page not found",
+  // "404.page-not-found": "Page not found",
+  // TODO Source message changed - Revise the translation
   "404.page-not-found": "oldal nem található",
 
-  // "error-page.description.401": "unauthorized",
+  // "error-page.description.401": "Unauthorized",
+  // TODO Source message changed - Revise the translation
   "error-page.description.401": "unauthorized",
 
-  // "error-page.description.403": "forbidden",
+  // "error-page.description.403": "Forbidden",
+  // TODO Source message changed - Revise the translation
   "error-page.description.403": "forbidden",
 
-  // "error-page.description.500": "Service Unavailable",
+  // "error-page.description.500": "Service unavailable",
+  // TODO Source message changed - Revise the translation
   "error-page.description.500": "Service Unavailable",
 
-  // "error-page.description.404": "page not found",
+  // "error-page.description.404": "Page not found",
+  // TODO Source message changed - Revise the translation
   "error-page.description.404": "page not found",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+
+  // "listelement.badge.access-status": "Access status:",
+  // TODO New key - Add a translation
+  "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "Embargo",
@@ -91,7 +99,8 @@
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Nem sikerült",
 
-  // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
+  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.create.head": "Bitfolyam formátum létrehozása",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
@@ -195,7 +204,13 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Név",
-  // "admin.registries.bitstream-formats.table.id" : "ID",
+
+  // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
+  // "admin.registries.bitstream-formats.table.id": "ID",
+  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
@@ -216,7 +231,13 @@
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Bitfolyam formátum leíró adatbázis",
 
+  // "admin.registries.bitstream-formats.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.select": "Select",
 
+  // "admin.registries.bitstream-formats.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Metaadat leíró adatbázis",
@@ -242,8 +263,20 @@
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "Nincs elérhető metaadat séma.",
 
+  // "admin.registries.metadata.schemas.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.select": "Select",
+
+  // "admin.registries.metadata.schemas.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Kiválasztottak törlése",
+
+  // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "Azonosító",
@@ -257,13 +290,19 @@
   // "admin.registries.metadata.title": "Metadata Registry",
   "admin.registries.metadata.title": "Metaadat leíró adatbázis",
 
-
-
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   "admin.registries.schema.breadcrumbs": "Metaadat séma",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Ez a metaadat séma a következőhöz \"{{namespace}}\".",
+
+  // "admin.registries.schema.fields.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.select": "Select",
+
+  // "admin.registries.schema.fields.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.deselect": "Deselect",
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Séma metaadat mezők",
@@ -276,7 +315,13 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Mező",
-  // "admin.registries.schema.fields.table.id" : "ID",
+
+  // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+
+  // "admin.registries.schema.fields.table.id": "ID",
+  // TODO Source message changed - Revise the translation
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
@@ -336,7 +381,37 @@
   // "admin.registries.schema.title": "Metadata Schema Registry",
   "admin.registries.schema.title": "Metaadat Séma leíró adatbázis",
 
+  // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
 
+  // "administrativeBulkAccess.search.results.head": "Search Results",
+  // TODO New key - Add a translation
+  "administrativeBulkAccess.search.results.head": "Search Results",
+
+  // "admin.access-control.bulk-access": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access": "Bulk Access Management",
+
+  // "admin.access-control.bulk-access.title": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access.title": "Bulk Access Management",
+
+  // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+
+  // "admin.access-control.bulk-access-browse.search.header": "Search",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-browse.search.header": "Search",
+
+  // "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+
+  // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "EPerson törlése",
@@ -356,6 +431,22 @@
   // "admin.access-control.epeople.title": "EPeople",
   "admin.access-control.epeople.title": "ESzemély",
 
+  // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+
+  // "admin.access-control.epeople.edit.title": "New EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.edit.title": "New EPerson",
+
+  // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+
+  // "admin.access-control.epeople.add.title": "Add EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.add.title": "Add EPerson",
+
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "ESzemély",
 
@@ -368,7 +459,8 @@
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Metaadat",
 
-  // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  // "admin.access-control.epeople.search.scope.email": "Email (exact)",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.search.scope.email": "E-mail (pontosan)",
 
   // "admin.access-control.epeople.search.button": "Search",
@@ -386,7 +478,8 @@
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Név",
 
-  // "admin.access-control.epeople.table.email": "E-mail (exact)",
+  // "admin.access-control.epeople.table.email": "Email (exact)",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.table.email": "E-mail (pontosan)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -416,10 +509,12 @@
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "Családnév",
 
-  // "admin.access-control.epeople.form.email": "E-mail",
+  // "admin.access-control.epeople.form.email": "Email",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.email": "E-mail",
 
-  // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.emailHint": "Érvényes e-mail cím kell, hogy legyen",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -473,13 +568,12 @@
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Hozzáadás csoportokhoz",
 
-  // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "ESzemély: \"{{name}}\" törlése nem sikerült",
+  // "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.success": "ESzemély: \"{{name}}\" törlése sikerült",
-
-
 
   // "admin.access-control.groups.title": "Groups",
   "admin.access-control.groups.title": "Csoportok",
@@ -549,8 +643,6 @@
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
   "admin.access-control.groups.notification.deleted.failure.content": "Ok: \"{{cause}}\"",
-
-
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Ez a csoport állandó, nem szerkeszthető vagy törölhető. Ugyanakor a csoporttagság szerkeszthető.",
@@ -626,12 +718,6 @@
 
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
   "admin.access-control.groups.form.members-list.headMembers": "Jelenlegi tagok",
-
-  // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metaadat",
-
-  // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (pontosan)",
 
   // "admin.access-control.groups.form.members-list.search.button": "Search",
   "admin.access-control.groups.form.members-list.search.button": "Keresés",
@@ -717,9 +803,6 @@
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "A következő nevű \"{{name}}\" alcsoport hozzáadása",
 
-  // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Jelenlegi csoport",
-
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "A: \"{{name}}\" alcsoport sikeresen hozzáadva",
 
@@ -751,13 +834,13 @@
   // TODO New key - Add a translation
   "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
 
-  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
-  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Adminisztratív keresés",
@@ -795,9 +878,6 @@
   // "administrativeView.search.results.head": "Administrative Search",
   "administrativeView.search.results.head": "Adminisztratív keresés",
 
-
-
-
   // "admin.workflow.breadcrumbs": "Administer Workflow",
   "admin.workflow.breadcrumbs": "Munkafolyamat irányítása",
 
@@ -824,8 +904,6 @@
   // "admin.workflow.item.supervision": "Supervision",
   // TODO New key - Add a translation
   "admin.workflow.item.supervision": "Supervision",
-
-
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Metaadat importálása",
@@ -855,6 +933,10 @@
   // TODO New key - Add a translation
   "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
 
+  // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  // TODO New key - Add a translation
+  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Húzzon ide egy metaadat CSV-t az importáláshoz",
 
@@ -881,9 +963,25 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Előbb válassza ki a fájlt!",
 
-  // "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
   // TODO New key - Add a translation
-  "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
+
+  // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
+  // TODO New key - Add a translation
+  "admin.batch-import.page.error.addFile": "Select ZIP file first!",
+
+  // "admin.metadata-import.page.toggle.upload": "Upload",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.toggle.upload": "Upload",
+
+  // "admin.metadata-import.page.toggle.url": "URL",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.toggle.url": "URL",
+
+  // "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
+  // TODO New key - Add a translation
+  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
   // TODO New key - Add a translation
@@ -917,7 +1015,6 @@
   // TODO New key - Add a translation
   "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
 
-
   // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
   // TODO New key - Add a translation
   "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
@@ -925,7 +1022,6 @@
   // "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
   // TODO New key - Add a translation
   "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
-
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
   // TODO New key - Add a translation
@@ -942,14 +1038,6 @@
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
   // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
   // TODO New key - Add a translation
@@ -1037,16 +1125,13 @@
   // TODO New key - Add a translation
   "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
 
-
-
-  // "bitstream.download.page": "Now downloading {{bitstream}}..." ,
+  // "bitstream.download.page": "Now downloading {{bitstream}}...",
   // TODO New key - Add a translation
-  "bitstream.download.page": "Now downloading {{bitstream}}..." ,
+  "bitstream.download.page": "Now downloading {{bitstream}}...",
 
-  // "bitstream.download.page.back": "Back" ,
+  // "bitstream.download.page.back": "Back",
   // TODO New key - Add a translation
-  "bitstream.download.page.back": "Back" ,
-
+  "bitstream.download.page.back": "Back",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   // TODO New key - Add a translation
@@ -1102,6 +1187,10 @@
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
   "bitstream.edit.notifications.error.format.title": "Bitfolyam formátum mentése közben hiba történt",
 
+  // "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+  // TODO New key - Add a translation
+  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
   // TODO New key - Add a translation
   "bitstream.edit.form.iiifLabel.label": "IIIF Label",
@@ -1134,7 +1223,6 @@
   // TODO New key - Add a translation
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
 
-
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "A bitfolyamban eszközölt változtatások elmentve.",
 
@@ -1163,6 +1251,7 @@
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
   // TODO New key - Add a translation
   "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
   // TODO New key - Add a translation
   "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
@@ -1175,9 +1264,9 @@
   // TODO New key - Add a translation
   "bitstream-request-a-copy.name.error": "The name is required",
 
-  // "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  // "bitstream-request-a-copy.email.label": "Your email address *",
   // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  "bitstream-request-a-copy.email.label": "Your email address *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
   // TODO New key - Add a translation
@@ -1219,8 +1308,6 @@
   // TODO New key - Add a translation
   "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
 
-
-
   // "browse.back.all-results": "All browse results",
   // TODO New key - Add a translation
   "browse.back.all-results": "All browse results",
@@ -1233,6 +1320,14 @@
 
   // "browse.comcol.by.subject": "By Subject",
   "browse.comcol.by.subject": "Tárgyszó szerint",
+
+  // "browse.comcol.by.srsc": "By Subject Category",
+  // TODO New key - Add a translation
+  "browse.comcol.by.srsc": "By Subject Category",
+
+  // "browse.comcol.by.nsi": "By Norwegian Science Index",
+  // TODO New key - Add a translation
+  "browse.comcol.by.nsi": "By Norwegian Science Index",
 
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Cím szerint",
@@ -1264,6 +1359,14 @@
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
   "browse.metadata.subject.breadcrumbs": "Böngészés tárgyszó szerint",
 
+  // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+  // TODO New key - Add a translation
+  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+
+  // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+  // TODO New key - Add a translation
+  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Böngészés cím szerint",
 
@@ -1276,6 +1379,10 @@
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
   // TODO New key - Add a translation
   "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+  // TODO New key - Add a translation
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   // TODO New key - Add a translation
@@ -1350,21 +1457,30 @@
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
   "browse.startsWith.type_text": "Eredmények szűrése az első pár betű alapján",
 
+  // "browse.startsWith.input": "Filter",
+  // TODO New key - Add a translation
+  "browse.startsWith.input": "Filter",
+
+  // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  // TODO New key - Add a translation
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
+  // "browse.taxonomy.button": "Browse",
+  // TODO New key - Add a translation
+  "browse.taxonomy.button": "Browse",
+
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "{{ collection }} böngészése, {{ field }} {{ value }} szerint",
 
   // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
   "browse.title.page": "{{ collection }} böngészése, {{ field }} {{ value }} szerint",
 
-
   // "search.browse.item-back": "Back to Results",
   // TODO New key - Add a translation
   "search.browse.item-back": "Back to Results",
 
-
   // "chips.remove": "Remove chip",
   "chips.remove": "Chip eltávolítása",
-
 
   // "claimed-approved-search-result-list-element.title": "Approved",
   // TODO New key - Add a translation
@@ -1378,6 +1494,13 @@
   // TODO New key - Add a translation
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
+  // "collection.create.breadcrumbs": "Create collection",
+  // TODO New key - Add a translation
+  "collection.create.breadcrumbs": "Create collection",
+
+  // "collection.browse.logo": "Browse for a collection logo",
+  // TODO New key - Add a translation
+  "collection.browse.logo": "Browse for a collection logo",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Hozzon létre egy gyűjteményt",
@@ -1413,8 +1536,6 @@
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Biztos benne, hogy törölni szeretné a gyűjteményt \"{{ dso }}\"",
 
-
-
   // "collection.edit.delete": "Delete this collection",
   "collection.edit.delete": "Törölje ezt a gyűjteményt",
 
@@ -1423,8 +1544,6 @@
 
   // "collection.edit.breadcrumbs": "Edit Collection",
   "collection.edit.breadcrumbs": "Gyűjtemény szerkesztése",
-
-
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
   // TODO New key - Add a translation
@@ -1489,7 +1608,6 @@
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Új tárgyak térképezése",
 
-
   // "collection.edit.logo.delete.title": "Delete logo",
   // TODO New key - Add a translation
   "collection.edit.logo.delete.title": "Delete logo",
@@ -1519,15 +1637,19 @@
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   "collection.edit.logo.upload": "Feltöltéshez húzza ide a gyűjtemény Logót",
 
-
-
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Gyűjtemény szerkesztése sikerült",
 
   // "collection.edit.return": "Back",
   "collection.edit.return": "Vissza",
 
+  // "collection.edit.tabs.access-control.head": "Access Control",
+  // TODO New key - Add a translation
+  "collection.edit.tabs.access-control.head": "Access Control",
 
+  // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+  // TODO New key - Add a translation
+  "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Gondozás",
@@ -1619,8 +1741,6 @@
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
   "collection.edit.tabs.source.title": "Gyűjtemény szerkesztés - tartalom forrása",
 
-
-
   // "collection.edit.template.add-button": "Add",
   "collection.edit.template.add-button": "Hozzáad",
 
@@ -1659,8 +1779,6 @@
   // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Elemsablon szerkesztése",
 
-
-
   // "collection.form.abstract": "Short Description",
   "collection.form.abstract": "Rövid leírás",
 
@@ -1689,12 +1807,12 @@
   // TODO New key - Add a translation
   "collection.form.entityType": "Entity Type",
 
-
-
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Gyűjtemény",
 
-
+  // "collection.logo": "Collection logo",
+  // TODO New key - Add a translation
+  "collection.logo": "Collection logo",
 
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Friss feltöltések",
@@ -1714,96 +1832,124 @@
   // "collection.page.news": "News",
   "collection.page.news": "Hírek",
 
-
-
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Kiválasztás igazolása",
 
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "Nincs gyűjtemény",
 
+  // "collection.select.table.selected": "Selected collections",
+  // TODO New key - Add a translation
+  "collection.select.table.selected": "Selected collections",
+
+  // "collection.select.table.select": "Select collection",
+  // TODO New key - Add a translation
+  "collection.select.table.select": "Select collection",
+
+  // "collection.select.table.deselect": "Deselect collection",
+  // TODO New key - Add a translation
+  "collection.select.table.deselect": "Deselect collection",
+
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Cím",
-
 
   // "collection.source.controls.head": "Harvest Controls",
   // TODO New key - Add a translation
   "collection.source.controls.head": "Harvest Controls",
+
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
   // TODO New key - Add a translation
   "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   // TODO New key - Add a translation
   "collection.source.controls.test.failed": "The script to test the settings has failed",
+
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
   // TODO New key - Add a translation
   "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+
   // "collection.source.controls.test.submit": "Test configuration",
   // TODO New key - Add a translation
   "collection.source.controls.test.submit": "Test configuration",
+
   // "collection.source.controls.test.running": "Testing configuration...",
   // TODO New key - Add a translation
   "collection.source.controls.test.running": "Testing configuration...",
+
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
   // TODO New key - Add a translation
   "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
   // TODO New key - Add a translation
   "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+
   // "collection.source.controls.import.submit": "Import now",
   // TODO New key - Add a translation
   "collection.source.controls.import.submit": "Import now",
+
   // "collection.source.controls.import.running": "Importing...",
   // TODO New key - Add a translation
   "collection.source.controls.import.running": "Importing...",
+
   // "collection.source.controls.import.failed": "An error occurred during the import",
   // TODO New key - Add a translation
   "collection.source.controls.import.failed": "An error occurred during the import",
+
   // "collection.source.controls.import.completed": "The import completed",
   // TODO New key - Add a translation
   "collection.source.controls.import.completed": "The import completed",
+
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   // TODO New key - Add a translation
   "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   // TODO New key - Add a translation
   "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
   // TODO New key - Add a translation
   "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
   // TODO New key - Add a translation
   "collection.source.controls.reset.completed": "The reset and reimport completed",
+
   // "collection.source.controls.reset.submit": "Reset and reimport",
   // TODO New key - Add a translation
   "collection.source.controls.reset.submit": "Reset and reimport",
+
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
   // TODO New key - Add a translation
   "collection.source.controls.reset.running": "Resetting and reimporting...",
+
   // "collection.source.controls.harvest.status": "Harvest status:",
   // TODO New key - Add a translation
   "collection.source.controls.harvest.status": "Harvest status:",
+
   // "collection.source.controls.harvest.start": "Harvest start time:",
   // TODO New key - Add a translation
   "collection.source.controls.harvest.start": "Harvest start time:",
+
   // "collection.source.controls.harvest.last": "Last time harvested:",
   // TODO New key - Add a translation
   "collection.source.controls.harvest.last": "Last time harvested:",
+
   // "collection.source.controls.harvest.message": "Harvest info:",
   // TODO New key - Add a translation
   "collection.source.controls.harvest.message": "Harvest info:",
+
   // "collection.source.controls.harvest.no-information": "N/A",
   // TODO New key - Add a translation
   "collection.source.controls.harvest.no-information": "N/A",
-
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
   "collection.source.update.notifications.error.content": "A megadott beállításokat ellenőriztük és nem működnek.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Szerverhiba",
-
-
 
   // "communityList.breadcrumbs": "Community List",
   // TODO New key - Add a translation
@@ -1818,7 +1964,21 @@
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Tovább",
 
+  // "communityList.expand": "Expand {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.expand": "Expand {{ name }}",
 
+  // "communityList.collapse": "Collapse {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.collapse": "Collapse {{ name }}",
+
+  // "community.browse.logo": "Browse for a community logo",
+  // TODO New key - Add a translation
+  "community.browse.logo": "Browse for a community logo",
+
+  // "community.create.breadcrumbs": "Create Community",
+  // TODO New key - Add a translation
+  "community.create.breadcrumbs": "Create Community",
 
   // "community.create.head": "Create a Community",
   "community.create.head": "Hozzon létre egy közösséget",
@@ -1863,7 +2023,6 @@
   // "community.edit.breadcrumbs": "Edit Community",
   "community.edit.breadcrumbs": "Közösség szerkesztése",
 
-
   // "community.edit.logo.delete.title": "Delete logo",
   // TODO New key - Add a translation
   "community.edit.logo.delete.title": "Delete logo",
@@ -1875,10 +2034,12 @@
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Közösségi logo",
 
-  // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.notifications.add.error": "Közösségi logo feltöltése nem sikerült Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálkozna.",
 
-  // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.notifications.add.success": "Közösségi logo feltöltve.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -1890,10 +2051,9 @@
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "community.edit.logo.notifications.delete.error.title": "Logo törlése közben hiba történt",
 
-  // "community.edit.logo.upload": "Drop a Community Logo to upload",
+  // "community.edit.logo.upload": "Drop a community logo to upload",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.upload": "Feltöltéshez húzza ide a közösségi logót",
-
-
 
   // "community.edit.notifications.success": "Successfully edited the Community",
   "community.edit.notifications.success": "Közösség szerkesztése sikerült",
@@ -1901,19 +2061,26 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "Nincs meg a szükséges jogosultsága a változtatáshoz",
 
-  // "community.edit.notifications.error": "An error occured while editing the Community",
+  // "community.edit.notifications.error": "An error occurred while editing the community",
+  // TODO Source message changed - Revise the translation
   "community.edit.notifications.error": "Hiba történt a közösség szerkesztésekor",
 
   // "community.edit.return": "Back",
   "community.edit.return": "Vissza",
-
-
 
   // "community.edit.tabs.curate.head": "Curate",
   "community.edit.tabs.curate.head": "Gondozás",
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
   "community.edit.tabs.curate.title": "Közösség szerkesztés - Gondozás",
+
+  // "community.edit.tabs.access-control.head": "Access Control",
+  // TODO New key - Add a translation
+  "community.edit.tabs.access-control.head": "Access Control",
+
+  // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  // TODO New key - Add a translation
+  "community.edit.tabs.access-control.title": "Community Edit - Access Control",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
   "community.edit.tabs.metadata.head": "Metaadat szerkesztés",
@@ -1933,12 +2100,12 @@
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
   "community.edit.tabs.authorizations.title": "Közösségi szerkesztés - Jogosultásgok",
 
-
-
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Közösség",
 
-
+  // "community.logo": "Community logo",
+  // TODO New key - Add a translation
+  "community.logo": "Community logo",
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Semmi",
@@ -1960,13 +2127,11 @@
   // TODO New key - Add a translation
   "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
 
-
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Adminisztrátorok",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
   "comcol-role.edit.collection-admin.name": "Adminisztrátorok",
-
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   "comcol-role.edit.community-admin.description": "A közösségek adminisztrátorai létrehozhatnak alkategóriákat vagy gyűjteményeket, irányíthatják azokat, vagy kijelölhetik azok irányítását. Továbbá ők döntik el ki tölthet fel tárgyakat bármely algyűjteménybe, ki szerkesztheti a tárgyak metaadatait (feltöltést követően) és ki adhat hozzá (térképezhet) létező tárgyakat más gyűjteményekből (felhatalmazás szükséges).",
@@ -1974,13 +2139,11 @@
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
   "comcol-role.edit.collection-admin.description": "A közösségek adminisztrátorai  öntik el ki tölthet fel tárgyakat bármely algyűjteménybe, ki szerkesztheti a tárgyak metaadatait (feltöltést követően) és ki adhat hozzá (térképezhet) létező tárgyakat más gyűjteményekből (felhatalmazás szükséges).",
 
-
   // "comcol-role.edit.submitters.name": "Submitters",
   "comcol-role.edit.submitters.name": "Feltöltők",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   "comcol-role.edit.submitters.description": "E-People és csoportok akik feltölthetnek új tárgyakat ebbe a gyűjteménybe.",
-
 
   // "comcol-role.edit.item_read.name": "Default item read access",
   "comcol-role.edit.item_read.name": "Alapbeállított tárgy olvasási hozzáférés",
@@ -1991,16 +2154,15 @@
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
   "comcol-role.edit.item_read.anonymous-group": "Beérkező tárgyak olvasási alapbeállítása jelenleg Névtelen.",
 
-
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Bitfolyam olvasási hozzáférés alapbeállítás",
 
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
+  // TODO Source message changed - Revise the translation
   "comcol-role.edit.bitstream_read.description": "A közösségek adminisztrátorai létrehozhatnak alkategóriákat vagy gyűjteményeket, irányíthatják azokat, vagy kijelölhetik azok irányítását. Továbbá ők döntik el ki tölthet fel tárgyakat bármely algyűjteménybe, ki szerkesztheti a tárgyak metaadatait (feltöltést követően) és ki adhat hozzá (térképezhet) létező tárgyakat más gyűjteményekből (felhatalmazás szükséges).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "Beérkező bitfolyamok olvasási alapbeállítása jelenleg Névtelen.",
-
 
   // "comcol-role.edit.editor.name": "Editors",
   "comcol-role.edit.editor.name": "Szerkesztők",
@@ -2008,20 +2170,17 @@
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
   "comcol-role.edit.editor.description": "Szerkesztők szerkeszthetik a beérkező feltöltések metaadatait és elfogadhatják, vagy elutasíthatják azokat.",
 
-
   // "comcol-role.edit.finaleditor.name": "Final editors",
   "comcol-role.edit.finaleditor.name": "Végső szerkesztők",
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
   "comcol-role.edit.finaleditor.description": "Végső szerkesztők szerkeszthetik a beérkező feltöltések metaadatait de nem utasíthatják el azokat.",
 
-
   // "comcol-role.edit.reviewer.name": "Reviewers",
   "comcol-role.edit.reviewer.name": "Lektorálók",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
   "comcol-role.edit.reviewer.description": "A lektorálók elfogadhatják, vagy elutasíthatják a beérkező feltöltéseket, de nem szerkeszthetik azok metaadatait.",
-
 
   // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
   // TODO New key - Add a translation
@@ -2030,8 +2189,6 @@
   // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
   // TODO New key - Add a translation
   "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-
-
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Rövid leírás",
@@ -2066,13 +2223,13 @@
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Alkategóriák és gyűjtemények",
 
-  // "community.sub-collection-list.head": "Collections of this Community",
+  // "community.sub-collection-list.head": "Collections in this Community",
+  // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Ennek a közösségnek a gyűjteményei",
 
-  // "community.sub-community-list.head": "Communities of this Community",
+  // "community.sub-community-list.head": "Communities in this Community",
+  // TODO Source message changed - Revise the translation
   "community.sub-community-list.head": "Ennek a kategóriának az alkategóriái",
-
-
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Mind elfogad",
@@ -2152,12 +2309,19 @@
   // TODO New key - Add a translation
   "cookies.consent.content-modal.service": "service",
 
+  // "cookies.consent.app.title.accessibility": "Accessibility Settings",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Hitelesítés",
 
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Szükséges a beléptetéséhez",
-
 
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Beállítások",
@@ -2165,23 +2329,17 @@
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
   "cookies.consent.app.description.preferences": "Szükséges a beállítások mentéséhez",
 
-
-
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
   "cookies.consent.app.title.acknowledgement": "Elismerés",
 
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
   "cookies.consent.app.description.acknowledgement": "Szükséges az elismerésének és beleegyezésének a mentéséhez",
 
-
-
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
   "cookies.consent.app.title.google-analytics": "Google Analytics",
 
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   "cookies.consent.app.description.google-analytics": "Engedélyezi statisztikai adatok gyűjtését",
-
-
 
   // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
   // TODO New key - Add a translation
@@ -2190,7 +2348,6 @@
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   // TODO New key - Add a translation
   "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
-
 
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funkcionális",
@@ -2206,11 +2363,12 @@
   // TODO New key - Add a translation
   "cookies.consent.purpose.sharing": "Sharing",
 
-  // "curation-task.task.citationpage.label":  "Generate Citation Page",
+  // "curation-task.task.citationpage.label": "Generate Citation Page",
   // TODO New key - Add a translation
   "curation-task.task.citationpage.label": "Generate Citation Page",
 
-  // "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  // "curation-task.task.checklinks.label": "Check Links in Metadata",
+  // TODO Source message changed - Revise the translation
   "curation-task.task.checklinks.label": "Hivatkozások ellenőrzése a metaadatokban",
 
   // "curation-task.task.noop.label": "NOOP",
@@ -2232,8 +2390,6 @@
   // TODO New key - Add a translation
   "curation-task.task.registerdoi.label": "Register DOI",
 
-
-
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Feladat:",
 
@@ -2249,7 +2405,8 @@
   // "curation.form.submit.error.head": "Running the curation task failed",
   "curation.form.submit.error.head": "A kurátor feladat futtatása sikertelen",
 
-  // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  // "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
+  // TODO Source message changed - Revise the translation
   "curation.form.submit.error.content": "Hiba történt a kurátor feladat elindításakor.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
@@ -2261,8 +2418,6 @@
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
   "curation.form.handle.hint": "Hint: Írja be a(z) [your-handle-prefix]/0 hogy futtasson egy feladatok az egész oldalon (nem minden feladat alakalmas a futtatásra)",
-
-
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
   // TODO New key - Add a translation
@@ -2288,13 +2443,25 @@
   // TODO New key - Add a translation
   "deny-request-copy.success": "Successfully denied item request",
 
+  // "dynamic-list.load-more": "Load more",
+  // TODO New key - Add a translation
+  "dynamic-list.load-more": "Load more",
 
+  // "dropdown.clear": "Clear selection",
+  // TODO New key - Add a translation
+  "dropdown.clear": "Clear selection",
+
+  // "dropdown.clear.tooltip": "Clear the selected option",
+  // TODO New key - Add a translation
+  "dropdown.clear.tooltip": "Clear the selected option",
 
   // "dso.name.untitled": "Untitled",
   // TODO New key - Add a translation
   "dso.name.untitled": "Untitled",
 
-
+  // "dso.name.unnamed": "Unnamed",
+  // TODO New key - Add a translation
+  "dso.name.unnamed": "Unnamed",
 
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Új gyűjtemény",
@@ -2441,7 +2608,7 @@
   // TODO New key - Add a translation
   "supervision-group-selector.notification.create.failure.title": "Error",
 
-  // "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
+  // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
   // TODO New key - Add a translation
   "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
 
@@ -2550,6 +2717,10 @@
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Friss feltöltések megjelenítésekor hiba történt",
 
+  // "error.profile-groups": "Error retrieving profile groups",
+  // TODO New key - Add a translation
+  "error.profile-groups": "Error retrieving profile groups",
+
   // "error.search-results": "Error fetching search results",
   "error.search-results": "keresési eredmények megjelenítésekor hiba történt",
 
@@ -2582,31 +2753,63 @@
   // TODO New key - Add a translation
   "error.validation.required": "This field is required",
 
-  // "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  // "error.validation.NotValidEmail": "This is not a valid email",
   // TODO New key - Add a translation
-  "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  "error.validation.NotValidEmail": "This is not a valid email",
 
-  // "error.validation.emailTaken": "This E-mail is already taken",
+  // "error.validation.emailTaken": "This email is already taken",
   // TODO New key - Add a translation
-  "error.validation.emailTaken": "This E-mail is already taken",
+  "error.validation.emailTaken": "This email is already taken",
 
   // "error.validation.groupExists": "This group already exists",
   // TODO New key - Add a translation
   "error.validation.groupExists": "This group already exists",
 
+  // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+  // TODO New key - Add a translation
+  "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+
+  // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+
+  // "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+
+  // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+  // TODO New key - Add a translation
+  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+
+  // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+
+  // "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+  // TODO New key - Add a translation
+  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+
+  // "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
+  // TODO New key - Add a translation
+  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
   // "feed.description": "Syndication feed",
   // TODO New key - Add a translation
   "feed.description": "Syndication feed",
 
+  // "file-download-link.restricted": "Restricted bitstream",
+  // TODO New key - Add a translation
+  "file-download-link.restricted": "Restricted bitstream",
 
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Hiba történ az elemhez tartozó fájlok beszerzésekor",
 
-
-
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "szerzői jog © 2002-{{ year }}",
+
+  // "footer.link.accessibility": "Accessibility settings",
+  // TODO New key - Add a translation
+  "footer.link.accessibility": "Accessibility settings",
 
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "DSpace szoftver",
@@ -2620,13 +2823,13 @@
   // "footer.link.privacy-policy": "Privacy policy",
   "footer.link.privacy-policy": "Adatvédelmi nyilatkozat",
 
-  // "footer.link.end-user-agreement":"End User Agreement",
+  // "footer.link.end-user-agreement": "End User Agreement",
+  // TODO Source message changed - Revise the translation
   "footer.link.end-user-agreement": "Felhasználói feltételek",
 
-  // "footer.link.feedback":"Send Feedback",
+  // "footer.link.feedback": "Send Feedback",
+  // TODO Source message changed - Revise the translation
   "footer.link.feedback": "Visszajelzés küldése",
-
-
 
   // "forgot-email.form.header": "Forgot Password",
   "forgot-email.form.header": "Elfelejtettem a jelszót",
@@ -2659,11 +2862,9 @@
   // "forgot-email.form.error.head": "Error when trying to reset password",
   "forgot-email.form.error.head": "Hiba történt a jelszó visszaállításakor",
 
-  // "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  // "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
   // TODO New key - Add a translation
-  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
-
-
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Elfelejtettem a jelszót",
@@ -2689,7 +2890,8 @@
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
   "forgot-password.form.label.passwordrepeat": "Írja újra a visszaigazoláshoz",
 
-  // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
+  // TODO Source message changed - Revise the translation
   "forgot-password.form.error.empty-password": "Írja be a jelszót a lenti mezőbe.",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
@@ -2706,7 +2908,6 @@
 
   // "forgot-password.form.submit": "Submit password",
   "forgot-password.form.submit": "Jelszó beküldése",
-
 
   // "form.add": "Add more",
   "form.add": "Továbbiak hozzáadása",
@@ -2769,6 +2970,30 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Nem adott meg értéket",
 
+  // "form.other-information.email": "Email",
+  // TODO New key - Add a translation
+  "form.other-information.email": "Email",
+
+  // "form.other-information.first-name": "First Name",
+  // TODO New key - Add a translation
+  "form.other-information.first-name": "First Name",
+
+  // "form.other-information.insolr": "In Solr Index",
+  // TODO New key - Add a translation
+  "form.other-information.insolr": "In Solr Index",
+
+  // "form.other-information.institution": "Institution",
+  // TODO New key - Add a translation
+  "form.other-information.institution": "Institution",
+
+  // "form.other-information.last-name": "Last Name",
+  // TODO New key - Add a translation
+  "form.other-information.last-name": "Last Name",
+
+  // "form.other-information.orcid": "ORCID",
+  // TODO New key - Add a translation
+  "form.other-information.orcid": "ORCID",
+
   // "form.remove": "Remove",
   "form.remove": "Törlés",
 
@@ -2787,11 +3012,33 @@
   // "form.submit": "Save",
   "form.submit": "Ment",
 
+  // "form.create": "Create",
+  // TODO New key - Add a translation
+  "form.create": "Create",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   // TODO New key - Add a translation
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
+  // "form.number-picker.decrement": "Decrement {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.decrement": "Decrement {{field}}",
 
+  // "form.number-picker.increment": "Increment {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.increment": "Increment {{field}}",
+
+  // "form.date-picker.placeholder.year": "Year",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.year": "Year",
+
+  // "form.date-picker.placeholder.month": "Month",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.month": "Month",
+
+  // "form.date-picker.placeholder.day": "Day",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.day": "Day",
 
   // "grant-deny-request-copy.deny": "Don't send copy",
   // TODO New key - Add a translation
@@ -2801,9 +3048,9 @@
   // TODO New key - Add a translation
   "grant-deny-request-copy.email.back": "Back",
 
-  // "grant-deny-request-copy.email.message": "Message",
+  // "grant-deny-request-copy.email.message": "Optional additional message",
   // TODO New key - Add a translation
-  "grant-deny-request-copy.email.message": "Message",
+  "grant-deny-request-copy.email.message": "Optional additional message",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
   // TODO New key - Add a translation
@@ -2853,12 +3100,6 @@
   // TODO New key - Add a translation
   "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
 
-
-
-  // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  // TODO New key - Add a translation
-  "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-
   // "grant-request-copy.email.subject": "Request copy of document",
   // TODO New key - Add a translation
   "grant-request-copy.email.subject": "Request copy of document",
@@ -2871,28 +3112,27 @@
   // TODO New key - Add a translation
   "grant-request-copy.header": "Grant document copy request",
 
-  // "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
   // TODO New key - Add a translation
-  "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
 
   // "grant-request-copy.success": "Successfully granted item request",
   // TODO New key - Add a translation
   "grant-request-copy.success": "Successfully granted item request",
 
-
   // "health.breadcrumbs": "Health",
   // TODO New key - Add a translation
   "health.breadcrumbs": "Health",
 
-  // "health-page.heading" : "Health",
+  // "health-page.heading": "Health",
   // TODO New key - Add a translation
   "health-page.heading": "Health",
 
-  // "health-page.info-tab" : "Info",
+  // "health-page.info-tab": "Info",
   // TODO New key - Add a translation
   "health-page.info-tab": "Info",
 
-  // "health-page.status-tab" : "Status",
+  // "health-page.status-tab": "Status",
   // TODO New key - Add a translation
   "health-page.status-tab": "Status",
 
@@ -2960,7 +3200,6 @@
   // TODO New key - Add a translation
   "health-page.section.no-issues": "No issues detected",
 
-
   // "home.description": "",
   "home.description": "",
 
@@ -2979,7 +3218,81 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Válasszon ki egy kategóriát, hogy böngéssze a gyűjteményeit.",
 
+  // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
 
+  // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  // "info.accessibility-settings.reset": "Reset accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  // "info.accessibility-settings.submit": "Save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  // "info.accessibility-settings.title": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.title": "Accessibility settings",
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Elolvastam és elfogadom a felhasználói feltételeket",
@@ -3004,6 +3317,10 @@
 
   // "info.end-user-agreement.title": "End User Agreement",
   "info.end-user-agreement.title": "Felhasználói feltételek",
+
+  // "info.end-user-agreement.hosting-country": "the United States",
+  // TODO New key - Add a translation
+  "info.end-user-agreement.hosting-country": "the United States",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Adatvédelmi nyilatkozat",
@@ -3041,27 +3358,25 @@
   // "info.feedback.email-label": "Your Email",
   "info.feedback.email-label": "Az e-mail címe",
 
-  // "info.feedback.create.success" : "Feedback Sent Successfully!",
+  // "info.feedback.create.success": "Feedback Sent Successfully!",
   // TODO New key - Add a translation
   "info.feedback.create.success": "Feedback Sent Successfully!",
 
-  // "info.feedback.error.email.required" : "A valid email address is required",
+  // "info.feedback.error.email.required": "A valid email address is required",
   // TODO New key - Add a translation
   "info.feedback.error.email.required": "A valid email address is required",
 
-  // "info.feedback.error.message.required" : "A comment is required",
+  // "info.feedback.error.message.required": "A comment is required",
   // TODO New key - Add a translation
   "info.feedback.error.message.required": "A comment is required",
 
-  // "info.feedback.page-label" : "Page",
+  // "info.feedback.page-label": "Page",
   // TODO New key - Add a translation
   "info.feedback.page-label": "Page",
 
-  // "info.feedback.page_help" : "Tha page related to your feedback",
+  // "info.feedback.page_help": "The page related to your feedback",
   // TODO New key - Add a translation
-  "info.feedback.page_help": "Tha page related to your feedback",
-
-
+  "info.feedback.page_help": "The page related to your feedback",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Ez az elem privát",
@@ -3069,23 +3384,21 @@
   // "item.alerts.withdrawn": "This item has been withdrawn",
   "item.alerts.withdrawn": "Ez az elem vissza lett vonva",
 
-
-
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
   "item.edit.authorizations.heading": "Evvel a szerkesztővel megnézheti vagy szerkesztheti egy elem jogosutságát, és szerkesztheti egy egyedi elem componenseinek jogosutságát: bundles és bitstreams. Röviden, egy elem a kötegek gyűjteménye, és a kötegek a bitsteramek gyűjteménye. A kötegeknek többnyire van ADD/REMOVE/READ/WRITE jogosultsága, miközben a bitstreameknek csak READ/WRITE jogosultsága.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Jogosultásgok elem szerkesztése",
 
-
+  // "item.badge.status": "Item status:",
+  // TODO New key - Add a translation
+  "item.badge.status": "Item status:",
 
   // "item.badge.private": "Non-discoverable",
   "item.badge.private": "Privát",
 
   // "item.badge.withdrawn": "Withdrawn",
   "item.badge.withdrawn": "Visszavont",
-
-
 
   // "item.bitstreams.upload.bundle": "Bundle",
   "item.bitstreams.upload.bundle": "Csomag",
@@ -3096,7 +3409,8 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Hozzon létre csomagot",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
+  // TODO Source message changed - Revise the translation
   "item.bitstreams.upload.bundles.empty": "Ez a tárgy nem tartalmaz csomagot, ahova bitfolyamot lehetne feltölteni.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -3120,8 +3434,6 @@
   // "item.bitstreams.upload.title": "Upload bitstream",
   "item.bitstreams.upload.title": "Bitfolyam feltöltése",
 
-
-
   // "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Feltöltés",
 
@@ -3136,6 +3448,14 @@
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "CSOMAG: {{ name }}",
+
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
 
   // "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.discard-button": "Elvetés",
@@ -3155,8 +3475,32 @@
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
   "item.edit.bitstreams.edit.buttons.undo": "Változtatások vissza",
 
+  // "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  // "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  // "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty": "Ez a tárgy nem tartalmaz bitfolyamot. Kattintson a feltöltés gombra, hogy hozzon létre egyet.",
+
+  // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Műveletek",
@@ -3212,7 +3556,9 @@
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Feltöltés",
 
-
+  // "item.edit.bitstreams.load-more.link": "Load more",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Mégse",
@@ -3241,7 +3587,6 @@
   // "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
   // TODO New key - Add a translation
   "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
-
 
   // "item.edit.tabs.mapper.head": "Collection Mapper",
   // TODO New key - Add a translation
@@ -3390,13 +3735,19 @@
   // "item.edit.item-mapper.tabs.map": "Map new collections",
   "item.edit.item-mapper.tabs.map": "Térképezzen új gyűjteményeket",
 
-
-
   // "item.edit.metadata.add-button": "Add",
   "item.edit.metadata.add-button": "Hozzáadás",
 
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Elvetés",
+
+  // "item.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.language": "Edit language",
+
+  // "item.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.value": "Edit value",
 
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
@@ -3436,6 +3787,10 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Érték",
+
+  // "item.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "item.edit.metadata.metadatafield": "Edit field",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
@@ -3481,8 +3836,6 @@
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Mentés",
 
-
-
   // "item.edit.modify.overview.field": "Field",
   "item.edit.modify.overview.field": "Mező",
 
@@ -3491,8 +3844,6 @@
 
   // "item.edit.modify.overview.value": "Value",
   "item.edit.modify.overview.value": "Érték",
-
-
 
   // "item.edit.move.cancel": "Back",
   "item.edit.move.cancel": "Vissza",
@@ -3520,6 +3871,10 @@
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
   "item.edit.move.inheritpolicies.description": "Örökölje a célgyűjtemény alapértelmezett szabályzatát",
 
+  // "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+  // TODO New key - Add a translation
+  "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+
   // "item.edit.move.move": "Move",
   "item.edit.move.move": "Mozgatás",
 
@@ -3534,8 +3889,6 @@
 
   // "item.edit.move.title": "Move item",
   "item.edit.move.title": "Tárgy mozgatása",
-
-
 
   // "item.edit.private.cancel": "Cancel",
   "item.edit.private.cancel": "Mégse",
@@ -3560,8 +3913,6 @@
   // TODO Source message changed - Revise the translation
   "item.edit.private.success": "Ezx a tárgy most privát",
 
-
-
   // "item.edit.public.cancel": "Cancel",
   "item.edit.public.cancel": "Mégse",
 
@@ -3585,8 +3936,6 @@
   // TODO Source message changed - Revise the translation
   "item.edit.public.success": "A tárgy most nyilvános",
 
-
-
   // "item.edit.reinstate.cancel": "Cancel",
   "item.edit.reinstate.cancel": "Mégse",
 
@@ -3604,8 +3953,6 @@
 
   // "item.edit.reinstate.success": "The item was reinstated successfully",
   "item.edit.reinstate.success": "Tárgy visszaállítása sikerült",
-
-
 
   // "item.edit.relationships.discard-button": "Discard",
   "item.edit.relationships.discard-button": "Elvetés",
@@ -3652,11 +3999,9 @@
   // "item.edit.relationships.no-entity-type": "Add 'dspace.entity.type' metadata to enable relationships for this item",
   "item.edit.relationships.no-entity-type": "Adja hozzá a 'dspace.entity.type' metaadatot ezen elem hivatkozásánek engedélyezéséhez",
 
-
   // "item.edit.return": "Back",
   // TODO New key - Add a translation
   "item.edit.return": "Back",
-
 
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
   "item.edit.tabs.bitstreams.head": "Bitfolyamok",
@@ -3669,6 +4014,18 @@
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Tárgy szerkesztése - Gondozás",
+
+  // "item.edit.curate.title": "Curate Item: {{item}}",
+  // TODO New key - Add a translation
+  "item.edit.curate.title": "Curate Item: {{item}}",
+
+  // "item.edit.tabs.access-control.head": "Access Control",
+  // TODO New key - Add a translation
+  "item.edit.tabs.access-control.head": "Access Control",
+
+  // "item.edit.tabs.access-control.title": "Item Edit - Access Control",
+  // TODO New key - Add a translation
+  "item.edit.tabs.access-control.title": "Item Edit - Access Control",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metaadat",
@@ -3776,8 +4133,6 @@
   // "item.edit.tabs.view.title": "Item Edit -  View",
   "item.edit.tabs.view.title": "Tárgy szerkesztése -  Megtekintés",
 
-
-
   // "item.edit.withdraw.cancel": "Cancel",
   "item.edit.withdraw.cancel": "Mégse",
 
@@ -3799,7 +4154,6 @@
   // "item.orcid.return": "Back",
   // TODO New key - Add a translation
   "item.orcid.return": "Back",
-
 
   // "item.listelement.badge": "Item",
   "item.listelement.badge": "Tétel",
@@ -3868,8 +4222,6 @@
   // "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
   // TODO New key - Add a translation
   "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
-
-
 
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Kivonat",
@@ -3962,10 +4314,12 @@
   // "item.page.bitstreams.collapse": "Collapse",
   "item.page.bitstreams.collapse": "Bezár",
 
-  // "item.page.filesection.original.bundle" : "Original bundle",
+  // "item.page.filesection.original.bundle": "Original bundle",
+  // TODO Source message changed - Revise the translation
   "item.page.filesection.original.bundle": "Eredeti csomag",
 
-  // "item.page.filesection.license.bundle" : "License bundle",
+  // "item.page.filesection.license.bundle": "License bundle",
+  // TODO Source message changed - Revise the translation
   "item.page.filesection.license.bundle": "Licenccsomag",
 
   // "item.page.return": "Back",
@@ -4015,19 +4369,35 @@
   // TODO New key - Add a translation
   "item.preview.dc.type": "Type:",
 
-  // "item.preview.oaire.citation.issue" : "Issue",
+  // "item.preview.oaire.citation.issue": "Issue",
   // TODO New key - Add a translation
   "item.preview.oaire.citation.issue": "Issue",
 
-  // "item.preview.oaire.citation.volume" : "Volume",
+  // "item.preview.oaire.citation.volume": "Volume",
   // TODO New key - Add a translation
   "item.preview.oaire.citation.volume": "Volume",
 
-  // "item.preview.dc.relation.issn" : "ISSN",
+  // "item.preview.dc.relation.hasversion": "Has version",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  // "item.preview.dc.relation.ispartofseries": "Is part of series",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  // "item.preview.dc.rights": "Rights",
+  // TODO New key - Add a translation
+  "item.preview.dc.rights": "Rights",
+
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.identifier.other": "Más azonosító:",
+
+  // "item.preview.dc.relation.issn": "ISSN",
   // TODO New key - Add a translation
   "item.preview.dc.relation.issn": "ISSN",
 
-  // "item.preview.dc.identifier.isbn" : "ISBN",
+  // "item.preview.dc.identifier.isbn": "ISBN",
   // TODO New key - Add a translation
   "item.preview.dc.identifier.isbn": "ISBN",
 
@@ -4035,13 +4405,17 @@
   // TODO New key - Add a translation
   "item.preview.dc.identifier": "Identifier:",
 
-  // "item.preview.dc.relation.ispartof" : "Journal or Serie",
+  // "item.preview.dc.relation.ispartof": "Journal or Series",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartof": "Journal or Serie",
+  "item.preview.dc.relation.ispartof": "Journal or Series",
 
-  // "item.preview.dc.identifier.doi" : "DOI",
+  // "item.preview.dc.identifier.doi": "DOI",
   // TODO New key - Add a translation
   "item.preview.dc.identifier.doi": "DOI",
+
+  // "item.preview.dc.publisher": "Publisher:",
+  // TODO New key - Add a translation
+  "item.preview.dc.publisher": "Publisher:",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Keresztnév:",
@@ -4076,13 +4450,23 @@
   // TODO New key - Add a translation
   "item.preview.oaire.fundingStream": "Funding Stream:",
 
-
-
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Kiválasztás igazolása",
 
   // "item.select.empty": "No items to show",
   "item.select.empty": "Nincs megtekinthető tárgy",
+
+  // "item.select.table.selected": "Selected items",
+  // TODO New key - Add a translation
+  "item.select.table.selected": "Selected items",
+
+  // "item.select.table.select": "Select item",
+  // TODO New key - Add a translation
+  "item.select.table.select": "Select item",
+
+  // "item.select.table.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "item.select.table.deselect": "Deselect item",
 
   // "item.select.table.author": "Author",
   "item.select.table.author": "Szerző",
@@ -4092,7 +4476,6 @@
 
   // "item.select.table.title": "Title",
   "item.select.table.title": "Cím",
-
 
   // "item.version.history.empty": "There are no other versions for this item yet.",
   "item.version.history.empty": "Ennek a tárgynak még nincs más változata.",
@@ -4166,10 +4549,8 @@
   // TODO New key - Add a translation
   "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
-
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   "item.version.notice": "Ez nem ennek a tárgynak a legutóbbi változata. A legutóbbi változat megtalálható itt <a href='{{destination}}'>here</a>.",
-
 
   // "item.version.create.modal.header": "New version",
   // TODO New key - Add a translation
@@ -4215,18 +4596,17 @@
   // TODO New key - Add a translation
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 
-  // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
+  // "item.version.create.notification.success": "New version has been created with version number {{version}}",
   // TODO New key - Add a translation
   "item.version.create.notification.success": "New version has been created with version number {{version}}",
 
-  // "item.version.create.notification.failure" : "New version has not been created",
+  // "item.version.create.notification.failure": "New version has not been created",
   // TODO New key - Add a translation
   "item.version.create.notification.failure": "New version has not been created",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an in-progress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
   // TODO New key - Add a translation
   "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
-
 
   // "item.version.delete.modal.header": "Delete version",
   // TODO New key - Add a translation
@@ -4252,24 +4632,21 @@
   // TODO New key - Add a translation
   "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
 
-  // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
+  // "item.version.delete.notification.success": "Version number {{version}} has been deleted",
   // TODO New key - Add a translation
   "item.version.delete.notification.success": "Version number {{version}} has been deleted",
 
-  // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
+  // "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
   // TODO New key - Add a translation
   "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
 
-
-  // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
+  // "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
   // TODO New key - Add a translation
   "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
 
-  // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
+  // "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
   // TODO New key - Add a translation
   "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
-
-
 
   // "itemtemplate.edit.metadata.add-button": "Add",
   // TODO New key - Add a translation
@@ -4278,6 +4655,14 @@
   // "itemtemplate.edit.metadata.discard-button": "Discard",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.discard-button": "Discard",
+
+  // "itemtemplate.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  // "itemtemplate.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
@@ -4323,6 +4708,10 @@
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.headers.value": "Value",
 
+  // "itemtemplate.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield": "Edit field",
+
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
@@ -4335,9 +4724,9 @@
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
   // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
 
   // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
   // TODO New key - Add a translation
@@ -4355,9 +4744,9 @@
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
-  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
   // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
 
   // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
   // TODO New key - Add a translation
@@ -4378,8 +4767,6 @@
   // "itemtemplate.edit.metadata.save-button": "Save",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.save-button": "Save",
-
-
 
   // "journal.listelement.badge": "Journal",
   "journal.listelement.badge": "Folyóirat",
@@ -4411,8 +4798,6 @@
   // "journal.search.title": "Journal Search",
   "journal.search.title": "Folyóirat keresés",
 
-
-
   // "journalissue.listelement.badge": "Journal Issue",
   "journalissue.listelement.badge": "Folyóirat szám",
 
@@ -4440,8 +4825,6 @@
   // "journalissue.page.titleprefix": "Journal Issue: ",
   "journalissue.page.titleprefix": "Folyóirat száma: ",
 
-
-
   // "journalvolume.listelement.badge": "Journal Volume",
   "journalvolume.listelement.badge": "Folyóirat kötet",
 
@@ -4459,7 +4842,6 @@
 
   // "journalvolume.page.volume": "Volume",
   "journalvolume.page.volume": "Kötet",
-
 
   // "iiifsearchable.listelement.badge": "Document Media",
   // TODO New key - Add a translation
@@ -4504,7 +4886,6 @@
   // "iiif.page.description": "Description: ",
   // TODO New key - Add a translation
   "iiif.page.description": "Description: ",
-
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Bitfolyam betöltése...",
@@ -4560,8 +4941,6 @@
   // "loading.top-level-communities": "Loading top-level communities...",
   "loading.top-level-communities": "Csúcsszintű kategóriák betöltése...",
 
-
-
   // "login.form.email": "Email address",
   "login.form.email": "E-mail cím",
 
@@ -4573,9 +4952,6 @@
 
   // "login.form.new-user": "New user? Click here to register.",
   "login.form.new-user": "Új felhasználó? Regisztráljon.",
-
-  // "login.form.or-divider": "or",
-  "login.form.or-divider": "vagy",
 
   // "login.form.oidc": "Log in with OIDC",
   // TODO New key - Add a translation
@@ -4600,8 +4976,6 @@
   // "login.breadcrumbs": "Login",
   "login.breadcrumbs": "Bejelentkezés",
 
-
-
   // "logout.form.header": "Log out from DSpace",
   "logout.form.header": "Kilépés a DSpace-ből",
 
@@ -4611,7 +4985,9 @@
   // "logout.title": "Logout",
   "logout.title": "Kilépés",
 
-
+  // "menu.header.nav.description": "Admin navigation bar",
+  // TODO New key - Add a translation
+  "menu.header.nav.description": "Admin navigation bar",
 
   // "menu.header.admin": "Management",
   // TODO Source message changed - Revise the translation
@@ -4624,13 +5000,15 @@
   // TODO New key - Add a translation
   "menu.header.admin.description": "Management menu",
 
-
-
   // "menu.section.access_control": "Access Control",
   "menu.section.access_control": "Hozzáférési kontroll",
 
   // "menu.section.access_control_authorizations": "Authorizations",
   "menu.section.access_control_authorizations": "Engedélyezések",
+
+  // "menu.section.access_control_bulk": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "menu.section.access_control_bulk": "Bulk Access Management",
 
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "csoportok",
@@ -4638,12 +5016,8 @@
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "Emberek",
 
-
-
   // "menu.section.admin_search": "Admin Search",
   "menu.section.admin_search": "Admin keresés",
-
-
 
   // "menu.section.browse_community": "This Community",
   "menu.section.browse_community": "ez a közösség",
@@ -4669,21 +5043,25 @@
   // "menu.section.browse_global_by_subject": "By Subject",
   "menu.section.browse_global_by_subject": "Tárgyszó szerint",
 
+  // "menu.section.browse_global_by_srsc": "By Subject Category",
+  // TODO New key - Add a translation
+  "menu.section.browse_global_by_srsc": "By Subject Category",
+
+  // "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
+  // TODO New key - Add a translation
+  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
+
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Cím szerint",
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   "menu.section.browse_global_communities_and_collections": "Kategóriák & Gyűjtemények",
 
-
-
   // "menu.section.control_panel": "Control Panel",
   "menu.section.control_panel": "Vezérlőpult",
 
   // "menu.section.curation_task": "Curation Task",
   "menu.section.curation_task": "Gondozási feladat",
-
-
 
   // "menu.section.edit": "Edit",
   "menu.section.edit": "Szerkesztés",
@@ -4696,8 +5074,6 @@
 
   // "menu.section.edit_item": "Item",
   "menu.section.edit_item": "Tárgy",
-
-
 
   // "menu.section.export": "Export",
   "menu.section.export": "Export",
@@ -4717,7 +5093,6 @@
   // "menu.section.export_batch": "Batch Export (ZIP)",
   // TODO New key - Add a translation
   "menu.section.export_batch": "Batch Export (ZIP)",
-
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Hozzáférés kontroll menü felület",
@@ -4771,8 +5146,6 @@
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Oldalbár rögzítés megszüntetése",
 
-
-
   // "menu.section.import": "Import",
   "menu.section.import": "Import",
 
@@ -4781,8 +5154,6 @@
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Metaadat",
-
-
 
   // "menu.section.new": "New",
   "menu.section.new": "Új",
@@ -4802,15 +5173,11 @@
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Folyamat",
 
-
-
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Oldalsáv rögzítése",
 
   // "menu.section.unpin": "Unpin sidebar",
   "menu.section.unpin": "Oldalsáv rögzítés megszüntetése",
-
-
 
   // "menu.section.processes": "Processes",
   "menu.section.processes": "Folyamatok",
@@ -4818,8 +5185,6 @@
   // "menu.section.health": "Health",
   // TODO New key - Add a translation
   "menu.section.health": "Health",
-
-
 
   // "menu.section.registries": "Registries",
   "menu.section.registries": "Leíró adatbázisok",
@@ -4830,15 +5195,11 @@
   // "menu.section.registries_metadata": "Metadata",
   "menu.section.registries_metadata": "Metaadat",
 
-
-
   // "menu.section.statistics": "Statistics",
   "menu.section.statistics": "Statisztikák",
 
   // "menu.section.statistics_task": "Statistics Task",
   "menu.section.statistics_task": "Statisztikai feladatok",
-
-
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
   "menu.section.toggle.access_control": "Váltás a Hozzáférés kontrol felületre",
@@ -4870,21 +5231,20 @@
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
   "menu.section.toggle.statistics_task": "Statisztikai feladatok felületre váltás",
 
-
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "Munkafolyamat irányítása",
-
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
   // TODO New key - Add a translation
   "metadata-export-search.tooltip": "Export search results as CSV",
+
   // "metadata-export-search.submit.success": "The export was started successfully",
   // TODO New key - Add a translation
   "metadata-export-search.submit.success": "The export was started successfully",
+
   // "metadata-export-search.submit.error": "Starting the export has failed",
   // TODO New key - Add a translation
   "metadata-export-search.submit.error": "Starting the export has failed",
-
 
   // "mydspace.breadcrumbs": "MyDSpace",
   // TODO New key - Add a translation
@@ -4965,23 +5325,29 @@
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Nincs cím",
 
-  // "mydspace.results.no-uri": "No Uri",
+  // "mydspace.results.no-uri": "No URI",
+  // TODO Source message changed - Revise the translation
   "mydspace.results.no-uri": "Nincs Uri",
 
-  // "mydspace.search-form.placeholder": "Search in mydspace...",
+  // "mydspace.search-form.placeholder": "Search in MyDSpace...",
   // TODO New key - Add a translation
-  "mydspace.search-form.placeholder": "Search in mydspace...",
+  "mydspace.search-form.placeholder": "Search in MyDSpace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   // TODO Source message changed - Revise the translation
   "mydspace.show.workflow": "Valamennyi feladat",
 
-  // "mydspace.show.workspace": "Your Submissions",
+  // "mydspace.show.workspace": "Your submissions",
+  // TODO Source message changed - Revise the translation
   "mydspace.show.workspace": "Az ön feltöltései",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   // TODO New key - Add a translation
   "mydspace.show.supervisedWorkspace": "Supervised items",
+
+  // "mydspace.status": "My DSpace status:",
+  // TODO New key - Add a translation
+  "mydspace.status": "My DSpace status:",
 
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Tárolva",
@@ -5016,7 +5382,9 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Megtekintés",
 
-
+  // "nav.expandable-navbar-section-suffix": "(submenu)",
+  // TODO New key - Add a translation
+  "nav.expandable-navbar-section-suffix": "(submenu)",
 
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Böngészés",
@@ -5034,9 +5402,9 @@
   // "nav.login": "Log In",
   "nav.login": "Bejelentkezés",
 
-  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  // "nav.user-profile-menu-and-logout": "User profile menu and log out",
   // TODO New key - Add a translation
-  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and log out",
 
   // "nav.logout": "Log Out",
   "nav.logout": "Kilépés",
@@ -5054,28 +5422,35 @@
   // "nav.search": "Search",
   "nav.search": "Keresés",
 
+  // "nav.search.button": "Submit search",
+  // TODO New key - Add a translation
+  "nav.search.button": "Submit search",
+
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Statisztika",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "EPerson megszemélyesítésének leállítása",
 
-  // "nav.subscriptions" : "Subscriptions",
+  // "nav.subscriptions": "Subscriptions",
   // TODO New key - Add a translation
   "nav.subscriptions": "Subscriptions",
 
-  // "nav.toggle" : "Toggle navigation",
+  // "nav.toggle": "Toggle navigation",
   // TODO New key - Add a translation
   "nav.toggle": "Toggle navigation",
 
-  // "nav.user.description" : "User profile bar",
+  // "nav.user.description": "User profile bar",
   // TODO New key - Add a translation
   "nav.user.description": "User profile bar",
+
+  // "listelement.badge.dso-type": "Item type:",
+  // TODO New key - Add a translation
+  "listelement.badge.dso-type": "Item type:",
 
   // "none.listelement.badge": "Item",
   // TODO New key - Add a translation
   "none.listelement.badge": "Item",
-
 
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Szervezeti egység",
@@ -5105,7 +5480,9 @@
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Szervezeti egység: ",
 
-
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  // TODO New key - Add a translation
+  "orgunit.search.results.head": "Organizational Unit Search Results",
 
   // "pagination.options.description": "Pagination options",
   // TODO New key - Add a translation
@@ -5122,8 +5499,6 @@
 
   // "pagination.sort-direction": "Sort Options",
   "pagination.sort-direction": "Rendszerezési lehetőségek",
-
-
 
   // "person.listelement.badge": "Person",
   "person.listelement.badge": "Személy",
@@ -5175,10 +5550,24 @@
   // TODO Source message changed - Revise the translation
   "person.search.title": "DSpace Angular :: Személy keresése",
 
-
-
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Paraméterek",
+
+  // "process.new.select-parameter": "Select parameter",
+  // TODO New key - Add a translation
+  "process.new.select-parameter": "Select parameter",
+
+  // "process.new.add-parameter": "Add a parameter...",
+  // TODO New key - Add a translation
+  "process.new.add-parameter": "Add a parameter...",
+
+  // "process.new.delete-parameter": "Delete parameter",
+  // TODO New key - Add a translation
+  "process.new.delete-parameter": "Delete parameter",
+
+  // "process.new.parameter.label": "Parameter value",
+  // TODO New key - Add a translation
+  "process.new.parameter.label": "Parameter value",
 
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Mégsem",
@@ -5226,6 +5615,10 @@
   // "process.new.notification.error.content": "An error occurred while creating this process",
   "process.new.notification.error.content": "Hiba történt a folyamat létrehozásakor",
 
+  // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+  // TODO New key - Add a translation
+  "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
+
   // "process.new.header": "Create a new process",
   "process.new.header": "Új folyamat létrehozása",
 
@@ -5235,18 +5628,20 @@
   // "process.new.breadcrumbs": "Create a new process",
   "process.new.breadcrumbs": "Új folyamat létrehozása",
 
-
-
-  // "process.detail.arguments" : "Arguments",
+  // "process.detail.arguments": "Arguments",
+  // TODO Source message changed - Revise the translation
   "process.detail.arguments": "Érvek",
 
-  // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+  // "process.detail.arguments.empty": "This process doesn't contain any arguments",
+  // TODO Source message changed - Revise the translation
   "process.detail.arguments.empty": "Ez a folyamat nem tartalmaz érveket",
 
-  // "process.detail.back" : "Back",
+  // "process.detail.back": "Back",
+  // TODO Source message changed - Revise the translation
   "process.detail.back": "Vissza",
 
-  // "process.detail.output" : "Process Output",
+  // "process.detail.output": "Process Output",
+  // TODO Source message changed - Revise the translation
   "process.detail.output": "Folyamat eredménye",
 
   // "process.detail.logs.button": "Retrieve process output",
@@ -5258,28 +5653,36 @@
   // "process.detail.logs.none": "This process has no output",
   "process.detail.logs.none": "Ennek a folyamatnak nincs kimenete",
 
-  // "process.detail.output-files" : "Output Files",
+  // "process.detail.output-files": "Output Files",
+  // TODO Source message changed - Revise the translation
   "process.detail.output-files": "Kimeneti fájlok",
 
-  // "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  // "process.detail.output-files.empty": "This process doesn't contain any output files",
+  // TODO Source message changed - Revise the translation
   "process.detail.output-files.empty": "Ennek a folyamatnak nincsenek kimeneti fájljai",
 
-  // "process.detail.script" : "Script",
+  // "process.detail.script": "Script",
+  // TODO Source message changed - Revise the translation
   "process.detail.script": "Szkript",
 
-  // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title": "Folyamat: {{ id }} - {{ name }}",
+  // "process.detail.title": "Process: {{ id }} - {{ name }}",
+  // TODO New key - Add a translation
+  "process.detail.title": "Process: {{ id }} - {{ name }}",
 
-  // "process.detail.start-time" : "Start time",
+  // "process.detail.start-time": "Start time",
+  // TODO Source message changed - Revise the translation
   "process.detail.start-time": "Kezdési idő",
 
-  // "process.detail.end-time" : "Finish time",
+  // "process.detail.end-time": "Finish time",
+  // TODO Source message changed - Revise the translation
   "process.detail.end-time": "Végzési idő",
 
-  // "process.detail.status" : "Status",
+  // "process.detail.status": "Status",
+  // TODO Source message changed - Revise the translation
   "process.detail.status": "Állapot",
 
-  // "process.detail.create" : "Create similar process",
+  // "process.detail.create": "Create similar process",
+  // TODO Source message changed - Revise the translation
   "process.detail.create": "Hasonló folyamat létrehozása",
 
   // "process.detail.actions": "Actions",
@@ -5314,26 +5717,28 @@
   // TODO New key - Add a translation
   "process.detail.delete.error": "Something went wrong when deleting the process",
 
-
-
-  // "process.overview.table.finish" : "Finish time (UTC)",
+  // "process.overview.table.finish": "Finish time (UTC)",
   // TODO Source message changed - Revise the translation
   "process.overview.table.finish": "Végzési idő",
 
-  // "process.overview.table.id" : "Process ID",
+  // "process.overview.table.id": "Process ID",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.id": "Folyamat ID",
 
-  // "process.overview.table.name" : "Name",
+  // "process.overview.table.name": "Name",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.name": "Név",
 
-  // "process.overview.table.start" : "Start time (UTC)",
+  // "process.overview.table.start": "Start time (UTC)",
   // TODO Source message changed - Revise the translation
   "process.overview.table.start": "Kezdési idő",
 
-  // "process.overview.table.status" : "Status",
+  // "process.overview.table.status": "Status",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.status": "Állapot",
 
-  // "process.overview.table.user" : "User",
+  // "process.overview.table.user": "User",
+  // TODO Source message changed - Revise the translation
   "process.overview.table.user": "Felhasználó",
 
   // "process.overview.title": "Processes Overview",
@@ -5352,6 +5757,10 @@
   // "process.overview.delete": "Delete {{count}} processes",
   // TODO New key - Add a translation
   "process.overview.delete": "Delete {{count}} processes",
+
+  // "process.overview.delete-process": "Delete process",
+  // TODO New key - Add a translation
+  "process.overview.delete-process": "Delete process",
 
   // "process.overview.delete.clear": "Clear delete selection",
   // TODO New key - Add a translation
@@ -5381,10 +5790,20 @@
   // TODO New key - Add a translation
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
-
-
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Profil frissítése",
+
+  // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  // "profile.card.accessibility.header": "Accessibility",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.header": "Accessibility",
+
+  // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Azonosít",
@@ -5402,9 +5821,6 @@
   // "profile.special.groups.head": "Authorization special groups you belong to",
   // TODO New key - Add a translation
   "profile.special.groups.head": "Authorization special groups you belong to",
-
-  // "profile.head": "Update Profile",
-  "profile.head": "Profil frissítése",
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "Keresztnév kötelező",
@@ -5519,8 +5935,6 @@
   // "project-relationships.search.results.head": "Project Search Results",
   "project-relationships.search.results.head": "Projekt keresési eredménye",
 
-
-
   // "publication.listelement.badge": "Publication",
   "publication.listelement.badge": "Publikáció",
 
@@ -5555,7 +5969,6 @@
   // TODO Source message changed - Revise the translation
   "publication.search.title": "DSpace Angular :: Publikáció keresése",
 
-
   // "media-viewer.next": "Next",
   // TODO New key - Add a translation
   "media-viewer.next": "Next",
@@ -5567,7 +5980,6 @@
   // "media-viewer.playlist": "Playlist",
   // TODO New key - Add a translation
   "media-viewer.playlist": "Playlist",
-
 
   // "register-email.title": "New user registration",
   "register-email.title": "Új felhasználó regisztrálása",
@@ -5633,7 +6045,6 @@
   // "register-page.create-profile.submit.success.head": "Registration completed",
   "register-page.create-profile.submit.success.head": "Sikeres regisztráció",
 
-
   // "register-page.registration.header": "New user registration",
   "register-page.registration.header": "Új felhasználó regisztrálása",
 
@@ -5669,8 +6080,9 @@
   // "register-page.registration.error.head": "Error when trying to register email",
   "register-page.registration.error.head": "Hiba történt az e-mail cím regisztrációjakor",
 
-  // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  "register-page.registration.error.content": "Hiba történt a következő e-mail cím regisztrációjakor: {{ email }}",
+  // "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
+  // TODO New key - Add a translation
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
   // TODO New key - Add a translation
@@ -5679,10 +6091,10 @@
   // "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
   // TODO New key - Add a translation
   "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
+
   // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
   // TODO New key - Add a translation
   "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
-
 
   // "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
   // TODO New key - Add a translation
@@ -5699,6 +6111,7 @@
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
   // TODO New key - Add a translation
   "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
+
   // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
   // TODO New key - Add a translation
   "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
@@ -5770,16 +6183,16 @@
   // TODO New key - Add a translation
   "relationships.isFundingAgencyOf.OrgUnit": "Funder",
 
-
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Adattár logó",
 
-  // "repository.title.prefix": "DSpace Angular :: ",
-  "repository.title.prefix": "EDA ",
+  // "repository.title": "DSpace Repository",
+  // TODO New key - Add a translation
+  "repository.title": "DSpace Repository",
 
-  // "repository.title.prefixDSpace": "DSpace Angular ::",
-  "repository.title.prefixDSpace": "EDA ",
-
+  // "repository.title.prefix": "DSpace Repository :: ",
+  // TODO New key - Add a translation
+  "repository.title.prefix": "DSpace Repository :: ",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Hozzáad",
@@ -5906,7 +6319,7 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Név",
 
-  //"resource-policies.form.name.hint": "Max 30 characters",
+  // "resource-policies.form.name.hint": "Max 30 characters",
   // TODO New key - Add a translation
   "resource-policies.form.name.hint": "Max 30 characters",
 
@@ -5940,6 +6353,22 @@
   // "resource-policies.table.headers.group": "Group",
   "resource-policies.table.headers.group": "Csoport",
 
+  // "resource-policies.table.headers.select-all": "Select all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select-all": "Select all",
+
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  // "resource-policies.table.headers.select": "Select",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select": "Select",
+
+  // "resource-policies.table.headers.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect": "Deselect",
+
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
 
@@ -5964,7 +6393,9 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Gyűjtemény szabályok",
 
-
+  // "root.skip-to-content": "Skip to main content",
+  // TODO New key - Add a translation
+  "root.skip-to-content": "Skip to main content",
 
   // "search.description": "",
   "search.description": "",
@@ -5982,6 +6413,9 @@
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "Keresés az adattárban ...",
 
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  // TODO New key - Add a translation
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Szerző",
@@ -6033,8 +6467,6 @@
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Visszavonva",
 
-
-
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "Szerző",
 
@@ -6068,6 +6500,14 @@
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   // TODO New key - Add a translation
   "search.filters.filter.creativeDatePublished.label": "Search date published",
+
+  // "search.filters.filter.creativeDatePublished.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  // "search.filters.filter.creativeDatePublished.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.max.label": "End",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Szerkesztő",
@@ -6284,8 +6724,6 @@
   // TODO New key - Add a translation
   "search.filters.filter.supervisedBy.label": "Search Supervised By",
 
-
-
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Folyóirat száma",
 
@@ -6307,12 +6745,31 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Igen",
 
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Archived": "Archived",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Validation": "Validation",
+
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Workflow": "Workflow",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Workspace": "Workspace",
+
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Igen",
 
   // "search.filters.withdrawn.false": "No",
   "search.filters.withdrawn.false": "Nem",
-
 
   // "search.filters.head": "Filters",
   "search.filters.head": "Szűrők",
@@ -6324,8 +6781,6 @@
   // TODO New key - Add a translation
   "search.filters.search.submit": "Submit",
 
-
-
   // "search.form.search": "Search",
   "search.form.search": "Keresés",
 
@@ -6334,8 +6789,6 @@
 
   // "search.form.scope.all": "All of DSpace",
   "search.form.scope.all": "A teljes EDA",
-
-
 
   // "search.results.head": "Search Results",
   "search.results.head": "Keresési eredmények",
@@ -6363,7 +6816,6 @@
   // "default-relationships.search.results.head": "Search Results",
   "default-relationships.search.results.head": "Keresés eredménye",
 
-
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Vissza a találatokhoz",
 
@@ -6385,8 +6837,6 @@
   // "search.sidebar.settings.title": "Settings",
   "search.sidebar.settings.title": "Beállítások",
 
-
-
   // "search.view-switch.show-detail": "Show detail",
   "search.view-switch.show-detail": "Részletek megjelenítése",
 
@@ -6396,7 +6846,13 @@
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Megjelenítés listaként",
 
+  // "selectable-list-item-control.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.deselect": "Deselect item",
 
+  // "selectable-list-item-control.select": "Select item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.select": "Select item",
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Növekvő",
@@ -6434,6 +6890,29 @@
   // "sorting.lastModified.DESC": "Last modified Descending",
   "sorting.lastModified.DESC": "Utoljára módosított növekvő csökkenő",
 
+  // "sorting.person.familyName.ASC": "Surname Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  // "sorting.person.familyName.DESC": "Surname Descending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  // "sorting.person.givenName.ASC": "Name Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  // "sorting.person.givenName.DESC": "Name Descending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  // "sorting.person.birthDate.ASC": "Birth Date Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  // "sorting.person.birthDate.DESC": "Birth Date Descending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
 
   // "statistics.title": "Statistics",
   "statistics.title": "Statisztikák",
@@ -6468,7 +6947,9 @@
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Látogatások",
 
-
+  // "statistics.table.no-name": "(object name could not be loaded)",
+  // TODO New key - Add a translation
+  "statistics.table.no-name": "(object name could not be loaded)",
 
   // "submission.edit.breadcrumbs": "Edit Submission",
   // TODO New key - Add a translation
@@ -6481,7 +6962,8 @@
   // TODO New key - Add a translation
   "submission.general.cancel": "Cancel",
 
-  // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
+  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "Önnek nincs új feltöltéshez szükséges privilégiuma.",
 
   // "submission.general.deposit": "Deposit",
@@ -6515,7 +6997,6 @@
 
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "Mentés későbbre",
-
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "Metaadatok importálása külső forrásból",
@@ -6874,6 +7355,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Helyi folyóiratok ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Helyi projektek ({{ count }})",
 
@@ -6897,11 +7379,17 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Helyi folyóiratszámok ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Helyi folyóiratszámok ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Helyi folyóiratkötetek ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Helyi folyóiratkötetek ({{ count }})",
 
@@ -6964,9 +7452,6 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
 
-
-
-
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
@@ -6976,11 +7461,17 @@
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Folyóirat számok",
+
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Folyóirat számok",
 
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Folyóirat kötetek",
+
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Folyóirat kötetek",
 
@@ -6992,6 +7483,7 @@
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Támogató szervezet",
+
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   "submission.sections.describe.relationship-lookup.title.Project": "Projektek",
 
@@ -7038,8 +7530,13 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Választott folyóirat",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Választott folyóirat kötet",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Választott projektek",
 
@@ -7063,6 +7560,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Választott szám",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Választott folyóirat kötet",
 
@@ -7071,6 +7569,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Választott támogatás",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Választott szám",
 
@@ -7116,7 +7615,8 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Keresés eredménye",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Óhajtja-e elmenteni \"{{ value }}\" névváltozatként ennek a személynek, hogy később ön is és mások is újrahasználhassák feltöltéshez? Amennyiben nem, még mindig használhatja ehhez a feltöltéshez.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -7176,6 +7676,10 @@
 
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "Nem található gyűjtemény",
+
+  // "submission.sections.general.no-entity": "No entity types found",
+  // TODO New key - Add a translation
+  "submission.sections.general.no-entity": "No entity types found",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Nincs elérhető opció",
@@ -7256,7 +7760,6 @@
   // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-
 
   // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   // TODO New key - Add a translation
@@ -7475,10 +7978,9 @@
   // TODO New key - Add a translation
   "submission.sections.license.required": "You must accept the license",
 
-  // "submission.sections.license.notgranted":  "You must accept the license",
+  // "submission.sections.license.notgranted": "You must accept the license",
   // TODO New key - Add a translation
   "submission.sections.license.notgranted": "You must accept the license",
-
 
   // "submission.sections.sherpa.publication.information": "Publication information",
   // TODO New key - Add a translation
@@ -7584,8 +8086,6 @@
   // TODO New key - Add a translation
   "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
 
-
-
   // "submission.submit.breadcrumbs": "New submission",
   // TODO New key - Add a translation
   "submission.submit.breadcrumbs": "New submission",
@@ -7594,12 +8094,11 @@
   // TODO Source message changed - Revise the translation
   "submission.submit.title": "Beküldés",
 
-
-
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Töröl",
 
-  // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+  // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.delete-help": "Ha el óhajtja vetni a tárgyat, válassz a  \"Töröl\" gombot.  Majd döntését igazolja.",
 
   // "submission.workflow.generic.edit": "Edit",
@@ -7614,7 +8113,6 @@
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workflow.generic.view-help": "Válassza ezt, hogy megtekintse a tárgy metaadatait.",
 
-
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
   // TODO New key - Add a translation
   "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -7623,7 +8121,6 @@
   // TODO New key - Add a translation
   "submission.workflow.generic.submit_select_reviewer-help": "",
 
-
   // "submission.workflow.generic.submit_score": "Rate",
   // TODO New key - Add a translation
   "submission.workflow.generic.submit_score": "Rate",
@@ -7631,7 +8128,6 @@
   // "submission.workflow.generic.submit_score-help": "",
   // TODO New key - Add a translation
   "submission.workflow.generic.submit_score-help": "",
-
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Jóváhagy",
@@ -7677,8 +8173,6 @@
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
   "submission.workflow.tasks.claimed.return_help": "Vigye a feladatot vissza a készletbe, hogy más felhasználó elvégezhesse azt.",
 
-
-
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.error": "Művelet közben hiba keletkezett...",
 
@@ -7690,8 +8184,6 @@
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Művelet sikeres",
-
-
 
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Követelés",
@@ -7705,7 +8197,6 @@
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
   "submission.workflow.tasks.pool.show-detail": "Részletek felfedése",
 
-
   // "submission.workspace.generic.view": "View",
   // TODO New key - Add a translation
   "submission.workspace.generic.view": "View",
@@ -7714,6 +8205,9 @@
   // TODO New key - Add a translation
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
+  // "submitter.empty": "N/A",
+  // TODO New key - Add a translation
+  "submitter.empty": "N/A",
 
   // "subscriptions.title": "Subscriptions",
   // TODO New key - Add a translation
@@ -7725,11 +8219,11 @@
 
   // "subscriptions.collection": "Subscriptions for collections",
   // TODO New key - Add a translation
-  "subscriptions.collection": "Kategóriafeliratkozások",
+  "subscriptions.collection": "Subscriptions for collections",
 
   // "subscriptions.community": "Subscriptions for communities",
   // TODO New key - Add a translation
-  "subscriptions.community": "Kategóriafeliratkozások",
+  "subscriptions.community": "Subscriptions for communities",
 
   // "subscriptions.subscription_type": "Subscription type",
   // TODO New key - Add a translation
@@ -7754,6 +8248,10 @@
   // "subscriptions.tooltip": "Subscribe",
   // TODO New key - Add a translation
   "subscriptions.tooltip": "Subscribe",
+
+  // "subscriptions.unsubscribe": "Unsubscribe",
+  // TODO New key - Add a translation
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   // "subscriptions.modal.title": "Subscriptions",
   // TODO New key - Add a translation
@@ -7855,7 +8353,6 @@
   // TODO New key - Add a translation
   "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
 
-
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Thumbnail kép",
 
@@ -7883,12 +8380,8 @@
   // TODO New key - Add a translation
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-
-
   // "title": "DSpace",
   "title": "DSpace",
-
-
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
   "vocabulary-treeview.header": "Hierarchikus fa nézet",
@@ -7901,6 +8394,10 @@
 
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "Keresés",
+
+  // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Nincsenek megjelenítendő elemek",
@@ -7943,8 +8440,6 @@
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-relationship.modal-head": "Válassza ki azokat a tárgyakat, amelyekhez óhajtja a virtuális metaadatok elmentését valódi metaadatokként",
 
-
-
   // "supervisedWorkspace.search.results.head": "Supervised Items",
   // TODO New key - Add a translation
   "supervisedWorkspace.search.results.head": "Supervised Items",
@@ -7963,8 +8458,6 @@
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   // TODO New key - Add a translation
   "supervision.search.results.head": "Workflow and Workspace tasks",
-
-
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   // TODO New key - Add a translation
@@ -7997,7 +8490,6 @@
 
   // "workflow-item.delete.button.confirm": "Delete",
   "workflow-item.delete.button.confirm": "Töröl",
-
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
   "workflow-item.send-back.notification.success.title": "Visszaküldve a feladónak",
@@ -8036,11 +8528,41 @@
   // TODO New key - Add a translation
   "workspace-item.view.title": "Workspace View",
 
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  // TODO New key - Add a translation
+  "workspace-item.delete.header": "Delete workspace item",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.confirm": "Delete",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "workspace-item.delete.button.cancel": "Cancel",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.success.title": "Deleted",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.title": "This workspace item was successfully deleted",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.title": "Something went wrong",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  // TODO New key - Add a translation
+  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
 
   // "workflow-item.advanced.title": "Advanced workflow",
   // TODO New key - Add a translation
   "workflow-item.advanced.title": "Advanced workflow",
-
 
   // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
   // TODO New key - Add a translation
@@ -8073,7 +8595,6 @@
   // "workflow-item.selectrevieweraction.button.confirm": "Confirm",
   // TODO New key - Add a translation
   "workflow-item.selectrevieweraction.button.confirm": "Confirm",
-
 
   // "workflow-item.scorereviewaction.notification.success.title": "Rating review",
   // TODO New key - Add a translation
@@ -8123,7 +8644,7 @@
   // TODO New key - Add a translation
   "idle-modal.extend-session": "Extend session",
 
-  // "researcher.profile.action.processing" : "Processing...",
+  // "researcher.profile.action.processing": "Processing...",
   // TODO New key - Add a translation
   "researcher.profile.action.processing": "Processing...",
 
@@ -8167,11 +8688,11 @@
   // TODO New key - Add a translation
   "researcher.profile.view": "View",
 
-  // "researcher.profile.private.visibility" : "PRIVATE",
+  // "researcher.profile.private.visibility": "PRIVATE",
   // TODO New key - Add a translation
   "researcher.profile.private.visibility": "PRIVATE",
 
-  // "researcher.profile.public.visibility" : "PUBLIC",
+  // "researcher.profile.public.visibility": "PUBLIC",
   // TODO New key - Add a translation
   "researcher.profile.public.visibility": "PUBLIC",
 
@@ -8183,19 +8704,19 @@
   // TODO New key - Add a translation
   "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
 
-  // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
+  // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
   // TODO New key - Add a translation
   "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
 
-  // "researcherprofile.error.claim.title" : "Error",
+  // "researcherprofile.error.claim.title": "Error",
   // TODO New key - Add a translation
   "researcherprofile.error.claim.title": "Error",
 
-  // "researcherprofile.success.claim.body" : "Profile claimed with success",
+  // "researcherprofile.success.claim.body": "Profile claimed with success",
   // TODO New key - Add a translation
   "researcherprofile.success.claim.body": "Profile claimed with success",
 
-  // "researcherprofile.success.claim.title" : "Success",
+  // "researcherprofile.success.claim.title": "Success",
   // TODO New key - Add a translation
   "researcherprofile.success.claim.title": "Success",
 
@@ -8207,7 +8728,7 @@
   // TODO New key - Add a translation
   "person.page.orcid.granted-authorizations": "Granted authorizations",
 
-  // "person.page.orcid.grant-authorizations" : "Grant authorizations",
+  // "person.page.orcid.grant-authorizations": "Grant authorizations",
   // TODO New key - Add a translation
   "person.page.orcid.grant-authorizations": "Grant authorizations",
 
@@ -8271,55 +8792,55 @@
   // TODO New key - Add a translation
   "person.page.orcid.save.preference.changes": "Update settings",
 
-  // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+  // "person.page.orcid.sync-profile.affiliation": "Affiliation",
   // TODO New key - Add a translation
   "person.page.orcid.sync-profile.affiliation": "Affiliation",
 
-  // "person.page.orcid.sync-profile.biographical" : "Biographical data",
+  // "person.page.orcid.sync-profile.biographical": "Biographical data",
   // TODO New key - Add a translation
   "person.page.orcid.sync-profile.biographical": "Biographical data",
 
-  // "person.page.orcid.sync-profile.education" : "Education",
+  // "person.page.orcid.sync-profile.education": "Education",
   // TODO New key - Add a translation
   "person.page.orcid.sync-profile.education": "Education",
 
-  // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+  // "person.page.orcid.sync-profile.identifiers": "Identifiers",
   // TODO New key - Add a translation
   "person.page.orcid.sync-profile.identifiers": "Identifiers",
 
-  // "person.page.orcid.sync-fundings.all" : "All fundings",
+  // "person.page.orcid.sync-fundings.all": "All fundings",
   // TODO New key - Add a translation
   "person.page.orcid.sync-fundings.all": "All fundings",
 
-  // "person.page.orcid.sync-fundings.mine" : "My fundings",
+  // "person.page.orcid.sync-fundings.mine": "My fundings",
   // TODO New key - Add a translation
   "person.page.orcid.sync-fundings.mine": "My fundings",
 
-  // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
+  // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
   // TODO New key - Add a translation
   "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
 
-  // "person.page.orcid.sync-fundings.disabled" : "Disabled",
+  // "person.page.orcid.sync-fundings.disabled": "Disabled",
   // TODO New key - Add a translation
   "person.page.orcid.sync-fundings.disabled": "Disabled",
 
-  // "person.page.orcid.sync-publications.all" : "All publications",
+  // "person.page.orcid.sync-publications.all": "All publications",
   // TODO New key - Add a translation
   "person.page.orcid.sync-publications.all": "All publications",
 
-  // "person.page.orcid.sync-publications.mine" : "My publications",
+  // "person.page.orcid.sync-publications.mine": "My publications",
   // TODO New key - Add a translation
   "person.page.orcid.sync-publications.mine": "My publications",
 
-  // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
+  // "person.page.orcid.sync-publications.my_selected": "Selected publications",
   // TODO New key - Add a translation
   "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
-  // "person.page.orcid.sync-publications.disabled" : "Disabled",
+  // "person.page.orcid.sync-publications.disabled": "Disabled",
   // TODO New key - Add a translation
   "person.page.orcid.sync-publications.disabled": "Disabled",
 
-  // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
+  // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
@@ -8335,15 +8856,15 @@
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
 
-  // "person.page.orcid.sync-queue.table.header.type" : "Type",
+  // "person.page.orcid.sync-queue.table.header.type": "Type",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.table.header.type": "Type",
 
-  // "person.page.orcid.sync-queue.table.header.description" : "Description",
+  // "person.page.orcid.sync-queue.table.header.description": "Description",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.table.header.description": "Description",
 
-  // "person.page.orcid.sync-queue.table.header.action" : "Action",
+  // "person.page.orcid.sync-queue.table.header.action": "Action",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.table.header.action": "Action",
 
@@ -8431,7 +8952,7 @@
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
 
-  // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
+  // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
 
@@ -8503,7 +9024,7 @@
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
 
-  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
+  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
   // TODO New key - Add a translation
   "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
 
@@ -8611,13 +9132,20 @@
   // TODO New key - Add a translation
   "person.orcid.registry.auth": "ORCID Authorizations",
 
+  // "person.orcid-tooltip.authenticated": "{{orcid}}",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  // "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Friss feltöltések",
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
   // TODO New key - Add a translation
   "listable-notification-object.default-message": "This object couldn't be retrieved",
-
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
   // TODO New key - Add a translation
@@ -8638,8 +9166,6 @@
   // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
   // TODO New key - Add a translation
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
-
-
 
   // "menu.section.system-wide-alert": "System-wide Alert",
   // TODO New key - Add a translation
@@ -8685,6 +9211,10 @@
   // TODO New key - Add a translation
   "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
 
+  // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  // TODO New key - Add a translation
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   // TODO New key - Add a translation
   "system-wide-alert.form.label.preview": "System-wide alert preview",
@@ -8712,6 +9242,182 @@
   // "admin.system-wide-alert.title": "System-wide Alerts",
   // TODO New key - Add a translation
   "admin.system-wide-alert.title": "System-wide Alerts",
+
+  // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  // TODO New key - Add a translation
+  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+
+  // "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  // TODO New key - Add a translation
+  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  // "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  // TODO New key - Add a translation
+  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  // "access-control-item-header-toggle": "Item's Metadata",
+  // TODO New key - Add a translation
+  "access-control-item-header-toggle": "Item's Metadata",
+
+  // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+
+  // "access-control-bitstream-header-toggle": "Bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-header-toggle": "Bitstreams",
+
+  // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+
+  // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+
+  // "access-control-mode": "Mode",
+  // TODO New key - Add a translation
+  "access-control-mode": "Mode",
+
+  // "access-control-access-conditions": "Access conditions",
+  // TODO New key - Add a translation
+  "access-control-access-conditions": "Access conditions",
+
+  // "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+  // TODO New key - Add a translation
+  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+
+  // "access-control-replace-all": "Replace access conditions",
+  // TODO New key - Add a translation
+  "access-control-replace-all": "Replace access conditions",
+
+  // "access-control-add-to-existing": "Add to existing ones",
+  // TODO New key - Add a translation
+  "access-control-add-to-existing": "Add to existing ones",
+
+  // "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  // TODO New key - Add a translation
+  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+
+  // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+  // TODO New key - Add a translation
+  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+
+  // "access-control-bitstreams-selected": "bitstreams selected",
+  // TODO New key - Add a translation
+  "access-control-bitstreams-selected": "bitstreams selected",
+
+  // "access-control-bitstreams-select": "Select bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstreams-select": "Select bitstreams",
+
+  // "access-control-cancel": "Cancel",
+  // TODO New key - Add a translation
+  "access-control-cancel": "Cancel",
+
+  // "access-control-execute": "Execute",
+  // TODO New key - Add a translation
+  "access-control-execute": "Execute",
+
+  // "access-control-add-more": "Add more",
+  // TODO New key - Add a translation
+  "access-control-add-more": "Add more",
+
+  // "access-control-remove": "Remove access condition",
+  // TODO New key - Add a translation
+  "access-control-remove": "Remove access condition",
+
+  // "access-control-select-bitstreams-modal.title": "Select bitstreams",
+  // TODO New key - Add a translation
+  "access-control-select-bitstreams-modal.title": "Select bitstreams",
+
+  // "access-control-select-bitstreams-modal.no-items": "No items to show.",
+  // TODO New key - Add a translation
+  "access-control-select-bitstreams-modal.no-items": "No items to show.",
+
+  // "access-control-select-bitstreams-modal.close": "Close",
+  // TODO New key - Add a translation
+  "access-control-select-bitstreams-modal.close": "Close",
+
+  // "access-control-option-label": "Access condition type",
+  // TODO New key - Add a translation
+  "access-control-option-label": "Access condition type",
+
+  // "access-control-option-note": "Choose an access condition to apply to selected objects.",
+  // TODO New key - Add a translation
+  "access-control-option-note": "Choose an access condition to apply to selected objects.",
+
+  // "access-control-option-start-date": "Grant access from",
+  // TODO New key - Add a translation
+  "access-control-option-start-date": "Grant access from",
+
+  // "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+  // TODO New key - Add a translation
+  "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+
+  // "access-control-option-end-date": "Grant access until",
+  // TODO New key - Add a translation
+  "access-control-option-end-date": "Grant access until",
+
+  // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+  // TODO New key - Add a translation
+  "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+
+  // "vocabulary-treeview.search.form.add": "Add",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.add": "Add",
+
+  // "process.overview.unknown.user": "Unknown",
+  // TODO New key - Add a translation
+  "process.overview.unknown.user": "Unknown",
+
+  // "browse.search-form.placeholder": "Search the repository",
+  // TODO New key - Add a translation
+  "browse.search-form.placeholder": "Search the repository",
+
+  // "file-download-link.download": "Download ",
+  // TODO New key - Add a translation
+  "file-download-link.download": "Download ",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  // TODO New key - Add a translation
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  // TODO New key - Add a translation
+  "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  // TODO New key - Add a translation
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  // "dynamic-form-array.sortable-list.label": "Sortable list",
+  // TODO New key - Add a translation
+  "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  // TODO New key - Add a translation
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
 
 
 }

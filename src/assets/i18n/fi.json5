@@ -1,12 +1,12 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Sinulla ei ole valtuuksia nähdä sivua. Voit palata etusivulle alla olevalla painikkeella.",
 
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Palaa etusivulle",
 
-  // "401.unauthorized": "unauthorized",
+  // "401.unauthorized": "Unauthorized",
+  // TODO Source message changed - Revise the translation
   "401.unauthorized": "valtuuttamaton",
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
@@ -15,10 +15,12 @@
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Palaa etusivulle",
 
-  // "403.forbidden": "forbidden",
+  // "403.forbidden": "Forbidden",
+  // TODO Source message changed - Revise the translation
   "403.forbidden": "kielletty",
 
-  // "500.page-internal-server-error": "Service Unavailable",
+  // "500.page-internal-server-error": "Service unavailable",
+  // TODO Source message changed - Revise the translation
   "500.page-internal-server-error": "Palvelu ei ole saatavilla",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
@@ -33,23 +35,32 @@
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Palaa etusivulle",
 
-  // "404.page-not-found": "page not found",
+  // "404.page-not-found": "Page not found",
+  // TODO Source message changed - Revise the translation
   "404.page-not-found": "sivua ei löytynyt",
 
-  // "error-page.description.401": "unauthorized",
+  // "error-page.description.401": "Unauthorized",
+  // TODO Source message changed - Revise the translation
   "error-page.description.401": "valtuuttamaton",
 
-  // "error-page.description.403": "forbidden",
+  // "error-page.description.403": "Forbidden",
+  // TODO Source message changed - Revise the translation
   "error-page.description.403": "kielletty",
 
-  // "error-page.description.500": "Service Unavailable",
+  // "error-page.description.500": "Service unavailable",
+  // TODO Source message changed - Revise the translation
   "error-page.description.500": "Palvelu ei ole saatavilla",
 
-  // "error-page.description.404": "page not found",
+  // "error-page.description.404": "Page not found",
+  // TODO Source message changed - Revise the translation
   "error-page.description.404": "sivua ei löytynyt",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "Virhe ORCID-kirjautumisessa. Varmista, että olet tuonut ORCID-tilisi sähköpostiosoitteen DSpaceen. Jos virhe jatkuu, ota yhteyttä ylläpitäjään.",
+
+  // "listelement.badge.access-status": "Access status:",
+  // TODO New key - Add a translation
+  "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "Embargo",
@@ -87,7 +98,8 @@
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Virhe",
 
-  // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
+  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.create.head": "Luo tiedostoformaatti",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
@@ -192,6 +204,10 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nimi",
 
+  // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
   // "admin.registries.bitstream-formats.table.id": "ID",
   "admin.registries.bitstream-formats.table.id": "ID",
 
@@ -212,6 +228,14 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Tiedostoformaattirekisteri",
+
+  // "admin.registries.bitstream-formats.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.select": "Select",
+
+  // "admin.registries.bitstream-formats.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Metadatarekisteri",
@@ -237,8 +261,20 @@
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "Ei metadataskeemoja.",
 
+  // "admin.registries.metadata.schemas.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.select": "Select",
+
+  // "admin.registries.metadata.schemas.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Poista valittu",
+
+  // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -258,6 +294,14 @@
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Tämä on metadataskeema \"{{namespace}}\"-nimiavaruudelle.",
 
+  // "admin.registries.schema.fields.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.select": "Select",
+
+  // "admin.registries.schema.fields.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.deselect": "Deselect",
+
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Skeeman metadatakentät",
 
@@ -269,6 +313,10 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Kenttä",
+
+  // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
 
   // "admin.registries.schema.fields.table.id": "ID",
   "admin.registries.schema.fields.table.id": "ID",
@@ -330,6 +378,38 @@
   // "admin.registries.schema.title": "Metadata Schema Registry",
   "admin.registries.schema.title": "Metadataskeemarekisteri",
 
+  // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+
+  // "administrativeBulkAccess.search.results.head": "Search Results",
+  // TODO New key - Add a translation
+  "administrativeBulkAccess.search.results.head": "Search Results",
+
+  // "admin.access-control.bulk-access": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access": "Bulk Access Management",
+
+  // "admin.access-control.bulk-access.title": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access.title": "Bulk Access Management",
+
+  // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+
+  // "admin.access-control.bulk-access-browse.search.header": "Search",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-browse.search.header": "Search",
+
+  // "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+
+  // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+  // TODO New key - Add a translation
+  "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Poista käyttäjä",
 
@@ -348,6 +428,22 @@
   // "admin.access-control.epeople.title": "EPeople",
   "admin.access-control.epeople.title": "DSpace Angular :: Käyttäjät",
 
+  // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+
+  // "admin.access-control.epeople.edit.title": "New EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.edit.title": "New EPerson",
+
+  // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+
+  // "admin.access-control.epeople.add.title": "Add EPerson",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.add.title": "Add EPerson",
+
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Käyttäjät",
 
@@ -360,7 +456,8 @@
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Metadata",
 
-  // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  // "admin.access-control.epeople.search.scope.email": "Email (exact)",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.search.scope.email": "Sähköpostiosoite (oikea)",
 
   // "admin.access-control.epeople.search.button": "Search",
@@ -378,7 +475,8 @@
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Nimi",
 
-  // "admin.access-control.epeople.table.email": "E-mail (exact)",
+  // "admin.access-control.epeople.table.email": "Email (exact)",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.table.email": "Sähköpostiosoite (oikea)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -408,10 +506,12 @@
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "Sukunimi",
 
-  // "admin.access-control.epeople.form.email": "E-mail",
+  // "admin.access-control.epeople.form.email": "Email",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.email": "Sähköpostiosoite",
 
-  // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.emailHint": "Sähköpostiosoitteen on oltava toimiva osoite",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -465,8 +565,9 @@
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Lisää ryhmiin",
 
-  // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Käyttäjän poisto epäonnistui: \"{{name}}\"",
+  // "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.success": "Käyttäjä poistettu: \"{{name}}\"",
@@ -478,9 +579,10 @@
   "admin.access-control.groups.breadcrumbs": "Ryhmät",
 
   // "admin.access-control.groups.singleGroup.breadcrumbs": "Edit Group",
-  // "admin.access-control.groups.singleGroup.breadcrumbs": "Ryhmän muokkaus",
+  "admin.access-control.groups.title.singleGroup": "Ryhmän muokkaus",
 
   // "admin.access-control.groups.title.singleGroup": "Edit Group",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.title.singleGroup": "Ryhmän muokkaus",
 
   // "admin.access-control.groups.title.addGroup": "New Group",
@@ -615,12 +717,6 @@
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
   "admin.access-control.groups.form.members-list.headMembers": "Nykyiset jäsenet",
 
-  // "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-
-  // "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-  "admin.access-control.groups.form.members-list.search.scope.email": "Sähköpostiosoite (oikea)",
-
   // "admin.access-control.groups.form.members-list.search.button": "Search",
   "admin.access-control.groups.form.members-list.search.button": "Hae",
 
@@ -705,9 +801,6 @@
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Lisää alarymä nimellä \"{{name}}\"",
 
-  // "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Nykyinen ryhmä",
-
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Lisätty alaryhmä: \"{{name}}\"",
 
@@ -738,11 +831,13 @@
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
   "admin.access-control.groups.form.tooltip.editGroupPage": "Tällä sivulla voit muokata ryhmän ominaisuuksia ja jäseniä. Yläosassa voit muokata ryhmän nimeä ja kuvausta, paitsi jos kyseessä on kokoelman tai yhteisön ylläpitäjäryhmä, jolloin ryhmän nimi ja kuvaus luodaan automaattisesti, eikä niitä voi muokata. Muissa osioissa voit muokata ryhmän jäsenyyttä. Katso lisätietoja wiki-sivulta (https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
 
-  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Voit lisätä tai poistaa ryhmän käyttäjän joko napsauttamalla 'Selaa kaikkia' -painiketta tai käyttämällä alla olevaa hakupalkkia käyttäjien etsimiseen (käytä hakupalkin vasemmalla puolella olevaa pudotusvalikkoa valitaksesi, haetaanko metatietojen vai sähköpostin perusteella). Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevaan luetteloon, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
-  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä tai poistaa alaryhmän tähän ryhmään tai tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia ryhmien etsimiseen. Napsauta sitten luettelossa plus-kuvaketta jokaisen ryhmän kohdalla, jonka haluat lisätä, tai roskakorikuvaketta jokaisen ryhmän kohdalla, jonka haluat poistaa. Luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  // TODO New key - Add a translation
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Ylläpitäjän haku",
@@ -855,10 +950,12 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Valitse ensin tiedosto!",
 
-  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
+  // TODO Source message changed - Revise the translation
   "admin.metadata-import.page.error.addFileUrl": "Syötä tiedoston URL ensin!",
 
-  // "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
+  // TODO Source message changed - Revise the translation
   "admin.batch-import.page.error.addFile": "Valitse ZIP-tiedosto ensin!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
@@ -911,12 +1008,6 @@
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Nykyiset jäsenet",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "Sähköpostiosoite (oikea)",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Hae",
@@ -1101,7 +1192,8 @@
   // "bitstream-request-a-copy.name.error": "The name is required",
   "bitstream-request-a-copy.name.error": "Nimi on pakollinen tieto",
 
-  // "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  // "bitstream-request-a-copy.email.label": "Your email address *",
+  // TODO Source message changed - Revise the translation
   "bitstream-request-a-copy.email.label": "Sähköpostiosoite *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
@@ -1149,6 +1241,10 @@
   // "browse.comcol.by.srsc": "By Subject Category",
   "browse.comcol.by.srsc": "Aihekategorian mukaan",
 
+  // "browse.comcol.by.nsi": "By Norwegian Science Index",
+  // TODO New key - Add a translation
+  "browse.comcol.by.nsi": "By Norwegian Science Index",
+
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Nimekkeen mukaan",
 
@@ -1182,6 +1278,10 @@
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
   "browse.metadata.srsc.breadcrumbs": "Selaa aihekategorian luokan mukaan",
 
+  // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+  // TODO New key - Add a translation
+  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Selaa nimekkeen mukaan",
 
@@ -1193,6 +1293,10 @@
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
   "pagination.next.button.disabled.tooltip": "Ei enempää tulossivuja",
+
+  // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+  // TODO New key - Add a translation
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   "browse.startsWith": ", alkaa kirjaimella {{ startsWith }}",
@@ -1266,6 +1370,10 @@
   // "browse.startsWith.input": "Filter",
   "browse.startsWith.input": "Suodata",
 
+  // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  // TODO New key - Add a translation
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
   // "browse.taxonomy.button": "Browse",
   "browse.taxonomy.button": "Selaa",
 
@@ -1289,6 +1397,14 @@
 
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   "claimed-declined-task-search-result-list-element.title": "Kieltäydytty, lähetetty takaisin päätarkastajan työnkulkuun",
+
+  // "collection.create.breadcrumbs": "Create collection",
+  // TODO New key - Add a translation
+  "collection.create.breadcrumbs": "Create collection",
+
+  // "collection.browse.logo": "Browse for a collection logo",
+  // TODO New key - Add a translation
+  "collection.browse.logo": "Browse for a collection logo",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Luo kokoelma",
@@ -1424,6 +1540,14 @@
 
   // "collection.edit.return": "Back",
   "collection.edit.return": "Paluu",
+
+  // "collection.edit.tabs.access-control.head": "Access Control",
+  // TODO New key - Add a translation
+  "collection.edit.tabs.access-control.head": "Access Control",
+
+  // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+  // TODO New key - Add a translation
+  "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Kuratoi",
@@ -1578,6 +1702,10 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Kokoelma",
 
+  // "collection.logo": "Collection logo",
+  // TODO New key - Add a translation
+  "collection.logo": "Collection logo",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Viimeksi lisätyt",
 
@@ -1601,6 +1729,18 @@
 
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "Ei kokoelmia",
+
+  // "collection.select.table.selected": "Selected collections",
+  // TODO New key - Add a translation
+  "collection.select.table.selected": "Selected collections",
+
+  // "collection.select.table.select": "Select collection",
+  // TODO New key - Add a translation
+  "collection.select.table.select": "Select collection",
+
+  // "collection.select.table.deselect": "Deselect collection",
+  // TODO New key - Add a translation
+  "collection.select.table.deselect": "Deselect collection",
 
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Nimeke",
@@ -1692,6 +1832,22 @@
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Näytä lisää",
 
+  // "communityList.expand": "Expand {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.expand": "Expand {{ name }}",
+
+  // "communityList.collapse": "Collapse {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.collapse": "Collapse {{ name }}",
+
+  // "community.browse.logo": "Browse for a community logo",
+  // TODO New key - Add a translation
+  "community.browse.logo": "Browse for a community logo",
+
+  // "community.create.breadcrumbs": "Create Community",
+  // TODO New key - Add a translation
+  "community.create.breadcrumbs": "Create Community",
+
   // "community.create.head": "Create a Community",
   "community.create.head": "Luo yhteisö",
 
@@ -1743,10 +1899,12 @@
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Yhteisön logo",
 
-  // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.notifications.add.error": "Yhteisön logon lataus epäonnistui. Tarkista sisältö ennen kuin yrität uudelleen.",
 
-  // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.notifications.add.success": "Yhteisön logo ladattu.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -1758,7 +1916,8 @@
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "community.edit.logo.notifications.delete.error.title": "Virhe logoa poistettaessa",
 
-  // "community.edit.logo.upload": "Drop a Community Logo to upload",
+  // "community.edit.logo.upload": "Drop a community logo to upload",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.upload": "Pudota yhteisön logo ladattavaksi",
 
   // "community.edit.notifications.success": "Successfully edited the Community",
@@ -1767,7 +1926,8 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "Sinulla ei ole oikeuksia tehdä tätä muutosta",
 
-  // "community.edit.notifications.error": "An error occured while editing the Community",
+  // "community.edit.notifications.error": "An error occurred while editing the community",
+  // TODO Source message changed - Revise the translation
   "community.edit.notifications.error": "Virhe muokattaessa yhteisöä",
 
   // "community.edit.return": "Back",
@@ -1778,6 +1938,14 @@
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
   "community.edit.tabs.curate.title": "Yhteisön muokkaus - Kuratoi",
+
+  // "community.edit.tabs.access-control.head": "Access Control",
+  // TODO New key - Add a translation
+  "community.edit.tabs.access-control.head": "Access Control",
+
+  // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  // TODO New key - Add a translation
+  "community.edit.tabs.access-control.title": "Community Edit - Access Control",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
   "community.edit.tabs.metadata.head": "Muokkaa metadataa",
@@ -1799,6 +1967,10 @@
 
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Yhteisö",
+
+  // "community.logo": "Community logo",
+  // TODO New key - Add a translation
+  "community.logo": "Community logo",
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Ei mitään",
@@ -1848,7 +2020,8 @@
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Tiedostojen oletuslukuoikeus",
 
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
+  // TODO Source message changed - Revise the translation
   "comcol-role.edit.bitstream_read.description": "Yhteisön ylläpitäjät voivat luoda alayhteisöjä tai kokoelmia ja hallita niitä sekä myöntää niihin hallintaoikeuksia. He päättävät, kuka saa tallentaa tietueita alakokoelmiin, muokata metadataa (tallennuksen jälkeen) ja lisätä (liittää) olemassa olevia tietueita muista kokoelmista (käyttöoikeuksien puitteissa).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
@@ -1911,10 +2084,12 @@
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Alayhteisöt ja kokoelmat",
 
-  // "community.sub-collection-list.head": "Collections of this Community",
+  // "community.sub-collection-list.head": "Collections in this Community",
+  // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Yhteisön kokoelmat",
 
-  // "community.sub-community-list.head": "Communities of this Community",
+  // "community.sub-community-list.head": "Communities in this Community",
+  // TODO Source message changed - Revise the translation
   "community.sub-community-list.head": "Yhteisön alayhteisöt",
 
   // "cookies.consent.accept-all": "Accept all",
@@ -1989,6 +2164,14 @@
   // "cookies.consent.content-modal.service": "service",
   "cookies.consent.content-modal.service": "palvelu",
 
+  // "cookies.consent.app.title.accessibility": "Accessibility Settings",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Todentaminen",
 
@@ -2052,8 +2235,9 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Virusskannaus",
 
-  // "curation-task.task.register-doi.label": "Register DOI",
-  "curation-task.task.register-doi.label": "Rekisteröi DOI",
+  // "curation-task.task.registerdoi.label": "Register DOI",
+  // TODO New key - Add a translation
+  "curation-task.task.registerdoi.label": "Register DOI",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Tehtävä:",
@@ -2070,7 +2254,8 @@
   // "curation.form.submit.error.head": "Running the curation task failed",
   "curation.form.submit.error.head": "Kuratointitehtävän suoritus epäonnistui",
 
-  // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  // "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
+  // TODO Source message changed - Revise the translation
   "curation.form.submit.error.content": "Virhe kuratointitehtävää aloitettaessa.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
@@ -2099,6 +2284,18 @@
 
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Tietuepyyntö evätty",
+
+  // "dynamic-list.load-more": "Load more",
+  // TODO New key - Add a translation
+  "dynamic-list.load-more": "Load more",
+
+  // "dropdown.clear": "Clear selection",
+  // TODO New key - Add a translation
+  "dropdown.clear": "Clear selection",
+
+  // "dropdown.clear.tooltip": "Clear the selected option",
+  // TODO New key - Add a translation
+  "dropdown.clear.tooltip": "Clear the selected option",
 
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Nimetön",
@@ -2322,6 +2519,10 @@
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Virhe viimeksi lisättyjä julkaisuja noudettaessa",
 
+  // "error.profile-groups": "Error retrieving profile groups",
+  // TODO New key - Add a translation
+  "error.profile-groups": "Error retrieving profile groups",
+
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Virhe hakutuloksia noudettaessa",
 
@@ -2352,10 +2553,12 @@
   // "error.validation.required": "This field is required",
   "error.validation.required": "Kenttä on pakollinen",
 
-  // "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  // "error.validation.NotValidEmail": "This is not a valid email",
+  // TODO Source message changed - Revise the translation
   "error.validation.NotValidEmail": "Sähköpostiosoite ei ole toimiva sähköpostiosoite.",
 
-  // "error.validation.emailTaken": "This E-mail is already taken",
+  // "error.validation.emailTaken": "This email is already taken",
+  // TODO Source message changed - Revise the translation
   "error.validation.emailTaken": "Sähköpostiosoite on jo käytössä",
 
   // "error.validation.groupExists": "This group already exists",
@@ -2385,11 +2588,19 @@
   // "feed.description": "Syndication feed",
   "feed.description": "Jakelusyöte",
 
+  // "file-download-link.restricted": "Restricted bitstream",
+  // TODO New key - Add a translation
+  "file-download-link.restricted": "Restricted bitstream",
+
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Virhe tietueen tiedostoja noudettaessa",
 
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "tekijänoikeus © 2002-{{ year }}",
+
+  // "footer.link.accessibility": "Accessibility settings",
+  // TODO New key - Add a translation
+  "footer.link.accessibility": "Accessibility settings",
 
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "DSpace-ohjelmisto",
@@ -2439,8 +2650,9 @@
   // "forgot-email.form.error.head": "Error when trying to reset password",
   "forgot-email.form.error.head": "Virhe salasanaa nollattaessa",
 
-  // "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
-  "forgot-email.form.error.content": "Virhe nollattaessa tähän sähköpostiosoitteeseen liittyvän tilin salasanaa {{ email }}",
+  // "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  // TODO New key - Add a translation
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "Unohtunut salasana",
@@ -2466,7 +2678,8 @@
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
   "forgot-password.form.label.passwordrepeat": "Kirjoita uudelleen vahvistaaksesi",
 
-  // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
+  // TODO Source message changed - Revise the translation
   "forgot-password.form.error.empty-password": "Syötä salasana alla olevaan kenttään",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
@@ -2585,6 +2798,26 @@
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Pudota tietue uuteen paikkaan",
+
+  // "form.number-picker.decrement": "Decrement {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  // "form.number-picker.increment": "Increment {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.increment": "Increment {{field}}",
+
+  // "form.date-picker.placeholder.year": "Year",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.year": "Year",
+
+  // "form.date-picker.placeholder.month": "Month",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.month": "Month",
+
+  // "form.date-picker.placeholder.day": "Day",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.day": "Day",
 
   // "grant-deny-request-copy.deny": "Don't send copy",
   "grant-deny-request-copy.deny": "Älä lähetä kopiota",
@@ -2724,6 +2957,82 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Valitse yhteisö, jonka kokoelmia haluat selata.",
 
+  // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  // "info.accessibility-settings.reset": "Reset accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  // "info.accessibility-settings.submit": "Save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  // "info.accessibility-settings.title": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.title": "Accessibility settings",
+
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Olen lukenut ja hyväksyn käyttöoikeussopimuksen",
 
@@ -2796,7 +3105,8 @@
   // "info.feedback.page-label": "Page",
   "info.feedback.page-label": "Sivu",
 
-  // "info.feedback.page_help": "Tha page related to your feedback",
+  // "info.feedback.page_help": "The page related to your feedback",
+  // TODO Source message changed - Revise the translation
   "info.feedback.page_help": "Sivu, johon palautteesi kohdistuu",
 
   // "item.alerts.private": "This item is non-discoverable",
@@ -2810,6 +3120,10 @@
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Muokkaa tietuekäytäntöjä",
+
+  // "item.badge.status": "Item status:",
+  // TODO New key - Add a translation
+  "item.badge.status": "Item status:",
 
   // "item.badge.private": "Non-discoverable",
   "item.badge.private": "Yksityinen",
@@ -2865,6 +3179,14 @@
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "NIPPU: {{ name }}",
 
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   // "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.discard-button": "Hylkää",
 
@@ -2883,8 +3205,32 @@
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
   "item.edit.bitstreams.edit.buttons.undo": "Kumoa muutokset",
 
+  // "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  // "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  // "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty": "Tietueeseen ei liity tiedostoja. Valitse latauspainike luodaksesi tiedoston.",
+
+  // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Toiminnot",
@@ -2939,6 +3285,10 @@
 
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Lataa",
+
+  // "item.edit.bitstreams.load-more.link": "Load more",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Peruuta",
@@ -3096,6 +3446,14 @@
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Hylkää",
 
+  // "item.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.language": "Edit language",
+
+  // "item.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.value": "Edit value",
+
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "Vahvista",
 
@@ -3131,6 +3489,10 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Arvo",
+
+  // "item.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "item.edit.metadata.metadatafield": "Edit field",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   "item.edit.metadata.metadatafield.error": "Virhe validoitaessa metadatakenttää",
@@ -3206,6 +3568,10 @@
 
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
   "item.edit.move.inheritpolicies.description": "Peri kohdekokoelman oletuskäytännöt",
+
+  // "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+  // TODO New key - Add a translation
+  "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
 
   // "item.edit.move.move": "Move",
   "item.edit.move.move": "Siirrä",
@@ -3338,6 +3704,14 @@
 
   // "item.edit.curate.title": "Curate Item: {{item}}",
   "item.edit.curate.title": "Kuratoi tietuetta: {{item}}",
+
+  // "item.edit.tabs.access-control.head": "Access Control",
+  // TODO New key - Add a translation
+  "item.edit.tabs.access-control.head": "Access Control",
+
+  // "item.edit.tabs.access-control.title": "Item Edit - Access Control",
+  // TODO New key - Add a translation
+  "item.edit.tabs.access-control.title": "Item Edit - Access Control",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Tietueen metadata",
@@ -3618,7 +3992,8 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Luo uusi versio",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.page.version.hasDraft": "Uutta versiota ei voida luoda, koska versiohistoriassa on kesken oleva tallennus.",
 
   // "item.page.claim.button": "Claim",
@@ -3660,6 +4035,22 @@
   // "item.preview.oaire.citation.volume": "Volume",
   "item.preview.oaire.citation.volume": "Vuosikerta",
 
+  // "item.preview.dc.relation.hasversion": "Has version",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  // "item.preview.dc.relation.ispartofseries": "Is part of series",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  // "item.preview.dc.rights": "Rights",
+  // TODO New key - Add a translation
+  "item.preview.dc.rights": "Rights",
+
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.identifier.other": "Muu tunnus:",
+
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN-tunnus",
 
@@ -3669,7 +4060,8 @@
   // "item.preview.dc.identifier": "Identifier:",
   "item.preview.dc.identifier": "Tunnisteet:",
 
-  // "item.preview.dc.relation.ispartof": "Journal or Serie",
+  // "item.preview.dc.relation.ispartof": "Journal or Series",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.relation.ispartof": "Kausijulkaisu tai sarja",
 
   // "item.preview.dc.identifier.doi": "DOI",
@@ -3710,6 +4102,18 @@
 
   // "item.select.empty": "No items to show",
   "item.select.empty": "Ei tietueita",
+
+  // "item.select.table.selected": "Selected items",
+  // TODO New key - Add a translation
+  "item.select.table.selected": "Selected items",
+
+  // "item.select.table.select": "Select item",
+  // TODO New key - Add a translation
+  "item.select.table.select": "Select item",
+
+  // "item.select.table.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "item.select.table.deselect": "Deselect item",
 
   // "item.select.table.author": "Author",
   "item.select.table.author": "Tekijä",
@@ -3777,7 +4181,8 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Poista versio",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.version.history.table.action.hasDraft": "Uutta versiota ei voida luoda, koska versiohistoriassa on kesken oleva tallennus.",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -3822,7 +4227,8 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "Uutta versiota ei luotu",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.version.create.notification.inProgress": "Uutta versiota ei voida luoda, koska versiohistoriassa on kesken oleva tallennus.",
 
   // "item.version.delete.modal.header": "Delete version",
@@ -3861,6 +4267,14 @@
   // "itemtemplate.edit.metadata.discard-button": "Discard",
   "itemtemplate.edit.metadata.discard-button": "Hylkää",
 
+  // "itemtemplate.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  // "itemtemplate.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
+
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Vahvista",
 
@@ -3893,6 +4307,10 @@
 
   // "itemtemplate.edit.metadata.headers.value": "Value",
   "itemtemplate.edit.metadata.headers.value": "Arvo",
+
+  // "itemtemplate.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   "itemtemplate.edit.metadata.metadatafield.error": "Virhe metadatakenttää validoitaessa",
@@ -4110,9 +4528,6 @@
   // "login.form.new-user": "New user? Click here to register.",
   "login.form.new-user": "Uusi käyttäjä? Rekisteröidy tästä.",
 
-  // "login.form.or-divider": "or",
-  "login.form.or-divider": "tai",
-
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Kirjaudu OIDC-tunnuksella",
 
@@ -4143,6 +4558,10 @@
   // "logout.title": "Logout",
   "logout.title": "Uloskirjautuminen",
 
+  // "menu.header.nav.description": "Admin navigation bar",
+  // TODO New key - Add a translation
+  "menu.header.nav.description": "Admin navigation bar",
+
   // "menu.header.admin": "Management",
   "menu.header.admin": "Hallinto",
 
@@ -4157,6 +4576,10 @@
 
   // "menu.section.access_control_authorizations": "Authorizations",
   "menu.section.access_control_authorizations": "Käyttöoikeudet",
+
+  // "menu.section.access_control_bulk": "Bulk Access Management",
+  // TODO New key - Add a translation
+  "menu.section.access_control_bulk": "Bulk Access Management",
 
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "Ryhmät",
@@ -4193,6 +4616,10 @@
 
   // "menu.section.browse_global_by_srsc": "By Subject Category",
   "menu.section.browse_global_by_srsc": "Aihekategorian mukaan",
+
+  // "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
+  // TODO New key - Add a translation
+  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Nimekkeen mukaan",
@@ -4458,20 +4885,27 @@
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Ei nimikettä",
 
-  // "mydspace.results.no-uri": "No Uri",
+  // "mydspace.results.no-uri": "No URI",
+  // TODO Source message changed - Revise the translation
   "mydspace.results.no-uri": "Ei URL-osoitetta",
 
-  // "mydspace.search-form.placeholder": "Search in mydspace...",
+  // "mydspace.search-form.placeholder": "Search in MyDSpace...",
+  // TODO Source message changed - Revise the translation
   "mydspace.search-form.placeholder": "Hae omasta DSpacesta...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   "mydspace.show.workflow": "Työnkulun tehtävät",
 
-  // "mydspace.show.workspace": "Your Submissions",
+  // "mydspace.show.workspace": "Your submissions",
+  // TODO Source message changed - Revise the translation
   "mydspace.show.workspace": "Tallennuksesi",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Valvotut tietueet",
+
+  // "mydspace.status": "My DSpace status:",
+  // TODO New key - Add a translation
+  "mydspace.status": "My DSpace status:",
 
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Arkistoitu",
@@ -4506,6 +4940,10 @@
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Näytä",
 
+  // "nav.expandable-navbar-section-suffix": "(submenu)",
+  // TODO New key - Add a translation
+  "nav.expandable-navbar-section-suffix": "(submenu)",
+
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Koko julkaisuarkisto",
 
@@ -4521,7 +4959,8 @@
   // "nav.login": "Log In",
   "nav.login": "Kirjaudu sisään",
 
-  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  // "nav.user-profile-menu-and-logout": "User profile menu and log out",
+  // TODO Source message changed - Revise the translation
   "nav.user-profile-menu-and-logout": "Käyttäjäprofiilivalikko ja uloskirjautuminen",
 
   // "nav.logout": "Log Out",
@@ -4557,6 +4996,10 @@
   // "nav.user.description": "User profile bar",
   "nav.user.description": "Käyttäjäprofiilipalkki",
 
+  // "listelement.badge.dso-type": "Item type:",
+  // TODO New key - Add a translation
+  "listelement.badge.dso-type": "Item type:",
+
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Tietue",
 
@@ -4586,6 +5029,10 @@
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Organisaatioyksikkö: ",
+
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  // TODO New key - Add a translation
+  "orgunit.search.results.head": "Organizational Unit Search Results",
 
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Sivutusvaihtoehdot",
@@ -4652,6 +5099,22 @@
 
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Parametrit",
+
+  // "process.new.select-parameter": "Select parameter",
+  // TODO New key - Add a translation
+  "process.new.select-parameter": "Select parameter",
+
+  // "process.new.add-parameter": "Add a parameter...",
+  // TODO New key - Add a translation
+  "process.new.add-parameter": "Add a parameter...",
+
+  // "process.new.delete-parameter": "Delete parameter",
+  // TODO New key - Add a translation
+  "process.new.delete-parameter": "Delete parameter",
+
+  // "process.new.parameter.label": "Parameter value",
+  // TODO New key - Add a translation
+  "process.new.parameter.label": "Parameter value",
 
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Peruuta",
@@ -4812,6 +5275,10 @@
   // "process.overview.delete": "Delete {{count}} processes",
   "process.overview.delete": "Poista {{count}} prosessi(a)",
 
+  // "process.overview.delete-process": "Delete process",
+  // TODO New key - Add a translation
+  "process.overview.delete-process": "Delete process",
+
   // "process.overview.delete.clear": "Clear delete selection",
   "process.overview.delete.clear": "Tyhjennä poistettavien valinta",
 
@@ -4836,6 +5303,18 @@
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Päivitä profiili",
 
+  // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  // "profile.card.accessibility.header": "Accessibility",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.header": "Accessibility",
+
+  // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Tunnistaudu",
 
@@ -4850,9 +5329,6 @@
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
   "profile.special.groups.head": "Erityiset käyttöoikeusryhmät, joihin kuulut",
-
-  // "profile.head": "Update Profile",
-  "profile.head": "Päivitä profiili",
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "Etunimi on pakollinen",
@@ -5100,8 +5576,9 @@
   // "register-page.registration.error.head": "Error when trying to register email",
   "register-page.registration.error.head": "Virhe sähköpostiosoitetta rekisteröitäessä",
 
-  // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  "register-page.registration.error.content": "Virhe rekisteröitäessä tätä sähköpostiosoitetta: {{ email }}",
+  // "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
+  // TODO New key - Add a translation
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
   "register-page.registration.error.recaptcha": "Virhe autentikoitaessa recaptcha-toiminnolla",
@@ -5316,7 +5793,7 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nimi",
 
-  //"resource-policies.form.name.hint": "Max 30 characters",
+  // "resource-policies.form.name.hint": "Max 30 characters",
   "resource-policies.form.name.hint": "Enintään 30 merkkiä",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
@@ -5349,6 +5826,22 @@
   // "resource-policies.table.headers.group": "Group",
   "resource-policies.table.headers.group": "Ryhmä",
 
+  // "resource-policies.table.headers.select-all": "Select all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select-all": "Select all",
+
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  // "resource-policies.table.headers.select": "Select",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select": "Select",
+
+  // "resource-policies.table.headers.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect": "Deselect",
+
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
 
@@ -5373,6 +5866,10 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Kokoelmakäytännöt",
 
+  // "root.skip-to-content": "Skip to main content",
+  // TODO New key - Add a translation
+  "root.skip-to-content": "Skip to main content",
+
   // "search.description": "",
   "search.description": "",
 
@@ -5387,6 +5884,10 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "Hae julkaisuarkistosta ...",
+
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  // TODO New key - Add a translation
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Tekijä",
@@ -5465,6 +5966,14 @@
 
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   "search.filters.filter.creativeDatePublished.label": "Hae julkaisuaikaa",
+
+  // "search.filters.filter.creativeDatePublished.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  // "search.filters.filter.creativeDatePublished.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.max.label": "End",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Toimittaja",
@@ -5676,6 +6185,26 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Kyllä",
 
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Archived": "Archived",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Validation": "Validation",
+
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Workflow": "Workflow",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.Workspace": "Workspace",
+
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Kyllä",
 
@@ -5754,6 +6283,14 @@
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Näytä luettelona",
 
+  // "selectable-list-item-control.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  // "selectable-list-item-control.select": "Select item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.select": "Select item",
+
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Laskeva",
 
@@ -5789,6 +6326,30 @@
 
   // "sorting.lastModified.DESC": "Last modified Descending",
   "sorting.lastModified.DESC": "Viimeksi muokattu laskeva",
+
+  // "sorting.person.familyName.ASC": "Surname Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  // "sorting.person.familyName.DESC": "Surname Descending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  // "sorting.person.givenName.ASC": "Name Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  // "sorting.person.givenName.DESC": "Name Descending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  // "sorting.person.birthDate.ASC": "Birth Date Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  // "sorting.person.birthDate.DESC": "Birth Date Descending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
 
   // "statistics.title": "Statistics",
   "statistics.title": "Tilastot",
@@ -6207,6 +6768,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Paikalliset kausijulkaisun numerot ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Paikalliset kausijulkaisun vuosikerrat ({{ count }})",
 
@@ -6276,6 +6841,10 @@
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Kausijulkaisun numerot",
 
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Kausijulkaisun vuosikerrat",
 
@@ -6335,6 +6904,10 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Valitut kausijulkaisut",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Valittu kausijulkaisun vuosikerta",
@@ -6476,6 +7049,10 @@
 
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "Ei kokoelmia",
+
+  // "submission.sections.general.no-entity": "No entity types found",
+  // TODO New key - Add a translation
+  "submission.sections.general.no-entity": "No entity types found",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Ei vaihtoehtoja",
@@ -6948,6 +7525,10 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Tilaa",
 
+  // "subscriptions.unsubscribe": "Unsubscribe",
+  // TODO New key - Add a translation
+  "subscriptions.unsubscribe": "Unsubscribe",
+
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Tilaukset",
 
@@ -7061,6 +7642,10 @@
 
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "Hae",
+
+  // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Ei tietueita",
@@ -7632,6 +8217,14 @@
   // "person.orcid.registry.auth": "ORCID Authorizations",
   "person.orcid.registry.auth": "ORCID-käyttöoikeudet",
 
+  // "person.orcid-tooltip.authenticated": "{{orcid}}",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  // "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Viimeksi tallennetut",
 
@@ -7686,6 +8279,10 @@
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
   "system-wide-alert.form.label.countdownTo.hint": "Vinkki: Aseta lähtölaskennan ajastin. Kun se on käytössä, voidaan päivämäärä asettaa tulevaisuuteen,  jolloin  järjestelmänlaajuinen hälytysbanneri suorittaa lähtölaskennan asetettuun päivämäärään. Kun ajastin päättyy, hälytys katoaa. Palvelinta EI pysäytetä automaattisesti.",
 
+  // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  // TODO New key - Add a translation
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Järjestelmänlaajuisen hälytyksen esikatselu",
 
@@ -7706,5 +8303,182 @@
 
   // "admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Järjestelmänlaajuiset hälytykset",
+
+  // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  // TODO New key - Add a translation
+  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+
+  // "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  // TODO New key - Add a translation
+  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  // "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  // TODO New key - Add a translation
+  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  // "access-control-item-header-toggle": "Item's Metadata",
+  // TODO New key - Add a translation
+  "access-control-item-header-toggle": "Item's Metadata",
+
+  // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+
+  // "access-control-bitstream-header-toggle": "Bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-header-toggle": "Bitstreams",
+
+  // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+
+  // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+
+  // "access-control-mode": "Mode",
+  // TODO New key - Add a translation
+  "access-control-mode": "Mode",
+
+  // "access-control-access-conditions": "Access conditions",
+  // TODO New key - Add a translation
+  "access-control-access-conditions": "Access conditions",
+
+  // "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+  // TODO New key - Add a translation
+  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+
+  // "access-control-replace-all": "Replace access conditions",
+  // TODO New key - Add a translation
+  "access-control-replace-all": "Replace access conditions",
+
+  // "access-control-add-to-existing": "Add to existing ones",
+  // TODO New key - Add a translation
+  "access-control-add-to-existing": "Add to existing ones",
+
+  // "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  // TODO New key - Add a translation
+  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+
+  // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+  // TODO New key - Add a translation
+  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+
+  // "access-control-bitstreams-selected": "bitstreams selected",
+  // TODO New key - Add a translation
+  "access-control-bitstreams-selected": "bitstreams selected",
+
+  // "access-control-bitstreams-select": "Select bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstreams-select": "Select bitstreams",
+
+  // "access-control-cancel": "Cancel",
+  // TODO New key - Add a translation
+  "access-control-cancel": "Cancel",
+
+  // "access-control-execute": "Execute",
+  // TODO New key - Add a translation
+  "access-control-execute": "Execute",
+
+  // "access-control-add-more": "Add more",
+  // TODO New key - Add a translation
+  "access-control-add-more": "Add more",
+
+  // "access-control-remove": "Remove access condition",
+  // TODO New key - Add a translation
+  "access-control-remove": "Remove access condition",
+
+  // "access-control-select-bitstreams-modal.title": "Select bitstreams",
+  // TODO New key - Add a translation
+  "access-control-select-bitstreams-modal.title": "Select bitstreams",
+
+  // "access-control-select-bitstreams-modal.no-items": "No items to show.",
+  // TODO New key - Add a translation
+  "access-control-select-bitstreams-modal.no-items": "No items to show.",
+
+  // "access-control-select-bitstreams-modal.close": "Close",
+  // TODO New key - Add a translation
+  "access-control-select-bitstreams-modal.close": "Close",
+
+  // "access-control-option-label": "Access condition type",
+  // TODO New key - Add a translation
+  "access-control-option-label": "Access condition type",
+
+  // "access-control-option-note": "Choose an access condition to apply to selected objects.",
+  // TODO New key - Add a translation
+  "access-control-option-note": "Choose an access condition to apply to selected objects.",
+
+  // "access-control-option-start-date": "Grant access from",
+  // TODO New key - Add a translation
+  "access-control-option-start-date": "Grant access from",
+
+  // "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+  // TODO New key - Add a translation
+  "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+
+  // "access-control-option-end-date": "Grant access until",
+  // TODO New key - Add a translation
+  "access-control-option-end-date": "Grant access until",
+
+  // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+  // TODO New key - Add a translation
+  "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+
+  // "vocabulary-treeview.search.form.add": "Add",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.add": "Add",
+
+  // "process.overview.unknown.user": "Unknown",
+  // TODO New key - Add a translation
+  "process.overview.unknown.user": "Unknown",
+
+  // "browse.search-form.placeholder": "Search the repository",
+  // TODO New key - Add a translation
+  "browse.search-form.placeholder": "Search the repository",
+
+  // "file-download-link.download": "Download ",
+  // TODO New key - Add a translation
+  "file-download-link.download": "Download ",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  // TODO New key - Add a translation
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  // TODO New key - Add a translation
+  "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  // TODO New key - Add a translation
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  // "dynamic-form-array.sortable-list.label": "Sortable list",
+  // TODO New key - Add a translation
+  "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  // TODO New key - Add a translation
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
 
 }

@@ -26,7 +26,7 @@
                     />
                 </label>
             </div>
-            <button class="sr-only" type="submit">
+            <button class="sr-only" type="submit" role="button" tabindex="0">
                 {{'search.filters.search.submit' | translate}}
             </button>
         </form>
@@ -44,7 +44,7 @@
           <ds-search-facet-range-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-range-option>
           </div>
         </ng-container>
-        <button (click)="onSubmit()" class="btn btn-primary">
+        <button (click)="onSubmit()" class="btn btn-primary" role="button" tabindex="0">
           {{'search.filters.search.submit' | translate}}
         </button>
     </div>

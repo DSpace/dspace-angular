@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA } from '@angul
 
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { cold } from 'jasmine-marbles';
+import { hot } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
@@ -22,14 +22,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 
-describe('EpersonGroupListComponent test suite', () => {
+describe('EpersonGroupListComponent', () => {
   let comp: EpersonGroupListComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<EpersonGroupListComponent>;
-  let de;
   let groupService: any;
   let epersonService: any;
-  let paginationService;
+  let paginationService: PaginationServiceStub;
 
   const paginationOptions: PaginationComponentOptions = new PaginationComponentOptions();
   paginationOptions.id = uniqueId('eperson-group-list-pagination-test');
@@ -91,7 +90,6 @@ describe('EpersonGroupListComponent test suite', () => {
   }));
 
   describe('', () => {
-    let testComp: TestComponent;
     let testFixture: ComponentFixture<TestComponent>;
 
     // synchronous beforeEach
@@ -101,7 +99,6 @@ describe('EpersonGroupListComponent test suite', () => {
         <ds-eperson-group-list [isListOfEPerson]="isListOfEPerson" [initSelected]="initSelected"></ds-eperson-group-list>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
-      testComp = testFixture.componentInstance;
     });
 
     afterEach(() => {
@@ -129,7 +126,6 @@ describe('EpersonGroupListComponent test suite', () => {
     afterEach(() => {
       comp = null;
       compAsAny = null;
-      de = null;
       fixture.destroy();
     });
 
@@ -147,16 +143,15 @@ describe('EpersonGroupListComponent test suite', () => {
 
       fixture.detectChanges();
 
-      expect(compAsAny.entrySelectedId.value).toBe(EPersonMock.id);
+      expect(comp.entrySelectedId$.value).toBe(EPersonMock.id);
     });
 
     it('should init the list of eperson', () => {
       epersonService.searchByScope.and.returnValue(observableOf(epersonPaginatedListRD));
       fixture.detectChanges();
 
-      expect(compAsAny.list$.value).toEqual(epersonPaginatedListRD);
-      expect(comp.getList()).toBeObservable(cold('a', {
-        a: epersonPaginatedListRD
+      expect(comp.list$).toBeObservable(hot('(a|)', {
+        a: epersonPaginatedList,
       }));
     });
 
@@ -165,23 +160,13 @@ describe('EpersonGroupListComponent test suite', () => {
       comp.emitSelect(EPersonMock);
 
       expect(comp.select.emit).toHaveBeenCalled();
-      expect(compAsAny.entrySelectedId.value).toBe(EPersonMock.id);
+      expect(comp.entrySelectedId$.value).toBe(EPersonMock.id);
     });
 
-    it('should return true when entry is selected', () => {
-      compAsAny.entrySelectedId.next(EPersonMock.id);
+    it('should return the entrySelectedId$ value', () => {
+      comp.entrySelectedId$.next(EPersonMock.id);
 
-      expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: true
-      }));
-    });
-
-    it('should return false when entry is not selected', () => {
-      compAsAny.entrySelectedId.next('');
-
-      expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: false
-      }));
+      expect(comp.entrySelectedId$.value).toBe(EPersonMock.id);
     });
   });
 
@@ -199,7 +184,6 @@ describe('EpersonGroupListComponent test suite', () => {
     afterEach(() => {
       comp = null;
       compAsAny = null;
-      de = null;
       fixture.destroy();
     });
 
@@ -217,16 +201,15 @@ describe('EpersonGroupListComponent test suite', () => {
 
       fixture.detectChanges();
 
-      expect(compAsAny.entrySelectedId.value).toBe(GroupMock.id);
+      expect(comp.entrySelectedId$.value).toBe(GroupMock.id);
     });
 
     it('should init the list of group', () => {
       groupService.searchGroups.and.returnValue(observableOf(groupPaginatedListRD));
       fixture.detectChanges();
 
-      expect(compAsAny.list$.value).toEqual(groupPaginatedListRD);
-      expect(comp.getList()).toBeObservable(cold('a', {
-        a: groupPaginatedListRD
+      expect(comp.list$).toBeObservable(hot('(a|)', {
+        a: groupPaginatedList,
       }));
     });
 
@@ -235,27 +218,16 @@ describe('EpersonGroupListComponent test suite', () => {
       comp.emitSelect(GroupMock);
 
       expect(comp.select.emit).toHaveBeenCalled();
-      expect(compAsAny.entrySelectedId.value).toBe(GroupMock.id);
+      expect(comp.entrySelectedId$.value).toBe(GroupMock.id);
     });
 
-    it('should return true when entry is selected', () => {
-      compAsAny.entrySelectedId.next(EPersonMock.id);
+    it('should return the entrySelectedId$ value', () => {
+      comp.entrySelectedId$.next(GroupMock.id);
 
-      expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: true
-      }));
-    });
-
-    it('should return false when entry is not selected', () => {
-      compAsAny.entrySelectedId.next('');
-
-      expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: false
-      }));
+      expect(comp.entrySelectedId$.value).toBe(GroupMock.id);
     });
 
     it('should update list on search triggered', () => {
-      const options: PaginationComponentOptions = comp.paginationOptions;
       const event: SearchEvent = {
         scope: 'metadata',
         query: 'test'
@@ -263,7 +235,7 @@ describe('EpersonGroupListComponent test suite', () => {
       spyOn(comp, 'updateList');
       comp.onSearch(event);
 
-      expect(compAsAny.updateList).toHaveBeenCalledWith('metadata', 'test');
+      expect(comp.updateList).toHaveBeenCalledWith('metadata', 'test');
     });
   });
 });

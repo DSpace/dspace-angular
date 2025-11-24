@@ -27,6 +27,7 @@ import {
 import {
   SupervisionOrderStatusComponent
 } from './admin-workflow-search-results/actions/workspace-item/supervision-order-status/supervision-order-status.component';
+import { ThemedAdminWorkflowPageComponent } from './themed-admin-workflow-page.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -42,6 +43,7 @@ const ENTRY_COMPONENTS = [
     SharedModule.withEntryComponents()
   ],
   declarations: [
+    ThemedAdminWorkflowPageComponent,
     AdminWorkflowPageComponent,
     SupervisionOrderGroupSelectorComponent,
     SupervisionOrderStatusComponent,

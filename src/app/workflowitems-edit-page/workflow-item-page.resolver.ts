@@ -27,6 +27,7 @@ export class WorkflowItemPageResolver implements Resolve<RemoteData<WorkflowItem
       true,
       false,
       followLink('item'),
+      followLink('collection'),
     ).pipe(
       getFirstCompletedRemoteData(),
     );
