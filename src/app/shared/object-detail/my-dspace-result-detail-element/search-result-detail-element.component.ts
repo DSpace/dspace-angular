@@ -15,7 +15,6 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 @Component({
   selector: 'ds-search-result-detail-element',
   template: ``,
-  standalone: true,
 })
 export class SearchResultDetailElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
 

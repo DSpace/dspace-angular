@@ -274,7 +274,6 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     FormsModule,
     NgxPaginationModule,

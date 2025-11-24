@@ -32,7 +32,6 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
   imports: [
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**

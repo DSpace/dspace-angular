@@ -25,7 +25,6 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   selector: 'ds-advanced-claimed-task-action-rating-reviewer',
   templateUrl: './advanced-claimed-task-action-rating.component.html',
   styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
-  standalone: true,
   imports: [
     NgbTooltipModule,
     TranslateModule,
