@@ -14,7 +14,7 @@
           <span class="text-muted">
             <ds-truncatable-part [id]="item.id" [minLines]="1">
               (<span *ngIf="item.hasMetadata('dc.publisher')" class="item-list-publisher"
-                [innerHTML]="item.firstMetadataValue('dc.publisher') + ', '"></span>
+                [innerHTML]="item.firstMetadataValue('dc.publisher', undefined, true) + ', '"></span>
               <span class="item-list-date"
                 [innerHTML]="item.firstMetadataValue('dc.date.issued') || ('mydspace.results.no-date' | translate)"></span>)
               <span *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);"
@@ -23,7 +23,7 @@
                   *ngIf="item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors'
                  | translate}}</span>
                 <span
-                  *ngFor="let author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+                  *ngFor="let author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], undefined, true); let last=last;">
                   <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
                   <span *ngIf="!last">; </span>
                 </span>
@@ -33,7 +33,7 @@
           </span>
 
           <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
-            <span [ngClass]="{'text-muted': !item.firstMetadataValue('dc.description.abstract')}"
+            <span [ngClass]="{'text-muted': !item.hasMetadata('dc.description.abstract')}"
               [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
 
