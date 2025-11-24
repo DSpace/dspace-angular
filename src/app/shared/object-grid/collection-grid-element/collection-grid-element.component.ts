@@ -26,7 +26,6 @@ import { followLink } from '../../utils/follow-link-config.model';
   selector: 'ds-collection-grid-element',
   styleUrls: ['./collection-grid-element.component.scss'],
   templateUrl: './collection-grid-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

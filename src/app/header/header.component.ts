@@ -27,7 +27,6 @@ import { ContextHelpToggleComponent } from './context-help-toggle/context-help-t
   selector: 'ds-base-header',
   styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ContextHelpToggleComponent,

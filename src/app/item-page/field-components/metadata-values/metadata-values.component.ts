@@ -33,7 +33,6 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   selector: 'ds-metadata-values',
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MarkdownDirective,

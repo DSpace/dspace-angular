@@ -46,7 +46,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     ModifyItemOverviewComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class WorkspaceItemsDeletePageComponent implements OnInit {
 

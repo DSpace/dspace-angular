@@ -10,7 +10,6 @@ import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-re
   selector: 'ds-external-login-page',
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ExternalLoginReviewAccountInfoPageComponent,
   ],

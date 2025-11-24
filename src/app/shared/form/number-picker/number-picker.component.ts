@@ -36,7 +36,6 @@ import { isEmpty } from '../../empty.util';
     NgClass,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAccessor {

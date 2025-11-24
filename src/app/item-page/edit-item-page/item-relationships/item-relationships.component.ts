@@ -66,7 +66,6 @@ import { EditRelationshipListWrapperComponent } from './edit-relationship-list-w
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying an item's relationships edit page

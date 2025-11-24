@@ -230,7 +230,6 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

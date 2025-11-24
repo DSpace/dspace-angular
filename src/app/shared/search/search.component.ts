@@ -89,7 +89,6 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgTemplateOutlet,

@@ -43,7 +43,6 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   selector: 'ds-base-grant-request-copy',
   styleUrls: ['./grant-request-copy.component.scss'],
   templateUrl: './grant-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

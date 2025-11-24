@@ -82,7 +82,6 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 

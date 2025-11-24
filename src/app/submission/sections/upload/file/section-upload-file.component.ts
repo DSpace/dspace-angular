@@ -51,7 +51,6 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
     ThemedFileDownloadLinkComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
   /**

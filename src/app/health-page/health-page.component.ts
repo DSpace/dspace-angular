@@ -22,7 +22,6 @@ import {
   selector: 'ds-health-page',
   templateUrl: './health-page.component.html',
   styleUrls: ['./health-page.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

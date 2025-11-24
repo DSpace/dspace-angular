@@ -17,7 +17,6 @@ import { ThemedCollectionDropdownComponent } from '../../shared/collection-dropd
     ThemedCollectionDropdownComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class CollectionSelectorComponent {
 

@@ -15,7 +15,6 @@ import {
 @Component({
   selector: 'ds-eperson-data',
   templateUrl: './ePerson-data.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
   ],

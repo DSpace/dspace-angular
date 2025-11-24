@@ -17,7 +17,6 @@ import { hasValue } from '../empty.util';
 @Component({
   selector: 'ds-idle-modal',
   templateUrl: 'idle-modal.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

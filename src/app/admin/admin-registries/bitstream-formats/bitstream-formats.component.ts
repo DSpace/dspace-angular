@@ -42,7 +42,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 

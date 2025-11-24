@@ -15,7 +15,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   styleUrls: ['../../../../../app/request-copy/grant-request-copy/grant-request-copy.component.scss'],
   // templateUrl: './grant-request-copy.component.html',
   templateUrl: '../../../../../app/request-copy/grant-request-copy/grant-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

@@ -10,7 +10,6 @@ import { EditItemSelectorComponent } from './edit-item-selector.component';
   selector: 'ds-edit-item-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     EditItemSelectorComponent,
   ],

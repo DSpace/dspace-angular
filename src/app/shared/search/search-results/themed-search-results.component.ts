@@ -28,7 +28,6 @@ import {
   selector: 'ds-search-results',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     SearchResultsComponent,
   ],

@@ -18,7 +18,6 @@ import { LocaleService } from '../../core/locale/locale.service';
   selector: 'ds-base-lang-switch',
   styleUrls: ['lang-switch.component.scss'],
   templateUrl: 'lang-switch.component.html',
-  standalone: true,
   imports: [
     NgbDropdownModule,
     TranslateModule,

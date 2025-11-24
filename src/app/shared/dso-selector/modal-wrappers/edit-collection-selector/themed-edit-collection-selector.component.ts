@@ -10,7 +10,6 @@ import { EditCollectionSelectorComponent } from './edit-collection-selector.comp
   selector: 'ds-edit-collection-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     EditCollectionSelectorComponent,
   ],

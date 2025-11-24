@@ -10,7 +10,6 @@ import { DenyRequestCopyComponent } from './deny-request-copy.component';
   selector: 'ds-deny-request-copy',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     DenyRequestCopyComponent,
   ],

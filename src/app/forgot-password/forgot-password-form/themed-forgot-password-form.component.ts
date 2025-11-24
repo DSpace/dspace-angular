@@ -10,7 +10,6 @@ import { ForgotPasswordFormComponent } from './forgot-password-form.component';
   selector: 'ds-forgot-password-form',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ForgotPasswordFormComponent,
   ],

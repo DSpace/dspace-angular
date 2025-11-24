@@ -46,7 +46,6 @@ import {
   selector: 'ds-quality-assurance-source',
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

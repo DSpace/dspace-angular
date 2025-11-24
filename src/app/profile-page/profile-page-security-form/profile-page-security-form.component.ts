@@ -38,7 +38,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     FormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to edit their security information

@@ -15,7 +15,6 @@ import { MetadataValue } from '../../core/shared/metadata.models';
  */
 @Component({
   selector: 'ds-orcid-badge-and-tooltip',
-  standalone: true,
   imports: [
     NgbTooltipModule,
     NgClass,

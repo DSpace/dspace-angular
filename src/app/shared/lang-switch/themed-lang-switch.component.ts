@@ -10,7 +10,6 @@ import { LangSwitchComponent } from './lang-switch.component';
   selector: 'ds-lang-switch',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     LangSwitchComponent,
   ],

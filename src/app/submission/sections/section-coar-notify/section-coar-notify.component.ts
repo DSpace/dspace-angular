@@ -55,7 +55,6 @@ import { LdnPattern } from './submission-coar-notify.config';
   selector: 'ds-submission-section-coar-notify',
   templateUrl: './section-coar-notify.component.html',
   styleUrls: ['./section-coar-notify.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     InfiniteScrollModule,

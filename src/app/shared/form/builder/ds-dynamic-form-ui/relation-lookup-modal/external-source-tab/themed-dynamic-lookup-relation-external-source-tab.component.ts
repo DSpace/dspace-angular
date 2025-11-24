@@ -18,7 +18,6 @@ import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-loo
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     DsDynamicLookupRelationExternalSourceTabComponent,
   ],

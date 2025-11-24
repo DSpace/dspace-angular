@@ -76,7 +76,6 @@ import { EPersonFormComponent } from './eperson-form/eperson-form.component';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing epeople within the repository.

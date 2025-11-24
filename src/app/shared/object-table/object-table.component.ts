@@ -41,7 +41,6 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 /**

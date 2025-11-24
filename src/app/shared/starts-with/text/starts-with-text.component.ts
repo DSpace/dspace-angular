@@ -15,7 +15,6 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
   selector: 'ds-starts-with-text',
   styleUrls: ['./starts-with-text.component.scss'],
   templateUrl: './starts-with-text.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,

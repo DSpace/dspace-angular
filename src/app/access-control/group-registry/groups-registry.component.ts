@@ -82,7 +82,6 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing groups within the repository.

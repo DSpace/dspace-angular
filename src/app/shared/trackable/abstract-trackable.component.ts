@@ -15,7 +15,6 @@ import { NotificationsService } from '../notifications/notifications.service';
 @Component({
   selector: 'ds-abstract-trackable',
   template: '',
-  standalone: true,
 })
 export class AbstractTrackableComponent implements OnInit {
 

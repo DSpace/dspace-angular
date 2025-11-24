@@ -29,7 +29,6 @@ const QUERY = 'test query';
   imports: [
     ConfigurationSearchPageComponent,
   ],
-  standalone: true,
 })
 class HostComponent {
   @ViewChild('configurationSearchPage') configurationSearchPage: ConfigurationSearchPageComponent;

@@ -7,7 +7,6 @@ import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
   selector: 'ds-edit-bitstream-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     EditBitstreamPageComponent,
   ],

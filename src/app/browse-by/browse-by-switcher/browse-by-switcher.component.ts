@@ -22,7 +22,6 @@ import { getComponentByBrowseByType } from './browse-by-decorator';
     DynamicComponentLoaderDirective,
     NgComponentOutlet,
   ],
-  standalone: true,
 })
 export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {
 

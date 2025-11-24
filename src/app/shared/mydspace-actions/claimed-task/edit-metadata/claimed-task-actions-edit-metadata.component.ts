@@ -24,7 +24,6 @@ export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
   selector: 'ds-claimed-task-actions-edit-metadata',
   styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
   templateUrl: './claimed-task-actions-edit-metadata.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

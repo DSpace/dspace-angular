@@ -8,7 +8,6 @@ import { CommunityListComponent } from './community-list.component';
   selector: 'ds-community-list',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CommunityListComponent,
   ],

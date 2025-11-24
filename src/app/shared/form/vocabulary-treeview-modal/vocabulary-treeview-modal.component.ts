@@ -23,7 +23,6 @@ import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-t
     TranslateModule,
     VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent

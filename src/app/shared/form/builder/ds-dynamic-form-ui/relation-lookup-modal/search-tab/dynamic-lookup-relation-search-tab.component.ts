@@ -59,7 +59,6 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 
 /**

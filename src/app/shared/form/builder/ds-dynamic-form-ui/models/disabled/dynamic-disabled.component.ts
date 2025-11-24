@@ -25,7 +25,6 @@ import { DynamicDisabledModel } from './dynamic-disabled.model';
     BtnDisabledDirective,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying a form input with a disabled property

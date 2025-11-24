@@ -21,7 +21,6 @@ import { ResourcePoliciesComponent } from '../../../shared/resource-policies/res
     AsyncPipe,
     ResourcePoliciesComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that handles the Collection Authorizations

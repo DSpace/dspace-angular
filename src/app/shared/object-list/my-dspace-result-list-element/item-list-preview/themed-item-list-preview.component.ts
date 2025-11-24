@@ -17,7 +17,6 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
   selector: 'ds-item-list-preview',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ItemListPreviewComponent,
   ],

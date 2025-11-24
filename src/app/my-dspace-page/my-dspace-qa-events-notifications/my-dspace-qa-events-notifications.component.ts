@@ -31,7 +31,6 @@ import {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 

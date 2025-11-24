@@ -20,7 +20,6 @@ import { SidebarDropdownComponent } from '../../../../../../app/shared/sidebar/s
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     FormsModule,
     PageSizeSelectorComponent,

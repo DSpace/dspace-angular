@@ -21,7 +21,6 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
   animations: [
     fadeIn,
   ],
-  standalone: true,
   imports: [
     TranslateModule,
   ],

@@ -15,7 +15,6 @@ import { ServerResponseService } from '../core/services/server-response.service'
   selector: 'ds-base-forbidden',
   templateUrl: './forbidden.component.html',
   styleUrls: ['./forbidden.component.scss'],
-  standalone: true,
   imports: [
     RouterLink,
     TranslateModule,

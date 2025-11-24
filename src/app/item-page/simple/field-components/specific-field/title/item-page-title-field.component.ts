@@ -11,7 +11,6 @@ import { Item } from '../../../../../core/shared/item.model';
 @Component({
   selector: 'ds-base-item-page-title-field',
   templateUrl: './item-page-title-field.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

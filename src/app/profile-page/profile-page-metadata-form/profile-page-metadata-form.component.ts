@@ -36,7 +36,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to edit their metadata

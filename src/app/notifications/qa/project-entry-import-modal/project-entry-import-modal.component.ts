@@ -102,7 +102,6 @@ export interface QualityAssuranceEventData {
   selector: 'ds-project-entry-import-modal',
   styleUrls: ['./project-entry-import-modal.component.scss'],
   templateUrl: './project-entry-import-modal.component.html',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

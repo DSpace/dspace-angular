@@ -23,7 +23,6 @@ _______
 ```typescript
 @Component({
   selector: 'ds-something',
-  standalone: true,
 })
 class Something {
 }
@@ -35,7 +34,6 @@ class Something {
 ```typescript
 @Component({
   selector: 'ds-base-test-themable',
-  standalone: true,
 })
 class TestThemeableComponent {
 }
@@ -49,7 +47,6 @@ Filename: `lint/test/fixture/src/app/test/themed-test-themeable.component.ts`
 ```typescript
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [
     TestThemeableComponent,
   ],
@@ -66,7 +63,6 @@ Filename: `lint/test/fixture/src/themes/test/app/test/test-themeable.component.t
 ```typescript
 @Component({
   selector: 'ds-themed-test-themable',
-  standalone: true,
 })
 class Override extends BaseComponent {
 }
@@ -99,7 +95,6 @@ Result of `yarn lint --fix`:
 ```typescript
 @Component({
   selector: 'ds-base-test-themable',
-  standalone: true,
 })
 class TestThemeableComponent {
 }
@@ -129,7 +124,6 @@ Result of `yarn lint --fix`:
 ```typescript
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -144,7 +138,6 @@ Filename: `lint/test/fixture/src/app/test/themed-test-themeable.component.ts`
 ```typescript
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -162,7 +155,6 @@ Result of `yarn lint --fix`:
 ```typescript
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -179,7 +171,6 @@ import { SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [
     SomethingElse,
   ],
@@ -201,7 +192,6 @@ import { SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -218,7 +208,6 @@ import { Something, SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [
     SomethingElse,
   ],
@@ -240,7 +229,6 @@ import { Something, SomethingElse } from './somewhere-else';
 
 @Component({
   selector: 'ds-test-themable',
-  standalone: true,
   imports: [TestThemeableComponent],
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
@@ -271,7 +259,6 @@ Result of `yarn lint --fix`:
 ```typescript
 @Component({
   selector: 'ds-themed-test-themable',
-  standalone: true,
 })
 class Override extends BaseComponent {
 }

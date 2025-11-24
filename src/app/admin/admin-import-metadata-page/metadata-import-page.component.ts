@@ -28,7 +28,6 @@ import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzo
     FormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 /**

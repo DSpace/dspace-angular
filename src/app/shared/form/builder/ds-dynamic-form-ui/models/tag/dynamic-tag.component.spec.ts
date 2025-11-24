@@ -310,7 +310,6 @@ describe('DsDynamicTagComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [DynamicFormsCoreModule,
     DynamicFormsNGBootstrapUIModule,
     FormsModule,

@@ -47,7 +47,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     TranslateModule,
     UiSwitchModule,
   ],
-  standalone: true,
 })
 export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
   // Redeclared for use in template

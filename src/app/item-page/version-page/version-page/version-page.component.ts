@@ -29,7 +29,6 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
   selector: 'ds-version-page',
   templateUrl: './version-page.component.html',
   styleUrls: ['./version-page.component.scss'],
-  standalone: true,
 })
 export class VersionPageComponent implements OnInit {
 

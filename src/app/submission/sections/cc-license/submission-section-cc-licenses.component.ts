@@ -75,7 +75,6 @@ import { SectionsType } from '../sections-type';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
 

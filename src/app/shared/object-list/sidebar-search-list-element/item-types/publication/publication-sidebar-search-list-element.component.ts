@@ -20,7 +20,6 @@ import { SidebarSearchListElementComponent } from '../../sidebar-search-list-ele
 @Component({
   selector: 'ds-publication-sidebar-search-list-element',
   templateUrl: '../../sidebar-search-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

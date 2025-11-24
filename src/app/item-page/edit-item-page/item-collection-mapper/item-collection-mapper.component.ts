@@ -78,7 +78,6 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     ThemedSearchFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for mapping collections to an item

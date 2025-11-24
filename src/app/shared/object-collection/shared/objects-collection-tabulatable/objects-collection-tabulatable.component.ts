@@ -15,7 +15,6 @@ import { ListableObject } from '../listable-object.model';
 @Component({
   selector: 'ds-objects-collection-tabulatable',
   template: ``,
-  standalone: true,
 })
 
 /**

@@ -7,7 +7,6 @@ import { ItemStatusComponent } from './item-status.component';
   selector: 'ds-item-status',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ItemStatusComponent,
   ],

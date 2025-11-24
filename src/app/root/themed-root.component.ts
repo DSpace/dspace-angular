@@ -10,7 +10,6 @@ import { RootComponent } from './root.component';
   selector: 'ds-root',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     RootComponent,
   ],

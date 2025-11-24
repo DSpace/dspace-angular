@@ -29,7 +29,6 @@ export interface SourceObject {
   selector: 'ds-source-list',
   templateUrl: './source-list.component.html',
   styleUrls: ['./source-list.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

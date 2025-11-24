@@ -47,7 +47,6 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

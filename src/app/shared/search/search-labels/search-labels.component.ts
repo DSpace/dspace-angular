@@ -19,7 +19,6 @@ import { SearchLabelLoaderComponent } from './search-label-loader/search-label-l
   selector: 'ds-search-labels',
   styleUrls: ['./search-labels.component.scss'],
   templateUrl: './search-labels.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     KeyValuePipe,

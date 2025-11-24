@@ -37,7 +37,6 @@ import { SectionsService } from '../sections.service';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent implements OnInit {

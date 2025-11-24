@@ -37,7 +37,6 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     DatePipe,

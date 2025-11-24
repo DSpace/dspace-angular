@@ -80,7 +80,6 @@ import { SectionAccessesService } from './section-accesses.service';
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
 export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 

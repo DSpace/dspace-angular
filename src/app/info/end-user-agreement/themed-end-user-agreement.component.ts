@@ -10,7 +10,6 @@ import { EndUserAgreementComponent } from './end-user-agreement.component';
   selector: 'ds-end-user-agreement',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     EndUserAgreementComponent,
   ],

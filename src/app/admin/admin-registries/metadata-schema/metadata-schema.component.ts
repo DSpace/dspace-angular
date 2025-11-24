@@ -60,7 +60,6 @@ import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.

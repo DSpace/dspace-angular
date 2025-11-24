@@ -83,7 +83,6 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
     UploaderComponent,
     VarDirective,
   ],
-  standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 

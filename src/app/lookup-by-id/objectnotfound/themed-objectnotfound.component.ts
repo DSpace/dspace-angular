@@ -10,7 +10,6 @@ import { ObjectNotFoundComponent } from './objectnotfound.component';
   selector: 'ds-objnotfound',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     ObjectNotFoundComponent,
   ],

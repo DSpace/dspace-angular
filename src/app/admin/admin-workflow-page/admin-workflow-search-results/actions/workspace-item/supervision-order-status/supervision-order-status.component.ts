@@ -37,7 +37,6 @@ export interface SupervisionOrderListEntry {
   selector: 'ds-supervision-order-status',
   templateUrl: './supervision-order-status.component.html',
   styleUrls: ['./supervision-order-status.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

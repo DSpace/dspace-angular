@@ -46,7 +46,6 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
     GeospatialMapComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component displaying a large 'browse map', which is really a geolocation few of the 'point' facet defined

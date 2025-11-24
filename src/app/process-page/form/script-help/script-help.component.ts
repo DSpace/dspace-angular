@@ -15,7 +15,6 @@ import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
   selector: 'ds-script-help',
   templateUrl: './script-help.component.html',
   styleUrls: ['./script-help.component.scss'],
-  standalone: true,
   imports: [
     NgTemplateOutlet,
     TranslateModule,

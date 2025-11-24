@@ -17,7 +17,6 @@ import { UsageReport } from '../../core/statistics/models/usage-report.model';
   selector: 'ds-statistics-table',
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     TranslateModule,

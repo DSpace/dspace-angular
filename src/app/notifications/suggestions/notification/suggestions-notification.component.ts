@@ -17,7 +17,6 @@ import { SuggestionTargetsStateService } from '../targets/suggestion-targets.sta
 @Component({
   selector: 'ds-suggestions-notification',
   templateUrl: './suggestions-notification.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

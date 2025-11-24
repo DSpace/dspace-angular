@@ -36,7 +36,6 @@ import { PlacementDir } from './placement-dir.model';
     >
     </ds-context-help-wrapper>
   `,
-  standalone: true,
   imports: [
     ContextHelpWrapperComponent,
     NgbTooltipModule,

@@ -21,7 +21,6 @@ import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-rela
   selector: 'ds-dynamic-lookup-relation-search-tab',
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     DsDynamicLookupRelationSearchTabComponent,
   ],

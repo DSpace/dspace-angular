@@ -16,7 +16,6 @@ import { HealthInfoComponent } from '../../models/health-component.model';
   selector: 'ds-health-info-component',
   templateUrl: './health-info-component.component.html',
   styleUrls: ['./health-info-component.component.scss'],
-  standalone: true,
   imports: [
     NgbCollapseModule,
     ObjNgFor,
