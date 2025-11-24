@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   Inject,
@@ -30,7 +27,6 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
   imports: [
-    AsyncPipe,
     HomeCoarComponent,
     NgTemplateOutlet,
     RecentItemListComponent,

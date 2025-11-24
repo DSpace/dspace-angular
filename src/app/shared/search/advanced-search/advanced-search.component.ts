@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -52,7 +49,6 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
     BtnDisabledDirective,
     FilterInputSuggestionsComponent,
     FormsModule,
-    KeyValuePipe,
     TranslateModule,
   ],
 })

@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  DatePipe,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -19,8 +18,6 @@ import {
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { hasValue } from '../../shared/empty.util';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessStatus } from '../processes/process-status.model';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import {
@@ -35,13 +32,10 @@ import { ProcessOverviewTableComponent } from './table/process-overview-table.co
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    DatePipe,
     NgTemplateOutlet,
-    PaginationComponent,
     ProcessOverviewTableComponent,
     RouterLink,
     TranslateModule,
-    VarDirective,
   ],
 })
 /**

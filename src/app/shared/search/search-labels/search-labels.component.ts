@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -10,9 +7,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 import { SearchService } from '../../../core/shared/search/search.service';
-import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { AppliedFilter } from '../models/applied-filter.model';
-import { SearchLabelComponent } from './search-label/search-label.component';
 import { SearchLabelLoaderComponent } from './search-label-loader/search-label-loader.component';
 
 @Component({
@@ -21,9 +16,6 @@ import { SearchLabelLoaderComponent } from './search-label-loader/search-label-l
   templateUrl: './search-labels.component.html',
   imports: [
     AsyncPipe,
-    KeyValuePipe,
-    ObjectKeysPipe,
-    SearchLabelComponent,
     SearchLabelLoaderComponent,
   ],
 })

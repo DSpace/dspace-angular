@@ -8,11 +8,7 @@ import { HeaderComponent } from './header.component';
  */
 @Component({
   selector: 'ds-header',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    HeaderComponent,
-  ],
 })
 export class ThemedHeaderComponent extends ThemedComponent<HeaderComponent> {
   protected getComponentName(): string {

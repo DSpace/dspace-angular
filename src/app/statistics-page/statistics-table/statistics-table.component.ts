@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -18,7 +17,6 @@ import { UsageReport } from '../../core/statistics/models/usage-report.model';
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
   imports: [
-    AsyncPipe,
     TranslateModule,
   ],
 })

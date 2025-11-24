@@ -12,11 +12,7 @@ import { FullFileSectionComponent } from './full-file-section.component';
  */
 @Component({
   selector: 'ds-item-page-full-file-section',
-  styleUrls: [],
   templateUrl: './../../../../shared/theme-support/themed.component.html',
-  imports: [
-    FullFileSectionComponent,
-  ],
 })
 export class ThemedFullFileSectionComponent extends ThemedComponent<FullFileSectionComponent> {
 

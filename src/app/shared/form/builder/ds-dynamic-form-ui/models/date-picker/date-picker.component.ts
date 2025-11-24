@@ -22,7 +22,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { hasValue } from '../../../../../empty.util';
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
@@ -36,7 +35,6 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
   styleUrls: ['./date-picker.component.scss'],
   templateUrl: './date-picker.component.html',
   imports: [
-    BtnDisabledDirective,
     FormsModule,
     NgClass,
     NumberPickerComponent,

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   Inject,
@@ -34,7 +31,6 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
   imports: [
-    AsyncPipe,
     MarkdownDirective,
     MetadataFieldWrapperComponent,
     NgTemplateOutlet,

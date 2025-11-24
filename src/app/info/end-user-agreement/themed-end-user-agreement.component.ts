@@ -8,11 +8,7 @@ import { EndUserAgreementComponent } from './end-user-agreement.component';
  */
 @Component({
   selector: 'ds-end-user-agreement',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  imports: [
-    EndUserAgreementComponent,
-  ],
 })
 export class ThemedEndUserAgreementComponent extends ThemedComponent<EndUserAgreementComponent> {
 

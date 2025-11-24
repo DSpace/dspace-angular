@@ -8,11 +8,7 @@ import { FooterComponent } from './footer.component';
  */
 @Component({
   selector: 'ds-footer',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  imports: [
-    FooterComponent,
-  ],
 })
 export class ThemedFooterComponent extends ThemedComponent<FooterComponent> {
   protected getComponentName(): string {

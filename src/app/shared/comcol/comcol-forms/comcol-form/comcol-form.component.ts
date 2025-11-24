@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -78,7 +75,6 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
     AsyncPipe,
     ComcolPageLogoComponent,
     FormComponent,
-    NgClass,
     TranslateModule,
     UploaderComponent,
     VarDirective,
