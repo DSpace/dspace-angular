@@ -53,6 +53,7 @@ import { FileSectionComponent } from './app/item-page/simple/field-components/fi
 import { ItemPageTitleFieldComponent } from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
+import { RelatedEntitiesSearchComponent } from './app/item-page/simple/related-entities/related-entities-search/related-entities-search.component';
 import { LoginPageComponent } from './app/login-page/login-page.component';
 import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { ObjectNotFoundComponent } from './app/lookup-by-id/objectnotfound/objectnotfound.component';
@@ -76,6 +77,9 @@ import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { ComcolPageBrowseByComponent } from './app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from './app/shared/comcol/comcol-page-content/comcol-page-content.component';
 import { ComcolPageHandleComponent } from './app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
+import { AuthorizedCollectionSelectorComponent } from './app/shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { DSOSelectorComponent } from './app/shared/dso-selector/dso-selector/dso-selector.component';
+import { DynamicLookupRelationModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
@@ -88,6 +92,8 @@ import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges
 import { ItemDetailPreviewFieldComponent } from './app/shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { ItemListPreviewComponent } from './app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
+import { ResourcePolicyEditComponent } from './app/shared/resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyFormComponent } from './app/shared/resource-policies/form/resource-policy-form.component';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 import { SearchComponent } from './app/shared/search/search.component';
 import { SearchFiltersComponent } from './app/shared/search/search-filters/search-filters.component';
@@ -206,6 +212,12 @@ const DECLARATIONS = [
   AdminSearchPageComponent,
   AdminWorkflowPageComponent,
   SearchResultsSkeletonComponent,
+  ResourcePolicyEditComponent,
+  ResourcePolicyFormComponent,
+  DynamicLookupRelationModalComponent,
+  RelatedEntitiesSearchComponent,
+  AuthorizedCollectionSelectorComponent,
+  DSOSelectorComponent,
   SubmissionSectionContainerComponent,
   SubmissionFormFooterComponent,
   SubmissionFormComponent,

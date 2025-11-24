@@ -10,7 +10,7 @@ import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 
 @Component({
-  selector: 'ds-related-entities-search',
+  selector: 'ds-base-related-entities-search',
   templateUrl: './related-entities-search.component.html',
   standalone: true,
   imports: [

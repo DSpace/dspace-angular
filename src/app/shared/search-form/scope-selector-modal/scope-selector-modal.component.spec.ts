@@ -18,7 +18,7 @@ import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/dso-selector/themed-dso-selector.component';
 import { ScopeSelectorModalComponent } from './scope-selector-modal.component';
 
 describe('ScopeSelectorModalComponent', () => {
@@ -64,7 +64,7 @@ describe('ScopeSelectorModalComponent', () => {
     })
       .overrideComponent(ScopeSelectorModalComponent, {
         remove: {
-          imports: [DSOSelectorComponent],
+          imports: [ThemedDSOSelectorComponent],
         },
       })
       .compileComponents();

@@ -1,4 +1,3 @@
-
 import {
   Component,
   Input,
@@ -19,7 +18,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
-import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { ThemedAuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -37,7 +36,7 @@ import {
   templateUrl: './create-item-parent-selector.component.html',
   standalone: true,
   imports: [
-    AuthorizedCollectionSelectorComponent,
+    ThemedAuthorizedCollectionSelectorComponent,
     TranslateModule,
   ],
 })

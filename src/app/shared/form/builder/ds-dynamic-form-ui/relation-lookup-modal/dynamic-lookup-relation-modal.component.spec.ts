@@ -39,17 +39,18 @@ import {
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
-import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import { DynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { LookupRelationService } from './lookup-relation.service';
 import { NameVariantService } from './name-variant.service';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
 } from './relationship.actions';
+import { ThemedDynamicLookupRelationModalComponent } from './themed-dynamic-lookup-relation-modal.component';
 
-describe('DsDynamicLookupRelationModalComponent', () => {
-  let component: DsDynamicLookupRelationModalComponent;
-  let fixture: ComponentFixture<DsDynamicLookupRelationModalComponent>;
+describe('DynamicLookupRelationModalComponent', () => {
+  let component: DynamicLookupRelationModalComponent;
+  let fixture: ComponentFixture<DynamicLookupRelationModalComponent>;
   let debugElement: DebugElement;
   let item;
   let item1;
@@ -125,7 +126,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbModule, DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
+      imports: [TranslateModule.forRoot(), NgbModule, ThemedDynamicLookupRelationModalComponent, BtnDisabledDirective],
       providers: [
         provideRouter(([])),
         {
@@ -162,7 +163,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DsDynamicLookupRelationModalComponent);
+    fixture = TestBed.createComponent(DynamicLookupRelationModalComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     component.listId = listID;

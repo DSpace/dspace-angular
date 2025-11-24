@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
+import { ThemedRelatedEntitiesSearchComponent } from '../related-entities-search/themed-related-entities-search.component';
 
 @Component({
   selector: 'ds-tabbed-related-entities-search',
@@ -24,7 +24,7 @@ import { RelatedEntitiesSearchComponent } from '../related-entities-search/relat
   imports: [
     AsyncPipe,
     NgbNavModule,
-    RelatedEntitiesSearchComponent,
+    ThemedRelatedEntitiesSearchComponent,
     TranslateModule,
     VarDirective,
   ],

@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { ThemedDSOSelectorComponent } from '../../shared/dso-selector/dso-selector/themed-dso-selector.component';
 import { SearchService } from '../../shared/search/search.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data.component';
@@ -91,6 +92,9 @@ describe('BrowseByGeospatialDataComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(BrowseByGeospatialDataComponent, {
+        remove: { imports: [ThemedDSOSelectorComponent] },
+      })
       .compileComponents();
   }));
 

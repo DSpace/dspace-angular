@@ -28,16 +28,14 @@ import {
 } from 'rxjs/operators';
 
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
-import {
-  ResourcePolicyEvent,
-  ResourcePolicyFormComponent,
-} from '../form/resource-policy-form.component';
+import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import { ThemedResourcePolicyFormComponent } from '../form/themed-resource-policy-form.component';
 
 @Component({
-  selector: 'ds-resource-policy-edit',
+  selector: 'ds-base-resource-policy-edit',
   templateUrl: './resource-policy-edit.component.html',
   imports: [
-    ResourcePolicyFormComponent,
+    ThemedResourcePolicyFormComponent,
     TranslateModule,
   ],
   standalone: true,

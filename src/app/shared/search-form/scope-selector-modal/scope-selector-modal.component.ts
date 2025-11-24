@@ -15,7 +15,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -33,7 +33,7 @@ import {
   templateUrl: './scope-selector-modal.component.html',
   standalone: true,
   imports: [
-    DSOSelectorComponent,
+    ThemedDSOSelectorComponent,
     TranslateModule,
   ],
 })

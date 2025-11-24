@@ -27,6 +27,7 @@ import {
   getCommunityCreateRoute,
 } from '../../../../community-page/community-page-routing-paths';
 import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -47,6 +48,7 @@ import {
   imports: [
     AsyncPipe,
     AuthorizedCommunitySelectorComponent,
+    ThemedDSOSelectorComponent,
     TranslateModule,
   ],
 })

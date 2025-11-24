@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthorizedCollectionSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { ThemedAuthorizedCollectionSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 import { CreateItemParentSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { CreateItemParentSelectorComponent as BaseComponent } from '../../../../
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component.html',
   standalone: true,
   imports: [
-    AuthorizedCollectionSelectorComponent,
+    ThemedAuthorizedCollectionSelectorComponent,
     TranslateModule,
   ],
 })
