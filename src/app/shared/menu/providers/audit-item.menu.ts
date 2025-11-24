@@ -19,7 +19,9 @@ import {
   combineLatest,
   map,
   Observable,
+  of,
 } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { MenuItemType } from '../menu-item-type.model';
@@ -39,26 +41,38 @@ export class AuditLogsMenuProvider extends DSpaceObjectPageMenuProvider {
   }
 
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
-    return combineLatest([
-      this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf),
-      this.configurationDataService.findByPropertyName('audit.context-menu-entry.enabled').pipe(
-        getFirstCompletedRemoteData(),
-        map((response: RemoteData<ConfigurationProperty>) => {
-          return response.hasSucceeded ? (response.payload.values.length > 0 && response.payload.values[0] === 'true') : false;
-        }),
-      ),
-    ]).pipe(
-      map(([isAdmin, isAuditEnabled]: [boolean, boolean]) => {
-        return [{
-          model: {
-            type: MenuItemType.LINK,
-            text: 'context-menu.actions.audit-item.btn',
-            link: new URLCombiner(getDSORoute(dso), 'auditlogs').toString(),
-          } as LinkMenuItemModel,
-          icon: 'clipboard-check',
-          visible: true,
-        }] as PartialMenuSection[];
+    return this.configurationDataService.findByPropertyName('audit.enabled').pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<ConfigurationProperty>) =>  this.isPropertyEnabled(response)),
+      switchMap((isAuditEnabled: boolean) => {
+        if (isAuditEnabled) {
+          return combineLatest([
+            this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf),
+            this.configurationDataService.findByPropertyName('audit.context-menu-entry.enabled').pipe(
+              getFirstCompletedRemoteData(),
+              map((response: RemoteData<ConfigurationProperty>) =>  this.isPropertyEnabled(response)),
+            ),
+          ]).pipe(
+            map(([isAdmin, isAuditMenuEnabled]: [boolean, boolean]) => {
+              return [{
+                model: {
+                  type: MenuItemType.LINK,
+                  text: 'context-menu.actions.audit-item.btn',
+                  link: new URLCombiner(getDSORoute(dso), 'auditlogs').toString(),
+                } as LinkMenuItemModel,
+                icon: 'clipboard-check',
+                visible: isAdmin && isAuditMenuEnabled,
+              }] as PartialMenuSection[];
+            }),
+          );
+        } else {
+          return of([]);
+        }
       }),
     );
+  }
+
+  private isPropertyEnabled(property:  RemoteData<ConfigurationProperty>): boolean {
+    return property.hasSucceeded ? (property.payload.values.length > 0 && property.payload.values[0] === 'true') : false;
   }
 }

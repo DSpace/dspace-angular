@@ -933,7 +933,7 @@
 
   "audit.overview.table.other": "Other Object",
 
-  "audit.overview.table.timestamp": "Time",
+  "audit.overview.table.timestamp": "Time (UTC)",
 
   "audit.overview.breadcrumbs": "Audit Logs",
 

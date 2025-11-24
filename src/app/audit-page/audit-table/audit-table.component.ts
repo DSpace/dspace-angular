@@ -29,6 +29,11 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 import { StringReplacePipe } from '../../shared/utils/string-replace.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 
+/**
+ * Renders a paginated table of audit records, either in overview mode for all the environemnt or tied to a specific DSpaceObject.
+ * Supports row expansion to show details.
+ */
+
 @Component({
   selector: 'ds-audit-table',
   templateUrl: './audit-table.component.html',
