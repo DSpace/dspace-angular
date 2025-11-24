@@ -1,7 +1,6 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -44,7 +43,11 @@ import {
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RemoteData } from '../data/remote-data';
@@ -79,18 +82,17 @@ export class AuthService {
    */
   private tokenRefreshTimer;
 
-  constructor(@Inject(REQUEST) protected req: any,
-              @Inject(NativeWindowService) protected _window: NativeWindowRef,
-              @Optional() @Inject(RESPONSE) private response: any,
-              protected authRequestService: AuthRequestService,
-              protected epersonService: EPersonDataService,
-              protected router: Router,
-              protected routeService: RouteService,
-              protected storage: CookieService,
-              protected store: Store<AppState>,
-              protected hardRedirectService: HardRedirectService,
-              private notificationService: NotificationsService,
-              private translateService: TranslateService
+  constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
+    protected authRequestService: AuthRequestService,
+    protected epersonService: EPersonDataService,
+    protected router: Router,
+    protected routeService: RouteService,
+    protected storage: CookieService,
+    protected store: Store<AppState>,
+    protected hardRedirectService: HardRedirectService,
+    protected notificationService: NotificationsService,
+    protected translateService: TranslateService
   ) {
     this.store.pipe(
       // when this service is constructed the store is not fully initialized yet
@@ -226,6 +228,23 @@ export class AuthService {
       hasValueOperator(),
       switchMap((id: string) => this.epersonService.findById(id)),
       getAllSucceededRemoteDataPayload()
+    );
+  }
+
+  /**
+   * Returns an observable which emits the currently authenticated user from the store,
+   * or null if the user is not authenticated.
+   */
+  public getAuthenticatedUserFromStoreIfAuthenticated(): Observable<EPerson> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+      switchMap((id: string) => {
+        if (hasValue(id)) {
+          return this.epersonService.findById(id).pipe(getFirstSucceededRemoteDataPayload());
+        } else {
+          return observableOf(null);
+        }
+      }),
     );
   }
 
@@ -473,10 +492,6 @@ export class AuthService {
     if (this._window.nativeWindow.location) {
       // Hard redirect to login page, so that all state is definitely lost
       this._window.nativeWindow.location.href = redirectUrl;
-    } else if (this.response) {
-      if (!this.response._headerSent) {
-        this.response.redirect(302, redirectUrl);
-      }
     } else {
       this.router.navigateByUrl(redirectUrl);
     }

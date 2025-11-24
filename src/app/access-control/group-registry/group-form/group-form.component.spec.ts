@@ -38,6 +38,8 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { RouteService } from '../../../core/services/route.service';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -230,6 +232,7 @@ describe('GroupFormComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: RouteService, useValue: routeServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

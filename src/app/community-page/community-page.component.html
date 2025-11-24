@@ -1,7 +1,6 @@
 <div class="container" *ngVar="(communityRD$ | async) as communityRD">
   <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="communityRD?.payload; let communityPayload">
-      <ds-view-tracker [object]="communityPayload"></ds-view-tracker>
       <div class="d-flex flex-row border-bottom mb-4 pb-4">
         <header class="comcol-header mr-auto">
           <!-- Community name -->
