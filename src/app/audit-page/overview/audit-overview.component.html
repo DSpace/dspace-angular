@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="d-flex">
+    <h1 data-test="audit-title" class="flex-grow-1">{{'audit.overview.title' | translate}}</h1>
+  </div>
+
+  @if ((auditsRD$ | async)?.payload; as audits) {
+     <ds-audit-table
+       data-test="audit-table"
+       [audits]="audits"
+       [isOverviewPage]="true"
+       [pageConfig]="pageConfig"
+     ></ds-audit-table>
+  } @else {
+    <div data-test="audit-empty">{{ 'audit.data.not-found' | translate }}</div>
+  }
+
+</div>
