@@ -9943,8 +9943,8 @@
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)", // Eredeti: "Inbound Pattern" -> Javítva,
 
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
-  "ldn-new-service.form.label.addPattern": "+ Továbbiak hozzáadása",
+  // "ldn-new-service.form.label.addPattern": "Add more",
+  "ldn-new-service.form.label.addPattern": "Továbbiak hozzáadása",
 
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Eltávolítás",

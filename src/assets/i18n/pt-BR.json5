@@ -10054,8 +10054,8 @@
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Padrão Suportado",
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
-  "ldn-new-service.form.label.addPattern": "+ Adicionar mais",
+  // "ldn-new-service.form.label.addPattern": "Add more",
+  "ldn-new-service.form.label.addPattern": "Adicionar mais",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Remover",
   // "ldn-register-new-service.breadcrumbs": "New Service",

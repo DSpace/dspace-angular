@@ -9938,8 +9938,8 @@
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Obsługiwany wzorzec",
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
-  "ldn-new-service.form.label.addPattern": "+ Dodaj więcej",
+  // "ldn-new-service.form.label.addPattern": "Add more",
+  "ldn-new-service.form.label.addPattern": "Dodaj więcej",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Usuń",
   // "ldn-register-new-service.breadcrumbs": "New Service",
