@@ -27,16 +27,20 @@ import { NotificationsServiceStub } from '@dspace/core/testing/notifications-ser
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  EMPTY,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
+import {
+  DSPACE_OBJECT_DELETION_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../core/data/processes/script-data.service';
+import { ProcessParameter } from '../../../core/processes/process-parameter.model';
+import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
@@ -64,9 +68,16 @@ let linkService;
 let entityTypeService;
 let notificationsServiceStub;
 let typesSelection;
+let scriptDataService;
+let router;
+let scriptService;
 
 describe('ItemDeleteComponent', () => {
   beforeEach(waitForAsync(() => {
+    scriptService = jasmine.createSpyObj('scriptService', {
+      invoke: createSuccessfulRemoteDataObject$({ processId: '123' }),
+    });
+    router = jasmine.createSpyObj('router', ['navigateByUrl', 'navigate']);
 
     mockItem = Object.assign(new Item(), {
       id: 'fake-id',
@@ -163,11 +174,15 @@ describe('ItemDeleteComponent', () => {
 
     notificationsServiceStub = new NotificationsServiceStub();
 
+    scriptDataService = {
+      invoke: jasmine.createSpy('invoke').and.returnValue(createSuccessfulRemoteDataObject$({ processId: '123' })),
+    };
+
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: Router, useValue: routerStub },
+        { provide: Router, useValue: router },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ObjectUpdatesService, useValue: objectUpdatesServiceStub },
@@ -176,6 +191,7 @@ describe('ItemDeleteComponent', () => {
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ScriptDataService, useValue: scriptDataService },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
@@ -204,57 +220,29 @@ describe('ItemDeleteComponent', () => {
   });
 
   describe('performAction', () => {
-    describe(`when there are entitytypes`, () => {
-      it('should call delete function from the ItemDataService', () => {
-        spyOn(comp, 'notify');
-        comp.performAction();
-        expect(mockItemDataService.delete)
-          .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
-        expect(comp.notify).toHaveBeenCalled();
-      });
-
-      it('should call delete function from the ItemDataService with empty types', () => {
-
-        spyOn(comp, 'notify');
-        jasmine.getEnv().allowRespy(true);
-        spyOn(entityTypeService, 'getEntityTypeRelationships').and.returnValue([]);
-        comp.ngOnInit();
-
-        comp.performAction();
-
-        expect(mockItemDataService.delete).toHaveBeenCalledWith(mockItem.id, []);
-        expect(comp.notify).toHaveBeenCalled();
-      });
+    it('should invoke the deletion script with correct params, show success notification and redirect on success', (done) => {
+      const parameterValues: ProcessParameter[] = [
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockItem.uuid }),
+      ];
+      scriptDataService.invoke.and.returnValue(createSuccessfulRemoteDataObject$({ processId: '123' }));
+      comp.performAction();
+      setTimeout(() => {
+        expect(scriptDataService.invoke).toHaveBeenCalledWith(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
+        expect(notificationsServiceStub.success).toHaveBeenCalled();
+        expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('123'));
+        done();
+      }, 0);
     });
 
-    describe(`when there are no entity types`, () => {
-      beforeEach(() => {
-        (comp as any).entityTypeService = jasmine.createSpyObj('entityTypeService',
-          {
-            getEntityTypeByLabel: EMPTY,
-          },
-        );
-      });
+    it('should show error notification and redirect to item edit page on failure', (done) => {
+      scriptDataService.invoke.and.returnValue(createFailedRemoteDataObject$('Error', 500));
+      comp.performAction();
+      setTimeout(() => {
+        expect(notificationsServiceStub.error).toHaveBeenCalled();
+        expect(router.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
+        done();
+      }, 0);
+    });
 
-      it('should call delete function from the ItemDataService', () => {
-        spyOn(comp, 'notify');
-        comp.performAction();
-        expect(mockItemDataService.delete)
-          .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
-        expect(comp.notify).toHaveBeenCalled();
-      });
-    });
-  });
-  describe('notify', () => {
-    it('should navigate to the homepage on successful deletion of the item', () => {
-      comp.notify(true);
-      expect(routerStub.navigate).toHaveBeenCalledWith(['']);
-    });
-  });
-  describe('notify', () => {
-    it('should navigate to the item edit page on failed deletion of the item', () => {
-      comp.notify(false);
-      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem)]);
-    });
   });
 });
