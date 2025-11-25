@@ -11,6 +11,7 @@ import { JsonPatchOperationsState } from './json-patch/json-patch-operations.red
 import { MetaTagState } from './metadata/meta-tag.reducer';
 import { RouteState } from './services/route.reducer';
 import { RequestState } from './data/request-state.model';
+import { ServerStatusState } from './history/server-status.reducer';
 
 /**
  * The core sub-state in the NgRx store
@@ -22,6 +23,7 @@ export interface CoreState {
     'cache/object-updates': ObjectUpdatesState;
     'data/request': RequestState;
     'history': HistoryState;
+    'serverStatus': ServerStatusState;
     'index': MetaIndexState;
     'auth': AuthState;
     'json/patch': JsonPatchOperationsState;
