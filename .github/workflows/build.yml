@@ -44,7 +44,7 @@ jobs:
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [22.x, 24.x]
       # Do NOT exit immediately if one matrix job fails
       fail-fast: false
     # These are the actual CI steps to perform per job
