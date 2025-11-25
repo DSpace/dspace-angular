@@ -1,3 +1,4 @@
+import { ScrollServiceStub } from '@dspace/core/testing/scroll-service.stub';
 import { of } from 'rxjs';
 
 import {
@@ -5,6 +6,7 @@ import {
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { ScrollService } from '../scroll/scroll.service';
 import { RouterStub } from '../testing/router.stub';
 import { PaginationService } from './pagination.service';
 import { PaginationComponentOptions } from './pagination-component-options.model';
@@ -14,6 +16,7 @@ describe('PaginationService', () => {
   let service: PaginationService;
   let router;
   let routeService;
+  let scrollService: ScrollService;
 
   const defaultPagination = new PaginationComponentOptions();
   const defaultSort = new SortOptions('dc.title', SortDirection.ASC);
@@ -39,8 +42,9 @@ describe('PaginationService', () => {
         return of(value);
       },
     };
+    scrollService = new ScrollServiceStub() as any;
 
-    service = new PaginationService(routeService, router);
+    service = new PaginationService(routeService, router, scrollService);
   });
 
   describe('getCurrentPagination', () => {
@@ -73,7 +77,7 @@ describe('PaginationService', () => {
           return of(value);
         },
       };
-      service = new PaginationService(routeService, router);
+      service = new PaginationService(routeService, router, scrollService);
 
       service.getCurrentSort('test-id', defaultSort).subscribe((currentSort) => {
         expect(currentSort).toEqual(defaultSort);
@@ -97,7 +101,7 @@ describe('PaginationService', () => {
       spyOn(service, 'updateRoute');
       service.resetPage('test');
 
-      expect(service.updateRoute).toHaveBeenCalledWith('test', { page: 1 });
+      expect(service.updateRoute).toHaveBeenCalledWith('test', { page: 1 }, undefined, undefined);
     });
   });
 
