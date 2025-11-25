@@ -14,7 +14,7 @@ export class PaginatedSearchOptions extends SearchOptions {
   pagination?: PaginationComponentOptions;
   sort?: SortOptions;
 
-  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions, view?: ViewMode}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions, view?: ViewMode, expert?: boolean}) {
     super(options);
     this.pagination = options.pagination;
     this.sort = options.sort;
