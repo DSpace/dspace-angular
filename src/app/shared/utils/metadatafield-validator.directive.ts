@@ -34,7 +34,6 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
   providers: [
     { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true },
   ],
-  standalone: true,
 })
 @Injectable({ providedIn: 'root' })
 export class MetadataFieldValidator implements AsyncValidator {

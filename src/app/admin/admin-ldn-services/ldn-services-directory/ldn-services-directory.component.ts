@@ -60,7 +60,6 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
     TruncatableComponent,
     TruncatablePartComponent,
   ],
-  standalone: true,
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 

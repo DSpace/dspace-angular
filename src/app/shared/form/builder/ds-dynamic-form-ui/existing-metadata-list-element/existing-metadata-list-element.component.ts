@@ -168,7 +168,6 @@ export class ReorderableRelationship extends Reorderable {
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;

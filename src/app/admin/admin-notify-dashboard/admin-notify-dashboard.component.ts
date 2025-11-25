@@ -39,7 +39,6 @@ import {
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AdminNotifyMetricsComponent,
     AsyncPipe,

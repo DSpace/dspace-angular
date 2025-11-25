@@ -29,7 +29,6 @@ import { parseCcCode } from 'src/app/shared/utils/license.utils';
 @Component({
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MetadataFieldWrapperComponent,

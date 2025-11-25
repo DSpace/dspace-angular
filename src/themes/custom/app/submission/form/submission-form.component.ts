@@ -16,7 +16,6 @@ import { ThemedSubmissionSectionContainerComponent } from '../../../../../app/su
   styleUrls: ['../../../../../app/submission/form/submission-form.component.scss'],
   // templateUrl: './submission-form.component.html'
   templateUrl: '../../../../../app/submission/form/submission-form.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     SubmissionFormCollectionComponent,

@@ -36,7 +36,6 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   styleUrls: ['./object-detail.component.scss'],
   templateUrl: './object-detail.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
     ErrorComponent,
     ListableObjectComponentLoaderComponent,

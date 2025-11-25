@@ -24,7 +24,6 @@ import { MenuID } from '../shared/menu/menu-id.model';
   selector: 'ds-base-header-navbar-wrapper',
   styleUrls: ['header-navbar-wrapper.component.scss'],
   templateUrl: 'header-navbar-wrapper.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

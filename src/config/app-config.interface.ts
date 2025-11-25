@@ -1,12 +1,12 @@
 import {
   InjectionToken,
   makeStateKey,
-  Type,
 } from '@angular/core';
 
 import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
+import { GenericConstructor } from '../app/core/shared/generic-constructor';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AuthConfig } from './auth-config.interfaces';
@@ -47,7 +47,7 @@ interface AppConfig extends Config {
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   debug: boolean;
-  defaultLanguage: string;
+  fallbackLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
   communityList: CommunityListConfig;
@@ -81,7 +81,7 @@ const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
 
-export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
+export type LazyDataServicesMap = Map<string, () => Promise<GenericConstructor<HALDataService<any>> | { default: GenericConstructor<HALDataService<any>> }>>;
 
 export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new InjectionToken<LazyDataServicesMap>('APP_DATA_SERVICES_MAP');
 

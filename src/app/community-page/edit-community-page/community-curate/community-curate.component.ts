@@ -29,7 +29,6 @@ import { hasValue } from '../../../shared/empty.util';
     CurationFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class CommunityCurateComponent implements OnInit {
 

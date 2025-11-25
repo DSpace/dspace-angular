@@ -43,7 +43,6 @@ import { MiradorViewerService } from './mirador-viewer.service';
     AsyncPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MiradorViewerComponent implements OnInit {
 

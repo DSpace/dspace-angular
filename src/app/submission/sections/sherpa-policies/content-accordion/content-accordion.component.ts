@@ -20,7 +20,6 @@ import { PermittedVersions } from '../../../../core/submission/models/sherpa-pol
     TitleCasePipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ContentAccordionComponent {
   /**

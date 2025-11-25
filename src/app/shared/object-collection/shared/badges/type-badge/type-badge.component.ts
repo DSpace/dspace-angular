@@ -15,7 +15,6 @@ import {
 @Component({
   selector: 'ds-base-type-badge',
   templateUrl: './type-badge.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

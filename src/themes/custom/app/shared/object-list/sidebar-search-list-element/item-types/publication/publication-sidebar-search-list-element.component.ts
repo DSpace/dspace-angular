@@ -20,7 +20,6 @@ import { TruncatablePartComponent } from '../../../../../../../../app/shared/tru
   selector: 'ds-publication-sidebar-search-list-element',
   // templateUrl: './publication-sidebar-search-list-element.component.html',
   templateUrl: '../../../../../../../../app/shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

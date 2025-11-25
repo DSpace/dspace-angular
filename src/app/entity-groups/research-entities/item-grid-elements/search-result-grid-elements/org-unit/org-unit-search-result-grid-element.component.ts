@@ -18,7 +18,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./org-unit-search-result-grid-element.component.scss'],
   templateUrl: './org-unit-search-result-grid-element.component.html',
   animations: [focusShadow],
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

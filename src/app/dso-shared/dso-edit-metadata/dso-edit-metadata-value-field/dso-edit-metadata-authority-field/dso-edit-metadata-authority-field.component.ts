@@ -66,7 +66,6 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
   selector: 'ds-dso-edit-metadata-authority-field',
   templateUrl: './dso-edit-metadata-authority-field.component.html',
   styleUrls: ['./dso-edit-metadata-authority-field.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     AuthorityConfidenceStateDirective,

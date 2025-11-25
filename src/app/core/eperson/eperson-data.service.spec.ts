@@ -343,14 +343,14 @@ describe('EPersonDataService', () => {
   describe('cancelEditEPerson', () => {
     it('should dispatch a CANCEL_EDIT_EPERSON action', () => {
       service.cancelEditEPerson();
-      expect(store.dispatch).toHaveBeenCalledWith(new EPeopleRegistryCancelEPersonAction());
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new EPeopleRegistryCancelEPersonAction());
     });
   });
 
   describe('editEPerson', () => {
     it('should dispatch a EDIT_EPERSON action with the EPerson to start editing', () => {
       service.editEPerson(EPersonMock);
-      expect(store.dispatch).toHaveBeenCalledWith(new EPeopleRegistryEditEPersonAction(EPersonMock));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new EPeopleRegistryEditEPersonAction(EPersonMock));
     });
   });
 

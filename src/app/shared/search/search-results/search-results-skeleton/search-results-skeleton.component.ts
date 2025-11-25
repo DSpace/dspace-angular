@@ -13,7 +13,6 @@ import { hasValue } from '../../../empty.util';
 
 @Component({
   selector: 'ds-search-results-skeleton',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgxSkeletonLoaderModule,

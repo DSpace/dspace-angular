@@ -38,7 +38,6 @@ import {
   selector: 'ds-grant-deny-request-copy',
   styleUrls: ['./grant-deny-request-copy.component.scss'],
   templateUrl: './grant-deny-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

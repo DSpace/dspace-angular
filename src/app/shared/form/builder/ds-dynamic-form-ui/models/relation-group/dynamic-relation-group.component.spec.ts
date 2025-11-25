@@ -1,8 +1,3 @@
-// Load the implementations that should be tested
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -370,12 +365,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    AsyncPipe,
-    DsDynamicRelationGroupComponent,
     NgbTooltipModule,
-    NgClass,
     TranslateModule,
   ],
 })

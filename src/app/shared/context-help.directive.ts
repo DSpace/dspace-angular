@@ -7,7 +7,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+import { Placement } from '@ng-bootstrap/ng-bootstrap';
 
 import { ContextHelpService } from './context-help.service';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
@@ -17,7 +17,7 @@ import { hasValue } from './empty.util';
 export interface ContextHelpDirectiveInput {
   content: string;
   id: string;
-  tooltipPlacement?: PlacementArray;
+  tooltipPlacement?: Placement[];
   iconPlacement?: PlacementDir;
 }
 
@@ -28,7 +28,6 @@ export interface ContextHelpDirectiveInput {
  */
 @Directive({
   selector: '[dsContextHelp]',
-  standalone: true,
 })
 export class ContextHelpDirective implements OnChanges, OnDestroy {
   /**

@@ -51,7 +51,6 @@ import { ListableObject } from './shared/listable-object.model';
   selector: 'ds-viewable-collection',
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

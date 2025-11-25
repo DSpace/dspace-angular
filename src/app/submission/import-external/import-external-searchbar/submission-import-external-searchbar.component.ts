@@ -73,7 +73,6 @@ export interface ExternalSourceData {
     NgbDropdownModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**

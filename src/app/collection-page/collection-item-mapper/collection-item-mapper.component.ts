@@ -85,7 +85,6 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     ThemedSearchFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component used to map items to a collection

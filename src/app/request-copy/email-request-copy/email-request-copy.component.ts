@@ -28,7 +28,6 @@ import { RequestCopyEmail } from './request-copy-email.model';
   selector: 'ds-base-email-request-copy',
   styleUrls: ['./email-request-copy.component.scss'],
   templateUrl: './email-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

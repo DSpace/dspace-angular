@@ -20,7 +20,6 @@ import { IdentifierData } from './identifier-data.model';
     AsyncPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component rendering an identifier, eg. DOI or handle

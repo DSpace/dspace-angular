@@ -59,7 +59,6 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   selector: 'ds-subscription-modal',
   templateUrl: './subscription-modal.component.html',
   styleUrls: ['./subscription-modal.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

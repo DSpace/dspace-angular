@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -47,13 +44,11 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
     FilterInputSuggestionsComponent,
     FormsModule,
-    KeyValuePipe,
     TranslateModule,
   ],
 })

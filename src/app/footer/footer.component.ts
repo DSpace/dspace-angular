@@ -29,7 +29,6 @@ import { hasValue } from '../shared/empty.util';
   selector: 'ds-base-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DatePipe,

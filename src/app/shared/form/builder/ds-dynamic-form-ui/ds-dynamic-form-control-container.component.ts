@@ -45,6 +45,7 @@ import {
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
+  DynamicFormControlMapFn,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -52,7 +53,6 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -100,7 +100,6 @@ import { SUBMISSION_LINKS_TO_FOLLOW } from '../../../../core/submission/resolver
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -132,7 +131,6 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     AsyncPipe,
-    BtnDisabledDirective,
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
@@ -142,7 +140,6 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
   implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {

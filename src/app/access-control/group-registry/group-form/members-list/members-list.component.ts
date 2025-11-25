@@ -112,7 +112,6 @@ export interface EPersonListActionConfig {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * The list of members in the edit group page

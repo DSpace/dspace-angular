@@ -375,12 +375,9 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    FormComponent,
     FormsModule,
     ReactiveFormsModule,
-    SubmissionSectionLicenseComponent,
   ],
 })
 class TestComponent {

@@ -18,7 +18,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   selector: 'ds-journal-search-result-list-element',
   styleUrls: ['./journal-search-result-list-element.component.scss'],
   templateUrl: './journal-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

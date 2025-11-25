@@ -15,12 +15,7 @@ import { RequestCopyEmail } from './request-copy-email.model';
  */
 @Component({
   selector: 'ds-email-request-copy',
-  styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    EmailRequestCopyComponent,
-  ],
 })
 export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailRequestCopyComponent> {
   /**

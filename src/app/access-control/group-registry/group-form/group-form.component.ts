@@ -95,7 +95,6 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
     SubgroupsListComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing groups

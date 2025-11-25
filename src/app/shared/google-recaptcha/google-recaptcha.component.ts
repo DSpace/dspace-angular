@@ -21,7 +21,6 @@ import { isNotEmpty } from '../empty.util';
   selector: 'ds-google-recaptcha',
   templateUrl: './google-recaptcha.component.html',
   styleUrls: ['./google-recaptcha.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
   ],

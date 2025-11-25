@@ -39,7 +39,6 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     TranslatePipe,
     VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary

@@ -71,7 +71,6 @@ import { getCollectionPageRoute } from './collection-page-routing-paths';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class CollectionPageComponent implements OnInit {
   collectionRD$: Observable<RemoteData<Collection>>;

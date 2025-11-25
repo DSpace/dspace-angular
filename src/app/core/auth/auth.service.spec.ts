@@ -242,7 +242,7 @@ describe('AuthService test', () => {
       });
 
       it('store should dispatch SetUserAsIdleAction', () => {
-        expect(mockStore.dispatch).toHaveBeenCalledWith(new SetUserAsIdleAction());
+        expect(mockStore.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SetUserAsIdleAction());
       });
     });
 
@@ -252,7 +252,7 @@ describe('AuthService test', () => {
       });
 
       it('store should dispatch UnsetUserAsIdleAction', () => {
-        expect(mockStore.dispatch).toHaveBeenCalledWith(new UnsetUserAsIdleAction());
+        expect(mockStore.dispatch as jasmine.Spy).toHaveBeenCalledWith(new UnsetUserAsIdleAction());
       });
     });
   });

@@ -29,7 +29,6 @@ import { AccessStatusObject } from './access-status.model';
   selector: 'ds-base-access-status-badge',
   templateUrl: './access-status-badge.component.html',
   styleUrls: ['./access-status-badge.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     TranslateModule,

@@ -34,7 +34,6 @@ import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-i
   selector: 'ds-claimed-declined-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-declined-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ThemedItemListPreviewComponent,

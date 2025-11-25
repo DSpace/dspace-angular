@@ -9,7 +9,7 @@ import {
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CookieAttributes } from 'js-cookie';
+import Cookies from 'js-cookie';
 import {
   Observable,
   of,
@@ -320,6 +320,7 @@ export class AuthService {
         if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken) && !this.isTokenExpired(token)) {
           return token;
         } else {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw false;
         }
       }),
@@ -491,7 +492,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: Cookies.CookieAttributes = { expires: expires };
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -579,7 +580,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: Cookies.CookieAttributes = { expires: expires };
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }

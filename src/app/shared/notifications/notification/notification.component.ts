@@ -90,7 +90,6 @@ import { NotificationsService } from '../notifications.service';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

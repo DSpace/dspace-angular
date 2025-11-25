@@ -33,7 +33,6 @@ import { currentPath } from '../utils/route.utils';
   selector: 'ds-view-mode-switch',
   styleUrls: ['./view-mode-switch.component.scss'],
   templateUrl: './view-mode-switch.component.html',
-  standalone: true,
   imports: [
     BrowserOnlyPipe,
     RouterLink,

@@ -50,7 +50,6 @@ import { SearchResult } from '../../../../../search/models/search-result.model';
     PageSizeSelectorComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 /**

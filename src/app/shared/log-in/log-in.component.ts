@@ -31,7 +31,6 @@ import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorato
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe,
     LogInContainerComponent,

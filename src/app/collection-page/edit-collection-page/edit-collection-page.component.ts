@@ -29,7 +29,6 @@ import { getCollectionPageRoute } from '../collection-page-routing-paths';
     RouterOutlet,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class EditCollectionPageComponent extends EditComColPageComponent<Collection> {
   type = 'collection';

@@ -20,7 +20,6 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   selector: 'ds-project',
   styleUrls: ['./project.component.scss'],
   templateUrl: './project.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,

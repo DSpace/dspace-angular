@@ -15,7 +15,6 @@ import { SearchResult } from '../../search/models/search-result.model';
 @Component({
   selector: 'ds-search-result-detail-element',
   template: ``,
-  standalone: true,
 })
 export class SearchResultDetailElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
 

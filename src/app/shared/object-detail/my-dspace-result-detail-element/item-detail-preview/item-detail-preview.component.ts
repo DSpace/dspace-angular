@@ -26,7 +26,6 @@ import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
-import { VarDirective } from '../../../utils/var.directive';
 import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-field/themed-item-detail-preview-field.component';
 
 /**
@@ -37,7 +36,6 @@ import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-fie
   styleUrls: ['./item-detail-preview.component.scss'],
   templateUrl: './item-detail-preview.component.html',
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     FileSizePipe,
@@ -48,7 +46,6 @@ import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-fie
     ThemedItemPageTitleFieldComponent,
     ThemedThumbnailComponent,
     TranslateModule,
-    VarDirective,
   ],
 })
 export class ItemDetailPreviewComponent implements OnChanges {

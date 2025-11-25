@@ -21,7 +21,6 @@ import { getCommunityPageRoute } from '../community-page-routing-paths';
 @Component({
   selector: 'ds-edit-community',
   templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

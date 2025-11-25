@@ -82,7 +82,6 @@ import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
   selector: 'ds-quality-assurance-events',
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

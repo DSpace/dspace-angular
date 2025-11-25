@@ -690,7 +690,7 @@ describe('RequestService', () => {
       service.setStaleByHref(href).subscribe(() => {
         const requestStaleAction = new RequestStaleAction(uuid);
         requestStaleAction.lastUpdated = jasmine.any(Number) as any;
-        expect(store.dispatch).toHaveBeenCalledWith(requestStaleAction);
+        expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(requestStaleAction);
         done();
       });
     });
