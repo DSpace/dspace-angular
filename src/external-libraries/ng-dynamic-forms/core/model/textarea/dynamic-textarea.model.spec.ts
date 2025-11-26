@@ -1,8 +1,5 @@
-import {
-    DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
-    DYNAMIC_FORM_TEXTAREA_WRAP_SOFT,
-    DynamicTextAreaModel
-} from "../../../public-api";
+import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA, DYNAMIC_FORM_TEXTAREA_WRAP_SOFT, DynamicTextAreaModel } from "./dynamic-textarea.model";
+
 
 describe("DynamicTextAreaModel test suite", () => {
     let model: DynamicTextAreaModel;

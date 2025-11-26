@@ -33,10 +33,6 @@ import { getMockTranslateService } from '@dspace/core/testing/translate.service.
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
-  DynamicFormControlEvent,
-  DynamicFormControlEventType,
-} from '@ng-dynamic-forms/core';
-import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -64,6 +60,7 @@ import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionFormComponent } from './section-form.component';
 import { SectionFormOperationsService } from './section-form-operations.service';
+import { DynamicFormControlEvent, DynamicFormControlEventType } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {

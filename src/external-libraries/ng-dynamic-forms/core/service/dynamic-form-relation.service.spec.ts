@@ -1,22 +1,15 @@
 import { TestBed, inject } from "@angular/core/testing";
 import { UntypedFormGroup, ReactiveFormsModule } from "@angular/forms";
-import { DynamicFormRelationService } from "../../public-api";
-import { DynamicTextAreaModel } from "../../public-api";
 import { DynamicFormService } from "./dynamic-form.service";
-import { DynamicSelectModel } from "../../public-api";
-import { DynamicRadioGroupModel } from "../../public-api";
-import {
-    AND_OPERATOR,
-    DISABLED_MATCHER_PROVIDER,
-    DISABLED_MATCHER,
-    HIDDEN_MATCHER_PROVIDER,
-    MATCH_DISABLED,
-    MATCH_ENABLED,
-    MATCH_REQUIRED,
-    OR_OPERATOR,
-    REQUIRED_MATCHER_PROVIDER,
-    REQUIRED_MATCHER
-} from "../../public-api";
+import { DynamicFormRelationService } from "./dynamic-form-relation.service";
+import { DynamicTextAreaModel } from "../model/textarea/dynamic-textarea.model";
+import { AND_OPERATOR, DISABLED_MATCHER, DISABLED_MATCHER_PROVIDER,
+  HIDDEN_MATCHER_PROVIDER, MATCH_DISABLED, MATCH_ENABLED, MATCH_REQUIRED, OR_OPERATOR,
+  REQUIRED_MATCHER,
+  REQUIRED_MATCHER_PROVIDER} from "./dynamic-form-relation-matchers";
+import { DynamicSelectModel } from "../model/select/dynamic-select.model";
+import { DynamicRadioGroupModel } from "../model/radio/dynamic-radio-group.model";
+
 
 describe("DynamicFormRelationService test suite", () => {
     let service: DynamicFormRelationService;

@@ -4,8 +4,11 @@ import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl } from "@angu
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { By } from "@angular/platform-browser";
 import { NgbTimepicker, NgbTimepickerModule } from "@ng-bootstrap/ng-bootstrap";
-import { DynamicFormsCoreModule, DynamicFormService, DynamicTimePickerModel } from "../../../core/public-api";
-import { DynamicNGBootstrapTimePickerComponent } from "../../public-api";
+import { DynamicTimePickerModel } from "@ng-dynamic-forms/core/model/timepicker/dynamic-timepicker.model";
+import { DynamicNGBootstrapTimePickerComponent } from "./dynamic-ng-bootstrap-timepicker.component";
+import { DynamicListDirective } from "@ng-dynamic-forms/core/directive/dynamic-list.directive";
+import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
 
 describe("DynamicNGBootstrapTimePickerComponent test suite", () => {
     const testModel = new DynamicTimePickerModel({id: "timepicker"});
@@ -23,7 +26,8 @@ describe("DynamicNGBootstrapTimePickerComponent test suite", () => {
         ReactiveFormsModule,
         NoopAnimationsModule,
         NgbTimepickerModule,
-        DynamicFormsCoreModule,
+        DynamicListDirective,
+        DynamicTemplateDirective,
         DynamicNGBootstrapTimePickerComponent
     ]
 }).compileComponents().then(() => {

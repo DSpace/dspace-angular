@@ -3,8 +3,10 @@ import { DebugElement } from "@angular/core";
 import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { By } from "@angular/platform-browser";
 import { NgbDatepicker } from "@ng-bootstrap/ng-bootstrap";
-import { DynamicDatePickerModel, DynamicFormService } from "../../../core/public-api";
-import { DynamicNGBootstrapCalendarComponent } from "../../public-api";
+import { DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
+import { DynamicNGBootstrapCalendarComponent } from "./dynamic-ng-bootstrap-calendar.component";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
+
 
 describe("DynamicNGBootstrapCalendarComponent test suite", () => {
     const testModel = new DynamicDatePickerModel({id: "calendar"});

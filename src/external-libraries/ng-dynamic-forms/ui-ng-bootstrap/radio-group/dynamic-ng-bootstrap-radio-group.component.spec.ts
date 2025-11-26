@@ -2,8 +2,10 @@ import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/t
 import { DebugElement } from "@angular/core";
 import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { By } from "@angular/platform-browser";
-import { DynamicFormService, DynamicRadioGroupModel } from "../../../core/public-api";
-import { DynamicNGBootstrapRadioGroupComponent } from "../../public-api";
+import { DynamicRadioGroupModel } from "@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model";
+import { DynamicNGBootstrapRadioGroupComponent } from "./dynamic-ng-bootstrap-radio-group.component";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
+
 
 describe("DynamicNGBootstrapRadioGroupComponent test suite", () => {
     const testModel = new DynamicRadioGroupModel({

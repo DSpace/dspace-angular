@@ -1,4 +1,4 @@
-import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DynamicCheckboxModel } from "../../../public-api";
+import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DynamicCheckboxModel } from "./dynamic-checkbox.model";
 
 describe("DynamicCheckboxModel test suite", () => {
     let model: DynamicCheckboxModel;

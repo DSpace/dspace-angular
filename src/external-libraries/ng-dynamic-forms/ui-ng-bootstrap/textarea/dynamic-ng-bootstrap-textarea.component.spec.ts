@@ -2,8 +2,10 @@ import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/t
 import { DebugElement } from "@angular/core";
 import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { By } from "@angular/platform-browser";
-import { DynamicFormService, DynamicTextAreaModel } from "../../../core/public-api";
-import { DynamicNGBootstrapTextAreaComponent } from "../../public-api";
+import { DynamicTextAreaModel } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
+import { DynamicNGBootstrapTextAreaComponent } from "./dynamic-ng-bootstrap-textarea.component";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
+
 
 describe("DynamicNGBootstrapTextAreaComponent test suite", () => {
     const testModel = new DynamicTextAreaModel({id: "textarea"});

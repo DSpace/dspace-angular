@@ -1,8 +1,9 @@
 import { inject, TestBed } from "@angular/core/testing";
 import { ChangeDetectorRef, ComponentRef, ElementRef, Injector, Type, ViewRef } from "@angular/core";
-import { DynamicFormControlModel } from "../../public-api";
-import { DynamicInputModel } from "../../public-api";
-import { DynamicFormComponentService } from "../../public-api";
+import { DynamicFormComponentService } from "./dynamic-form-component.service";
+import { DynamicFormControlModel } from "../model/dynamic-form-control.model";
+import { DynamicInputModel } from "../model/input/dynamic-input.model";
+
 
 export class TestComponentRef extends ComponentRef<any> {
     readonly changeDetectorRef!: ChangeDetectorRef;

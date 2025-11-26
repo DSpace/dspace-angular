@@ -30,11 +30,7 @@ import {
   NgbModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DYNAMIC_FORM_CONTROL_MAP_FN,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -53,6 +49,9 @@ import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
 } from './dynamic-relation-group.model';
+import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
+import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from "@ng-dynamic-forms/core/service/dynamic-form-component.service";
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 

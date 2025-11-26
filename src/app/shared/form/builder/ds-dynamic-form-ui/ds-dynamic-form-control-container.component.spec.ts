@@ -25,40 +25,7 @@ import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.mode
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DYNAMIC_FORM_CONTROL_MAP_FN,
-  DynamicCheckboxGroupModel,
-  DynamicCheckboxModel,
-  DynamicColorPickerModel,
-  DynamicDatePickerModel,
-  DynamicEditorModel,
-  DynamicFileUploadModel,
-  DynamicFormArrayModel,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormsCoreModule,
-  DynamicFormService,
-  DynamicInputModel,
-  DynamicRadioGroupModel,
-  DynamicRatingModel,
-  DynamicSelectModel,
-  DynamicSliderModel,
-  DynamicSwitchModel,
-  DynamicTextAreaModel,
-  DynamicTimePickerModel,
-  MATCH_VISIBLE,
-  OR_OPERATOR,
-} from '@ng-dynamic-forms/core';
-import {
-  DynamicNGBootstrapCalendarComponent,
-  DynamicNGBootstrapCheckboxComponent,
-  DynamicNGBootstrapCheckboxGroupComponent,
-  DynamicNGBootstrapInputComponent,
-  DynamicNGBootstrapRadioGroupComponent,
-  DynamicNGBootstrapSelectComponent,
-  DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent,
-} from '@ng-dynamic-forms/ui-ng-bootstrap';
+
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
@@ -92,6 +59,32 @@ import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdo
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
+import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
+import { DynamicCheckboxGroupModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model";
+import { DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
+import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
+import { DynamicFileUploadModel } from "@ng-dynamic-forms/core/model/file-upload/dynamic-file-upload.model";
+import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
+import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
+import { DynamicRadioGroupModel } from "@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model";
+import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
+import { DynamicTextAreaModel } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
+import { DynamicSwitchModel } from "@ng-dynamic-forms/core/model/switch/dynamic-switch.model";
+import { DynamicTimePickerModel } from "@ng-dynamic-forms/core/model/timepicker/dynamic-timepicker.model";
+import { MATCH_VISIBLE, OR_OPERATOR } from "@ng-dynamic-forms/core/service/dynamic-form-relation-matchers";
+import { DynamicListDirective } from "@ng-dynamic-forms/core/directive/dynamic-list.directive";
+import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from "@ng-dynamic-forms/core/service/dynamic-form-component.service";
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicNGBootstrapInputComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/input/dynamic-ng-bootstrap-input.component";
+import { DynamicNGBootstrapCheckboxComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/checkbox/dynamic-ng-bootstrap-checkbox.component";
+import { DynamicNGBootstrapCheckboxGroupComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/checkbox-group/dynamic-ng-bootstrap-checkbox-group.component";
+import { DynamicNGBootstrapCalendarComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/calendar/dynamic-ng-bootstrap-calendar.component";
+import { DynamicNGBootstrapRadioGroupComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/radio-group/dynamic-ng-bootstrap-radio-group.component";
+import { DynamicNGBootstrapSelectComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/select/dynamic-ng-bootstrap-select.component";
+import { DynamicNGBootstrapTextAreaComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/textarea/dynamic-ng-bootstrap-textarea.component";
+import { DynamicNGBootstrapTimePickerComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/timepicker/dynamic-ng-bootstrap-timepicker.component";
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -110,21 +103,17 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   const formModel = [
     new DynamicCheckboxModel({ id: 'checkbox' }),
     new DynamicCheckboxGroupModel({ id: 'checkboxGroup', group: [] }),
-    new DynamicColorPickerModel({ id: 'colorpicker' }),
     new DynamicDatePickerModel({ id: 'datepicker' }),
-    new DynamicEditorModel({ id: 'editor' }),
     new DynamicFileUploadModel({ id: 'upload', url: '' }),
     new DynamicFormArrayModel({ id: 'formArray', groupFactory: () => [] }),
     new DynamicFormGroupModel({ id: 'formGroup', group: [] }),
     new DynamicInputModel({ id: 'input', maxLength: 51 }),
     new DynamicRadioGroupModel({ id: 'radioGroup' }),
-    new DynamicRatingModel({ id: 'rating' }),
     new DynamicSelectModel({
       id: 'select',
       options: [{ value: 'One' }, { value: 'Two' }],
       value: 'One',
     }),
-    new DynamicSliderModel({ id: 'slider' }),
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
@@ -214,7 +203,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        DynamicFormsCoreModule.forRoot(),
+        DynamicListDirective,
+        DynamicTemplateDirective,
         TranslateModule.forRoot(),
         NgxMaskModule.forRoot(),
       ],

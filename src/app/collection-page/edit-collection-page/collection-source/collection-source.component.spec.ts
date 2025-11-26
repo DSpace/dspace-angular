@@ -35,10 +35,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-} from '@ng-dynamic-forms/core';
+
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -46,6 +43,8 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionSourceComponent } from './collection-source.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');

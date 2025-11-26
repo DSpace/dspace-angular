@@ -1,5 +1,6 @@
-import { DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormGroupModel } from "../../../public-api";
-import { DynamicInputModel } from "../../../public-api";
+import { DynamicInputModel } from "../input/dynamic-input.model";
+import { DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormGroupModel } from "./dynamic-form-group.model";
+
 
 describe("DynamicFormGroupModel test suite", () => {
     let model: DynamicFormGroupModel;

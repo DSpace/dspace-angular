@@ -3,8 +3,11 @@ import { DebugElement } from "@angular/core";
 import { ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { By } from "@angular/platform-browser";
-import { DynamicCheckboxGroupModel, DynamicFormsCoreModule, DynamicFormService } from "../../../core/public-api";
-import { DynamicNGBootstrapCheckboxGroupComponent } from "../../public-api";
+import { DynamicCheckboxGroupModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model";
+import { DynamicNGBootstrapCheckboxGroupComponent } from "./dynamic-ng-bootstrap-checkbox-group.component";
+import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
+import { DynamicListDirective } from "@ng-dynamic-forms/core/directive/dynamic-list.directive";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
 
 describe("DynamicNGBootstrapCheckboxGroupComponent test suite", () => {
     const testModel = new DynamicCheckboxGroupModel({id: "checkboxGroup", group: []});
@@ -21,7 +24,8 @@ describe("DynamicNGBootstrapCheckboxGroupComponent test suite", () => {
     imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
-        DynamicFormsCoreModule,
+        DynamicTemplateDirective,
+        DynamicListDirective,
         DynamicNGBootstrapCheckboxGroupComponent
     ]
 }).compileComponents().then(() => {

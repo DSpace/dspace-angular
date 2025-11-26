@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { Component, TemplateRef } from "@angular/core";
-import { DynamicTemplateDirective, DYNAMIC_TEMPLATE_DIRECTIVE_ALIGNMENT } from "../../public-api";
+import { DYNAMIC_TEMPLATE_DIRECTIVE_ALIGNMENT, DynamicTemplateDirective } from "./dynamic-template.directive";
 
 @Component({
     template: `

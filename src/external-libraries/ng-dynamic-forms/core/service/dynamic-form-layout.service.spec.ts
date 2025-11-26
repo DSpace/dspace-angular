@@ -1,8 +1,9 @@
 import { TestBed, inject } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
-import { DynamicFormLayout, DynamicFormLayoutService } from "../../public-api";
-import { DynamicInputModel } from "../../public-api";
-import { DynamicFormArrayModel } from "../../public-api";
+import { DynamicFormLayout, DynamicFormLayoutService } from "./dynamic-form-layout.service";
+import { DynamicInputModel } from "../model/input/dynamic-input.model";
+import { DynamicFormArrayModel } from "../model/form-array/dynamic-form-array.model";
+
 
 describe("DynamicFormLayoutService test suite", () => {
     let service: DynamicFormLayoutService;

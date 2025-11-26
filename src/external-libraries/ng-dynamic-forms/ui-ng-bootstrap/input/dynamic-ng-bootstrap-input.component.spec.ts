@@ -2,9 +2,10 @@ import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/t
 import { DebugElement } from "@angular/core";
 import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { By } from "@angular/platform-browser";
-import { DynamicFormService, DynamicInputModel } from "../../../core/public-api";
-import { DynamicNGBootstrapInputComponent } from "../../public-api";
-import { provideNgxMask } from "ngx-mask";
+import { NgxMaskModule } from "ngx-mask";
+import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
+import { DynamicNGBootstrapInputComponent } from "./dynamic-ng-bootstrap-input.component";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
 
 describe("DynamicNGBootstrapInputComponent test suite", () => {
     const testModel = new DynamicInputModel({id: "input"});
@@ -18,8 +19,7 @@ describe("DynamicNGBootstrapInputComponent test suite", () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [DynamicNGBootstrapInputComponent],
-            providers: [provideNgxMask()]
+            imports: [DynamicNGBootstrapInputComponent, NgxMaskModule],
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(DynamicNGBootstrapInputComponent);
 

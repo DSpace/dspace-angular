@@ -1,9 +1,6 @@
-import {
-    DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-    DynamicFormArrayModel,
-    DynamicFormArrayGroupModel
-} from "../../../public-api";
-import { DynamicInputModel } from "../../../public-api";
+import { DynamicInputModel } from "../input/dynamic-input.model";
+import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormArrayGroupModel, DynamicFormArrayModel } from "./dynamic-form-array.model";
+
 
 describe("DynamicFormArrayModel test suite", () => {
     let model: DynamicFormArrayModel;

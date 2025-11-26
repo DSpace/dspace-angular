@@ -2,8 +2,9 @@ import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/t
 import { DebugElement } from "@angular/core";
 import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { By } from "@angular/platform-browser";
-import { DynamicFormService, DynamicSelectModel } from "../../../core/public-api";
-import { DynamicNGBootstrapSelectComponent } from "../../public-api";
+import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
+import { DynamicNGBootstrapSelectComponent } from "./dynamic-ng-bootstrap-select.component";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
 
 describe("DynamicNGBootstrapSelectComponent test suite", () => {
     const testModel = new DynamicSelectModel({id: "select", options: [{value: "One"}, {value: "Two"}], value: "One"});

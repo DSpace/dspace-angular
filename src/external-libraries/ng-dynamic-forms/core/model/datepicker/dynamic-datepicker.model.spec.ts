@@ -1,4 +1,4 @@
-import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DynamicDatePickerModel } from "../../../public-api";
+import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DynamicDatePickerModel } from "./dynamic-datepicker.model";
 
 describe("DynamicDatepickerModel test suite", () => {
     let model: DynamicDatePickerModel;

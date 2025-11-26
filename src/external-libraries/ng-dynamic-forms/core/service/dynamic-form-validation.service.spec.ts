@@ -1,10 +1,11 @@
 import { TestBed, inject } from "@angular/core/testing";
 import { ReactiveFormsModule, UntypedFormControl, NG_VALIDATORS, NG_ASYNC_VALIDATORS, ValidationErrors, Validators } from "@angular/forms";
-import { DynamicFormValidationService } from "../../public-api";
-import { DYNAMIC_VALIDATORS, Validator, ValidatorFactory } from "../../public-api";
-import { DynamicFormControlModel } from "../../public-api";
-import { DynamicInputModel } from "../../public-api";
+
 import { isFunction } from "../utils/core.utils";
+import { DynamicFormValidationService } from "./dynamic-form-validation.service";
+import { DYNAMIC_VALIDATORS, Validator, ValidatorFactory } from "./dynamic-form-validators";
+import { DynamicFormControlModel } from "../model/dynamic-form-control.model";
+import { DynamicInputModel } from "../model/input/dynamic-input.model";
 
 describe("DynamicFormValidationService test suite", () => {
     let service: DynamicFormValidationService;

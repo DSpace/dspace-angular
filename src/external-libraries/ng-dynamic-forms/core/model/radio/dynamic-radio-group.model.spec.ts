@@ -1,6 +1,6 @@
 import { waitForAsync } from "@angular/core/testing";
 import { isObservable, of } from "rxjs";
-import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DynamicRadioGroupModel } from "../../../public-api";
+import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DynamicRadioGroupModel } from "./dynamic-radio-group.model";
 
 describe("DynamicRadioModel test suite", () => {
     let model: DynamicRadioGroupModel<string>;

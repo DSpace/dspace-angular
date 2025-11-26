@@ -1,4 +1,4 @@
-import { DYNAMIC_FORM_CONTROL_TYPE_FILE_UPLOAD, DynamicFileUploadModel } from "../../../public-api";
+import { DYNAMIC_FORM_CONTROL_TYPE_FILE_UPLOAD, DynamicFileUploadModel } from "./dynamic-file-upload.model";
 
 describe("DynamicFileUploadModel test suite", () => {
     let model: DynamicFileUploadModel;

@@ -3,8 +3,9 @@ import {
     DYNAMIC_FORM_CONTROL_INPUT_TYPE_TEXT,
     DynamicInputModel
 } from "./dynamic-input.model";
-import { AUTOCOMPLETE_ON } from "../../../public-api";
+
 import { isString } from "../../utils/core.utils";
+import { AUTOCOMPLETE_ON } from "@ng-dynamic-forms/core/utils/autofill.utils";
 
 describe("DynamicInputModel test suite", () => {
     let model: DynamicInputModel;

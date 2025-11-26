@@ -1,4 +1,4 @@
-import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER, DynamicTimePickerModel } from "../../../public-api";
+import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER, DynamicTimePickerModel } from "./dynamic-timepicker.model";
 
 describe("DynamicTimePickerModel test suite", () => {
     let model: DynamicTimePickerModel;

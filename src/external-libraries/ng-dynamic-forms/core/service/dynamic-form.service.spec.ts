@@ -8,28 +8,24 @@ import {
     NG_ASYNC_VALIDATORS
 } from "@angular/forms";
 import { DynamicFormService } from "./dynamic-form.service";
-import { DynamicFormComponentService } from "../../public-api";
-import { DynamicFormValidationService } from "../../public-api";
-import { DynamicFormModel } from "../../public-api";
-import { DynamicCheckboxModel } from "../../public-api";
-import { DynamicCheckboxGroupModel } from "../../public-api";
-import { DynamicColorPickerModel } from "../../public-api";
-import { DynamicDateControlModel } from "../../public-api";
-import { DynamicDatePickerModel } from "../../public-api";
-import { DynamicEditorModel } from "../../public-api";
-import { DynamicFileUploadModel } from "../../public-api";
-import { DynamicFormArrayModel } from "../../public-api";
-import { DynamicFormControlModel } from "../../public-api";
-import { DynamicFormGroupModel } from "../../public-api";
-import { DynamicInputModel } from "../../public-api";
-import { DynamicRatingModel } from "../../public-api";
-import { DynamicRadioGroupModel } from "../../public-api";
-import { DynamicSelectModel } from "../../public-api";
-import { DynamicSliderModel } from "../../public-api";
-import { DynamicSwitchModel } from "../../public-api";
-import { DynamicTextAreaModel } from "../../public-api";
-import { DynamicTimePickerModel } from "../../public-api";
-import { DynamicFormValueControlModel } from "../../public-api";
+import { DynamicFormGroupModel, DynamicFormModel } from "../model/form-group/dynamic-form-group.model";
+import { DynamicFormComponentService } from "./dynamic-form-component.service";
+import { DynamicFormValidationService } from "./dynamic-form-validation.service";
+import { DynamicSelectModel } from "../model/select/dynamic-select.model";
+import { DynamicInputModel } from "../model/input/dynamic-input.model";
+import { DynamicCheckboxGroupModel } from "../model/checkbox/dynamic-checkbox-group.model";
+import { DynamicCheckboxModel } from "../model/checkbox/dynamic-checkbox.model";
+import { DynamicRadioGroupModel } from "../model/radio/dynamic-radio-group.model";
+import { DynamicTextAreaModel } from "../model/textarea/dynamic-textarea.model";
+import { DynamicFormArrayModel } from "../model/form-array/dynamic-form-array.model";
+import { DynamicDatePickerModel } from "../model/datepicker/dynamic-datepicker.model";
+import { DynamicSwitchModel } from "../model/switch/dynamic-switch.model";
+import { DynamicFileUploadModel } from "../model/file-upload/dynamic-file-upload.model";
+import { DynamicTimePickerModel } from "../model/timepicker/dynamic-timepicker.model";
+import { DynamicDateControlModel } from "../model/dynamic-date-control.model";
+import { DynamicFormControlModel } from "../model/dynamic-form-control.model";
+import { DynamicFormValueControlModel } from "../model/dynamic-form-value-control.model";
+
 
 describe("DynamicFormService test suite", () => {
     let testModel: DynamicFormModel;
@@ -128,14 +124,10 @@ describe("DynamicFormService test suite", () => {
                     ]
                 }
             ),
-            new DynamicSliderModel({id: "testSlider"}),
             new DynamicSwitchModel({id: "testSwitch"}),
             new DynamicDatePickerModel({id: "testDatepicker", value: new Date()}),
             new DynamicFileUploadModel({id: "testFileUpload"}),
-            new DynamicEditorModel({id: "testEditor"}),
             new DynamicTimePickerModel({id: "testTimePicker"}),
-            new DynamicRatingModel({id: "testRating"}),
-            new DynamicColorPickerModel({id: "testColorPicker"})
         ];
     });
 
@@ -178,15 +170,11 @@ describe("DynamicFormService test suite", () => {
         expect(formModel[5] instanceof DynamicCheckboxModel).toBe(true);
         expect(formModel[6] instanceof DynamicFormArrayModel).toBe(true);
         expect(formModel[7] instanceof DynamicFormGroupModel).toBe(true);
-        expect(formModel[8] instanceof DynamicSliderModel).toBe(true);
-        expect(formModel[9] instanceof DynamicSwitchModel).toBe(true);
-        expect(formModel[10] instanceof DynamicDatePickerModel).toBe(true);
+        expect(formModel[8] instanceof DynamicSwitchModel).toBe(true);
+        expect(formModel[9] instanceof DynamicDatePickerModel).toBe(true);
         expect((formModel[10] as DynamicDateControlModel).value instanceof Date).toBe(true);
         expect(formModel[11] instanceof DynamicFileUploadModel).toBe(true);
-        expect(formModel[12] instanceof DynamicEditorModel).toBe(true);
-        expect(formModel[13] instanceof DynamicTimePickerModel).toBe(true);
-        expect(formModel[14] instanceof DynamicRatingModel).toBe(true);
-        expect(formModel[15] instanceof DynamicColorPickerModel).toBe(true);
+        expect(formModel[12] instanceof DynamicTimePickerModel).toBe(true);
     });
 
 
@@ -208,10 +196,7 @@ describe("DynamicFormService test suite", () => {
         expect(service.findById("testSwitch", testModel) instanceof DynamicFormControlModel).toBe(true);
         expect(service.findById("testTextArea", testModel) instanceof DynamicFormControlModel).toBe(true);
         expect(service.findById("testFileUpload", testModel) instanceof DynamicFormControlModel).toBe(true);
-        expect(service.findById("testEditor", testModel) instanceof DynamicEditorModel).toBe(true);
         expect(service.findById("testTimePicker", testModel) instanceof DynamicTimePickerModel).toBe(true);
-        expect(service.findById("testRating", testModel) instanceof DynamicRatingModel).toBe(true);
-        expect(service.findById("testColorPicker", testModel) instanceof DynamicColorPickerModel).toBe(true);
     });
 
 
